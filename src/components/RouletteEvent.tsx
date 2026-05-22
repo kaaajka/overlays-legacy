@@ -4,6 +4,7 @@ import { action, makeObservable, observable, reaction } from "mobx";
 
 import { RouletteEventModel } from "../models/RouletteEvent";
 import { EventState } from "../models/Event";
+import { AppConfig } from "../config";
 
 @observer
 export default class RouletteEvent extends React.Component<IRouletteEventProps, {}> {
@@ -12,8 +13,8 @@ export default class RouletteEvent extends React.Component<IRouletteEventProps, 
     private percentagePerBlock = 100 / this.minBlocks;
     private actualBlocks = this.minBlocks;
     private blocksMoved: number = 0;
-    private spinningSound = new Audio("/assets/sounds/spinning.mp3");
-    private winSound = new Audio("/assets/sounds/win.mp3");
+    private spinningSound = new Audio(AppConfig.assetUrl("/assets/sounds/spinning.mp3"));
+    private winSound = new Audio(AppConfig.assetUrl("/assets/sounds/win.mp3"));
 
     private moveAnimation?: NodeJS.Timeout;
     private timeout?: NodeJS.Timeout;

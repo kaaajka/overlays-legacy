@@ -1,6 +1,6 @@
+const baseUrl = import.meta.env.BASE_URL.replace(/\/$/, "");
+
 export const AppConfig = {
-  ws: "wss://kaaajka.nedi.me/ws",
-  //ws: "wss://kajkowybocik.damiankwolek.pl/ws",
-  //ws: "wss://kajkowo.bdrewnowski.ovh/ws",
-  //ws: "ws://192.168.0.96:13732"
+  ws: import.meta.env.VITE_WS_URL || "wss://kaaajka.nedi.me/ws",
+  assetUrl: (path: string) => `${baseUrl}${path.startsWith("/") ? path : `/${path}`}`,
 };
