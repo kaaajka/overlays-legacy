@@ -4,6 +4,7 @@ import { action, makeObservable, observable, reaction } from "mobx";
 
 import { CoinflipEventModel } from "../models/CoinflipEvent";
 import { EventState } from "../models/Event";
+import { AppConfig } from "../config";
 
 const timeoutTimes: { spin: number, hideSegmentImage: number } = {
     spin: 2 * 1000,
@@ -12,8 +13,8 @@ const timeoutTimes: { spin: number, hideSegmentImage: number } = {
 
 @observer
 export default class CoinflipEvent extends React.Component<ICoinflipEventProps, {}> {
-    private spinningSound = new Audio("/assets/sounds/spinning.mp3");
-    private winSound = new Audio("/assets/sounds/win.mp3");
+    private spinningSound = new Audio(AppConfig.assetUrl("/assets/sounds/spinning.mp3"));
+    private winSound = new Audio(AppConfig.assetUrl("/assets/sounds/win.mp3"));
 
     private segmentRefs: React.RefObject<HTMLDivElement>[] = [...new Array(100)].map(() => React.createRef());
     private timeouts: { spin?: NodeJS.Timeout, hideSegmentImage?: NodeJS.Timeout } = {};

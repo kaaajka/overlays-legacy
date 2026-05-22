@@ -37,30 +37,30 @@ const images: { [key: string]: any } = {
 };
 
 const randomSounds = [
-    new Audio("/assets/sounds/1.mp3"),
-    new Audio("/assets/sounds/2.mp3"),
-    new Audio("/assets/sounds/3.mp3"),
-    new Audio("/assets/sounds/4.mp3"),
-    new Audio("/assets/sounds/5.mp3"),
-    new Audio("/assets/sounds/6.mp3"),
-    new Audio("/assets/sounds/7.mp3"),
-    new Audio("/assets/sounds/8.mp3"),
-    new Audio("/assets/sounds/9.mp3"),
-    new Audio("/assets/sounds/10.mp3"),
-    new Audio("/assets/sounds/11.mp3"),
+    new Audio(AppConfig.assetUrl("/assets/sounds/1.mp3")),
+    new Audio(AppConfig.assetUrl("/assets/sounds/2.mp3")),
+    new Audio(AppConfig.assetUrl("/assets/sounds/3.mp3")),
+    new Audio(AppConfig.assetUrl("/assets/sounds/4.mp3")),
+    new Audio(AppConfig.assetUrl("/assets/sounds/5.mp3")),
+    new Audio(AppConfig.assetUrl("/assets/sounds/6.mp3")),
+    new Audio(AppConfig.assetUrl("/assets/sounds/7.mp3")),
+    new Audio(AppConfig.assetUrl("/assets/sounds/8.mp3")),
+    new Audio(AppConfig.assetUrl("/assets/sounds/9.mp3")),
+    new Audio(AppConfig.assetUrl("/assets/sounds/10.mp3")),
+    new Audio(AppConfig.assetUrl("/assets/sounds/11.mp3")),
 ];
 
 const dogsSounds = [randomSounds[2], randomSounds[4], randomSounds[5], randomSounds[6], randomSounds[7], randomSounds[8], randomSounds[9], randomSounds[10]];
 
 const coinflipSounds = [
-    new Audio("/assets/sounds/12.mp3"),
-    new Audio("/assets/sounds/13.mp3"),
-    new Audio("/assets/sounds/14.mp3"),
-    new Audio("/assets/sounds/15.mp3"),
+    new Audio(AppConfig.assetUrl("/assets/sounds/12.mp3")),
+    new Audio(AppConfig.assetUrl("/assets/sounds/13.mp3")),
+    new Audio(AppConfig.assetUrl("/assets/sounds/14.mp3")),
+    new Audio(AppConfig.assetUrl("/assets/sounds/15.mp3")),
 ];
 
 let EVENTS = {};
-switch (process.env.REACT_APP_ENV) {
+switch (import.meta.env.VITE_APP_ENV) {
     default:
     case 'prod':
         EVENTS = {
