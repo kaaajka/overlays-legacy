@@ -681,7 +681,7 @@ body {
         }
     }
 
-    @debug "Generating rain";
+    
 
     @for $i from 1 through 150 {
         $top: (random(50) + 50) * 1%;
@@ -714,7 +714,7 @@ body {
         }
     }
 
-    @debug "Rain generated successfully";
+    
 
     .haloFloats {
         top: 0;
@@ -911,8 +911,11 @@ body {
             }
         }
 
-        @debug "Generating halos";
-
+        // Vercel 2026 hardening:
+        // This halo generation used to rely on an unbounded random @while loop.
+        // Locally it usually finished quickly, but CI could hang for 15+ minutes
+        // when Sass kept drawing overlapping coordinates. Keep the visual behavior,
+        // but make the loop bounded and deterministic on fallback.
         $halos: [];
         @for $i from 9 through 30 {
             $topStart: random(100) * 1%;
@@ -921,27 +924,52 @@ body {
             $topEnd: null;
             $leftEnd: null;
             $overlapping: true;
-            @while $overlapping {
+            $attempts: 0;
+            $maxAttempts: 50;
+
+            @while $overlapping and $attempts < $maxAttempts {
+                $attempts: $attempts + 1;
                 $topEnd: random(94) * 1%;
                 $leftEnd: (75 + random(15)) * 1%;
+
                 @if $sideEnd == 1 {   
                     $leftEnd: random(25) * 1%;
                 }
 
                 $overlapping: false;
+
                 @each $halo in $halos {
                     @if not $overlapping {
                         $existingTop: map.get($halo, "top");
                         $existingLeft: map.get($halo, "left");
-                        @if (($topEnd > ($existingTop - 10)) and ($topEnd < ($existingTop + 10)) and ($leftEnd > ($existingLeft - 10)) and ($leftEnd < ($existingLeft + 10))) {
+
+                        @if (
+                            ($topEnd > ($existingTop - 10)) and
+                            ($topEnd < ($existingTop + 10)) and
+                            ($leftEnd > ($existingLeft - 10)) and
+                            ($leftEnd < ($existingLeft + 10))
+                        ) {
                             $overlapping: true;
                         }
                     }
                 }
+
                 @if ($topEnd > 45 and $topEnd < 55 and $leftEnd > 80) {
                     $overlapping: true;
                 }
             }
+
+            @if $overlapping {
+                $topEnd: (($i * 17) % 94) * 1%;
+                $leftEnd: (75 + (($i * 7) % 15)) * 1%;
+
+                @if $sideEnd == 1 {
+                    $leftEnd: (($i * 11) % 25) * 1%;
+                }
+
+                $overlapping: false;
+            }
+
             $halos: append($halos, ("top": $topEnd, "left": $leftEnd));
             $delay: 11.8s + (0.05 * ($i - 9));
             $flashDelay: $delay + 1s;
@@ -972,7 +1000,7 @@ body {
             }
         }
 
-        @debug "Halos generated successfully";
+        
     }
 
     .holymoly {
@@ -1309,7 +1337,7 @@ body {
         @return $randomNum;
     }
 
-    @debug "Generating fireworks";
+    
 
     @for $i from 1 through 20 {
         .firework:nth-child(#{$i}) {
@@ -1334,7 +1362,7 @@ body {
           }
     }
 
-    @debug "Fireworks generated successfully";
+    
 
     .sayMyName {
         font-size: 64px;
