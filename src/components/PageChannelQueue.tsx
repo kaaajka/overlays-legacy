@@ -5,6 +5,7 @@ import { action, makeObservable, observable, runInAction } from 'mobx';
 
 import { AppConfig } from '../config';
 import { QueueEventModel } from '../models/QueueEvent';
+import { debugLog } from '../debug';
 
 @observer
 export class PageChannelQueue extends React.Component<
@@ -16,7 +17,7 @@ export class PageChannelQueue extends React.Component<
 
   private ws?: WebSocket;
   private timeout: number = 250;
-  private connectInterval?: NodeJS.Timeout;
+  private connectInterval?: ReturnType<typeof setTimeout>;
 
   constructor(
     props: IPageChannelQueueProps & RouteComponentProps<{ id: string }>,
@@ -83,7 +84,7 @@ export class PageChannelQueue extends React.Component<
     const ws = new WebSocket(AppConfig.ws + `/queue?account=${accountKey}`);
 
     ws.onopen = () => {
-      console.log('connected websocket main component');
+      debugLog('connected websocket main component');
 
       this.timeout = 250;
 
@@ -97,7 +98,7 @@ export class PageChannelQueue extends React.Component<
       ws.close();
     };
     ws.onclose = (e) => {
-      console.log(
+      debugLog(
         `Socket is closed. Reconnect will be attempted in ${Math.min(10000 / 1000, (this.timeout + this.timeout) / 1000)} second.`,
         e.reason,
       );
@@ -145,7 +146,7 @@ export class PageChannelQueue extends React.Component<
           });
         }
       } catch (err) {
-        console.log(err);
+        debugLog(err);
       }
     };
 

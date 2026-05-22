@@ -17,8 +17,8 @@ export default class CoinflipEvent extends React.Component<ICoinflipEventProps, 
     private winSound = new Audio(AppConfig.assetUrl("/assets/sounds/win.mp3"));
 
     private segmentRefs: React.RefObject<HTMLDivElement>[] = [...new Array(100)].map(() => React.createRef());
-    private timeouts: { spin?: NodeJS.Timeout, hideSegmentImage?: NodeJS.Timeout } = {};
-    private hideSegmentImageTimeout: NodeJS.Timeout;
+    private timeouts: { spin?: ReturnType<typeof setTimeout>, hideSegmentImage?: ReturnType<typeof setTimeout> } = {};
+    private hideSegmentImageTimeout: ReturnType<typeof setTimeout>;
 
     hideSegmentImage: boolean = false;
 

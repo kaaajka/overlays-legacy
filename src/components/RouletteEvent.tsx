@@ -16,8 +16,8 @@ export default class RouletteEvent extends React.Component<IRouletteEventProps, 
     private spinningSound = new Audio(AppConfig.assetUrl("/assets/sounds/spinning.mp3"));
     private winSound = new Audio(AppConfig.assetUrl("/assets/sounds/win.mp3"));
 
-    private moveAnimation?: NodeJS.Timeout;
-    private timeout?: NodeJS.Timeout;
+    private moveAnimation?: ReturnType<typeof setTimeout>;
+    private timeout?: ReturnType<typeof setTimeout>;
     private rollAnimation?: any;
     private rolling: boolean = false;
     finished: boolean = false;
