@@ -1,6 +1,6 @@
 {
-  "installCommand": "npm ci --legacy-peer-deps",
-  "buildCommand": "npm run build",
+  "installCommand": "corepack enable && corepack prepare pnpm@10.17.1 --activate && pnpm install --frozen-lockfile",
+  "buildCommand": "pnpm run build",
   "outputDirectory": "dist",
   "rewrites": [
     {

@@ -1,8 +1,12 @@
 {
-  "name": "twitch_bot_obs",
-  "version": "0.1.0",
+  "name": "overlays-legacy",
+  "version": "1.0.0",
   "private": true,
   "type": "module",
+  "packageManager": "pnpm@10.17.1",
+  "engines": {
+    "node": "22.x"
+  },
   "dependencies": {
     "gsap": "^3.13.0",
     "html-react-parser": "^3.0.4",
@@ -31,8 +35,5 @@
     "build": "vite build",
     "build:test": "vite build --mode test --base=/test/",
     "preview": "vite preview"
-  },
-  "engines": {
-    "node": "22.x"
   }
 }
