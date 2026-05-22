@@ -1,0 +1,1843 @@
+@use "sass:map";
+@use 'sass:math';
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;900&family=Permanent+Marker&display=swap');
+
+@mixin whiteTextBorder( ) {
+    text-shadow: #fff 0 0 4px;
+}
+
+@mixin blackTextBorder( ) {
+    text-shadow: #000 0 0 4px;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    outline: 0;
+    box-sizing: border-box;
+}
+
+body {
+    height: 100vh;
+    font-family: "Poppins", sans-serif;
+    font-weight: 400;
+}
+
+#root {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.event {
+    display: inline-flex;
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+    transition: all 300ms ease-in-out;
+    background: #fff;
+    padding: 5px;
+    border-radius: 30px;
+    opacity: .85;
+
+    .image {
+        max-width: 100%;
+
+        img {
+            display: block;
+            max-width: 100%;
+            min-width: 250px;
+            max-height: 100%;
+        }
+    }
+
+    .name {
+        font-size: 21px;
+    }
+
+    .desc {
+        margin-top: 5px;
+        font-size: 21px;
+        font-weight: 500;
+    }
+
+    &.center {
+        width: 450px;
+        margin-top: 50vh;
+        margin-left: 50vw;
+        transform: translate(-50%, -50%);
+
+        .image {
+            height: 200px;
+        }
+
+        .timer {
+            display: none;
+        }
+    }
+
+    &.right {
+        width: 350px;
+        margin-top: 0;
+        margin-left: 50vw;
+        transform: translateX(-50%);
+
+        .image {
+            max-width: 200px;
+        }
+
+        .desc {
+            margin-top: 10px;
+            font-size: 14px;
+            line-height: 1;
+        }
+
+        .timer {
+            margin-top: 5px;
+            display: block;
+            font-size: 26px;
+            font-weight: 700;
+        }
+    }
+
+    &.roller {
+        width: 800px;
+        margin-top: 0;
+        margin-left: 50vw;
+        transform: translateX(-50%);
+        overflow: hidden;
+        position: relative;
+        //border: 4px solid red;
+        background-color: #000;
+        border-radius: 0;
+
+        .inner {
+            width: 100%;
+            overflow: hidden;
+            position: relative;
+
+            .pointer {
+                position: absolute;
+                top: 0;
+                bottom: 0;
+                left: 50%;
+                width: 5px;
+                background: red;
+                transform: translateX(-50%);
+                z-index: 2;
+            }
+
+            .blocks {
+                display: flex;
+                width: 100%;
+
+                .reward {
+                    flex: 0 0 100px;
+                    height: 100px;
+                    background-size: cover;
+                    background-position: center;
+                    margin: 0 2.5px;
+
+                }
+            }
+        }
+
+        .text {
+            margin-top: 5px;
+            color: #fff;
+        }
+    }
+
+    &.coinflip {
+        margin-left: 50vw;
+        transform: translateX(-50%) scale(1);
+
+        $size: 500px;
+        $marginSize: math.div($size, 2);
+        $segmentWidth: 20px;
+        $segmentHeight: math.div($size, 2);
+        $segmentCardWidth: $segmentWidth * 10;
+        $segmentCardHeight: $segmentHeight;
+        $segmentCoinDiameter: $segmentCardWidth;
+        $segmentCoinXMovement: -(math.div($segmentCardWidth, 2)) + (math.div($segmentWidth, 2));
+        $segmentCoinRadius: math.div($segmentCoinDiameter, 2);
+        $segmentCoinThickness: 10px;
+
+        $segmentRotationStep: (math.div(360, 100)) + 0deg;
+        $rouletteSpins: 6;
+
+        $rouletteSpinDuration: 7s;
+        $segmentPullDuration: 4s;
+        $segmentCoinMakeDuration: 0.5s;
+        $segmentCoinRotateDuration: 2s;
+        $coinflipMoveDuration: 2s;
+        $segmentCoinScaleOutDuration: 1s;
+        $rouletteCoinSpinMoveDuration: 4s;
+        $coinSpins: 5;
+        $segmentCoinSpinDurationHead: math.div($rouletteCoinSpinMoveDuration, $coinSpins);
+        $segmentCoinSpinDurationTail: math.div($rouletteCoinSpinMoveDuration, ($coinSpins - 0.5));
+        $segmentCoinScaleInDuration: 1s;
+
+        $rouletteSpinDelay: 2s;
+        $segmentPullDelay: $rouletteSpinDelay + $rouletteSpinDuration + 0.5s;
+        $rouletteHideDelay: $rouletteSpinDelay + $rouletteSpinDuration + 1.5s;
+        $segmentCoinMakeDelay: $segmentPullDelay + $segmentPullDuration + 1.5s;
+        $segmentCoinRotateDelay: $segmentCoinMakeDelay + $segmentCoinMakeDuration + 0.5s;
+        $coinflipMoveOutDelay: $segmentCoinRotateDelay + $segmentCoinRotateDuration + 0.5s;
+        $coinflipMoveInDelay: 0s;
+        $segmentCoinScaleOutDelay: $coinflipMoveDuration;
+        $segmentCoinSpinDelay: $segmentCoinScaleOutDelay + $segmentCoinScaleOutDuration + 0.5s;
+        $segmentCoinScaleInDelay: $segmentCoinSpinDelay + ($segmentCoinSpinDurationHead * $coinSpins) + 0.5s;
+
+        $headImage: url(https://seeklogo.com/images/O/orzel-logo-8EEA8B39E7-seeklogo.com.png);
+        $tailImage: url(https://kajkowo.bdrewnowski.ovh/assets/images/subs/miecioch.png);
+
+        .roulette {
+            display: block;
+            position: relative;
+            width: $size;
+            height: $size;
+            margin-top: $marginSize;
+
+            @for $i from 1 through 100 {
+                $segmentRotation: ($i - 1) * $segmentRotationStep;
+        
+                &.chosen-segment-#{$i} {
+                    animation-name: 
+                        coinflip-roulette-chosen-segment-#{$i},
+                        coinflip-roulette-move-out-#{$i};
+                    animation-duration: 
+                        $rouletteSpinDuration,
+                        $coinflipMoveDuration;
+                    animation-delay: 
+                        $rouletteSpinDelay,
+                        $coinflipMoveOutDelay;
+                    animation-timing-function: 
+                        ease-in-out,
+                        ease;                  
+                    animation-fill-mode: forwards;
+
+                    &.chosen-side {
+                        animation-name:
+                            coinflip-roulette-move-in-#{$i},
+                            coinflip-roulette-spin-move-coin;
+                        animation-duration:
+                            $coinflipMoveDuration,
+                            $rouletteCoinSpinMoveDuration;
+                        animation-delay:
+                            $coinflipMoveInDelay,
+                            $segmentCoinSpinDelay;
+                        animation-timing-function: 
+                            ease,
+                            ease-out;
+                        animation-fill-mode: forwards;
+                    }
+                }
+        
+                @keyframes coinflip-roulette-chosen-segment-#{$i} {
+                    0% {
+                        transform: rotateZ(0deg);
+                    }
+        
+                    100% {
+                        transform: rotateZ((360deg * $rouletteSpins) - $segmentRotation - ($segmentRotationStep));
+                    }
+                }
+
+                @keyframes coinflip-roulette-move-out-#{$i} {
+                    0% {
+                        margin-top: $marginSize;
+                        margin-left: 0px;
+                        transform: rotateZ((360deg * $rouletteSpins) - $segmentRotation - ($segmentRotationStep)) scale(1);
+                    }
+    
+                    100% {
+                        margin-top: 2 * $marginSize;
+                        margin-left: (-3.5 * $size);
+                        transform: rotateZ((360deg * $rouletteSpins) - $segmentRotation - ($segmentRotationStep)) scale(0.5);
+                    }
+                }
+
+                @keyframes coinflip-roulette-move-in-#{$i} {
+                    0% {
+                        margin-top: 2 * $marginSize;
+                        margin-left: (-3.5 * $size);
+                        transform: rotateZ((360deg * $rouletteSpins) - $segmentRotation - ($segmentRotationStep)) scale(0.5);
+                    }
+    
+                    100% {
+                        margin-top: 1.5 * $marginSize;
+                        margin-left: 0px;
+                        transform: rotateZ((360deg * $rouletteSpins) - $segmentRotation - ($segmentRotationStep)) scale(1);
+                    }
+                }
+            }
+        
+            @keyframes coinflip-roulette-spin-move-coin {
+                0% {
+                    margin-top: 1.5 * $marginSize;
+                    animation-timing-function: ease-out;
+                }
+        
+                50% {
+                   margin-top: -0.75 * $marginSize;
+                    animation-timing-function: ease-in;
+                }
+        
+                100% {
+                    margin-top: 1.5 * $marginSize;
+                }
+            }
+        
+            .segment {
+                display: inline-block;
+                position: absolute;
+                top: 0;
+                left: calc(50% - ($segmentWidth / 2));
+                box-sizing: border-box;
+                width: $segmentWidth;
+                height: $segmentHeight;
+                transform-origin: calc($segmentWidth / 2) $segmentHeight;
+        
+                background-color: transparent;
+                border: 1px solid black;
+                clip-path: polygon(0 0, 100% 0, 50% 100%, 50% 100%);
+        
+                .inner {
+                    display: block;
+                    width: 100%;
+                    height: 100%;
+                    text-align: center;
+                    opacity: 0;
+        
+                    animation-name: 
+                        coinflip-segment-inner-show-text, 
+                        coinflip-segment-inner-make-coin;
+                    animation-duration: 
+                        ($segmentPullDuration * 0.1), 
+                        $segmentCoinMakeDuration;
+                    animation-delay: 
+                        ($segmentPullDelay + ($segmentPullDuration * 0.9)), 
+                        $segmentCoinMakeDelay;
+                    animation-fill-mode: forwards;
+        
+                    perspective: 1000px;
+        
+                    @keyframes coinflip-segment-inner-show-text {
+                        0% {
+                            opacity: 0;
+                        }
+        
+                        100% {
+                            opacity: 1;
+                        }
+                    }
+        
+                    @keyframes coinflip-segment-inner-make-coin {
+                        0% {
+                            border-radius: 0;
+                        }
+        
+                        100% {
+                            border-radius: 100%;
+                        }
+                    }
+        
+                    .coin {
+                        width: 100%;
+                        height: 100%;
+                        border-radius: inherit;
+                        transform-style: preserve-3d;
+                        transform: scale(0.99);
+        
+                        &.land-head,
+                        &.land-tail {
+                            animation-name:
+                                coinflip-segment-coin-rotate;
+                            animation-duration:
+                                $segmentCoinRotateDuration;
+                            animation-delay: 
+                                $segmentCoinRotateDelay;
+                            animation-fill-mode: forwards;
+                        }
+
+                        @keyframes coinflip-segment-coin-rotate {
+                            0% {
+                                transform: scale(0.99) rotateX(0deg);
+                            }
+        
+                            50% {
+                                transform: scale(0.99) rotateX(180deg);
+                            }
+        
+                            100% {
+                                transform: scale(0.99) rotateX(360deg);
+                            }
+                        }
+
+                        &.land-head.chosen-head,
+                        &.land-head.chosen-tail {
+                            animation-name: 
+                                coinflip-segment-coin-scale-out, 
+                                coinflip-segment-coin-spin,
+                                coinflip-segment-coin-scale-in-head;
+                            animation-duration: 
+                                $segmentCoinScaleOutDuration, 
+                                $segmentCoinSpinDurationHead,
+                                $segmentCoinScaleInDuration;
+                            animation-delay: 
+                                $segmentCoinScaleOutDelay, 
+                                $segmentCoinSpinDelay,
+                                $segmentCoinScaleInDelay;
+                            animation-iteration-count: 
+                                1, 
+                                $coinSpins,
+                                1;
+                            animation-timing-function: 
+                                ease, 
+                                linear,
+                                ease;
+                            animation-fill-mode: forwards;
+                        }
+        
+                        &.land-tail.chosen-head,
+                        &.land-tail.chosen-tail {
+                            animation-name:
+                                coinflip-segment-coin-scale-out,
+                                coinflip-segment-coin-spin,
+                                coinflip-segment-coin-half-spin,
+                                coinflip-segment-coin-scale-in-tail;
+                            animation-duration: 
+                                $segmentCoinScaleOutDuration, 
+                                $segmentCoinSpinDurationTail, 
+                                math.div($segmentCoinSpinDurationTail, 2),
+                                $segmentCoinScaleInDuration;
+                            animation-delay: 
+                                $segmentCoinScaleOutDelay, 
+                                $segmentCoinSpinDelay, 
+                                ($segmentCoinSpinDelay + $segmentCoinSpinDurationTail * ($coinSpins - 1)),
+                                $segmentCoinScaleInDelay;
+                            animation-iteration-count: 
+                                1, 
+                                ($coinSpins - 1), 
+                                1,
+                                1;
+                            animation-timing-function: 
+                                ease, 
+                                linear, 
+                                linear,
+                                ease;
+                            animation-fill-mode: forwards;
+                        }
+        
+                        @keyframes coinflip-segment-coin-scale-out {
+                            0% {
+                                transform: scale(0.99) rotateX(0deg);
+                            }
+        
+                            100% {
+                                transform: scale(0.5) rotateX(60deg);
+                            }
+                        }
+        
+                        @keyframes coinflip-segment-coin-spin {
+                            0% {
+                                transform: scale(0.5) rotateX(60deg);
+                            }
+        
+                            50% {
+                                transform: scale(0.5) rotateX(240deg);
+                            }
+        
+                            100% {
+                                transform: scale(0.5) rotateX(420deg);
+                            }
+                        }
+        
+                        @keyframes coinflip-segment-coin-half-spin {
+                            0% {
+                                transform: scale(0.5) rotateX(60deg);
+                            }
+        
+                            100% {
+                                transform: scale(0.5) rotateX(240deg);
+                            }
+                        }
+        
+                        @keyframes coinflip-segment-coin-scale-in-head {
+                            0% {
+                                transform: scale(0.5) rotateX(420deg);
+                            }
+        
+                            100% {
+                                transform: scale(0.99) rotateX(360deg);
+                            }
+                        }
+        
+                        @keyframes coinflip-segment-coin-scale-in-tail {
+                            0% {
+                                transform: scale(0.5) rotateX(240deg);
+                            }
+        
+                            100% {
+                                transform: scale(0.99) rotateX(180deg);
+                            }
+                        }
+        
+                        .thick {
+                            content: '';
+                            position: absolute;
+                            z-index: -10;
+                            top: $segmentCoinRadius;
+                            left: 0;
+                            right: 0;
+                            height: $segmentCoinThickness;
+                            background-image: hsla(0, 0%, 0%, .25);
+                            transform: rotateX(-90deg) translateY(#{math.div($segmentCoinThickness, 2)});
+                            transform-origin: 100% 50%;
+                        }
+        
+                        .front,
+                        .back,
+                        &:before,
+                        &:after {
+                            position: absolute;
+                            z-index: 1;
+                            width: 100%;
+                            height: 100%;
+                            border-radius: inherit;
+                            overflow: hidden;
+                        }
+        
+                        .front,
+                        .back {
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                        }
+        
+                        .front.show-head-image {
+                            background-image: $headImage;
+                            background-size: 100% 100%;
+                            background-position: center;
+                            background-blend-mode: multiply;
+                        }
+
+                        .back {
+                            transform: rotateX(180deg) translateZ(#{$segmentCoinThickness + 1px});
+                            background-image: $tailImage;
+                            background-size: 100% 100%;
+                            background-position: center;
+                            background-blend-mode: multiply;
+                        }
+        
+                        &:before,
+                        &:after {
+                            content: '';
+                            top: 0;
+                            left: 0;
+                            background-image: -webkit-linear-gradient(hsla(0, 0%, 0%, .25), hsla(0, 0%, 100%, .25));
+                        }
+        
+                        &:before {
+                            transform: rotateX(180deg) translateZ(1px);
+                        }
+        
+                        &:after {
+                            transform: rotateX(180deg) translateZ(#{$segmentCoinThickness});
+                        }
+                    }
+                }
+        
+                @for $i from 1 through 100 {
+                    $segmentRotation: ($i - 1) * $segmentRotationStep;
+                    $segmentColor: hsl(math.div($i * 360, 100), 100%, 50%);
+        
+                    &:nth-child(#{$i}) {
+                        transform: rotateZ(#{$segmentRotation}) translateY(0);
+                        background-color: $segmentColor;
+        
+                        .coin {
+        
+                            .front,
+                            .thick,
+                            .back,
+                            &:before,
+                            &:after {
+                                background-color: $segmentColor;
+                                box-shadow: darken($segmentColor, 25%) 2px -2px 20px inset;
+                            }
+                        }
+                    }
+        
+                    &:nth-child(#{$i}).not-chosen {
+                        animation-name: coinflip-segment-not-chosen-#{$i};
+                        animation-duration: 2s;
+                        animation-fill-mode: forwards;
+                        animation-delay: $rouletteHideDelay;
+                    }
+        
+                    @keyframes coinflip-segment-not-chosen-#{$i} {
+                        0% {
+                            opacity: 1;
+                            transform: rotateZ($segmentRotation) scale(1);
+                        }
+        
+                        100% {
+                            opacity: 0;
+                            transform: rotateZ($segmentRotation) scale(0);
+                        }
+                    }
+        
+                    &:nth-child(#{$i}).chosen {
+                        animation-name: 
+                            coinflip-segment-pull-#{$i},
+                            coinflip-segment-make-coin-#{$i};
+                        animation-duration: 
+                            $segmentPullDuration, 
+                            $segmentCoinMakeDuration;
+                        animation-delay: 
+                            $segmentPullDelay, 
+                            $segmentCoinMakeDelay;
+                        animation-fill-mode: forwards;
+                    }
+        
+                    @keyframes coinflip-segment-pull-#{$i} {
+                        0% {
+                            clip-path: polygon(0 0, 100% 0, 50% 100%, 50% 100%);
+                            width: $segmentWidth;
+                            background-color: $segmentColor;
+                            border: 1px solid black;
+                            transform: rotateZ(#{$segmentRotation}) translateY(0);
+                        }
+        
+                        50% {
+                            clip-path: polygon(0 0, 100% 0, 50% 100%, 50% 100%);
+                            width: $segmentWidth;
+                            background-color: $segmentColor;
+                            border: 1px solid black;
+                            transform: rotateZ(#{$segmentRotation}) translateY(#{math.div(-$segmentHeight, 4)});
+                        }
+        
+                        90% {
+                            clip-path: polygon(0 0, 100% 0, 50% 100%, 50% 100%);
+                            width: $segmentWidth;
+                            background-color: $segmentColor;
+                            border: 1px solid black;
+                            transform: rotateZ(#{$segmentRotation}) translateY(#{math.div($segmentCardHeight, 2)});
+                        }
+        
+                        100% {
+                            clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+                            width: $segmentCardWidth;
+                            background-color: transparent;
+                            border: 0;
+                            transform: rotateZ(#{$segmentRotation}) translateY(#{math.div($segmentCardHeight, 2)}) translateX(#{$segmentCoinXMovement});
+                        }
+                    }
+        
+                    @keyframes coinflip-segment-make-coin-#{$i} {
+                        0% {
+                            width: $segmentCardWidth;
+                            height: $segmentCardHeight;
+                        }
+                        
+                        100% {
+                            width: $segmentCoinDiameter;
+                            height: $segmentCoinDiameter;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+.donateHolder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    position: relative;
+
+    .moneyRain {
+        top: 0;
+        left: 0;
+        position: absolute;
+        overflow: hidden;
+        width: 100vw;
+        height: 100vh;
+
+        .rain {
+            background: url(../assets/images/money.png) center;
+            background-size: cover;
+            height: 52px;
+            position: absolute;
+            width: 52px;
+        }
+    }
+
+    @debug "Generating rain";
+
+    @for $i from 1 through 150 {
+        $top: (random(50) + 50) * 1%;
+        $left: random(100) * 1%;
+        $opacity: (random(100) + 30) * 0.01;
+        $delay: 2.2s + random(20) - 1s;
+        $rotate: random(90) * 1deg;
+
+        .rain:nth-of-type(#{$i}) {
+            animation-name: rain-#{$i};
+            animation-delay: $delay;
+            animation-duration: random(6) + 4s;
+            animation-iteration-count: infinite;
+            left: $left;
+            opacity: $opacity;
+            top: -$top;
+            transform: rotate($rotate);
+        }
+
+        @keyframes rain-#{$i} {
+            0% {
+                left: $left;
+                opacity: $opacity;
+                top: -$top;
+            }
+            100% {
+                opacity: 0;
+                top: $top + 40%;
+            }
+        }
+    }
+
+    @debug "Rain generated successfully";
+
+    .haloFloats {
+        top: 0;
+        left: 0;
+        position: absolute;
+        overflow: hidden;
+        width: 100vw;
+        height: 100vh;
+
+        .halo {
+            position: absolute;
+            font-weight: 700;
+            font-size: 44px;
+            color: #f12323;
+            text-shadow: rgba(0, 0, 0, 0.5) 0 0 2px;
+
+            animation-duration: 1s;
+            animation-iteration-count: 1;
+        }
+
+        .halo:first-of-type {
+            animation-name: halo-1;
+            animation-delay: 8s;
+
+            top: 40%;
+            left: -10%;
+            opacity: 0;
+        }
+
+        @keyframes halo-1 {
+            0% {
+                top: 40%;
+                left: -10%;
+                opacity: 0;
+            }
+            100% {
+                top: 60%;
+                left: 110%;
+                opacity: 1;
+            }
+        }
+
+        .halo:nth-of-type(2) {
+            animation-name: halo-2;
+            animation-delay: 8.5s;
+            
+            top: -10%;
+            left: 40%;
+            opacity: 0;
+        }
+    
+        @keyframes halo-2 {
+            0% {
+                top: -10%;
+                left: 40%;
+                opacity: 0;
+            }
+            100% {
+                top: 110%;
+                left: 60%;
+                opacity: 1;
+            }
+        }
+
+        .halo:nth-of-type(3) {
+            animation-name: halo-3;
+            animation-delay: 9s;
+            
+            top: 10%;
+            left: 110%;
+            opacity: 0;
+        }
+    
+        @keyframes halo-3 {
+            0% {
+                top: 10%;
+                left: 110%;
+                opacity: 0;
+            }
+            100% {
+                top: 70%;
+                left: -10%;
+                opacity: 1;
+            }
+        }
+
+        .halo:nth-of-type(4) {
+            animation-name: halo-4;
+            animation-delay: 9.5s;
+            
+            top: 110%;
+            left: 30%;
+            opacity: 0;
+        }
+    
+        @keyframes halo-4 {
+            0% {
+                top: 110%;
+                left: 30%;
+                opacity: 0;
+            }
+            100% {
+                top: -10%;
+                left: 60%;
+                opacity: 1;
+            }
+        }
+
+        .halo:nth-of-type(5) {
+            animation-name: halo-5;
+            animation-delay: 10s;
+            
+            top: 10%;
+            left: -10%;
+            opacity: 0;
+        }
+    
+        @keyframes halo-5 {
+            0% {
+                top: 10%;
+                left: -10%;
+                opacity: 0;
+            }
+            100% {
+                top: 90%;
+                left: 110%;
+                opacity: 1;
+            }
+        }
+
+        .halo:nth-of-type(6) {
+            animation-name: halo-6;
+            animation-delay: 10.5s;
+            
+            top: -10%;
+            left: 80%;
+            opacity: 0;
+        }
+    
+        @keyframes halo-6 {
+            0% {
+                top: -10%;
+                left: 80%;
+                opacity: 0;
+            }
+            100% {
+                top: 110%;
+                left: 20%;
+                opacity: 1;
+            }
+        }
+
+        .halo:nth-of-type(7) {
+            animation-name: halo-7;
+            animation-delay: 11s;
+            
+            top: 110%;
+            left: 80%;
+            opacity: 0;
+        }
+    
+        @keyframes halo-7 {
+            0% {
+                top: 110%;
+                left: 80%;
+                opacity: 0;
+            }
+            100% {
+                top: -10%;
+                left: 30%;
+                opacity: 1;
+            }
+        }
+
+        .halo:nth-of-type(8) {
+            animation-name: halo-8;
+            animation-delay: 11.5s;
+            
+            top: 40%;
+            left: 110%;
+            opacity: 0;
+        }
+    
+        @keyframes halo-8 {
+            0% {
+                top: 40%;
+                left: 110%;
+                opacity: 0;
+            }
+            100% {
+                top: 70%;
+                left: -10%;
+                opacity: 1;
+            }
+        }
+
+        @debug "Generating halos";
+
+        $halos: [];
+        @for $i from 9 through 30 {
+            $topStart: random(100) * 1%;
+            $leftStart: random(100) * 1%;
+            $sideEnd: random(2);
+            $topEnd: null;
+            $leftEnd: null;
+            $overlapping: true;
+            @while $overlapping {
+                $topEnd: random(94) * 1%;
+                $leftEnd: (75 + random(15)) * 1%;
+                @if $sideEnd == 1 {   
+                    $leftEnd: random(25) * 1%;
+                }
+
+                $overlapping: false;
+                @each $halo in $halos {
+                    @if not $overlapping {
+                        $existingTop: map.get($halo, "top");
+                        $existingLeft: map.get($halo, "left");
+                        @if (($topEnd > ($existingTop - 10)) and ($topEnd < ($existingTop + 10)) and ($leftEnd > ($existingLeft - 10)) and ($leftEnd < ($existingLeft + 10))) {
+                            $overlapping: true;
+                        }
+                    }
+                }
+                @if ($topEnd > 45 and $topEnd < 55 and $leftEnd > 80) {
+                    $overlapping: true;
+                }
+            }
+            $halos: append($halos, ("top": $topEnd, "left": $leftEnd));
+            $delay: 11.8s + (0.05 * ($i - 9));
+            $flashDelay: $delay + 1s;
+            
+    
+            .halo:nth-of-type(#{$i}) {
+                animation-name: halo-#{$i}, flash;
+                animation-delay: $delay, $flashDelay;
+                animation-fill-mode: forwards;
+                animation-iteration-count: 1, infinite;
+                
+                top: $topStart;
+                left: $leftStart;
+                opacity: 0;
+            }
+        
+            @keyframes halo-#{$i} {
+                0% {
+                    top: $topStart;
+                    left: $leftStart;
+                    opacity: 0;
+                }
+                100% {
+                    top: $topEnd;
+                    left: $leftEnd;
+                    opacity: 1;
+                }
+            }
+        }
+
+        @debug "Halos generated successfully";
+    }
+
+    .holymoly {
+        top: 0;
+        left: 0;
+        position: absolute;
+        overflow: hidden;
+        width: 100vw;
+        height: 100vh;
+
+        .holy {
+            position: absolute;
+            font-family: 'Permanent Marker', cursive;
+            font-weight: 700;
+            font-size: 95px;
+            color: #f12323;
+            text-shadow: rgba(0, 0, 0, 0.5) 0 0 2px;
+
+            animation-fill-mode: forwards;
+        }
+
+        $fadeInDuration: 0.2s;
+        $fadeOutDuration: 3s;
+        $pulseDuration: 1s;
+
+        .holy:first-of-type {
+            animation-name: fadeIn, fadeOut, fadeIn, fadeOut;
+            animation-delay: 0s, 1.7s, 8s, 9s;
+            animation-duration: $fadeInDuration, $fadeOutDuration, $fadeInDuration, $fadeOutDuration;
+            animation-iteration-count: 1, 1, 1, 1;
+
+            top: 15%;
+            left: 15%;
+            opacity: 0;
+            transform: rotate(-20deg);
+        }
+
+        .holy:nth-of-type(2) {
+            animation-name: fadeIn, holy-pulse-2;
+            animation-delay: 14.3s, (14.3s + $fadeInDuration);
+            animation-duration: $fadeInDuration, $pulseDuration;
+            animation-iteration-count: 1, infinite;
+            animation-timing-function: ease, ease-in-out;
+
+            top: 5%;
+            left: 46%;
+            opacity: 0;
+            transform: rotate(15deg);
+        }
+
+        @keyframes holy-pulse-2 {
+            0% {
+                -webkit-transform: translateX(0) rotateZ(15deg);
+                transform: translateX(0) rotateZ(15deg)
+            }
+        
+            6.5% {
+                -webkit-transform: translateX(-6px) rotateY(-9deg) rotateZ(15deg);
+                transform: translateX(-6px) rotateY(-9deg) rotateZ(15deg)
+            }
+        
+            18.5% {
+                -webkit-transform: translateX(5px) rotateY(7deg) rotateZ(15deg);
+                transform: translateX(5px) rotateY(7deg) rotateZ(15deg)
+            }
+        
+            31.5% {
+                -webkit-transform: translateX(-3px) rotateY(-5deg) rotateZ(15deg);
+                transform: translateX(-3px) rotateY(-5deg) rotateZ(15deg)
+            }
+        
+            43.5% {
+                -webkit-transform: translateX(2px) rotateY(3deg) rotateZ(15deg);
+                transform: translateX(2px) rotateY(3deg) rotateZ(15deg)
+            }
+        
+            50% {
+                -webkit-transform: translateX(0) rotateZ(15deg);
+                transform: translateX(0) rotateZ(15deg)
+            }
+        }
+
+        .holy:nth-of-type(3) {
+            animation-name: fadeIn, fadeOut, fadeIn, fadeOut;
+            animation-delay: 0.2s, 1.7s, 8.3s, 9s;
+            animation-duration: $fadeInDuration, $fadeOutDuration, $fadeInDuration, $fadeOutDuration;
+            animation-iteration-count: 1, 1, 1, 1;
+
+            top: 25%;
+            left: 80%;
+            opacity: 0;
+            transform: rotate(15deg);
+        }
+
+        .holy:nth-of-type(4) {
+            animation-name: fadeIn, fadeOut, fadeIn, holy-pulse-4;
+            animation-delay: 0.7s, 1.7s, 14.7s, (14.7s + $fadeInDuration);
+            animation-duration: $fadeInDuration, $fadeOutDuration, $fadeInDuration, $pulseDuration;
+            animation-iteration-count: 1, 1, 1, infinite;
+            animation-timing-function: ease, ease, ease, ease-in-out;
+
+            top: 60%;
+            left: 10%;
+            opacity: 0;
+            transform: rotate(-15deg);
+        }
+
+        @keyframes holy-pulse-4 {
+            0% {
+                -webkit-transform: translateX(0) rotateZ(-15deg);
+                transform: translateX(0) rotateZ(-15deg)
+            }
+        
+            6.5% {
+                -webkit-transform: translateX(-6px) rotateY(-9deg) rotateZ(-15deg);
+                transform: translateX(-6px) rotateY(-9deg) rotateZ(-15deg)
+            }
+        
+            18.5% {
+                -webkit-transform: translateX(5px) rotateY(7deg) rotateZ(-15deg);
+                transform: translateX(5px) rotateY(7deg) rotateZ(-15deg)
+            }
+        
+            31.5% {
+                -webkit-transform: translateX(-3px) rotateY(-5deg) rotateZ(-15deg);
+                transform: translateX(-3px) rotateY(-5deg) rotateZ(-15deg)
+            }
+        
+            43.5% {
+                -webkit-transform: translateX(2px) rotateY(3deg) rotateZ(-15deg);
+                transform: translateX(2px) rotateY(3deg) rotateZ(-15deg)
+            }
+        
+            50% {
+                -webkit-transform: translateX(0) rotateZ(-15deg);
+                transform: translateX(0) rotateZ(-15deg)
+            }
+        }
+
+        .holy:nth-of-type(5) {
+            animation-name: fadeIn, fadeOut, fadeIn, holy-pulse-5;
+            animation-delay: 0.9s, 1.7s, 15.2s, (15.2s + $fadeInDuration);
+            animation-duration: $fadeInDuration, $fadeOutDuration, $fadeInDuration, $pulseDuration;
+            animation-iteration-count: 1, 1, 1, infinite;
+            animation-timing-function: ease, ease, ease, ease-in-out;
+
+            top: 75%;
+            left: 70%;
+            opacity: 0;
+            transform: rotate(20deg);
+        }
+
+        @keyframes holy-pulse-5 {
+            0% {
+                -webkit-transform: translateX(0) rotateZ(20deg);
+                transform: translateX(0) rotateZ(20deg)
+            }
+        
+            6.5% {
+                -webkit-transform: translateX(-6px) rotateY(-9deg) rotateZ(20deg);
+                transform: translateX(-6px) rotateY(-9deg) rotateZ(20deg)
+            }
+        
+            18.5% {
+                -webkit-transform: translateX(5px) rotateY(7deg) rotateZ(20deg);
+                transform: translateX(5px) rotateY(7deg) rotateZ(20deg)
+            }
+        
+            31.5% {
+                -webkit-transform: translateX(-3px) rotateY(-5deg) rotateZ(20deg);
+                transform: translateX(-3px) rotateY(-5deg) rotateZ(20deg)
+            }
+        
+            43.5% {
+                -webkit-transform: translateX(2px) rotateY(3deg) rotateZ(20deg);
+                transform: translateX(2px) rotateY(3deg) rotateZ(20deg)
+            }
+        
+            50% {
+                -webkit-transform: translateX(0) rotateZ(20deg);
+                transform: translateX(0) rotateZ(20deg)
+            }
+        }
+
+        .holy:nth-of-type(6) {
+            animation-name: fadeIn, fadeOut, fadeIn, holy-pulse-6;
+            animation-delay: 1.1s, 1.7s, 15.6s, (15.6s + $fadeInDuration);
+            animation-duration: $fadeInDuration, $fadeOutDuration, $fadeInDuration, $pulseDuration;
+            animation-iteration-count: 1, 1, 1, infinite;
+            animation-timing-function: ease, ease, ease, ease-in-out;
+
+            top: 85%;
+            left: 40%;
+            opacity: 0;
+            transform: rotate(-15deg);
+        }
+
+        @keyframes holy-pulse-6 {
+            0% {
+                -webkit-transform: translateX(0) rotateZ(-15deg);
+                transform: translateX(0) rotateZ(-15deg)
+            }
+        
+            6.5% {
+                -webkit-transform: translateX(-6px) rotateY(-9deg) rotateZ(-15deg);
+                transform: translateX(-6px) rotateY(-9deg) rotateZ(-15deg)
+            }
+        
+            18.5% {
+                -webkit-transform: translateX(5px) rotateY(7deg) rotateZ(-15deg);
+                transform: translateX(5px) rotateY(7deg) rotateZ(-15deg)
+            }
+        
+            31.5% {
+                -webkit-transform: translateX(-3px) rotateY(-5deg) rotateZ(-15deg);
+                transform: translateX(-3px) rotateY(-5deg) rotateZ(-15deg)
+            }
+        
+            43.5% {
+                -webkit-transform: translateX(2px) rotateY(3deg) rotateZ(-15deg);
+                transform: translateX(2px) rotateY(3deg) rotateZ(-15deg)
+            }
+        
+            50% {
+                -webkit-transform: translateX(0) rotateZ(-15deg);
+                transform: translateX(0) rotateZ(-15deg)
+            }
+        }
+    }
+
+    .fireworks {
+        top: 0;
+        left: 0;
+        position: absolute;
+        overflow: hidden;
+        width: 100vw;
+        height: 100vh;
+
+        @keyframes firework {
+            0% { transform: translate(var(--fireworks-x), var(--fireworks-initialY)); width: var(--fireworks-initialSize); opacity: 1; }
+            50% { width: 0.5vmin; opacity: 1; }
+            100% { width: var(--fireworks-finalSize); opacity: 0; }
+          }
+
+        .firework,
+        .firework::before,
+        .firework::after
+        {
+        --fireworks-initialSize: 1vmin;
+        --fireworks-finalSize: 90vmin;
+        --fireworks-particleSize: 0.2vmin;
+        --fireworks-color1: yellow;
+        --fireworks-color2: khaki;
+        --fireworks-color3: white;
+        --fireworks-color4: lime;
+        --fireworks-color5: gold;
+        --fireworks-color6: mediumseagreen;
+        --fireworks-y: -30vmin;
+        --fireworks-x: -50%;
+        --fireworks-initialY: 60vmin;
+        content: "";
+        animation: firework 5s infinite;
+        animation-timing-function: ease-in-out;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, var(--fireworks-y));
+        width: var(--fireworks-initialSize);
+        aspect-ratio: 1;
+        background: 
+            radial-gradient(circle, var(--fireworks-color1) var(--fireworks-particleSize), #0000 0) 50% 0%,
+            radial-gradient(circle, var(--fireworks-color2) var(--fireworks-particleSize), #0000 0) 100% 50%,
+            radial-gradient(circle, var(--fireworks-color3) var(--fireworks-particleSize), #0000 0) 50% 100%,
+            radial-gradient(circle, var(--fireworks-color4) var(--fireworks-particleSize), #0000 0) 0% 50%,
+            
+            /* bottom right */
+            radial-gradient(circle, var(--fireworks-color5) var(--fireworks-particleSize), #0000 0) 80% 90%,
+            radial-gradient(circle, var(--fireworks-color6) var(--fireworks-particleSize), #0000 0) 95% 90%,
+            radial-gradient(circle, var(--fireworks-color1) var(--fireworks-particleSize), #0000 0) 90% 70%,
+            radial-gradient(circle, var(--fireworks-color2) var(--fireworks-particleSize), #0000 0) 100% 60%,
+            radial-gradient(circle, var(--fireworks-color3) var(--fireworks-particleSize), #0000 0) 55% 80%,
+            radial-gradient(circle, var(--fireworks-color4) var(--fireworks-particleSize), #0000 0) 70% 77%,
+            
+            /* bottom left */
+            radial-gradient(circle, var(--fireworks-color5) var(--fireworks-particleSize), #0000 0) 22% 90%,
+            radial-gradient(circle, var(--fireworks-color6) var(--fireworks-particleSize), #0000 0) 45% 90%,
+            radial-gradient(circle, var(--fireworks-color1) var(--fireworks-particleSize), #0000 0) 33% 70%,
+            radial-gradient(circle, var(--fireworks-color2) var(--fireworks-particleSize), #0000 0) 10% 60%,
+            radial-gradient(circle, var(--fireworks-color3) var(--fireworks-particleSize), #0000 0) 31% 80%,
+            radial-gradient(circle, var(--fireworks-color4) var(--fireworks-particleSize), #0000 0) 28% 77%,
+            radial-gradient(circle, var(--fireworks-color5) var(--fireworks-particleSize), #0000 0) 13% 72%,
+            
+            /* top left */
+            radial-gradient(circle, var(--fireworks-color6) var(--fireworks-particleSize), #0000 0) 80% 10%,
+            radial-gradient(circle, var(--fireworks-color1) var(--fireworks-particleSize), #0000 0) 95% 14%,
+            radial-gradient(circle, var(--fireworks-color2) var(--fireworks-particleSize), #0000 0) 90% 23%,
+            radial-gradient(circle, var(--fireworks-color3) var(--fireworks-particleSize), #0000 0) 100% 43%,
+            radial-gradient(circle, var(--fireworks-color4) var(--fireworks-particleSize), #0000 0) 85% 27%,
+            radial-gradient(circle, var(--fireworks-color5) var(--fireworks-particleSize), #0000 0) 77% 37%,
+            radial-gradient(circle, var(--fireworks-color6) var(--fireworks-particleSize), #0000 0) 60% 7%,
+            
+            /* top right */
+            radial-gradient(circle, var(--fireworks-color1) var(--fireworks-particleSize), #0000 0) 22% 14%,
+            radial-gradient(circle, var(--fireworks-color1) var(--fireworks-particleSize), #0000 0) 45% 20%,
+            radial-gradient(circle, var(--fireworks-color1) var(--fireworks-particleSize), #0000 0) 33% 34%,
+            radial-gradient(circle, var(--fireworks-color1) var(--fireworks-particleSize), #0000 0) 10% 29%,
+            radial-gradient(circle, var(--fireworks-color1) var(--fireworks-particleSize), #0000 0) 31% 37%,
+            radial-gradient(circle, var(--fireworks-color1) var(--fireworks-particleSize), #0000 0) 28% 7%,
+            radial-gradient(circle, var(--fireworks-color1) var(--fireworks-particleSize), #0000 0) 13% 42%
+            ;
+        background-size: var(--fireworks-initialSize) var(--fireworks-initialSize);
+        background-repeat: no-repeat;
+        }
+
+        .firework::before {
+        --fireworks-x: -50%;
+        --fireworks-y: -50%;
+        --fireworks-initialY: -50%;
+        transform: translate(-50%, -50%) rotate(40deg) scale(1.3) rotateY(40deg);
+        }
+
+        .firework::after {
+        --fireworks-x: -50%;
+        --fireworks-y: -50%;
+        --fireworks-initialY: -50%;
+        transform: translate(-50%, -50%) rotate(170deg) scale(1.15) rotateY(-30deg);
+        }
+    }
+
+    @function randomNum($min, $max) {
+        $rand: random();
+        $randomNum: $min + floor($rand * (($max - $min) + 1));
+      
+        @return $randomNum;
+    }
+
+    @debug "Generating fireworks";
+
+    @for $i from 1 through 20 {
+        .firework:nth-child(#{$i}) {
+            --fireworks-x:  #{randomNum(-150, 50)}vmin;
+            --fireworks-y: #{randomNum(-150, 50)}vmin;
+          }
+          
+          .firework:nth-child(#{$i}),
+          .firework:nth-child(#{$i})::before,
+          .firework:nth-child(#{$i})::after {
+            $baseColor: rgb(random(255), random(255), random(255));
+            --fireworks-color1: #{$baseColor};
+            --fireworks-color2: #{lighten($baseColor, 15%)};
+            --fireworks-color3: #{lighten($baseColor, 30%)};
+            --fireworks-color4: #{darken($baseColor, 15%)};
+            --fireworks-color5: #{darken($baseColor, 30%)};
+            --fireworks-color6: #{invert($baseColor, 75%)};
+            --fireworks-finalSize: #{randomNum(100, 150)}vmin;
+            left: #{percentage(calc(randomNum(0, 100) / 100))};
+            top: #{percentage(calc(randomNum(0, 100) / 100))};
+            animation-delay: #{calc(randomNum(-10, 10) / 10)}s;
+          }
+    }
+
+    @debug "Fireworks generated successfully";
+
+    .sayMyName {
+        font-size: 64px;
+
+        $stage1Delay: 1800ms;
+
+        @keyframes sayMyName-fade-stage1 {
+            0% {
+                opacity: 0;
+            }
+        
+            50% {
+                opacity: 1;
+            }
+
+            100% {
+                opacity: 0;
+            }
+        }
+
+        .say {
+            position: absolute;
+            top: 100px;
+            left: 300px;
+            
+            &.say1 {
+                opacity: 0;
+                animation: sayMyName-fade-stage1;
+                animation-iteration-count: 1;
+                animation-delay: $stage1Delay + 0ms;
+                animation-duration: 300ms;
+                animation-fill-mode: forwards;
+            }
+
+            
+            &.say2 {
+                animation-delay: 0ms;
+            }
+        }
+
+        .my {
+            position: absolute;
+            left: 914px;
+
+            &.my1 {
+                top: 198px;
+                opacity: 0;
+                animation: sayMyName-fade-stage1;
+                animation-iteration-count: 1;
+                animation-delay: $stage1Delay + 300ms;
+                animation-duration: 400ms;
+                animation-fill-mode: forwards;
+            }
+
+            &.my2 {
+                top: 100px;
+                animation-delay: 300ms;
+            }
+        }
+
+        .name {
+            position: absolute;
+            top: 100px;
+            left: 1444px;
+
+            &.name1 {
+                opacity: 0;
+                animation: sayMyName-fade-stage1;
+                animation-iteration-count: 1;
+                animation-delay: $stage1Delay + 700ms;
+                animation-duration: 200ms;
+                animation-fill-mode: forwards;
+            }
+            
+            &.name2 {
+                animation-delay: 700ms;
+            }
+        }
+    }
+
+    .donate {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        overflow: hidden;
+
+        .user, .text { text-align: center }
+
+        .user {
+            margin-top: 10px;
+            font-size: 50px;
+            font-weight: 700;
+            line-height: 1em;
+            font-style: italic;
+            padding: 15px;
+
+            &.traffic {
+                color: #6f0abd;
+                @include whiteTextBorder( );
+            }
+        }
+
+        .text {
+            overflow: hidden;
+            max-width: 30vw;
+            margin-top: 15px;
+            font-size: 40px;
+            font-weight: 700;
+            color: #fff;
+            @include blackTextBorder();
+            text-align: center;
+            word-break: break-word;
+            text-overflow: ellipsis;
+            line-height: 1.3em;
+        }
+
+        &.first {
+            max-width: 50vw;
+            max-height: 80vh;
+
+            .image {
+                width: 303px;
+                border-radius: 10px;
+            }
+
+            .user {
+                color: #1bcedb;
+                @include blackTextBorder();
+
+                animation-iteration-count: infinite;
+                animation-duration: 1s;
+            }
+        }
+
+        &.second {
+            max-width: 50vw;
+            flex-direction: row;
+            flex-wrap: wrap;
+            justify-content: center;
+
+            .image {
+                width: 43%;
+                flex: 0 0 43%;
+            }
+
+            .user {
+                flex: 0 0 57%;
+                color: #f37f27;
+                @include blackTextBorder();
+
+                animation-iteration-count: infinite;
+                animation-duration: 1s;
+            }
+
+            .text {
+                flex: 0 0 100%;
+                max-width: 100%;
+            }
+        }
+
+        &.third {
+            max-width: 50vw;
+            max-height: 80vh;
+
+            .image {
+                max-height: 300px;
+                border-radius: 10px;
+            }
+
+            .user {
+                animation-iteration-count: infinite;
+                animation-duration: 1s;
+
+                color: #000;
+                @include whiteTextBorder();
+            }
+        }
+
+        &.fourth {
+            max-width: 50vw;
+            max-height: 80vh;
+            animation-delay: 1.8s;
+
+            .image {
+                max-height: 400px;
+            }
+
+            .user {
+                animation-iteration-count: infinite;
+                animation-duration: 1s;
+
+                color: #3dc61e;
+                @include blackTextBorder( );
+            }
+        }
+
+        &.fifth {
+            max-width: 50vw;
+            max-height: 70vh;
+
+            animation-name: holy-slideInDown;
+            animation-delay: 1.55s;
+            animation-duration: 1s;
+            animation-iteration-count: 1;
+            animation-fill-mode: forwards;
+
+            -webkit-transform: translate3d(0,-200%,0);
+            transform: translate3d(0,-200%,0);
+
+            @keyframes holy-slideInDown {
+                0% {
+                    -webkit-transform: translate3d(0,-200%,0);
+                    transform: translate3d(0,-200%,0);
+                    visibility: visible
+                }
+            
+                to {
+                    -webkit-transform: translateZ(0);
+                    transform: translateZ(0)
+                }
+            }
+
+            .image {
+                max-height: 300px;
+            }
+
+            .user {
+                animation-iteration-count: infinite;
+                animation-duration: 1s;
+
+                max-width: 99.9%;
+                margin-top: -50px;
+                font-size: 38px;
+                color: #34cc1d;
+                @include blackTextBorder( );
+
+                .nickname, .amount {
+                    color: #f12323;
+                    @include blackTextBorder( );
+                }
+            }
+        }
+
+        &.sixth {
+            overflow: initial;
+            max-width: 60vw;
+            max-height: 70vh;
+
+            .halo, .haloTogether {
+                font-weight: 700;
+                font-size: 44px;
+                color: #f12323;
+                text-shadow: rgba(0, 0, 0, 0.5) 0 0 2px;
+            }
+
+            .halo {
+                &.h1 {
+                    animation-delay: 350ms;
+                    animation-duration: 300ms;
+                }
+
+                &.h2 {
+                    animation-delay: 750ms;
+                    animation-duration: 300ms;
+                }
+            }
+
+            .haloTogether {
+                animation-duration: 1.5s;
+                animation-iteration-count: infinite;
+            }
+
+            .lala {
+                animation-iteration-count: infinite;
+                animation-duration: 1s;
+                display: block;
+            }
+
+            .image {
+                max-width: 70%;
+                width: 403px;
+                border-radius: 10px;
+                animation-delay: 2s;
+            }
+
+            .user {
+                color: #aeb314;
+                text-shadow: #000 0 0 3px;
+                animation: fadeInUpBig 1s both 2.4s;
+            }
+
+            .text {
+                animation-delay: 2.4s;
+            }
+        }
+
+        &.seventh {
+            $delay: 8s + 5s;
+
+            max-width: 50vw;
+            max-height: 80vh;
+            animation-delay: $delay;
+
+            .coZaPojeb {
+                font-weight: 700;
+                font-size: 44px;
+                color: #f12323;
+                text-shadow: rgba(0, 0, 0, 0.5) 0 0 2px;
+
+                animation-duration: 1.5s;
+                animation-iteration-count: infinite;
+
+                .co {
+                    animation-name: fadeInDownBig;
+                    animation-delay: $delay + 0.3s;
+                    animation-iteration-count: 1;
+                    animation-duration: 0.3s;
+                }
+
+                .za {
+                    animation-name: fadeInDownBig;
+                    animation-delay: $delay + 0.9s;
+                    animation-iteration-count: 1;
+                    animation-duration: 0.3s;
+                }
+
+                .pojeb {
+                    animation-name: fadeInDownBig;
+                    animation-delay: $delay + 1.5s;
+                    animation-iteration-count: 1;
+                    animation-duration: 0.3s;
+                }
+            }
+
+            .image {
+                max-width: 70%;
+                width: 300px;
+                border-radius: 10px;
+                animation-delay: $delay + 2s;
+            }
+
+            .donateInfo {
+                animation-duration: 1s;
+                animation-iteration-count: infinite;
+                display: block;
+            }
+
+            .wtf {
+                font-weight: 700;
+                font-size: 44px;
+                color: #f12323;
+                text-shadow: rgba(0, 0, 0, 0.5) 0 0 2px;
+            }
+
+            .user {
+                color: #aeb314;
+                text-shadow: #000 0 0 3px;
+                animation-duration: 1s;
+                animation-delay: $delay + 2.7s;
+            }
+
+            .text {
+                animation-delay: $delay + 3.4s;
+            }
+        }
+
+        &.eighth {
+            $delay: 4150ms;
+
+            max-width: 50vw;
+            margin-top: 32vh;
+            height: 68vh;
+            overflow: initial;
+
+            animation-name: my-rotate;
+            animation-delay: $delay;
+            animation-duration: 1000ms;
+            animation-iteration-count: 5;
+            animation-timing-function: linear;
+
+            @keyframes my-rotate {
+                0% {
+                    transform: rotate(0deg);
+                }
+
+                100% {
+                    transform: rotate(360deg);
+                }
+            }
+
+            .image {
+                width: 300px;
+                animation-delay: $delay;
+            }
+
+            .user {
+                font-size: 32px;
+
+                .donateInfo {
+                    animation-delay: $delay;
+
+                    .nickname {
+                        $offset: 325px;
+                        $transformOffset: $offset - 10px;
+
+                        color:red;
+                        margin-top: -$offset;
+                        margin-bottom: $offset;
+                        
+                        opacity: 0;
+                        animation-name: my-hinge;
+                        animation-delay: 3500ms;
+                        animation-duration: 650ms;
+                        animation-fill-mode: forwards;
+
+                        @keyframes my-hinge {
+                            0% {
+                                animation-timing-function: ease-in-out;
+                                opacity: 1;
+                            }
+                            20%, 60% {
+                                animation-timing-function: ease-in-out;
+                                transform: rotate(80deg);
+                            }
+                            40%, 80% {
+                                animation-timing-function: ease-in-out;
+                                transform: rotate(60deg);
+                            }
+                            100% {
+                                transform: translate(0, $transformOffset);
+                                opacity: 1;
+                            }
+                        }
+                    }
+
+                    .donateInfoRest {
+                        animation-delay: $delay;
+                    }
+                }
+            }
+
+            .text {
+                font-size: 22px;
+                animation-delay: $delay;
+            }
+        }
+    }
+}
+
+.subGoal {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+
+    h1 {
+        font-size: 16px;
+    }
+
+    .goal {
+        position: relative;
+
+        h5 {
+            font-size: 82px;
+
+            text-align: center;
+            color: #E56AB3;
+            @include whiteTextBorder();
+        }
+
+        .text {
+            text-align: center;
+            font-weight: 700;
+            font-size: 100px;
+            color: #e040a1;
+
+            @include whiteTextBorder();
+        }
+
+    }
+}
+
+.queue {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    padding-left: 20px;
+
+    .queueString {
+        font-size: 65px;
+        color: #E56AB3;
+
+        @include whiteTextBorder();
+    }
+
+    .queueList {
+        font-size: 50px;
+        list-style-position: inside;
+
+        .queueItem {
+            color: #e040a1;
+
+            @include whiteTextBorder();
+        }
+    }
+}
