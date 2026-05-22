@@ -83,11 +83,11 @@ switch (import.meta.env.VITE_APP_ENV) {
 @observer
 export class PageChannel extends React.Component<IPageChannelProps & RouteComponentProps<{ id: string }>, {}> {
     connecting: boolean = true;
-    currentEvent?: EventModel;
-    currentPlaying?: HTMLAudioElement;
+    currentEvent: EventModel | undefined = undefined;
+    currentPlaying: HTMLAudioElement | undefined = undefined;
 
     donateList: DonateEventModel[] = [];
-    currentDonate?: DonateEventModel;
+    currentDonate: DonateEventModel | undefined = undefined;
 
     private ws?: WebSocket;
     private timeout: number = 250;

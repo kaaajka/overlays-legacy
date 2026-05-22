@@ -10,8 +10,8 @@ import { AppConfig } from "../config";
 @observer
 export class PageChannelFollowers extends React.Component<IPageChannelFollowersProps & RouteComponentProps<{ id: string }>, {}> {
     connecting: boolean = true;
-    current?: number;
-    goal?: number;
+    current: number | undefined = undefined;
+    goal: number | undefined = undefined;
 
     private ws?: WebSocket;
     private timeout: number = 250;
