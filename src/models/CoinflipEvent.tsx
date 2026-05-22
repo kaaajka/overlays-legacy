@@ -8,10 +8,10 @@ interface ICoinflipEventSchema extends IEventModelSchema {
 }
 
 export class CoinflipEventModel extends EventModel {
-    segments?: CoinflipSegmentModel[];
-    winner?: number;
-    coin_landing_side?: number;
-    coin_chosen_side?: number;
+    segments: CoinflipSegmentModel[] | undefined = undefined;
+    winner: number | undefined = undefined;
+    coin_landing_side: number | undefined = undefined;
+    coin_chosen_side: number | undefined = undefined;
 
     constructor(data: ICoinflipEventSchema) {
         super(data);

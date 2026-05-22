@@ -3,7 +3,7 @@ import { computed, makeObservable, observable } from "mobx";
 import { EventModel, IEventModelSchema } from "./Event";
 
 export class NormalEventModel extends EventModel {
-    time?: number;
+    time: number | undefined = undefined;
 
     constructor(data: IEventModelSchema) {
         super(data);

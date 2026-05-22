@@ -9,8 +9,8 @@ interface IRouletteEventSchema extends IEventModelSchema {
 
 export class RouletteEventModel extends EventModel {
     state = EventState.STARTED;
-    items?: RouletteItemModel[];
-    winner?: number;
+    items: RouletteItemModel[] | undefined = undefined;
+    winner: number | undefined = undefined;
 
     constructor(data: IRouletteEventSchema) {
         super(data);
