@@ -6,6 +6,8 @@ import { action, makeObservable, observable, runInAction } from 'mobx';
 import { AppConfig } from '../config';
 import { QueueEventModel } from '../models/QueueEvent';
 import { debugLog } from '../debug';
+import { safeJsonParse } from '../protocol/safeJson';
+import { isLegacyQueueMessage } from '../protocol/legacyOverlayProtocol';
 
 @observer
 export class PageChannelQueue extends React.Component<
@@ -117,37 +119,25 @@ export class PageChannelQueue extends React.Component<
       );
     };
     ws.onmessage = ({ isTrusted, data }) => {
-      if (!isTrusted) return;
+      if (!isTrusted || typeof data !== 'string') return;
 
-      try {
-        const json = JSON.parse(data);
-
-        if (
-          !json.hasOwnProperty('event') ||
-          !json.hasOwnProperty('key') ||
-          !json.hasOwnProperty('id')
-        )
-          return;
-
-        if (json.event === 'queue') {
-          runInAction(() => {
-            if (json.key === 'set') {
-              this.queue = json.args.list.map((el) => new QueueEventModel(el));
-            } else if (json.key === 'add') {
-              const existingEvent = this.queue.find(
-                (e) => e.id === json.args.id,
-              );
-              if (!existingEvent)
-                this.queue.push(new QueueEventModel(json.args));
-            } else if (json.key === 'delete') {
-              const index = this.queue.findIndex((e) => e.id === json.args.id);
-              if (index > -1) this.queue.splice(index, 1);
-            }
-          });
-        }
-      } catch (err) {
-        debugLog(err);
+      const json = safeJsonParse(data);
+      if (!isLegacyQueueMessage(json)) {
+        debugLog('Ignored unknown legacy queue websocket payload', json);
+        return;
       }
+
+      runInAction(() => {
+        if (json.key === 'set') {
+          this.queue = json.args.list.map((el) => new QueueEventModel(el));
+        } else if (json.key === 'add') {
+          const existingEvent = this.queue.find((e) => e.id === json.args.id);
+          if (!existingEvent) this.queue.push(new QueueEventModel(json.args));
+        } else if (json.key === 'delete') {
+          const index = this.queue.findIndex((e) => e.id === json.args.id);
+          if (index > -1) this.queue.splice(index, 1);
+        }
+      });
     };
 
     this.ws = ws;

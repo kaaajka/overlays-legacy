@@ -7,6 +7,8 @@ import Goal from './Goal';
 
 import { AppConfig } from '../config';
 import { debugLog } from '../debug';
+import { safeJsonParse } from '../protocol/safeJson';
+import { isLegacyGoalMessage } from '../protocol/legacyOverlayProtocol';
 
 @observer
 export class PageChannelFollowers extends React.Component<
@@ -120,29 +122,28 @@ export class PageChannelFollowers extends React.Component<
       );
     };
     ws.onmessage = ({ isTrusted, data }) => {
-      if (!isTrusted) return;
+      if (!isTrusted || typeof data !== 'string') return;
 
-      try {
-        const json = JSON.parse(data);
+      const json = safeJsonParse(data);
+      if (!isLegacyGoalMessage(json)) {
+        debugLog('Ignored unknown legacy goal websocket payload', json);
+        return;
+      }
 
-        switch (json.type) {
-          case 'set':
-            runInAction(() => {
+      switch (json.type) {
+        case 'set':
+          runInAction(() => {
+            this.current = json.args.current;
+            this.goal = json.args.goal;
+          });
+          break;
+        case 'update':
+          runInAction(() => {
+            if (typeof json.args.current !== 'undefined')
               this.current = json.args.current;
-              this.goal = json.args.goal;
-            });
-            break;
-          case 'update':
-            runInAction(() => {
-              if (typeof json.args.current !== 'undefined')
-                this.current = json.args.current;
-              if (typeof json.args.goal !== 'undefined')
-                this.goal = json.args.goal;
-            });
-            break;
-        }
-      } catch (err) {
-        debugLog(err);
+            if (typeof json.args.goal !== 'undefined') this.goal = json.args.goal;
+          });
+          break;
       }
     };
 

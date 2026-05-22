@@ -1,0 +1,20 @@
+{
+  "event": "prepare",
+  "key": "donate",
+  "id": "donate-alert-1",
+  "args": {
+    "id": "donate-alert-1",
+    "nickname": "TestUser",
+    "message": "Testowy donejt z fixture",
+    "amount": 5000,
+    "commission": 0,
+    "test": true,
+    "resent": false,
+    "tts_nickname_google_male": "",
+    "tts_nickname_google_female": "",
+    "tts_message_google_male": "",
+    "tts_message_google_female": "",
+    "tts_amount_google_male": "",
+    "tts_amount_google_female": ""
+  }
+}

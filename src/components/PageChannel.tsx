@@ -1,5 +1,4 @@
 import React from 'react';
-// import ReactHTMLParser from "html-react-parser";
 import { RouteComponentProps } from 'react-router-dom';
 import { observer } from 'mobx-react';
 import { action, makeObservable, observable, reaction } from 'mobx';
@@ -26,6 +25,8 @@ import dogsImage from '../assets/images/pobrane_5.png';
 import rouletteImage from '../assets/images/pobrane_6.webp';
 import coinflipImage from '../assets/images/cat_surprised.gif';
 import { debugLog } from '../debug';
+import { safeJsonParse } from '../protocol/safeJson';
+import { getRecord, isLegacyMainMessage } from '../protocol/legacyOverlayProtocol';
 
 const images: { [key: string]: any } = {
   mute: muteImage,
@@ -284,139 +285,140 @@ export class PageChannel extends React.Component<
       );
     };
     ws.onmessage = ({ isTrusted, data }) => {
-      if (!isTrusted) return;
+      if (!isTrusted || typeof data !== 'string') return;
 
-      try {
-        const json = JSON.parse(data);
-        if (
-          !json.hasOwnProperty('event') ||
-          !json.hasOwnProperty('key') ||
-          !json.hasOwnProperty('id')
-        )
-          return;
+      const json = safeJsonParse(data);
+      if (!isLegacyMainMessage(json)) {
+        debugLog('Ignored unknown legacy main websocket payload', json);
+        return;
+      }
 
-        if (json.event === 'prepare' && json.key === 'playSound') {
-          let { volume, url } = json.args;
+      const args = getRecord(json.args);
 
-          if (!volume || !url) return;
+      if (json.event === 'prepare' && json.key === 'playSound') {
+        const volume = typeof args?.volume === 'number' ? args.volume : undefined;
+        const url = typeof args?.url === 'string' ? args.url : undefined;
 
-          const audio = new Audio(url);
+        if (!volume || !url) return;
 
-          audio.volume = Number(volume);
+        const audio = new Audio(url);
 
-          audio.play().catch(() => {});
-          // } else if (json.event === "prepare" && json.key === "donate") {
-          // } else if (["prepare", "test"].includes(json.event) && json.key === "donate") {
-        } else if (
-          EVENTS['donate_prepare'].includes(json.event) &&
-          json.key === 'donate'
-        ) {
-          const preparedArgs = json.args;
-          if (typeof preparedArgs.message !== 'undefined') {
-            preparedArgs.message = this.prepareDonateMessage(
-              preparedArgs.message,
-            );
-          }
-          this.pushDonate(new DonateEventModel(json.args));
-        } else if (json.event === 'alertList') {
-          if (json.key === 'set') {
-            this.donateAlertQueue = json.args.list;
+        audio.volume = Number(volume);
+
+        audio.play().catch(() => {});
+      } else if (
+        EVENTS['donate_prepare'].includes(json.event) &&
+        json.key === 'donate' &&
+        args
+      ) {
+        const preparedArgs = {
+          id: typeof args.id === 'string' ? args.id : json.id,
+          nickname: typeof args.nickname === 'string' ? args.nickname : '',
+          message: typeof args.message === 'string' ? this.prepareDonateMessage(args.message) : '',
+          amount: typeof args.amount === 'number' ? args.amount : 0,
+          commission: typeof args.commission === 'number' ? args.commission : 0,
+          audio_url: typeof args.audio_url === 'string' ? args.audio_url : null,
+          tts_nickname_google_male: typeof args.tts_nickname_google_male === 'string' ? args.tts_nickname_google_male : '',
+          tts_nickname_google_female: typeof args.tts_nickname_google_female === 'string' ? args.tts_nickname_google_female : '',
+          tts_message_google_male: typeof args.tts_message_google_male === 'string' ? args.tts_message_google_male : '',
+          tts_message_google_female: typeof args.tts_message_google_female === 'string' ? args.tts_message_google_female : '',
+          tts_amount_google_male: typeof args.tts_amount_google_male === 'string' ? args.tts_amount_google_male : '',
+          tts_amount_google_female: typeof args.tts_amount_google_female === 'string' ? args.tts_amount_google_female : '',
+          test: typeof args.test === 'boolean' ? args.test : false,
+          resent: typeof args.resent === 'boolean' ? args.resent : false,
+        };
+        this.pushDonate(new DonateEventModel(preparedArgs));
+      } else if (json.event === 'alertList' && args) {
+        if (json.key === 'set' && Array.isArray(args.list)) {
+          this.donateAlertQueue = args.list.filter(
+            (item): item is string => typeof item === 'string',
+          );
+
+          this.submitFirstAlert();
+        } else if (json.key === 'add' && typeof args.id === 'string') {
+          const index = this.donateAlertQueue.indexOf(args.id);
+
+          if (index === -1) {
+            this.donateAlertQueue.push(args.id);
 
             this.submitFirstAlert();
-          } else if (json.key === 'add') {
-            const index = this.donateAlertQueue.indexOf(json.args.id);
-
-            if (index === -1) {
-              this.donateAlertQueue.push(json.args.id);
-
-              this.submitFirstAlert();
-            }
-          } else if (json.key === 'delete') {
-            const index = this.donateAlertQueue.indexOf(json.args.id);
-
-            if (index > -1) this.donateAlertQueue.splice(index, 1);
           }
-        } else {
-          // if (["prepare", "started"].includes(json.event)) {
-          // if (["t_prepare", "prepare", "t_started", "started"].includes(json.event)) {
-          if (EVENTS['prepare_started'].includes(json.event)) {
-            const params = {
-              id: json.id,
-              key: json.key,
-              name: json.args.name,
-              description: json.args.description,
-            };
-            let event: EventModel;
+        } else if (json.key === 'delete' && typeof args.id === 'string') {
+          const index = this.donateAlertQueue.indexOf(args.id);
+
+          if (index > -1) this.donateAlertQueue.splice(index, 1);
+        }
+      } else {
+        if (EVENTS['prepare_started'].includes(json.event) && args) {
+          const params = {
+            id: json.id,
+            key: json.key,
+            name: typeof args.name === 'string' ? args.name : '',
+            description: typeof args.description === 'string' ? args.description : '',
+          };
+          let event: EventModel;
+          switch (json.key) {
+            case 'roulette':
+              event = new RouletteEventModel({
+                ...params,
+                items: Array.isArray(args.items) ? (args.items as any[]) : [],
+              });
+              break;
+            case 'coinflip':
+              event = new CoinflipEventModel({
+                ...params,
+                segments: Array.isArray(args.segments) ? (args.segments as any[]) : [],
+              });
+              break;
+            default:
+              event = new NormalEventModel(params);
+              break;
+          }
+
+          const isPrepareState = ['t_prepare', 'prepare'].includes(json.event);
+          const toUpdate: {
+            state: EventState;
+            time?: number;
+            winner?: number;
+            coin_landing_side?: number;
+          } = { state: isPrepareState ? EventState.PREPARE : EventState.STARTED };
+
+          if (isPrepareState) {
+            let list: HTMLAudioElement[];
             switch (json.key) {
-              case 'roulette':
-                event = new RouletteEventModel({
-                  ...params,
-                  items: json.args.items,
-                });
+              case 'dogs':
+                list = dogsSounds;
                 break;
               case 'coinflip':
-                event = new CoinflipEventModel({
-                  ...params,
-                  segments: json.args.segments,
-                });
+                list = coinflipSounds;
                 break;
               default:
-                event = new NormalEventModel(params);
+                list = randomSounds;
                 break;
             }
+            const randomSound = list[Math.floor(Math.random() * list.length)];
 
-            const toUpdate: {
-              state: EventState;
-              time?: number;
-              winner?: number;
-              coin_landing_side?: number;
-            } = { state: json.event };
+            this.setCurrentPlaying(randomSound);
+          } else {
+            if (['roulette', 'coinflip'].includes(json.key) && typeof args.winner === 'number')
+              toUpdate.winner = args.winner;
+            if (json.key === 'coinflip' && typeof args.coin_landing_side === 'number')
+              toUpdate.coin_landing_side = args.coin_landing_side;
 
-            // if (json.event === "prepare") {
-            if (json.event === 't_prepare') toUpdate.state = EventState.PREPARE;
-            if (['t_prepare', 'prepare'].includes(json.event)) {
-              let list: HTMLAudioElement[];
-              switch (json.key) {
-                case 'dogs':
-                  list = dogsSounds;
-                  break;
-                case 'coinflip':
-                  list = coinflipSounds;
-                  break;
-                default:
-                  list = randomSounds;
-                  break;
-              }
-              const randomSound = list[Math.floor(Math.random() * list.length)];
-
-              this.setCurrentPlaying(randomSound);
-            } else {
-              if (['roulette', 'coinflip'].includes(json.key))
-                toUpdate.winner = json.args.winner;
-              if (json.key === 'coinflip')
-                toUpdate.coin_landing_side = json.args.coin_landing_side;
-
-              toUpdate.time = json.args.time;
-            }
-
-            event.update(toUpdate);
-
-            this.setCurrentEvent(event);
-            // } else if (json.event === "update") {
-            // } else if (["t_update", "update"].includes(json.event)) {
-          } else if (EVENTS['update'].includes(json.event)) {
-            if (this.currentEvent && this.currentEvent.id === json.id) {
-              this.currentEvent.update({ [json.args.key]: json.args.value });
-            }
-            // } else if (json.event === "finished") {
-            // } else if (["t_finished", "finished"].includes(json.event)) {
-          } else if (EVENTS['finished'].includes(json.event)) {
-            if (this.currentEvent && this.currentEvent.id === json.id)
-              this.setCurrentEvent(undefined);
+            if (typeof args.time === 'number') toUpdate.time = args.time;
           }
+
+          event.update(toUpdate);
+
+          this.setCurrentEvent(event);
+        } else if (EVENTS['update'].includes(json.event) && args) {
+          if (this.currentEvent && this.currentEvent.id === json.id && typeof args.key === 'string') {
+            this.currentEvent.update({ [args.key]: args.value });
+          }
+        } else if (EVENTS['finished'].includes(json.event)) {
+          if (this.currentEvent && this.currentEvent.id === json.id)
+            this.setCurrentEvent(undefined);
         }
-      } catch (err) {
-        debugLog(err);
       }
     };
 

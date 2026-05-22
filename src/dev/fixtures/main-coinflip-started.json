@@ -1,0 +1,16 @@
+{
+  "event": "started",
+  "key": "coinflip",
+  "id": "coinflip-1",
+  "args": {
+    "name": "Coinflip",
+    "description": "Testowy coinflip",
+    "time": 10,
+    "winner": 1,
+    "coin_landing_side": 1,
+    "segments": [
+      { "id": 0, "name": "Orzeł", "image": "cat_surprised.gif" },
+      { "id": 1, "name": "Reszka", "image": "cat_surprised.gif" }
+    ]
+  }
+}

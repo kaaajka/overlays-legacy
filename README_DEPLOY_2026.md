@@ -1,36 +1,39 @@
-# Kaaajka legacy overlays frontend - audit/deploy notes 2026
+# Kaaajka legacy overlays frontend - 2026 deploy notes
 
-## Status po migracji
+This project is a legacy OBS overlay frontend migrated from Create React App to Vite. The goal is stable static hosting while preserving compatibility with the old backend.
 
-Ten projekt jest starym frontendem overlayów po migracji z Create React App do Vite. Celem nie była przebudowa aplikacji, tylko stabilne hostowanie jako statyczny frontend na Vercel/Netlify.
+## Stack
 
-## Co zostało naprawione
+- Vite
+- React 17
+- React Router 5
+- MobX + `mobx-react`
+- Sass
+- pnpm 10.17.1
 
-- Zastąpiono Create React App / `react-scripts@4` przez Vite.
-- Projekt używa `pnpm@10.17.1` zamiast npm, bo `npm install` i `npm ci` zawieszały się na Vercelu błędem `Exit handler never called`.
-- Przypięto Node.js do `22.x`, żeby Vercel nie używał przypadkowo Node 24.
-- Dodano `pnpm.onlyBuiltDependencies` dla `esbuild` i `@parcel/watcher`.
-- Dodano `vite.config.ts` z obsługą legacy dekoratorów MobX `@observer`.
-- Przeniesiono entry HTML do root `index.html`, zgodnie z modelem Vite.
-- Zmieniono zmienne CRA:
-  - `process.env.PUBLIC_URL` -> `import.meta.env.BASE_URL`
-  - `process.env.REACT_APP_ENV` -> `import.meta.env.VITE_APP_ENV`
-- WebSocket przeniesiono do env: `VITE_WS_URL`.
-- Publiczne assety audio są budowane przez `AppConfig.assetUrl(...)`, więc działają także przy base path.
-- Zainicjalizowano pola MobX oznaczone jako `observable`, żeby Vite/MobX nie crashował runtime’owo.
-- Usunięto nieograniczoną pętlę Sass `@while` z generowania halo, która mogła zawiesić build na CI/Vercelu.
-- Dodano konfigurację Vercel: `vercel.json`.
-- Dodano konfigurację Netlify: `netlify.toml`.
+## Runtime contract
 
-## Co celowo zostało nietknięte
+The old backend is not changed. Existing OBS URLs remain valid:
 
-- React zostaje na 17.
-- React Router zostaje na 5.
-- MobX i `mobx-react` zostają.
-- Logika overlayów, modeli eventów, kolejek, audio i animacji została zachowana.
-- Nie robiono refaktoru klasowych komponentów na hooki.
+```txt
+/channel/:uuid
+/channel/:uuid/subs
+/channel/:uuid/followers
+/channel/:uuid/queue
+```
 
-## Komendy lokalne
+WebSocket endpoints are derived from `VITE_WS_URL`:
+
+```txt
+main      -> VITE_WS_URL?account=:uuid
+subs      -> VITE_WS_URL/subs?account=:uuid
+followers -> VITE_WS_URL/followers?account=:uuid
+queue     -> VITE_WS_URL/queue?account=:uuid
+```
+
+See `OVERLAY_PROTOCOL.md` for payload details.
+
+## Local commands
 
 ```bash
 corepack enable
@@ -42,31 +45,29 @@ pnpm run preview
 pnpm exec tsc --noEmit
 ```
 
-## Vercel
-
-Build jest kontrolowany przez `vercel.json`.
-
-Environment Variables:
+## Environment variables
 
 ```env
 VITE_APP_ENV=prod
 VITE_WS_URL=wss://kaaajka.nedi.me/ws
+VITE_DEBUG_LOGS=false
 ```
 
-Vercel powinien używać:
-- Node.js `22.x`
-- `pnpm@10.17.1`
-- install: `pnpm install --frozen-lockfile`
-- build: `pnpm run build`
-- output: `dist`
+`VITE_DEBUG_LOGS=true` enables debug logs in production-like environments. Keep it off for OBS production scenes unless diagnosing a problem.
+
+## Vercel
+
+Build is controlled by `vercel.json`.
+
+Expected settings:
+
+- Install command: Corepack + `pnpm install --frozen-lockfile`
+- Build command: `pnpm run build`
+- Output directory: `dist`
+
+The package currently pins Node to `22.x` for stable legacy deployment. Move to Node 24 only through a separate verified PR.
 
 ## Netlify
-
-Base directory:
-
-```txt
-.
-```
 
 Build command:
 
@@ -80,15 +81,42 @@ Publish directory:
 dist
 ```
 
-Environment Variables:
+## Source-control rules
 
-```env
-VITE_APP_ENV=prod
-VITE_WS_URL=wss://kaaajka.nedi.me/ws
+Do not commit:
+
+- `.env`
+- `dist/`
+- `node_modules/`
+
+Do commit:
+
+- `package.json`
+- `pnpm-lock.yaml`
+- `src/`
+- `public/`
+- Vite/Vercel/Netlify config files
+- protocol and QA docs
+
+## Verification before merge
+
+```bash
+pnpm install
+pnpm run build
+pnpm exec tsc --noEmit
 ```
 
-## Znane długi techniczne
+Manual route check:
 
-- `src/style/app.scss` nadal używa przestarzałych funkcji Sass: `darken()`, `lighten()`, `random()`.
-- SCSS generuje dużo CSS na buildzie. Działa, ale docelowo warto przenieść losową generację efektów do runtime albo zastąpić deterministycznymi keyframes.
-- Frontend nadal opiera się na klasowych komponentach i MobX decorators. To jest legacy, ale stabilne po obecnych poprawkach.
+```txt
+/channel/:uuid
+/channel/:uuid/subs
+/channel/:uuid/followers
+/channel/:uuid/queue
+```
+
+Expected runtime:
+
+- no red runtime errors from the app bundle,
+- WebSocket connects on valid routes,
+- debug `console.log` output is hidden unless `VITE_DEBUG_LOGS=true`.

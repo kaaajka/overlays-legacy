@@ -1,0 +1,12 @@
+{
+  "event": "queue",
+  "key": "set",
+  "id": "queue-set-1",
+  "args": {
+    "list": [
+      { "id": "active-1", "name": "Aktywny event", "username": "System" },
+      { "id": "queued-1", "name": "Ruletka", "username": "ViewerOne" },
+      { "id": "queued-2", "name": "Coinflip", "username": "ViewerTwo" }
+    ]
+  }
+}

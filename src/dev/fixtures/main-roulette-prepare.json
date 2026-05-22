@@ -1,0 +1,13 @@
+{
+  "event": "prepare",
+  "key": "roulette",
+  "id": "roulette-1",
+  "args": {
+    "name": "Ruletka",
+    "description": "Testowa ruletka",
+    "items": [
+      { "id": 1, "name": "Opcja A", "image": "pobrane_6.webp", "color": "#ffcc00" },
+      { "id": 2, "name": "Opcja B", "image": "pobrane_6.webp", "color": "#00ccff" }
+    ]
+  }
+}

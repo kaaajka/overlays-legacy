@@ -13,7 +13,6 @@ import Donate7 from "./donations/Donate7";
 import Donate8 from "./donations/Donate8";
 import Donate9 from "./donations/Donate9";
 import Donate10 from "./donations/Donate10";
-import Donate11 from "./donations/Donate11";
 
 const templates = [
     {
@@ -198,23 +197,6 @@ const templates = [
         template: Donate10
     },
     
-    {
-        amount: 100000,
-        amountWithoutCommission: true,
-        images: ["https://media.discordapp.net/stickers/1175218998296723506.webp?size=160&quality=lossless"],
-        sound: {
-            url: "https://dxokx05hbd6dq.cloudfront.net/upload/media/user/0006/52/eebc99ee8c6af6578afd29d443bbf540efd1e796.mp3",
-            volume: 1,
-        },
-        speech: {
-            readAmount: true,
-            readMessage: true,
-            readNickname: true,
-            voiceType: "GOOGLE_POLISH_FEMALE",
-            volume: 0.4,
-        },
-        template: Donate11
-    },
 ];
 
 @observer

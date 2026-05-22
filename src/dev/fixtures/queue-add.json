@@ -1,0 +1,10 @@
+{
+  "event": "queue",
+  "key": "add",
+  "id": "queue-add-1",
+  "args": {
+    "id": "queued-3",
+    "name": "Mute",
+    "username": "ViewerThree"
+  }
+}
