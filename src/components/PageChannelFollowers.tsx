@@ -9,6 +9,7 @@ import { AppConfig } from '../config';
 import { debugLog } from '../debug';
 import { safeJsonParse } from '../protocol/safeJson';
 import { isLegacyGoalMessage } from '../protocol/legacyOverlayProtocol';
+import { buildLegacyWsUrl } from '../protocol/legacyWsUrl';
 
 @observer
 export class PageChannelFollowers extends React.Component<
@@ -85,7 +86,7 @@ export class PageChannelFollowers extends React.Component<
   }
 
   private createConnection(accountKey: string) {
-    const ws = new WebSocket(AppConfig.ws + `/followers?account=${accountKey}`);
+    const ws = new WebSocket(buildLegacyWsUrl(AppConfig.ws, accountKey, 'followers'));
 
     ws.onopen = () => {
       debugLog('connected websocket main component');

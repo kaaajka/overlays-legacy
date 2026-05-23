@@ -27,6 +27,7 @@ import coinflipImage from '../assets/images/cat_surprised.gif';
 import { debugLog } from '../debug';
 import { safeJsonParse } from '../protocol/safeJson';
 import { getRecord, isLegacyMainMessage } from '../protocol/legacyOverlayProtocol';
+import { buildLegacyWsUrl } from '../protocol/legacyWsUrl';
 
 const images: { [key: string]: any } = {
   mute: muteImage,
@@ -252,7 +253,7 @@ export class PageChannel extends React.Component<
   }
 
   private createConnection(accountKey: string) {
-    const ws = new WebSocket(AppConfig.ws + `?account=${accountKey}`);
+    const ws = new WebSocket(buildLegacyWsUrl(AppConfig.ws, accountKey, 'main'));
 
     ws.onopen = () => {
       debugLog('connected websocket main component');

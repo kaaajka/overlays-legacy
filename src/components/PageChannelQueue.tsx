@@ -8,6 +8,7 @@ import { QueueEventModel } from '../models/QueueEvent';
 import { debugLog } from '../debug';
 import { safeJsonParse } from '../protocol/safeJson';
 import { isLegacyQueueMessage } from '../protocol/legacyOverlayProtocol';
+import { buildLegacyWsUrl } from '../protocol/legacyWsUrl';
 
 @observer
 export class PageChannelQueue extends React.Component<
@@ -47,7 +48,7 @@ export class PageChannelQueue extends React.Component<
     const canDraw = !this.connecting && this.queue.length > 1;
 
     const queueItems = this.queue.slice(1).map((item) => (
-      <li className={'queueItem'}>
+      <li key={item.id} className={'queueItem'}>
         {item.username} - {item.name}
       </li>
     ));
@@ -83,7 +84,7 @@ export class PageChannelQueue extends React.Component<
   }
 
   private createConnection(accountKey: string) {
-    const ws = new WebSocket(AppConfig.ws + `/queue?account=${accountKey}`);
+    const ws = new WebSocket(buildLegacyWsUrl(AppConfig.ws, accountKey, 'queue'));
 
     ws.onopen = () => {
       debugLog('connected websocket main component');

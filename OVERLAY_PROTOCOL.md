@@ -21,6 +21,17 @@ VITE_DEBUG_LOGS=false
 
 `VITE_WS_URL` is the base WebSocket URL. Route-specific overlays append a path and `?account=:uuid`.
 
+Runtime URL creation is centralized in `src/protocol/legacyWsUrl.ts`. That helper is intentionally small and only preserves the frozen legacy mapping:
+
+| Socket kind | Final WebSocket URL |
+| --- | --- |
+| `main` | `VITE_WS_URL?account=:uuid` |
+| `subs` | `VITE_WS_URL/subs?account=:uuid` |
+| `followers` | `VITE_WS_URL/followers?account=:uuid` |
+| `queue` | `VITE_WS_URL/queue?account=:uuid` |
+
+Do not change this helper to introduce token auth, new query params, or new endpoint names while this repo targets the old backend.
+
 ## Route: main overlay
 
 ### URL
