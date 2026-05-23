@@ -1,7 +1,7 @@
 import { action, makeObservable, observable } from "mobx";
 
-import { EventModel, EventState, IEventModelSchema } from "./Event";
-import { IRouletteItemSchema, RouletteItemModel } from "./RouletteItem";
+import { EventModel, EventState, type IEventModelSchema } from "./Event";
+import { type IRouletteItemSchema, RouletteItemModel } from "./RouletteItem";
 
 interface IRouletteEventSchema extends IEventModelSchema {
   items: IRouletteItemSchema[];

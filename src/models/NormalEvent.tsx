@@ -1,6 +1,6 @@
 import { computed, makeObservable, observable } from "mobx";
 
-import { EventModel, IEventModelSchema } from "./Event";
+import { EventModel, type IEventModelSchema } from "./Event";
 
 export class NormalEventModel extends EventModel {
   time: number | undefined = undefined;
@@ -22,7 +22,7 @@ export class NormalEventModel extends EventModel {
     const seconds = this.time % 60;
 
     return [hours, minutes, seconds]
-      .map((v) => (v < 10 ? "0" + v : v))
+      .map((v) => (v < 10 ? `0${v}` : v))
       .filter((v, i) => v !== "00" || i > 0)
       .join(":");
   }
