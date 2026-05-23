@@ -19,14 +19,14 @@ import {
 } from "../dev/replay/legacyReplay";
 
 @observer
-export class PageChannelQueue extends React.Component<IPageChannelQueueProps & RouterCompatProps> {
+export class PageChannelQueue extends React.Component<RouterCompatProps> {
   connecting: boolean = true;
   connectionFailed: boolean = false;
   queue: QueueEventModel[] = [];
 
   private socket?: LegacyOverlaySocketController;
 
-  constructor(props: IPageChannelQueueProps & RouterCompatProps) {
+  constructor(props: RouterCompatProps) {
     super(props);
 
     makeObservable(this, {
@@ -151,4 +151,3 @@ export class PageChannelQueue extends React.Component<IPageChannelQueueProps & R
   }
 }
 
-interface IPageChannelQueueProps {}
