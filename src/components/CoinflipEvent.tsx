@@ -74,7 +74,7 @@ export default class CoinflipEvent extends React.Component<ICoinflipEventProps> 
     if (event.state === EventState.PREPARE) {
       return (
         <div className={"event center"}>
-          {Object.prototype.hasOwnProperty.call(images, event.key) && (
+          {Object.hasOwn(images, event.key) && (
             <div className={"image"}>
               <img src={images[event.key]} alt={""} />
             </div>

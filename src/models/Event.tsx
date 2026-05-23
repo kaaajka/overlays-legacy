@@ -35,7 +35,7 @@ export class EventModel {
 
   update(args: Record<string, unknown>) {
     for (const [key, value] of Object.entries(args)) {
-      if (!Object.prototype.hasOwnProperty.call(this, key)) continue;
+      if (!Object.hasOwn(this, key)) continue;
 
       if (key === "state") {
         if (Object.values(EventState).includes(value as EventState)) this.state = value as EventState;
