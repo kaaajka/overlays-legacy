@@ -2,236 +2,122 @@
 
 ## Scope
 
-This report classifies the remaining Biome lint debt after the recent small cleanup commits.
-It is intentionally documentation-only. It does not change runtime code, routing, WebSocket logic,
-DonateEvent, donation templates, package scripts, Biome config, or TypeScript config.
+This report documents the final known Biome lint state for `overlays-legacy` after the focused lint-cleanup commits.
+It is intentionally documentation-only. It does not change runtime code, routing, WebSocket logic, DonateEvent,
+donation templates, package scripts, Biome config, or TypeScript config.
 
-Requested command:
+Requested validation commands:
 
 ```bash
-pnpm run lint -- --max-diagnostics=200
+pnpm test
+pnpm run build
+pnpm run typecheck
+pnpm run lint
 ```
 
-In the assistant execution environment, `pnpm` is not available, so the command could not be executed here.
-The classification below is based on the latest local lint output supplied by the project operator and a
-source-level scan of the current tree.
+In the assistant execution environment, `pnpm` is not available, so these commands could not be executed here.
+The final status below is based on the project operator's local validation: test, build, and typecheck pass, and
+Biome lint passes with three warnings only.
 
 ## 1. Current lint summary
 
-Latest observed lint output, before removing the `PageChannelQueue` empty props interface, reported:
+Current accepted state:
 
-- Test/build/typecheck status: passing locally.
-- Biome lint status: failing.
-- Reported totals: 14 errors, 58 warnings, 14 infos.
-- Diagnostics were truncated by Biome's default diagnostic limit.
-- One known error, `noEmptyInterface` in `PageChannelQueue`, has since been fixed.
+- `pnpm test`: passes.
+- `pnpm run build`: passes.
+- `pnpm run typecheck`: passes.
+- `pnpm run lint`: passes with three warnings.
 
-Expected current state after that cleanup:
+Final remaining warnings:
 
-- The `PageChannelQueue` empty interface diagnostic should be gone.
-- Remaining lint debt is still expected, especially in donation template components and a few legacy animation helpers.
-- `pnpm run lint -- --max-diagnostics=200` should be run locally to refresh the exact counts.
+| File | Warning area | Reason |
+|---|---|---|
+| `src/components/PageChannel.tsx` | `args.items as any[]` | Legacy backend WebSocket payload boundary. |
+| `src/components/PageChannel.tsx` | `args.segments as any[]` | Legacy backend WebSocket payload boundary. |
+| `src/models/Event.tsx` | `(this as any)[key] = value` | Legacy dynamic model-update mechanism. |
 
-Most common observed rules:
+These warnings are accepted intentionally. They should not be replaced with fake weak types just to make the linter quiet.
 
-| Rule | Area | Risk if auto-fixed broadly | Notes |
-|---|---|---:|---|
-| `lint/style/useImportType` | donation templates, `NormalEvent`, model imports | Low/Medium | Low for model imports. Medium for `React` imports while `jsx` remains `react`. |
-| `lint/complexity/useArrowFunction` | donation template function components | Low | Safe if component does not use `this`, `arguments`, or function hoisting semantics. |
-| `lint/style/useTemplate` | `Donate1`, `Donate2` traffic class names | Low | Mechanical template literal conversion. |
-| `lint/suspicious/noPrototypeBuiltins` | `CoinflipEvent`, likely `RouletteEvent` | Medium | Biome prefers `Object.hasOwn`, but project targets ES2021. |
-| `lint/suspicious/noArrayIndexKey` | `CoinflipEvent` fixed segment list | High | Do not auto-fix without animation/ref review. |
+## 2. Final accepted warnings
 
-## 2. Safe mechanical fixes
+### PageChannel `args.items` / `args.segments`
 
-These are good candidates for small, focused commits.
+The casts around `args.items` and `args.segments` sit at the legacy backend WebSocket protocol boundary.
+Those values come from the old backend payloads, not from locally controlled frontend state. The frontend must preserve
+compatibility with the existing WebSocket payload shapes.
 
-### Donation template string concatenation
+These fields are dynamic protocol data:
 
-Observed examples:
+- roulette payloads can provide item lists from the backend,
+- coinflip payloads can provide segment lists from the backend,
+- the old backend contract is more important than idealized frontend-only schemas.
 
-- `src/components/donations/Donate1.tsx`
-- `src/components/donations/Donate2.tsx`
+Removing these `any[]` casts properly requires one of these larger changes:
 
-Change only the class name construction:
+1. typed legacy payload schemas for every main overlay event, or
+2. runtime validators/guards that validate `args.items` and `args.segments` before constructing model objects.
 
-```tsx
-className={`user animate__animated animate__pulse${isTraffic ? " traffic" : ""}`}
-```
+That work should be a dedicated protocol-hardening task. It should not be faked with broad types like
+`Record<string, unknown>[]` or invented partial interfaces that do not actually validate the backend payload.
 
-Risk: low. This should not change rendering if the output string is identical.
+Accepted decision: keep these as known warnings until the legacy WebSocket payload layer is typed or validated properly.
 
-Recommended commit:
+### `EventModel.update` dynamic assignment
 
-```txt
-refactor(frontend): clean donation traffic class names
-```
-
-### Type-only imports for non-React model imports
-
-Good candidates:
-
-- `DonateEventModel` imports in `src/components/donations/Donate*.tsx`
-- other model imports that are used only as TypeScript types
-
-Preferred form:
+The assignment below is the legacy dynamic model-update mechanism:
 
 ```ts
-import type { DonateEventModel } from "../../models/DonateEvent";
+(this as any)[key] = value;
 ```
 
-Risk: low for model imports. This removes type-only imports from runtime output.
+`EventModel.update(...)` accepts backend-derived model update data and applies matching keys to the current model.
+This is dynamic by design in the legacy frontend. Changing it safely requires a larger typed model-update refactor,
+including deciding which model fields can be updated dynamically and how unknown fields should be handled.
 
-Recommended commit:
+Keeping this as an accepted warning is safer than pretending the assignment is strongly typed. A fake type assertion here
+would make the code look cleaner while hiding the same dynamic behavior.
 
-```txt
-refactor(frontend): use type imports in donation templates
-```
+Accepted decision: keep the warning until a dedicated typed model update refactor is planned and tested.
 
-### Simple function expressions to arrow functions
+## 3. Already resolved lint categories
 
-Observed examples:
+These categories were cleaned in focused commits and should not reappear casually:
 
-- `const Donate1: React.FC<...> = function (...) { ... }`
-- same pattern across `Donate2` through `Donate10`
-
-Safe conversion if the function does not use `this`, `arguments`, or rely on function identity semantics:
-
-```tsx
-const Donate1: React.FC<IDonate1Props> = ({ donate, images, withCommission }) => {
-  // existing body
-};
-```
-
-Risk: low, but do this in a dedicated donation-template cleanup commit and run manual preview.
-
-Recommended commit:
-
-```txt
-refactor(frontend): use arrow components in donation templates
-```
-
-## 3. Needs project decision
-
-These should not be fixed mechanically until the project decision is explicit.
-
-### React import type warnings while `tsconfig` uses `"jsx": "react"`
-
-Biome may report `import React from "react"` as type-only in components that use `React.FC` but do not directly use the
-`React` runtime binding in JSX. However, the project currently uses the classic JSX runtime:
-
-```json
-"jsx": "react"
-```
-
-With classic JSX, removing runtime React imports broadly can break typecheck or runtime transform assumptions unless the
-component is rewritten carefully or the JSX runtime strategy changes.
-
-Decision needed:
-
-1. Keep classic runtime and avoid broad `React` import cleanup.
-2. Switch to automatic JSX runtime in a dedicated, tested commit.
-
-Do not hide this inside a lint cleanup commit.
-
-Recommended commit:
-
-```txt
-chore(frontend): decide jsx runtime strategy
-```
-
-### `Object.hasOwn` recommendation while `tsconfig` lib is ES2021
-
-Biome recommends:
-
-```ts
-Object.hasOwn(images, event.key)
-```
-
-But `Object.hasOwn` requires ES2022 typings. The project currently targets ES2021, so this can break typecheck.
-
-Current safe ES2021-compatible pattern:
-
-```ts
-Object.prototype.hasOwnProperty.call(images, event.key)
-```
-
-Decision needed:
-
-1. Keep ES2021 and tolerate/suppress this Biome diagnostic where needed.
-2. Upgrade TypeScript lib target to include ES2022 in a dedicated compatibility commit.
-
-Recommended commit:
-
-```txt
-chore(frontend): decide ES2022 object hasOwn strategy
-```
-
-### `noArrayIndexKey` in `CoinflipEvent` fixed 100-segment animation
-
-Biome reports `noArrayIndexKey` for the generated 100-segment animation list in `CoinflipEvent`.
-
-Do not auto-fix this yet. The index is coupled to:
-
-- a fixed generated list size,
-- `segmentRefs[i]`,
-- winner/index based animation logic,
-- legacy OBS visual behavior.
-
-Changing keys without understanding that animation can create subtle bugs.
-
-Options:
-
-1. Leave it and document as intentional.
-2. Add a targeted Biome suppression comment with a reason.
-3. Refactor the segment generation and refs in a dedicated animation-safe commit.
-
-Recommended commit:
-
-```txt
-lint(frontend): document intentional coinflip index keys
-```
+- React Router runtime dependency removed after route parser migration.
+- Simple empty React state type arguments removed.
+- Simple empty props interfaces removed where safe.
+- Automatic JSX runtime enabled.
+- Donation template function-expression and template-literal style issues cleaned.
+- Local template media ownership documented and aligned.
+- `Object.hasOwn` enabled through ES2022 lib and applied to existing ownership checks.
+- Intentional fixed animation index keys documented with local Biome ignores.
+- `DonateEvent` simple style and type issues cleaned without changing donate lifecycle.
+- Model import-type and simple model style issues cleaned.
 
 ## 4. Recommended next commits
 
-Recommended order:
+Do not chase the final three warnings as a casual lint cleanup. The safe next steps are larger, explicit tasks:
 
-1. `docs(frontend): classify remaining biome lint debt`
-   - This document.
-   - No runtime changes.
+1. `test(frontend): add protocol guards for roulette and coinflip payload args`
+   - Validate `args.items` and `args.segments` at the WebSocket boundary.
+   - Keep compatibility with the old backend.
 
-2. `refactor(frontend): clean donation traffic class names`
-   - Only `Donate1` and `Donate2` template literal changes.
-   - Very low risk.
+2. `refactor(frontend): type main overlay payload args`
+   - Replace the remaining `any[]` casts only after guards/types exist.
+   - Cover roulette and coinflip fixture payloads with tests.
 
-3. `refactor(frontend): use type imports in donation templates`
-   - Only non-React model type imports first.
-   - Avoid broad React import changes until JSX runtime decision.
-
-4. `refactor(frontend): use arrow components in donation templates`
-   - Donation template function expressions only.
-   - Run fixture/manual donate preview afterwards.
-
-5. `chore(frontend): decide jsx runtime strategy`
-   - Either keep classic JSX and suppress/ignore specific React import warnings, or move to automatic JSX runtime.
-   - Do not combine with template refactors.
-
-6. `chore(frontend): decide ES2022 object hasOwn strategy`
-   - Either keep ES2021-safe `hasOwnProperty.call` with targeted lint suppression, or upgrade lib to ES2022.
-   - Do not combine with Coinflip animation changes.
-
-7. `lint(frontend): document intentional coinflip index keys`
-   - Add a targeted suppression or write a short comment explaining the fixed animation list.
-   - Only after deciding whether suppression comments are acceptable in this repo.
+3. `refactor(frontend): type legacy model update fields`
+   - Replace `(this as any)[key] = value` only after the model update contract is explicit.
+   - Avoid breaking dynamic legacy update behavior.
 
 ## Do not do yet
 
-Do not do these as part of lint cleanup:
+Do not do these as part of the final lint cleanup:
 
 - Do not upgrade React.
 - Do not upgrade MobX.
 - Do not rewrite DonateEvent.
-- Do not change WebSocket payload handling.
-- Do not refactor fixture replay.
-- Do not change route parsing/runtime routing.
-- Do not run `biome check --write .` across the whole repository until the remaining lint categories are split into safe commits.
+- Do not change WebSocket payload handling without tests and fixtures.
+- Do not replace the remaining `any` casts with fake weak types.
+- Do not refactor `EventModel.update` without a dedicated model-update plan.
+- Do not run `biome check --write .` as a broad cleanup unless the resulting diff is reviewed separately.
