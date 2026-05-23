@@ -4,7 +4,7 @@ import type { IReactionDisposer } from "mobx";
 import { observer } from "mobx-react";
 
 @observer
-export default class Goal extends React.Component<IGoalProps, {}> {
+export default class Goal extends React.Component<IGoalProps> {
   private static CIRCLE_MAX_SIZE = 790;
   private static LINE_WIDTH = 35;
   private static INNER_LINE_COLOR = "#dddddd";
@@ -19,7 +19,7 @@ export default class Goal extends React.Component<IGoalProps, {}> {
   private backgroundLoaded = false;
   private backgroundImage = new Image();
 
-  private resizeTimeout?: any;
+  private resizeTimeout?: ReturnType<typeof setTimeout>;
   private savedPixels?: Uint8ClampedArray;
 
   private disposeCurrentReaction?: IReactionDisposer;
@@ -215,11 +215,11 @@ export default class Goal extends React.Component<IGoalProps, {}> {
   }
 
   private drawProgress() {
-    let th1 = -90 * (Math.PI / 180),
-      th2 = (this.goalPercentage * 360 - 90) * (Math.PI / 180),
-      d1 = Goal.applyAngle(this.centerPosition, th1, this.canvasSize / 2),
-      d2 = Goal.applyAngle(this.centerPosition, th2, this.canvasSize / 2 - Goal.LINE_WIDTH),
-      magicGradient = this.canvasContext.createLinearGradient(d1.x, d1.y, d2.x, d2.y);
+    const th1 = -90 * (Math.PI / 180);
+    const th2 = (this.goalPercentage * 360 - 90) * (Math.PI / 180);
+    const d1 = Goal.applyAngle(this.centerPosition, th1, this.canvasSize / 2);
+    const d2 = Goal.applyAngle(this.centerPosition, th2, this.canvasSize / 2 - Goal.LINE_WIDTH);
+    const magicGradient = this.canvasContext.createLinearGradient(d1.x, d1.y, d2.x, d2.y);
 
     magicGradient.addColorStop(0, "#ffc5e6");
     magicGradient.addColorStop(0.25, "#FCBCD7");
