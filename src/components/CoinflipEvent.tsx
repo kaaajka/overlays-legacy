@@ -104,6 +104,7 @@ export default class CoinflipEvent extends React.Component<ICoinflipEventProps> 
           {[...new Array(100)].map((_, i) => {
             if (this.props.event.winner === i) {
               return (
+                // biome-ignore lint/suspicious/noArrayIndexKey: Fixed decorative animation list, not dynamic user data.
                 <div key={`segment_${i}`} className={"segment chosen"} ref={this.segmentRefs[i]}>
                   <div className={"inner"}>
                     <div className={coinClassNames.join(" ")}>
@@ -118,11 +119,8 @@ export default class CoinflipEvent extends React.Component<ICoinflipEventProps> 
               );
             }
             return (
-              <div
-                key={`segment_${i}`}
-                className={notChosenSegmentClassNames.join(" ")}
-                ref={this.segmentRefs[i]}
-              ></div>
+              // biome-ignore lint/suspicious/noArrayIndexKey: Fixed decorative animation list, not dynamic user data.
+              <div key={`segment_${i}`} className={notChosenSegmentClassNames.join(" ")} ref={this.segmentRefs[i]}></div>
             );
           })}
         </div>

@@ -31,6 +31,7 @@ const Donate5: React.FC<IDonate5Props> = ({ donate, images, withCommission }) =>
     <div className={"donateHolder"}>
       <div className={"holymoly"}>
         {[...new Array(6)].map((_, i) => (
+          // biome-ignore lint/suspicious/noArrayIndexKey: Fixed decorative animation list, not dynamic user data.
           <strong className={"holy"} key={`holy_${i}`}>
             {holy[i]}
           </strong>
