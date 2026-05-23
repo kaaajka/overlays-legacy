@@ -13,6 +13,7 @@ export type LegacyOverlaySocketOptions = {
 export type LegacyOverlaySocketController = {
   connect: () => void;
   disconnect: () => void;
+  send: (data: string) => boolean;
 };
 
 const INITIAL_RECONNECT_DELAY_MS = 250;
@@ -142,5 +143,17 @@ export function createLegacyOverlaySocket(
     closeActiveSocket();
   };
 
-  return { connect, disconnect };
+  const send = (data: string) => {
+    if (!socket || socket.readyState !== WebSocket.OPEN) return false;
+
+    try {
+      socket.send(data);
+      return true;
+    } catch (error) {
+      debugLog(`Legacy ${options.label} websocket send failed`, error);
+      return false;
+    }
+  };
+
+  return { connect, disconnect, send };
 }

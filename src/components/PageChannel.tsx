@@ -33,6 +33,8 @@ import {
   isLegacyMainMessage,
 } from '../protocol/legacyOverlayProtocol';
 import { buildLegacyWsUrl } from '../protocol/legacyWsUrl';
+import { createLegacyOverlaySocket } from '../socket/createLegacyOverlaySocket';
+import type { LegacyOverlaySocketController } from '../socket/createLegacyOverlaySocket';
 import { playOverlayAudio } from '../audio/playOverlayAudio';
 import {
   cleanupFixtureAudioUnlockPrompt,
@@ -115,10 +117,7 @@ export class PageChannel extends React.Component<
   donateList: DonateEventModel[] = [];
   currentDonate: DonateEventModel | undefined = undefined;
 
-  private ws?: WebSocket;
-  private timeout: number = 250;
-  private connectInterval?: ReturnType<typeof setTimeout>;
-  private failedConnectionAttempts = 0;
+  private socket?: LegacyOverlaySocketController;
   private changeDonateTimeout?: ReturnType<typeof setTimeout>;
   private disposeAccountKeyReaction?: IReactionDisposer;
 
@@ -275,20 +274,13 @@ export class PageChannel extends React.Component<
   }
 
   private closeConnection() {
-    if (this.connectInterval) clearTimeout(this.connectInterval);
     if (this.changeDonateTimeout) clearTimeout(this.changeDonateTimeout);
 
     this.setCurrentEvent(undefined);
     this.setCurrentPlaying(undefined);
 
-    if (this.ws) {
-      this.ws.close();
-      this.ws.onopen = null;
-      this.ws.onerror = null;
-      this.ws.onclose = null;
-      this.ws.onmessage = null;
-      this.ws = undefined;
-    }
+    this.socket?.disconnect();
+    this.socket = undefined;
   }
 
   private createConnection(accountKey: string) {
@@ -297,59 +289,26 @@ export class PageChannel extends React.Component<
       return;
     }
 
-    const ws = new WebSocket(
-      buildLegacyWsUrl(AppConfig.ws, accountKey, 'main'),
-    );
-
-    ws.onopen = () => {
-      debugLog('connected websocket main component');
-
-      this.failedConnectionAttempts = 0;
-      this.setConnectionFailed(false);
-      this.timeout = 250;
-
-      if (this.connecting) this.setConnecting(false);
-
-      if (this.connectInterval) clearTimeout(this.connectInterval);
-    };
-    ws.onerror = (error) => {
-      debugLog('Legacy main websocket error. Closing socket.', error);
-
-      ws.close();
-    };
-    ws.onclose = (e) => {
-      this.failedConnectionAttempts += 1;
-      this.setCurrentEvent(undefined);
-
-      if (this.failedConnectionAttempts >= 5) {
-        debugLog('Legacy main websocket failed repeatedly. Showing unavailable overlay.', e.reason);
-        this.ws = undefined;
+    this.socket = createLegacyOverlaySocket({
+      url: buildLegacyWsUrl(AppConfig.ws, accountKey, 'main'),
+      label: 'main',
+      onOpen: () => {
+        this.setConnectionFailed(false);
+        if (this.connecting) this.setConnecting(false);
+      },
+      onClose: () => {
+        this.setCurrentEvent(undefined);
+      },
+      onMessage: (data) => {
+        this.handleLegacyMessage(safeJsonParse(data));
+      },
+      onFailure: () => {
         this.setConnecting(false);
         this.setConnectionFailed(true);
-        return;
-      }
+      },
+    });
 
-      debugLog(
-        `Socket is closed. Reconnect will be attempted in ${Math.min(10000 / 1000, (this.timeout + this.timeout) / 1000)} second.`,
-        e.reason,
-      );
-
-      this.timeout = this.timeout + this.timeout;
-      this.connectInterval = setTimeout(
-        () => {
-          if (!this.ws || this.ws.readyState === WebSocket.CLOSED)
-            this.createConnection(accountKey);
-        },
-        Math.min(10000, this.timeout),
-      );
-    };
-    ws.onmessage = ({ isTrusted, data }) => {
-      if (!isTrusted || typeof data !== 'string') return;
-
-      this.handleLegacyMessage(safeJsonParse(data));
-    };
-
-    this.ws = ws;
+    this.socket.connect();
   }
 
   private handleLegacyMessage(payload: unknown) {
@@ -538,15 +497,14 @@ export class PageChannel extends React.Component<
     if (!this.currentDonateAlert && !!this.donateAlertQueue.length) {
       this.currentDonateAlert = this.donateAlertQueue[0];
 
-      this.ws &&
-        this.ws.send(
-          JSON.stringify({
-            type: 'acceptAlert',
-            args: {
-              id: this.currentDonateAlert,
-            },
-          }),
-        );
+      this.socket?.send(
+        JSON.stringify({
+          type: 'acceptAlert',
+          args: {
+            id: this.currentDonateAlert,
+          },
+        }),
+      );
     }
   }
 

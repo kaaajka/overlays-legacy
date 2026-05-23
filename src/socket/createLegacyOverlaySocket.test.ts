@@ -17,6 +17,10 @@ type MockMessageEvent = {
 };
 
 class MockWebSocket {
+  static readonly CONNECTING = 0;
+  static readonly OPEN = 1;
+  static readonly CLOSING = 2;
+  static readonly CLOSED = 3;
   static instances: MockWebSocket[] = [];
 
   onopen: (() => void) | null = null;
@@ -24,17 +28,21 @@ class MockWebSocket {
   onerror: ((event: unknown) => void) | null = null;
   onmessage: ((event: MockMessageEvent) => void) | null = null;
   closed = false;
+  readyState = MockWebSocket.CONNECTING;
+  sentMessages: string[] = [];
 
   constructor(public readonly url: string) {
     MockWebSocket.instances.push(this);
   }
 
   open() {
+    this.readyState = MockWebSocket.OPEN;
     this.onopen?.();
   }
 
   closeWithReason(reason = 'test close') {
     this.closed = true;
+    this.readyState = MockWebSocket.CLOSED;
     this.onclose?.({ reason });
   }
 
@@ -46,8 +54,13 @@ class MockWebSocket {
     this.onmessage?.({ data, isTrusted });
   }
 
+  send(data: string) {
+    this.sentMessages.push(data);
+  }
+
   close() {
     this.closed = true;
+    this.readyState = MockWebSocket.CLOSED;
   }
 }
 
@@ -138,6 +151,35 @@ describe('createLegacyOverlaySocket', () => {
     latestSocket().message('{"event":"queue","key":"set"}');
 
     expect(onMessage).toHaveBeenCalledWith('{"event":"queue","key":"set"}');
+  });
+
+  it('sends messages through the active open socket', () => {
+    const controller = createLegacyOverlaySocket({
+      url: 'wss://example.test/ws?account=uuid',
+      label: 'main',
+      onMessage: vi.fn(),
+    });
+
+    controller.connect();
+    latestSocket().open();
+
+    const sent = controller.send('{"type":"acceptAlert"}');
+
+    expect(sent).toBe(true);
+    expect(latestSocket().sentMessages).toEqual(['{"type":"acceptAlert"}']);
+  });
+
+  it('does not send messages when the socket is not open', () => {
+    const controller = createLegacyOverlaySocket({
+      url: 'wss://example.test/ws?account=uuid',
+      label: 'main',
+      onMessage: vi.fn(),
+    });
+
+    controller.connect();
+
+    expect(controller.send('{"type":"acceptAlert"}')).toBe(false);
+    expect(latestSocket().sentMessages).toEqual([]);
   });
 
   it('ignores untrusted and non-string messages', () => {
