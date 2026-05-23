@@ -32,6 +32,7 @@ import {
   isLegacyMainMessage,
 } from '../protocol/legacyOverlayProtocol';
 import { buildLegacyWsUrl } from '../protocol/legacyWsUrl';
+import { playOverlayAudio } from '../audio/playOverlayAudio';
 import {
   isRequestedLegacyFixtureReplayActive,
   replayRequestedLegacyFixture,
@@ -47,17 +48,17 @@ const images: { [key: string]: any } = {
 };
 
 const randomSounds = [
-  new Audio(AppConfig.assetUrl('/assets/sounds/1.mp3')),
-  new Audio(AppConfig.assetUrl('/assets/sounds/2.mp3')),
-  new Audio(AppConfig.assetUrl('/assets/sounds/3.mp3')),
-  new Audio(AppConfig.assetUrl('/assets/sounds/4.mp3')),
-  new Audio(AppConfig.assetUrl('/assets/sounds/5.mp3')),
-  new Audio(AppConfig.assetUrl('/assets/sounds/6.mp3')),
-  new Audio(AppConfig.assetUrl('/assets/sounds/7.mp3')),
-  new Audio(AppConfig.assetUrl('/assets/sounds/8.mp3')),
-  new Audio(AppConfig.assetUrl('/assets/sounds/9.mp3')),
-  new Audio(AppConfig.assetUrl('/assets/sounds/10.mp3')),
-  new Audio(AppConfig.assetUrl('/assets/sounds/11.mp3')),
+  AppConfig.assetUrl('/assets/sounds/1.mp3'),
+  AppConfig.assetUrl('/assets/sounds/2.mp3'),
+  AppConfig.assetUrl('/assets/sounds/3.mp3'),
+  AppConfig.assetUrl('/assets/sounds/4.mp3'),
+  AppConfig.assetUrl('/assets/sounds/5.mp3'),
+  AppConfig.assetUrl('/assets/sounds/6.mp3'),
+  AppConfig.assetUrl('/assets/sounds/7.mp3'),
+  AppConfig.assetUrl('/assets/sounds/8.mp3'),
+  AppConfig.assetUrl('/assets/sounds/9.mp3'),
+  AppConfig.assetUrl('/assets/sounds/10.mp3'),
+  AppConfig.assetUrl('/assets/sounds/11.mp3'),
 ];
 
 const dogsSounds = [
@@ -72,10 +73,10 @@ const dogsSounds = [
 ];
 
 const coinflipSounds = [
-  new Audio(AppConfig.assetUrl('/assets/sounds/12.mp3')),
-  new Audio(AppConfig.assetUrl('/assets/sounds/13.mp3')),
-  new Audio(AppConfig.assetUrl('/assets/sounds/14.mp3')),
-  new Audio(AppConfig.assetUrl('/assets/sounds/15.mp3')),
+  AppConfig.assetUrl('/assets/sounds/12.mp3'),
+  AppConfig.assetUrl('/assets/sounds/13.mp3'),
+  AppConfig.assetUrl('/assets/sounds/14.mp3'),
+  AppConfig.assetUrl('/assets/sounds/15.mp3'),
 ];
 
 let EVENTS = {};
@@ -202,18 +203,18 @@ export class PageChannel extends React.Component<
     this.currentEvent = event;
   }
 
-  setCurrentPlaying(url?: HTMLAudioElement) {
+  setCurrentPlaying(url?: string) {
     if (typeof url !== 'undefined') {
       if (this.currentPlaying) {
         this.currentPlaying.pause();
         this.currentPlaying = undefined;
       }
 
-      this.currentPlaying = url;
-      this.currentPlaying.volume = 0.3;
-      this.currentPlaying.play().catch((error) => {
-        debugLog('Legacy overlay audio play failed safely', error);
-      });
+      this.currentPlaying = playOverlayAudio({
+        url,
+        volume: 0.3,
+        label: 'Legacy overlay event sound',
+      }) ?? undefined;
     } else {
       if (this.currentPlaying) {
         this.currentPlaying.pause();
@@ -339,12 +340,10 @@ export class PageChannel extends React.Component<
 
       if (typeof volume !== 'number' || !url) return;
 
-      const audio = new Audio(url);
-
-      audio.volume = Math.min(1, Math.max(0, volume));
-
-      audio.play().catch((error) => {
-        debugLog('Legacy overlay playSound failed safely', { url, error });
+      playOverlayAudio({
+        url,
+        volume,
+        label: 'Legacy overlay playSound',
       });
     } else if (
       EVENTS['donate_prepare'].includes(json.event) &&
@@ -448,7 +447,7 @@ export class PageChannel extends React.Component<
         } = { state: isPrepareState ? EventState.PREPARE : EventState.STARTED };
 
         if (isPrepareState) {
-          let list: HTMLAudioElement[];
+          let list: string[];
           switch (json.key) {
             case 'dogs':
               list = dogsSounds;

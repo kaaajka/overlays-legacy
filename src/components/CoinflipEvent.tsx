@@ -6,7 +6,7 @@ import type { IReactionDisposer } from "mobx";
 import { CoinflipEventModel } from "../models/CoinflipEvent";
 import { EventState } from "../models/Event";
 import { AppConfig } from "../config";
-import { debugLog } from "../debug";
+import { playOverlayAudio } from "../audio/playOverlayAudio";
 
 const timeoutTimes: { spin: number, hideSegmentImage: number } = {
     spin: 2 * 1000,
@@ -15,8 +15,7 @@ const timeoutTimes: { spin: number, hideSegmentImage: number } = {
 
 @observer
 export default class CoinflipEvent extends React.Component<ICoinflipEventProps, {}> {
-    private spinningSound = new Audio(AppConfig.assetUrl("/assets/sounds/spinning.mp3"));
-    private winSound = new Audio(AppConfig.assetUrl("/assets/sounds/win.mp3"));
+    private readonly spinningSoundUrl = AppConfig.assetUrl("/assets/sounds/spinning.mp3");
 
     private segmentRefs: React.RefObject<HTMLDivElement>[] = [...new Array(100)].map(() => React.createRef());
     private timeouts: { spin?: ReturnType<typeof setTimeout>, hideSegmentImage?: ReturnType<typeof setTimeout> } = {};
@@ -35,8 +34,10 @@ export default class CoinflipEvent extends React.Component<ICoinflipEventProps, 
                     if (this.timeouts.hideSegmentImage) clearTimeout(this.timeouts.hideSegmentImage);
                     
                     this.timeouts.spin = setTimeout(() => {
-                        this.spinningSound.play().catch((error) => {
-                            debugLog("Coinflip spinning sound failed safely", error);
+                        playOverlayAudio({
+                            url: this.spinningSoundUrl,
+                            volume: .5,
+                            label: "Coinflip spinning sound",
                         });
                     }, timeoutTimes.spin);
 
@@ -51,11 +52,6 @@ export default class CoinflipEvent extends React.Component<ICoinflipEventProps, 
             hideSegmentImage: observable,
             setHideSegmentImage: action
         });
-    }
-
-    componentDidMount() {
-        this.winSound.volume = .4;
-        this.spinningSound.volume = .5;
     }
 
     componentWillUnmount() {

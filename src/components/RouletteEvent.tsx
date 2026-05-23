@@ -6,7 +6,7 @@ import type { IReactionDisposer } from "mobx";
 import { RouletteEventModel } from "../models/RouletteEvent";
 import { EventState } from "../models/Event";
 import { AppConfig } from "../config";
-import { debugLog } from "../debug";
+import { playOverlayAudio } from "../audio/playOverlayAudio";
 
 @observer
 export default class RouletteEvent extends React.Component<IRouletteEventProps, {}> {
@@ -15,8 +15,8 @@ export default class RouletteEvent extends React.Component<IRouletteEventProps, 
     private percentagePerBlock = 100 / this.minBlocks;
     private actualBlocks = this.minBlocks;
     private blocksMoved: number = 0;
-    private spinningSound = new Audio(AppConfig.assetUrl("/assets/sounds/spinning.mp3"));
-    private winSound = new Audio(AppConfig.assetUrl("/assets/sounds/win.mp3"));
+    private readonly spinningSoundUrl = AppConfig.assetUrl("/assets/sounds/spinning.mp3");
+    private readonly winSoundUrl = AppConfig.assetUrl("/assets/sounds/win.mp3");
 
     private moveAnimation?: ReturnType<typeof setTimeout>;
     private timeout?: ReturnType<typeof setTimeout>;
@@ -54,9 +54,6 @@ export default class RouletteEvent extends React.Component<IRouletteEventProps, 
         this.blocksMoved = 0;
         this.rolling = false;
         this.finished = false;
-
-        this.winSound.volume = .4;
-        this.spinningSound.volume = .5;
 
         this.updatePosition(0);
 
@@ -186,8 +183,10 @@ export default class RouletteEvent extends React.Component<IRouletteEventProps, 
         destAngle += this.actualBlocks * this.blockWidth * 2;
         destAngle += Math.random() * ((this.blockWidth - 3) - 3 ) + 3;
 
-        this.spinningSound.play().catch((error) => {
-            debugLog("Roulette spinning sound failed safely", error);
+        playOverlayAudio({
+            url: this.spinningSoundUrl,
+            volume: .5,
+            label: "Roulette spinning sound",
         });
 
         this.rollAnimation = {
@@ -207,8 +206,10 @@ export default class RouletteEvent extends React.Component<IRouletteEventProps, 
                 this.updatePosition( this.rollAnimation.dest * c );
             else {
                 if(!this.finished)
-                    this.winSound.play().catch((error) => {
-                        debugLog("Roulette win sound failed safely", error);
+                    playOverlayAudio({
+                        url: this.winSoundUrl,
+                        volume: .4,
+                        label: "Roulette win sound",
                     });
 
                 this.setFinished(true);
