@@ -1,6 +1,7 @@
 import React from "react";
 import { observer } from "mobx-react";
 import { action, makeObservable, observable, reaction } from "mobx";
+import type { IReactionDisposer } from "mobx";
 
 import { CoinflipEventModel } from "../models/CoinflipEvent";
 import { EventState } from "../models/Event";
@@ -18,13 +19,14 @@ export default class CoinflipEvent extends React.Component<ICoinflipEventProps, 
 
     private segmentRefs: React.RefObject<HTMLDivElement>[] = [...new Array(100)].map(() => React.createRef());
     private timeouts: { spin?: ReturnType<typeof setTimeout>, hideSegmentImage?: ReturnType<typeof setTimeout> } = {};
+    private disposeWinnerReaction?: IReactionDisposer;
 
     hideSegmentImage: boolean = false;
 
     constructor(props: ICoinflipEventProps) {
         super(props);
 
-        reaction(
+        this.disposeWinnerReaction = reaction(
             () => this.props.event.winner,
             (winner) => {
                 if (typeof winner === "number") {
@@ -54,6 +56,9 @@ export default class CoinflipEvent extends React.Component<ICoinflipEventProps, 
     }
 
     componentWillUnmount() {
+        this.disposeWinnerReaction?.();
+        this.disposeWinnerReaction = undefined;
+
         if (this.timeouts.spin) clearTimeout(this.timeouts.spin);
         if (this.timeouts.hideSegmentImage) clearTimeout(this.timeouts.hideSegmentImage);
     }

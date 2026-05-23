@@ -1,6 +1,7 @@
 import React from "react";
 import { observer } from "mobx-react";
 import { action, makeObservable, observable, reaction } from "mobx";
+import type { IReactionDisposer } from "mobx";
 
 import { RouletteEventModel } from "../models/RouletteEvent";
 import { EventState } from "../models/Event";
@@ -18,6 +19,7 @@ export default class RouletteEvent extends React.Component<IRouletteEventProps, 
 
     private moveAnimation?: ReturnType<typeof setTimeout>;
     private timeout?: ReturnType<typeof setTimeout>;
+    private disposeWinnerReaction?: IReactionDisposer;
     private rollAnimation?: any;
     private rolling: boolean = false;
     finished: boolean = false;
@@ -27,7 +29,7 @@ export default class RouletteEvent extends React.Component<IRouletteEventProps, 
     constructor(props: IRouletteEventProps) {
         super(props);
 
-        reaction(
+        this.disposeWinnerReaction = reaction(
             () => this.props.event.winner,
             (ticket) => {
                 if (typeof ticket === "number") {
@@ -61,6 +63,9 @@ export default class RouletteEvent extends React.Component<IRouletteEventProps, 
     }
 
     componentWillUnmount() {
+        this.disposeWinnerReaction?.();
+        this.disposeWinnerReaction = undefined;
+
         if (this.moveAnimation) clearInterval(this.moveAnimation);
         if (this.timeout) clearTimeout(this.timeout);
     }

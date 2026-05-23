@@ -1,5 +1,6 @@
 import React from "react";
 import { makeObservable, observable, reaction } from "mobx";
+import type { IReactionDisposer } from "mobx";
 import { observer } from "mobx-react";
 
 @observer
@@ -21,6 +22,9 @@ export default class Goal extends React.Component<IGoalProps, {}> {
     private resizeTimeout?: any;
     private savedPixels?: Uint8ClampedArray;
 
+    private disposeCurrentReaction?: IReactionDisposer;
+    private disposeGoalReaction?: IReactionDisposer;
+
     goalPercentage: number = 0;
 
     constructor(props: IGoalProps) {
@@ -32,7 +36,7 @@ export default class Goal extends React.Component<IGoalProps, {}> {
             goalPercentage: observable,
         });
 
-        reaction(
+        this.disposeCurrentReaction = reaction(
             () => this.props.current,
             (current) => {
                 this.goalPercentage = current / this.props.goal;
@@ -42,7 +46,7 @@ export default class Goal extends React.Component<IGoalProps, {}> {
             }
         );
 
-        reaction(
+        this.disposeGoalReaction = reaction(
             () => this.props.goal,
             (goal) => {
                 this.goalPercentage = this.props.current / goal;
@@ -60,6 +64,11 @@ export default class Goal extends React.Component<IGoalProps, {}> {
     }
 
     componentWillUnmount() {
+        this.disposeCurrentReaction?.();
+        this.disposeCurrentReaction = undefined;
+        this.disposeGoalReaction?.();
+        this.disposeGoalReaction = undefined;
+
         if (this.resizeTimeout) {
             clearTimeout(this.resizeTimeout);
             this.resizeTimeout = undefined;

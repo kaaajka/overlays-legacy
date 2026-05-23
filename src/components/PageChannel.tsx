@@ -2,6 +2,7 @@ import React from 'react';
 import { RouteComponentProps } from 'react-router-dom';
 import { observer } from 'mobx-react';
 import { action, makeObservable, observable, reaction } from 'mobx';
+import type { IReactionDisposer } from 'mobx';
 
 import { EventModel, EventState } from '../models/Event';
 import { RouletteEventModel } from '../models/RouletteEvent';
@@ -107,6 +108,7 @@ export class PageChannel extends React.Component<
   private timeout: number = 250;
   private connectInterval?: ReturnType<typeof setTimeout>;
   private changeDonateTimeout?: ReturnType<typeof setTimeout>;
+  private disposeAccountKeyReaction?: IReactionDisposer;
 
   private donateAlertQueue: string[] = [];
   private currentDonateAlert?: string;
@@ -128,7 +130,7 @@ export class PageChannel extends React.Component<
       donateFinished: action.bound,
     });
 
-    reaction(
+    this.disposeAccountKeyReaction = reaction(
       () => this.accountKey,
       (accountKey) => {
         this.closeConnection();
@@ -143,6 +145,9 @@ export class PageChannel extends React.Component<
   }
 
   componentWillUnmount() {
+    this.disposeAccountKeyReaction?.();
+    this.disposeAccountKeyReaction = undefined;
+
     this.closeConnection();
   }
 
