@@ -1,22 +1,22 @@
-import { observer } from 'mobx-react';
-import React from 'react';
-import { action, makeObservable, observable, runInAction } from 'mobx';
-import type { RouterCompatProps } from '../routing/routerCompat';
+import { observer } from "mobx-react";
+import React from "react";
+import { action, makeObservable, observable, runInAction } from "mobx";
+import type { RouterCompatProps } from "../routing/routerCompat";
 
-import Goal from './Goal';
-import { OverlayUnavailable } from './OverlayUnavailable';
+import Goal from "./Goal";
+import { OverlayUnavailable } from "./OverlayUnavailable";
 
-import { AppConfig } from '../config';
-import { debugLog } from '../debug';
-import { safeJsonParse } from '../protocol/safeJson';
-import { isLegacyGoalMessage } from '../protocol/legacyOverlayProtocol';
-import { buildLegacyWsUrl } from '../protocol/legacyWsUrl';
-import { createLegacyOverlaySocket } from '../socket/createLegacyOverlaySocket';
-import type { LegacyOverlaySocketController } from '../socket/createLegacyOverlaySocket';
+import { AppConfig } from "../config";
+import { debugLog } from "../debug";
+import { safeJsonParse } from "../protocol/safeJson";
+import { isLegacyGoalMessage } from "../protocol/legacyOverlayProtocol";
+import { buildLegacyWsUrl } from "../protocol/legacyWsUrl";
+import { createLegacyOverlaySocket } from "../socket/createLegacyOverlaySocket";
+import type { LegacyOverlaySocketController } from "../socket/createLegacyOverlaySocket";
 import {
   cleanupFixtureAudioUnlockPrompt,
   replayRequestedLegacyFixture,
-} from '../dev/replay/legacyReplay';
+} from "../dev/replay/legacyReplay";
 
 @observer
 export class PageChannelSubs extends React.Component<
@@ -67,16 +67,12 @@ export class PageChannelSubs extends React.Component<
     if (this.connectionFailed) return <OverlayUnavailable />;
 
     const canDraw =
-      !this.connecting &&
-      typeof this.current !== 'undefined' &&
-      typeof this.goal !== 'undefined';
+      !this.connecting && typeof this.current !== "undefined" && typeof this.goal !== "undefined";
 
     return (
-      <div className={'subGoal'}>
+      <div className={"subGoal"}>
         {!!this.connecting && <h1>Łączenie...</h1>}
-        {canDraw && (
-          <Goal current={this.current} goal={this.goal} type={'subs'} />
-        )}
+        {canDraw && <Goal current={this.current} goal={this.goal} type={"subs"} />}
       </div>
     );
   }
@@ -96,8 +92,8 @@ export class PageChannelSubs extends React.Component<
 
   private createConnection(accountKey: string) {
     this.socket = createLegacyOverlaySocket({
-      url: buildLegacyWsUrl(AppConfig.ws, accountKey, 'subs'),
-      label: 'subs',
+      url: buildLegacyWsUrl(AppConfig.ws, accountKey, "subs"),
+      label: "subs",
       onOpen: () => {
         this.setConnectionFailed(false);
         if (this.connecting) this.setConnecting(false);
@@ -123,22 +119,21 @@ export class PageChannelSubs extends React.Component<
   private handleLegacyMessage(payload: unknown) {
     const json = payload;
     if (!isLegacyGoalMessage(json)) {
-      debugLog('Ignored unknown legacy goal websocket payload', json);
+      debugLog("Ignored unknown legacy goal websocket payload", json);
       return;
     }
 
     switch (json.type) {
-      case 'set':
+      case "set":
         runInAction(() => {
           this.current = json.args.current;
           this.goal = json.args.goal;
         });
         break;
-      case 'update':
+      case "update":
         runInAction(() => {
-          if (typeof json.args.current !== 'undefined')
-            this.current = json.args.current;
-          if (typeof json.args.goal !== 'undefined') this.goal = json.args.goal;
+          if (typeof json.args.current !== "undefined") this.current = json.args.current;
+          if (typeof json.args.goal !== "undefined") this.goal = json.args.goal;
         });
         break;
     }

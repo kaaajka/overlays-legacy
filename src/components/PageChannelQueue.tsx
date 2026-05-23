@@ -1,22 +1,22 @@
-import { observer } from 'mobx-react';
-import React from 'react';
-import { action, makeObservable, observable, runInAction } from 'mobx';
-import type { RouterCompatProps } from '../routing/routerCompat';
+import { observer } from "mobx-react";
+import React from "react";
+import { action, makeObservable, observable, runInAction } from "mobx";
+import type { RouterCompatProps } from "../routing/routerCompat";
 
-import { OverlayUnavailable } from './OverlayUnavailable';
+import { OverlayUnavailable } from "./OverlayUnavailable";
 
-import { AppConfig } from '../config';
-import { QueueEventModel } from '../models/QueueEvent';
-import { debugLog } from '../debug';
-import { safeJsonParse } from '../protocol/safeJson';
-import { isLegacyQueueMessage } from '../protocol/legacyOverlayProtocol';
-import { buildLegacyWsUrl } from '../protocol/legacyWsUrl';
-import { createLegacyOverlaySocket } from '../socket/createLegacyOverlaySocket';
-import type { LegacyOverlaySocketController } from '../socket/createLegacyOverlaySocket';
+import { AppConfig } from "../config";
+import { QueueEventModel } from "../models/QueueEvent";
+import { debugLog } from "../debug";
+import { safeJsonParse } from "../protocol/safeJson";
+import { isLegacyQueueMessage } from "../protocol/legacyOverlayProtocol";
+import { buildLegacyWsUrl } from "../protocol/legacyWsUrl";
+import { createLegacyOverlaySocket } from "../socket/createLegacyOverlaySocket";
+import type { LegacyOverlaySocketController } from "../socket/createLegacyOverlaySocket";
 import {
   cleanupFixtureAudioUnlockPrompt,
   replayRequestedLegacyFixture,
-} from '../dev/replay/legacyReplay';
+} from "../dev/replay/legacyReplay";
 
 @observer
 export class PageChannelQueue extends React.Component<
@@ -67,18 +67,18 @@ export class PageChannelQueue extends React.Component<
     const canDraw = !this.connecting && this.queue.length > 1;
 
     const queueItems = this.queue.slice(1).map((item) => (
-      <li key={item.id} className={'queueItem'}>
+      <li key={item.id} className={"queueItem"}>
         {item.username} - {item.name}
       </li>
     ));
 
     return (
-      <div className={'queue'}>
+      <div className={"queue"}>
         {!!this.connecting && <h1>Łączenie...</h1>}
         {canDraw && (
           <>
-            <h1 className={'queueString'}>Kolejka:</h1>
-            <ol className={'queueList'}>{queueItems}</ol>
+            <h1 className={"queueString"}>Kolejka:</h1>
+            <ol className={"queueList"}>{queueItems}</ol>
           </>
         )}
       </div>
@@ -100,8 +100,8 @@ export class PageChannelQueue extends React.Component<
 
   private createConnection(accountKey: string) {
     this.socket = createLegacyOverlaySocket({
-      url: buildLegacyWsUrl(AppConfig.ws, accountKey, 'queue'),
-      label: 'queue',
+      url: buildLegacyWsUrl(AppConfig.ws, accountKey, "queue"),
+      label: "queue",
       onOpen: () => {
         this.setConnectionFailed(false);
         if (this.connecting) this.setConnecting(false);
@@ -126,17 +126,17 @@ export class PageChannelQueue extends React.Component<
   private handleLegacyMessage(payload: unknown) {
     const json = payload;
     if (!isLegacyQueueMessage(json)) {
-      debugLog('Ignored unknown legacy queue websocket payload', json);
+      debugLog("Ignored unknown legacy queue websocket payload", json);
       return;
     }
 
     runInAction(() => {
-      if (json.key === 'set') {
+      if (json.key === "set") {
         this.queue = json.args.list.map((el) => new QueueEventModel(el));
-      } else if (json.key === 'add') {
+      } else if (json.key === "add") {
         const existingEvent = this.queue.find((e) => e.id === json.args.id);
         if (!existingEvent) this.queue.push(new QueueEventModel(json.args));
-      } else if (json.key === 'delete') {
+      } else if (json.key === "delete") {
         const index = this.queue.findIndex((e) => e.id === json.args.id);
         if (index > -1) this.queue.splice(index, 1);
       }

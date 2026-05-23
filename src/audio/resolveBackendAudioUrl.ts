@@ -1,4 +1,4 @@
-const TIPPLY_BASE_URL = 'https://tipply.pl';
+const TIPPLY_BASE_URL = "https://tipply.pl";
 
 export function resolveBackendAudioUrl(value: string | null | undefined): string | null {
   const trimmed = value?.trim();
@@ -11,11 +11,11 @@ export function resolveBackendAudioUrl(value: string | null | undefined): string
     return trimmed;
   }
 
-  if (trimmed.startsWith('//')) {
+  if (trimmed.startsWith("//")) {
     return `https:${trimmed}`;
   }
 
-  if (trimmed.startsWith('/')) {
+  if (trimmed.startsWith("/")) {
     return `${TIPPLY_BASE_URL}${trimmed}`;
   }
 

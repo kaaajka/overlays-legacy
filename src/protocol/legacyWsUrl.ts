@@ -1,10 +1,10 @@
-export type LegacyOverlaySocketKind = 'main' | 'subs' | 'followers' | 'queue';
+export type LegacyOverlaySocketKind = "main" | "subs" | "followers" | "queue";
 
 const LEGACY_SOCKET_PATH: Record<LegacyOverlaySocketKind, string> = {
-  main: '',
-  subs: '/subs',
-  followers: '/followers',
-  queue: '/queue',
+  main: "",
+  subs: "/subs",
+  followers: "/followers",
+  queue: "/queue",
 };
 
 export function buildLegacyWsUrl(
@@ -12,7 +12,7 @@ export function buildLegacyWsUrl(
   accountKey: string,
   kind: LegacyOverlaySocketKind,
 ): string {
-  const normalizedBaseUrl = baseUrl.replace(/\/$/, '');
+  const normalizedBaseUrl = baseUrl.replace(/\/$/, "");
   const path = LEGACY_SOCKET_PATH[kind];
   const account = encodeURIComponent(accountKey);
 

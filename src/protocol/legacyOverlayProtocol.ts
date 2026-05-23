@@ -14,22 +14,22 @@ export interface LegacyQueueItem {
 }
 
 export interface LegacyQueueSetMessage extends LegacyBaseMessage {
-  event: 'queue';
-  key: 'set';
+  event: "queue";
+  key: "set";
   args: {
     list: LegacyQueueItem[];
   };
 }
 
 export interface LegacyQueueAddMessage extends LegacyBaseMessage {
-  event: 'queue';
-  key: 'add';
+  event: "queue";
+  key: "add";
   args: LegacyQueueItem;
 }
 
 export interface LegacyQueueDeleteMessage extends LegacyBaseMessage {
-  event: 'queue';
-  key: 'delete';
+  event: "queue";
+  key: "delete";
   args: {
     id: string;
   };
@@ -41,7 +41,7 @@ export type LegacyQueueMessage =
   | LegacyQueueDeleteMessage;
 
 export interface LegacyGoalMessage {
-  type: 'set' | 'update';
+  type: "set" | "update";
   args: {
     current?: number;
     goal?: number;
@@ -53,11 +53,11 @@ export interface LegacyMainMessage extends LegacyBaseMessage {
 }
 
 export function isObject(value: unknown): value is LegacyRecord {
-  return typeof value === 'object' && value !== null && !Array.isArray(value);
+  return typeof value === "object" && value !== null && !Array.isArray(value);
 }
 
 export function hasString(value: LegacyRecord, key: string): boolean {
-  return typeof value[key] === 'string';
+  return typeof value[key] === "string";
 }
 
 export function getRecord(value: unknown): LegacyRecord | undefined {
@@ -65,20 +65,20 @@ export function getRecord(value: unknown): LegacyRecord | undefined {
 }
 
 export function getNumber(value: unknown): number | undefined {
-  return typeof value === 'number' && Number.isFinite(value) ? value : undefined;
+  return typeof value === "number" && Number.isFinite(value) ? value : undefined;
 }
 
 export function getString(value: unknown): string | undefined {
-  return typeof value === 'string' ? value : undefined;
+  return typeof value === "string" ? value : undefined;
 }
 
 export function isLegacyMainMessage(value: unknown): value is LegacyMainMessage {
   if (!isObject(value)) return false;
-  if (!hasString(value, 'event') || !hasString(value, 'key') || !hasString(value, 'id')) {
+  if (!hasString(value, "event") || !hasString(value, "key") || !hasString(value, "id")) {
     return false;
   }
 
-  if ((value.event === 'prepare' || value.event === 't_prepare') && value.key === 'donate') {
+  if ((value.event === "prepare" || value.event === "t_prepare") && value.key === "donate") {
     return isObject(value.args);
   }
 
@@ -87,7 +87,7 @@ export function isLegacyMainMessage(value: unknown): value is LegacyMainMessage 
 
 export function isLegacyGoalMessage(value: unknown): value is LegacyGoalMessage {
   if (!isObject(value)) return false;
-  if (value.type !== 'set' && value.type !== 'update') return false;
+  if (value.type !== "set" && value.type !== "update") return false;
 
   const args = getRecord(value.args);
   if (!args) return false;
@@ -96,34 +96,34 @@ export function isLegacyGoalMessage(value: unknown): value is LegacyGoalMessage 
   const goal = args.goal;
 
   return (
-    (typeof current === 'undefined' || getNumber(current) !== undefined) &&
-    (typeof goal === 'undefined' || getNumber(goal) !== undefined)
+    (typeof current === "undefined" || getNumber(current) !== undefined) &&
+    (typeof goal === "undefined" || getNumber(goal) !== undefined)
   );
 }
 
 export function isLegacyQueueItem(value: unknown): value is LegacyQueueItem {
   if (!isObject(value)) return false;
 
-  return hasString(value, 'id') && hasString(value, 'name') && hasString(value, 'username');
+  return hasString(value, "id") && hasString(value, "name") && hasString(value, "username");
 }
 
 export function isLegacyQueueMessage(value: unknown): value is LegacyQueueMessage {
   if (!isLegacyMainMessage(value)) return false;
-  if (value.event !== 'queue') return false;
+  if (value.event !== "queue") return false;
 
   const args = getRecord(value.args);
   if (!args) return false;
 
-  if (value.key === 'set') {
+  if (value.key === "set") {
     return Array.isArray(args.list) && args.list.every(isLegacyQueueItem);
   }
 
-  if (value.key === 'add') {
+  if (value.key === "add") {
     return isLegacyQueueItem(args);
   }
 
-  if (value.key === 'delete') {
-    return hasString(args, 'id');
+  if (value.key === "delete") {
+    return hasString(args, "id");
   }
 
   return false;

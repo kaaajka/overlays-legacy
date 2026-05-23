@@ -1,9 +1,9 @@
-import { debugLog } from '../debug';
+import { debugLog } from "../debug";
 import {
   getMutedFixtureAudioDelayMs,
   isDevFixtureAudioMuted,
   type MutedFixtureAudioKind,
-} from '../dev/replay/legacyReplay';
+} from "../dev/replay/legacyReplay";
 
 export type PlayOverlayAudioOptions = {
   url: string;
@@ -14,15 +14,13 @@ export type PlayOverlayAudioOptions = {
   mutedFixtureAudioKind?: MutedFixtureAudioKind;
 };
 
-export function playOverlayAudio(
-  options: PlayOverlayAudioOptions,
-): HTMLAudioElement | null {
+export function playOverlayAudio(options: PlayOverlayAudioOptions): HTMLAudioElement | null {
   const {
     url,
     volume = 1,
     onEnded,
     onError,
-    label = 'overlay audio',
+    label = "overlay audio",
     mutedFixtureAudioKind,
   } = options;
 
@@ -34,7 +32,7 @@ export function playOverlayAudio(
       label,
     });
 
-    debugLog('Skipped overlay audio during muted fixture replay', {
+    debugLog("Skipped overlay audio during muted fixture replay", {
       url,
       label,
       simulatedDelayMs,

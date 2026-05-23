@@ -1,4 +1,4 @@
-import { debugLog } from '../debug';
+import { debugLog } from "../debug";
 
 export type LegacyOverlaySocketOptions = {
   url: string;
@@ -100,7 +100,7 @@ export function createLegacyOverlaySocket(
     };
 
     currentSocket.onmessage = ({ isTrusted, data }) => {
-      if (!isTrusted || typeof data !== 'string') return;
+      if (!isTrusted || typeof data !== "string") return;
 
       try {
         options.onMessage(data);

@@ -3299,7 +3299,8 @@ body {
   align-items: center;
   overflow: hidden;
 }
-.donateHolder .donate .user, .donateHolder .donate .text {
+.donateHolder .donate .user,
+.donateHolder .donate .text {
   text-align: center;
 }
 .donateHolder .donate .user {
@@ -3408,7 +3409,8 @@ body {
   max-width: 60vw;
   max-height: 70vh;
 }
-.donateHolder .donate.sixth .halo, .donateHolder .donate.sixth .haloTogether {
+.donateHolder .donate.sixth .halo,
+.donateHolder .donate.sixth .haloTogether {
   font-weight: 700;
   font-size: 44px;
   color: #f12323;
@@ -3461,7 +3463,7 @@ body {
 .subGoal .goal h5 {
   font-size: 82px;
   text-align: center;
-  color: #E56AB3;
+  color: #e56ab3;
   text-shadow: #fff 0 0 4px;
 }
 .subGoal .goal .text {
