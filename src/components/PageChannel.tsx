@@ -4,7 +4,7 @@ import { action, makeObservable, observable, reaction } from "mobx";
 import type { RouterCompatProps } from "../routing/routerCompat";
 import type { IReactionDisposer } from "mobx";
 
-import { EventModel, EventState } from "../models/Event";
+import { type EventModel, EventState } from "../models/Event";
 import { RouletteEventModel } from "../models/RouletteEvent";
 import { NormalEventModel } from "../models/NormalEvent";
 import { DonateEventModel } from "../models/DonateEvent";
@@ -96,7 +96,7 @@ const EVENTS =
       };
 
 @observer
-export class PageChannel extends React.Component<IPageChannelProps & RouterCompatProps> {
+export class PageChannel extends React.Component<RouterCompatProps> {
   connecting: boolean = true;
   connectionFailed: boolean = false;
   currentEvent: EventModel | undefined = undefined;
@@ -112,7 +112,7 @@ export class PageChannel extends React.Component<IPageChannelProps & RouterCompa
   private donateAlertQueue: string[] = [];
   private currentDonateAlert?: string;
 
-  constructor(props: IPageChannelProps & RouterCompatProps) {
+  constructor(props: RouterCompatProps) {
     super(props);
 
     makeObservable(this, {
@@ -424,11 +424,11 @@ export class PageChannel extends React.Component<IPageChannelProps & RouterCompa
         event.update(toUpdate);
 
         this.setCurrentEvent(event);
-      } else if (EVENTS["update"].includes(json.event) && args) {
+      } else if (EVENTS.update.includes(json.event) && args) {
         if (this.currentEvent && this.currentEvent.id === json.id && typeof args.key === "string") {
           this.currentEvent.update({ [args.key]: args.value });
         }
-      } else if (EVENTS["finished"].includes(json.event)) {
+      } else if (EVENTS.finished.includes(json.event)) {
         if (this.currentEvent && this.currentEvent.id === json.id) this.setCurrentEvent(undefined);
       }
     }
@@ -438,12 +438,12 @@ export class PageChannel extends React.Component<IPageChannelProps & RouterCompa
     let output = message;
     // output = output.replaceAll('/default/light/1.0', '/default/light/2.0');
     // return ReactHTMLParser(output);
-    output = output.replaceAll(/<img(?:.*?)alt="(.*?)"(?:.*?)>/g, (match, p1) => (p1 ? p1 : ""));
+    output = output.replaceAll(/<img(?:.*?)alt="(.*?)"(?:.*?)>/g, (_match, p1) => (p1 ? p1 : ""));
     return output;
   }
 
   private submitFirstAlert() {
-    if (!this.currentDonateAlert && !!this.donateAlertQueue.length) {
+    if (!this.currentDonateAlert && this.donateAlertQueue.length > 0) {
       this.currentDonateAlert = this.donateAlertQueue[0];
 
       this.socket?.send(
@@ -468,4 +468,3 @@ export class PageChannel extends React.Component<IPageChannelProps & RouterCompa
   }
 }
 
-interface IPageChannelProps {}
