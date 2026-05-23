@@ -1,9 +1,10 @@
-import React from "react";
+import { createElement } from "react";
 
 export function OverlayUnavailable() {
-  return (
-    <div
-      style={{
+  return createElement(
+    "div",
+    {
+      style: {
         alignItems: "center",
         boxSizing: "border-box",
         color: "#fff",
@@ -17,10 +18,9 @@ export function OverlayUnavailable() {
         textAlign: "center",
         textShadow: "0 1px 2px rgba(0, 0, 0, 0.75)",
         width: "100vw",
-      }}
-    >
-      <div>Overlay unavailable</div>
-      <div>Could not connect to this overlay. Check widget URL or backend status.</div>
-    </div>
+      },
+    },
+    createElement("div", null, "Overlay unavailable"),
+    createElement("div", null, "Could not connect to this overlay. Check widget URL or backend status."),
   );
 }

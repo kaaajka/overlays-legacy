@@ -19,10 +19,7 @@ import {
 } from "../dev/replay/legacyReplay";
 
 @observer
-export class PageChannelSubs extends React.Component<
-  IPageChannelSubsProps & RouterCompatProps,
-  {}
-> {
+export class PageChannelSubs extends React.Component<RouterCompatProps, {}> {
   connecting: boolean = true;
   connectionFailed: boolean = false;
   current: number | undefined = undefined;
@@ -30,7 +27,7 @@ export class PageChannelSubs extends React.Component<
 
   private socket?: LegacyOverlaySocketController;
 
-  constructor(props: IPageChannelSubsProps & RouterCompatProps) {
+  constructor(props: RouterCompatProps) {
     super(props);
 
     makeObservable(this, {
@@ -149,5 +146,3 @@ export class PageChannelSubs extends React.Component<
     return id;
   }
 }
-
-interface IPageChannelSubsProps {}

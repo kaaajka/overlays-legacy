@@ -19,10 +19,7 @@ import {
 } from "../dev/replay/legacyReplay";
 
 @observer
-export class PageChannelFollowers extends React.Component<
-  IPageChannelFollowersProps & RouterCompatProps,
-  {}
-> {
+export class PageChannelFollowers extends React.Component<RouterCompatProps, {}> {
   connecting: boolean = true;
   connectionFailed: boolean = false;
   current: number | undefined = undefined;
@@ -30,9 +27,9 @@ export class PageChannelFollowers extends React.Component<
 
   private socket?: LegacyOverlaySocketController;
 
-  private testTimeout?: any;
+  private testTimeout?: ReturnType<typeof setTimeout>;
 
-  constructor(props: IPageChannelFollowersProps & RouterCompatProps) {
+  constructor(props: RouterCompatProps) {
     super(props);
 
     makeObservable(this, {
@@ -154,5 +151,3 @@ export class PageChannelFollowers extends React.Component<
     return id;
   }
 }
-
-interface IPageChannelFollowersProps {}

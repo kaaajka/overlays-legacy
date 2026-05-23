@@ -1,9 +1,10 @@
-import React from "react";
+import { createElement } from "react";
 
 export function NotFound() {
-  return (
-    <div
-      style={{
+  return createElement(
+    "div",
+    {
+      style: {
         alignItems: "center",
         boxSizing: "border-box",
         color: "#fff",
@@ -17,10 +18,9 @@ export function NotFound() {
         textAlign: "center",
         textShadow: "0 1px 2px rgba(0, 0, 0, 0.75)",
         width: "100vw",
-      }}
-    >
-      <div>Overlay not found</div>
-      <div>Invalid or unsupported overlay URL</div>
-    </div>
+      },
+    },
+    createElement("div", null, "Overlay not found"),
+    createElement("div", null, "Invalid or unsupported overlay URL"),
   );
 }

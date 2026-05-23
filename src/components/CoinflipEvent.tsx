@@ -92,7 +92,7 @@ export default class CoinflipEvent extends React.Component<ICoinflipEventProps, 
     const coinFrontClassNames = ["front"];
 
     if (this.hideSegmentImage) coinFrontClassNames.push("show-head-image");
-    if (!!this.props.event.coin_chosen_side) {
+    if (this.props.event.coin_chosen_side) {
       const coinChosenSide = this.props.event.coin_chosen_side === 1 ? "head" : "tail";
       rouletteClassNames.push("chosen-side");
       coinClassNames.push(`chosen-${coinChosenSide}`);
