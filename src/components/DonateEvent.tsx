@@ -342,7 +342,7 @@ export default class DonateEvent extends React.Component<
 
     this.setState({ shouldRender: false });
 
-    onFinished && onFinished();
+    onFinished?.();
   }
 
   private playSound(
@@ -406,7 +406,7 @@ export default class DonateEvent extends React.Component<
   private findTemplate() {
     const { donate } = this.props;
 
-    templates.sort(function (a, b) {
+    templates.sort((a, b) => {
       if (a.amount === b.amount) return 0;
 
       return a.amount > b.amount ? 1 : -1;
