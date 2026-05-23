@@ -22,6 +22,19 @@ import Donate8 from "./donations/Donate8";
 import Donate9 from "./donations/Donate9";
 import Donate10 from "./donations/Donate10";
 
+type DonateTemplateSound = {
+  url: string;
+  volume: number;
+};
+
+type DonateTemplateSpeech = {
+  readAmount: boolean;
+  readMessage: boolean;
+  readNickname: boolean;
+  voiceType: "GOOGLE_POLISH_MALE" | "GOOGLE_POLISH_FEMALE";
+  volume: number;
+};
+
 const templates = [
   {
     amount: 50,
@@ -245,7 +258,7 @@ export default class DonateEvent extends React.Component<
     });
   }
 
-  private async runDonate(sound: any, speech: any) {
+  private async runDonate(sound: DonateTemplateSound, speech: DonateTemplateSpeech) {
     const { donate } = this.props;
 
     if (!!sound && !!sound.url && !!sound.url.length) {
