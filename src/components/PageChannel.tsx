@@ -203,7 +203,7 @@ export class PageChannel extends React.Component<
   donateFinished() {
     if (!this.currentDonate) return;
 
-    this.donateList = this.donateList.splice(1);
+    this.donateList = this.donateList.slice(1);
     this.currentDonate = undefined;
 
     if (this.changeDonateTimeout) clearTimeout(this.changeDonateTimeout);
@@ -300,11 +300,11 @@ export class PageChannel extends React.Component<
         const volume = typeof args?.volume === 'number' ? args.volume : undefined;
         const url = typeof args?.url === 'string' ? args.url : undefined;
 
-        if (!volume || !url) return;
+        if (typeof volume !== 'number' || !url) return;
 
         const audio = new Audio(url);
 
-        audio.volume = Number(volume);
+        audio.volume = Math.min(1, Math.max(0, volume));
 
         audio.play().catch(() => {});
       } else if (
