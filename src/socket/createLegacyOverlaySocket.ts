@@ -49,8 +49,9 @@ export function createLegacyOverlaySocket(
   const connect = () => {
     if (stopped) stopped = false;
 
+    if (socket) return;
+
     clearReconnectTimer();
-    closeActiveSocket();
 
     try {
       socket = new WebSocket(options.url);
