@@ -1,5 +1,5 @@
-import React from "react";
-import { DonateEventModel } from "../../models/DonateEvent";
+import type React from "react";
+import type { DonateEventModel } from "../../models/DonateEvent";
 
 const Donate9: React.FC<IDonate9Props> = function ({ donate, images, withCommission }) {
   return (

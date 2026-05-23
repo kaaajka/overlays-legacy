@@ -1,5 +1,5 @@
 import React from "react";
-import { DonateEventModel } from "../../models/DonateEvent";
+import type { DonateEventModel } from "../../models/DonateEvent";
 
 const Donate8: React.FC<IDonate8Props> = function ({ donate, images, withCommission }) {
   const [stage, setStage] = React.useState(1);

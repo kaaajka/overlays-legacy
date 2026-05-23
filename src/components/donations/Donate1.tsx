@@ -1,6 +1,6 @@
-import React from "react";
+import type React from "react";
 
-import { DonateEventModel } from "../../models/DonateEvent";
+import type { DonateEventModel } from "../../models/DonateEvent";
 
 const Donate1: React.FC<IDonate1Props> = function ({ donate, images, withCommission }) {
   const isTraffic = donate.nickname.toLowerCase() === "zawistnymoddamian";

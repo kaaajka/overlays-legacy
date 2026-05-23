@@ -1,4 +1,4 @@
-import React from "react";
+import type React from "react";
 import { observer } from "mobx-react";
 
 import { EventState } from "../models/Event";
