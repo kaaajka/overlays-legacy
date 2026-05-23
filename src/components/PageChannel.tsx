@@ -39,7 +39,7 @@ import {
   replayRequestedLegacyFixture,
 } from "../dev/replay/legacyReplay";
 
-const images: { [key: string]: any } = {
+const images: Record<string, string> = {
   mute: muteImage,
   censure: censureImage,
   withoutR: withoutRImage,
@@ -80,26 +80,20 @@ const coinflipSounds = [
   AppConfig.assetUrl("/assets/sounds/15.mp3"),
 ];
 
-let EVENTS = {};
-switch (import.meta.env.VITE_APP_ENV) {
-  default:
-  case "prod":
-    EVENTS = {
-      donate_prepare: ["prepare"],
-      prepare_started: ["prepare", "started"],
-      update: ["update"],
-      finished: ["finished"],
-    };
-    break;
-  case "test":
-    EVENTS = {
-      donate_prepare: ["prepare", "test"],
-      prepare_started: ["prepare", "started", "t_prepare", "t_started"],
-      update: ["update", "t_update"],
-      finished: ["finished", "t_finished"],
-    };
-    break;
-}
+const EVENTS =
+  import.meta.env.VITE_APP_ENV === "test"
+    ? {
+        donate_prepare: ["prepare", "test"],
+        prepare_started: ["prepare", "started", "t_prepare", "t_started"],
+        update: ["update", "t_update"],
+        finished: ["finished", "t_finished"],
+      }
+    : {
+        donate_prepare: ["prepare"],
+        prepare_started: ["prepare", "started"],
+        update: ["update"],
+        finished: ["finished"],
+      };
 
 @observer
 export class PageChannel extends React.Component<IPageChannelProps & RouterCompatProps> {
@@ -321,7 +315,7 @@ export class PageChannel extends React.Component<IPageChannelProps & RouterCompa
         label: "Legacy overlay playSound",
         mutedFixtureAudioKind: "fallback",
       });
-    } else if (EVENTS["donate_prepare"].includes(json.event) && json.key === "donate" && args) {
+    } else if (EVENTS.donate_prepare.includes(json.event) && json.key === "donate" && args) {
       const preparedArgs = {
         id: typeof args.id === "string" ? args.id : json.id,
         nickname: typeof args.nickname === "string" ? args.nickname : "",
@@ -368,7 +362,7 @@ export class PageChannel extends React.Component<IPageChannelProps & RouterCompa
         if (index > -1) this.donateAlertQueue.splice(index, 1);
       }
     } else {
-      if (EVENTS["prepare_started"].includes(json.event) && args) {
+      if (EVENTS.prepare_started.includes(json.event) && args) {
         const params = {
           id: json.id,
           key: json.key,
