@@ -11,6 +11,8 @@ import { debugLog } from '../debug';
 import { safeJsonParse } from '../protocol/safeJson';
 import { isLegacyGoalMessage } from '../protocol/legacyOverlayProtocol';
 import { buildLegacyWsUrl } from '../protocol/legacyWsUrl';
+import { createLegacyOverlaySocket } from '../socket/createLegacyOverlaySocket';
+import type { LegacyOverlaySocketController } from '../socket/createLegacyOverlaySocket';
 import {
   cleanupFixtureAudioUnlockPrompt,
   replayRequestedLegacyFixture,
@@ -26,10 +28,7 @@ export class PageChannelSubs extends React.Component<
   current: number | undefined = undefined;
   goal: number | undefined = undefined;
 
-  private ws?: WebSocket;
-  private timeout: number = 250;
-  private failedConnectionAttempts = 0;
-  private connectInterval?: ReturnType<typeof setTimeout>;
+  private socket?: LegacyOverlaySocketController;
 
   constructor(
     props: IPageChannelSubsProps & RouteComponentProps<{ id: string }>,
@@ -93,76 +92,34 @@ export class PageChannelSubs extends React.Component<
   }
 
   private closeConnection() {
-    if (this.connectInterval) clearTimeout(this.connectInterval);
-
-    if (this.ws) {
-      this.ws.close();
-      this.ws.onopen = null;
-      this.ws.onerror = null;
-      this.ws.onclose = null;
-      this.ws.onmessage = null;
-      this.ws = undefined;
-    }
+    this.socket?.disconnect();
+    this.socket = undefined;
   }
 
   private createConnection(accountKey: string) {
-    const ws = new WebSocket(
-      buildLegacyWsUrl(AppConfig.ws, accountKey, 'subs'),
-    );
-
-    ws.onopen = () => {
-      debugLog('connected websocket subs component');
-
-      this.failedConnectionAttempts = 0;
-      this.setConnectionFailed(false);
-      this.timeout = 250;
-
-      if (this.connecting) this.setConnecting(false);
-
-      if (this.connectInterval) clearTimeout(this.connectInterval);
-    };
-    ws.onerror = (error) => {
-      debugLog('Legacy subs websocket error. Closing socket.', error);
-
-      ws.close();
-    };
-    ws.onclose = (e) => {
-      this.failedConnectionAttempts += 1;
-
-      runInAction(() => {
-        this.current = undefined;
-        this.goal = undefined;
-      });
-
-      if (this.failedConnectionAttempts >= 5) {
-        debugLog('Legacy subs websocket failed repeatedly. Showing unavailable overlay.', e.reason);
-        this.ws = undefined;
+    this.socket = createLegacyOverlaySocket({
+      url: buildLegacyWsUrl(AppConfig.ws, accountKey, 'subs'),
+      label: 'subs',
+      onOpen: () => {
+        this.setConnectionFailed(false);
+        if (this.connecting) this.setConnecting(false);
+      },
+      onClose: () => {
+        runInAction(() => {
+          this.current = undefined;
+          this.goal = undefined;
+        });
+      },
+      onMessage: (data) => {
+        this.handleLegacyMessage(safeJsonParse(data));
+      },
+      onFailure: () => {
         this.setConnecting(false);
         this.setConnectionFailed(true);
-        return;
-      }
+      },
+    });
 
-      debugLog(
-        `Socket is closed. Reconnect will be attempted in ${Math.min(10000 / 1000, (this.timeout + this.timeout) / 1000)} second.`,
-        e.reason,
-      );
-
-      this.timeout = this.timeout + this.timeout;
-      this.connectInterval = setTimeout(
-        () => {
-          if (!this.ws || this.ws.readyState === WebSocket.CLOSED)
-            this.createConnection(accountKey);
-        },
-        Math.min(10000, this.timeout),
-      );
-    };
-    ws.onmessage = ({ isTrusted, data }) => {
-      if (!isTrusted || typeof data !== 'string') return;
-
-      this.handleLegacyMessage(safeJsonParse(data));
-    };
-
-    this.ws = ws;
+    this.socket.connect();
   }
 
   private handleLegacyMessage(payload: unknown) {

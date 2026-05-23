@@ -60,6 +60,8 @@ Could not connect to this overlay. Check widget URL or backend status.
 
 This is a frontend failure state only. It does not change the WebSocket URL format, backend payloads, account lookup model, fixture replay, or OBS route contract.
 
+Small goal overlays (`queue`, `subs`, `followers`) share their WebSocket lifecycle through `src/socket/createLegacyOverlaySocket.ts`. That helper only centralizes connect/reconnect/failure handling; it must not change the legacy `VITE_WS_URL/<kind>?account=:uuid` contract. The main tip alert overlay intentionally remains on its existing lifecycle code until it can be migrated separately.
+
 ## Route: main overlay
 
 ### URL
