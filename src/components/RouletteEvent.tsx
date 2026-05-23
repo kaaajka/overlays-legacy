@@ -91,7 +91,6 @@ export default class RouletteEvent extends React.Component<IRouletteEventProps> 
       );
 
     const blocks = this.calculateBlocks();
-    // @ts-expect-error Legacy winner is narrowed by runtime truthy check below.
     const winningItem =
       event.winner && this.finished
         ? event.items.find((item) => item.start <= event.winner && item.end >= event.winner)
