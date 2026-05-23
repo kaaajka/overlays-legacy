@@ -486,3 +486,10 @@ Standalone OBS widget for queued events.
 - Do not replace `?account=:uuid` while the legacy backend is still used.
 - Do not remove `t_prepare`, `t_started`, `t_update`, `t_finished` support unless the legacy backend test commands are removed.
 - Do not assume every backend payload is valid; guard and ignore invalid messages.
+
+
+## Runtime routing parser
+
+Runtime overlay routing is now resolved by `src/routing/parseOverlayRoute.ts` in `src/index.tsx` instead of React Router runtime matching. This keeps the legacy `/channel/:uuid` OBS routes and the modern uppercase aliases compatible while sharing one tested parser for UUID validation and route mapping.
+
+React Router dependencies are intentionally still present in `package.json` for this commit; dependency cleanup should happen only after manual OBS validation. Query parameters such as `fixture`, `muteAudio` and `fast` still come from `window.location.search`, so fixture replay behavior is unchanged.

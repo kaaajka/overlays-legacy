@@ -1,31 +1,67 @@
-import React from "react";
-import ReactDOM from "react-dom";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import React from 'react';
+import ReactDOM from 'react-dom';
 
-import { PageChannel } from "./components/PageChannel";
-import { PageChannelSubs } from "./components/PageChannelSubs";
-import { PageChannelFollowers } from "./components/PageChannelFollowers";
-import { PageChannelQueue } from "./components/PageChannelQueue";
-import { NotFound } from "./components/NotFound";
+import { PageChannel } from './components/PageChannel';
+import { PageChannelSubs } from './components/PageChannelSubs';
+import { PageChannelFollowers } from './components/PageChannelFollowers';
+import { PageChannelQueue } from './components/PageChannelQueue';
+import { NotFound } from './components/NotFound';
+import { parseOverlayRoute } from './routing/parseOverlayRoute';
+import type { OverlayRoute } from './routing/parseOverlayRoute';
 
-const routePrefix = import.meta.env.BASE_URL.replace(/\/$/, "");
-const channelIdRegex = ':id([0-9a-f]{8}-[0-9a-f]{4}-[0-5][0-9a-f]{3}-[089ab][0-9a-f]{3}-[0-9a-f]{12})';
+const routePrefix = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+type RouterCompatProps = {
+  match: {
+    params: {
+      id: string;
+    };
+  };
+};
+
+function stripBasePath(pathname: string): string {
+  if (!routePrefix || routePrefix === '/') return pathname;
+
+  if (pathname === routePrefix) return '/';
+  if (pathname.startsWith(`${routePrefix}/`)) {
+    return pathname.slice(routePrefix.length) || '/';
+  }
+
+  return pathname;
+}
+
+function createRouterCompatProps(accountId: string): RouterCompatProps {
+  return {
+    match: {
+      params: {
+        id: accountId,
+      },
+    },
+  };
+}
+
+function renderOverlayRoute(route: OverlayRoute): React.ReactElement {
+  if (route.kind === 'not_found') return <NotFound />;
+
+  const routerCompatProps = createRouterCompatProps(route.accountId) as any;
+
+  switch (route.type) {
+    case 'TIP_ALERT':
+      return <PageChannel {...routerCompatProps} />;
+    case 'SUB_GOAL':
+      return <PageChannelSubs {...routerCompatProps} />;
+    case 'FOLLOW_GOAL':
+      return <PageChannelFollowers {...routerCompatProps} />;
+    case 'QUEUE':
+      return <PageChannelQueue {...routerCompatProps} />;
+    default:
+      return <NotFound />;
+  }
+}
+
+const overlayRoute = parseOverlayRoute(stripBasePath(window.location.pathname));
 
 ReactDOM.render(
-    <React.StrictMode>
-        <Router>
-            <Switch>
-                <Route exact={true} path={`${routePrefix}/channel/${channelIdRegex}`} component={PageChannel} />
-                <Route exact={true} path={`${routePrefix}/channel/${channelIdRegex}/subs`} component={PageChannelSubs} />
-                <Route exact={true} path={`${routePrefix}/channel/${channelIdRegex}/followers`} component={PageChannelFollowers} />
-                <Route exact={true} path={`${routePrefix}/channel/${channelIdRegex}/queue`} component={PageChannelQueue} />
-                <Route exact={true} path={`${routePrefix}/TIP_ALERT/${channelIdRegex}`} component={PageChannel} />
-                <Route exact={true} path={`${routePrefix}/SUB_GOAL/${channelIdRegex}`} component={PageChannelSubs} />
-                <Route exact={true} path={`${routePrefix}/FOLLOW_GOAL/${channelIdRegex}`} component={PageChannelFollowers} />
-                <Route exact={true} path={`${routePrefix}/QUEUE/${channelIdRegex}`} component={PageChannelQueue} />
-                <Route component={NotFound} />
-            </Switch>
-        </Router>
-    </React.StrictMode>,
-    document.getElementById("root")
+  <React.StrictMode>{renderOverlayRoute(overlayRoute)}</React.StrictMode>,
+  document.getElementById('root'),
 );

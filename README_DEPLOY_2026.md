@@ -139,3 +139,10 @@ Expected runtime:
 - no red runtime errors from the app bundle,
 - WebSocket connects on valid routes,
 - debug `console.log` output is hidden unless `VITE_DEBUG_LOGS=true`.
+
+
+## Runtime routing parser
+
+Runtime overlay routing is now resolved by `src/routing/parseOverlayRoute.ts` in `src/index.tsx` instead of React Router runtime matching. This keeps the legacy `/channel/:uuid` OBS routes and the modern uppercase aliases compatible while sharing one tested parser for UUID validation and route mapping.
+
+React Router dependencies are intentionally still present in `package.json` for this commit; dependency cleanup should happen only after manual OBS validation. Query parameters such as `fixture`, `muteAudio` and `fast` still come from `window.location.search`, so fixture replay behavior is unchanged.
