@@ -1,7 +1,7 @@
 import { observer } from 'mobx-react';
 import React from 'react';
-import { RouteComponentProps } from 'react-router-dom';
 import { action, makeObservable, observable, runInAction } from 'mobx';
+import type { RouterCompatProps } from '../routing/routerCompat';
 
 import Goal from './Goal';
 import { OverlayUnavailable } from './OverlayUnavailable';
@@ -20,7 +20,7 @@ import {
 
 @observer
 export class PageChannelSubs extends React.Component<
-  IPageChannelSubsProps & RouteComponentProps<{ id: string }>,
+  IPageChannelSubsProps & RouterCompatProps,
   {}
 > {
   connecting: boolean = true;
@@ -30,9 +30,7 @@ export class PageChannelSubs extends React.Component<
 
   private socket?: LegacyOverlaySocketController;
 
-  constructor(
-    props: IPageChannelSubsProps & RouteComponentProps<{ id: string }>,
-  ) {
+  constructor(props: IPageChannelSubsProps & RouterCompatProps) {
     super(props);
 
     makeObservable(this, {

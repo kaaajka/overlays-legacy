@@ -1,7 +1,7 @@
 import { observer } from 'mobx-react';
 import React from 'react';
-import { RouteComponentProps } from 'react-router-dom';
 import { action, makeObservable, observable, runInAction } from 'mobx';
+import type { RouterCompatProps } from '../routing/routerCompat';
 
 import Goal from './Goal';
 import { OverlayUnavailable } from './OverlayUnavailable';
@@ -20,7 +20,7 @@ import {
 
 @observer
 export class PageChannelFollowers extends React.Component<
-  IPageChannelFollowersProps & RouteComponentProps<{ id: string }>,
+  IPageChannelFollowersProps & RouterCompatProps,
   {}
 > {
   connecting: boolean = true;
@@ -32,9 +32,7 @@ export class PageChannelFollowers extends React.Component<
 
   private testTimeout?: any;
 
-  constructor(
-    props: IPageChannelFollowersProps & RouteComponentProps<{ id: string }>,
-  ) {
+  constructor(props: IPageChannelFollowersProps & RouterCompatProps) {
     super(props);
 
     makeObservable(this, {

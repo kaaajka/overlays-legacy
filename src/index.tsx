@@ -8,16 +8,9 @@ import { PageChannelQueue } from './components/PageChannelQueue';
 import { NotFound } from './components/NotFound';
 import { parseOverlayRoute } from './routing/parseOverlayRoute';
 import type { OverlayRoute } from './routing/parseOverlayRoute';
+import type { RouterCompatProps } from './routing/routerCompat';
 
 const routePrefix = import.meta.env.BASE_URL.replace(/\/$/, '');
-
-type RouterCompatProps = {
-  match: {
-    params: {
-      id: string;
-    };
-  };
-};
 
 function stripBasePath(pathname: string): string {
   if (!routePrefix || routePrefix === '/') return pathname;
@@ -43,7 +36,7 @@ function createRouterCompatProps(accountId: string): RouterCompatProps {
 function renderOverlayRoute(route: OverlayRoute): React.ReactElement {
   if (route.kind === 'not_found') return <NotFound />;
 
-  const routerCompatProps = createRouterCompatProps(route.accountId) as any;
+  const routerCompatProps = createRouterCompatProps(route.accountId);
 
   switch (route.type) {
     case 'TIP_ALERT':

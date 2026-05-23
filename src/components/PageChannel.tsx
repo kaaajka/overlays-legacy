@@ -1,7 +1,7 @@
 import React from 'react';
-import { RouteComponentProps } from 'react-router-dom';
 import { observer } from 'mobx-react';
 import { action, makeObservable, observable, reaction } from 'mobx';
+import type { RouterCompatProps } from '../routing/routerCompat';
 import type { IReactionDisposer } from 'mobx';
 
 import { EventModel, EventState } from '../models/Event';
@@ -106,7 +106,7 @@ switch (import.meta.env.VITE_APP_ENV) {
 
 @observer
 export class PageChannel extends React.Component<
-  IPageChannelProps & RouteComponentProps<{ id: string }>,
+  IPageChannelProps & RouterCompatProps,
   {}
 > {
   connecting: boolean = true;
@@ -124,7 +124,7 @@ export class PageChannel extends React.Component<
   private donateAlertQueue: string[] = [];
   private currentDonateAlert?: string;
 
-  constructor(props: IPageChannelProps & RouteComponentProps<{ id: string }>) {
+  constructor(props: IPageChannelProps & RouterCompatProps) {
     super(props);
 
     makeObservable(this, {
