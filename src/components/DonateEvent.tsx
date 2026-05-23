@@ -26,15 +26,32 @@ type DonateTemplateSound = {
   volume: number;
 };
 
+type DonateTemplateVoiceType = "GOOGLE_POLISH_MALE" | "GOOGLE_POLISH_FEMALE";
+
 type DonateTemplateSpeech = {
   readAmount: boolean;
   readMessage: boolean;
   readNickname: boolean;
-  voiceType: "GOOGLE_POLISH_MALE" | "GOOGLE_POLISH_FEMALE";
+  voiceType: DonateTemplateVoiceType;
   volume: number;
 };
 
-const templates = [
+type DonateTemplateComponentProps = {
+  donate: DonateEventModel;
+  images: string[];
+  withCommission: boolean;
+};
+
+type DonateTemplateConfig = {
+  amount: number;
+  amountWithoutCommission: boolean;
+  images: string[];
+  sound: DonateTemplateSound;
+  speech: DonateTemplateSpeech;
+  template: React.ComponentType<DonateTemplateComponentProps>;
+};
+
+const templates: DonateTemplateConfig[] = [
   {
     amount: 50,
     amountWithoutCommission: true,
@@ -395,7 +412,7 @@ export default class DonateEvent extends React.Component<
       return a.amount > b.amount ? 1 : -1;
     });
 
-    let selected: (typeof templates)[number] | undefined;
+    let selected: DonateTemplateConfig | undefined;
 
     for (let i = 0; i < templates.length; i++) {
       const min = templates[i].amount;
