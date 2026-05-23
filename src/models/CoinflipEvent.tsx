@@ -1,7 +1,7 @@
 import { action, makeObservable, observable } from "mobx";
 
-import { EventModel, IEventModelSchema } from "./Event";
-import { ICoinflipSegmentSchema, CoinflipSegmentModel } from "./CoinflipSegment";
+import { EventModel, type IEventModelSchema } from "./Event";
+import { type ICoinflipSegmentSchema, CoinflipSegmentModel } from "./CoinflipSegment";
 
 interface ICoinflipEventSchema extends IEventModelSchema {
   segments: ICoinflipSegmentSchema[];

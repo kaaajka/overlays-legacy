@@ -33,11 +33,13 @@ export class EventModel {
     });
   }
 
-  update(args: { [key: string]: any }) {
+  update(args: Record<string, unknown>) {
     for (const [key, value] of Object.entries(args)) {
-      if (!this.hasOwnProperty(key)) continue;
+      if (!Object.prototype.hasOwnProperty.call(this, key)) continue;
 
-      if (key === "state") if (Object.values(EventState).includes(value)) this.state = value;
+      if (key === "state") {
+        if (Object.values(EventState).includes(value as EventState)) this.state = value as EventState;
+      }
 
       (this as any)[key] = value;
     }
