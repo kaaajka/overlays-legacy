@@ -6,6 +6,7 @@ import type { IReactionDisposer } from "mobx";
 import { CoinflipEventModel } from "../models/CoinflipEvent";
 import { EventState } from "../models/Event";
 import { AppConfig } from "../config";
+import { debugLog } from "../debug";
 
 const timeoutTimes: { spin: number, hideSegmentImage: number } = {
     spin: 2 * 1000,
@@ -34,7 +35,9 @@ export default class CoinflipEvent extends React.Component<ICoinflipEventProps, 
                     if (this.timeouts.hideSegmentImage) clearTimeout(this.timeouts.hideSegmentImage);
                     
                     this.timeouts.spin = setTimeout(() => {
-                        this.spinningSound.play();
+                        this.spinningSound.play().catch((error) => {
+                            debugLog("Coinflip spinning sound failed safely", error);
+                        });
                     }, timeoutTimes.spin);
 
                     this.timeouts.hideSegmentImage = setTimeout(() => {

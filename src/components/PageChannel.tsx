@@ -27,8 +27,15 @@ import rouletteImage from '../assets/images/pobrane_6.webp';
 import coinflipImage from '../assets/images/cat_surprised.gif';
 import { debugLog } from '../debug';
 import { safeJsonParse } from '../protocol/safeJson';
-import { getRecord, isLegacyMainMessage } from '../protocol/legacyOverlayProtocol';
+import {
+  getRecord,
+  isLegacyMainMessage,
+} from '../protocol/legacyOverlayProtocol';
 import { buildLegacyWsUrl } from '../protocol/legacyWsUrl';
+import {
+  isRequestedLegacyFixtureReplayActive,
+  replayRequestedLegacyFixture,
+} from '../dev/replay/legacyReplay';
 
 const images: { [key: string]: any } = {
   mute: muteImage,
@@ -141,6 +148,15 @@ export class PageChannel extends React.Component<
 
   componentDidMount() {
     this.closeConnection();
+
+    const didReplayFixture = replayRequestedLegacyFixture((payload) =>
+      this.handleLegacyMessage(payload),
+    );
+    if (didReplayFixture) {
+      this.setConnecting(false);
+      return;
+    }
+
     this.createConnection(this.accountKey);
   }
 
@@ -195,7 +211,9 @@ export class PageChannel extends React.Component<
 
       this.currentPlaying = url;
       this.currentPlaying.volume = 0.3;
-      this.currentPlaying.play();
+      this.currentPlaying.play().catch((error) => {
+        debugLog('Legacy overlay audio play failed safely', error);
+      });
     } else {
       if (this.currentPlaying) {
         this.currentPlaying.pause();
@@ -258,7 +276,14 @@ export class PageChannel extends React.Component<
   }
 
   private createConnection(accountKey: string) {
-    const ws = new WebSocket(buildLegacyWsUrl(AppConfig.ws, accountKey, 'main'));
+    if (isRequestedLegacyFixtureReplayActive()) {
+      debugLog('Skipped legacy main websocket connection during fixture replay');
+      return;
+    }
+
+    const ws = new WebSocket(
+      buildLegacyWsUrl(AppConfig.ws, accountKey, 'main'),
+    );
 
     ws.onopen = () => {
       debugLog('connected websocket main component');
@@ -293,142 +318,182 @@ export class PageChannel extends React.Component<
     ws.onmessage = ({ isTrusted, data }) => {
       if (!isTrusted || typeof data !== 'string') return;
 
-      const json = safeJsonParse(data);
-      if (!isLegacyMainMessage(json)) {
-        debugLog('Ignored unknown legacy main websocket payload', json);
-        return;
-      }
-
-      const args = getRecord(json.args);
-
-      if (json.event === 'prepare' && json.key === 'playSound') {
-        const volume = typeof args?.volume === 'number' ? args.volume : undefined;
-        const url = typeof args?.url === 'string' ? args.url : undefined;
-
-        if (typeof volume !== 'number' || !url) return;
-
-        const audio = new Audio(url);
-
-        audio.volume = Math.min(1, Math.max(0, volume));
-
-        audio.play().catch(() => {});
-      } else if (
-        EVENTS['donate_prepare'].includes(json.event) &&
-        json.key === 'donate' &&
-        args
-      ) {
-        const preparedArgs = {
-          id: typeof args.id === 'string' ? args.id : json.id,
-          nickname: typeof args.nickname === 'string' ? args.nickname : '',
-          message: typeof args.message === 'string' ? this.prepareDonateMessage(args.message) : '',
-          amount: typeof args.amount === 'number' ? args.amount : 0,
-          commission: typeof args.commission === 'number' ? args.commission : 0,
-          audio_url: typeof args.audio_url === 'string' ? args.audio_url : null,
-          tts_nickname_google_male: typeof args.tts_nickname_google_male === 'string' ? args.tts_nickname_google_male : '',
-          tts_nickname_google_female: typeof args.tts_nickname_google_female === 'string' ? args.tts_nickname_google_female : '',
-          tts_message_google_male: typeof args.tts_message_google_male === 'string' ? args.tts_message_google_male : '',
-          tts_message_google_female: typeof args.tts_message_google_female === 'string' ? args.tts_message_google_female : '',
-          tts_amount_google_male: typeof args.tts_amount_google_male === 'string' ? args.tts_amount_google_male : '',
-          tts_amount_google_female: typeof args.tts_amount_google_female === 'string' ? args.tts_amount_google_female : '',
-          test: typeof args.test === 'boolean' ? args.test : false,
-          resent: typeof args.resent === 'boolean' ? args.resent : false,
-        };
-        this.pushDonate(new DonateEventModel(preparedArgs));
-      } else if (json.event === 'alertList' && args) {
-        if (json.key === 'set' && Array.isArray(args.list)) {
-          this.donateAlertQueue = args.list.filter(
-            (item): item is string => typeof item === 'string',
-          );
-
-          this.submitFirstAlert();
-        } else if (json.key === 'add' && typeof args.id === 'string') {
-          const index = this.donateAlertQueue.indexOf(args.id);
-
-          if (index === -1) {
-            this.donateAlertQueue.push(args.id);
-
-            this.submitFirstAlert();
-          }
-        } else if (json.key === 'delete' && typeof args.id === 'string') {
-          const index = this.donateAlertQueue.indexOf(args.id);
-
-          if (index > -1) this.donateAlertQueue.splice(index, 1);
-        }
-      } else {
-        if (EVENTS['prepare_started'].includes(json.event) && args) {
-          const params = {
-            id: json.id,
-            key: json.key,
-            name: typeof args.name === 'string' ? args.name : '',
-            description: typeof args.description === 'string' ? args.description : '',
-          };
-          let event: EventModel;
-          switch (json.key) {
-            case 'roulette':
-              event = new RouletteEventModel({
-                ...params,
-                items: Array.isArray(args.items) ? (args.items as any[]) : [],
-              });
-              break;
-            case 'coinflip':
-              event = new CoinflipEventModel({
-                ...params,
-                segments: Array.isArray(args.segments) ? (args.segments as any[]) : [],
-              });
-              break;
-            default:
-              event = new NormalEventModel(params);
-              break;
-          }
-
-          const isPrepareState = ['t_prepare', 'prepare'].includes(json.event);
-          const toUpdate: {
-            state: EventState;
-            time?: number;
-            winner?: number;
-            coin_landing_side?: number;
-          } = { state: isPrepareState ? EventState.PREPARE : EventState.STARTED };
-
-          if (isPrepareState) {
-            let list: HTMLAudioElement[];
-            switch (json.key) {
-              case 'dogs':
-                list = dogsSounds;
-                break;
-              case 'coinflip':
-                list = coinflipSounds;
-                break;
-              default:
-                list = randomSounds;
-                break;
-            }
-            const randomSound = list[Math.floor(Math.random() * list.length)];
-
-            this.setCurrentPlaying(randomSound);
-          } else {
-            if (['roulette', 'coinflip'].includes(json.key) && typeof args.winner === 'number')
-              toUpdate.winner = args.winner;
-            if (json.key === 'coinflip' && typeof args.coin_landing_side === 'number')
-              toUpdate.coin_landing_side = args.coin_landing_side;
-
-            if (typeof args.time === 'number') toUpdate.time = args.time;
-          }
-
-          event.update(toUpdate);
-
-          this.setCurrentEvent(event);
-        } else if (EVENTS['update'].includes(json.event) && args) {
-          if (this.currentEvent && this.currentEvent.id === json.id && typeof args.key === 'string') {
-            this.currentEvent.update({ [args.key]: args.value });
-          }
-        } else if (EVENTS['finished'].includes(json.event)) {
-          if (this.currentEvent && this.currentEvent.id === json.id)
-            this.setCurrentEvent(undefined);
-        }
-      }
+      this.handleLegacyMessage(safeJsonParse(data));
     };
 
     this.ws = ws;
+  }
+
+  private handleLegacyMessage(payload: unknown) {
+    const json = payload;
+    if (!isLegacyMainMessage(json)) {
+      debugLog('Ignored unknown legacy main websocket payload', json);
+      return;
+    }
+
+    const args = getRecord(json.args);
+
+    if (json.event === 'prepare' && json.key === 'playSound') {
+      const volume = typeof args?.volume === 'number' ? args.volume : undefined;
+      const url = typeof args?.url === 'string' ? args.url : undefined;
+
+      if (typeof volume !== 'number' || !url) return;
+
+      const audio = new Audio(url);
+
+      audio.volume = Math.min(1, Math.max(0, volume));
+
+      audio.play().catch((error) => {
+        debugLog('Legacy overlay playSound failed safely', { url, error });
+      });
+    } else if (
+      EVENTS['donate_prepare'].includes(json.event) &&
+      json.key === 'donate' &&
+      args
+    ) {
+      const preparedArgs = {
+        id: typeof args.id === 'string' ? args.id : json.id,
+        nickname: typeof args.nickname === 'string' ? args.nickname : '',
+        message:
+          typeof args.message === 'string'
+            ? this.prepareDonateMessage(args.message)
+            : '',
+        amount: typeof args.amount === 'number' ? args.amount : 0,
+        commission: typeof args.commission === 'number' ? args.commission : 0,
+        audio_url: typeof args.audio_url === 'string' ? args.audio_url : null,
+        tts_nickname_google_male:
+          typeof args.tts_nickname_google_male === 'string'
+            ? args.tts_nickname_google_male
+            : '',
+        tts_nickname_google_female:
+          typeof args.tts_nickname_google_female === 'string'
+            ? args.tts_nickname_google_female
+            : '',
+        tts_message_google_male:
+          typeof args.tts_message_google_male === 'string'
+            ? args.tts_message_google_male
+            : '',
+        tts_message_google_female:
+          typeof args.tts_message_google_female === 'string'
+            ? args.tts_message_google_female
+            : '',
+        tts_amount_google_male:
+          typeof args.tts_amount_google_male === 'string'
+            ? args.tts_amount_google_male
+            : '',
+        tts_amount_google_female:
+          typeof args.tts_amount_google_female === 'string'
+            ? args.tts_amount_google_female
+            : '',
+        test: typeof args.test === 'boolean' ? args.test : false,
+        resent: typeof args.resent === 'boolean' ? args.resent : false,
+      };
+      this.pushDonate(new DonateEventModel(preparedArgs));
+    } else if (json.event === 'alertList' && args) {
+      if (json.key === 'set' && Array.isArray(args.list)) {
+        this.donateAlertQueue = args.list.filter(
+          (item): item is string => typeof item === 'string',
+        );
+
+        this.submitFirstAlert();
+      } else if (json.key === 'add' && typeof args.id === 'string') {
+        const index = this.donateAlertQueue.indexOf(args.id);
+
+        if (index === -1) {
+          this.donateAlertQueue.push(args.id);
+
+          this.submitFirstAlert();
+        }
+      } else if (json.key === 'delete' && typeof args.id === 'string') {
+        const index = this.donateAlertQueue.indexOf(args.id);
+
+        if (index > -1) this.donateAlertQueue.splice(index, 1);
+      }
+    } else {
+      if (EVENTS['prepare_started'].includes(json.event) && args) {
+        const params = {
+          id: json.id,
+          key: json.key,
+          name: typeof args.name === 'string' ? args.name : '',
+          description:
+            typeof args.description === 'string' ? args.description : '',
+        };
+        let event: EventModel;
+        switch (json.key) {
+          case 'roulette':
+            event = new RouletteEventModel({
+              ...params,
+              items: Array.isArray(args.items) ? (args.items as any[]) : [],
+            });
+            break;
+          case 'coinflip':
+            event = new CoinflipEventModel({
+              ...params,
+              segments: Array.isArray(args.segments)
+                ? (args.segments as any[])
+                : [],
+            });
+            break;
+          default:
+            event = new NormalEventModel(params);
+            break;
+        }
+
+        const isPrepareState = ['t_prepare', 'prepare'].includes(json.event);
+        const toUpdate: {
+          state: EventState;
+          time?: number;
+          winner?: number;
+          coin_landing_side?: number;
+        } = { state: isPrepareState ? EventState.PREPARE : EventState.STARTED };
+
+        if (isPrepareState) {
+          let list: HTMLAudioElement[];
+          switch (json.key) {
+            case 'dogs':
+              list = dogsSounds;
+              break;
+            case 'coinflip':
+              list = coinflipSounds;
+              break;
+            default:
+              list = randomSounds;
+              break;
+          }
+          const randomSound = list[Math.floor(Math.random() * list.length)];
+
+          this.setCurrentPlaying(randomSound);
+        } else {
+          if (
+            ['roulette', 'coinflip'].includes(json.key) &&
+            typeof args.winner === 'number'
+          )
+            toUpdate.winner = args.winner;
+          if (
+            json.key === 'coinflip' &&
+            typeof args.coin_landing_side === 'number'
+          )
+            toUpdate.coin_landing_side = args.coin_landing_side;
+
+          if (typeof args.time === 'number') toUpdate.time = args.time;
+        }
+
+        event.update(toUpdate);
+
+        this.setCurrentEvent(event);
+      } else if (EVENTS['update'].includes(json.event) && args) {
+        if (
+          this.currentEvent &&
+          this.currentEvent.id === json.id &&
+          typeof args.key === 'string'
+        ) {
+          this.currentEvent.update({ [args.key]: args.value });
+        }
+      } else if (EVENTS['finished'].includes(json.event)) {
+        if (this.currentEvent && this.currentEvent.id === json.id)
+          this.setCurrentEvent(undefined);
+      }
+    }
   }
 
   private prepareDonateMessage(message: string) {

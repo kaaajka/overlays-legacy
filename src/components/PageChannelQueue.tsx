@@ -9,6 +9,7 @@ import { debugLog } from '../debug';
 import { safeJsonParse } from '../protocol/safeJson';
 import { isLegacyQueueMessage } from '../protocol/legacyOverlayProtocol';
 import { buildLegacyWsUrl } from '../protocol/legacyWsUrl';
+import { replayRequestedLegacyFixture } from '../dev/replay/legacyReplay';
 
 @observer
 export class PageChannelQueue extends React.Component<
@@ -37,6 +38,15 @@ export class PageChannelQueue extends React.Component<
 
   componentDidMount() {
     this.closeConnection();
+
+    const didReplayFixture = replayRequestedLegacyFixture((payload) =>
+      this.handleLegacyMessage(payload),
+    );
+    if (didReplayFixture) {
+      this.setConnecting(false);
+      return;
+    }
+
     this.createConnection(this.accountKey);
   }
 
@@ -84,7 +94,9 @@ export class PageChannelQueue extends React.Component<
   }
 
   private createConnection(accountKey: string) {
-    const ws = new WebSocket(buildLegacyWsUrl(AppConfig.ws, accountKey, 'queue'));
+    const ws = new WebSocket(
+      buildLegacyWsUrl(AppConfig.ws, accountKey, 'queue'),
+    );
 
     ws.onopen = () => {
       debugLog('connected websocket main component');
@@ -122,26 +134,30 @@ export class PageChannelQueue extends React.Component<
     ws.onmessage = ({ isTrusted, data }) => {
       if (!isTrusted || typeof data !== 'string') return;
 
-      const json = safeJsonParse(data);
-      if (!isLegacyQueueMessage(json)) {
-        debugLog('Ignored unknown legacy queue websocket payload', json);
-        return;
-      }
-
-      runInAction(() => {
-        if (json.key === 'set') {
-          this.queue = json.args.list.map((el) => new QueueEventModel(el));
-        } else if (json.key === 'add') {
-          const existingEvent = this.queue.find((e) => e.id === json.args.id);
-          if (!existingEvent) this.queue.push(new QueueEventModel(json.args));
-        } else if (json.key === 'delete') {
-          const index = this.queue.findIndex((e) => e.id === json.args.id);
-          if (index > -1) this.queue.splice(index, 1);
-        }
-      });
+      this.handleLegacyMessage(safeJsonParse(data));
     };
 
     this.ws = ws;
+  }
+
+  private handleLegacyMessage(payload: unknown) {
+    const json = payload;
+    if (!isLegacyQueueMessage(json)) {
+      debugLog('Ignored unknown legacy queue websocket payload', json);
+      return;
+    }
+
+    runInAction(() => {
+      if (json.key === 'set') {
+        this.queue = json.args.list.map((el) => new QueueEventModel(el));
+      } else if (json.key === 'add') {
+        const existingEvent = this.queue.find((e) => e.id === json.args.id);
+        if (!existingEvent) this.queue.push(new QueueEventModel(json.args));
+      } else if (json.key === 'delete') {
+        const index = this.queue.findIndex((e) => e.id === json.args.id);
+        if (index > -1) this.queue.splice(index, 1);
+      }
+    });
   }
 
   get accountKey(): string {

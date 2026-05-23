@@ -10,6 +10,7 @@ import { debugLog } from '../debug';
 import { safeJsonParse } from '../protocol/safeJson';
 import { isLegacyGoalMessage } from '../protocol/legacyOverlayProtocol';
 import { buildLegacyWsUrl } from '../protocol/legacyWsUrl';
+import { replayRequestedLegacyFixture } from '../dev/replay/legacyReplay';
 
 @observer
 export class PageChannelFollowers extends React.Component<
@@ -42,6 +43,15 @@ export class PageChannelFollowers extends React.Component<
 
   componentDidMount() {
     this.closeConnection();
+
+    const didReplayFixture = replayRequestedLegacyFixture((payload) =>
+      this.handleLegacyMessage(payload),
+    );
+    if (didReplayFixture) {
+      this.setConnecting(false);
+      return;
+    }
+
     this.createConnection(this.accountKey);
   }
 
@@ -86,7 +96,9 @@ export class PageChannelFollowers extends React.Component<
   }
 
   private createConnection(accountKey: string) {
-    const ws = new WebSocket(buildLegacyWsUrl(AppConfig.ws, accountKey, 'followers'));
+    const ws = new WebSocket(
+      buildLegacyWsUrl(AppConfig.ws, accountKey, 'followers'),
+    );
 
     ws.onopen = () => {
       debugLog('connected websocket main component');
@@ -125,30 +137,34 @@ export class PageChannelFollowers extends React.Component<
     ws.onmessage = ({ isTrusted, data }) => {
       if (!isTrusted || typeof data !== 'string') return;
 
-      const json = safeJsonParse(data);
-      if (!isLegacyGoalMessage(json)) {
-        debugLog('Ignored unknown legacy goal websocket payload', json);
-        return;
-      }
-
-      switch (json.type) {
-        case 'set':
-          runInAction(() => {
-            this.current = json.args.current;
-            this.goal = json.args.goal;
-          });
-          break;
-        case 'update':
-          runInAction(() => {
-            if (typeof json.args.current !== 'undefined')
-              this.current = json.args.current;
-            if (typeof json.args.goal !== 'undefined') this.goal = json.args.goal;
-          });
-          break;
-      }
+      this.handleLegacyMessage(safeJsonParse(data));
     };
 
     this.ws = ws;
+  }
+
+  private handleLegacyMessage(payload: unknown) {
+    const json = payload;
+    if (!isLegacyGoalMessage(json)) {
+      debugLog('Ignored unknown legacy goal websocket payload', json);
+      return;
+    }
+
+    switch (json.type) {
+      case 'set':
+        runInAction(() => {
+          this.current = json.args.current;
+          this.goal = json.args.goal;
+        });
+        break;
+      case 'update':
+        runInAction(() => {
+          if (typeof json.args.current !== 'undefined')
+            this.current = json.args.current;
+          if (typeof json.args.goal !== 'undefined') this.goal = json.args.goal;
+        });
+        break;
+    }
   }
 
   get accountKey(): string {

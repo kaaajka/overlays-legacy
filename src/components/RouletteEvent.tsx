@@ -6,6 +6,7 @@ import type { IReactionDisposer } from "mobx";
 import { RouletteEventModel } from "../models/RouletteEvent";
 import { EventState } from "../models/Event";
 import { AppConfig } from "../config";
+import { debugLog } from "../debug";
 
 @observer
 export default class RouletteEvent extends React.Component<IRouletteEventProps, {}> {
@@ -185,7 +186,9 @@ export default class RouletteEvent extends React.Component<IRouletteEventProps, 
         destAngle += this.actualBlocks * this.blockWidth * 2;
         destAngle += Math.random() * ((this.blockWidth - 3) - 3 ) + 3;
 
-        this.spinningSound.play();
+        this.spinningSound.play().catch((error) => {
+            debugLog("Roulette spinning sound failed safely", error);
+        });
 
         this.rollAnimation = {
             duration: 10000,
@@ -204,7 +207,9 @@ export default class RouletteEvent extends React.Component<IRouletteEventProps, 
                 this.updatePosition( this.rollAnimation.dest * c );
             else {
                 if(!this.finished)
-                    this.winSound.play();
+                    this.winSound.play().catch((error) => {
+                        debugLog("Roulette win sound failed safely", error);
+                    });
 
                 this.setFinished(true);
             }

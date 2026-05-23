@@ -2,6 +2,7 @@ import React from "react";
 import { observer } from "mobx-react";
 
 import { DonateEventModel } from "../models/DonateEvent";
+import { debugLog } from "../debug";
 
 import Donate1 from "./donations/Donate1";
 import Donate2 from "./donations/Donate2";
@@ -206,17 +207,13 @@ export default class DonateEvent extends React.Component<IDonateEventProps, {sho
         this.state = {shouldRender: false};
     }
 
-    async componentDidMount() {
-        const { sound, speech } = this.findTemplate();
-
-        await this.runDonate(sound, speech);
+    componentDidMount() {
+        this.startDonateSequence();
     }
 
-    async componentDidUpdate(prevProps: Readonly<IDonateEventProps>) {
+    componentDidUpdate(prevProps: Readonly<IDonateEventProps>) {
         if(prevProps.donate.id !== this.props.donate.id) {
-            const { sound, speech } = this.findTemplate();
-
-            await this.runDonate(sound, speech);
+            this.startDonateSequence();
         }
     }
 
@@ -231,8 +228,17 @@ export default class DonateEvent extends React.Component<IDonateEventProps, {sho
         return <TemplateComponent donate={donate} images={images} withCommission={amountWithoutCommission} />;
     }
 
+    private startDonateSequence() {
+        const { sound, speech } = this.findTemplate();
+
+        this.runDonate(sound, speech).catch((error) => {
+            debugLog('Donate sequence failed safely', error);
+            this.finishDonate();
+        });
+    }
+
     private async runDonate(sound: any, speech: any) {
-        const { donate, onFinished } = this.props;
+        const { donate } = this.props;
 
         if (!!sound && !!sound.url && !!sound.url.length) await this.playSound(sound.url, sound.volume, true);
 
@@ -261,28 +267,45 @@ export default class DonateEvent extends React.Component<IDonateEventProps, {sho
             setTimeout( resolve, 1500);
         }));
 
+        this.finishDonate();
+    }
+
+    private finishDonate() {
+        const { onFinished } = this.props;
+
         this.setState({shouldRender: false});
 
         onFinished && onFinished( );
     }
 
-    private playSound(url: string, volume: number, shouldSetState: boolean = false) {
-        if (volume > 1 || volume <= 0) volume = 1;
+    private playSound(url: string, volume: number, shouldSetState: boolean = false): Promise<void> {
+        const safeVolume = typeof volume === "number" ? Math.min(1, Math.max(0, volume)) : 1;
 
-        return new Promise( ( resolve, reject ) => {
+        return new Promise( ( resolve ) => {
             const audio = new Audio(url);
 
-            audio.volume = volume;
+            audio.volume = safeVolume;
+
+            const finishSafely = () => {
+                resolve();
+            };
 
             audio.addEventListener("canplaythrough", ( ) => {
                 if (shouldSetState) {
                     this.setState({shouldRender: true});
                 }
-                audio.play().catch(() => { resolve(undefined); });
+
+                audio.play().catch((error) => {
+                    debugLog('Donate audio play failed safely', { url, error });
+                    finishSafely();
+                });
             })
 
-            audio.addEventListener("ended", resolve);
-            audio.addEventListener("error", reject);
+            audio.addEventListener("ended", finishSafely);
+            audio.addEventListener("error", (error) => {
+                debugLog('Donate audio load failed safely', { url, error });
+                finishSafely();
+            });
         })
     }
 
