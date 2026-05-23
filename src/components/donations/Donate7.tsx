@@ -1,7 +1,7 @@
 import type React from "react";
 import type { DonateEventModel } from "../../models/DonateEvent";
 
-const Donate7: React.FC<IDonate7Props> = function ({ donate, images, withCommission }) {
+const Donate7: React.FC<IDonate7Props> = ({ donate, images, withCommission }) => {
   return (
     <div className={"donateHolder"}>
       <div className={"moneyRain"}>

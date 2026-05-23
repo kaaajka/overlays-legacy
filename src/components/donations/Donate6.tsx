@@ -1,7 +1,7 @@
 import React from "react";
 import type { DonateEventModel } from "../../models/DonateEvent";
 
-const Donate6: React.FC<IDonate6Props> = function ({ donate, images, withCommission }) {
+const Donate6: React.FC<IDonate6Props> = ({ donate, images, withCommission }) => {
   const [showTogether, setShowTogether] = React.useState(false);
 
   React.useEffect(() => {

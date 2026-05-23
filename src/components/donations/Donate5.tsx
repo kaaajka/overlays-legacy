@@ -1,7 +1,7 @@
 import React from "react";
 import type { DonateEventModel } from "../../models/DonateEvent";
 
-const Donate5: React.FC<IDonate5Props> = function ({ donate, images, withCommission }) {
+const Donate5: React.FC<IDonate5Props> = ({ donate, images, withCommission }) => {
   const [holy, setHoly] = React.useState([]);
 
   React.useEffect(() => {

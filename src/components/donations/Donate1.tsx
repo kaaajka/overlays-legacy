@@ -2,7 +2,7 @@ import type React from "react";
 
 import type { DonateEventModel } from "../../models/DonateEvent";
 
-const Donate1: React.FC<IDonate1Props> = function ({ donate, images, withCommission }) {
+const Donate1: React.FC<IDonate1Props> = ({ donate, images, withCommission }) => {
   const isTraffic = donate.nickname.toLowerCase() === "zawistnymoddamian";
 
   return (
@@ -10,7 +10,7 @@ const Donate1: React.FC<IDonate1Props> = function ({ donate, images, withCommiss
       <div className={"donate first animate__animated animate__fadeInDownBig"}>
         {!!images.length && <img src={images[0]} alt={""} className={"image"} />}
 
-        <div className={"user animate__animated animate__pulse" + (isTraffic ? " traffic" : "")}>
+        <div className={`user animate__animated animate__pulse${isTraffic ? " traffic" : ""}`}>
           {isTraffic && (
             <>
               Dzięki<span className={"nickname"}> {donate.nickname} </span> za
