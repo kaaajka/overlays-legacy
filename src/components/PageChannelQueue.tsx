@@ -19,10 +19,7 @@ import {
 } from "../dev/replay/legacyReplay";
 
 @observer
-export class PageChannelQueue extends React.Component<
-  IPageChannelQueueProps & RouterCompatProps,
-  {}
-> {
+export class PageChannelQueue extends React.Component<IPageChannelQueueProps & RouterCompatProps> {
   connecting: boolean = true;
   connectionFailed: boolean = false;
   queue: QueueEventModel[] = [];

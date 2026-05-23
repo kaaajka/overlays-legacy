@@ -19,7 +19,7 @@ import {
 } from "../dev/replay/legacyReplay";
 
 @observer
-export class PageChannelFollowers extends React.Component<RouterCompatProps, {}> {
+export class PageChannelFollowers extends React.Component<RouterCompatProps> {
   connecting: boolean = true;
   connectionFailed: boolean = false;
   current: number | undefined = undefined;

@@ -102,7 +102,7 @@ switch (import.meta.env.VITE_APP_ENV) {
 }
 
 @observer
-export class PageChannel extends React.Component<IPageChannelProps & RouterCompatProps, {}> {
+export class PageChannel extends React.Component<IPageChannelProps & RouterCompatProps> {
   connecting: boolean = true;
   connectionFailed: boolean = false;
   currentEvent: EventModel | undefined = undefined;
