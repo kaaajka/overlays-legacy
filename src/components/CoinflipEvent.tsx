@@ -3,7 +3,7 @@ import { observer } from "mobx-react";
 import { action, makeObservable, observable, reaction } from "mobx";
 import type { IReactionDisposer } from "mobx";
 
-import { CoinflipEventModel } from "../models/CoinflipEvent";
+import type { CoinflipEventModel } from "../models/CoinflipEvent";
 import { EventState } from "../models/Event";
 import { AppConfig } from "../config";
 import { playOverlayAudio } from "../audio/playOverlayAudio";
@@ -14,7 +14,7 @@ const timeoutTimes: { spin: number; hideSegmentImage: number } = {
 };
 
 @observer
-export default class CoinflipEvent extends React.Component<ICoinflipEventProps, {}> {
+export default class CoinflipEvent extends React.Component<ICoinflipEventProps> {
   private readonly spinningSoundUrl = AppConfig.assetUrl("/assets/sounds/spinning.mp3");
 
   private segmentRefs: React.RefObject<HTMLDivElement>[] = [...new Array(100)].map(() =>
@@ -74,7 +74,7 @@ export default class CoinflipEvent extends React.Component<ICoinflipEventProps, 
     if (event.state === EventState.PREPARE) {
       return (
         <div className={"event center"}>
-          {images.hasOwnProperty(event.key) && (
+          {Object.prototype.hasOwnProperty.call(images, event.key) && (
             <div className={"image"}>
               <img src={images[event.key]} alt={""} />
             </div>
@@ -136,6 +136,6 @@ export default class CoinflipEvent extends React.Component<ICoinflipEventProps, 
 }
 
 interface ICoinflipEventProps {
-  images: { [key: string]: any };
+  images: Record<string, string>;
   event: CoinflipEventModel;
 }
