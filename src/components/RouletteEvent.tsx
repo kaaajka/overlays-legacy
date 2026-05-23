@@ -120,7 +120,7 @@ export default class RouletteEvent extends React.Component<IRouletteEventProps, 
                         className={"o reward"}
                         data-start={item.start}
                         data-end={item.end}
-                        style={{ backgroundImage: `url(/assets/images/roulette/${item.image})` }}
+                        style={{ backgroundImage: `url(${AppConfig.assetUrl(`/assets/images/roulette/${item.image}`)})` }}
                         key={`reward_${index++}`}
                         title={item.name}
                     />
@@ -130,7 +130,7 @@ export default class RouletteEvent extends React.Component<IRouletteEventProps, 
                         className={"c reward"}
                         data-start={item.start}
                         data-end={item.end}
-                        style={{ backgroundImage: `url(/assets/images/roulette/${item.image})` }}
+                        style={{ backgroundImage: `url(${AppConfig.assetUrl(`/assets/images/roulette/${item.image}`)})` }}
                         key={`reward_${index++}`}
                         title={item.name}
                     />

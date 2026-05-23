@@ -18,7 +18,6 @@ export default class CoinflipEvent extends React.Component<ICoinflipEventProps, 
 
     private segmentRefs: React.RefObject<HTMLDivElement>[] = [...new Array(100)].map(() => React.createRef());
     private timeouts: { spin?: ReturnType<typeof setTimeout>, hideSegmentImage?: ReturnType<typeof setTimeout> } = {};
-    private hideSegmentImageTimeout: ReturnType<typeof setTimeout>;
 
     hideSegmentImage: boolean = false;
 
@@ -55,7 +54,8 @@ export default class CoinflipEvent extends React.Component<ICoinflipEventProps, 
     }
 
     componentWillUnmount() {
-        if (this.hideSegmentImageTimeout) clearTimeout(this.hideSegmentImageTimeout);
+        if (this.timeouts.spin) clearTimeout(this.timeouts.spin);
+        if (this.timeouts.hideSegmentImage) clearTimeout(this.timeouts.hideSegmentImage);
     }
 
     render() {
@@ -105,11 +105,11 @@ export default class CoinflipEvent extends React.Component<ICoinflipEventProps, 
                     {[...new Array(100)].map((_, i) => {
                         if (this.props.event.winner === i) {
                             return (
-                                <div className={"segment chosen"} ref={this.segmentRefs[i]}>
+                                <div key={`segment_${i}`} className={"segment chosen"} ref={this.segmentRefs[i]}>
                                     <div className={"inner"}>
                                         <div className={coinClassNames.join(" ")}>
                                             <div className={coinFrontClassNames.join(" ")}>
-                                                {!this.hideSegmentImage && <p>{event.segments[i].name}</p>}
+                                                {!this.hideSegmentImage && <p>{event.segments[i]?.name ?? ""}</p>}
                                             </div>
                                             <div className={"thick"}></div>
                                             <div className={"back"}></div>
@@ -119,7 +119,7 @@ export default class CoinflipEvent extends React.Component<ICoinflipEventProps, 
                             );
                         }
                         return (
-                            <div className={notChosenSegmentClassNames.join(" ")} ref={this.segmentRefs[i]}></div>
+                            <div key={`segment_${i}`} className={notChosenSegmentClassNames.join(" ")} ref={this.segmentRefs[i]}></div>
                         )
                     })}
                 </div>
