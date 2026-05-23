@@ -1,15 +1,21 @@
 import React from "react";
 import { observer } from "mobx-react";
-import { action, makeObservable, observable, reaction } from "mobx";
+import { action, makeObservable, observable, reaction, runInAction } from "mobx";
 import type { IReactionDisposer } from "mobx";
 
-import { RouletteEventModel } from "../models/RouletteEvent";
+import type { RouletteEventModel } from "../models/RouletteEvent";
 import { EventState } from "../models/Event";
 import { AppConfig } from "../config";
 import { playOverlayAudio } from "../audio/playOverlayAudio";
 
+type RollAnimation = {
+  start: number;
+  duration: number;
+  dest: number;
+};
+
 @observer
-export default class RouletteEvent extends React.Component<IRouletteEventProps, {}> {
+export default class RouletteEvent extends React.Component<IRouletteEventProps> {
   private minBlocks = 18;
   private blockWidth = 105;
   private percentagePerBlock = 100 / this.minBlocks;
@@ -21,7 +27,7 @@ export default class RouletteEvent extends React.Component<IRouletteEventProps, 
   private moveAnimation?: ReturnType<typeof setTimeout>;
   private timeout?: ReturnType<typeof setTimeout>;
   private disposeWinnerReaction?: IReactionDisposer;
-  private rollAnimation?: any;
+  private rollAnimation?: RollAnimation;
   private rolling: boolean = false;
   finished: boolean = false;
 
@@ -52,7 +58,9 @@ export default class RouletteEvent extends React.Component<IRouletteEventProps, 
   componentDidMount() {
     this.blocksMoved = 0;
     this.rolling = false;
-    this.finished = false;
+    runInAction(() => {
+      this.finished = false;
+    });
 
     this.updatePosition(0);
 
@@ -73,7 +81,7 @@ export default class RouletteEvent extends React.Component<IRouletteEventProps, 
     if (event.state === EventState.PREPARE)
       return (
         <div className={"event center"}>
-          {images.hasOwnProperty(event.key) && (
+          {Object.prototype.hasOwnProperty.call(images, event.key) && (
             <div className={"image"}>
               <img src={images[event.key]} alt={""} />
             </div>
@@ -83,7 +91,7 @@ export default class RouletteEvent extends React.Component<IRouletteEventProps, 
       );
 
     const blocks = this.calculateBlocks();
-    // @ts-ignore
+    // @ts-expect-error Legacy winner is narrowed by runtime truthy check below.
     const winningItem =
       event.winner && this.finished
         ? event.items.find((item) => item.start <= event.winner && item.end >= event.winner)
@@ -199,13 +207,13 @@ export default class RouletteEvent extends React.Component<IRouletteEventProps, 
 
     this.rollAnimation = {
       duration: 10000,
-      start: new Date(),
+      start: Date.now(),
       dest: destAngle,
     };
   }
 
   private makeAnim = () => {
-    if (!!this.rollAnimation) {
+    if (this.rollAnimation) {
       const now = Date.now(),
         p = (now - this.rollAnimation.start) / this.rollAnimation.duration,
         c = RouletteEvent.moveAnim(p);
@@ -232,6 +240,6 @@ export default class RouletteEvent extends React.Component<IRouletteEventProps, 
 }
 
 interface IRouletteEventProps {
-  images: { [key: string]: any };
+  images: Record<string, string>;
   event: RouletteEventModel;
 }
