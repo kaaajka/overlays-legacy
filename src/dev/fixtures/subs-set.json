@@ -1,0 +1,7 @@
+{
+  "type": "set",
+  "args": {
+    "current": 12,
+    "goal": 25
+  }
+}

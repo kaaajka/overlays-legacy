@@ -1,0 +1,8 @@
+{
+  "event": "alertList",
+  "key": "set",
+  "id": "alert-list-init",
+  "args": {
+    "list": ["donate-alert-1", "donate-alert-2"]
+  }
+}

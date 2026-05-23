@@ -1,0 +1,17 @@
+{
+  "event": "prepare",
+  "key": "donate",
+  "id": "donate-without-audio-url",
+  "args": {
+    "id": "donate-without-audio-url",
+    "nickname": "BackendUser",
+    "amount": 150,
+    "commission": 0,
+    "message": "Donate payload without audio_url and without female TTS fields.",
+    "test": true,
+    "resent": false,
+    "tts_nickname_google_male": "https://tipply-prod-data.s3.waw.io.cloud.ovh.net/tips/tts/ecefacf57919f846ce548d6c5f0c3f6c.mp3",
+    "tts_message_google_male": "https://tipply-prod-data.s3.waw.io.cloud.ovh.net/tips/tts/12a16c29bb32160bb534f77a0a2c1f73.mp3",
+    "tts_amount_google_male": "https://tipply-prod-data.s3.waw.io.cloud.ovh.net/tips/tts/58a12a0106986107333dfe529a1c9985.mp3"
+  }
+}

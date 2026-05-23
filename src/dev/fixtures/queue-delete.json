@@ -1,0 +1,8 @@
+{
+  "event": "queue",
+  "key": "delete",
+  "id": "queue-delete-1",
+  "args": {
+    "id": "queued-1"
+  }
+}
