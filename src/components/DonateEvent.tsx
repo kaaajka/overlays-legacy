@@ -1,7 +1,7 @@
 import React from "react";
 import { observer } from "mobx-react";
 
-import { DonateEventModel } from "../models/DonateEvent";
+import type { DonateEventModel } from "../models/DonateEvent";
 import { AppConfig } from "../config";
 import { debugLog } from "../debug";
 import { resolveBackendAudioUrl } from "../audio/resolveBackendAudioUrl";
@@ -19,7 +19,6 @@ import Donate5 from "./donations/Donate5";
 import Donate6 from "./donations/Donate6";
 import Donate7 from "./donations/Donate7";
 import Donate8 from "./donations/Donate8";
-import Donate9 from "./donations/Donate9";
 import Donate10 from "./donations/Donate10";
 
 type DonateTemplateSound = {
@@ -261,58 +260,56 @@ export default class DonateEvent extends React.Component<
   private async runDonate(sound: DonateTemplateSound, speech: DonateTemplateSpeech) {
     const { donate } = this.props;
 
-    if (!!sound && !!sound.url && !!sound.url.length) {
+    if (sound.url.length > 0) {
       await this.playSound(sound.url, sound.volume, true, "Donate template audio", "template");
     }
 
-    if (!!speech) {
-      if (speech.readNickname) {
-        const speechNicknamePath =
-          speech.voiceType === "GOOGLE_POLISH_MALE"
-            ? donate.tts_nickname_google_male
-            : donate.tts_nickname_google_female;
-        const speechNicknameUrl = resolveBackendAudioUrl(speechNicknamePath);
-        if (speechNicknameUrl) {
-          await this.playSound(
-            speechNicknameUrl,
-            speech.volume,
-            false,
-            "Donate nickname TTS",
-            "tts-nickname",
-          );
-        }
+    if (speech.readNickname) {
+      const speechNicknamePath =
+        speech.voiceType === "GOOGLE_POLISH_MALE"
+          ? donate.tts_nickname_google_male
+          : donate.tts_nickname_google_female;
+      const speechNicknameUrl = resolveBackendAudioUrl(speechNicknamePath);
+      if (speechNicknameUrl) {
+        await this.playSound(
+          speechNicknameUrl,
+          speech.volume,
+          false,
+          "Donate nickname TTS",
+          "tts-nickname",
+        );
       }
-      if (speech.readAmount) {
-        const speechAmountPath =
-          speech.voiceType === "GOOGLE_POLISH_MALE"
-            ? donate.tts_amount_google_male
-            : donate.tts_amount_google_female;
-        const speechAmountUrl = resolveBackendAudioUrl(speechAmountPath);
-        if (speechAmountUrl) {
-          await this.playSound(
-            speechAmountUrl,
-            speech.volume,
-            false,
-            "Donate amount TTS",
-            "tts-amount",
-          );
-        }
+    }
+    if (speech.readAmount) {
+      const speechAmountPath =
+        speech.voiceType === "GOOGLE_POLISH_MALE"
+          ? donate.tts_amount_google_male
+          : donate.tts_amount_google_female;
+      const speechAmountUrl = resolveBackendAudioUrl(speechAmountPath);
+      if (speechAmountUrl) {
+        await this.playSound(
+          speechAmountUrl,
+          speech.volume,
+          false,
+          "Donate amount TTS",
+          "tts-amount",
+        );
       }
-      if (speech.readMessage) {
-        const speechMessagePath =
-          speech.voiceType === "GOOGLE_POLISH_MALE"
-            ? donate.tts_message_google_male
-            : donate.tts_message_google_female;
-        const speechMessageUrl = resolveBackendAudioUrl(speechMessagePath);
-        if (speechMessageUrl) {
-          await this.playSound(
-            speechMessageUrl,
-            speech.volume,
-            false,
-            "Donate message TTS",
-            "tts-message",
-          );
-        }
+    }
+    if (speech.readMessage) {
+      const speechMessagePath =
+        speech.voiceType === "GOOGLE_POLISH_MALE"
+          ? donate.tts_message_google_male
+          : donate.tts_message_google_female;
+      const speechMessageUrl = resolveBackendAudioUrl(speechMessagePath);
+      if (speechMessageUrl) {
+        await this.playSound(
+          speechMessageUrl,
+          speech.volume,
+          false,
+          "Donate message TTS",
+          "tts-message",
+        );
       }
     }
 
@@ -398,7 +395,7 @@ export default class DonateEvent extends React.Component<
       return a.amount > b.amount ? 1 : -1;
     });
 
-    let selected;
+    let selected: (typeof templates)[number] | undefined;
 
     for (let i = 0; i < templates.length; i++) {
       const min = templates[i].amount;
