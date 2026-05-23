@@ -4,13 +4,17 @@ import { RouteComponentProps } from 'react-router-dom';
 import { action, makeObservable, observable, runInAction } from 'mobx';
 
 import Goal from './Goal';
+import { OverlayUnavailable } from './OverlayUnavailable';
 
 import { AppConfig } from '../config';
 import { debugLog } from '../debug';
 import { safeJsonParse } from '../protocol/safeJson';
 import { isLegacyGoalMessage } from '../protocol/legacyOverlayProtocol';
 import { buildLegacyWsUrl } from '../protocol/legacyWsUrl';
-import { replayRequestedLegacyFixture } from '../dev/replay/legacyReplay';
+import {
+  cleanupFixtureAudioUnlockPrompt,
+  replayRequestedLegacyFixture,
+} from '../dev/replay/legacyReplay';
 
 @observer
 export class PageChannelSubs extends React.Component<
@@ -18,11 +22,13 @@ export class PageChannelSubs extends React.Component<
   {}
 > {
   connecting: boolean = true;
+  connectionFailed: boolean = false;
   current: number | undefined = undefined;
   goal: number | undefined = undefined;
 
   private ws?: WebSocket;
   private timeout: number = 250;
+  private failedConnectionAttempts = 0;
   private connectInterval?: ReturnType<typeof setTimeout>;
 
   constructor(
@@ -32,10 +38,12 @@ export class PageChannelSubs extends React.Component<
 
     makeObservable(this, {
       connecting: observable,
+      connectionFailed: observable,
       current: observable,
       goal: observable,
 
       setConnecting: action,
+      setConnectionFailed: action,
     });
   }
 
@@ -54,10 +62,13 @@ export class PageChannelSubs extends React.Component<
   }
 
   componentWillUnmount() {
+    cleanupFixtureAudioUnlockPrompt();
     this.closeConnection();
   }
 
   render() {
+    if (this.connectionFailed) return <OverlayUnavailable />;
+
     const canDraw =
       !this.connecting &&
       typeof this.current !== 'undefined' &&
@@ -75,6 +86,10 @@ export class PageChannelSubs extends React.Component<
 
   setConnecting(state: boolean) {
     if (this.connecting !== state) this.connecting = state;
+  }
+
+  setConnectionFailed(state: boolean) {
+    if (this.connectionFailed !== state) this.connectionFailed = state;
   }
 
   private closeConnection() {
@@ -96,29 +111,41 @@ export class PageChannelSubs extends React.Component<
     );
 
     ws.onopen = () => {
-      debugLog('connected websocket main component');
+      debugLog('connected websocket subs component');
 
+      this.failedConnectionAttempts = 0;
+      this.setConnectionFailed(false);
       this.timeout = 250;
 
       if (this.connecting) this.setConnecting(false);
 
       if (this.connectInterval) clearTimeout(this.connectInterval);
     };
-    ws.onerror = () => {
-      console.error('Socket encountered error: ', 'Closing socket');
+    ws.onerror = (error) => {
+      debugLog('Legacy subs websocket error. Closing socket.', error);
 
       ws.close();
     };
     ws.onclose = (e) => {
-      debugLog(
-        `Socket is closed. Reconnect will be attempted in ${Math.min(10000 / 1000, (this.timeout + this.timeout) / 1000)} second.`,
-        e.reason,
-      );
+      this.failedConnectionAttempts += 1;
 
       runInAction(() => {
         this.current = undefined;
         this.goal = undefined;
       });
+
+      if (this.failedConnectionAttempts >= 5) {
+        debugLog('Legacy subs websocket failed repeatedly. Showing unavailable overlay.', e.reason);
+        this.ws = undefined;
+        this.setConnecting(false);
+        this.setConnectionFailed(true);
+        return;
+      }
+
+      debugLog(
+        `Socket is closed. Reconnect will be attempted in ${Math.min(10000 / 1000, (this.timeout + this.timeout) / 1000)} second.`,
+        e.reason,
+      );
 
       this.timeout = this.timeout + this.timeout;
       this.connectInterval = setTimeout(

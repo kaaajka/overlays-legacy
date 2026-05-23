@@ -32,12 +32,41 @@ Runtime URL creation is centralized in `src/protocol/legacyWsUrl.ts`. That helpe
 
 Do not change this helper to introduce token auth, new query params, or new endpoint names while this repo targets the old backend.
 
+## Overlay routes
+
+The original `/channel` URLs are legacy OBS routes and must keep working. New uppercase route aliases are preferred for newly-created browser sources, but they intentionally reuse the same components, query parameters and WebSocket URL builder.
+
+| Overlay | Legacy route | Preferred route alias |
+| --- | --- | --- |
+| Main tip/donate/events overlay | `/channel/:uuid` | `/TIP_ALERT/:uuid` |
+| Subscriber goal | `/channel/:uuid/subs` | `/SUB_GOAL/:uuid` |
+| Follower goal | `/channel/:uuid/followers` | `/FOLLOW_GOAL/:uuid` |
+| Queue | `/channel/:uuid/queue` | `/QUEUE/:uuid` |
+
+`?fixture=<name>`, `&muteAudio=true` and `&fast=true` work on both legacy routes and preferred aliases. Invalid or unsupported overlay URLs render a minimal `Overlay not found` screen instead of a blank page.
+
+
+
+## Invalid routes vs unavailable overlays
+
+Route validation only checks URL syntax. Malformed or missing UUIDs, for example `/QUEUE/not-a-uuid` or `/channel/not-a-uuid`, should render the minimal `Overlay not found` screen.
+
+A syntactically valid UUID can still point to a missing or disabled legacy overlay account. The router cannot know that. In that case the overlay opens the normal legacy WebSocket URL, retries a small number of times, and then renders:
+
+```text
+Overlay unavailable
+Could not connect to this overlay. Check widget URL or backend status.
+```
+
+This is a frontend failure state only. It does not change the WebSocket URL format, backend payloads, account lookup model, fixture replay, or OBS route contract.
+
 ## Route: main overlay
 
 ### URL
 
 ```txt
 /channel/:uuid
+/TIP_ALERT/:uuid
 ```
 
 ### WebSocket
@@ -323,6 +352,7 @@ This is a legacy test/development message. Do not remove it if backend test tool
 
 ```txt
 /channel/:uuid/subs
+/SUB_GOAL/:uuid
 ```
 
 ### WebSocket
@@ -366,6 +396,7 @@ Standalone OBS widget for the current subscription goal.
 
 ```txt
 /channel/:uuid/followers
+/FOLLOW_GOAL/:uuid
 ```
 
 ### WebSocket
@@ -386,6 +417,7 @@ The message shape matches the subs goal route.
 
 ```txt
 /channel/:uuid/queue
+/QUEUE/:uuid
 ```
 
 ### WebSocket
@@ -448,7 +480,7 @@ Standalone OBS widget for queued events.
 
 ## Compatibility notes
 
-- Do not remove `/channel/:uuid*` routes without adding backward-compatible aliases.
+- Do not remove `/channel/:uuid*` legacy routes. The uppercase aliases are additive and must not replace the old OBS URLs.
 - Do not replace `?account=:uuid` while the legacy backend is still used.
 - Do not remove `t_prepare`, `t_started`, `t_update`, `t_finished` support unless the legacy backend test commands are removed.
 - Do not assume every backend payload is valid; guard and ignore invalid messages.

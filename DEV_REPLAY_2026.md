@@ -21,7 +21,13 @@ Use the `fixture` query parameter:
 /channel/<uuid>/queue?fixture=queue-set
 /channel/<uuid>/subs?fixture=subs-set
 /channel/<uuid>/followers?fixture=followers-set
+/TIP_ALERT/<uuid>?fixture=main-donate-prepare
+/QUEUE/<uuid>?fixture=queue-set
+/SUB_GOAL/<uuid>?fixture=subs-set
+/FOLLOW_GOAL/<uuid>?fixture=followers-set
 ```
+
+The `/channel` URLs are legacy OBS routes. The uppercase aliases are preferred for new browser sources and use the same fixture, `muteAudio` and `fast` query parameters.
 
 ## Available fixtures
 
@@ -115,6 +121,16 @@ Click to start fixture preview with audio
 
 Clicking the prompt unlocks browser audio and then starts fixture replay through the same `handleLegacyMessage(payload)` path used by WebSocket messages. This keeps donate timing closer to real OBS behavior because the actual local template audio and backend/Tipply TTS URLs are attempted after a user gesture.
 
+
+
+## Invalid route and account behavior
+
+Fixture replay is independent from legacy backend account existence. A valid fixture route should not open the legacy backend WebSocket.
+
+Malformed UUID routes, such as `/TIP_ALERT/not-a-uuid` or `/channel/not-a-uuid`, should render `Overlay not found` because they fail route syntax validation.
+
+Valid-format UUIDs that do not exist on the backend are different. They are valid routes but unavailable overlays. In normal backend mode the overlay may retry the WebSocket a few times and then render `Overlay unavailable` instead of reconnecting forever.
+
 ## Manual checks
 
 Run dev server:
@@ -131,7 +147,11 @@ Open these URLs:
 /channel/test-account/queue?fixture=queue-set
 /channel/test-account/subs?fixture=subs-set
 /channel/test-account/followers?fixture=followers-set
+/TIP_ALERT/test-account?fixture=main-donate-prepare&muteAudio=true
+/TIP_ALERT/test-account?fixture=main-donate-prepare&muteAudio=true&fast=true
 ```
+
+For real route validation, use a valid UUID instead of `test-account`; invalid UUIDs should show the minimal `Overlay not found` screen.
 
 Then repeat against the real backend without the `fixture` query parameter to confirm legacy WebSocket behavior still works.
 

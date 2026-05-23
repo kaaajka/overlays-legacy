@@ -14,6 +14,7 @@ import RouletteEvent from './RouletteEvent';
 import NormalEvent from './NormalEvent';
 import DonateEvent from './DonateEvent';
 import CoinflipEvent from './CoinflipEvent';
+import { OverlayUnavailable } from './OverlayUnavailable';
 
 import { AppConfig } from '../config';
 
@@ -107,6 +108,7 @@ export class PageChannel extends React.Component<
   {}
 > {
   connecting: boolean = true;
+  connectionFailed: boolean = false;
   currentEvent: EventModel | undefined = undefined;
   currentPlaying: HTMLAudioElement | undefined = undefined;
 
@@ -116,6 +118,7 @@ export class PageChannel extends React.Component<
   private ws?: WebSocket;
   private timeout: number = 250;
   private connectInterval?: ReturnType<typeof setTimeout>;
+  private failedConnectionAttempts = 0;
   private changeDonateTimeout?: ReturnType<typeof setTimeout>;
   private disposeAccountKeyReaction?: IReactionDisposer;
 
@@ -127,12 +130,14 @@ export class PageChannel extends React.Component<
 
     makeObservable(this, {
       connecting: observable,
+      connectionFailed: observable,
       currentEvent: observable,
       currentPlaying: observable,
       donateList: observable,
       currentDonate: observable,
 
       setConnecting: action,
+      setConnectionFailed: action,
       setCurrentEvent: action,
       setCurrentPlaying: action,
       pushDonate: action,
@@ -172,6 +177,8 @@ export class PageChannel extends React.Component<
   }
 
   render() {
+    if (this.connectionFailed) return <OverlayUnavailable />;
+
     return (
       <div>
         {this.connecting && <h1>Łączenie...</h1>}
@@ -200,6 +207,10 @@ export class PageChannel extends React.Component<
 
   setConnecting(state: boolean) {
     if (this.connecting !== state) this.connecting = state;
+  }
+
+  setConnectionFailed(state: boolean) {
+    if (this.connectionFailed !== state) this.connectionFailed = state;
   }
 
   setCurrentEvent(event?: EventModel) {
@@ -293,24 +304,36 @@ export class PageChannel extends React.Component<
     ws.onopen = () => {
       debugLog('connected websocket main component');
 
+      this.failedConnectionAttempts = 0;
+      this.setConnectionFailed(false);
       this.timeout = 250;
 
       if (this.connecting) this.setConnecting(false);
 
       if (this.connectInterval) clearTimeout(this.connectInterval);
     };
-    ws.onerror = () => {
-      console.error('Socket encountered error: ', 'Closing socket');
+    ws.onerror = (error) => {
+      debugLog('Legacy main websocket error. Closing socket.', error);
 
       ws.close();
     };
     ws.onclose = (e) => {
+      this.failedConnectionAttempts += 1;
+      this.setCurrentEvent(undefined);
+
+      if (this.failedConnectionAttempts >= 5) {
+        debugLog('Legacy main websocket failed repeatedly. Showing unavailable overlay.', e.reason);
+        this.ws = undefined;
+        this.setConnecting(false);
+        this.setConnectionFailed(true);
+        return;
+      }
+
       debugLog(
         `Socket is closed. Reconnect will be attempted in ${Math.min(10000 / 1000, (this.timeout + this.timeout) / 1000)} second.`,
         e.reason,
       );
 
-      this.setCurrentEvent(undefined);
       this.timeout = this.timeout + this.timeout;
       this.connectInterval = setTimeout(
         () => {

@@ -22,6 +22,17 @@ The old backend is not changed. Existing OBS URLs remain valid:
 /channel/:uuid/queue
 ```
 
+New OBS sources should prefer the additive uppercase route aliases:
+
+```txt
+/TIP_ALERT/:uuid
+/SUB_GOAL/:uuid
+/FOLLOW_GOAL/:uuid
+/QUEUE/:uuid
+```
+
+Both legacy routes and aliases use the same WebSocket contract and support the same dev fixture query parameters.
+
 WebSocket endpoints are derived from `VITE_WS_URL`:
 
 ```txt
@@ -106,6 +117,10 @@ pnpm run build
 pnpm exec tsc --noEmit
 ```
 
+
+
+Invalid UUID paths should show the small `Overlay not found` screen. Valid-format UUIDs that cannot connect to the legacy backend should show `Overlay unavailable` after repeated WebSocket failures instead of reconnecting aggressively forever.
+
 Manual route check:
 
 ```txt
@@ -113,6 +128,10 @@ Manual route check:
 /channel/:uuid/subs
 /channel/:uuid/followers
 /channel/:uuid/queue
+/TIP_ALERT/:uuid
+/SUB_GOAL/:uuid
+/FOLLOW_GOAL/:uuid
+/QUEUE/:uuid
 ```
 
 Expected runtime:
