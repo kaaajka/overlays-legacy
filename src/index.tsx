@@ -1,7 +1,8 @@
 import React from "react";
 import ReactDOM from "react-dom";
 
-import { PageChannel, type MainOverlayMode } from "./components/PageChannel";
+import { PageChannel } from "./components/PageChannel";
+import type { MainOverlayMode } from "./protocol/mainOverlayMode";
 import { PageChannelSubs } from "./components/PageChannelSubs";
 import { PageChannelFollowers } from "./components/PageChannelFollowers";
 import { PageChannelQueue } from "./components/PageChannelQueue";

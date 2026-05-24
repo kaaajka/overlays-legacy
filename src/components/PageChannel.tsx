@@ -31,6 +31,7 @@ import coinflipImage from "../assets/images/cat_surprised.gif";
 import { debugLog } from "../debug";
 import { safeJsonParse } from "../protocol/safeJson";
 import { getLegacyMainArgs, isLegacyMainMessage } from "../protocol/legacyMainOverlayProtocol";
+import { type MainOverlayMode, shouldHandleMainOverlayEvent } from "../protocol/mainOverlayMode";
 import { buildLegacyWsUrl } from "../protocol/legacyWsUrl";
 import { createLegacyOverlaySocket } from "../socket/createLegacyOverlaySocket";
 import type { LegacyOverlaySocketController } from "../socket/createLegacyOverlaySocket";
@@ -82,28 +83,9 @@ const coinflipSounds = [
   AppConfig.assetUrl("/assets/sounds/15.mp3"),
 ];
 
-export type MainOverlayMode = "all" | "tip" | "reward";
-
 type PageChannelProps = RouterCompatProps & {
   mode?: MainOverlayMode;
 };
-
-const REWARD_LIKE_EVENT_KEYS = new Set([
-  "censure",
-  "mute",
-  "withoutR",
-  "dogs",
-  "roulette",
-  "coinflip",
-]);
-
-function shouldHandleMainOverlayEvent(mode: MainOverlayMode, key: string): boolean {
-  if (mode === "all") return true;
-  if (mode === "tip") return key === "donate";
-  if (mode === "reward") return REWARD_LIKE_EVENT_KEYS.has(key);
-
-  return true;
-}
 
 const EVENTS =
   import.meta.env.VITE_APP_ENV === "test"
