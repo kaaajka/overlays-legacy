@@ -30,7 +30,7 @@ import rouletteImage from "../assets/images/pobrane_6.webp";
 import coinflipImage from "../assets/images/cat_surprised.gif";
 import { debugLog } from "../debug";
 import { safeJsonParse } from "../protocol/safeJson";
-import { getRecord, isLegacyMainMessage } from "../protocol/legacyOverlayProtocol";
+import { getLegacyMainArgs, isLegacyMainMessage } from "../protocol/legacyMainOverlayProtocol";
 import { buildLegacyWsUrl } from "../protocol/legacyWsUrl";
 import { createLegacyOverlaySocket } from "../socket/createLegacyOverlaySocket";
 import type { LegacyOverlaySocketController } from "../socket/createLegacyOverlaySocket";
@@ -326,7 +326,7 @@ export class PageChannel extends React.Component<PageChannelProps> {
       return;
     }
 
-    const args = getRecord(json.args);
+    const args = getLegacyMainArgs(json);
 
     if (!shouldHandleMainOverlayEvent(this.mode, json.key)) {
       debugLog("Ignored legacy main websocket payload outside active overlay mode", {
