@@ -6,9 +6,11 @@ import type { IReactionDisposer } from "mobx";
 
 import { type EventModel, EventState } from "../models/Event";
 import { RouletteEventModel } from "../models/RouletteEvent";
+import type { IRouletteItemSchema } from "../models/RouletteItem";
 import { NormalEventModel } from "../models/NormalEvent";
 import { DonateEventModel } from "../models/DonateEvent";
 import { CoinflipEventModel } from "../models/CoinflipEvent";
+import type { ICoinflipSegmentSchema } from "../models/CoinflipSegment";
 
 import RouletteEvent from "./RouletteEvent";
 import NormalEvent from "./NormalEvent";
@@ -374,13 +376,13 @@ export class PageChannel extends React.Component<RouterCompatProps> {
           case "roulette":
             event = new RouletteEventModel({
               ...params,
-              items: Array.isArray(args.items) ? (args.items as any[]) : [],
+              items: Array.isArray(args.items) ? (args.items as IRouletteItemSchema[]) : [],
             });
             break;
           case "coinflip":
             event = new CoinflipEventModel({
               ...params,
-              segments: Array.isArray(args.segments) ? (args.segments as any[]) : [],
+              segments: Array.isArray(args.segments) ? (args.segments as ICoinflipSegmentSchema[]) : [],
             });
             break;
           default:
