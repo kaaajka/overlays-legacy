@@ -4,12 +4,109 @@
   "id": "roulette-1",
   "args": {
     "name": "Ruletka",
-    "description": "Testowa ruletka",
+    "description": "Masz szansę wygrać jedną z 11 nagród: PSC, SUBKI, KREDYTY itp. Powodzenia ❤️",
     "time": 20,
-    "winner": 1,
+    "winner": 142,
     "items": [
-      { "id": 1, "name": "Opcja A", "image": "pobrane_6.webp", "color": "#ffcc00" },
-      { "id": 2, "name": "Opcja B", "image": "pobrane_6.webp", "color": "#00ccff" }
+      {
+        "key": "credits_1k",
+        "name": "1k kredytów",
+        "tickets": 100,
+        "image": "credits_1k.png",
+        "start": 0,
+        "end": 100,
+        "chance": 41.841004
+      },
+      {
+        "key": "dogs",
+        "name": "Karmionko",
+        "tickets": 17,
+        "image": "dogs.png",
+        "start": 101,
+        "end": 118,
+        "chance": 7.112971
+      },
+      {
+        "key": "fast_3k",
+        "name": "Fast 3000",
+        "tickets": 50,
+        "image": "fast_3k.png",
+        "start": 119,
+        "end": 169,
+        "chance": 20.920502
+      },
+      {
+        "key": "randomGame",
+        "name": "Losowa gra",
+        "tickets": 5,
+        "image": "randomGame.png",
+        "start": 170,
+        "end": 175,
+        "chance": 2.09205
+      },
+      {
+        "key": "psc_20",
+        "name": "PSC 20zł",
+        "tickets": 4,
+        "image": "psc20.png",
+        "start": 176,
+        "end": 180,
+        "chance": 1.67364
+      },
+      {
+        "key": "credits_5k",
+        "name": "5k kredytów",
+        "tickets": 33,
+        "image": "credits_5k.png",
+        "start": 181,
+        "end": 214,
+        "chance": 13.807531
+      },
+      {
+        "key": "sub",
+        "name": "Subskrybcja",
+        "tickets": 5,
+        "image": "sub.png",
+        "start": 215,
+        "end": 220,
+        "chance": 2.09205
+      },
+      {
+        "key": "credits_10k",
+        "name": "10k kredytów",
+        "tickets": 10,
+        "image": "credits_10k.png",
+        "start": 221,
+        "end": 231,
+        "chance": 4.1841
+      },
+      {
+        "key": "multilottery_30k",
+        "name": "Multiloteria o 30k",
+        "tickets": 12,
+        "image": "multilottery_30k.png",
+        "start": 232,
+        "end": 244,
+        "chance": 5.020921
+      },
+      {
+        "key": "credits_50k",
+        "name": "50k kredytów",
+        "tickets": 2,
+        "image": "credits_50k.png",
+        "start": 245,
+        "end": 247,
+        "chance": 0.83682
+      },
+      {
+        "key": "credits_100k",
+        "name": "100k kredytów",
+        "tickets": 1,
+        "image": "credits_100k.png",
+        "start": 248,
+        "end": 249,
+        "chance": 0.41841
+      }
     ]
   }
 }
