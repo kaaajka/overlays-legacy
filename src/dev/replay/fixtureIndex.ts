@@ -33,7 +33,20 @@ const mainRouletteFlow = [
   {
     payload: mainRouletteStarted,
     delayMs: 1500,
-    fastDelayMs: 200,
+    fastDelayMs: 500,
+  },
+  {
+    payload: {
+      event: "update",
+      key: "roulette",
+      id: "roulette-1",
+      args: {
+        key: "time",
+        value: 15,
+      },
+    },
+    delayMs: 1500,
+    fastDelayMs: 2500,
   },
   {
     payload: {
@@ -45,8 +58,8 @@ const mainRouletteFlow = [
         value: 10,
       },
     },
-    delayMs: 1000,
-    fastDelayMs: 200,
+    delayMs: 4000,
+    fastDelayMs: 4000,
   },
   {
     payload: {
@@ -58,8 +71,8 @@ const mainRouletteFlow = [
         value: 5,
       },
     },
-    delayMs: 1000,
-    fastDelayMs: 200,
+    delayMs: 5000,
+    fastDelayMs: 5000,
   },
   {
     payload: {
@@ -67,8 +80,8 @@ const mainRouletteFlow = [
       key: "roulette",
       id: "roulette-1",
     },
-    delayMs: 2500,
-    fastDelayMs: 500,
+    delayMs: 7000,
+    fastDelayMs: 5000,
   },
 ] as const satisfies LegacyFixtureReplaySequence;
 
