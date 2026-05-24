@@ -5,7 +5,7 @@ import { parseOverlayRoute } from "./parseOverlayRoute";
 const uuid = "94bdf886-1c70-11eb-adc1-0242ac120011";
 
 const overlay = (
-  type: "TIP_ALERT" | "REWARD_ALERT" | "SUB_GOAL" | "FOLLOW_GOAL" | "QUEUE",
+  type: "ALERTS" | "TIP_ALERT" | "REWARD_ALERT" | "SUB_GOAL" | "FOLLOW_GOAL" | "QUEUE",
   legacy: boolean,
 ) => ({
   kind: "overlay" as const,
@@ -15,6 +15,10 @@ const overlay = (
 });
 
 describe("parseOverlayRoute", () => {
+
+  it("parses a valid modern ALERTS route", () => {
+    expect(parseOverlayRoute(`/ALERTS/${uuid}`)).toEqual(overlay("ALERTS", false));
+  });
   it("parses a valid modern TIP_ALERT route", () => {
     expect(parseOverlayRoute(`/TIP_ALERT/${uuid}`)).toEqual(overlay("TIP_ALERT", false));
   });
@@ -51,6 +55,14 @@ describe("parseOverlayRoute", () => {
     expect(parseOverlayRoute(`/channel/${uuid}/queue`)).toEqual(overlay("QUEUE", true));
   });
 
+
+  it("rejects an invalid UUID for ALERTS", () => {
+    expect(parseOverlayRoute("/ALERTS/not-a-uuid")).toEqual({
+      kind: "not_found",
+      reason: "invalid_uuid",
+    });
+  });
+
   it("rejects an invalid UUID", () => {
     expect(parseOverlayRoute("/QUEUE/not-a-uuid")).toEqual({
       kind: "not_found",
@@ -62,6 +74,14 @@ describe("parseOverlayRoute", () => {
     expect(parseOverlayRoute("/REWARD_ALERT/not-a-uuid")).toEqual({
       kind: "not_found",
       reason: "invalid_uuid",
+    });
+  });
+
+
+  it("rejects a missing UUID for ALERTS", () => {
+    expect(parseOverlayRoute("/ALERTS/")).toEqual({
+      kind: "not_found",
+      reason: "missing_uuid",
     });
   });
 
@@ -84,6 +104,13 @@ describe("parseOverlayRoute", () => {
       kind: "not_found",
       reason: "unsupported_route",
     });
+  });
+
+
+  it("ignores query strings for ALERTS", () => {
+    expect(parseOverlayRoute(`/ALERTS/${uuid}?fixture=main-donate-prepare`)).toEqual(
+      overlay("ALERTS", false),
+    );
   });
 
   it("ignores query strings if included", () => {

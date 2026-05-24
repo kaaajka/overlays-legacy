@@ -1,4 +1,4 @@
-export type OverlayWidgetType = "TIP_ALERT" | "REWARD_ALERT" | "SUB_GOAL" | "FOLLOW_GOAL" | "QUEUE";
+export type OverlayWidgetType = "ALERTS" | "TIP_ALERT" | "REWARD_ALERT" | "SUB_GOAL" | "FOLLOW_GOAL" | "QUEUE";
 
 export type OverlayRoute =
   | {
@@ -15,6 +15,7 @@ export type OverlayRoute =
 const uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-5][0-9a-f]{3}-[089ab][0-9a-f]{3}-[0-9a-f]{12}$/;
 
 const modernRouteTypes: Record<string, OverlayWidgetType> = {
+  ALERTS: "ALERTS",
   TIP_ALERT: "TIP_ALERT",
   REWARD_ALERT: "REWARD_ALERT",
   SUB_GOAL: "SUB_GOAL",

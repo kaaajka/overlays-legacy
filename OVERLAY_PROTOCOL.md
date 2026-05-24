@@ -34,11 +34,11 @@ Do not change this helper to introduce token auth, new query params, or new endp
 
 ## Overlay routes
 
-The original `/channel` URLs are legacy OBS routes and must keep working. New uppercase route aliases are preferred for newly-created browser sources, but they intentionally reuse the same components, query parameters and WebSocket URL builder.
+The original `/channel` URLs are legacy OBS routes and must keep working. New uppercase route aliases are preferred for newly-created browser sources, but they intentionally reuse the same components, query parameters and WebSocket URL builder. Use `/ALERTS/:uuid` for new all-events main overlay sources; keep `/channel/:uuid` as a deprecated legacy alias because old OBS/browser sources may still depend on it.
 
 | Overlay | Legacy route | Preferred route alias |
 | --- | --- | --- |
-| Main alert overlay, all legacy event keys | `/channel/:uuid` | - |
+| Main alert overlay, all legacy event keys | `/channel/:uuid` deprecated legacy alias | `/ALERTS/:uuid` |
 | Tip/donate-only main overlay mode | - | `/TIP_ALERT/:uuid` |
 | Reward-like main overlay mode | - | `/REWARD_ALERT/:uuid` |
 | Subscriber goal | `/channel/:uuid/subs` | `/SUB_GOAL/:uuid` |
@@ -49,7 +49,8 @@ The original `/channel` URLs are legacy OBS routes and must keep working. New up
 
 Main alert route modes share the same `PageChannel` component and the same legacy main WebSocket endpoint, but apply minimal frontend filtering:
 
-- `/channel/:uuid` runs in `all` mode and accepts all current main overlay events.
+- `/ALERTS/:uuid` runs in `all` mode and is the recommended modern all-events route.
+- `/channel/:uuid` also runs in `all` mode, but is a deprecated legacy alias kept for existing OBS/browser sources.
 - `/TIP_ALERT/:uuid` runs in `tip` mode and accepts donate events only (`key === "donate"`).
 - `/REWARD_ALERT/:uuid` runs in `reward` mode. If a payload includes optional top-level `origin`, reward mode prefers it: `origin === "reward"` is accepted and `origin === "manual"` is rejected. If `origin` is missing, reward mode preserves legacy behavior and falls back to reward-like key filtering for `censure`, `mute`, `withoutR`, `dogs`, `roulette`, and `coinflip`.
 
@@ -77,6 +78,7 @@ All overlay WebSocket clients (`main`, `queue`, `subs`, `followers`) share their
 ### URL
 
 ```txt
+/ALERTS/:uuid
 /channel/:uuid
 /TIP_ALERT/:uuid
 /REWARD_ALERT/:uuid
@@ -90,7 +92,7 @@ VITE_WS_URL?account=:uuid
 
 ### Purpose
 
-Main overlay for stream events, donate alerts, roulette, coinflip, normal events, sounds and alert queue acknowledgement. Route mode controls which legacy event keys are handled by the shared `PageChannel` component: `/channel/:uuid` handles all, `/TIP_ALERT/:uuid` handles donate only, and `/REWARD_ALERT/:uuid` handles reward-like legacy keys only.
+Main overlay for stream events, donate alerts, roulette, coinflip, normal events, sounds and alert queue acknowledgement. Route mode controls which legacy event keys are handled by the shared `PageChannel` component: `/ALERTS/:uuid` handles all and is preferred for new OBS sources, `/channel/:uuid` handles all as a deprecated legacy alias, `/TIP_ALERT/:uuid` handles donate only, and `/REWARD_ALERT/:uuid` handles reward-like legacy keys only.
 
 ### Incoming: alert list set
 
@@ -493,7 +495,7 @@ Standalone OBS widget for queued events.
 
 ## Compatibility notes
 
-- Do not remove `/channel/:uuid*` legacy routes. The uppercase aliases are additive and must not replace the old OBS URLs.
+- Do not remove `/channel/:uuid*` legacy routes. `/ALERTS/:uuid` is the recommended all-events route for new OBS sources, but the legacy `/channel/:uuid` URLs must keep working until old OBS/browser sources are migrated.
 - Do not replace `?account=:uuid` while the legacy backend is still used.
 - Do not remove `t_prepare`, `t_started`, `t_update`, `t_finished` support unless the legacy backend test commands are removed.
 - Do not assume every backend payload is valid; guard and ignore invalid messages.
@@ -501,6 +503,6 @@ Standalone OBS widget for queued events.
 
 ## Runtime routing parser
 
-Runtime overlay routing is now resolved by `src/routing/parseOverlayRoute.ts` in `src/index.tsx` instead of React Router runtime matching. This keeps the legacy `/channel/:uuid` OBS routes and the modern uppercase aliases compatible while sharing one tested parser for UUID validation and route mapping. The parser preserves a distinct `REWARD_ALERT` route type so runtime can pass `reward` mode into the shared main overlay.
+Runtime overlay routing is now resolved by `src/routing/parseOverlayRoute.ts` in `src/index.tsx` instead of React Router runtime matching. This keeps the legacy `/channel/:uuid` OBS routes and the modern uppercase aliases compatible while sharing one tested parser for UUID validation and route mapping. The parser preserves distinct `ALERTS` and `REWARD_ALERT` route types so runtime can pass `all` or `reward` mode into the shared main overlay.
 
 React Router dependencies are intentionally still present in `package.json` for this commit; dependency cleanup should happen only after manual OBS validation. Query parameters such as `fixture`, `muteAudio` and `fast` still come from `window.location.search`, so fixture replay behavior is unchanged.

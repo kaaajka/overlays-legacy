@@ -25,6 +25,7 @@ The old backend is not changed. Existing OBS URLs remain valid:
 New OBS sources should prefer the additive uppercase route aliases:
 
 ```txt
+/ALERTS/:uuid
 /TIP_ALERT/:uuid
 /REWARD_ALERT/:uuid
 /SUB_GOAL/:uuid
@@ -34,7 +35,8 @@ New OBS sources should prefer the additive uppercase route aliases:
 
 Both legacy routes and aliases use the same WebSocket contract and support the same dev fixture query parameters. Main alert routes use one shared `PageChannel` component with route modes:
 
-- `/channel/:uuid` uses `all` mode and accepts all current main overlay events.
+- `/ALERTS/:uuid` is the recommended all-events main overlay URL. It uses `all` mode and accepts all current main overlay events.
+- `/channel/:uuid` is a deprecated legacy alias for all-events mode. Keep it working because old OBS/browser sources may still depend on it.
 - `/TIP_ALERT/:uuid` uses `tip` mode and accepts donate events only (`key === "donate"`).
 - `/REWARD_ALERT/:uuid` uses `reward` mode and accepts reward-like legacy keys: `censure`, `mute`, `withoutR`, `dogs`, `roulette`, and `coinflip`.
 
@@ -166,6 +168,7 @@ Invalid UUID paths should show the small `Overlay not found` screen. Valid-forma
 Manual route check:
 
 ```txt
+/ALERTS/:uuid
 /channel/:uuid
 /channel/:uuid/subs
 /channel/:uuid/followers
@@ -186,6 +189,6 @@ Expected runtime:
 
 ## Runtime routing parser
 
-Runtime overlay routing is now resolved by `src/routing/parseOverlayRoute.ts` in `src/index.tsx` instead of React Router runtime matching. This keeps the legacy `/channel/:uuid` OBS routes and the modern uppercase aliases compatible while sharing one tested parser for UUID validation and route mapping.
+Runtime overlay routing is now resolved by `src/routing/parseOverlayRoute.ts` in `src/index.tsx` instead of React Router runtime matching. This keeps the legacy `/channel/:uuid` OBS routes and the modern uppercase aliases compatible while sharing one tested parser for UUID validation and route mapping. Use `/ALERTS/:uuid` for new all-events main overlay sources; keep `/channel/:uuid` working as a deprecated legacy alias.
 
 React Router dependencies are intentionally still present in `package.json` for this commit; dependency cleanup should happen only after manual OBS validation. Query parameters such as `fixture`, `muteAudio` and `fast` still come from `window.location.search`, so fixture replay behavior is unchanged.

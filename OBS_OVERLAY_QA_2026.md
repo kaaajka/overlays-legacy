@@ -48,31 +48,37 @@ For fixture replay, append:
 ?fixture=<fixture-name>&muteAudio=true
 ```
 
-The `muteAudio=true` mode skips actual audio while preserving preview timing. Use it for fast visual validation without browser autoplay noise.
+The `muteAudio=true` mode skips actual audio while preserving preview timing. Use it for fast visual validation without browser autoplay noise. `/ALERTS/:uuid` is the recommended all-events main overlay URL. `/channel/:uuid` remains as a deprecated legacy alias and must still be checked before removing old OBS sources.
 
 | Route | Fixture | Expected behavior |
 |---|---|---|
-| `/channel/:uuid` | `main-donate-prepare` | Shows donate. Legacy route runs main overlay mode `all`. |
+| `/ALERTS/:uuid` | `main-donate-prepare` | Shows donate. Recommended all-events route runs main overlay mode `all`. |
+| `/channel/:uuid` | `main-donate-prepare` | Shows donate. Deprecated legacy route still runs main overlay mode `all`. |
 | `/TIP_ALERT/:uuid` | `main-donate-prepare` | Shows donate. Tip route runs main overlay mode `tip`. |
 | `/REWARD_ALERT/:uuid` | `main-donate-prepare` | Ignores donate. Reward route filters out `key === "donate"`. |
-| `/channel/:uuid` | `main-roulette-started` | Shows roulette. Legacy route runs main overlay mode `all`. |
+| `/ALERTS/:uuid` | `main-roulette-started` | Shows roulette. Recommended all-events route runs main overlay mode `all`. |
+| `/channel/:uuid` | `main-roulette-started` | Shows roulette. Deprecated legacy route still runs main overlay mode `all`. |
 | `/TIP_ALERT/:uuid` | `main-roulette-started` | Ignores roulette. Tip route only accepts donate events. |
 | `/REWARD_ALERT/:uuid` | `main-roulette-started` | Shows roulette. Reward route accepts reward-like `roulette` key. |
-| `/channel/:uuid` | `main-coinflip-started` | Shows coinflip. Legacy route runs main overlay mode `all`. |
+| `/ALERTS/:uuid` | `main-coinflip-started` | Shows coinflip. Recommended all-events route runs main overlay mode `all`. |
+| `/channel/:uuid` | `main-coinflip-started` | Shows coinflip. Deprecated legacy route still runs main overlay mode `all`. |
 | `/TIP_ALERT/:uuid` | `main-coinflip-started` | Ignores coinflip. Tip route only accepts donate events. |
 | `/REWARD_ALERT/:uuid` | `main-coinflip-started` | Shows coinflip. Reward route accepts reward-like `coinflip` key. |
 
 Concrete URLs:
 
 ```txt
+/ALERTS/94bdf886-1c70-11eb-adc1-0242ac120011?fixture=main-donate-prepare&muteAudio=true
 /channel/94bdf886-1c70-11eb-adc1-0242ac120011?fixture=main-donate-prepare&muteAudio=true
 /TIP_ALERT/94bdf886-1c70-11eb-adc1-0242ac120011?fixture=main-donate-prepare&muteAudio=true
 /REWARD_ALERT/94bdf886-1c70-11eb-adc1-0242ac120011?fixture=main-donate-prepare&muteAudio=true
 
+/ALERTS/94bdf886-1c70-11eb-adc1-0242ac120011?fixture=main-roulette-started&muteAudio=true
 /channel/94bdf886-1c70-11eb-adc1-0242ac120011?fixture=main-roulette-started&muteAudio=true
 /TIP_ALERT/94bdf886-1c70-11eb-adc1-0242ac120011?fixture=main-roulette-started&muteAudio=true
 /REWARD_ALERT/94bdf886-1c70-11eb-adc1-0242ac120011?fixture=main-roulette-started&muteAudio=true
 
+/ALERTS/94bdf886-1c70-11eb-adc1-0242ac120011?fixture=main-coinflip-started&muteAudio=true
 /channel/94bdf886-1c70-11eb-adc1-0242ac120011?fixture=main-coinflip-started&muteAudio=true
 /TIP_ALERT/94bdf886-1c70-11eb-adc1-0242ac120011?fixture=main-coinflip-started&muteAudio=true
 /REWARD_ALERT/94bdf886-1c70-11eb-adc1-0242ac120011?fixture=main-coinflip-started&muteAudio=true

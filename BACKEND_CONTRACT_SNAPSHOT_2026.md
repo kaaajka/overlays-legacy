@@ -12,12 +12,12 @@ The frontend consumes four legacy WebSocket channels derived from `VITE_WS_URL` 
 
 | Channel | Frontend component | Current routes | WebSocket URL shape |
 | --- | --- | --- | --- |
-| Main alert overlay NORMAL websocket | `PageChannel` | `/channel/:uuid`, `/TIP_ALERT/:uuid`, `/REWARD_ALERT/:uuid` | `VITE_WS_URL?account=:uuid` |
+| Main alert overlay NORMAL websocket | `PageChannel` | `/ALERTS/:uuid`, `/channel/:uuid`, `/TIP_ALERT/:uuid`, `/REWARD_ALERT/:uuid` | `VITE_WS_URL?account=:uuid` |
 | Subscriber goal websocket | `PageChannelSubs` | `/channel/:uuid/subs`, `/SUB_GOAL/:uuid` | `VITE_WS_URL/subs?account=:uuid` |
 | Follower goal websocket | `PageChannelFollowers` | `/channel/:uuid/followers`, `/FOLLOW_GOAL/:uuid` | `VITE_WS_URL/followers?account=:uuid` |
 | Queue websocket | `PageChannelQueue` | `/channel/:uuid/queue`, `/QUEUE/:uuid` | `VITE_WS_URL/queue?account=:uuid` |
 
-The uppercase routes are frontend aliases. They do not imply new backend endpoints. The `:uuid` route parameter is still passed to the backend as `?account=:uuid`.
+The uppercase routes are frontend aliases. They do not imply new backend endpoints. `/ALERTS/:uuid` is the recommended modern all-events main overlay route. `/channel/:uuid` is a deprecated legacy alias for the same all-events mode and must remain available for existing OBS/browser sources until migrated. The `:uuid` route parameter is still passed to the backend as `?account=:uuid`.
 
 ## 3. Main overlay payload shape
 

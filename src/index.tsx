@@ -35,7 +35,7 @@ function createRouterCompatProps(accountId: string): RouterCompatProps {
 }
 
 function getMainOverlayMode(route: Extract<OverlayRoute, { kind: "overlay" }>): MainOverlayMode {
-  if (route.legacy) return "all";
+  if (route.legacy || route.type === "ALERTS") return "all";
   if (route.type === "REWARD_ALERT") return "reward";
   return "tip";
 }
@@ -46,6 +46,7 @@ function renderOverlayRoute(route: OverlayRoute): React.ReactElement {
   const routerCompatProps = createRouterCompatProps(route.accountId);
 
   switch (route.type) {
+    case "ALERTS":
     case "TIP_ALERT":
     case "REWARD_ALERT":
       return <PageChannel {...routerCompatProps} mode={getMainOverlayMode(route)} />;
