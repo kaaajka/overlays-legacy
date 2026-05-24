@@ -23,12 +23,12 @@ import { appEnv } from "../config/env";
 
 import "../style/app.scss";
 
-import muteImage from "../assets/images/pobrane_2.png";
-import censureImage from "../assets/images/pobrane_3.png";
-import withoutRImage from "../assets/images/pobrane_1.png";
-import dogsImage from "../assets/images/pobrane_5.png";
-import rouletteImage from "../assets/images/pobrane_6.webp";
-import coinflipImage from "../assets/images/cat_surprised.gif";
+import muteImage from "../assets/images/mute-alert.png";
+import censureImage from "../assets/images/censure-alert.png";
+import withoutRImage from "../assets/images/without-r-alert.png";
+import dogsImage from "../assets/images/dogs-reward-alert.png";
+import rouletteImage from "../assets/images/roulette-alert.webp";
+import coinflipImage from "../assets/images/coinflip-alert.gif";
 import { debugLog } from "../debug";
 import { safeJsonParse } from "../protocol/safeJson";
 import {

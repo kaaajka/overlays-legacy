@@ -111,13 +111,13 @@ Do not jump straight into this move. First keep compatibility paths or migrate o
 | `src/assets/fonts/pxiByp8kv8JHgFVrLEj6Z1JlFc-K.woff2` | unknown / suspicious local font | none found | suspicious | move later | Looks like local Poppins font files; currently Google Fonts is imported remotely instead. |
 | `src/assets/fonts/pxiByp8kv8JHgFVrLGT9Z1JlFc-K.woff2` | unknown / suspicious local font | none found | suspicious | move later | Looks like local Poppins font files; currently Google Fonts is imported remotely instead. |
 | `src/assets/fonts/pxiEyp8kv8JHgFVrJJnecmNE.woff2` | unknown / suspicious local font | none found | suspicious | move later | Looks like local Poppins font files; currently Google Fonts is imported remotely instead. |
-| `src/assets/images/cat_surprised.gif` | static import asset | src: src/components/PageChannel.tsx<br>fixtures: src/dev/fixtures/main-coinflip-prepare.json, src/dev/fixtures/main-coinflip-started.json<br>docs: ASSET_AUDIT_2026.md | used | rename later | Imported by PageChannel as main alert intro/normal event images or referenced in fixtures. |
+| `src/assets/images/censure-alert.png` | static import asset | src: src/components/PageChannel.tsx<br>docs: ASSET_AUDIT_2026.md | used | keep | Semantic rename from `pobrane_3.png`; used as `censureImage`. |
+| `src/assets/images/coinflip-alert.gif` | static import asset | src: src/components/PageChannel.tsx<br>docs: ASSET_AUDIT_2026.md | used | keep | Semantic rename from `cat_surprised.gif`; used as `coinflipImage`. Fixture JSON still contains legacy `cat_surprised.gif` fields but those fields are not the static import path. |
+| `src/assets/images/dogs-reward-alert.png` | static import asset | src: src/components/PageChannel.tsx<br>docs: ASSET_AUDIT_2026.md | used | keep | Semantic rename from `pobrane_5.png`; used as `dogsImage`. |
 | `src/assets/images/money.png` | SCSS reference / src asset | SCSS/CSS: src/style/app.css, src/style/app.scss<br>docs: ASSET_AUDIT_2026.md | used | keep | Referenced from SCSS/CSS for donation visuals. |
-| `src/assets/images/pobrane_1.png` | static import asset | src: src/components/PageChannel.tsx<br>docs: ASSET_AUDIT_2026.md | used | rename later | Imported by PageChannel as main alert intro/normal event images or referenced in fixtures. |
-| `src/assets/images/pobrane_2.png` | static import asset | src: src/components/PageChannel.tsx<br>docs: ASSET_AUDIT_2026.md | used | rename later | Imported by PageChannel as main alert intro/normal event images or referenced in fixtures. |
-| `src/assets/images/pobrane_3.png` | static import asset | src: src/components/PageChannel.tsx<br>docs: ASSET_AUDIT_2026.md | used | rename later | Imported by PageChannel as main alert intro/normal event images or referenced in fixtures. |
-| `src/assets/images/pobrane_5.png` | static import asset | src: src/components/PageChannel.tsx<br>docs: ASSET_AUDIT_2026.md | used | rename later | Imported by PageChannel as main alert intro/normal event images or referenced in fixtures. |
-| `src/assets/images/pobrane_6.webp` | static import asset | src: src/components/PageChannel.tsx<br>fixtures: src/dev/fixtures/main-roulette-prepare.json<br>docs: ASSET_AUDIT_2026.md | used | rename later | Imported by PageChannel as main alert intro/normal event images or referenced in fixtures. |
+| `src/assets/images/mute-alert.png` | static import asset | src: src/components/PageChannel.tsx<br>docs: ASSET_AUDIT_2026.md | used | keep | Semantic rename from `pobrane_2.png`; used as `muteImage`. |
+| `src/assets/images/roulette-alert.webp` | static import asset | src: src/components/PageChannel.tsx<br>docs: ASSET_AUDIT_2026.md | used | keep | Semantic rename from `pobrane_6.webp`; used as `rouletteImage`. Fixture JSON still contains legacy `pobrane_6.webp` fields but those fields are not the static import path. |
+| `src/assets/images/without-r-alert.png` | static import asset | src: src/components/PageChannel.tsx<br>docs: ASSET_AUDIT_2026.md | used | keep | Semantic rename from `pobrane_1.png`; used as `withoutRImage`. |
 
 ## Asset families
 
@@ -129,9 +129,20 @@ Status: **probably used dynamically**. These files are referenced by roulette fi
 
 Status: **used**. These are frontend-owned donate template media paths. They are stable runtime assets and should stay in `public` until a deliberate path migration is done. Template numbers 8-10 currently reuse tier-7 media rather than having unique `8.*`, `9.*`, `10.*` files.
 
-### `src/assets/images/pobrane_*` and `src/assets/images/cat_surprised.gif`
+### Static imported main alert images
 
-Status: **used static imports**. These are bundled by Vite because `PageChannel` imports them directly for normal alert intro images. They should eventually be renamed to semantic names under `src/assets/ui/`, but not deleted.
+Status: **used static imports**. These are bundled by Vite because `PageChannel` imports them directly for normal alert intro images. The previous ambiguous filenames were renamed semantically:
+
+| Old path | New path |
+|---|---|
+| `src/assets/images/pobrane_1.png` | `src/assets/images/without-r-alert.png` |
+| `src/assets/images/pobrane_2.png` | `src/assets/images/mute-alert.png` |
+| `src/assets/images/pobrane_3.png` | `src/assets/images/censure-alert.png` |
+| `src/assets/images/pobrane_5.png` | `src/assets/images/dogs-reward-alert.png` |
+| `src/assets/images/pobrane_6.webp` | `src/assets/images/roulette-alert.webp` |
+| `src/assets/images/cat_surprised.gif` | `src/assets/images/coinflip-alert.gif` |
+
+The rename cleanup is completed. A future move to `src/assets/ui/` is optional and should be a separate import-only commit.
 
 ### `src/assets/fonts/*`
 
@@ -189,7 +200,7 @@ These files are suspicious but risky to remove without visual QA or checking leg
 ## Recommended cleanup order
 
 1. Replace Google Fonts with verified local font files and compare screenshots.
-2. Rename static UI imports in `src/assets/images/pobrane_*` to semantic names under `src/assets/ui/`, one commit only for imports/name changes.
+2. Static UI imports have semantic filenames now. Move them to `src/assets/ui/` later only if there is a dedicated import-only cleanup commit.
 3. Normalize donate media paths only with compatibility redirects or a full QA pass for every donate tier.
 4. Normalize roulette reward image paths only if backend/fixture filename expectations are updated together.
 5. Delete suspicious legacy media only after OBS visual QA and a grep proving no runtime path remains.

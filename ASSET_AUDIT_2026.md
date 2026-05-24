@@ -25,18 +25,18 @@ Current direct static imports:
 
 | Asset | Referenced by | Classification | Recommendation |
 |---|---|---:|---|
-| `src/assets/images/pobrane_1.png` | `PageChannel.tsx` as `withoutRImage` | Static import asset | Keep in `src/assets` for now. Later rename to semantic path. |
-| `src/assets/images/pobrane_2.png` | `PageChannel.tsx` as `muteImage` | Static import asset | Keep in `src/assets` for now. Later rename to semantic path. |
-| `src/assets/images/pobrane_3.png` | `PageChannel.tsx` as `censureImage` | Static import asset | Keep in `src/assets` for now. Later rename to semantic path. |
-| `src/assets/images/pobrane_5.png` | `PageChannel.tsx` as `dogsImage` | Static import asset | Keep in `src/assets` for now. Later rename to semantic path. |
-| `src/assets/images/pobrane_6.webp` | `PageChannel.tsx` as `rouletteImage` | Static import asset | Keep in `src/assets` for now. Later rename to semantic path. |
-| `src/assets/images/cat_surprised.gif` | `PageChannel.tsx` as `coinflipImage` | Static import asset | Keep in `src/assets` for now. Later rename to semantic path. |
+| `src/assets/images/without-r-alert.png` | `PageChannel.tsx` as `withoutRImage` | Static import asset | Keep. Renamed from `pobrane_1.png` for semantic usage. |
+| `src/assets/images/mute-alert.png` | `PageChannel.tsx` as `muteImage` | Static import asset | Keep. Renamed from `pobrane_2.png` for semantic usage. |
+| `src/assets/images/censure-alert.png` | `PageChannel.tsx` as `censureImage` | Static import asset | Keep. Renamed from `pobrane_3.png` for semantic usage. |
+| `src/assets/images/dogs-reward-alert.png` | `PageChannel.tsx` as `dogsImage` | Static import asset | Keep. Renamed from `pobrane_5.png` for semantic usage. |
+| `src/assets/images/roulette-alert.webp` | `PageChannel.tsx` as `rouletteImage` | Static import asset | Keep. Renamed from `pobrane_6.webp` for semantic usage. |
+| `src/assets/images/coinflip-alert.gif` | `PageChannel.tsx` as `coinflipImage` | Static import asset | Keep. Renamed from `cat_surprised.gif` for semantic usage. |
 | `src/assets/images/money.png` | `src/style/app.scss` as CSS relative URL | Static import/CSS asset | Keep in `src/assets` unless moved with CSS refactor. |
 
 Notes:
 
-- The `pobrane_*` names are weak. They work, but they are not maintainable.
-- These assets are currently tied to the main alert overlay's static reward-like intro images. Moving them should be done in a separate commit with route/fixture smoke checks.
+- The previous `pobrane_*` static import names were replaced with semantic filenames in the same `src/assets/images/` folder.
+- These assets are currently tied to the main alert overlay's static reward-like intro images. Moving them to another folder should still be done separately with route/fixture smoke checks.
 
 ### 2.2 Public runtime assets
 
@@ -72,8 +72,8 @@ These are not direct imports. They come from fixture or backend payload fields a
 | `multilottery_30k.png` | `main-roulette-started.json` / backend roulette item | `RouletteEvent.tsx` | `public/assets/images/roulette/multilottery_30k.png` |
 | `credits_50k.png` | `main-roulette-started.json` / backend roulette item | `RouletteEvent.tsx` | `public/assets/images/roulette/credits_50k.png` |
 | `credits_100k.png` | `main-roulette-started.json` / backend roulette item | `RouletteEvent.tsx` | `public/assets/images/roulette/credits_100k.png` |
-| `cat_surprised.gif` | coinflip fixtures | `CoinflipEvent.tsx` indirectly through PageChannel image mapping/segment data | Currently in `src/assets/images/`; consider public copy if backend sends this filename directly. |
-| `pobrane_6.webp` | roulette prepare fixture | `PageChannel.tsx` static mapping for roulette prepare | Currently in `src/assets/images/`; prepare fixture itself does not drive `RouletteEvent` wheel. |
+| `cat_surprised.gif` | coinflip fixtures | Fixture-only legacy field | The static imported asset was renamed to `src/assets/images/coinflip-alert.gif`. Fixture fields are intentionally unchanged in this rename-only pass because runtime coinflip rendering uses PageChannel image mapping, not these fixture image names. |
+| `pobrane_6.webp` | roulette prepare fixture | Fixture-only legacy field | The static imported asset was renamed to `src/assets/images/roulette-alert.webp`. Fixture fields are intentionally unchanged in this rename-only pass; prepare fixture itself does not drive the started roulette wheel. |
 
 Important: roulette started payloads are backend-driven by `item.image`, so those images must remain URL-addressable at runtime. That means `public/` is the correct place for them unless the backend changes to send full built asset URLs, which it currently does not.
 
@@ -128,12 +128,12 @@ Reason: these are not just build-time module imports. They are addressed by URL 
 Keep these in `src/` for now:
 
 - Statically imported main alert images:
-  - `src/assets/images/pobrane_1.png`
-  - `src/assets/images/pobrane_2.png`
-  - `src/assets/images/pobrane_3.png`
-  - `src/assets/images/pobrane_5.png`
-  - `src/assets/images/pobrane_6.webp`
-  - `src/assets/images/cat_surprised.gif`
+  - `src/assets/images/without-r-alert.png`
+  - `src/assets/images/mute-alert.png`
+  - `src/assets/images/censure-alert.png`
+  - `src/assets/images/dogs-reward-alert.png`
+  - `src/assets/images/roulette-alert.webp`
+  - `src/assets/images/coinflip-alert.gif`
 - CSS-referenced source image:
   - `src/assets/images/money.png`
 
@@ -152,15 +152,15 @@ Do not do this in one commit. Recommended later migrations:
    - Current SCSS imports Google Fonts remotely.
    - Local `src/assets/fonts/pxi*.woff2` probably already contains Poppins-like font files, but this must be verified before replacing `@import`.
 
-3. **Rename ambiguous `pobrane_*` files**
-   - Example target names:
-     - `src/assets/ui/reward-without-r.png`
-     - `src/assets/ui/reward-mute.png`
-     - `src/assets/ui/reward-censure.png`
-     - `src/assets/ui/reward-dogs.png`
-     - `src/assets/ui/reward-roulette.webp`
-     - `src/assets/ui/reward-coinflip.gif`
-   - This is safe only if all imports are updated in the same commit.
+3. **Static alert image rename - completed**
+   - Previous ambiguous names were renamed:
+     - `pobrane_1.png` -> `without-r-alert.png`
+     - `pobrane_2.png` -> `mute-alert.png`
+     - `pobrane_3.png` -> `censure-alert.png`
+     - `pobrane_5.png` -> `dogs-reward-alert.png`
+     - `pobrane_6.webp` -> `roulette-alert.webp`
+     - `cat_surprised.gif` -> `coinflip-alert.gif`
+   - A future folder move to `src/assets/ui/` is optional and should be handled separately.
 
 4. **Normalize public runtime folders**
    - See target structure below.
@@ -222,7 +222,7 @@ Resolved:
 3. Decide Google Fonts strategy:
    - keep remote for now, or
    - add verified local `@font-face` files and remove Google import.
-4. Rename `pobrane_*` imported UI assets to semantic names.
+4. Static imported UI assets have semantic names now; only move them later if a dedicated folder cleanup is needed.
 5. Normalize `public/assets/sounds` and `public/media` into the target folder structure with compatibility QA.
 6. Audit and remove unreferenced legacy assets only after manual OBS visual checks.
 
