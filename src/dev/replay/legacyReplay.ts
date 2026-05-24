@@ -1,8 +1,12 @@
 import { debugLog } from "../../debug";
 import { getLegacyFixture, listLegacyFixtureNames } from "./fixtureIndex";
+import type { LegacyFixtureReplaySequence } from "./fixtureIndex";
 
 let fixtureAudioUnlocked = false;
 let fixtureAudioUnlockPrompt: HTMLDivElement | undefined;
+type FixtureReplayTimer = ReturnType<typeof setTimeout>;
+
+const scheduledFixtureReplayTimers = new Set<FixtureReplayTimer>();
 
 export function isLegacyFixtureReplayEnabled(): boolean {
   return import.meta.env.DEV === true || import.meta.env.VITE_ENABLE_FIXTURE_REPLAY === "true";
@@ -82,9 +86,18 @@ export function shouldWaitForFixtureAudioUnlock(search = window.location.search)
   );
 }
 
+function clearScheduledFixtureReplayTimers(): void {
+  for (const timer of scheduledFixtureReplayTimers) {
+    clearTimeout(timer);
+  }
+
+  scheduledFixtureReplayTimers.clear();
+}
+
 export function cleanupFixtureAudioUnlockPrompt(): void {
   fixtureAudioUnlockPrompt?.remove();
   fixtureAudioUnlockPrompt = undefined;
+  clearScheduledFixtureReplayTimers();
 }
 
 function tryUnlockBrowserAudio(): void {
@@ -156,6 +169,52 @@ function showFixtureAudioUnlockPrompt(onUnlock: () => void): void {
   fixtureAudioUnlockPrompt = root;
 }
 
+function isLegacyFixtureReplaySequence(value: unknown): value is LegacyFixtureReplaySequence {
+  return (
+    Array.isArray(value) &&
+    value.every((step) => {
+      if (!step || typeof step !== "object") return false;
+
+      return "payload" in step;
+    })
+  );
+}
+
+function scheduleFixturePayload(delayMs: number, replayPayload: () => void): void {
+  const timer = setTimeout(() => {
+    scheduledFixtureReplayTimers.delete(timer);
+    replayPayload();
+  }, delayMs);
+
+  scheduledFixtureReplayTimers.add(timer);
+}
+
+function replayLegacyFixtureEntry(
+  fixture: unknown,
+  handlePayload: (payload: unknown) => void,
+  search: string,
+): void {
+  clearScheduledFixtureReplayTimers();
+
+  if (!isLegacyFixtureReplaySequence(fixture)) {
+    scheduleFixturePayload(0, () => {
+      handlePayload(fixture);
+    });
+    return;
+  }
+
+  let elapsedMs = 0;
+  const fastMode = isDevFixtureFastMode(search);
+
+  for (const step of fixture) {
+    elapsedMs += fastMode ? (step.fastDelayMs ?? step.delayMs ?? 0) : (step.delayMs ?? 0);
+
+    scheduleFixturePayload(elapsedMs, () => {
+      handlePayload(step.payload);
+    });
+  }
+}
+
 export function replayRequestedLegacyFixture(
   handlePayload: (payload: unknown) => void,
   search = window.location.search,
@@ -179,14 +238,12 @@ export function replayRequestedLegacyFixture(
 
   if (shouldWaitForFixtureAudioUnlock(search)) {
     showFixtureAudioUnlockPrompt(() => {
-      handlePayload(fixture);
+      replayLegacyFixtureEntry(fixture, handlePayload, search);
     });
     return true;
   }
 
-  window.setTimeout(() => {
-    handlePayload(fixture);
-  }, 0);
+  replayLegacyFixtureEntry(fixture, handlePayload, search);
 
   return true;
 }
