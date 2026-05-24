@@ -16,6 +16,10 @@ describe("parseOverlayRoute", () => {
     expect(parseOverlayRoute(`/TIP_ALERT/${uuid}`)).toEqual(overlay("TIP_ALERT", false));
   });
 
+  it("parses a valid modern REWARD_ALERT route as TIP_ALERT", () => {
+    expect(parseOverlayRoute(`/REWARD_ALERT/${uuid}`)).toEqual(overlay("TIP_ALERT", false));
+  });
+
   it("parses a valid modern SUB_GOAL route", () => {
     expect(parseOverlayRoute(`/SUB_GOAL/${uuid}`)).toEqual(overlay("SUB_GOAL", false));
   });
@@ -51,8 +55,22 @@ describe("parseOverlayRoute", () => {
     });
   });
 
+  it("rejects an invalid UUID for REWARD_ALERT", () => {
+    expect(parseOverlayRoute("/REWARD_ALERT/not-a-uuid")).toEqual({
+      kind: "not_found",
+      reason: "invalid_uuid",
+    });
+  });
+
   it("rejects a missing UUID", () => {
     expect(parseOverlayRoute("/QUEUE/")).toEqual({
+      kind: "not_found",
+      reason: "missing_uuid",
+    });
+  });
+
+  it("rejects a missing UUID for REWARD_ALERT", () => {
+    expect(parseOverlayRoute("/REWARD_ALERT/")).toEqual({
       kind: "not_found",
       reason: "missing_uuid",
     });
@@ -69,6 +87,12 @@ describe("parseOverlayRoute", () => {
     expect(
       parseOverlayRoute(`/TIP_ALERT/${uuid}?fixture=main-donate-prepare&muteAudio=true`),
     ).toEqual(overlay("TIP_ALERT", false));
+  });
+
+  it("ignores query strings for REWARD_ALERT", () => {
+    expect(parseOverlayRoute(`/REWARD_ALERT/${uuid}?fixture=main-donate-prepare`)).toEqual(
+      overlay("TIP_ALERT", false),
+    );
   });
 
   it("accepts a trailing slash consistently", () => {

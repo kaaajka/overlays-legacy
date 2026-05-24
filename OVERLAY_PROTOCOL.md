@@ -39,11 +39,14 @@ The original `/channel` URLs are legacy OBS routes and must keep working. New up
 | Overlay | Legacy route | Preferred route alias |
 | --- | --- | --- |
 | Main tip/donate/events overlay | `/channel/:uuid` | `/TIP_ALERT/:uuid` |
+| Reward alert alias | `/channel/:uuid` | `/REWARD_ALERT/:uuid` |
 | Subscriber goal | `/channel/:uuid/subs` | `/SUB_GOAL/:uuid` |
 | Follower goal | `/channel/:uuid/followers` | `/FOLLOW_GOAL/:uuid` |
 | Queue | `/channel/:uuid/queue` | `/QUEUE/:uuid` |
 
 `?fixture=<name>`, `&muteAudio=true` and `&fast=true` work on both legacy routes and preferred aliases. Invalid or unsupported overlay URLs render a minimal `Overlay not found` screen instead of a blank page.
+
+`/REWARD_ALERT/:uuid` is currently an alias for the same main alert overlay as `/TIP_ALERT/:uuid` and `/channel/:uuid`. It does not create a separate backend WebSocket endpoint, does not use `/ws/rewards`, and does not isolate reward events by itself. True reward-only isolation requires a stable backend reward discriminator or a dedicated backend channel.
 
 
 
@@ -69,6 +72,7 @@ All overlay WebSocket clients (`main`, `queue`, `subs`, `followers`) share their
 ```txt
 /channel/:uuid
 /TIP_ALERT/:uuid
+/REWARD_ALERT/:uuid
 ```
 
 ### WebSocket

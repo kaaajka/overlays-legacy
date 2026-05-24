@@ -16,6 +16,7 @@ const uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-5][0-9a-f]{3}-[089ab][0-9a-f]{3}-
 
 const modernRouteTypes: Record<string, OverlayWidgetType> = {
   TIP_ALERT: "TIP_ALERT",
+  REWARD_ALERT: "TIP_ALERT",
   SUB_GOAL: "SUB_GOAL",
   FOLLOW_GOAL: "FOLLOW_GOAL",
   QUEUE: "QUEUE",

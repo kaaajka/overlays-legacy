@@ -26,12 +26,13 @@ New OBS sources should prefer the additive uppercase route aliases:
 
 ```txt
 /TIP_ALERT/:uuid
+/REWARD_ALERT/:uuid
 /SUB_GOAL/:uuid
 /FOLLOW_GOAL/:uuid
 /QUEUE/:uuid
 ```
 
-Both legacy routes and aliases use the same WebSocket contract and support the same dev fixture query parameters.
+Both legacy routes and aliases use the same WebSocket contract and support the same dev fixture query parameters. `/REWARD_ALERT/:uuid` is currently an alias for the same main alert overlay as `/TIP_ALERT/:uuid`; it does not create `/ws/rewards` or any separate backend endpoint. True reward-only isolation requires a stable backend reward discriminator or a dedicated backend channel.
 
 WebSocket endpoints are derived from `VITE_WS_URL`:
 
@@ -129,6 +130,7 @@ Manual route check:
 /channel/:uuid/followers
 /channel/:uuid/queue
 /TIP_ALERT/:uuid
+/REWARD_ALERT/:uuid
 /SUB_GOAL/:uuid
 /FOLLOW_GOAL/:uuid
 /QUEUE/:uuid
