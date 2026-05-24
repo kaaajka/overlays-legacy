@@ -311,11 +311,12 @@ export class PageChannel extends React.Component<PageChannelProps> {
 
     const args = getLegacyMainArgs(json);
 
-    if (!shouldHandleMainOverlayEvent(this.mode, json.key)) {
+    if (!shouldHandleMainOverlayEvent(this.mode, json.key, json.origin)) {
       debugLog("Ignored legacy main websocket payload outside active overlay mode", {
         mode: this.mode,
         event: json.event,
         key: json.key,
+        origin: json.origin,
       });
       return;
     }

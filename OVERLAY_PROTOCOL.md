@@ -47,13 +47,13 @@ The original `/channel` URLs are legacy OBS routes and must keep working. New up
 
 `?fixture=<name>`, `&muteAudio=true` and `&fast=true` work on both legacy routes and preferred aliases. Invalid or unsupported overlay URLs render a minimal `Overlay not found` screen instead of a blank page.
 
-Main alert route modes share the same `PageChannel` component and the same legacy main WebSocket endpoint, but apply minimal frontend filtering by legacy event key:
+Main alert route modes share the same `PageChannel` component and the same legacy main WebSocket endpoint, but apply minimal frontend filtering:
 
 - `/channel/:uuid` runs in `all` mode and accepts all current main overlay events.
 - `/TIP_ALERT/:uuid` runs in `tip` mode and accepts donate events only (`key === "donate"`).
-- `/REWARD_ALERT/:uuid` runs in `reward` mode and accepts reward-like legacy keys: `censure`, `mute`, `withoutR`, `dogs`, `roulette`, and `coinflip`.
+- `/REWARD_ALERT/:uuid` runs in `reward` mode. If a payload includes optional top-level `origin`, reward mode prefers it: `origin === "reward"` is accepted and `origin === "manual"` is rejected. If `origin` is missing, reward mode preserves legacy behavior and falls back to reward-like key filtering for `censure`, `mute`, `withoutR`, `dogs`, `roulette`, and `coinflip`.
 
-`/REWARD_ALERT/:uuid` does not create a separate backend WebSocket endpoint and does not use `/ws/rewards`. Manual `createEvent` events with the same legacy keys may also appear in `REWARD_ALERT`. True reward-origin isolation requires backend origin/source metadata, such as a reward discriminator, reward id, redemption id, or a dedicated backend channel.
+`/REWARD_ALERT/:uuid` does not create a separate backend WebSocket endpoint and does not use `/ws/rewards`. With older backend payloads that do not include `origin`, manual `createEvent` events with the same legacy keys may still appear in `REWARD_ALERT`. True reward-origin isolation requires backend origin/source metadata, such as a reward discriminator, reward id, redemption id, or a dedicated backend channel.
 
 
 

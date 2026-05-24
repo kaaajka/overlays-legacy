@@ -1,5 +1,7 @@
 export type LegacyMainEventName = "prepare" | "started" | "update" | "finished" | "alertList" | "test";
 
+export type LegacyOverlayEventOrigin = "reward" | "manual";
+
 export type LegacyMainEventKey =
   | "donate"
   | "censure"
@@ -14,6 +16,7 @@ export type LegacyMainMessage = {
   event: string;
   id?: string;
   key?: string;
+  origin?: LegacyOverlayEventOrigin;
   args?: unknown;
 };
 
@@ -29,9 +32,17 @@ export function getLegacyMainArgs(value: LegacyMainMessage): Record<string, unkn
   return isRecord(value.args) ? value.args : undefined;
 }
 
+export function isLegacyOverlayEventOrigin(value: unknown): value is LegacyOverlayEventOrigin {
+  return value === "reward" || value === "manual";
+}
+
 export function isLegacyMainMessage(value: unknown): value is LegacyMainMessage {
   if (!isRecord(value)) return false;
   if (!hasStringKey(value, "event") || !hasStringKey(value, "key") || !hasStringKey(value, "id")) {
+    return false;
+  }
+
+  if ("origin" in value && !isLegacyOverlayEventOrigin(value.origin)) {
     return false;
   }
 

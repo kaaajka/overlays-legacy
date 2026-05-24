@@ -8,6 +8,7 @@ import {
   getLegacyMainArgs,
   hasStringKey,
   isLegacyMainMessage,
+  isLegacyOverlayEventOrigin,
   isRecord,
   type LegacyMainEventKey,
   type LegacyMainEventName,
@@ -32,6 +33,13 @@ describe("legacy main overlay protocol guards", () => {
     expect(hasStringKey({ key: "donate" }, "key")).toBe(true);
     expect(hasStringKey({ key: 1 }, "key")).toBe(false);
     expect(hasStringKey({}, "key")).toBe(false);
+  });
+
+  it("detects optional overlay event origin values", () => {
+    expect(isLegacyOverlayEventOrigin("reward")).toBe(true);
+    expect(isLegacyOverlayEventOrigin("manual")).toBe(true);
+    expect(isLegacyOverlayEventOrigin("donate")).toBe(false);
+    expect(isLegacyOverlayEventOrigin(undefined)).toBe(false);
   });
 
   it("returns args only when args is a record", () => {
@@ -76,6 +84,39 @@ describe("legacy main overlay protocol guards", () => {
     expect(isLegacyMainMessage({ event: "prepare", key: "donate", id: "1" })).toBe(false);
     expect(
       isLegacyMainMessage({ event: "prepare", key: "donate", id: "1", args: "nope" }),
+    ).toBe(false);
+  });
+
+  it("accepts optional valid origin metadata", () => {
+    expect(
+      isLegacyMainMessage({
+        event: "started",
+        key: "roulette",
+        id: "1",
+        origin: "reward",
+        args: {},
+      }),
+    ).toBe(true);
+    expect(
+      isLegacyMainMessage({
+        event: "started",
+        key: "roulette",
+        id: "1",
+        origin: "manual",
+        args: {},
+      }),
+    ).toBe(true);
+  });
+
+  it("rejects invalid origin metadata when present", () => {
+    expect(
+      isLegacyMainMessage({
+        event: "started",
+        key: "roulette",
+        id: "1",
+        origin: "unknown",
+        args: {},
+      }),
     ).toBe(false);
   });
 
