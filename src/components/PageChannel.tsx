@@ -19,6 +19,7 @@ import CoinflipEvent from "./CoinflipEvent";
 import { OverlayUnavailable } from "./OverlayUnavailable";
 
 import { AppConfig } from "../config";
+import { appEnv } from "../config/env";
 
 import "../style/app.scss";
 
@@ -88,7 +89,7 @@ type PageChannelProps = RouterCompatProps & {
 };
 
 const EVENTS =
-  import.meta.env.VITE_APP_ENV === "test"
+  appEnv === "test"
     ? {
         donate_prepare: ["prepare", "test"],
         prepare_started: ["prepare", "started", "t_prepare", "t_started"],
