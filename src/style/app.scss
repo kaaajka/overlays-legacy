@@ -203,8 +203,8 @@ body {
     $segmentCoinScaleInDelay: $segmentCoinSpinDelay +
       ($segmentCoinSpinDurationHead * $coinSpins) + 0.5s;
 
-    $headImage: url(https://seeklogo.com/images/O/orzel-logo-8EEA8B39E7-seeklogo.com.png);
-    $tailImage: url(https://kajkowo.bdrewnowski.ovh/assets/images/subs/miecioch.png);
+    $headImage: url("/assets/images/coinflip/head.png");
+    $tailImage: url("/assets/images/coinflip/tail.png");
 
     .roulette {
       display: block;
