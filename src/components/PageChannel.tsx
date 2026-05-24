@@ -31,7 +31,13 @@ import rouletteImage from "../assets/images/pobrane_6.webp";
 import coinflipImage from "../assets/images/cat_surprised.gif";
 import { debugLog } from "../debug";
 import { safeJsonParse } from "../protocol/safeJson";
-import { getLegacyMainArgs, isLegacyMainMessage } from "../protocol/legacyMainOverlayProtocol";
+import {
+  getLegacyMainArgsRecord,
+  isLegacyCoinflipStartedArgs,
+  isLegacyMainMessage,
+  isLegacyRouletteStartedArgs,
+  isLegacyUpdateArgs,
+} from "../protocol/legacyMainOverlayProtocol";
 import { type MainOverlayMode, shouldHandleMainOverlayEvent } from "../protocol/mainOverlayMode";
 import { buildLegacyWsUrl } from "../protocol/legacyWsUrl";
 import { createLegacyOverlaySocket } from "../socket/createLegacyOverlaySocket";
@@ -309,7 +315,7 @@ export class PageChannel extends React.Component<PageChannelProps> {
       return;
     }
 
-    const args = getLegacyMainArgs(json);
+    const args = getLegacyMainArgsRecord(json);
 
     if (!shouldHandleMainOverlayEvent(this.mode, json.key, json.origin)) {
       debugLog("Ignored legacy main websocket payload outside active overlay mode", {
@@ -380,7 +386,24 @@ export class PageChannel extends React.Component<PageChannelProps> {
         if (index > -1) this.donateAlertQueue.splice(index, 1);
       }
     } else {
-      if (EVENTS.prepare_started.includes(json.event) && args) {
+      if (EVENTS.prepare_started.includes(json.event)) {
+        if (!args) {
+          debugLog("Ignored malformed legacy prepare/started payload", json);
+          return;
+        }
+
+        const isPrepareState = ["t_prepare", "prepare"].includes(json.event);
+
+        if (!isPrepareState && json.key === "roulette" && !isLegacyRouletteStartedArgs(args)) {
+          debugLog("Ignored malformed legacy roulette started payload", json);
+          return;
+        }
+
+        if (!isPrepareState && json.key === "coinflip" && !isLegacyCoinflipStartedArgs(args)) {
+          debugLog("Ignored malformed legacy coinflip started payload", json);
+          return;
+        }
+
         const params = {
           id: json.id,
           key: json.key,
@@ -398,15 +421,15 @@ export class PageChannel extends React.Component<PageChannelProps> {
           case "coinflip":
             event = new CoinflipEventModel({
               ...params,
-              segments: Array.isArray(args.segments) ? (args.segments as ICoinflipSegmentSchema[]) : [],
+              segments: Array.isArray(args.segments)
+                ? (args.segments as ICoinflipSegmentSchema[])
+                : [],
             });
             break;
           default:
             event = new NormalEventModel(params);
             break;
         }
-
-        const isPrepareState = ["t_prepare", "prepare"].includes(json.event);
         const toUpdate: {
           state: EventState;
           time?: number;
@@ -442,8 +465,13 @@ export class PageChannel extends React.Component<PageChannelProps> {
         event.update(toUpdate);
 
         this.setCurrentEvent(event);
-      } else if (EVENTS.update.includes(json.event) && args) {
-        if (this.currentEvent && this.currentEvent.id === json.id && typeof args.key === "string") {
+      } else if (EVENTS.update.includes(json.event)) {
+        if (!isLegacyUpdateArgs(args)) {
+          debugLog("Ignored malformed legacy update payload", json);
+          return;
+        }
+
+        if (this.currentEvent && this.currentEvent.id === json.id) {
           this.currentEvent.update({ [args.key]: args.value });
         }
       } else if (EVENTS.finished.includes(json.event)) {

@@ -6,9 +6,13 @@ import mainDonatePrepare from "../dev/fixtures/main-donate-prepare.json";
 import mainRouletteStarted from "../dev/fixtures/main-roulette-started.json";
 import {
   getLegacyMainArgs,
+  getLegacyMainArgsRecord,
   hasStringKey,
+  isLegacyCoinflipStartedArgs,
   isLegacyMainMessage,
   isLegacyOverlayEventOrigin,
+  isLegacyRouletteStartedArgs,
+  isLegacyUpdateArgs,
   isRecord,
   type LegacyMainEventKey,
   type LegacyMainEventName,
@@ -85,6 +89,43 @@ describe("legacy main overlay protocol guards", () => {
     expect(
       isLegacyMainMessage({ event: "prepare", key: "donate", id: "1", args: "nope" }),
     ).toBe(false);
+  });
+
+
+  it("returns args record through the main args helper", () => {
+    const message = { event: "update", key: "roulette", id: "1", args: { key: "time", value: 10 } };
+
+    expect(getLegacyMainArgsRecord(message)).toEqual({ key: "time", value: 10 });
+  });
+
+  it("accepts valid update args", () => {
+    expect(isLegacyUpdateArgs({ key: "time", value: 10 })).toBe(true);
+    expect(isLegacyUpdateArgs({ key: "winner", value: undefined })).toBe(true);
+  });
+
+  it("rejects update args missing key", () => {
+    expect(isLegacyUpdateArgs({ value: 10 })).toBe(false);
+    expect(isLegacyUpdateArgs({ key: 10, value: 10 })).toBe(false);
+  });
+
+  it("accepts valid roulette started args", () => {
+    expect(isLegacyRouletteStartedArgs({ items: [], winner: 50 })).toBe(true);
+  });
+
+  it("rejects roulette started args missing items", () => {
+    expect(isLegacyRouletteStartedArgs({ winner: 50 })).toBe(false);
+  });
+
+  it("rejects roulette started args when winner is not a number", () => {
+    expect(isLegacyRouletteStartedArgs({ items: [], winner: "50" })).toBe(false);
+  });
+
+  it("accepts valid coinflip started args", () => {
+    expect(isLegacyCoinflipStartedArgs({ segments: [] })).toBe(true);
+  });
+
+  it("rejects coinflip started args missing segments", () => {
+    expect(isLegacyCoinflipStartedArgs({ winner: 1 })).toBe(false);
   });
 
   it("accepts optional valid origin metadata", () => {

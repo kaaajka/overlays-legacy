@@ -20,6 +20,20 @@ export type LegacyMainMessage = {
   args?: unknown;
 };
 
+export type LegacyUpdateArgs = {
+  key: string;
+  value: unknown;
+};
+
+export type LegacyRouletteStartedArgs = {
+  items: unknown[];
+  winner: number;
+};
+
+export type LegacyCoinflipStartedArgs = {
+  segments: unknown[];
+};
+
 export function isRecord(value: unknown): value is Record<string, unknown> {
   return typeof value === "object" && value !== null && !Array.isArray(value);
 }
@@ -30,6 +44,24 @@ export function hasStringKey(value: Record<string, unknown>, key: string): boole
 
 export function getLegacyMainArgs(value: LegacyMainMessage): Record<string, unknown> | undefined {
   return isRecord(value.args) ? value.args : undefined;
+}
+
+export function getLegacyMainArgsRecord(
+  message: LegacyMainMessage,
+): Record<string, unknown> | undefined {
+  return getLegacyMainArgs(message);
+}
+
+export function isLegacyUpdateArgs(value: unknown): value is LegacyUpdateArgs {
+  return isRecord(value) && typeof value.key === "string" && Object.hasOwn(value, "value");
+}
+
+export function isLegacyRouletteStartedArgs(value: unknown): value is LegacyRouletteStartedArgs {
+  return isRecord(value) && Array.isArray(value.items) && typeof value.winner === "number";
+}
+
+export function isLegacyCoinflipStartedArgs(value: unknown): value is LegacyCoinflipStartedArgs {
+  return isRecord(value) && Array.isArray(value.segments);
 }
 
 export function isLegacyOverlayEventOrigin(value: unknown): value is LegacyOverlayEventOrigin {
