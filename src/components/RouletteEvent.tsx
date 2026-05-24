@@ -40,11 +40,7 @@ export default class RouletteEvent extends React.Component<IRouletteEventProps> 
       () => this.props.event.winner,
       (ticket) => {
         if (typeof ticket === "number") {
-          if (this.timeout) clearTimeout(this.timeout);
-
-          this.timeout = setTimeout(() => {
-            this.startRoll(ticket);
-          }, 5000);
+          this.scheduleRoll(ticket);
         }
       },
     );
@@ -63,6 +59,10 @@ export default class RouletteEvent extends React.Component<IRouletteEventProps> 
     });
 
     this.updatePosition(0);
+
+    if (typeof this.props.event.winner === "number") {
+      this.scheduleRoll(this.props.event.winner);
+    }
 
     this.moveAnimation = setInterval(this.makeAnim, 1000 / 60);
   }
@@ -166,6 +166,14 @@ export default class RouletteEvent extends React.Component<IRouletteEventProps> 
     offset = -((offset + l - 790 / 2) % l);
 
     if (this.rollerRef.current) this.rollerRef.current.style.transform = `translateX(${offset}px)`;
+  }
+
+  private scheduleRoll(ticket: number) {
+    if (this.timeout) clearTimeout(this.timeout);
+
+    this.timeout = setTimeout(() => {
+      this.startRoll(ticket);
+    }, 5000);
   }
 
   private startRoll(winningTicket: number) {
