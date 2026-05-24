@@ -65,11 +65,46 @@ pnpm exec tsc --noEmit
 
 ## Environment variables
 
+Frontend environment parsing is centralized in `src/config/env.ts`. The module exposes `appEnv` and `wsUrl` so overlay runtime code does not read Vite env values directly. Env parsing must stay tolerant: a missing or invalid env value should not blank-screen OBS overlays. It should be diagnosable without changing existing overlay URLs.
+
 ```env
 VITE_APP_ENV=prod
 VITE_WS_URL=wss://kaaajka.nedi.me/ws
 VITE_DEBUG_LOGS=false
 ```
+
+### `VITE_WS_URL`
+
+`VITE_WS_URL` is optional. When it is provided, `AppConfig.ws` uses that value to build the legacy overlay websocket URLs:
+
+```txt
+main      -> VITE_WS_URL?account=:uuid
+subs      -> VITE_WS_URL/subs?account=:uuid
+followers -> VITE_WS_URL/followers?account=:uuid
+queue     -> VITE_WS_URL/queue?account=:uuid
+```
+
+When `VITE_WS_URL` is missing or empty, the frontend keeps the legacy fallback:
+
+```txt
+wss://kaaajka.nedi.me/ws
+```
+
+This fallback is intentional so old OBS overlay URLs do not fail with a blank screen just because an environment variable was omitted during static hosting setup.
+
+### `VITE_APP_ENV`
+
+Supported `VITE_APP_ENV` values are:
+
+```txt
+prod
+test
+dev
+```
+
+Missing or unknown values are parsed as `unknown`. `PageChannel` treats only `appEnv === "test"` as the test event mapping. `prod`, `dev` and `unknown` currently use the default/production event mapping unless the code is intentionally changed later.
+
+### `VITE_DEBUG_LOGS`
 
 `VITE_DEBUG_LOGS=true` enables debug logs in production-like environments. Keep it off for OBS production scenes unless diagnosing a problem.
 
