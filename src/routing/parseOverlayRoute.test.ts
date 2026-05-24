@@ -4,7 +4,10 @@ import { parseOverlayRoute } from "./parseOverlayRoute";
 
 const uuid = "94bdf886-1c70-11eb-adc1-0242ac120011";
 
-const overlay = (type: "TIP_ALERT" | "SUB_GOAL" | "FOLLOW_GOAL" | "QUEUE", legacy: boolean) => ({
+const overlay = (
+  type: "TIP_ALERT" | "REWARD_ALERT" | "SUB_GOAL" | "FOLLOW_GOAL" | "QUEUE",
+  legacy: boolean,
+) => ({
   kind: "overlay" as const,
   type,
   accountId: uuid,
@@ -16,8 +19,8 @@ describe("parseOverlayRoute", () => {
     expect(parseOverlayRoute(`/TIP_ALERT/${uuid}`)).toEqual(overlay("TIP_ALERT", false));
   });
 
-  it("parses a valid modern REWARD_ALERT route as TIP_ALERT", () => {
-    expect(parseOverlayRoute(`/REWARD_ALERT/${uuid}`)).toEqual(overlay("TIP_ALERT", false));
+  it("parses a valid modern REWARD_ALERT route", () => {
+    expect(parseOverlayRoute(`/REWARD_ALERT/${uuid}`)).toEqual(overlay("REWARD_ALERT", false));
   });
 
   it("parses a valid modern SUB_GOAL route", () => {
@@ -91,7 +94,7 @@ describe("parseOverlayRoute", () => {
 
   it("ignores query strings for REWARD_ALERT", () => {
     expect(parseOverlayRoute(`/REWARD_ALERT/${uuid}?fixture=main-donate-prepare`)).toEqual(
-      overlay("TIP_ALERT", false),
+      overlay("REWARD_ALERT", false),
     );
   });
 

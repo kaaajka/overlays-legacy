@@ -82,6 +82,29 @@ const coinflipSounds = [
   AppConfig.assetUrl("/assets/sounds/15.mp3"),
 ];
 
+export type MainOverlayMode = "all" | "tip" | "reward";
+
+type PageChannelProps = RouterCompatProps & {
+  mode?: MainOverlayMode;
+};
+
+const REWARD_LIKE_EVENT_KEYS = new Set([
+  "censure",
+  "mute",
+  "withoutR",
+  "dogs",
+  "roulette",
+  "coinflip",
+]);
+
+function shouldHandleMainOverlayEvent(mode: MainOverlayMode, key: string): boolean {
+  if (mode === "all") return true;
+  if (mode === "tip") return key === "donate";
+  if (mode === "reward") return REWARD_LIKE_EVENT_KEYS.has(key);
+
+  return true;
+}
+
 const EVENTS =
   import.meta.env.VITE_APP_ENV === "test"
     ? {
@@ -98,7 +121,7 @@ const EVENTS =
       };
 
 @observer
-export class PageChannel extends React.Component<RouterCompatProps> {
+export class PageChannel extends React.Component<PageChannelProps> {
   connecting: boolean = true;
   connectionFailed: boolean = false;
   currentEvent: EventModel | undefined = undefined;
@@ -114,7 +137,7 @@ export class PageChannel extends React.Component<RouterCompatProps> {
   private donateAlertQueue: string[] = [];
   private currentDonateAlert?: string;
 
-  constructor(props: RouterCompatProps) {
+  constructor(props: PageChannelProps) {
     super(props);
 
     makeObservable(this, {
@@ -305,6 +328,15 @@ export class PageChannel extends React.Component<RouterCompatProps> {
 
     const args = getRecord(json.args);
 
+    if (!shouldHandleMainOverlayEvent(this.mode, json.key)) {
+      debugLog("Ignored legacy main websocket payload outside active overlay mode", {
+        mode: this.mode,
+        event: json.event,
+        key: json.key,
+      });
+      return;
+    }
+
     if (json.event === "prepare" && json.key === "playSound") {
       const volume = typeof args?.volume === "number" ? args.volume : undefined;
       const url = typeof args?.url === "string" ? args.url : undefined;
@@ -457,6 +489,10 @@ export class PageChannel extends React.Component<RouterCompatProps> {
         }),
       );
     }
+  }
+
+  get mode(): MainOverlayMode {
+    return this.props.mode ?? "all";
   }
 
   get accountKey(): string {

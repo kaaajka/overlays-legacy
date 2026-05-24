@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 
-import { PageChannel } from "./components/PageChannel";
+import { PageChannel, type MainOverlayMode } from "./components/PageChannel";
 import { PageChannelSubs } from "./components/PageChannelSubs";
 import { PageChannelFollowers } from "./components/PageChannelFollowers";
 import { PageChannelQueue } from "./components/PageChannelQueue";
@@ -33,6 +33,12 @@ function createRouterCompatProps(accountId: string): RouterCompatProps {
   };
 }
 
+function getMainOverlayMode(route: Extract<OverlayRoute, { kind: "overlay" }>): MainOverlayMode {
+  if (route.legacy) return "all";
+  if (route.type === "REWARD_ALERT") return "reward";
+  return "tip";
+}
+
 function renderOverlayRoute(route: OverlayRoute): React.ReactElement {
   if (route.kind === "not_found") return <NotFound />;
 
@@ -40,7 +46,8 @@ function renderOverlayRoute(route: OverlayRoute): React.ReactElement {
 
   switch (route.type) {
     case "TIP_ALERT":
-      return <PageChannel {...routerCompatProps} />;
+    case "REWARD_ALERT":
+      return <PageChannel {...routerCompatProps} mode={getMainOverlayMode(route)} />;
     case "SUB_GOAL":
       return <PageChannelSubs {...routerCompatProps} />;
     case "FOLLOW_GOAL":

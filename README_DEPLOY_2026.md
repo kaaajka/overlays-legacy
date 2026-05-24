@@ -32,7 +32,13 @@ New OBS sources should prefer the additive uppercase route aliases:
 /QUEUE/:uuid
 ```
 
-Both legacy routes and aliases use the same WebSocket contract and support the same dev fixture query parameters. `/REWARD_ALERT/:uuid` is currently an alias for the same main alert overlay as `/TIP_ALERT/:uuid`; it does not create `/ws/rewards` or any separate backend endpoint. True reward-only isolation requires a stable backend reward discriminator or a dedicated backend channel.
+Both legacy routes and aliases use the same WebSocket contract and support the same dev fixture query parameters. Main alert routes use one shared `PageChannel` component with route modes:
+
+- `/channel/:uuid` uses `all` mode and accepts all current main overlay events.
+- `/TIP_ALERT/:uuid` uses `tip` mode and accepts donate events only (`key === "donate"`).
+- `/REWARD_ALERT/:uuid` uses `reward` mode and accepts reward-like legacy keys: `censure`, `mute`, `withoutR`, `dogs`, `roulette`, and `coinflip`.
+
+`/REWARD_ALERT/:uuid` does not create `/ws/rewards` or any separate backend endpoint. Manual `createEvent` events with the same keys may also appear in `REWARD_ALERT`. True reward-origin isolation requires backend origin/source metadata or a dedicated backend channel.
 
 WebSocket endpoints are derived from `VITE_WS_URL`:
 

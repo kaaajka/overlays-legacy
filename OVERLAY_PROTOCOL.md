@@ -38,15 +38,22 @@ The original `/channel` URLs are legacy OBS routes and must keep working. New up
 
 | Overlay | Legacy route | Preferred route alias |
 | --- | --- | --- |
-| Main tip/donate/events overlay | `/channel/:uuid` | `/TIP_ALERT/:uuid` |
-| Reward alert alias | `/channel/:uuid` | `/REWARD_ALERT/:uuid` |
+| Main alert overlay, all legacy event keys | `/channel/:uuid` | - |
+| Tip/donate-only main overlay mode | - | `/TIP_ALERT/:uuid` |
+| Reward-like main overlay mode | - | `/REWARD_ALERT/:uuid` |
 | Subscriber goal | `/channel/:uuid/subs` | `/SUB_GOAL/:uuid` |
 | Follower goal | `/channel/:uuid/followers` | `/FOLLOW_GOAL/:uuid` |
 | Queue | `/channel/:uuid/queue` | `/QUEUE/:uuid` |
 
 `?fixture=<name>`, `&muteAudio=true` and `&fast=true` work on both legacy routes and preferred aliases. Invalid or unsupported overlay URLs render a minimal `Overlay not found` screen instead of a blank page.
 
-`/REWARD_ALERT/:uuid` is currently an alias for the same main alert overlay as `/TIP_ALERT/:uuid` and `/channel/:uuid`. It does not create a separate backend WebSocket endpoint, does not use `/ws/rewards`, and does not isolate reward events by itself. True reward-only isolation requires a stable backend reward discriminator or a dedicated backend channel.
+Main alert route modes share the same `PageChannel` component and the same legacy main WebSocket endpoint, but apply minimal frontend filtering by legacy event key:
+
+- `/channel/:uuid` runs in `all` mode and accepts all current main overlay events.
+- `/TIP_ALERT/:uuid` runs in `tip` mode and accepts donate events only (`key === "donate"`).
+- `/REWARD_ALERT/:uuid` runs in `reward` mode and accepts reward-like legacy keys: `censure`, `mute`, `withoutR`, `dogs`, `roulette`, and `coinflip`.
+
+`/REWARD_ALERT/:uuid` does not create a separate backend WebSocket endpoint and does not use `/ws/rewards`. Manual `createEvent` events with the same legacy keys may also appear in `REWARD_ALERT`. True reward-origin isolation requires backend origin/source metadata, such as a reward discriminator, reward id, redemption id, or a dedicated backend channel.
 
 
 
@@ -83,7 +90,7 @@ VITE_WS_URL?account=:uuid
 
 ### Purpose
 
-Main overlay for stream events, donate alerts, roulette, coinflip, normal events, sounds and alert queue acknowledgement.
+Main overlay for stream events, donate alerts, roulette, coinflip, normal events, sounds and alert queue acknowledgement. Route mode controls which legacy event keys are handled by the shared `PageChannel` component: `/channel/:uuid` handles all, `/TIP_ALERT/:uuid` handles donate only, and `/REWARD_ALERT/:uuid` handles reward-like legacy keys only.
 
 ### Incoming: alert list set
 
@@ -494,6 +501,6 @@ Standalone OBS widget for queued events.
 
 ## Runtime routing parser
 
-Runtime overlay routing is now resolved by `src/routing/parseOverlayRoute.ts` in `src/index.tsx` instead of React Router runtime matching. This keeps the legacy `/channel/:uuid` OBS routes and the modern uppercase aliases compatible while sharing one tested parser for UUID validation and route mapping.
+Runtime overlay routing is now resolved by `src/routing/parseOverlayRoute.ts` in `src/index.tsx` instead of React Router runtime matching. This keeps the legacy `/channel/:uuid` OBS routes and the modern uppercase aliases compatible while sharing one tested parser for UUID validation and route mapping. The parser preserves a distinct `REWARD_ALERT` route type so runtime can pass `reward` mode into the shared main overlay.
 
 React Router dependencies are intentionally still present in `package.json` for this commit; dependency cleanup should happen only after manual OBS validation. Query parameters such as `fixture`, `muteAudio` and `fast` still come from `window.location.search`, so fixture replay behavior is unchanged.
