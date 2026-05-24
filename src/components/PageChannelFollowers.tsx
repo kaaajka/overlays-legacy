@@ -10,7 +10,7 @@ import { AppConfig } from "../config";
 import { debugLog } from "../debug";
 import { safeJsonParse } from "../protocol/safeJson";
 import { isLegacyGoalMessage } from "../protocol/legacyOverlayProtocol";
-import { buildLegacyWsUrl } from "../protocol/legacyWsUrl";
+import { buildFollowersOverlaySocketUrl } from "../socket/buildOverlaySocketUrl";
 import { createLegacyOverlaySocket } from "../socket/createLegacyOverlaySocket";
 import type { LegacyOverlaySocketController } from "../socket/createLegacyOverlaySocket";
 import {
@@ -94,7 +94,7 @@ export class PageChannelFollowers extends React.Component<RouterCompatProps> {
 
   private createConnection(accountKey: string) {
     this.socket = createLegacyOverlaySocket({
-      url: buildLegacyWsUrl(AppConfig.ws, accountKey, "followers"),
+      url: buildFollowersOverlaySocketUrl(AppConfig.ws, accountKey),
       label: "followers",
       onOpen: () => {
         this.setConnectionFailed(false);

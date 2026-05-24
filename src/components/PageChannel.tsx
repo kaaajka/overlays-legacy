@@ -39,7 +39,7 @@ import {
   isLegacyUpdateArgs,
 } from "../protocol/legacyMainOverlayProtocol";
 import { type MainOverlayMode, shouldHandleMainOverlayEvent } from "../protocol/mainOverlayMode";
-import { buildLegacyWsUrl } from "../protocol/legacyWsUrl";
+import { buildMainOverlaySocketUrl } from "../socket/buildOverlaySocketUrl";
 import { createLegacyOverlaySocket } from "../socket/createLegacyOverlaySocket";
 import type { LegacyOverlaySocketController } from "../socket/createLegacyOverlaySocket";
 import { playOverlayAudio } from "../audio/playOverlayAudio";
@@ -287,7 +287,7 @@ export class PageChannel extends React.Component<PageChannelProps> {
     }
 
     this.socket = createLegacyOverlaySocket({
-      url: buildLegacyWsUrl(AppConfig.ws, accountKey, "main"),
+      url: buildMainOverlaySocketUrl(AppConfig.ws, accountKey),
       label: "main",
       onOpen: () => {
         this.setConnectionFailed(false);

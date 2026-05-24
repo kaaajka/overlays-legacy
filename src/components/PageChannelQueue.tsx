@@ -10,7 +10,7 @@ import { QueueEventModel } from "../models/QueueEvent";
 import { debugLog } from "../debug";
 import { safeJsonParse } from "../protocol/safeJson";
 import { isLegacyQueueMessage } from "../protocol/legacyOverlayProtocol";
-import { buildLegacyWsUrl } from "../protocol/legacyWsUrl";
+import { buildQueueOverlaySocketUrl } from "../socket/buildOverlaySocketUrl";
 import { createLegacyOverlaySocket } from "../socket/createLegacyOverlaySocket";
 import type { LegacyOverlaySocketController } from "../socket/createLegacyOverlaySocket";
 import {
@@ -97,7 +97,7 @@ export class PageChannelQueue extends React.Component<RouterCompatProps> {
 
   private createConnection(accountKey: string) {
     this.socket = createLegacyOverlaySocket({
-      url: buildLegacyWsUrl(AppConfig.ws, accountKey, "queue"),
+      url: buildQueueOverlaySocketUrl(AppConfig.ws, accountKey),
       label: "queue",
       onOpen: () => {
         this.setConnectionFailed(false);

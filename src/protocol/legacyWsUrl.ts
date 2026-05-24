@@ -1,20 +1,25 @@
-export type LegacyOverlaySocketKind = "main" | "subs" | "followers" | "queue";
+import {
+  buildFollowersOverlaySocketUrl,
+  buildMainOverlaySocketUrl,
+  buildQueueOverlaySocketUrl,
+  buildSubsOverlaySocketUrl,
+} from "../socket/buildOverlaySocketUrl";
 
-const LEGACY_SOCKET_PATH: Record<LegacyOverlaySocketKind, string> = {
-  main: "",
-  subs: "/subs",
-  followers: "/followers",
-  queue: "/queue",
-};
+export type LegacyOverlaySocketKind = "main" | "subs" | "followers" | "queue";
 
 export function buildLegacyWsUrl(
   baseUrl: string,
   accountKey: string,
   kind: LegacyOverlaySocketKind,
 ): string {
-  const normalizedBaseUrl = baseUrl.replace(/\/$/, "");
-  const path = LEGACY_SOCKET_PATH[kind];
-  const account = encodeURIComponent(accountKey);
-
-  return `${normalizedBaseUrl}${path}?account=${account}`;
+  switch (kind) {
+    case "main":
+      return buildMainOverlaySocketUrl(baseUrl, accountKey);
+    case "subs":
+      return buildSubsOverlaySocketUrl(baseUrl, accountKey);
+    case "followers":
+      return buildFollowersOverlaySocketUrl(baseUrl, accountKey);
+    case "queue":
+      return buildQueueOverlaySocketUrl(baseUrl, accountKey);
+  }
 }

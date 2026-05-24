@@ -21,7 +21,7 @@ VITE_DEBUG_LOGS=false
 
 `VITE_WS_URL` is the base WebSocket URL. Route-specific overlays append a path and `?account=:uuid`.
 
-Runtime URL creation is centralized in `src/protocol/legacyWsUrl.ts`. That helper is intentionally small and only preserves the frozen legacy mapping:
+Runtime URL creation is centralized in `src/socket/buildOverlaySocketUrl.ts`. The old `src/protocol/legacyWsUrl.ts` helper is only a compatibility wrapper around the tested socket URL builders. The mapping is intentionally small and only preserves the frozen legacy contract:
 
 | Socket kind | Final WebSocket URL |
 | --- | --- |

@@ -10,7 +10,7 @@ import { AppConfig } from "../config";
 import { debugLog } from "../debug";
 import { safeJsonParse } from "../protocol/safeJson";
 import { isLegacyGoalMessage } from "../protocol/legacyOverlayProtocol";
-import { buildLegacyWsUrl } from "../protocol/legacyWsUrl";
+import { buildSubsOverlaySocketUrl } from "../socket/buildOverlaySocketUrl";
 import { createLegacyOverlaySocket } from "../socket/createLegacyOverlaySocket";
 import type { LegacyOverlaySocketController } from "../socket/createLegacyOverlaySocket";
 import {
@@ -89,7 +89,7 @@ export class PageChannelSubs extends React.Component<RouterCompatProps> {
 
   private createConnection(accountKey: string) {
     this.socket = createLegacyOverlaySocket({
-      url: buildLegacyWsUrl(AppConfig.ws, accountKey, "subs"),
+      url: buildSubsOverlaySocketUrl(AppConfig.ws, accountKey),
       label: "subs",
       onOpen: () => {
         this.setConnectionFailed(false);
