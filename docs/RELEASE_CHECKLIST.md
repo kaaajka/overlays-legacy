@@ -76,7 +76,7 @@ Recommended OBS Browser Source baseline:
 
 Check the main alert route, preferably through both the legacy route and current alias if used by operators:
 
-- [ ] `/channel/:uuid`
+- [ ] `/` renders the Home/link generator.
 - [ ] `/ALERTS/:uuid`
 
 Required event checks:
@@ -100,8 +100,7 @@ Required event checks:
 
 Check:
 
-- [ ] `/channel/:uuid/followers`
-- [ ] `/FOLLOW_GOAL/:uuid` if the alias is used.
+- [ ] `/FOLLOW_GOAL/:uuid`
 
 Required event checks:
 
@@ -115,8 +114,7 @@ Required event checks:
 
 Check:
 
-- [ ] `/channel/:uuid/subs`
-- [ ] `/SUB_GOAL/:uuid` if the alias is used.
+- [ ] `/SUB_GOAL/:uuid`
 
 Required event checks:
 
@@ -130,8 +128,7 @@ Required event checks:
 
 Check:
 
-- [ ] `/channel/:uuid/queue`
-- [ ] `/QUEUE/:uuid` if the alias is used.
+- [ ] `/QUEUE/:uuid`
 
 Required event checks:
 
@@ -186,10 +183,12 @@ git rm --cached .env .env.local "*.log" .DS_Store
 
 Existing OBS scenes must not break.
 
-- [ ] Legacy main route still works: `/channel/:uuid`.
-- [ ] Legacy sub goal route still works: `/channel/:uuid/subs`.
-- [ ] Legacy follower goal route still works: `/channel/:uuid/followers`.
-- [ ] Legacy queue route still works: `/channel/:uuid/queue`.
+- [ ] Removed route is rejected: `/channel/:uuid`.
+- [ ] Removed route is rejected: `/channel/:uuid/subs`.
+- [ ] Removed route is rejected: `/channel/:uuid/followers`.
+- [ ] Removed route is rejected: `/channel/:uuid/queue`.
+- [ ] Removed test route is rejected: `/test/channel/:uuid`.
+- [ ] Runtime test mode works through `?test=true` on explicit routes.
 - [ ] Modern aliases, if used, are verified as naming aliases only.
 - [ ] Modern aliases still use the legacy account UUID WebSocket model.
 

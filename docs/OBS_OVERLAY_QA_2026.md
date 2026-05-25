@@ -4,17 +4,11 @@
 
 This document is the manual QA checklist for validating the `overlays-legacy` OBS/browser-source frontend.
 
-Use it after changes to:
-
-- routing and route aliases,
-- legacy WebSocket protocol handling,
-- socket lifecycle/reconnect behavior,
-- fixture replay,
-- audio preview behavior,
-- visual overlay markup/styles,
-- backend/frontend contract assumptions.
+Use it after changes to routing, runtime test mode, legacy WebSocket protocol handling, socket lifecycle/reconnect behavior, fixture replay, audio preview behavior, visual overlay markup/styles or backend/frontend contract assumptions.
 
 This is a QA matrix for the legacy overlay frontend. It does not redesign the backend protocol and does not imply new backend WebSocket endpoints.
+
+Overlay URLs should not be shown publicly.
 
 ## 2. Standard validation commands
 
@@ -34,7 +28,7 @@ Expected result:
 - TypeScript passes,
 - Biome lint passes cleanly.
 
-## 3. Main overlay route matrix
+## 3. Active route matrix
 
 Use a known valid UUID for `:uuid`, for example:
 
@@ -48,46 +42,20 @@ For fixture replay, append:
 ?fixture=<fixture-name>&muteAudio=true
 ```
 
-The `muteAudio=true` mode skips actual audio while preserving preview timing. Use it for fast visual validation without browser autoplay noise. `/ALERTS/:uuid` is the recommended all-events main overlay URL. `/channel/:uuid` remains as a deprecated legacy alias and must still be checked before removing old OBS sources.
+The `muteAudio=true` mode skips actual audio while preserving preview timing. Use it for fast visual validation without browser autoplay noise.
 
 | Route | Fixture | Expected behavior |
 |---|---|---|
-| `/ALERTS/:uuid` | `main-donate-prepare` | Shows donate. Recommended all-events route runs main overlay mode `all`. |
-| `/channel/:uuid` | `main-donate-prepare` | Shows donate. Deprecated legacy route still runs main overlay mode `all`. |
-| `/TIP_ALERT/:uuid` | `main-donate-prepare` | Shows donate. Tip route runs main overlay mode `tip`. |
+| `/` | none | Renders Home/link generator. Does not create a WebSocket. |
+| `/ALERTS/:uuid` | `main-donate-prepare` | Shows donate. Main overlay mode `all`. |
+| `/TIP_ALERT/:uuid` | `main-donate-prepare` | Shows donate. Tip route runs mode `tip`. |
 | `/REWARD_ALERT/:uuid` | `main-donate-prepare` | Ignores donate. Reward route filters out `key === "donate"`. |
-| `/ALERTS/:uuid` | `main-roulette-started` | Shows roulette. Recommended all-events route runs main overlay mode `all`. |
-| `/channel/:uuid` | `main-roulette-started` | Shows roulette. Deprecated legacy route still runs main overlay mode `all`. |
+| `/ALERTS/:uuid` | `main-roulette-started` | Shows roulette. Main overlay mode `all`. |
 | `/TIP_ALERT/:uuid` | `main-roulette-started` | Ignores roulette. Tip route only accepts donate events. |
 | `/REWARD_ALERT/:uuid` | `main-roulette-started` | Shows roulette. Reward route accepts reward-like `roulette` key. |
-| `/ALERTS/:uuid` | `main-coinflip-started` | Shows coinflip. Recommended all-events route runs main overlay mode `all`. |
-| `/channel/:uuid` | `main-coinflip-started` | Shows coinflip. Deprecated legacy route still runs main overlay mode `all`. |
+| `/ALERTS/:uuid` | `main-coinflip-started` | Shows coinflip. Main overlay mode `all`. |
 | `/TIP_ALERT/:uuid` | `main-coinflip-started` | Ignores coinflip. Tip route only accepts donate events. |
 | `/REWARD_ALERT/:uuid` | `main-coinflip-started` | Shows coinflip. Reward route accepts reward-like `coinflip` key. |
-
-Concrete URLs:
-
-```txt
-/ALERTS/94bdf886-1c70-11eb-adc1-0242ac120011?fixture=main-donate-prepare&muteAudio=true
-/channel/94bdf886-1c70-11eb-adc1-0242ac120011?fixture=main-donate-prepare&muteAudio=true
-/TIP_ALERT/94bdf886-1c70-11eb-adc1-0242ac120011?fixture=main-donate-prepare&muteAudio=true
-/REWARD_ALERT/94bdf886-1c70-11eb-adc1-0242ac120011?fixture=main-donate-prepare&muteAudio=true
-
-/ALERTS/94bdf886-1c70-11eb-adc1-0242ac120011?fixture=main-roulette-started&muteAudio=true
-/channel/94bdf886-1c70-11eb-adc1-0242ac120011?fixture=main-roulette-started&muteAudio=true
-/TIP_ALERT/94bdf886-1c70-11eb-adc1-0242ac120011?fixture=main-roulette-started&muteAudio=true
-/REWARD_ALERT/94bdf886-1c70-11eb-adc1-0242ac120011?fixture=main-roulette-started&muteAudio=true
-
-/ALERTS/94bdf886-1c70-11eb-adc1-0242ac120011?fixture=main-coinflip-started&muteAudio=true
-/channel/94bdf886-1c70-11eb-adc1-0242ac120011?fixture=main-coinflip-started&muteAudio=true
-/TIP_ALERT/94bdf886-1c70-11eb-adc1-0242ac120011?fixture=main-coinflip-started&muteAudio=true
-/REWARD_ALERT/94bdf886-1c70-11eb-adc1-0242ac120011?fixture=main-coinflip-started&muteAudio=true
-```
-
-## 4. Goal overlays matrix
-
-| Route | Fixture | Expected behavior |
-|---|---|---|
 | `/SUB_GOAL/:uuid` | `subs-set` | Shows/updates subscriber goal state from the legacy subs goal payload. |
 | `/FOLLOW_GOAL/:uuid` | `followers-set` | Shows/updates follower goal state from the legacy followers goal payload. |
 | `/QUEUE/:uuid` | `queue-set` | Shows/updates queue state from the legacy queue payload. |
@@ -95,12 +63,53 @@ Concrete URLs:
 Concrete URLs:
 
 ```txt
+/
+/ALERTS/94bdf886-1c70-11eb-adc1-0242ac120011?fixture=main-donate-prepare&muteAudio=true
+/TIP_ALERT/94bdf886-1c70-11eb-adc1-0242ac120011?fixture=main-donate-prepare&muteAudio=true
+/REWARD_ALERT/94bdf886-1c70-11eb-adc1-0242ac120011?fixture=main-donate-prepare&muteAudio=true
+/ALERTS/94bdf886-1c70-11eb-adc1-0242ac120011?fixture=main-roulette-started&muteAudio=true
+/TIP_ALERT/94bdf886-1c70-11eb-adc1-0242ac120011?fixture=main-roulette-started&muteAudio=true
+/REWARD_ALERT/94bdf886-1c70-11eb-adc1-0242ac120011?fixture=main-roulette-started&muteAudio=true
+/ALERTS/94bdf886-1c70-11eb-adc1-0242ac120011?fixture=main-coinflip-started&muteAudio=true
+/TIP_ALERT/94bdf886-1c70-11eb-adc1-0242ac120011?fixture=main-coinflip-started&muteAudio=true
+/REWARD_ALERT/94bdf886-1c70-11eb-adc1-0242ac120011?fixture=main-coinflip-started&muteAudio=true
 /SUB_GOAL/94bdf886-1c70-11eb-adc1-0242ac120011?fixture=subs-set
 /FOLLOW_GOAL/94bdf886-1c70-11eb-adc1-0242ac120011?fixture=followers-set
 /QUEUE/94bdf886-1c70-11eb-adc1-0242ac120011?fixture=queue-set
 ```
 
-## 5. Audio fixture modes
+## 4. Runtime test-mode matrix
+
+Use `?test=true` on any explicit overlay route:
+
+```txt
+/ALERTS/:uuid?test=true
+/TIP_ALERT/:uuid?test=true
+/REWARD_ALERT/:uuid?test=true
+/SUB_GOAL/:uuid?test=true
+/FOLLOW_GOAL/:uuid?test=true
+/QUEUE/:uuid?test=true
+```
+
+Normal mode accepts only `prepare`, `started`, `update`, `finished` and `alertList` where relevant.
+
+Test mode accepts only `test`, `t_prepare`, `t_started`, `t_update`, `t_finished`. Normal event names should be ignored in test mode. Test event names should be ignored in normal mode.
+
+Existing legacy backend test commands do not require backend changes because the frontend identifies test traffic by event name. `test=true` is appended to the WebSocket URL for future backend support.
+
+## 5. Removed route checks
+
+The following removed historical routes should render `Overlay not found` and must not be treated as active runtime behavior:
+
+```txt
+/channel/94bdf886-1c70-11eb-adc1-0242ac120011
+/channel/94bdf886-1c70-11eb-adc1-0242ac120011/subs
+/channel/94bdf886-1c70-11eb-adc1-0242ac120011/followers
+/channel/94bdf886-1c70-11eb-adc1-0242ac120011/queue
+/test/channel/94bdf886-1c70-11eb-adc1-0242ac120011
+```
+
+## 6. Audio fixture modes
 
 ### Real audio preview
 
@@ -142,7 +151,7 @@ Expected:
 - simulated audio delay is skipped,
 - useful for quickly validating event/filter logic rather than visual timing.
 
-## 6. Error/invalid URL checks
+## 7. Error/invalid URL checks
 
 ### Invalid route syntax
 
@@ -184,7 +193,7 @@ Could not connect to this overlay. Check widget URL or backend status.
 - reconnect spam stops or slows down significantly,
 - this is a connection/account problem, not a route syntax problem.
 
-## 7. OBS/browser-source checks
+## 8. OBS/browser-source checks
 
 For each route touched by a change, validate in browser dev preview and, when relevant, OBS Browser Source.
 
@@ -202,7 +211,7 @@ Checklist:
 - Fixture replay does not open the legacy backend WebSocket.
 - Normal non-fixture routes still open the legacy backend WebSocket using the existing contract.
 
-## 8. Acceptance criteria
+## 9. Acceptance criteria
 
 A change is acceptable when:
 
@@ -217,7 +226,6 @@ A change is acceptable when:
 - docs are updated if backend/frontend contract assumptions change.
 
 If a future change modifies backend payload shape, route meaning, fixture semantics, or overlay mode filtering, update this QA matrix together with `BACKEND_CONTRACT_SNAPSHOT_2026.md` and `OVERLAY_PROTOCOL.md`.
-
 
 ## Runtime asset path checks
 
