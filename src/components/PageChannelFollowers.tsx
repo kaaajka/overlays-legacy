@@ -1,6 +1,4 @@
-import { observer } from "mobx-react";
-import React from "react";
-import { action, makeObservable, observable, runInAction } from "mobx";
+import { useEffect, useRef, useState } from "react";
 import type { RouterCompatProps } from "../routing/routerCompat";
 
 import Goal from "./Goal";
@@ -22,149 +20,134 @@ type PageChannelChildProps = RouterCompatProps & {
   testMode?: boolean;
 };
 
-@observer
-export class PageChannelFollowers extends React.Component<PageChannelChildProps> {
-  connecting: boolean = true;
-  connectionFailed: boolean = false;
-  current: number | undefined = undefined;
-  goal: number | undefined = undefined;
+export function PageChannelFollowers(props: PageChannelChildProps) {
+  const [connecting, setConnecting] = useState(true);
+  const [connectionFailed, setConnectionFailed] = useState(false);
+  const [current, setCurrent] = useState<number | undefined>(undefined);
+  const [goal, setGoal] = useState<number | undefined>(undefined);
+  const socketRef = useRef<LegacyOverlaySocketController>();
+  const testTimeoutRef = useRef<ReturnType<typeof setTimeout>>();
 
-  private socket?: LegacyOverlaySocketController;
+  const testMode = props.testMode === true;
+  const {
+    match: {
+      params: { id: accountKey },
+    },
+  } = props;
 
-  private testTimeout?: ReturnType<typeof setTimeout>;
+  useEffect(() => {
+    let isActive = true;
 
-  constructor(props: PageChannelChildProps) {
-    super(props);
+    const setConnectingSafely = (state: boolean) => {
+      if (isActive) {
+        setConnecting((value) => (value === state ? value : state));
+      }
+    };
 
-    makeObservable(this, {
-      connecting: observable,
-      connectionFailed: observable,
-      current: observable,
-      goal: observable,
+    const setConnectionFailedSafely = (state: boolean) => {
+      if (isActive) {
+        setConnectionFailed((value) => (value === state ? value : state));
+      }
+    };
 
-      setConnecting: action,
-      setConnectionFailed: action,
-    });
-  }
+    const setCurrentSafely = (value: number | undefined) => {
+      if (isActive) {
+        setCurrent(value);
+      }
+    };
 
-  componentDidMount() {
-    this.closeConnection();
+    const setGoalSafely = (value: number | undefined) => {
+      if (isActive) {
+        setGoal(value);
+      }
+    };
+
+    const closeConnection = () => {
+      socketRef.current?.disconnect();
+      socketRef.current = undefined;
+    };
+
+    const clearTestTimeout = () => {
+      if (testTimeoutRef.current) {
+        clearInterval(testTimeoutRef.current);
+        testTimeoutRef.current = undefined;
+      }
+    };
+
+    const handleLegacyMessage = (payload: unknown) => {
+      const json = payload;
+      if (!isLegacyGoalMessage(json)) {
+        debugLog("Ignored unknown legacy goal websocket payload", json);
+        return;
+      }
+
+      switch (json.type) {
+        case "set":
+          setCurrentSafely(json.args.current);
+          setGoalSafely(json.args.goal);
+          break;
+        case "update":
+          if (typeof json.args.current !== "undefined")
+            setCurrentSafely(json.args.current);
+          if (typeof json.args.goal !== "undefined")
+            setGoalSafely(json.args.goal);
+          break;
+      }
+    };
 
     const didReplayFixture = replayRequestedLegacyFixture((payload) =>
-      this.handleLegacyMessage(payload),
+      handleLegacyMessage(payload),
     );
     if (didReplayFixture) {
-      this.setConnecting(false);
-      return;
+      setConnectingSafely(false);
+      return () => {
+        isActive = false;
+        cleanupFixtureAudioUnlockPrompt();
+        closeConnection();
+        clearTestTimeout();
+      };
     }
 
-    this.createConnection(this.accountKey);
-  }
-
-  componentWillUnmount() {
-    cleanupFixtureAudioUnlockPrompt();
-    this.closeConnection();
-
-    if (this.testTimeout) clearInterval(this.testTimeout);
-  }
-
-  render() {
-    if (this.connectionFailed) return <OverlayUnavailable />;
-
-    const canDraw =
-      !this.connecting &&
-      typeof this.current !== "undefined" &&
-      typeof this.goal !== "undefined";
-
-    return (
-      <div className={"subGoal"}>
-        {!!this.connecting && <h1>Łączenie...</h1>}
-
-        {canDraw && (
-          <Goal current={this.current} goal={this.goal} type={"followers"} />
-        )}
-      </div>
-    );
-  }
-
-  setConnecting(state: boolean) {
-    if (this.connecting !== state) this.connecting = state;
-  }
-
-  setConnectionFailed(state: boolean) {
-    if (this.connectionFailed !== state) this.connectionFailed = state;
-  }
-
-  private closeConnection() {
-    this.socket?.disconnect();
-    this.socket = undefined;
-  }
-
-  private createConnection(accountKey: string) {
-    this.socket = createLegacyOverlaySocket({
-      url: buildFollowersOverlaySocketUrl(
-        AppConfig.ws,
-        accountKey,
-        this.testMode,
-      ),
+    socketRef.current = createLegacyOverlaySocket({
+      url: buildFollowersOverlaySocketUrl(AppConfig.ws, accountKey, testMode),
       label: "followers",
       onOpen: () => {
-        this.setConnectionFailed(false);
-        if (this.connecting) this.setConnecting(false);
+        setConnectionFailedSafely(false);
+        setConnectingSafely(false);
       },
       onClose: () => {
-        runInAction(() => {
-          this.current = undefined;
-          this.goal = undefined;
-        });
+        setCurrentSafely(undefined);
+        setGoalSafely(undefined);
       },
       onMessage: (data) => {
-        this.handleLegacyMessage(safeJsonParse(data));
+        handleLegacyMessage(safeJsonParse(data));
       },
       onFailure: () => {
-        this.setConnecting(false);
-        this.setConnectionFailed(true);
+        setConnectingSafely(false);
+        setConnectionFailedSafely(true);
       },
     });
 
-    this.socket.connect();
-  }
+    socketRef.current.connect();
 
-  private handleLegacyMessage(payload: unknown) {
-    const json = payload;
-    if (!isLegacyGoalMessage(json)) {
-      debugLog("Ignored unknown legacy goal websocket payload", json);
-      return;
-    }
+    return () => {
+      isActive = false;
+      cleanupFixtureAudioUnlockPrompt();
+      closeConnection();
+      clearTestTimeout();
+    };
+  }, [accountKey, testMode]);
 
-    switch (json.type) {
-      case "set":
-        runInAction(() => {
-          this.current = json.args.current;
-          this.goal = json.args.goal;
-        });
-        break;
-      case "update":
-        runInAction(() => {
-          if (typeof json.args.current !== "undefined")
-            this.current = json.args.current;
-          if (typeof json.args.goal !== "undefined") this.goal = json.args.goal;
-        });
-        break;
-    }
-  }
+  if (connectionFailed) return <OverlayUnavailable />;
 
-  get testMode(): boolean {
-    return this.props.testMode === true;
-  }
+  const canDraw =
+    !connecting && typeof current !== "undefined" && typeof goal !== "undefined";
 
-  get accountKey(): string {
-    const {
-      match: {
-        params: { id },
-      },
-    } = this.props;
+  return (
+    <div className={"subGoal"}>
+      {!!connecting && <h1>Łączenie...</h1>}
 
-    return id;
-  }
+      {canDraw && <Goal current={current} goal={goal} type={"followers"} />}
+    </div>
+  );
 }
