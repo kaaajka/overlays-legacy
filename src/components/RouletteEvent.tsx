@@ -1,7 +1,5 @@
-import React from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { observer } from "mobx-react";
-import { action, makeObservable, observable, reaction, runInAction } from "mobx";
-import type { IReactionDisposer } from "mobx";
 
 import type { RouletteEventModel } from "../models/RouletteEvent";
 import { EventState } from "../models/Event";
@@ -17,116 +15,153 @@ type RollAnimation = {
   dest: number;
 };
 
-@observer
-export default class RouletteEvent extends React.Component<IRouletteEventProps> {
-  private minBlocks = 18;
-  private blockWidth = 105;
-  private percentagePerBlock = 100 / this.minBlocks;
-  private actualBlocks = this.minBlocks;
-  private blocksMoved: number = 0;
-  private readonly spinningSoundUrl = resolveSharedEventSoundUrl("spinning");
-  private readonly winSoundUrl = resolveSharedEventSoundUrl("win");
+const minBlocks = 18;
+const blockWidth = 105;
+const percentagePerBlock = 100 / minBlocks;
+const spinningSoundUrl = resolveSharedEventSoundUrl("spinning");
+const winSoundUrl = resolveSharedEventSoundUrl("win");
 
-  private moveAnimation?: ReturnType<typeof setTimeout>;
-  private timeout?: ReturnType<typeof setTimeout>;
-  private disposeWinnerReaction?: IReactionDisposer;
-  private rollAnimation?: RollAnimation;
-  private rolling: boolean = false;
-  finished: boolean = false;
+function moveAnim(n: number): number {
+  return --n * n * n + 1;
+}
 
-  private readonly rollerRef: React.RefObject<HTMLDivElement> = React.createRef();
+function RouletteEvent({ event, images }: IRouletteEventProps) {
+  const [finished, setFinishedState] = useState(false);
+  const actualBlocksRef = useRef(minBlocks);
+  const blocksMovedRef = useRef(0);
+  const moveAnimationRef = useRef<ReturnType<typeof setTimeout>>();
+  const timeoutRef = useRef<ReturnType<typeof setTimeout>>();
+  const rollAnimationRef = useRef<RollAnimation>();
+  const rollingRef = useRef(false);
+  const finishedRef = useRef(false);
+  const isMountedRef = useRef(false);
+  const rollerRef = useRef<HTMLDivElement>(null);
 
-  constructor(props: IRouletteEventProps) {
-    super(props);
-
-    this.disposeWinnerReaction = reaction(
-      () => this.props.event.winner,
-      (ticket) => {
-        if (typeof ticket === "number") {
-          this.scheduleRoll(ticket);
-        }
-      },
-    );
-
-    makeObservable(this, {
-      finished: observable,
-      setFinished: action,
-    });
-  }
-
-  componentDidMount() {
-    this.blocksMoved = 0;
-    this.rolling = false;
-    runInAction(() => {
-      this.finished = false;
-    });
-
-    this.updatePosition(0);
-
-    if (typeof this.props.event.winner === "number") {
-      this.scheduleRoll(this.props.event.winner);
+  const setFinished = useCallback((state: boolean) => {
+    if (finishedRef.current !== state) {
+      finishedRef.current = state;
+      setFinishedState(state);
     }
+  }, []);
 
-    this.moveAnimation = setInterval(this.makeAnim, 1000 / 60);
-  }
+  const updatePosition = useCallback((offset: number) => {
+    const l = actualBlocksRef.current * blockWidth;
 
-  componentWillUnmount() {
-    this.disposeWinnerReaction?.();
-    this.disposeWinnerReaction = undefined;
+    offset = -((offset + l - 790 / 2) % l);
 
-    if (this.moveAnimation) clearInterval(this.moveAnimation);
-    if (this.timeout) clearTimeout(this.timeout);
-  }
+    if (rollerRef.current) rollerRef.current.style.transform = `translateX(${offset}px)`;
+  }, []);
 
-  render() {
-    const { event, images } = this.props;
+  const startRoll = useCallback((winningTicket: number) => {
+    if (rollingRef.current || !rollerRef.current || !isMountedRef.current) return;
 
-    if (event.state === EventState.PREPARE)
-      return (
-        <div className={"event center"}>
-          {Object.hasOwn(images, event.key) && (
-            <div className={"image"}>
-              <img src={images[event.key]} alt={""} />
-            </div>
-          )}
-          <div className={"desc"}>{event.description}</div>
-        </div>
-      );
+    rollingRef.current = true;
 
-    const blocks = this.calculateBlocks();
-    const winningItem =
-      event.winner && this.finished
-        ? event.items.find((item) => item.start <= event.winner && item.end >= event.winner)
-        : null;
+    const elements = Array.from(
+      rollerRef.current.querySelectorAll(".o[data-start][data-end]").values(),
+    ).filter((element) => {
+      const start = element.getAttribute("data-start");
+      const end = element.getAttribute("data-end");
 
-    return (
-      <div className={"event roller"}>
-        <div className={"inner"}>
-          <div className={"pointer"} />
-          <div className={"blocks"} ref={this.rollerRef}>
-            {blocks}
-          </div>
-        </div>
+      if (!start || !end) return false;
 
-        {!!winningItem && <div className={"text"}>{winningItem.name}</div>}
-      </div>
-    );
-  }
+      return Number(start) <= winningTicket && Number(end) >= winningTicket;
+    });
 
-  setFinished(state: boolean) {
-    if (this.finished !== state) this.finished = state;
-  }
+    const randomElement = elements[Math.floor(Math.random() * elements.length)];
 
-  private calculateBlocks() {
-    if (!this.props.event.items) return null;
+    if (!randomElement) return;
+
+    const index = Array.prototype.slice.call(rollerRef.current.children).indexOf(randomElement);
+
+    let destAngle = blockWidth * index;
+
+    destAngle += actualBlocksRef.current * blockWidth * 2;
+    destAngle += Math.random() * (blockWidth - 3 - 3) + 3;
+
+    playOverlayAudio({
+      url: spinningSoundUrl,
+      volume: 0.5,
+      label: "Roulette spinning sound",
+      mutedFixtureAudioKind: "template",
+    });
+
+    rollAnimationRef.current = {
+      duration: 10000,
+      start: Date.now(),
+      dest: destAngle,
+    };
+  }, []);
+
+  const scheduleRoll = useCallback(
+    (ticket: number) => {
+      if (timeoutRef.current) clearTimeout(timeoutRef.current);
+
+      timeoutRef.current = setTimeout(() => {
+        startRoll(ticket);
+      }, 5000);
+    },
+    [startRoll],
+  );
+
+  const makeAnim = useCallback(() => {
+    const rollAnimation = rollAnimationRef.current;
+
+    if (rollAnimation) {
+      const now = Date.now(),
+        p = (now - rollAnimation.start) / rollAnimation.duration,
+        c = moveAnim(p);
+
+      if (now - rollAnimation.start <= rollAnimation.duration)
+        updatePosition(rollAnimation.dest * c);
+      else {
+        if (!finishedRef.current)
+          playOverlayAudio({
+            url: winSoundUrl,
+            volume: 0.4,
+            label: "Roulette win sound",
+            mutedFixtureAudioKind: "template",
+          });
+
+        setFinished(true);
+      }
+    } else updatePosition(blocksMovedRef.current++);
+  }, [setFinished, updatePosition]);
+
+  useEffect(() => {
+    isMountedRef.current = true;
+    blocksMovedRef.current = 0;
+    rollingRef.current = false;
+    setFinished(false);
+
+    updatePosition(0);
+
+    moveAnimationRef.current = setInterval(makeAnim, 1000 / 60);
+
+    return () => {
+      isMountedRef.current = false;
+
+      if (moveAnimationRef.current) clearInterval(moveAnimationRef.current);
+      if (timeoutRef.current) clearTimeout(timeoutRef.current);
+    };
+  }, [makeAnim, setFinished, updatePosition]);
+
+  useEffect(() => {
+    if (typeof event.winner === "number") {
+      scheduleRoll(event.winner);
+    }
+  }, [event.winner, scheduleRoll]);
+
+  const calculateBlocks = () => {
+    if (!event.items) return null;
 
     const normal = [],
       copy = [];
 
     let numBlocks = 0,
       index = 1;
-    for (const item of this.props.event.items) {
-      const blocks = Math.ceil(item.chance / this.percentagePerBlock);
+    for (const item of event.items) {
+      const blocks = Math.ceil(item.chance / percentagePerBlock);
 
       for (let i = 0; i < blocks; i++) {
         normal.push(
@@ -158,96 +193,44 @@ export default class RouletteEvent extends React.Component<IRouletteEventProps> 
       }
     }
 
-    this.actualBlocks = numBlocks;
+    actualBlocksRef.current = numBlocks;
 
     return normal.concat(copy);
-  }
-
-  private updatePosition(offset: number) {
-    const l = this.actualBlocks * this.blockWidth;
-
-    offset = -((offset + l - 790 / 2) % l);
-
-    if (this.rollerRef.current) this.rollerRef.current.style.transform = `translateX(${offset}px)`;
-  }
-
-  private scheduleRoll(ticket: number) {
-    if (this.timeout) clearTimeout(this.timeout);
-
-    this.timeout = setTimeout(() => {
-      this.startRoll(ticket);
-    }, 5000);
-  }
-
-  private startRoll(winningTicket: number) {
-    if (this.rolling || !this.rollerRef.current) return;
-
-    this.rolling = true;
-
-    const elements = Array.from(
-      this.rollerRef.current.querySelectorAll(".o[data-start][data-end]").values(),
-    ).filter((element) => {
-      const start = element.getAttribute("data-start");
-      const end = element.getAttribute("data-end");
-
-      if (!start || !end) return false;
-
-      return Number(start) <= winningTicket && Number(end) >= winningTicket;
-    });
-
-    const randomElement = elements[Math.floor(Math.random() * elements.length)];
-
-    if (!randomElement) return;
-
-    const index = Array.prototype.slice
-      .call(this.rollerRef.current.children)
-      .indexOf(randomElement);
-
-    let destAngle = this.blockWidth * index;
-
-    destAngle += this.actualBlocks * this.blockWidth * 2;
-    destAngle += Math.random() * (this.blockWidth - 3 - 3) + 3;
-
-    playOverlayAudio({
-      url: this.spinningSoundUrl,
-      volume: 0.5,
-      label: "Roulette spinning sound",
-      mutedFixtureAudioKind: "template",
-    });
-
-    this.rollAnimation = {
-      duration: 10000,
-      start: Date.now(),
-      dest: destAngle,
-    };
-  }
-
-  private makeAnim = () => {
-    if (this.rollAnimation) {
-      const now = Date.now(),
-        p = (now - this.rollAnimation.start) / this.rollAnimation.duration,
-        c = RouletteEvent.moveAnim(p);
-
-      if (now - this.rollAnimation.start <= this.rollAnimation.duration)
-        this.updatePosition(this.rollAnimation.dest * c);
-      else {
-        if (!this.finished)
-          playOverlayAudio({
-            url: this.winSoundUrl,
-            volume: 0.4,
-            label: "Roulette win sound",
-            mutedFixtureAudioKind: "template",
-          });
-
-        this.setFinished(true);
-      }
-    } else this.updatePosition(this.blocksMoved++);
   };
 
-  private static moveAnim(n: number): number {
-    return --n * n * n + 1;
-  }
+  if (event.state === EventState.PREPARE)
+    return (
+      <div className={"event center"}>
+        {Object.hasOwn(images, event.key) && (
+          <div className={"image"}>
+            <img src={images[event.key]} alt={""} />
+          </div>
+        )}
+        <div className={"desc"}>{event.description}</div>
+      </div>
+    );
+
+  const blocks = calculateBlocks();
+  const winningItem =
+    event.winner && finished
+      ? event.items.find((item) => item.start <= event.winner && item.end >= event.winner)
+      : null;
+
+  return (
+    <div className={"event roller"}>
+      <div className={"inner"}>
+        <div className={"pointer"} />
+        <div className={"blocks"} ref={rollerRef}>
+          {blocks}
+        </div>
+      </div>
+
+      {!!winningItem && <div className={"text"}>{winningItem.name}</div>}
+    </div>
+  );
 }
+
+export default observer(RouletteEvent);
 
 interface IRouletteEventProps {
   images: Record<string, string>;
