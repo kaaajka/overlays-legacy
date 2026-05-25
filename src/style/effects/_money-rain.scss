@@ -1,0 +1,51 @@
+@use 'sass:math';
+
+.donateHolder {
+    .moneyRain {
+      top: 0;
+      left: 0;
+      position: absolute;
+      overflow: hidden;
+      width: 100vw;
+      height: 100vh;
+
+      .rain {
+        background: url(../assets/images/effects/banknote-particle.png) center;
+        background-size: cover;
+        height: 52px;
+        position: absolute;
+        width: 52px;
+      }
+    }
+
+    @for $i from 1 through 150 {
+      $top: (math.random(50) + 50) * 1%;
+      $left: math.random(100) * 1%;
+      $opacity: (math.random(100) + 30) * 0.01;
+      $delay: 2.2s + math.random(20) - 1s;
+      $rotate: math.random(90) * 1deg;
+
+      .rain:nth-of-type(#{$i}) {
+        animation-name: rain-#{$i};
+        animation-delay: $delay;
+        animation-duration: math.random(6) + 4s;
+        animation-iteration-count: infinite;
+        left: $left;
+        opacity: $opacity;
+        top: -$top;
+        transform: rotate($rotate);
+      }
+
+      @keyframes rain-#{$i} {
+        0% {
+          left: $left;
+          opacity: $opacity;
+          top: -$top;
+        }
+        100% {
+          opacity: 0;
+          top: $top + 40%;
+        }
+      }
+    }
+}

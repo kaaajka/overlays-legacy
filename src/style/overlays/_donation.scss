@@ -1,0 +1,386 @@
+@use '../abstracts/text-effects' as *;
+
+.donateHolder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  position: relative;
+
+  .donate {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow: hidden;
+
+    .user,
+    .text {
+      text-align: center;
+    }
+
+    .user {
+      margin-top: 10px;
+      font-size: 50px;
+      font-weight: 700;
+      line-height: 1em;
+      font-style: italic;
+      padding: 15px;
+
+      &.traffic {
+        color: #6f0abd;
+        @include whiteTextBorder();
+      }
+    }
+
+    .text {
+      overflow: hidden;
+      max-width: 30vw;
+      margin-top: 15px;
+      font-size: 40px;
+      font-weight: 700;
+      color: #fff;
+      @include blackTextBorder();
+      text-align: center;
+      word-break: break-word;
+      text-overflow: ellipsis;
+      line-height: 1.3em;
+    }
+
+    &.first {
+      max-width: 50vw;
+      max-height: 80vh;
+
+      .image {
+        width: 303px;
+        border-radius: 10px;
+      }
+
+      .user {
+        color: #1bcedb;
+        @include blackTextBorder();
+
+        animation-iteration-count: infinite;
+        animation-duration: 1s;
+      }
+    }
+
+    &.second {
+      max-width: 50vw;
+      flex-direction: row;
+      flex-wrap: wrap;
+      justify-content: center;
+
+      .image {
+        width: 43%;
+        flex: 0 0 43%;
+      }
+
+      .user {
+        flex: 0 0 57%;
+        color: #f37f27;
+        @include blackTextBorder();
+
+        animation-iteration-count: infinite;
+        animation-duration: 1s;
+      }
+
+      .text {
+        flex: 0 0 100%;
+        max-width: 100%;
+      }
+    }
+
+    &.third {
+      max-width: 50vw;
+      max-height: 80vh;
+
+      .image {
+        max-height: 300px;
+        border-radius: 10px;
+      }
+
+      .user {
+        animation-iteration-count: infinite;
+        animation-duration: 1s;
+
+        color: #000;
+        @include whiteTextBorder();
+      }
+    }
+
+    &.fourth {
+      max-width: 50vw;
+      max-height: 80vh;
+      animation-delay: 1.8s;
+
+      .image {
+        max-height: 400px;
+      }
+
+      .user {
+        animation-iteration-count: infinite;
+        animation-duration: 1s;
+
+        color: #3dc61e;
+        @include blackTextBorder();
+      }
+    }
+
+    &.fifth {
+      max-width: 50vw;
+      max-height: 70vh;
+
+      animation-name: holy-slideInDown;
+      animation-delay: 1.55s;
+      animation-duration: 1s;
+      animation-iteration-count: 1;
+      animation-fill-mode: forwards;
+
+      -webkit-transform: translate3d(0, -200%, 0);
+      transform: translate3d(0, -200%, 0);
+
+      @keyframes holy-slideInDown {
+        0% {
+          -webkit-transform: translate3d(0, -200%, 0);
+          transform: translate3d(0, -200%, 0);
+          visibility: visible;
+        }
+
+        to {
+          -webkit-transform: translateZ(0);
+          transform: translateZ(0);
+        }
+      }
+
+      .image {
+        max-height: 300px;
+      }
+
+      .user {
+        animation-iteration-count: infinite;
+        animation-duration: 1s;
+
+        max-width: 99.9%;
+        margin-top: -50px;
+        font-size: 38px;
+        color: #34cc1d;
+        @include blackTextBorder();
+
+        .nickname,
+        .amount {
+          color: #f12323;
+          @include blackTextBorder();
+        }
+      }
+    }
+
+    &.sixth {
+      overflow: initial;
+      max-width: 60vw;
+      max-height: 70vh;
+
+      .halo,
+      .haloTogether {
+        font-weight: 700;
+        font-size: 44px;
+        color: #f12323;
+        text-shadow: rgba(0, 0, 0, 0.5) 0 0 2px;
+      }
+
+      .halo {
+        &.h1 {
+          animation-delay: 350ms;
+          animation-duration: 300ms;
+        }
+
+        &.h2 {
+          animation-delay: 750ms;
+          animation-duration: 300ms;
+        }
+      }
+
+      .haloTogether {
+        animation-duration: 1.5s;
+        animation-iteration-count: infinite;
+      }
+
+      .lala {
+        animation-iteration-count: infinite;
+        animation-duration: 1s;
+        display: block;
+      }
+
+      .image {
+        max-width: 70%;
+        width: 403px;
+        border-radius: 10px;
+        animation-delay: 2s;
+      }
+
+      .user {
+        color: #aeb314;
+        text-shadow: #000 0 0 3px;
+        animation: fadeInUpBig 1s both 2.4s;
+      }
+
+      .text {
+        animation-delay: 2.4s;
+      }
+    }
+
+    &.seventh {
+      $delay: 8s + 5s;
+
+      max-width: 50vw;
+      max-height: 80vh;
+      animation-delay: $delay;
+
+      .coZaPojeb {
+        font-weight: 700;
+        font-size: 44px;
+        color: #f12323;
+        text-shadow: rgba(0, 0, 0, 0.5) 0 0 2px;
+
+        animation-duration: 1.5s;
+        animation-iteration-count: infinite;
+
+        .co {
+          animation-name: fadeInDownBig;
+          animation-delay: $delay + 0.3s;
+          animation-iteration-count: 1;
+          animation-duration: 0.3s;
+        }
+
+        .za {
+          animation-name: fadeInDownBig;
+          animation-delay: $delay + 0.9s;
+          animation-iteration-count: 1;
+          animation-duration: 0.3s;
+        }
+
+        .pojeb {
+          animation-name: fadeInDownBig;
+          animation-delay: $delay + 1.5s;
+          animation-iteration-count: 1;
+          animation-duration: 0.3s;
+        }
+      }
+
+      .image {
+        max-width: 70%;
+        width: 300px;
+        border-radius: 10px;
+        animation-delay: $delay + 2s;
+      }
+
+      .donateInfo {
+        animation-duration: 1s;
+        animation-iteration-count: infinite;
+        display: block;
+      }
+
+      .wtf {
+        font-weight: 700;
+        font-size: 44px;
+        color: #f12323;
+        text-shadow: rgba(0, 0, 0, 0.5) 0 0 2px;
+      }
+
+      .user {
+        color: #aeb314;
+        text-shadow: #000 0 0 3px;
+        animation-duration: 1s;
+        animation-delay: $delay + 2.7s;
+      }
+
+      .text {
+        animation-delay: $delay + 3.4s;
+      }
+    }
+
+    &.eighth {
+      $delay: 4150ms;
+
+      max-width: 50vw;
+      margin-top: 32vh;
+      height: 68vh;
+      overflow: initial;
+
+      animation-name: my-rotate;
+      animation-delay: $delay;
+      animation-duration: 1000ms;
+      animation-iteration-count: 5;
+      animation-timing-function: linear;
+
+      @keyframes my-rotate {
+        0% {
+          transform: rotate(0deg);
+        }
+
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+
+      .image {
+        width: 300px;
+        animation-delay: $delay;
+      }
+
+      .user {
+        font-size: 32px;
+
+        .donateInfo {
+          animation-delay: $delay;
+
+          .nickname {
+            $offset: 325px;
+            $transformOffset: $offset - 10px;
+
+            color: red;
+            margin-top: -$offset;
+            margin-bottom: $offset;
+
+            opacity: 0;
+            animation-name: my-hinge;
+            animation-delay: 3500ms;
+            animation-duration: 650ms;
+            animation-fill-mode: forwards;
+
+            @keyframes my-hinge {
+              0% {
+                animation-timing-function: ease-in-out;
+                opacity: 1;
+              }
+              20%,
+              60% {
+                animation-timing-function: ease-in-out;
+                transform: rotate(80deg);
+              }
+              40%,
+              80% {
+                animation-timing-function: ease-in-out;
+                transform: rotate(60deg);
+              }
+              100% {
+                transform: translate(0, $transformOffset);
+                opacity: 1;
+              }
+            }
+          }
+
+          .donateInfoRest {
+            animation-delay: $delay;
+          }
+        }
+      }
+
+      .text {
+        font-size: 22px;
+        animation-delay: $delay;
+      }
+    }
+  }
+}

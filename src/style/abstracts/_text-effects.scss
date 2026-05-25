@@ -1,0 +1,7 @@
+@mixin whiteTextBorder() {
+  text-shadow: #fff 0 0 4px;
+}
+
+@mixin blackTextBorder() {
+  text-shadow: #000 0 0 4px;
+}

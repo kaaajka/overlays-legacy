@@ -1,0 +1,297 @@
+@use 'sass:list';
+@use 'sass:map';
+@use 'sass:math';
+
+.donateHolder {
+    .haloFloats {
+      top: 0;
+      left: 0;
+      position: absolute;
+      overflow: hidden;
+      width: 100vw;
+      height: 100vh;
+
+      .halo {
+        position: absolute;
+        font-weight: 700;
+        font-size: 44px;
+        color: #f12323;
+        text-shadow: rgba(0, 0, 0, 0.5) 0 0 2px;
+
+        animation-duration: 1s;
+        animation-iteration-count: 1;
+      }
+
+      .halo:first-of-type {
+        animation-name: halo-1;
+        animation-delay: 8s;
+
+        top: 40%;
+        left: -10%;
+        opacity: 0;
+      }
+
+      @keyframes halo-1 {
+        0% {
+          top: 40%;
+          left: -10%;
+          opacity: 0;
+        }
+        100% {
+          top: 60%;
+          left: 110%;
+          opacity: 1;
+        }
+      }
+
+      .halo:nth-of-type(2) {
+        animation-name: halo-2;
+        animation-delay: 8.5s;
+
+        top: -10%;
+        left: 40%;
+        opacity: 0;
+      }
+
+      @keyframes halo-2 {
+        0% {
+          top: -10%;
+          left: 40%;
+          opacity: 0;
+        }
+        100% {
+          top: 110%;
+          left: 60%;
+          opacity: 1;
+        }
+      }
+
+      .halo:nth-of-type(3) {
+        animation-name: halo-3;
+        animation-delay: 9s;
+
+        top: 10%;
+        left: 110%;
+        opacity: 0;
+      }
+
+      @keyframes halo-3 {
+        0% {
+          top: 10%;
+          left: 110%;
+          opacity: 0;
+        }
+        100% {
+          top: 70%;
+          left: -10%;
+          opacity: 1;
+        }
+      }
+
+      .halo:nth-of-type(4) {
+        animation-name: halo-4;
+        animation-delay: 9.5s;
+
+        top: 110%;
+        left: 30%;
+        opacity: 0;
+      }
+
+      @keyframes halo-4 {
+        0% {
+          top: 110%;
+          left: 30%;
+          opacity: 0;
+        }
+        100% {
+          top: -10%;
+          left: 60%;
+          opacity: 1;
+        }
+      }
+
+      .halo:nth-of-type(5) {
+        animation-name: halo-5;
+        animation-delay: 10s;
+
+        top: 10%;
+        left: -10%;
+        opacity: 0;
+      }
+
+      @keyframes halo-5 {
+        0% {
+          top: 10%;
+          left: -10%;
+          opacity: 0;
+        }
+        100% {
+          top: 90%;
+          left: 110%;
+          opacity: 1;
+        }
+      }
+
+      .halo:nth-of-type(6) {
+        animation-name: halo-6;
+        animation-delay: 10.5s;
+
+        top: -10%;
+        left: 80%;
+        opacity: 0;
+      }
+
+      @keyframes halo-6 {
+        0% {
+          top: -10%;
+          left: 80%;
+          opacity: 0;
+        }
+        100% {
+          top: 110%;
+          left: 20%;
+          opacity: 1;
+        }
+      }
+
+      .halo:nth-of-type(7) {
+        animation-name: halo-7;
+        animation-delay: 11s;
+
+        top: 110%;
+        left: 80%;
+        opacity: 0;
+      }
+
+      @keyframes halo-7 {
+        0% {
+          top: 110%;
+          left: 80%;
+          opacity: 0;
+        }
+        100% {
+          top: -10%;
+          left: 30%;
+          opacity: 1;
+        }
+      }
+
+      .halo:nth-of-type(8) {
+        animation-name: halo-8;
+        animation-delay: 11.5s;
+
+        top: 40%;
+        left: 110%;
+        opacity: 0;
+      }
+
+      @keyframes halo-8 {
+        0% {
+          top: 40%;
+          left: 110%;
+          opacity: 0;
+        }
+        100% {
+          top: 70%;
+          left: -10%;
+          opacity: 1;
+        }
+      }
+
+      // Vercel 2026 hardening:
+      // This halo generation used to rely on an unbounded random @while loop.
+      // Locally it usually finished quickly, but CI could hang for 15+ minutes
+      // when Sass kept drawing overlapping coordinates. Keep the visual behavior,
+      // but make the loop bounded and deterministic on fallback.
+      $halos: [];
+      @for $i from 9 through 30 {
+        $topStart: math.random(100) * 1%;
+        $leftStart: math.random(100) * 1%;
+        $sideEnd: math.random(2);
+        $topEnd: null;
+        $leftEnd: null;
+        $overlapping: true;
+        $attempts: 0;
+        $maxAttempts: 50;
+
+        @while $overlapping and $attempts < $maxAttempts {
+          $attempts: $attempts + 1;
+          $topEnd: math.random(94) * 1%;
+          $leftEnd: (75 + math.random(15)) * 1%;
+
+          @if $sideEnd == 1 {
+            $leftEnd: math.random(25) * 1%;
+          }
+
+          $overlapping: false;
+
+          @each $halo in $halos {
+            @if not $overlapping {
+              $existingTop: map.get($halo, 'top');
+              $existingLeft: map.get($halo, 'left');
+
+              @if (
+                ($topEnd > ($existingTop - 10)) and
+                  ($topEnd < ($existingTop + 10)) and
+                  ($leftEnd > ($existingLeft - 10)) and
+                  ($leftEnd < ($existingLeft + 10))
+              ) {
+                $overlapping: true;
+              }
+            }
+          }
+
+          @if ($topEnd > 45 and $topEnd < 55 and $leftEnd > 80) {
+            $overlapping: true;
+          }
+        }
+
+        @if $overlapping {
+          $topEnd: (($i * 17) % 94) * 1%;
+          $leftEnd: (75 + (($i * 7) % 15)) * 1%;
+
+          @if $sideEnd == 1 {
+            $leftEnd: (($i * 11) % 25) * 1%;
+          }
+
+          $overlapping: false;
+        }
+
+        $halos: list.append(
+          $halos,
+          (
+            'top': $topEnd,
+            'left': $leftEnd,
+          )
+        );
+        $delay: 11.8s + (0.05 * ($i - 9));
+        $flashDelay: $delay + 1s;
+
+        .halo:nth-of-type(#{$i}) {
+          animation-name:
+            halo-#{$i},
+            flash;
+          animation-delay: $delay, $flashDelay;
+          animation-fill-mode: forwards;
+          animation-iteration-count: 1, infinite;
+
+          top: $topStart;
+          left: $leftStart;
+          opacity: 0;
+        }
+
+        @keyframes halo-#{$i} {
+          0% {
+            top: $topStart;
+            left: $leftStart;
+            opacity: 0;
+          }
+          100% {
+            top: $topEnd;
+            left: $leftEnd;
+            opacity: 1;
+          }
+        }
+      }
+    }
+}

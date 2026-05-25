@@ -1,0 +1,79 @@
+.donateHolder {
+    .sayMyName {
+      font-size: 64px;
+
+      $stage1Delay: 1800ms;
+
+      @keyframes sayMyName-fade-stage1 {
+        0% {
+          opacity: 0;
+        }
+
+        50% {
+          opacity: 1;
+        }
+
+        100% {
+          opacity: 0;
+        }
+      }
+
+      .say {
+        position: absolute;
+        top: 100px;
+        left: 300px;
+
+        &.say1 {
+          opacity: 0;
+          animation: sayMyName-fade-stage1;
+          animation-iteration-count: 1;
+          animation-delay: $stage1Delay + 0ms;
+          animation-duration: 300ms;
+          animation-fill-mode: forwards;
+        }
+
+        &.say2 {
+          animation-delay: 0ms;
+        }
+      }
+
+      .my {
+        position: absolute;
+        left: 914px;
+
+        &.my1 {
+          top: 198px;
+          opacity: 0;
+          animation: sayMyName-fade-stage1;
+          animation-iteration-count: 1;
+          animation-delay: $stage1Delay + 300ms;
+          animation-duration: 400ms;
+          animation-fill-mode: forwards;
+        }
+
+        &.my2 {
+          top: 100px;
+          animation-delay: 300ms;
+        }
+      }
+
+      .name {
+        position: absolute;
+        top: 100px;
+        left: 1444px;
+
+        &.name1 {
+          opacity: 0;
+          animation: sayMyName-fade-stage1;
+          animation-iteration-count: 1;
+          animation-delay: $stage1Delay + 700ms;
+          animation-duration: 200ms;
+          animation-fill-mode: forwards;
+        }
+
+        &.name2 {
+          animation-delay: 700ms;
+        }
+      }
+    }
+}

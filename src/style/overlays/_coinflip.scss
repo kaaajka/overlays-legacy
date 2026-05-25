@@ -1,0 +1,512 @@
+@use 'sass:color';
+@use 'sass:math';
+
+.event {
+  &.coinflip {
+    margin-left: 50vw;
+    transform: translateX(-50%) scale(1);
+
+    $size: 500px;
+    $marginSize: math.div($size, 2);
+    $segmentWidth: 20px;
+    $segmentHeight: math.div($size, 2);
+    $segmentCardWidth: $segmentWidth * 10;
+    $segmentCardHeight: $segmentHeight;
+    $segmentCoinDiameter: $segmentCardWidth;
+    $segmentCoinXMovement: -(math.div($segmentCardWidth, 2)) +
+      (math.div($segmentWidth, 2));
+    $segmentCoinRadius: math.div($segmentCoinDiameter, 2);
+    $segmentCoinThickness: 10px;
+
+    $segmentRotationStep: (math.div(360, 100)) + 0deg;
+    $rouletteSpins: 6;
+
+    $rouletteSpinDuration: 7s;
+    $segmentPullDuration: 4s;
+    $segmentCoinMakeDuration: 0.5s;
+    $segmentCoinRotateDuration: 2s;
+    $coinflipMoveDuration: 2s;
+    $segmentCoinScaleOutDuration: 1s;
+    $rouletteCoinSpinMoveDuration: 4s;
+    $coinSpins: 5;
+    $segmentCoinSpinDurationHead: math.div(
+      $rouletteCoinSpinMoveDuration,
+      $coinSpins
+    );
+    $segmentCoinSpinDurationTail: math.div(
+      $rouletteCoinSpinMoveDuration,
+      ($coinSpins - 0.5)
+    );
+    $segmentCoinScaleInDuration: 1s;
+
+    $rouletteSpinDelay: 2s;
+    $segmentPullDelay: $rouletteSpinDelay + $rouletteSpinDuration + 0.5s;
+    $rouletteHideDelay: $rouletteSpinDelay + $rouletteSpinDuration + 1.5s;
+    $segmentCoinMakeDelay: $segmentPullDelay + $segmentPullDuration + 1.5s;
+    $segmentCoinRotateDelay: $segmentCoinMakeDelay + $segmentCoinMakeDuration +
+      0.5s;
+    $coinflipMoveOutDelay: $segmentCoinRotateDelay +
+      $segmentCoinRotateDuration + 0.5s;
+    $coinflipMoveInDelay: 0s;
+    $segmentCoinScaleOutDelay: $coinflipMoveDuration;
+    $segmentCoinSpinDelay: $segmentCoinScaleOutDelay +
+      $segmentCoinScaleOutDuration + 0.5s;
+    $segmentCoinScaleInDelay: $segmentCoinSpinDelay +
+      ($segmentCoinSpinDurationHead * $coinSpins) + 0.5s;
+
+    $headImage: url("/assets/images/coinflip/head.png");
+    $tailImage: url("/assets/images/coinflip/tail.png");
+
+    .roulette {
+      display: block;
+      position: relative;
+      width: $size;
+      height: $size;
+      margin-top: $marginSize;
+
+      @for $i from 1 through 100 {
+        $segmentRotation: ($i - 1) * $segmentRotationStep;
+
+        &.chosen-segment-#{$i} {
+          animation-name:
+            coinflip-roulette-chosen-segment-#{$i},
+            coinflip-roulette-move-out-#{$i};
+          animation-duration: $rouletteSpinDuration, $coinflipMoveDuration;
+          animation-delay: $rouletteSpinDelay, $coinflipMoveOutDelay;
+          animation-timing-function: ease-in-out, ease;
+          animation-fill-mode: forwards;
+
+          &.chosen-side {
+            animation-name:
+              coinflip-roulette-move-in-#{$i},
+              coinflip-roulette-spin-move-coin;
+            animation-duration:
+              $coinflipMoveDuration, $rouletteCoinSpinMoveDuration;
+            animation-delay: $coinflipMoveInDelay, $segmentCoinSpinDelay;
+            animation-timing-function: ease, ease-out;
+            animation-fill-mode: forwards;
+          }
+        }
+
+        @keyframes coinflip-roulette-chosen-segment-#{$i} {
+          0% {
+            transform: rotateZ(0deg);
+          }
+
+          100% {
+            transform: rotateZ(
+              (360deg * $rouletteSpins) - $segmentRotation -
+                ($segmentRotationStep)
+            );
+          }
+        }
+
+        @keyframes coinflip-roulette-move-out-#{$i} {
+          0% {
+            margin-top: $marginSize;
+            margin-left: 0px;
+            transform: rotateZ(
+                (360deg * $rouletteSpins) - $segmentRotation -
+                  ($segmentRotationStep)
+              )
+              scale(1);
+          }
+
+          100% {
+            margin-top: 2 * $marginSize;
+            margin-left: (-3.5 * $size);
+            transform: rotateZ(
+                (360deg * $rouletteSpins) - $segmentRotation -
+                  ($segmentRotationStep)
+              )
+              scale(0.5);
+          }
+        }
+
+        @keyframes coinflip-roulette-move-in-#{$i} {
+          0% {
+            margin-top: 2 * $marginSize;
+            margin-left: (-3.5 * $size);
+            transform: rotateZ(
+                (360deg * $rouletteSpins) - $segmentRotation -
+                  ($segmentRotationStep)
+              )
+              scale(0.5);
+          }
+
+          100% {
+            margin-top: 1.5 * $marginSize;
+            margin-left: 0px;
+            transform: rotateZ(
+                (360deg * $rouletteSpins) - $segmentRotation -
+                  ($segmentRotationStep)
+              )
+              scale(1);
+          }
+        }
+      }
+
+      @keyframes coinflip-roulette-spin-move-coin {
+        0% {
+          margin-top: 1.5 * $marginSize;
+          animation-timing-function: ease-out;
+        }
+
+        50% {
+          margin-top: -0.75 * $marginSize;
+          animation-timing-function: ease-in;
+        }
+
+        100% {
+          margin-top: 1.5 * $marginSize;
+        }
+      }
+
+      .segment {
+        display: inline-block;
+        position: absolute;
+        top: 0;
+        left: calc(50% - ($segmentWidth / 2));
+        box-sizing: border-box;
+        width: $segmentWidth;
+        height: $segmentHeight;
+        transform-origin: calc($segmentWidth / 2) $segmentHeight;
+
+        background-color: transparent;
+        border: 1px solid black;
+        clip-path: polygon(0 0, 100% 0, 50% 100%, 50% 100%);
+
+        .inner {
+          display: block;
+          width: 100%;
+          height: 100%;
+          text-align: center;
+          opacity: 0;
+
+          animation-name:
+            coinflip-segment-inner-show-text, coinflip-segment-inner-make-coin;
+          animation-duration:
+            ($segmentPullDuration * 0.1), $segmentCoinMakeDuration;
+          animation-delay:
+            ($segmentPullDelay + ($segmentPullDuration * 0.9)),
+            $segmentCoinMakeDelay;
+          animation-fill-mode: forwards;
+
+          perspective: 1000px;
+
+          @keyframes coinflip-segment-inner-show-text {
+            0% {
+              opacity: 0;
+            }
+
+            100% {
+              opacity: 1;
+            }
+          }
+
+          @keyframes coinflip-segment-inner-make-coin {
+            0% {
+              border-radius: 0;
+            }
+
+            100% {
+              border-radius: 100%;
+            }
+          }
+
+          .coin {
+            width: 100%;
+            height: 100%;
+            border-radius: inherit;
+            transform-style: preserve-3d;
+            transform: scale(0.99);
+
+            &.land-head,
+            &.land-tail {
+              animation-name: coinflip-segment-coin-rotate;
+              animation-duration: $segmentCoinRotateDuration;
+              animation-delay: $segmentCoinRotateDelay;
+              animation-fill-mode: forwards;
+            }
+
+            @keyframes coinflip-segment-coin-rotate {
+              0% {
+                transform: scale(0.99) rotateX(0deg);
+              }
+
+              50% {
+                transform: scale(0.99) rotateX(180deg);
+              }
+
+              100% {
+                transform: scale(0.99) rotateX(360deg);
+              }
+            }
+
+            &.land-head.chosen-head,
+            &.land-head.chosen-tail {
+              animation-name:
+                coinflip-segment-coin-scale-out, coinflip-segment-coin-spin,
+                coinflip-segment-coin-scale-in-head;
+              animation-duration:
+                $segmentCoinScaleOutDuration, $segmentCoinSpinDurationHead,
+                $segmentCoinScaleInDuration;
+              animation-delay:
+                $segmentCoinScaleOutDelay, $segmentCoinSpinDelay,
+                $segmentCoinScaleInDelay;
+              animation-iteration-count: 1, $coinSpins, 1;
+              animation-timing-function: ease, linear, ease;
+              animation-fill-mode: forwards;
+            }
+
+            &.land-tail.chosen-head,
+            &.land-tail.chosen-tail {
+              animation-name:
+                coinflip-segment-coin-scale-out, coinflip-segment-coin-spin,
+                coinflip-segment-coin-half-spin,
+                coinflip-segment-coin-scale-in-tail;
+              animation-duration:
+                $segmentCoinScaleOutDuration, $segmentCoinSpinDurationTail,
+                math.div($segmentCoinSpinDurationTail, 2),
+                $segmentCoinScaleInDuration;
+              animation-delay:
+                $segmentCoinScaleOutDelay, $segmentCoinSpinDelay,
+                (
+                  $segmentCoinSpinDelay + $segmentCoinSpinDurationTail *
+                    ($coinSpins - 1)
+                ),
+                $segmentCoinScaleInDelay;
+              animation-iteration-count: 1, ($coinSpins - 1), 1, 1;
+              animation-timing-function: ease, linear, linear, ease;
+              animation-fill-mode: forwards;
+            }
+
+            @keyframes coinflip-segment-coin-scale-out {
+              0% {
+                transform: scale(0.99) rotateX(0deg);
+              }
+
+              100% {
+                transform: scale(0.5) rotateX(60deg);
+              }
+            }
+
+            @keyframes coinflip-segment-coin-spin {
+              0% {
+                transform: scale(0.5) rotateX(60deg);
+              }
+
+              50% {
+                transform: scale(0.5) rotateX(240deg);
+              }
+
+              100% {
+                transform: scale(0.5) rotateX(420deg);
+              }
+            }
+
+            @keyframes coinflip-segment-coin-half-spin {
+              0% {
+                transform: scale(0.5) rotateX(60deg);
+              }
+
+              100% {
+                transform: scale(0.5) rotateX(240deg);
+              }
+            }
+
+            @keyframes coinflip-segment-coin-scale-in-head {
+              0% {
+                transform: scale(0.5) rotateX(420deg);
+              }
+
+              100% {
+                transform: scale(0.99) rotateX(360deg);
+              }
+            }
+
+            @keyframes coinflip-segment-coin-scale-in-tail {
+              0% {
+                transform: scale(0.5) rotateX(240deg);
+              }
+
+              100% {
+                transform: scale(0.99) rotateX(180deg);
+              }
+            }
+
+            .thick {
+              content: '';
+              position: absolute;
+              z-index: -10;
+              top: $segmentCoinRadius;
+              left: 0;
+              right: 0;
+              height: $segmentCoinThickness;
+              background-image: hsla(0, 0%, 0%, 0.25);
+              transform: rotateX(-90deg)
+                translateY(#{math.div($segmentCoinThickness, 2)});
+              transform-origin: 100% 50%;
+            }
+
+            .front,
+            .back,
+            &:before,
+            &:after {
+              position: absolute;
+              z-index: 1;
+              width: 100%;
+              height: 100%;
+              border-radius: inherit;
+              overflow: hidden;
+            }
+
+            .front,
+            .back {
+              display: flex;
+              align-items: center;
+              justify-content: center;
+            }
+
+            .front.show-head-image {
+              background-image: $headImage;
+              background-size: 100% 100%;
+              background-position: center;
+              background-blend-mode: multiply;
+            }
+
+            .back {
+              transform: rotateX(180deg)
+                translateZ(#{$segmentCoinThickness + 1px});
+              background-image: $tailImage;
+              background-size: 100% 100%;
+              background-position: center;
+              background-blend-mode: multiply;
+            }
+
+            &:before,
+            &:after {
+              content: '';
+              top: 0;
+              left: 0;
+              background-image: -webkit-linear-gradient(
+                hsla(0, 0%, 0%, 0.25),
+                hsla(0, 0%, 100%, 0.25)
+              );
+            }
+
+            &:before {
+              transform: rotateX(180deg) translateZ(1px);
+            }
+
+            &:after {
+              transform: rotateX(180deg) translateZ(#{$segmentCoinThickness});
+            }
+          }
+        }
+
+        @for $i from 1 through 100 {
+          $segmentRotation: ($i - 1) * $segmentRotationStep;
+          $segmentColor: hsl(math.div($i * 360, 100), 100%, 50%);
+
+          &:nth-child(#{$i}) {
+            transform: rotateZ(#{$segmentRotation}) translateY(0);
+            background-color: $segmentColor;
+
+            .coin {
+              .front,
+              .thick,
+              .back,
+              &:before,
+              &:after {
+                background-color: $segmentColor;
+                box-shadow: color.adjust($segmentColor, $lightness: -25%)
+                  2px -2px
+                  20px
+                  inset;
+              }
+            }
+          }
+
+          &:nth-child(#{$i}).not-chosen {
+            animation-name: coinflip-segment-not-chosen-#{$i};
+            animation-duration: 2s;
+            animation-fill-mode: forwards;
+            animation-delay: $rouletteHideDelay;
+          }
+
+          @keyframes coinflip-segment-not-chosen-#{$i} {
+            0% {
+              opacity: 1;
+              transform: rotateZ($segmentRotation) scale(1);
+            }
+
+            100% {
+              opacity: 0;
+              transform: rotateZ($segmentRotation) scale(0);
+            }
+          }
+
+          &:nth-child(#{$i}).chosen {
+            animation-name:
+              coinflip-segment-pull-#{$i},
+              coinflip-segment-make-coin-#{$i};
+            animation-duration: $segmentPullDuration, $segmentCoinMakeDuration;
+            animation-delay: $segmentPullDelay, $segmentCoinMakeDelay;
+            animation-fill-mode: forwards;
+          }
+
+          @keyframes coinflip-segment-pull-#{$i} {
+            0% {
+              clip-path: polygon(0 0, 100% 0, 50% 100%, 50% 100%);
+              width: $segmentWidth;
+              background-color: $segmentColor;
+              border: 1px solid black;
+              transform: rotateZ(#{$segmentRotation}) translateY(0);
+            }
+
+            50% {
+              clip-path: polygon(0 0, 100% 0, 50% 100%, 50% 100%);
+              width: $segmentWidth;
+              background-color: $segmentColor;
+              border: 1px solid black;
+              transform: rotateZ(#{$segmentRotation})
+                translateY(#{math.div(-$segmentHeight, 4)});
+            }
+
+            90% {
+              clip-path: polygon(0 0, 100% 0, 50% 100%, 50% 100%);
+              width: $segmentWidth;
+              background-color: $segmentColor;
+              border: 1px solid black;
+              transform: rotateZ(#{$segmentRotation})
+                translateY(#{math.div($segmentCardHeight, 2)});
+            }
+
+            100% {
+              clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+              width: $segmentCardWidth;
+              background-color: transparent;
+              border: 0;
+              transform: rotateZ(#{$segmentRotation})
+                translateY(#{math.div($segmentCardHeight, 2)})
+                translateX(#{$segmentCoinXMovement});
+            }
+          }
+
+          @keyframes coinflip-segment-make-coin-#{$i} {
+            0% {
+              width: $segmentCardWidth;
+              height: $segmentCardHeight;
+            }
+
+            100% {
+              width: $segmentCoinDiameter;
+              height: $segmentCoinDiameter;
+            }
+          }
+        }
+      }
+    }
+  }
+}

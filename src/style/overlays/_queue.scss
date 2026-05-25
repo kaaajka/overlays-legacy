@@ -1,0 +1,26 @@
+@use '../abstracts/text-effects' as *;
+
+.queue {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  padding-left: 20px;
+
+  .queueString {
+    font-size: 65px;
+    color: #e56ab3;
+
+    @include whiteTextBorder();
+  }
+
+  .queueList {
+    font-size: 50px;
+    list-style-position: inside;
+
+    .queueItem {
+      color: #e040a1;
+
+      @include whiteTextBorder();
+    }
+  }
+}
