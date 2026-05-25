@@ -113,21 +113,21 @@ If only the files themselves reference the map, remove both in a tiny commit.
 Status: runtime external dependency.  
 Risk: medium for OBS reliability, because font loading depends on network and CSP/deployment environment.
 
-The repo already contains local font files under `src/assets/fonts`, including Poppins-like `woff2` files and donation fonts. A future cleanup should replace Google Fonts with local `@font-face` declarations if visual parity is acceptable.
+The previous unreferenced local font files under `src/assets/fonts` were removed during the asset architecture cleanup. A future self-hosted font pass should add explicitly verified font files and `@font-face` declarations if visual parity is acceptable.
 
 Do not do this casually. Font changes can shift overlay layout and break OBS composition.
 
 ### 3. External image URLs in SCSS
 
-`src/style/app.scss` contains:
+The previous coinflip SCSS image URLs from `seeklogo.com` and `kajkowo.bdrewnowski.ovh` were localized. Current coinflip SCSS should resolve local public assets under:
 
-```scss
-$headImage: url(https://seeklogo.com/images/O/orzel-logo-8EEA8B39E7-seeklogo.com.png);
-$tailImage: url(https://kajkowo.bdrewnowski.ovh/assets/images/subs/miecioch.png);
+```txt
+public/assets/images/coinflip/head.png
+public/assets/images/coinflip/tail.png
 ```
 
-Status: runtime external dependency.  
-Risk: medium-high for overlay reliability.
+Status: resolved for coinflip images.  
+Risk: low, assuming the public assets are deployed with the overlay bundle.
 
 One of these appears to have a local equivalent:
 
@@ -238,21 +238,27 @@ These should not be localized as frontend assets:
 These are frontend-owned presentation assets or style dependencies and should not rely on third-party runtime availability if we want OBS-grade reliability:
 
 - Google Fonts import in `src/style/app.scss`
-- `seeklogo.com` image in `src/style/app.scss`
-- `kajkowo.bdrewnowski.ovh` image in `src/style/app.scss`
+- Google Fonts import in `src/style/app.scss`
 
-Donate template GIF/audio is already local under:
+Donate template GIF/audio is local under:
 
 ```txt
-public/media/gif/
-public/media/audio/
+public/assets/donations/gif/
+public/assets/donations/audio/
 ```
 
-Roulette and sound assets are local under:
+Reward images and sounds are local under:
 
 ```txt
-public/assets/images/roulette/
-public/assets/sounds/
+public/assets/images/rewards/
+public/assets/sounds/rewards/
+public/assets/sounds/shared/
+```
+
+Coinflip images are local under:
+
+```txt
+public/assets/images/coinflip/
 ```
 
 ## Is Prettier enough, or should we add Biome?

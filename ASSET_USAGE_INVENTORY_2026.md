@@ -1,207 +1,106 @@
-# Asset Usage Inventory 2026
+# Asset Usage Inventory 2026 - overlays-legacy
 
-This document is an exact inventory of runtime and source assets in `overlays-legacy` as of the current frontend state. It is intentionally documentation-only. No files were moved, renamed, deleted, or re-imported in this pass.
+## Scope
 
-The goal is to prevent stupid cleanup: deleting or moving assets without knowing whether OBS overlays, fixtures, SCSS, or backend-driven filenames still depend on them.
+This is the exact asset inventory after the asset architecture finalization pass. It lists all current files under `public/` and `src/assets/` and classifies their usage.
 
-## Method
+## Inventory
 
-- Listed every file under `public/` and `src/assets/`.
-- Searched textual references in `src/`, `public/`, fixtures, SCSS/CSS, and docs.
-- Classified dynamic assets separately from static imports because roulette and some overlay URLs are backend/fixture-driven.
-- Docs references are listed but do not by themselves prove runtime usage.
+| File path | Category | References | Status | Recommended action |
+|---|---|---|---|---|
+| `public/robots.txt` | static public file | deployment/browser | used | keep |
+| `public/assets/images/rewards/credits-1k.png` | public runtime / backend filename mapped | `resolveRewardImageUrl()` maps `credits_1k.png` | used dynamically | keep |
+| `public/assets/images/rewards/credits-5k.png` | public runtime / backend filename mapped | `resolveRewardImageUrl()` maps `credits_5k.png` | used dynamically | keep |
+| `public/assets/images/rewards/credits-10k.png` | public runtime / backend filename mapped | `resolveRewardImageUrl()` maps `credits_10k.png` | used dynamically | keep |
+| `public/assets/images/rewards/credits-50k.png` | public runtime / backend filename mapped | `resolveRewardImageUrl()` maps `credits_50k.png` | used dynamically | keep |
+| `public/assets/images/rewards/credits-100k.png` | public runtime / backend filename mapped | `resolveRewardImageUrl()` maps `credits_100k.png` | used dynamically | keep |
+| `public/assets/images/rewards/dogs.png` | public runtime / backend filename | roulette fixtures/backend item image | used dynamically | keep |
+| `public/assets/images/rewards/fast-3k.png` | public runtime / backend filename mapped | `resolveRewardImageUrl()` maps `fast_3k.png` | used dynamically | keep |
+| `public/assets/images/rewards/random-game.png` | public runtime / backend filename mapped | `resolveRewardImageUrl()` maps `randomGame.png` | used dynamically | keep |
+| `public/assets/images/rewards/psc-20.png` | public runtime / backend filename mapped | `resolveRewardImageUrl()` maps `psc20.png` | used dynamically | keep |
+| `public/assets/images/rewards/sub.png` | public runtime / backend filename | roulette fixtures/backend item image | used dynamically | keep |
+| `public/assets/images/rewards/multi-lottery-30k.png` | public runtime / backend filename mapped | `resolveRewardImageUrl()` maps `multilottery_30k.png` | used dynamically | keep |
+| `public/assets/images/coinflip/head.png` | public runtime / SCSS reference | `src/style/app.scss` | used | keep |
+| `public/assets/images/coinflip/tail.png` | public runtime / SCSS reference | `src/style/app.scss` | used | keep |
+| `public/assets/images/subs/miecioch.png` | public runtime / goal image | `Goal.tsx` / goal CSS behavior | used | move later to `public/assets/images/goals/` if resolver is added |
+| `public/assets/images/donate/dcba4b98efb5425eb46114645dcf706bfbd7aad6.gif` | suspicious historical donation media | historical/backend bundle identifier only | suspicious | keep until separate backend/history verification |
+| `public/assets/sounds/rewards/random/random-01.mp3` | public runtime sound | `resolveRewardRandomSoundUrl(1)` | used | keep |
+| `public/assets/sounds/rewards/random/random-02.mp3` | public runtime sound | `resolveRewardRandomSoundUrl(2)` | used | keep |
+| `public/assets/sounds/rewards/random/random-03.mp3` | public runtime sound | `resolveRewardRandomSoundUrl(3)` | used | keep |
+| `public/assets/sounds/rewards/random/random-04.mp3` | public runtime sound | `resolveRewardRandomSoundUrl(4)` | used | keep |
+| `public/assets/sounds/rewards/random/random-05.mp3` | public runtime sound | `resolveRewardRandomSoundUrl(5)` | used | keep |
+| `public/assets/sounds/rewards/random/random-06.mp3` | public runtime sound | `resolveRewardRandomSoundUrl(6)` | used | keep |
+| `public/assets/sounds/rewards/random/random-07.mp3` | public runtime sound | `resolveRewardRandomSoundUrl(7)` | used | keep |
+| `public/assets/sounds/rewards/random/random-08.mp3` | public runtime sound | `resolveRewardRandomSoundUrl(8)` | used | keep |
+| `public/assets/sounds/rewards/random/random-09.mp3` | public runtime sound | `resolveRewardRandomSoundUrl(9)` | used | keep |
+| `public/assets/sounds/rewards/random/random-10.mp3` | public runtime sound | `resolveRewardRandomSoundUrl(10)` | used | keep |
+| `public/assets/sounds/rewards/random/random-11.mp3` | public runtime sound | `resolveRewardRandomSoundUrl(11)` | used | keep |
+| `public/assets/sounds/rewards/coinflip/coinflip-prepare-01.mp3` | public runtime sound | `resolveCoinflipPrepareSoundUrl(1)` | used | keep |
+| `public/assets/sounds/rewards/coinflip/coinflip-prepare-02.mp3` | public runtime sound | `resolveCoinflipPrepareSoundUrl(2)` | used | keep |
+| `public/assets/sounds/rewards/coinflip/coinflip-prepare-03.mp3` | public runtime sound | `resolveCoinflipPrepareSoundUrl(3)` | used | keep |
+| `public/assets/sounds/rewards/coinflip/coinflip-prepare-04.mp3` | public runtime sound | `resolveCoinflipPrepareSoundUrl(4)` | used | keep |
+| `public/assets/sounds/shared/spinning.mp3` | public runtime shared sound | `resolveSharedEventSoundUrl("spinning")` | used | keep |
+| `public/assets/sounds/shared/win.mp3` | public runtime shared sound | `resolveSharedEventSoundUrl("win")` | used | keep |
+| `public/assets/sounds/donate/500b326786d86a9f10394cf0e7aa29d8706ed06e.mpga` | suspicious historical donation media | historical/backend bundle identifier only | suspicious | keep until separate backend/history verification |
+| `public/assets/donations/audio/donation-template-01.mpga` | public runtime donation audio | `resolveDonationAudioUrl(1)` | used | keep |
+| `public/assets/donations/audio/donation-template-02.mpga` | public runtime donation audio | `resolveDonationAudioUrl(2)` | used | keep |
+| `public/assets/donations/audio/donation-template-03.mpga` | public runtime donation audio | `resolveDonationAudioUrl(3)` | used | keep |
+| `public/assets/donations/audio/donation-template-04.mpga` | public runtime donation audio | `resolveDonationAudioUrl(4)` | used | keep |
+| `public/assets/donations/audio/donation-template-05.mp3` | public runtime donation audio | `resolveDonationAudioUrl(5)` | used | keep |
+| `public/assets/donations/audio/donation-template-06.mpga` | public runtime donation audio | `resolveDonationAudioUrl(6)` | used | keep |
+| `public/assets/donations/audio/donation-template-07.mp3` | public runtime donation audio | `resolveDonationAudioUrl(7)` | used | keep |
+| `public/assets/donations/gif/donation-template-01.gif` | public runtime donation gif | `resolveDonationGifUrl(1)` | used | keep |
+| `public/assets/donations/gif/donation-template-02.gif` | public runtime donation gif | `resolveDonationGifUrl(2)` | used | keep |
+| `public/assets/donations/gif/donation-template-03.gif` | public runtime donation gif | `resolveDonationGifUrl(3)` | used | keep |
+| `public/assets/donations/gif/donation-template-04.gif` | public runtime donation gif | `resolveDonationGifUrl(4)` | used | keep |
+| `public/assets/donations/gif/donation-template-05.gif` | public runtime donation gif | `resolveDonationGifUrl(5)` | used | keep |
+| `public/assets/donations/gif/donation-template-06.gif` | public runtime donation gif | `resolveDonationGifUrl(6)` | used | keep |
+| `public/assets/donations/gif/donation-template-07.gif` | public runtime donation gif | `resolveDonationGifUrl(7)` | used | keep |
+| `src/assets/images/alerts/without-r-alert.png` | static import asset | `PageChannel.tsx` | used | keep |
+| `src/assets/images/alerts/mute-alert.png` | static import asset | `PageChannel.tsx` | used | keep |
+| `src/assets/images/alerts/censure-alert.png` | static import asset | `PageChannel.tsx` | used | keep |
+| `src/assets/images/alerts/dogs-reward-alert.png` | static import asset | `PageChannel.tsx` | used | keep |
+| `src/assets/images/alerts/roulette-alert.webp` | static import asset | `PageChannel.tsx` | used | keep |
+| `src/assets/images/alerts/coinflip-alert.gif` | static import asset | `PageChannel.tsx` | used | keep |
+| `src/assets/images/ui/money.png` | static CSS asset | `src/style/app.scss` | used | keep |
+| `src/assets/resolveOverlayAssetUrl.ts` | source module | imported by components/config/tests | used | keep |
+| `src/assets/resolveOverlayAssetUrl.test.ts` | test module | Vitest | used | keep |
 
-## Recommended target structure
+## Backend filename compatibility mapping
+
+`resolveRewardImageUrl()` keeps the current backend/fixture contract working even though local files now use canonical kebab-case names.
+
+| Legacy backend filename | Canonical local filename |
+|---|---|
+| `credits_1k.png` | `credits-1k.png` |
+| `credits_5k.png` | `credits-5k.png` |
+| `credits_10k.png` | `credits-10k.png` |
+| `credits_50k.png` | `credits-50k.png` |
+| `credits_100k.png` | `credits-100k.png` |
+| `fast_3k.png` | `fast-3k.png` |
+| `randomGame.png` | `random-game.png` |
+| `psc20.png` | `psc-20.png` |
+| `multilottery_30k.png` | `multi-lottery-30k.png` |
+
+## Deleted after reference check
+
+Removed files/directories:
 
 ```txt
-public/audio/
-public/images/rewards/
-public/images/templates/
-public/gifs/
-src/assets/ui/
+public/assets/sounds/assist/soundInit.mp3
+src/assets/fonts/donations/*
+src/assets/fonts/pxi*.woff2
 ```
 
-Do not jump straight into this move. First keep compatibility paths or migrate one asset family at a time with OBS visual QA.
-
-## Inventory table
-
-| Asset file | Category | References found | Status | Recommended action | Notes |
-|---|---|---|---|---|---|
-| `public/assets/images/coinflip/head.png` | SCSS reference / public runtime | SCSS/CSS: src/style/app.scss<br>docs: ASSET_AUDIT_2026.md | used | keep | Coinflip face image referenced by app.scss variables. |
-| `public/assets/images/coinflip/tail.png` | SCSS reference / public runtime | SCSS/CSS: src/style/app.scss<br>docs: ASSET_AUDIT_2026.md | used | keep | Coinflip face image referenced by app.scss variables. |
-| `public/assets/images/donate/dcba4b98efb5425eb46114645dcf706bfbd7aad6.gif` | public runtime / suspicious | docs: ASSET_AUDIT_2026.md | suspicious | delete only after visual QA | No current runtime reference found; likely old donation template media. |
-| `public/assets/images/roulette/credits_100k.png` | public runtime / fixture-driven / backend-driven filename | fixtures: src/dev/fixtures/main-roulette-started.json<br>docs: ASSET_AUDIT_2026.md | probably used dynamically | keep | Loaded by RouletteEvent from item.image; fixtures/backend provide filenames. |
-| `public/assets/images/roulette/credits_10k.png` | public runtime / fixture-driven / backend-driven filename | fixtures: src/dev/fixtures/main-roulette-started.json<br>docs: ASSET_AUDIT_2026.md | probably used dynamically | keep | Loaded by RouletteEvent from item.image; fixtures/backend provide filenames. |
-| `public/assets/images/roulette/credits_1k.png` | public runtime / fixture-driven / backend-driven filename | fixtures: src/dev/fixtures/main-roulette-started.json<br>docs: ASSET_AUDIT_2026.md | probably used dynamically | keep | Loaded by RouletteEvent from item.image; fixtures/backend provide filenames. |
-| `public/assets/images/roulette/credits_50k.png` | public runtime / fixture-driven / backend-driven filename | fixtures: src/dev/fixtures/main-roulette-started.json<br>docs: ASSET_AUDIT_2026.md | probably used dynamically | keep | Loaded by RouletteEvent from item.image; fixtures/backend provide filenames. |
-| `public/assets/images/roulette/credits_5k.png` | public runtime / fixture-driven / backend-driven filename | fixtures: src/dev/fixtures/main-roulette-started.json<br>docs: ASSET_AUDIT_2026.md | probably used dynamically | keep | Loaded by RouletteEvent from item.image; fixtures/backend provide filenames. |
-| `public/assets/images/roulette/dogs.png` | public runtime / fixture-driven / backend-driven filename | fixtures: src/dev/fixtures/main-roulette-started.json<br>docs: ASSET_AUDIT_2026.md | probably used dynamically | keep | Loaded by RouletteEvent from item.image; fixtures/backend provide filenames. |
-| `public/assets/images/roulette/fast_3k.png` | public runtime / fixture-driven / backend-driven filename | fixtures: src/dev/fixtures/main-roulette-started.json<br>docs: ASSET_AUDIT_2026.md | probably used dynamically | keep | Loaded by RouletteEvent from item.image; fixtures/backend provide filenames. |
-| `public/assets/images/roulette/multilottery_30k.png` | public runtime / fixture-driven / backend-driven filename | fixtures: src/dev/fixtures/main-roulette-started.json<br>docs: ASSET_AUDIT_2026.md | probably used dynamically | keep | Loaded by RouletteEvent from item.image; fixtures/backend provide filenames. |
-| `public/assets/images/roulette/psc20.png` | public runtime / fixture-driven / backend-driven filename | fixtures: src/dev/fixtures/main-roulette-started.json<br>docs: ASSET_AUDIT_2026.md | probably used dynamically | keep | Loaded by RouletteEvent from item.image; fixtures/backend provide filenames. |
-| `public/assets/images/roulette/randomGame.png` | public runtime / fixture-driven / backend-driven filename | fixtures: src/dev/fixtures/main-roulette-started.json<br>docs: ASSET_AUDIT_2026.md | probably used dynamically | keep | Loaded by RouletteEvent from item.image; fixtures/backend provide filenames. |
-| `public/assets/images/roulette/sub.png` | public runtime / fixture-driven / backend-driven filename | fixtures: src/dev/fixtures/main-roulette-started.json<br>docs: ASSET_AUDIT_2026.md | probably used dynamically | keep | Loaded by RouletteEvent from item.image; fixtures/backend provide filenames. |
-| `public/assets/images/subs/miecioch.png` | public runtime | src: src/components/Goal.tsx<br>docs: ASSET_AUDIT_2026.md, DEPENDENCY_AUDIT_2026.md | used | keep | Goal canvas background image loaded by direct public path. |
-| `public/assets/sounds/1.mp3` | public runtime | src: src/components/PageChannel.tsx<br>docs: ASSET_AUDIT_2026.md | used | keep | Random/event/roulette/coinflip sound loaded through AppConfig.assetUrl. |
-| `public/assets/sounds/10.mp3` | public runtime | src: src/components/PageChannel.tsx | used | keep | Random/event/roulette/coinflip sound loaded through AppConfig.assetUrl. |
-| `public/assets/sounds/11.mp3` | public runtime | src: src/components/PageChannel.tsx<br>docs: ASSET_AUDIT_2026.md | used | keep | Random/event/roulette/coinflip sound loaded through AppConfig.assetUrl. |
-| `public/assets/sounds/12.mp3` | public runtime | src: src/components/PageChannel.tsx<br>docs: ASSET_AUDIT_2026.md | used | keep | Random/event/roulette/coinflip sound loaded through AppConfig.assetUrl. |
-| `public/assets/sounds/13.mp3` | public runtime | src: src/components/PageChannel.tsx | used | keep | Random/event/roulette/coinflip sound loaded through AppConfig.assetUrl. |
-| `public/assets/sounds/14.mp3` | public runtime | src: src/components/PageChannel.tsx | used | keep | Random/event/roulette/coinflip sound loaded through AppConfig.assetUrl. |
-| `public/assets/sounds/15.mp3` | public runtime | src: src/components/PageChannel.tsx<br>docs: ASSET_AUDIT_2026.md | used | keep | Random/event/roulette/coinflip sound loaded through AppConfig.assetUrl. |
-| `public/assets/sounds/2.mp3` | public runtime | src: src/components/PageChannel.tsx<br>docs: ASSET_AUDIT_2026.md | used | keep | Random/event/roulette/coinflip sound loaded through AppConfig.assetUrl. |
-| `public/assets/sounds/3.mp3` | public runtime | src: src/components/PageChannel.tsx<br>fixtures: src/dev/fixtures/main-donate-html-message.json, src/dev/fixtures/main-donate-prepare.json, src/dev/fixtures/main-donate-without-audio-url.json | used | keep | Random/event/roulette/coinflip sound loaded through AppConfig.assetUrl. |
-| `public/assets/sounds/4.mp3` | public runtime | src: src/components/PageChannel.tsx | used | keep | Random/event/roulette/coinflip sound loaded through AppConfig.assetUrl. |
-| `public/assets/sounds/5.mp3` | public runtime | src: src/components/DonateEvent.tsx, src/components/PageChannel.tsx<br>fixtures: src/dev/fixtures/main-donate-html-message.json, src/dev/fixtures/main-donate-prepare.json, src/dev/fixtures/main-donate-without-audio-url.json<br>docs: ASSET_AUDIT_2026.md | used | keep | Random/event/roulette/coinflip sound loaded through AppConfig.assetUrl. |
-| `public/assets/sounds/6.mp3` | public runtime | src: src/components/PageChannel.tsx | used | keep | Random/event/roulette/coinflip sound loaded through AppConfig.assetUrl. |
-| `public/assets/sounds/7.mp3` | public runtime | src: src/components/DonateEvent.tsx, src/components/PageChannel.tsx<br>docs: ASSET_AUDIT_2026.md | used | keep | Random/event/roulette/coinflip sound loaded through AppConfig.assetUrl. |
-| `public/assets/sounds/8.mp3` | public runtime | src: src/components/PageChannel.tsx | used | keep | Random/event/roulette/coinflip sound loaded through AppConfig.assetUrl. |
-| `public/assets/sounds/9.mp3` | public runtime | src: src/components/PageChannel.tsx | used | keep | Random/event/roulette/coinflip sound loaded through AppConfig.assetUrl. |
-| `public/assets/sounds/assist/soundInit.mp3` | public runtime / suspicious | docs: ASSET_AUDIT_2026.md | suspicious | delete only after visual QA | No current source reference found except docs/audit; may be legacy template or assist sound. |
-| `public/assets/sounds/donate/500b326786d86a9f10394cf0e7aa29d8706ed06e.mpga` | public runtime / suspicious | docs: ASSET_AUDIT_2026.md | suspicious | delete only after visual QA | No current source reference found except docs/audit; may be legacy template or assist sound. |
-| `public/assets/sounds/spinning.mp3` | public runtime | src: src/components/CoinflipEvent.tsx, src/components/RouletteEvent.tsx<br>docs: ASSET_AUDIT_2026.md | used | keep | Random/event/roulette/coinflip sound loaded through AppConfig.assetUrl. |
-| `public/assets/sounds/win.mp3` | public runtime | src: src/components/RouletteEvent.tsx<br>docs: ASSET_AUDIT_2026.md | used | keep | Random/event/roulette/coinflip sound loaded through AppConfig.assetUrl. |
-| `public/media/audio/1.mpga` | public runtime | src: src/components/DonateEvent.tsx<br>docs: ASSET_AUDIT_2026.md | used | keep | Donate template audio loaded through AppConfig.assetUrl. |
-| `public/media/audio/2.mpga` | public runtime | src: src/components/DonateEvent.tsx | used | keep | Donate template audio loaded through AppConfig.assetUrl. |
-| `public/media/audio/3.mpga` | public runtime | src: src/components/DonateEvent.tsx | used | keep | Donate template audio loaded through AppConfig.assetUrl. |
-| `public/media/audio/4.mpga` | public runtime | src: src/components/DonateEvent.tsx | used | keep | Donate template audio loaded through AppConfig.assetUrl. |
-| `public/media/audio/5.mp3` | public runtime | src: src/components/DonateEvent.tsx, src/components/PageChannel.tsx<br>fixtures: src/dev/fixtures/main-donate-html-message.json, src/dev/fixtures/main-donate-prepare.json, src/dev/fixtures/main-donate-without-audio-url.json<br>docs: ASSET_AUDIT_2026.md | used | keep | Donate template audio loaded through AppConfig.assetUrl. |
-| `public/media/audio/6.mpga` | public runtime | src: src/components/DonateEvent.tsx | used | keep | Donate template audio loaded through AppConfig.assetUrl. |
-| `public/media/audio/7.mp3` | public runtime | src: src/components/DonateEvent.tsx, src/components/PageChannel.tsx<br>docs: ASSET_AUDIT_2026.md | used | keep | Donate template audio loaded through AppConfig.assetUrl. |
-| `public/media/gif/1.gif` | public runtime | src: src/components/DonateEvent.tsx<br>docs: ASSET_AUDIT_2026.md | used | keep | Donate template GIF loaded through AppConfig.assetUrl. |
-| `public/media/gif/2.gif` | public runtime | src: src/components/DonateEvent.tsx | used | keep | Donate template GIF loaded through AppConfig.assetUrl. |
-| `public/media/gif/3.gif` | public runtime | src: src/components/DonateEvent.tsx | used | keep | Donate template GIF loaded through AppConfig.assetUrl. |
-| `public/media/gif/4.gif` | public runtime | src: src/components/DonateEvent.tsx | used | keep | Donate template GIF loaded through AppConfig.assetUrl. |
-| `public/media/gif/5.gif` | public runtime | src: src/components/DonateEvent.tsx | used | keep | Donate template GIF loaded through AppConfig.assetUrl. |
-| `public/media/gif/6.gif` | public runtime | src: src/components/DonateEvent.tsx<br>docs: ASSET_AUDIT_2026.md | used | keep | Donate template GIF loaded through AppConfig.assetUrl. |
-| `public/media/gif/7.gif` | public runtime | src: src/components/DonateEvent.tsx<br>docs: ASSET_AUDIT_2026.md | used | keep | Donate template GIF loaded through AppConfig.assetUrl. |
-| `public/robots.txt` | public static file | none found | used | keep | Vite copies public root files to output; harmless deploy metadata. |
-| `src/assets/fonts/donations/1dcebf6071e7920b34b1b0a9f2872107.eot` | unknown / suspicious legacy font | none found | suspicious | delete only after visual QA | No @font-face reference found in current SCSS; likely old donation template fonts. |
-| `src/assets/fonts/donations/1dcebf6071e7920b34b1b0a9f2872107.svg` | unknown / suspicious legacy font | none found | suspicious | delete only after visual QA | No @font-face reference found in current SCSS; likely old donation template fonts. |
-| `src/assets/fonts/donations/1dcebf6071e7920b34b1b0a9f2872107.ttf` | unknown / suspicious legacy font | none found | suspicious | delete only after visual QA | No @font-face reference found in current SCSS; likely old donation template fonts. |
-| `src/assets/fonts/donations/1dcebf6071e7920b34b1b0a9f2872107.woff` | unknown / suspicious legacy font | none found | suspicious | delete only after visual QA | No @font-face reference found in current SCSS; likely old donation template fonts. |
-| `src/assets/fonts/donations/1dcebf6071e7920b34b1b0a9f2872107.woff2` | unknown / suspicious legacy font | none found | suspicious | delete only after visual QA | No @font-face reference found in current SCSS; likely old donation template fonts. |
-| `src/assets/fonts/donations/2a16995f44a82489afe3375fd0554608.eot` | unknown / suspicious legacy font | none found | suspicious | delete only after visual QA | No @font-face reference found in current SCSS; likely old donation template fonts. |
-| `src/assets/fonts/donations/2a16995f44a82489afe3375fd0554608.svg` | unknown / suspicious legacy font | none found | suspicious | delete only after visual QA | No @font-face reference found in current SCSS; likely old donation template fonts. |
-| `src/assets/fonts/donations/2a16995f44a82489afe3375fd0554608.ttf` | unknown / suspicious legacy font | none found | suspicious | delete only after visual QA | No @font-face reference found in current SCSS; likely old donation template fonts. |
-| `src/assets/fonts/donations/2a16995f44a82489afe3375fd0554608.woff` | unknown / suspicious legacy font | none found | suspicious | delete only after visual QA | No @font-face reference found in current SCSS; likely old donation template fonts. |
-| `src/assets/fonts/donations/2a16995f44a82489afe3375fd0554608.woff2` | unknown / suspicious legacy font | none found | suspicious | delete only after visual QA | No @font-face reference found in current SCSS; likely old donation template fonts. |
-| `src/assets/fonts/donations/5d726d565876da172810bea71e2ee3ad.eot` | unknown / suspicious legacy font | none found | suspicious | delete only after visual QA | No @font-face reference found in current SCSS; likely old donation template fonts. |
-| `src/assets/fonts/donations/5d726d565876da172810bea71e2ee3ad.svg` | unknown / suspicious legacy font | none found | suspicious | delete only after visual QA | No @font-face reference found in current SCSS; likely old donation template fonts. |
-| `src/assets/fonts/donations/5d726d565876da172810bea71e2ee3ad.ttf` | unknown / suspicious legacy font | none found | suspicious | delete only after visual QA | No @font-face reference found in current SCSS; likely old donation template fonts. |
-| `src/assets/fonts/donations/5d726d565876da172810bea71e2ee3ad.woff` | unknown / suspicious legacy font | none found | suspicious | delete only after visual QA | No @font-face reference found in current SCSS; likely old donation template fonts. |
-| `src/assets/fonts/donations/5d726d565876da172810bea71e2ee3ad.woff2` | unknown / suspicious legacy font | none found | suspicious | delete only after visual QA | No @font-face reference found in current SCSS; likely old donation template fonts. |
-| `src/assets/fonts/donations/60c0d016ac4ba760aa725d7736afbfdf.eot` | unknown / suspicious legacy font | none found | suspicious | delete only after visual QA | No @font-face reference found in current SCSS; likely old donation template fonts. |
-| `src/assets/fonts/donations/60c0d016ac4ba760aa725d7736afbfdf.svg` | unknown / suspicious legacy font | none found | suspicious | delete only after visual QA | No @font-face reference found in current SCSS; likely old donation template fonts. |
-| `src/assets/fonts/donations/60c0d016ac4ba760aa725d7736afbfdf.ttf` | unknown / suspicious legacy font | none found | suspicious | delete only after visual QA | No @font-face reference found in current SCSS; likely old donation template fonts. |
-| `src/assets/fonts/donations/60c0d016ac4ba760aa725d7736afbfdf.woff` | unknown / suspicious legacy font | none found | suspicious | delete only after visual QA | No @font-face reference found in current SCSS; likely old donation template fonts. |
-| `src/assets/fonts/donations/60c0d016ac4ba760aa725d7736afbfdf.woff2` | unknown / suspicious legacy font | none found | suspicious | delete only after visual QA | No @font-face reference found in current SCSS; likely old donation template fonts. |
-| `src/assets/fonts/donations/bcd61c67e09eb53ba095e6a3a4a199f2.eot` | unknown / suspicious legacy font | none found | suspicious | delete only after visual QA | No @font-face reference found in current SCSS; likely old donation template fonts. |
-| `src/assets/fonts/donations/bcd61c67e09eb53ba095e6a3a4a199f2.svg` | unknown / suspicious legacy font | none found | suspicious | delete only after visual QA | No @font-face reference found in current SCSS; likely old donation template fonts. |
-| `src/assets/fonts/donations/bcd61c67e09eb53ba095e6a3a4a199f2.ttf` | unknown / suspicious legacy font | none found | suspicious | delete only after visual QA | No @font-face reference found in current SCSS; likely old donation template fonts. |
-| `src/assets/fonts/donations/bcd61c67e09eb53ba095e6a3a4a199f2.woff` | unknown / suspicious legacy font | none found | suspicious | delete only after visual QA | No @font-face reference found in current SCSS; likely old donation template fonts. |
-| `src/assets/fonts/donations/bcd61c67e09eb53ba095e6a3a4a199f2.woff2` | unknown / suspicious legacy font | none found | suspicious | delete only after visual QA | No @font-face reference found in current SCSS; likely old donation template fonts. |
-| `src/assets/fonts/donations/d78ccdf8846108bd5886812b8e8c1c36.eot` | unknown / suspicious legacy font | none found | suspicious | delete only after visual QA | No @font-face reference found in current SCSS; likely old donation template fonts. |
-| `src/assets/fonts/donations/d78ccdf8846108bd5886812b8e8c1c36.svg` | unknown / suspicious legacy font | none found | suspicious | delete only after visual QA | No @font-face reference found in current SCSS; likely old donation template fonts. |
-| `src/assets/fonts/donations/d78ccdf8846108bd5886812b8e8c1c36.ttf` | unknown / suspicious legacy font | none found | suspicious | delete only after visual QA | No @font-face reference found in current SCSS; likely old donation template fonts. |
-| `src/assets/fonts/donations/d78ccdf8846108bd5886812b8e8c1c36.woff` | unknown / suspicious legacy font | none found | suspicious | delete only after visual QA | No @font-face reference found in current SCSS; likely old donation template fonts. |
-| `src/assets/fonts/donations/d78ccdf8846108bd5886812b8e8c1c36.woff2` | unknown / suspicious legacy font | none found | suspicious | delete only after visual QA | No @font-face reference found in current SCSS; likely old donation template fonts. |
-| `src/assets/fonts/pxiByp8kv8JHgFVrLCz7Z1JlFc-K.woff2` | unknown / suspicious local font | none found | suspicious | move later | Looks like local Poppins font files; currently Google Fonts is imported remotely instead. |
-| `src/assets/fonts/pxiByp8kv8JHgFVrLDz8Z1JlFc-K.woff2` | unknown / suspicious local font | none found | suspicious | move later | Looks like local Poppins font files; currently Google Fonts is imported remotely instead. |
-| `src/assets/fonts/pxiByp8kv8JHgFVrLEj6Z1JlFc-K.woff2` | unknown / suspicious local font | none found | suspicious | move later | Looks like local Poppins font files; currently Google Fonts is imported remotely instead. |
-| `src/assets/fonts/pxiByp8kv8JHgFVrLGT9Z1JlFc-K.woff2` | unknown / suspicious local font | none found | suspicious | move later | Looks like local Poppins font files; currently Google Fonts is imported remotely instead. |
-| `src/assets/fonts/pxiEyp8kv8JHgFVrJJnecmNE.woff2` | unknown / suspicious local font | none found | suspicious | move later | Looks like local Poppins font files; currently Google Fonts is imported remotely instead. |
-| `src/assets/images/censure-alert.png` | static import asset | src: src/components/PageChannel.tsx<br>docs: ASSET_AUDIT_2026.md | used | keep | Semantic rename from `pobrane_3.png`; used as `censureImage`. |
-| `src/assets/images/coinflip-alert.gif` | static import asset | src: src/components/PageChannel.tsx<br>docs: ASSET_AUDIT_2026.md | used | keep | Semantic rename from `cat_surprised.gif`; used as `coinflipImage`. Fixture JSON still contains legacy `cat_surprised.gif` fields but those fields are not the static import path. |
-| `src/assets/images/dogs-reward-alert.png` | static import asset | src: src/components/PageChannel.tsx<br>docs: ASSET_AUDIT_2026.md | used | keep | Semantic rename from `pobrane_5.png`; used as `dogsImage`. |
-| `src/assets/images/money.png` | SCSS reference / src asset | SCSS/CSS: src/style/app.css, src/style/app.scss<br>docs: ASSET_AUDIT_2026.md | used | keep | Referenced from SCSS/CSS for donation visuals. |
-| `src/assets/images/mute-alert.png` | static import asset | src: src/components/PageChannel.tsx<br>docs: ASSET_AUDIT_2026.md | used | keep | Semantic rename from `pobrane_2.png`; used as `muteImage`. |
-| `src/assets/images/roulette-alert.webp` | static import asset | src: src/components/PageChannel.tsx<br>docs: ASSET_AUDIT_2026.md | used | keep | Semantic rename from `pobrane_6.webp`; used as `rouletteImage`. Fixture JSON still contains legacy `pobrane_6.webp` fields but those fields are not the static import path. |
-| `src/assets/images/without-r-alert.png` | static import asset | src: src/components/PageChannel.tsx<br>docs: ASSET_AUDIT_2026.md | used | keep | Semantic rename from `pobrane_1.png`; used as `withoutRImage`. |
-
-## Asset families
-
-### `public/assets/images/roulette/*`
-
-Status: **probably used dynamically**. These files are referenced by roulette fixture/backend item filenames and loaded by `RouletteEvent` through `/assets/images/roulette/${item.image}`. They must stay in `public` unless the backend/fixture filename contract is migrated at the same time.
-
-### `public/media/gif/*` and `public/media/audio/*`
-
-Status: **used**. These are frontend-owned donate template media paths. They are stable runtime assets and should stay in `public` until a deliberate path migration is done. Template numbers 8-10 currently reuse tier-7 media rather than having unique `8.*`, `9.*`, `10.*` files.
-
-### Static imported main alert images
-
-Status: **used static imports**. These are bundled by Vite because `PageChannel` imports them directly for normal alert intro images. The previous ambiguous filenames were renamed semantically:
-
-| Old path | New path |
-|---|---|
-| `src/assets/images/pobrane_1.png` | `src/assets/images/without-r-alert.png` |
-| `src/assets/images/pobrane_2.png` | `src/assets/images/mute-alert.png` |
-| `src/assets/images/pobrane_3.png` | `src/assets/images/censure-alert.png` |
-| `src/assets/images/pobrane_5.png` | `src/assets/images/dogs-reward-alert.png` |
-| `src/assets/images/pobrane_6.webp` | `src/assets/images/roulette-alert.webp` |
-| `src/assets/images/cat_surprised.gif` | `src/assets/images/coinflip-alert.gif` |
-
-The rename cleanup is completed. A future move to `src/assets/ui/` is optional and should be a separate import-only commit.
-
-### `src/assets/fonts/*`
-
-Status: **suspicious**. Current SCSS imports Google Fonts remotely and no current `@font-face` declarations reference these local font files. The `pxi*.woff2` files look like local Poppins-like files and may be useful for a future self-hosting pass. The `src/assets/fonts/donations/*` files look like legacy donate template fonts. Do not delete before visual QA.
-
-## External runtime dependencies
-
-| Reference | Where found | Classification | Risk | Recommended action |
-|---|---|---|---|---|
-| Google Fonts import | `src/style/app.scss` | external URL asset | OBS can fail/flash/change if Google Fonts is blocked or slow | Replace later with local `@font-face` after matching font files. |
-| Tipply/TTS URLs | donate fixtures, `resolveBackendAudioUrl.ts` | fixture/backend-driven dynamic URL | Acceptable for backend-provided TTS; network success must not be required | Keep dynamic; do not fake TTS as local production asset. |
-| 7TV emote image URL | donate HTML message fixtures | fixture message content | Fixture realism only; should not be required for core overlay behavior | Keep as fixture-only or replace with local fixture media if deterministic screenshots are needed. |
-| `seeklogo.com` coinflip image | old docs/audit only | resolved former external runtime asset | Resolved | Runtime SCSS now uses `public/assets/images/coinflip/head.png`. |
-| `kajkowo.bdrewnowski.ovh` coinflip image | old docs/audit only | resolved former external runtime asset | Resolved | Runtime SCSS now uses `public/assets/images/coinflip/tail.png`. |
+No current source, fixture, SCSS/CSS, or active runtime references were found for these files. The Google Fonts remote import is still a separate external dependency decision.
 
 ## Do not delete yet
 
-These files are suspicious but risky to remove without visual QA or checking legacy OBS scenes/template history:
+Do not delete these without a separate backend/history verification pass:
 
-- `public/assets/images/donate/dcba4b98efb5425eb46114645dcf706bfbd7aad6.gif` - No current runtime reference found; likely old donation template media.
-- `public/assets/sounds/assist/soundInit.mp3` - No current source reference found except docs/audit; may be legacy template or assist sound.
-- `public/assets/sounds/donate/500b326786d86a9f10394cf0e7aa29d8706ed06e.mpga` - No current source reference found except docs/audit; may be legacy template or assist sound.
-- `src/assets/fonts/donations/1dcebf6071e7920b34b1b0a9f2872107.eot` - No @font-face reference found in current SCSS; likely old donation template fonts.
-- `src/assets/fonts/donations/1dcebf6071e7920b34b1b0a9f2872107.svg` - No @font-face reference found in current SCSS; likely old donation template fonts.
-- `src/assets/fonts/donations/1dcebf6071e7920b34b1b0a9f2872107.ttf` - No @font-face reference found in current SCSS; likely old donation template fonts.
-- `src/assets/fonts/donations/1dcebf6071e7920b34b1b0a9f2872107.woff` - No @font-face reference found in current SCSS; likely old donation template fonts.
-- `src/assets/fonts/donations/1dcebf6071e7920b34b1b0a9f2872107.woff2` - No @font-face reference found in current SCSS; likely old donation template fonts.
-- `src/assets/fonts/donations/2a16995f44a82489afe3375fd0554608.eot` - No @font-face reference found in current SCSS; likely old donation template fonts.
-- `src/assets/fonts/donations/2a16995f44a82489afe3375fd0554608.svg` - No @font-face reference found in current SCSS; likely old donation template fonts.
-- `src/assets/fonts/donations/2a16995f44a82489afe3375fd0554608.ttf` - No @font-face reference found in current SCSS; likely old donation template fonts.
-- `src/assets/fonts/donations/2a16995f44a82489afe3375fd0554608.woff` - No @font-face reference found in current SCSS; likely old donation template fonts.
-- `src/assets/fonts/donations/2a16995f44a82489afe3375fd0554608.woff2` - No @font-face reference found in current SCSS; likely old donation template fonts.
-- `src/assets/fonts/donations/5d726d565876da172810bea71e2ee3ad.eot` - No @font-face reference found in current SCSS; likely old donation template fonts.
-- `src/assets/fonts/donations/5d726d565876da172810bea71e2ee3ad.svg` - No @font-face reference found in current SCSS; likely old donation template fonts.
-- `src/assets/fonts/donations/5d726d565876da172810bea71e2ee3ad.ttf` - No @font-face reference found in current SCSS; likely old donation template fonts.
-- `src/assets/fonts/donations/5d726d565876da172810bea71e2ee3ad.woff` - No @font-face reference found in current SCSS; likely old donation template fonts.
-- `src/assets/fonts/donations/5d726d565876da172810bea71e2ee3ad.woff2` - No @font-face reference found in current SCSS; likely old donation template fonts.
-- `src/assets/fonts/donations/60c0d016ac4ba760aa725d7736afbfdf.eot` - No @font-face reference found in current SCSS; likely old donation template fonts.
-- `src/assets/fonts/donations/60c0d016ac4ba760aa725d7736afbfdf.svg` - No @font-face reference found in current SCSS; likely old donation template fonts.
-- `src/assets/fonts/donations/60c0d016ac4ba760aa725d7736afbfdf.ttf` - No @font-face reference found in current SCSS; likely old donation template fonts.
-- `src/assets/fonts/donations/60c0d016ac4ba760aa725d7736afbfdf.woff` - No @font-face reference found in current SCSS; likely old donation template fonts.
-- `src/assets/fonts/donations/60c0d016ac4ba760aa725d7736afbfdf.woff2` - No @font-face reference found in current SCSS; likely old donation template fonts.
-- `src/assets/fonts/donations/bcd61c67e09eb53ba095e6a3a4a199f2.eot` - No @font-face reference found in current SCSS; likely old donation template fonts.
-- `src/assets/fonts/donations/bcd61c67e09eb53ba095e6a3a4a199f2.svg` - No @font-face reference found in current SCSS; likely old donation template fonts.
-- `src/assets/fonts/donations/bcd61c67e09eb53ba095e6a3a4a199f2.ttf` - No @font-face reference found in current SCSS; likely old donation template fonts.
-- `src/assets/fonts/donations/bcd61c67e09eb53ba095e6a3a4a199f2.woff` - No @font-face reference found in current SCSS; likely old donation template fonts.
-- `src/assets/fonts/donations/bcd61c67e09eb53ba095e6a3a4a199f2.woff2` - No @font-face reference found in current SCSS; likely old donation template fonts.
-- `src/assets/fonts/donations/d78ccdf8846108bd5886812b8e8c1c36.eot` - No @font-face reference found in current SCSS; likely old donation template fonts.
-- `src/assets/fonts/donations/d78ccdf8846108bd5886812b8e8c1c36.svg` - No @font-face reference found in current SCSS; likely old donation template fonts.
-- `src/assets/fonts/donations/d78ccdf8846108bd5886812b8e8c1c36.ttf` - No @font-face reference found in current SCSS; likely old donation template fonts.
-- `src/assets/fonts/donations/d78ccdf8846108bd5886812b8e8c1c36.woff` - No @font-face reference found in current SCSS; likely old donation template fonts.
-- `src/assets/fonts/donations/d78ccdf8846108bd5886812b8e8c1c36.woff2` - No @font-face reference found in current SCSS; likely old donation template fonts.
-- `src/assets/fonts/pxi*.woff2` - not currently referenced, but likely useful for replacing remote Google Fonts.
+```txt
+public/assets/images/donate/dcba4b98efb5425eb46114645dcf706bfbd7aad6.gif
+public/assets/sounds/donate/500b326786d86a9f10394cf0e7aa29d8706ed06e.mpga
+```
 
-## Recommended cleanup order
-
-1. Replace Google Fonts with verified local font files and compare screenshots.
-2. Static UI imports have semantic filenames now. Move them to `src/assets/ui/` later only if there is a dedicated import-only cleanup commit.
-3. Normalize donate media paths only with compatibility redirects or a full QA pass for every donate tier.
-4. Normalize roulette reward image paths only if backend/fixture filename expectations are updated together.
-5. Delete suspicious legacy media only after OBS visual QA and a grep proving no runtime path remains.
-
+They are not used by current source paths, but historical/backend bundle grep found matching identifiers. Keeping them is safer than deleting possible old media references without stronger evidence.

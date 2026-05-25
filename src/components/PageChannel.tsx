@@ -23,12 +23,12 @@ import { appEnv } from "../config/env";
 
 import "../style/app.scss";
 
-import muteImage from "../assets/images/mute-alert.png";
-import censureImage from "../assets/images/censure-alert.png";
-import withoutRImage from "../assets/images/without-r-alert.png";
-import dogsImage from "../assets/images/dogs-reward-alert.png";
-import rouletteImage from "../assets/images/roulette-alert.webp";
-import coinflipImage from "../assets/images/coinflip-alert.gif";
+import muteImage from "../assets/images/alerts/mute-alert.png";
+import censureImage from "../assets/images/alerts/censure-alert.png";
+import withoutRImage from "../assets/images/alerts/without-r-alert.png";
+import dogsImage from "../assets/images/alerts/dogs-reward-alert.png";
+import rouletteImage from "../assets/images/alerts/roulette-alert.webp";
+import coinflipImage from "../assets/images/alerts/coinflip-alert.gif";
 import { debugLog } from "../debug";
 import { safeJsonParse } from "../protocol/safeJson";
 import {
@@ -43,6 +43,10 @@ import { buildMainOverlaySocketUrl } from "../socket/buildOverlaySocketUrl";
 import { createLegacyOverlaySocket } from "../socket/createLegacyOverlaySocket";
 import type { LegacyOverlaySocketController } from "../socket/createLegacyOverlaySocket";
 import { playOverlayAudio } from "../audio/playOverlayAudio";
+import {
+  resolveCoinflipPrepareSoundUrl,
+  resolveRewardRandomSoundUrl,
+} from "../assets/resolveOverlayAssetUrl";
 import {
   cleanupFixtureAudioUnlockPrompt,
   isRequestedLegacyFixtureReplayActive,
@@ -59,17 +63,17 @@ const images: Record<string, string> = {
 };
 
 const randomSounds = [
-  AppConfig.assetUrl("/assets/sounds/1.mp3"),
-  AppConfig.assetUrl("/assets/sounds/2.mp3"),
-  AppConfig.assetUrl("/assets/sounds/3.mp3"),
-  AppConfig.assetUrl("/assets/sounds/4.mp3"),
-  AppConfig.assetUrl("/assets/sounds/5.mp3"),
-  AppConfig.assetUrl("/assets/sounds/6.mp3"),
-  AppConfig.assetUrl("/assets/sounds/7.mp3"),
-  AppConfig.assetUrl("/assets/sounds/8.mp3"),
-  AppConfig.assetUrl("/assets/sounds/9.mp3"),
-  AppConfig.assetUrl("/assets/sounds/10.mp3"),
-  AppConfig.assetUrl("/assets/sounds/11.mp3"),
+  resolveRewardRandomSoundUrl(1),
+  resolveRewardRandomSoundUrl(2),
+  resolveRewardRandomSoundUrl(3),
+  resolveRewardRandomSoundUrl(4),
+  resolveRewardRandomSoundUrl(5),
+  resolveRewardRandomSoundUrl(6),
+  resolveRewardRandomSoundUrl(7),
+  resolveRewardRandomSoundUrl(8),
+  resolveRewardRandomSoundUrl(9),
+  resolveRewardRandomSoundUrl(10),
+  resolveRewardRandomSoundUrl(11),
 ];
 
 const dogsSounds = [
@@ -84,10 +88,10 @@ const dogsSounds = [
 ];
 
 const coinflipSounds = [
-  AppConfig.assetUrl("/assets/sounds/12.mp3"),
-  AppConfig.assetUrl("/assets/sounds/13.mp3"),
-  AppConfig.assetUrl("/assets/sounds/14.mp3"),
-  AppConfig.assetUrl("/assets/sounds/15.mp3"),
+  resolveCoinflipPrepareSoundUrl(1),
+  resolveCoinflipPrepareSoundUrl(2),
+  resolveCoinflipPrepareSoundUrl(3),
+  resolveCoinflipPrepareSoundUrl(4),
 ];
 
 type PageChannelProps = RouterCompatProps & {

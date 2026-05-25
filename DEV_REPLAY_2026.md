@@ -82,7 +82,7 @@ That means donate fixtures must use the legacy frontend wrapper:
 
 Remote TTS URLs in fixtures are allowed because they mirror backend-forwarded payloads, but network success is not required for fixture tests. Failed audio/TTS loading must be logged safely through `debugLog` and must not crash the overlay or create `Uncaught (in promise)` errors.
 
-Template GIF/music/audio assets are frontend-owned and should load from `public/media/gif` and `public/media/audio` through `AppConfig.assetUrl(...)`. Fixture replay must not depend on old Tipply template media URLs. Backend-provided TTS may stay remote because it represents dynamic payload data, not frontend-owned template media.
+Template GIF/music/audio assets are frontend-owned and should load from `public/assets/donations/gif` and `public/assets/donations/audio` through the overlay asset URL resolvers. Fixture replay must not depend on old Tipply template media URLs. Backend-provided TTS may stay remote because it represents dynamic payload data, not frontend-owned template media.
 
 Raw Tipply examples belong only in clearly labelled backend documentation, if needed, and must be described as upstream backend input, not frontend WebSocket payload.
 

@@ -5,7 +5,7 @@ import type { IReactionDisposer } from "mobx";
 
 import type { CoinflipEventModel } from "../models/CoinflipEvent";
 import { EventState } from "../models/Event";
-import { AppConfig } from "../config";
+import { resolveSharedEventSoundUrl } from "../assets/resolveOverlayAssetUrl";
 import { playOverlayAudio } from "../audio/playOverlayAudio";
 
 const timeoutTimes: { spin: number; hideSegmentImage: number } = {
@@ -15,7 +15,7 @@ const timeoutTimes: { spin: number; hideSegmentImage: number } = {
 
 @observer
 export default class CoinflipEvent extends React.Component<ICoinflipEventProps> {
-  private readonly spinningSoundUrl = AppConfig.assetUrl("/assets/sounds/spinning.mp3");
+  private readonly spinningSoundUrl = resolveSharedEventSoundUrl("spinning");
 
   private segmentRefs: React.RefObject<HTMLDivElement>[] = [...new Array(100)].map(() =>
     React.createRef(),

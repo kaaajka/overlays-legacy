@@ -5,8 +5,10 @@ import type { IReactionDisposer } from "mobx";
 
 import type { RouletteEventModel } from "../models/RouletteEvent";
 import { EventState } from "../models/Event";
-import { AppConfig } from "../config";
-import { resolveRouletteImageUrl } from "../assets/resolveOverlayAssetUrl";
+import {
+  resolveRouletteImageUrl,
+  resolveSharedEventSoundUrl,
+} from "../assets/resolveOverlayAssetUrl";
 import { playOverlayAudio } from "../audio/playOverlayAudio";
 
 type RollAnimation = {
@@ -22,8 +24,8 @@ export default class RouletteEvent extends React.Component<IRouletteEventProps> 
   private percentagePerBlock = 100 / this.minBlocks;
   private actualBlocks = this.minBlocks;
   private blocksMoved: number = 0;
-  private readonly spinningSoundUrl = AppConfig.assetUrl("/assets/sounds/spinning.mp3");
-  private readonly winSoundUrl = AppConfig.assetUrl("/assets/sounds/win.mp3");
+  private readonly spinningSoundUrl = resolveSharedEventSoundUrl("spinning");
+  private readonly winSoundUrl = resolveSharedEventSoundUrl("win");
 
   private moveAnimation?: ReturnType<typeof setTimeout>;
   private timeout?: ReturnType<typeof setTimeout>;

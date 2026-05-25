@@ -200,13 +200,15 @@ Ownership rules:
 - The frontend must tolerate missing female TTS fields.
 - The frontend must not require `email`, `receiver_id`, `payment_id`, payment method fields, or other backend-only/payment fields.
 - Static overlay template assets, such as music, sounds, GIFs, images and template media, are frontend-owned and should live in the frontend project, preferably under `public/`.
-- Donate template GIFs live under `public/media/gif/` and are referenced through `AppConfig.assetUrl("/media/gif/<template>.<ext>")`.
-- Donate template music/audio lives under `public/media/audio/` and is referenced through `AppConfig.assetUrl("/media/audio/<template>.<ext>")`.
+- Donate template GIFs live under `public/assets/donations/gif/` and are referenced through `resolveDonationGifUrl(templateIndex)`.
+- Donate template music/audio lives under `public/assets/donations/audio/` and is referenced through `resolveDonationAudioUrl(templateIndex)`.
 - Template media must not load from `https://tipply.pl/upload/media/user/...` or old Tipply/CloudFront media URLs.
 - Backend-provided TTS/audio URLs are dynamic and should be normalized only as backend URLs: absolute `http(s)` values stay unchanged; Tipply-relative paths are prefixed with `https://tipply.pl`.
-- Current local donate template media files are `1-7` for GIFs and audio. Higher amount templates reuse the available local tier-7 media until dedicated `8.*`, `9.*` or `10.*` files are added.
+- Current local donate template media files are template indexes `1-7` for GIFs and audio. Higher amount templates reuse the available local tier-7 media until dedicated template assets are added.
 - Do not move TTS into `public/`.
 - Do not make production frontend logic depend on fake local TTS files.
+
+Reward/roulette item images are stored under `public/assets/images/rewards/`. The resolver keeps backend filename compatibility, so old payload filenames such as `credits_1k.png`, `randomGame.png`, and `multilottery_30k.png` map to canonical local filenames such as `credits-1k.png`, `random-game.png`, and `multi-lottery-30k.png`. Shared event sounds live under `public/assets/sounds/shared/`; reward random sounds under `public/assets/sounds/rewards/random/`; coinflip prepare sounds under `public/assets/sounds/rewards/coinflip/`.
 
 A raw Tipply webhook may be useful as documentation for the backend, but it is upstream backend input, not a frontend WebSocket payload. Do not place raw Tipply webhooks in `src/dev/fixtures` as frontend protocol fixtures.
 

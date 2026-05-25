@@ -58,9 +58,9 @@ const templates: DonateTemplateConfig[] = [
   {
     amount: 50,
     amountWithoutCommission: true,
-    images: [resolveDonationGifUrl("1.gif")],
+    images: [resolveDonationGifUrl(1)],
     sound: {
-      url: resolveDonationAudioUrl("1.mpga"),
+      url: resolveDonationAudioUrl(1),
       volume: 0.4,
     },
     speech: {
@@ -75,9 +75,9 @@ const templates: DonateTemplateConfig[] = [
   {
     amount: 500,
     amountWithoutCommission: true,
-    images: [resolveDonationGifUrl("2.gif")],
+    images: [resolveDonationGifUrl(2)],
     sound: {
-      url: resolveDonationAudioUrl("2.mpga"),
+      url: resolveDonationAudioUrl(2),
       volume: 0.14,
     },
     speech: {
@@ -93,9 +93,9 @@ const templates: DonateTemplateConfig[] = [
   {
     amount: 2500,
     amountWithoutCommission: true,
-    images: [resolveDonationGifUrl("3.gif")],
+    images: [resolveDonationGifUrl(3)],
     sound: {
-      url: resolveDonationAudioUrl("3.mpga"),
+      url: resolveDonationAudioUrl(3),
       volume: 0.3,
     },
     speech: {
@@ -111,9 +111,9 @@ const templates: DonateTemplateConfig[] = [
   {
     amount: 5000,
     amountWithoutCommission: true,
-    images: [resolveDonationGifUrl("4.gif")],
+    images: [resolveDonationGifUrl(4)],
     sound: {
-      url: resolveDonationAudioUrl("4.mpga"),
+      url: resolveDonationAudioUrl(4),
       volume: 0.4,
     },
     speech: {
@@ -130,9 +130,9 @@ const templates: DonateTemplateConfig[] = [
     amount: 10000,
     //amount: 9000,
     amountWithoutCommission: true,
-    images: [resolveDonationGifUrl("5.gif")],
+    images: [resolveDonationGifUrl(5)],
     sound: {
-      url: resolveDonationAudioUrl("5.mp3"),
+      url: resolveDonationAudioUrl(5),
       volume: 0.3,
     },
     speech: {
@@ -148,9 +148,9 @@ const templates: DonateTemplateConfig[] = [
   {
     amount: 15000,
     amountWithoutCommission: true,
-    images: [resolveDonationGifUrl("6.gif")],
+    images: [resolveDonationGifUrl(6)],
     sound: {
-      url: resolveDonationAudioUrl("6.mpga"),
+      url: resolveDonationAudioUrl(6),
       volume: 1,
     },
     speech: {
@@ -166,9 +166,9 @@ const templates: DonateTemplateConfig[] = [
   /*{
         amount: 20000,
         amountWithoutCommission: true,
-        images: [resolveDonationGifUrl("6.gif")],
+        images: [resolveDonationGifUrl(6)],
         sound: {
-            url: resolveDonationAudioUrl("7.mp3"),
+            url: resolveDonationAudioUrl(7),
             volume: 1,
         },
         speech: {
@@ -184,9 +184,9 @@ const templates: DonateTemplateConfig[] = [
   {
     amount: 30000,
     amountWithoutCommission: true,
-    images: [resolveDonationGifUrl("7.gif")],
+    images: [resolveDonationGifUrl(7)],
     sound: {
-      url: resolveDonationAudioUrl("7.mp3"),
+      url: resolveDonationAudioUrl(7),
       volume: 1,
     },
     speech: {
@@ -202,9 +202,9 @@ const templates: DonateTemplateConfig[] = [
   {
     amount: 40000,
     amountWithoutCommission: true,
-    images: [resolveDonationGifUrl("7.gif")],
+    images: [resolveDonationGifUrl(7)],
     sound: {
-      url: resolveDonationAudioUrl("7.mp3"),
+      url: resolveDonationAudioUrl(7),
       volume: 1,
     },
     speech: {
@@ -220,9 +220,9 @@ const templates: DonateTemplateConfig[] = [
   {
     amount: 50000,
     amountWithoutCommission: true,
-    images: [resolveDonationGifUrl("7.gif")],
+    images: [resolveDonationGifUrl(7)],
     sound: {
-      url: resolveDonationAudioUrl("7.mp3"),
+      url: resolveDonationAudioUrl(7),
       volume: 1,
     },
     speech: {

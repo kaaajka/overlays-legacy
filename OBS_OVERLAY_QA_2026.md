@@ -217,3 +217,17 @@ A change is acceptable when:
 - docs are updated if backend/frontend contract assumptions change.
 
 If a future change modifies backend payload shape, route meaning, fixture semantics, or overlay mode filtering, update this QA matrix together with `BACKEND_CONTRACT_SNAPSHOT_2026.md` and `OVERLAY_PROTOCOL.md`.
+
+
+## Runtime asset path checks
+
+During visual QA, confirm that moved runtime assets load from the finalized public structure:
+
+- donation media from `/assets/donations/audio/` and `/assets/donations/gif/`;
+- reward images from `/assets/images/rewards/`;
+- reward random sounds from `/assets/sounds/rewards/random/`;
+- coinflip prepare sounds from `/assets/sounds/rewards/coinflip/`;
+- shared event sounds from `/assets/sounds/shared/`;
+- coinflip images from `/assets/images/coinflip/`.
+
+There should be no runtime requests to `seeklogo.com` or `kajkowo.bdrewnowski.ovh`.
