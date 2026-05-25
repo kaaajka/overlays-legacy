@@ -8,16 +8,27 @@ It is a snapshot of the existing backend/frontend overlay protocol, not a redesi
 
 ## 2. WebSocket channels
 
-The frontend consumes four legacy WebSocket channels derived from `VITE_WS_URL` and the public overlay account UUID. Frontend environment parsing lives in `src/config/env.ts`: `wsUrl` uses `VITE_WS_URL` when present and falls back to `wss://kaaajka.nedi.me/ws` when missing or empty. This fallback is part of the current frontend runtime behavior and should not be changed casually because existing OBS scenes depend on stable overlay URLs.
+The frontend consumes four legacy WebSocket channels derived from `VITE_WS_URL` and the public overlay account UUID. Frontend environment parsing lives in `src/config/env.ts`: `wsUrl` uses `VITE_WS_URL` when present and falls back to `wss://kaaajka.nedi.me/ws` when missing or empty. This fallback is part of the current frontend runtime behavior and should not be changed casually because existing deployments depend on stable WebSocket URL shapes.
 
-| Channel | Frontend component | Current routes | WebSocket URL shape |
-| --- | --- | --- | --- |
-| Main alert overlay NORMAL websocket | `PageChannel` | `/ALERTS/:uuid`, `/channel/:uuid`, `/TIP_ALERT/:uuid`, `/REWARD_ALERT/:uuid` | `VITE_WS_URL?account=:uuid` |
-| Subscriber goal websocket | `PageChannelSubs` | `/channel/:uuid/subs`, `/SUB_GOAL/:uuid` | `VITE_WS_URL/subs?account=:uuid` |
-| Follower goal websocket | `PageChannelFollowers` | `/channel/:uuid/followers`, `/FOLLOW_GOAL/:uuid` | `VITE_WS_URL/followers?account=:uuid` |
-| Queue websocket | `PageChannelQueue` | `/channel/:uuid/queue`, `/QUEUE/:uuid` | `VITE_WS_URL/queue?account=:uuid` |
+| Channel | Frontend component | Current active routes | Normal WebSocket URL | Test-mode WebSocket URL |
+| --- | --- | --- | --- | --- |
+| Main alert overlay NORMAL websocket | `PageChannel` | `/ALERTS/:uuid`, `/TIP_ALERT/:uuid`, `/REWARD_ALERT/:uuid` | `VITE_WS_URL?account=:uuid` | `VITE_WS_URL?account=:uuid&test=true` |
+| Subscriber goal websocket | `PageChannelSubs` | `/SUB_GOAL/:uuid` | `VITE_WS_URL/subs?account=:uuid` | `VITE_WS_URL/subs?account=:uuid&test=true` |
+| Follower goal websocket | `PageChannelFollowers` | `/FOLLOW_GOAL/:uuid` | `VITE_WS_URL/followers?account=:uuid` | `VITE_WS_URL/followers?account=:uuid&test=true` |
+| Queue websocket | `PageChannelQueue` | `/QUEUE/:uuid` | `VITE_WS_URL/queue?account=:uuid` | `VITE_WS_URL/queue?account=:uuid&test=true` |
 
-The uppercase routes are frontend aliases. They do not imply new backend endpoints. `/ALERTS/:uuid` is the recommended modern all-events main overlay route. `/channel/:uuid` is a deprecated legacy alias for the same all-events mode and must remain available for existing OBS/browser sources until migrated. The `:uuid` route parameter is still passed to the backend as `?account=:uuid`.
+`/` renders the Home/link generator page and does not open a WebSocket. Overlay URLs should not be shown publicly.
+
+Removed historical routes are not active and should render `Overlay not found`:
+
+```txt
+/channel/*
+/test/channel/*
+```
+
+The explicit routes do not imply new backend endpoints. The `:uuid` route parameter is still passed to the backend as `?account=:uuid`. Runtime `?test=true` causes the frontend to append `test=true` to the WebSocket URL, but existing legacy backends do not need to read it. Existing backend test commands already emit test-shaped event names and are filtered by the frontend.
+
+Normal mode accepts only normal main event names: `prepare`, `started`, `update`, `finished` and `alertList` where relevant. Test mode accepts only `test`, `t_prepare`, `t_started`, `t_update`, `t_finished`.
 
 ## 3. Main overlay payload shape
 
@@ -95,7 +106,7 @@ The frontend does not consume raw Tipply webhooks. Tipply-derived fields may be 
 
 `/TIP_ALERT/:uuid` currently filters main overlay traffic to donate events only, using `key === "donate"`.
 
-`VITE_APP_ENV` affects only frontend event-name mapping. `src/config/env.ts` parses supported values `prod`, `test` and `dev`; missing or unknown values become `unknown`. Currently only `test` enables the test event mapping in `PageChannel`; `prod`, `dev` and `unknown` use the default/production mapping unless the frontend is deliberately changed later.
+Runtime test/prod overlay mode is selected only by the URL query `?test=true`.
 
 TTS URLs are backend-provided dynamic URLs. Template GIFs, music, sounds and other visual media are frontend-owned local assets.
 

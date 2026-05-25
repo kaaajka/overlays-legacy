@@ -1,12 +1,11 @@
 # Kaaajka legacy overlays frontend - 2026 deploy notes
 
-This project is a legacy OBS overlay frontend migrated from Create React App to Vite. The goal is stable static hosting while preserving compatibility with the old backend.
+This project is a legacy OBS overlay frontend migrated from Create React App to Vite. The goal is stable static hosting while preserving compatibility with the old backend payloads.
 
 ## Stack
 
 - Vite
 - React 17
-- React Router 5
 - MobX + `mobx-react`
 - Sass
 - Node.js 24 LTS
@@ -21,18 +20,10 @@ Use Corepack so the pinned `packageManager` value in `package.json` activates th
 
 ## Runtime contract
 
-The old backend is not changed. Existing OBS URLs remain valid:
+The old backend is not changed. The active frontend route contract is explicit-route only:
 
 ```txt
-/channel/:uuid
-/channel/:uuid/subs
-/channel/:uuid/followers
-/channel/:uuid/queue
-```
-
-New OBS sources should prefer the additive uppercase route aliases:
-
-```txt
+/
 /ALERTS/:uuid
 /TIP_ALERT/:uuid
 /REWARD_ALERT/:uuid
@@ -41,22 +32,85 @@ New OBS sources should prefer the additive uppercase route aliases:
 /QUEUE/:uuid
 ```
 
-Both legacy routes and aliases use the same WebSocket contract and support the same dev fixture query parameters. Main alert routes use one shared `PageChannel` component with route modes:
+`/` renders the Home/link generator page. It does not connect to the backend.
 
-- `/ALERTS/:uuid` is the recommended all-events main overlay URL. It uses `all` mode and accepts all current main overlay events.
-- `/channel/:uuid` is a deprecated legacy alias for all-events mode. Keep it working because old OBS/browser sources may still depend on it.
+Removed historical routes are not supported:
+
+```txt
+/channel/*
+/test/channel/*
+```
+
+Overlay URLs should not be shown publicly.
+
+## Runtime test mode
+
+Use one build only. Test mode is selected at runtime with `?test=true`:
+
+```txt
+/ALERTS/:uuid?test=true
+/TIP_ALERT/:uuid?test=true
+/REWARD_ALERT/:uuid?test=true
+/SUB_GOAL/:uuid?test=true
+/FOLLOW_GOAL/:uuid?test=true
+/QUEUE/:uuid?test=true
+```
+
+The old two-build model is removed. Do not document or reintroduce:
+
+```txt
+build:test
+PUBLIC_URL=/test/
+build-time test route prefix
+/test/channel/*
+```
+
+Normal main overlay mode accepts only:
+
+```txt
+prepare
+started
+update
+finished
+alertList
+```
+
+Runtime test mode accepts only:
+
+```txt
+test
+t_prepare
+t_started
+t_update
+t_finished
+```
+
+Existing legacy backend test commands do not require backend changes because test traffic is identified by event names. The frontend also appends `test=true` to the WebSocket URL for future backend support; existing backends may ignore it.
+
+## Main alert route modes
+
+Main alert routes use one shared `PageChannel` component with route modes:
+
+- `/ALERTS/:uuid` uses `all` mode and accepts all normal alert types.
 - `/TIP_ALERT/:uuid` uses `tip` mode and accepts donate events only (`key === "donate"`).
-- `/REWARD_ALERT/:uuid` uses `reward` mode and accepts reward-like legacy keys: `censure`, `mute`, `withoutR`, `dogs`, `roulette`, and `coinflip`.
+- `/REWARD_ALERT/:uuid` uses `reward` mode and accepts reward-origin events when `origin === "reward"`; without origin metadata it falls back to reward-like legacy keys: `censure`, `mute`, `withoutR`, `dogs`, `roulette`, and `coinflip`.
 
-`/REWARD_ALERT/:uuid` does not create `/ws/rewards` or any separate backend endpoint. Manual `createEvent` events with the same keys may also appear in `REWARD_ALERT`. True reward-origin isolation requires backend origin/source metadata or a dedicated backend channel.
+`/REWARD_ALERT/:uuid` does not create `/ws/rewards` or any separate backend endpoint. Manual `createEvent` events with the same keys may also appear in `REWARD_ALERT` when backend payloads omit origin metadata. True reward-origin isolation requires backend origin/source metadata or a dedicated backend channel.
+
+## WebSocket endpoints
 
 WebSocket endpoints are derived from `VITE_WS_URL`:
 
 ```txt
-main      -> VITE_WS_URL?account=:uuid
-subs      -> VITE_WS_URL/subs?account=:uuid
-followers -> VITE_WS_URL/followers?account=:uuid
-queue     -> VITE_WS_URL/queue?account=:uuid
+normal main      -> VITE_WS_URL?account=:uuid
+normal subs      -> VITE_WS_URL/subs?account=:uuid
+normal followers -> VITE_WS_URL/followers?account=:uuid
+normal queue     -> VITE_WS_URL/queue?account=:uuid
+
+test main        -> VITE_WS_URL?account=:uuid&test=true
+test subs        -> VITE_WS_URL/subs?account=:uuid&test=true
+test followers   -> VITE_WS_URL/followers?account=:uuid&test=true
+test queue       -> VITE_WS_URL/queue?account=:uuid&test=true
 ```
 
 See `OVERLAY_PROTOCOL.md` for payload details.
@@ -75,24 +129,16 @@ pnpm typecheck
 
 ## Environment variables
 
-Frontend environment parsing is centralized in `src/config/env.ts`. The module exposes `appEnv` and `wsUrl` so overlay runtime code does not read Vite env values directly. Env parsing must stay tolerant: a missing or invalid env value should not blank-screen OBS overlays. It should be diagnosable without changing existing overlay URLs.
+Frontend environment parsing is centralized in `src/config/env.ts`. Runtime overlay test/prod mode is selected only by `?test=true` on the overlay URL.
 
 ```env
-VITE_APP_ENV=prod
 VITE_WS_URL=wss://kaaajka.nedi.me/ws
 VITE_DEBUG_LOGS=false
 ```
 
 ### `VITE_WS_URL`
 
-`VITE_WS_URL` is optional. When it is provided, `AppConfig.ws` uses that value to build the legacy overlay websocket URLs:
-
-```txt
-main      -> VITE_WS_URL?account=:uuid
-subs      -> VITE_WS_URL/subs?account=:uuid
-followers -> VITE_WS_URL/followers?account=:uuid
-queue     -> VITE_WS_URL/queue?account=:uuid
-```
+`VITE_WS_URL` is optional. When it is provided, `AppConfig.ws` uses that value to build the legacy overlay websocket URLs.
 
 When `VITE_WS_URL` is missing or empty, the frontend keeps the legacy fallback:
 
@@ -100,19 +146,7 @@ When `VITE_WS_URL` is missing or empty, the frontend keeps the legacy fallback:
 wss://kaaajka.nedi.me/ws
 ```
 
-This fallback is intentional so old OBS overlay URLs do not fail with a blank screen just because an environment variable was omitted during static hosting setup.
-
-### `VITE_APP_ENV`
-
-Supported `VITE_APP_ENV` values are:
-
-```txt
-prod
-test
-dev
-```
-
-Missing or unknown values are parsed as `unknown`. `PageChannel` treats only `appEnv === "test"` as the test event mapping. `prod`, `dev` and `unknown` currently use the default/production event mapping unless the code is intentionally changed later.
+This fallback is intentional so old payload-compatible deployments do not fail with a blank screen just because an environment variable was omitted during static hosting setup.
 
 ### `VITE_DEBUG_LOGS`
 
@@ -178,34 +212,46 @@ pnpm test
 pnpm build
 ```
 
-
-
 Invalid UUID paths should show the small `Overlay not found` screen. Valid-format UUIDs that cannot connect to the legacy backend should show `Overlay unavailable` after repeated WebSocket failures instead of reconnecting aggressively forever.
 
 Manual route check:
 
 ```txt
+/
 /ALERTS/:uuid
-/channel/:uuid
-/channel/:uuid/subs
-/channel/:uuid/followers
-/channel/:uuid/queue
 /TIP_ALERT/:uuid
 /REWARD_ALERT/:uuid
 /SUB_GOAL/:uuid
 /FOLLOW_GOAL/:uuid
 /QUEUE/:uuid
+/ALERTS/:uuid?test=true
+/TIP_ALERT/:uuid?test=true
+/REWARD_ALERT/:uuid?test=true
+/SUB_GOAL/:uuid?test=true
+/FOLLOW_GOAL/:uuid?test=true
+/QUEUE/:uuid?test=true
+```
+
+Removed-route check:
+
+```txt
+/channel/:uuid
+/channel/:uuid/subs
+/channel/:uuid/followers
+/channel/:uuid/queue
+/test/channel/:uuid
 ```
 
 Expected runtime:
 
 - no red runtime errors from the app bundle,
-- WebSocket connects on valid routes,
+- Home page renders the link generator at `/`,
+- WebSocket connects on valid overlay routes,
+- removed routes render `Overlay not found`,
 - debug `console.log` output is hidden unless `VITE_DEBUG_LOGS=true`.
-
 
 ## Runtime routing parser
 
-Runtime overlay routing is now resolved by `src/routing/parseOverlayRoute.ts` in `src/index.tsx` instead of React Router runtime matching. This keeps the legacy `/channel/:uuid` OBS routes and the modern uppercase aliases compatible while sharing one tested parser for UUID validation and route mapping. Use `/ALERTS/:uuid` for new all-events main overlay sources; keep `/channel/:uuid` working as a deprecated legacy alias.
+Runtime overlay routing is resolved by `src/routing/parseOverlayRoute.ts` in `src/index.tsx` instead of React Router runtime matching. The parser accepts `/` as Home, accepts only explicit uppercase overlay routes, rejects `/channel/*` and `/test/channel/*`, validates UUID syntax and exposes `testMode: boolean` only when `?test=true` is present.
 
-React Router dependencies are intentionally still present in `package.json` for this commit; dependency cleanup should happen only after manual OBS validation. Query parameters such as `fixture`, `muteAudio` and `fast` still come from `window.location.search`, so fixture replay behavior is unchanged.
+Query parameters such as `fixture`, `muteAudio` and `fast` still come from `window.location.search`, so fixture replay behavior is unchanged.
