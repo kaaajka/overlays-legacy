@@ -22,8 +22,7 @@ This is the exact asset inventory after the asset architecture finalization pass
 | `public/assets/images/rewards/multi-lottery-30k.png` | public runtime / backend filename mapped | `resolveRewardImageUrl()` maps `multilottery_30k.png` | used dynamically | keep |
 | `public/assets/images/coinflip/head.png` | public runtime / SCSS reference | `src/style/app.scss` | used | keep |
 | `public/assets/images/coinflip/tail.png` | public runtime / SCSS reference | `src/style/app.scss` | used | keep |
-| `public/assets/images/subs/miecioch.png` | public runtime / goal image | `Goal.tsx` / goal CSS behavior | used | move later to `public/assets/images/goals/` if resolver is added |
-| `public/assets/images/donate/dcba4b98efb5425eb46114645dcf706bfbd7aad6.gif` | suspicious historical donation media | historical/backend bundle identifier only | suspicious | keep until separate backend/history verification |
+| `public/assets/images/goals/kaaajk4-love.png` | public runtime / goal image | `Goal.tsx` via `resolveGoalImageUrl("kaaajk4-love")` | used | keep |
 | `public/assets/sounds/rewards/random/random-01.mp3` | public runtime sound | `resolveRewardRandomSoundUrl(1)` | used | keep |
 | `public/assets/sounds/rewards/random/random-02.mp3` | public runtime sound | `resolveRewardRandomSoundUrl(2)` | used | keep |
 | `public/assets/sounds/rewards/random/random-03.mp3` | public runtime sound | `resolveRewardRandomSoundUrl(3)` | used | keep |
@@ -41,7 +40,6 @@ This is the exact asset inventory after the asset architecture finalization pass
 | `public/assets/sounds/rewards/coinflip/coinflip-prepare-04.mp3` | public runtime sound | `resolveCoinflipPrepareSoundUrl(4)` | used | keep |
 | `public/assets/sounds/shared/spinning.mp3` | public runtime shared sound | `resolveSharedEventSoundUrl("spinning")` | used | keep |
 | `public/assets/sounds/shared/win.mp3` | public runtime shared sound | `resolveSharedEventSoundUrl("win")` | used | keep |
-| `public/assets/sounds/donate/500b326786d86a9f10394cf0e7aa29d8706ed06e.mpga` | suspicious historical donation media | historical/backend bundle identifier only | suspicious | keep until separate backend/history verification |
 | `public/assets/donations/audio/donation-template-01.mpga` | public runtime donation audio | `resolveDonationAudioUrl(1)` | used | keep |
 | `public/assets/donations/audio/donation-template-02.mpga` | public runtime donation audio | `resolveDonationAudioUrl(2)` | used | keep |
 | `public/assets/donations/audio/donation-template-03.mpga` | public runtime donation audio | `resolveDonationAudioUrl(3)` | used | keep |
@@ -62,9 +60,15 @@ This is the exact asset inventory after the asset architecture finalization pass
 | `src/assets/images/alerts/dogs-reward-alert.png` | static import asset | `PageChannel.tsx` | used | keep |
 | `src/assets/images/alerts/roulette-alert.webp` | static import asset | `PageChannel.tsx` | used | keep |
 | `src/assets/images/alerts/coinflip-alert.gif` | static import asset | `PageChannel.tsx` | used | keep |
-| `src/assets/images/ui/money.png` | static CSS asset | `src/style/app.scss` | used | keep |
+| `src/assets/images/effects/banknote-particle.png` | static CSS visual effect asset | `src/style/app.scss` | used | keep |
 | `src/assets/resolveOverlayAssetUrl.ts` | source module | imported by components/config/tests | used | keep |
 | `src/assets/resolveOverlayAssetUrl.test.ts` | test module | Vitest | used | keep |
+
+## Static asset folders
+
+- `src/assets/images/alerts/` contains static alert presentation images imported by frontend modules.
+- `src/assets/images/effects/` contains static build-time visual effect particles/assets. `banknote-particle.png` is used by SCSS for the money rain effect and is not a generic UI icon.
+- `public/assets/images/rewards/` contains runtime reward images resolved from backend/fixture payload filenames. The backend does not know frontend files directly; it sends legacy image filename strings, and the frontend resolver maps them to local public assets.
 
 ## Backend filename compatibility mapping
 
@@ -90,17 +94,30 @@ Removed files/directories:
 public/assets/sounds/assist/soundInit.mp3
 src/assets/fonts/donations/*
 src/assets/fonts/pxi*.woff2
+removed hash-named donation gif
+removed hash-named donation sound
+removed hash-named donation image directory
+removed hash-named donation sound directory
+removed old subs-named goal image directory
 ```
 
-No current source, fixture, SCSS/CSS, or active runtime references were found for these files. The Google Fonts remote import is still a separate external dependency decision.
+No current source, fixture, SCSS/CSS, docs, or backend source references were found for these files/paths.
+
+The previous Google Fonts remote import was removed. Poppins is now self-hosted from `public/assets/fonts/poppins/`.
+
+
+## Self-hosted font assets
+
+| Asset path | Category | References | Status | Recommended action |
+|---|---|---|---|---|
+| `public/assets/fonts/poppins/OFL.txt` | public runtime/license asset | License file for bundled Poppins font files | used | keep |
+| `public/assets/fonts/poppins/poppins-regular.ttf` | public runtime font asset | `src/style/app.scss` `@font-face` weight 400 | used | keep |
+| `public/assets/fonts/poppins/poppins-medium.ttf` | public runtime font asset | `src/style/app.scss` `@font-face` weight 500 | used | keep |
+| `public/assets/fonts/poppins/poppins-semibold.ttf` | public runtime font asset | `src/style/app.scss` `@font-face` weight 600 | used | keep |
+| `public/assets/fonts/poppins/poppins-bold.ttf` | public runtime font asset | `src/style/app.scss` `@font-face` weight 700 | used | keep |
+
+Poppins is intentionally stored in `public/` because OBS/browser-source runtime loads font files by URL. Do not move these font files into `src/assets/` unless the styling is changed to use bundler-resolved asset URLs.
 
 ## Do not delete yet
 
-Do not delete these without a separate backend/history verification pass:
-
-```txt
-public/assets/images/donate/dcba4b98efb5425eb46114645dcf706bfbd7aad6.gif
-public/assets/sounds/donate/500b326786d86a9f10394cf0e7aa29d8706ed06e.mpga
-```
-
-They are not used by current source paths, but historical/backend bundle grep found matching identifiers. Keeping them is safer than deleting possible old media references without stronger evidence.
+No hash-named donation leftovers remain. Future deletion candidates must go through the same exact-reference check before removal.

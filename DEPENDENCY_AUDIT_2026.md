@@ -14,7 +14,7 @@ The current dependency list is small and mostly justified. The only suspicious i
 - There is no `typecheck` script even though validation repeatedly requires `pnpm exec tsc --noEmit`.
 - `README_DEPLOY_2026.md` still says Node `22.x`, while `package.json` now declares Node `24.x`.
 - `src/style/app.css` and `src/style/app.css.map` look like generated Sass output committed next to `src/style/app.scss`. Runtime imports `app.scss`, not `app.css`.
-- `src/style/app.scss` still contains external runtime URLs for Google Fonts and two image assets. This is not dependency-manager debt, but it is deployment/OBS reliability debt.
+- External Google Fonts runtime loading has been removed. Poppins is self-hosted under `public/assets/fonts/poppins/`.
 
 Do not upgrade React or MobX yet. That would be a high-risk project, not cleanup.
 
@@ -102,20 +102,27 @@ grep -R "style/app.css\|app.css.map" -n . --exclude-dir=node_modules --exclude-d
 
 If only the files themselves reference the map, remove both in a tiny commit.
 
-### 2. External CSS/font import
+### 2. Self-hosted frontend font assets
 
-`src/style/app.scss` contains:
+`src/style/app.scss` now defines local `@font-face` rules for Poppins weights 400, 500, 600, and 700.
 
-```scss
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;900&family=Permanent+Marker&display=swap');
+Font files live under:
+
+```txt
+public/assets/fonts/poppins/
 ```
 
-Status: runtime external dependency.  
-Risk: medium for OBS reliability, because font loading depends on network and CSP/deployment environment.
+Status: resolved OBS runtime dependency.  
+Risk: low-medium visual risk, because font files are local but typography should still be checked in OBS/browser-source previews after the change.
 
-The previous unreferenced local font files under `src/assets/fonts` were removed during the asset architecture cleanup. A future self-hosted font pass should add explicitly verified font files and `@font-face` declarations if visual parity is acceptable.
+The overlay should not request:
 
-Do not do this casually. Font changes can shift overlay layout and break OBS composition.
+```txt
+fonts.googleapis.com
+fonts.gstatic.com
+```
+
+If the old decorative `Permanent Marker` visual style must be preserved exactly, add a verified self-hosted font in a separate commit. Do not reintroduce Google Fonts.
 
 ### 3. External image URLs in SCSS
 
@@ -129,17 +136,17 @@ public/assets/images/coinflip/tail.png
 Status: resolved for coinflip images.  
 Risk: low, assuming the public assets are deployed with the overlay bundle.
 
-One of these appears to have a local equivalent:
+The former the old subs-named goal image goal image has been renamed and moved to:
 
 ```txt
-public/assets/images/subs/miecioch.png
+public/assets/images/goals/kaaajk4-love.png
 ```
 
-Recommended future action:
+Current status:
 
-- Replace the `kajkowo.../miecioch.png` URL with a local `AppConfig.assetUrl` equivalent or CSS-safe local public path.
-- Download or replace the eagle/orzel image with a local asset if that visual is still required.
-- Test the coinflip visual in OBS after the change.
+- Coinflip images are local public runtime assets.
+- Goal image is a local public runtime asset resolved by `resolveGoalImageUrl("kaaajk4-love")`.
+- Test coinflip and goal visuals in OBS after deploy.
 
 ### 4. `prettier` without scripts
 
@@ -237,8 +244,7 @@ These should not be localized as frontend assets:
 
 These are frontend-owned presentation assets or style dependencies and should not rely on third-party runtime availability if we want OBS-grade reliability:
 
-- Google Fonts import in `src/style/app.scss`
-- Google Fonts import in `src/style/app.scss`
+- Self-hosted Poppins font files in `public/assets/fonts/poppins/` are now used instead of Google Fonts.
 
 Donate template GIF/audio is local under:
 
@@ -393,11 +399,11 @@ Replace external image URLs in `src/style/app.scss` with local public assets.
 Risk: medium.  
 Runtime impact: visual, especially coinflip.
 
-### Step 5 - Localize Google Fonts or accept the external dependency deliberately
+### Step 5 - Verify self-hosted Poppins rendering
 
-Replace Google Fonts import with local `@font-face` only after visual comparison.
+Google Fonts runtime loading has been removed and Poppins is self-hosted. Keep a visual QA step for text layout in OBS/browser-source previews.
 
-Risk: medium-high.  
+Risk: low-medium.  
 Runtime impact: text layout and OBS visual composition.
 
 ### Step 6 - Consider Biome only after the above
@@ -432,3 +438,10 @@ pnpm exec tsc --noEmit
 ```
 
 In this execution environment, `pnpm` was not available, so validation must be run locally.
+
+
+## Asset architecture note
+
+- `src/assets/images/alerts/` contains static alert presentation images imported by frontend modules.
+- `src/assets/images/effects/` contains static build-time visual effect particles/assets, such as `banknote-particle.png` used by SCSS for the money rain effect.
+- `public/assets/images/rewards/` contains runtime reward images resolved from backend/fixture payload filenames. The backend does not know frontend files directly; it sends legacy image filename strings, and the frontend resolver maps them to local public assets.

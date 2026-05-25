@@ -25,8 +25,10 @@ public/assets/donations/audio/
 public/assets/donations/gif/
 
 src/assets/images/alerts/
-src/assets/images/ui/
+src/assets/images/effects/
 ```
+
+`src/assets/images/alerts/` contains static alert presentation images imported by frontend modules. `src/assets/images/effects/` contains static build-time visual effect particles/assets such as the banknote particle used by the money rain effect. Public reward images stay under `public/assets/images/rewards/` because backend/fixture payloads provide legacy image filename strings and the frontend resolver maps those strings to local public assets.
 
 ## Static import / bundled assets
 
@@ -40,7 +42,7 @@ These are owned by frontend source modules and should stay under `src/assets/`.
 | `src/assets/images/alerts/dogs-reward-alert.png` | `PageChannel` alert image for `dogs` | used |
 | `src/assets/images/alerts/roulette-alert.webp` | `PageChannel` alert image for `roulette` | used |
 | `src/assets/images/alerts/coinflip-alert.gif` | `PageChannel` alert image for `coinflip` | used |
-| `src/assets/images/ui/money.png` | SCSS decorative UI/background asset | used |
+| `src/assets/images/effects/banknote-particle.png` | SCSS decorative banknote particle for money rain visual effect | used |
 
 Previous non-semantic static import names were replaced:
 
@@ -110,7 +112,13 @@ The previous external runtime dependencies from `seeklogo.com` and `kajkowo.bdre
 
 ### Goal images
 
-`public/assets/images/subs/miecioch.png` is still used by the goal overlay. It has not been moved yet because the current target structure reserves `public/assets/images/goals/` for a later goal asset pass.
+Goal overlay artwork now lives in:
+
+```txt
+public/assets/images/goals/kaaajk4-love.png
+```
+
+The display/content label is `kaaajk4Love`, but the filename is intentionally kebab-case. `Goal.tsx` resolves this file through `resolveGoalImageUrl("kaaajk4-love")`, so the old misleading subs-named goal image path is gone.
 
 ### Reward sounds
 
@@ -171,6 +179,7 @@ Current exported helpers:
 resolvePublicAssetUrl(path)
 resolveRewardImageUrl(filename)
 resolveCoinflipImageUrl(side)
+resolveGoalImageUrl(name)
 resolveRewardRandomSoundUrl(index)
 resolveCoinflipPrepareSoundUrl(index)
 resolveSharedEventSoundUrl(name)
@@ -190,23 +199,28 @@ src/assets/fonts/donations/*
 src/assets/fonts/pxi*.woff2
 ```
 
-## Kept despite being suspicious
+## Removed final leftovers
 
-The following files are not active in current frontend source paths, but they were kept because historical/backend bundle grep showed matching old media identifiers. Removing them safely requires a separate backend/history verification pass:
+The old hash-named donation leftovers were removed after exact-reference checks found no active runtime/code references in frontend source, fixtures, SCSS/CSS, docs, or backend source:
 
 ```txt
-public/assets/images/donate/dcba4b98efb5425eb46114645dcf706bfbd7aad6.gif
-public/assets/sounds/donate/500b326786d86a9f10394cf0e7aa29d8706ed06e.mpga
+removed hash-named donation gif
+removed hash-named donation sound
 ```
 
-They are not part of the recommended current asset architecture, but keeping them is safer than deleting possible historical runtime media without stronger evidence.
+The empty hash-named donation media directories and the old misleading subs-named goal directory were removed.
 
 ## Remaining external runtime dependencies
 
-Active coinflip external image dependencies were resolved. The remaining known external dependency is the Google Fonts import in SCSS. Replacing it with self-hosted fonts should be a separate visual QA task.
+Active coinflip external image dependencies were resolved. The Google Fonts runtime import was removed and Poppins is now self-hosted under:
+
+```txt
+public/assets/fonts/poppins/
+```
+
+The overlay should no longer request `fonts.googleapis.com` or `fonts.gstatic.com` for Poppins.
 
 ## Next cleanup candidates
 
-1. Decide whether `public/assets/images/subs/miecioch.png` should move to `public/assets/images/goals/` with a resolver.
-2. Replace remote Google Fonts with verified self-hosted fonts if typography must be OBS-offline-safe.
-3. Investigate and either document or delete the two kept historical donate media files after backend/history verification.
+1. Continue visual QA for goal, donation, roulette, coinflip, and font rendering after asset path changes.
+2. If the decorative `Permanent Marker` look must be preserved exactly, add a separately verified local font asset in a dedicated follow-up. Do not reintroduce Google Fonts.
