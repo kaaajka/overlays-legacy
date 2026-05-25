@@ -1,6 +1,4 @@
-import { observer } from "mobx-react";
-import React from "react";
-import { action, makeObservable, observable, runInAction } from "mobx";
+import { useEffect, useRef, useState } from "react";
 import type { RouterCompatProps } from "../routing/routerCompat";
 
 import { OverlayUnavailable } from "./OverlayUnavailable";
@@ -22,139 +20,134 @@ type PageChannelChildProps = RouterCompatProps & {
   testMode?: boolean;
 };
 
-@observer
-export class PageChannelQueue extends React.Component<PageChannelChildProps> {
-  connecting: boolean = true;
-  connectionFailed: boolean = false;
-  queue: QueueEventModel[] = [];
+export function PageChannelQueue(props: PageChannelChildProps) {
+  const [connecting, setConnecting] = useState(true);
+  const [connectionFailed, setConnectionFailed] = useState(false);
+  const [queue, setQueue] = useState<QueueEventModel[]>([]);
+  const socketRef = useRef<LegacyOverlaySocketController>();
 
-  private socket?: LegacyOverlaySocketController;
+  const testMode = props.testMode === true;
+  const {
+    match: {
+      params: { id: accountKey },
+    },
+  } = props;
 
-  constructor(props: PageChannelChildProps) {
-    super(props);
+  useEffect(() => {
+    let isActive = true;
 
-    makeObservable(this, {
-      connecting: observable,
-      connectionFailed: observable,
-      queue: observable,
+    const setConnectingSafely = (state: boolean) => {
+      if (isActive) {
+        setConnecting((current) => (current === state ? current : state));
+      }
+    };
 
-      setConnecting: action,
-      setConnectionFailed: action,
-    });
-  }
+    const setConnectionFailedSafely = (state: boolean) => {
+      if (isActive) {
+        setConnectionFailed((current) => (current === state ? current : state));
+      }
+    };
 
-  componentDidMount() {
-    this.closeConnection();
+    const setQueueSafely = (
+      updater:
+        | QueueEventModel[]
+        | ((current: QueueEventModel[]) => QueueEventModel[]),
+    ) => {
+      if (isActive) {
+        setQueue(updater);
+      }
+    };
+
+    const closeConnection = () => {
+      socketRef.current?.disconnect();
+      socketRef.current = undefined;
+    };
+
+    const handleLegacyMessage = (payload: unknown) => {
+      const json = payload;
+      if (!isLegacyQueueMessage(json)) {
+        debugLog("Ignored unknown legacy queue websocket payload", json);
+        return;
+      }
+
+      if (json.key === "set") {
+        setQueueSafely(json.args.list.map((el) => new QueueEventModel(el)));
+      } else if (json.key === "add") {
+        setQueueSafely((current) => {
+          const existingEvent = current.find((e) => e.id === json.args.id);
+          if (existingEvent) return current;
+
+          return [...current, new QueueEventModel(json.args)];
+        });
+      } else if (json.key === "delete") {
+        setQueueSafely((current) => {
+          const index = current.findIndex((e) => e.id === json.args.id);
+          if (index === -1) return current;
+
+          return current.filter((_event, eventIndex) => eventIndex !== index);
+        });
+      }
+    };
 
     const didReplayFixture = replayRequestedLegacyFixture((payload) =>
-      this.handleLegacyMessage(payload),
+      handleLegacyMessage(payload),
     );
     if (didReplayFixture) {
-      this.setConnecting(false);
-      return;
+      setConnectingSafely(false);
+      return () => {
+        isActive = false;
+        cleanupFixtureAudioUnlockPrompt();
+        closeConnection();
+      };
     }
 
-    this.createConnection(this.accountKey);
-  }
-
-  componentWillUnmount() {
-    cleanupFixtureAudioUnlockPrompt();
-    this.closeConnection();
-  }
-
-  render() {
-    if (this.connectionFailed) return <OverlayUnavailable />;
-
-    const canDraw = !this.connecting && this.queue.length > 1;
-
-    const queueItems = this.queue.slice(1).map((item) => (
-      <li key={item.id} className={"queueItem"}>
-        {item.username} - {item.name}
-      </li>
-    ));
-
-    return (
-      <div className={"queue"}>
-        {!!this.connecting && <h1>Łączenie...</h1>}
-        {canDraw && (
-          <>
-            <h1 className={"queueString"}>Kolejka:</h1>
-            <ol className={"queueList"}>{queueItems}</ol>
-          </>
-        )}
-      </div>
-    );
-  }
-
-  setConnecting(state: boolean) {
-    if (this.connecting !== state) this.connecting = state;
-  }
-
-  setConnectionFailed(state: boolean) {
-    if (this.connectionFailed !== state) this.connectionFailed = state;
-  }
-
-  private closeConnection() {
-    this.socket?.disconnect();
-    this.socket = undefined;
-  }
-
-  private createConnection(accountKey: string) {
-    this.socket = createLegacyOverlaySocket({
-      url: buildQueueOverlaySocketUrl(AppConfig.ws, accountKey, this.testMode),
+    socketRef.current = createLegacyOverlaySocket({
+      url: buildQueueOverlaySocketUrl(AppConfig.ws, accountKey, testMode),
       label: "queue",
       onOpen: () => {
-        this.setConnectionFailed(false);
-        if (this.connecting) this.setConnecting(false);
+        setConnectionFailedSafely(false);
+        setConnectingSafely(false);
       },
       onClose: () => {
-        runInAction(() => {
-          this.queue = [];
-        });
+        setQueueSafely([]);
       },
       onMessage: (data) => {
-        this.handleLegacyMessage(safeJsonParse(data));
+        handleLegacyMessage(safeJsonParse(data));
       },
       onFailure: () => {
-        this.setConnecting(false);
-        this.setConnectionFailed(true);
+        setConnectingSafely(false);
+        setConnectionFailedSafely(true);
       },
     });
 
-    this.socket.connect();
-  }
+    socketRef.current.connect();
 
-  private handleLegacyMessage(payload: unknown) {
-    const json = payload;
-    if (!isLegacyQueueMessage(json)) {
-      debugLog("Ignored unknown legacy queue websocket payload", json);
-      return;
-    }
+    return () => {
+      isActive = false;
+      cleanupFixtureAudioUnlockPrompt();
+      closeConnection();
+    };
+  }, [accountKey, testMode]);
 
-    runInAction(() => {
-      if (json.key === "set") {
-        this.queue = json.args.list.map((el) => new QueueEventModel(el));
-      } else if (json.key === "add") {
-        const existingEvent = this.queue.find((e) => e.id === json.args.id);
-        if (!existingEvent) this.queue.push(new QueueEventModel(json.args));
-      } else if (json.key === "delete") {
-        const index = this.queue.findIndex((e) => e.id === json.args.id);
-        if (index > -1) this.queue.splice(index, 1);
-      }
-    });
-  }
+  if (connectionFailed) return <OverlayUnavailable />;
 
-  get testMode(): boolean {
-    return this.props.testMode === true;
-  }
+  const canDraw = !connecting && queue.length > 1;
 
-  get accountKey(): string {
-    const {
-      match: {
-        params: { id },
-      },
-    } = this.props;
+  const queueItems = queue.slice(1).map((item) => (
+    <li key={item.id} className={"queueItem"}>
+      {item.username} - {item.name}
+    </li>
+  ));
 
-    return id;
-  }
+  return (
+    <div className={"queue"}>
+      {!!connecting && <h1>Łączenie...</h1>}
+      {canDraw && (
+        <>
+          <h1 className={"queueString"}>Kolejka:</h1>
+          <ol className={"queueList"}>{queueItems}</ol>
+        </>
+      )}
+    </div>
+  );
 }
