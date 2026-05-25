@@ -9,7 +9,15 @@ This project is a legacy OBS overlay frontend migrated from Create React App to 
 - React Router 5
 - MobX + `mobx-react`
 - Sass
+- Node.js 24 LTS
 - pnpm 10.17.1
+
+## Runtime
+
+- Node.js 24 LTS
+- pnpm 10.17.1
+
+Use Corepack so the pinned `packageManager` value in `package.json` activates the expected pnpm version. Local shells and deployment providers should use `.nvmrc` / `.node-version` and the `engines.node` field as the Node 24 source of truth.
 
 ## Runtime contract
 
@@ -62,7 +70,7 @@ pnpm install
 pnpm run dev
 pnpm run build
 pnpm run preview
-pnpm exec tsc --noEmit
+pnpm typecheck
 ```
 
 ## Environment variables
@@ -120,7 +128,7 @@ Expected settings:
 - Build command: `pnpm run build`
 - Output directory: `dist`
 
-The package currently pins Node to `22.x` for stable legacy deployment. Move to Node 24 only through a separate verified PR.
+The package pins Node to `24.x`; Vercel should use Node.js 24 LTS and pnpm 10.17.1 through Corepack.
 
 ## Netlify
 
@@ -128,6 +136,13 @@ Build command:
 
 ```txt
 pnpm run build
+```
+
+Runtime:
+
+```txt
+Node.js 24 LTS
+pnpm 10.17.1
 ```
 
 Publish directory:
@@ -157,8 +172,10 @@ Do commit:
 
 ```bash
 pnpm install
-pnpm run build
-pnpm exec tsc --noEmit
+pnpm lint
+pnpm typecheck
+pnpm test
+pnpm build
 ```
 
 

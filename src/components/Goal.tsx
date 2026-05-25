@@ -22,6 +22,7 @@ export default class Goal extends React.Component<IGoalProps> {
 
   private resizeTimeout?: ReturnType<typeof setTimeout>;
   private savedPixels?: Uint8ClampedArray;
+  private isMounted = false;
 
   private disposeCurrentReaction?: IReactionDisposer;
   private disposeGoalReaction?: IReactionDisposer;
@@ -59,12 +60,15 @@ export default class Goal extends React.Component<IGoalProps> {
   }
 
   componentDidMount() {
+    this.isMounted = true;
     this.setup();
 
     window.addEventListener("resize", this.onResize);
   }
 
   componentWillUnmount() {
+    this.isMounted = false;
+
     this.disposeCurrentReaction?.();
     this.disposeCurrentReaction = undefined;
     this.disposeGoalReaction?.();
@@ -76,6 +80,7 @@ export default class Goal extends React.Component<IGoalProps> {
     }
 
     this.savedPixels = undefined;
+    this.backgroundImage.onload = null;
 
     window.removeEventListener("resize", this.onResize);
   }
@@ -98,6 +103,8 @@ export default class Goal extends React.Component<IGoalProps> {
   }
 
   private setup() {
+    if (!this.isMounted) return;
+
     const windowWidth = window.innerWidth;
     const windowHeight = window.innerHeight;
 
@@ -125,6 +132,8 @@ export default class Goal extends React.Component<IGoalProps> {
     else {
       this.backgroundImage.src = resolveGoalImageUrl("kaaajk4-love");
       this.backgroundImage.onload = () => {
+        if (!this.isMounted) return;
+
         this.backgroundLoaded = true;
         this.draw();
       };
@@ -132,7 +141,7 @@ export default class Goal extends React.Component<IGoalProps> {
   }
 
   private draw() {
-    if (!this.canvasContext) return;
+    if (!this.isMounted || !this.canvasContext || !this.centerPosition) return;
 
     this.canvasContext.clearRect(0, 0, this.canvasSize, this.canvasSize);
 
@@ -218,6 +227,8 @@ export default class Goal extends React.Component<IGoalProps> {
   }
 
   private drawProgress() {
+    if (!this.canvasContext || !this.centerPosition) return;
+
     const th1 = -90 * (Math.PI / 180);
     const th2 = (this.goalPercentage * 360 - 90) * (Math.PI / 180);
     const d1 = Goal.applyAngle(this.centerPosition, th1, this.canvasSize / 2);
@@ -256,6 +267,7 @@ export default class Goal extends React.Component<IGoalProps> {
     if (this.resizeTimeout) clearTimeout(this.resizeTimeout);
 
     this.resizeTimeout = setTimeout(() => {
+      this.resizeTimeout = undefined;
       this.setup();
     }, 100);
   };
