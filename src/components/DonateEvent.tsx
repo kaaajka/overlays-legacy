@@ -18,7 +18,7 @@ export default class DonateEvent extends React.Component<
 > {
   private isMounted = false;
   private sequenceId = 0;
-  private activeTimeouts = new Set<number>();
+  private activeTimeouts = new Map<number, () => void>();
   private audioAbortController: AbortController | null = null;
 
   constructor(props) {
@@ -155,17 +155,14 @@ export default class DonateEvent extends React.Component<
     onFinished?.();
   }
 
-  private sleep(sequenceId: number, ms: number): Promise<void> {
+  private sleep(_sequenceId: number, ms: number): Promise<void> {
     return new Promise((resolve) => {
       const timeout = window.setTimeout(() => {
         this.activeTimeouts.delete(timeout);
-
-        if (this.isCurrentSequence(sequenceId)) {
-          resolve();
-        }
+        resolve();
       }, ms);
 
-      this.activeTimeouts.add(timeout);
+      this.activeTimeouts.set(timeout, resolve);
     });
   }
 
@@ -179,8 +176,9 @@ export default class DonateEvent extends React.Component<
   }
 
   private clearActiveTimeouts() {
-    this.activeTimeouts.forEach((timeout) => {
+    this.activeTimeouts.forEach((resolve, timeout) => {
       window.clearTimeout(timeout);
+      resolve();
     });
 
     this.activeTimeouts.clear();
