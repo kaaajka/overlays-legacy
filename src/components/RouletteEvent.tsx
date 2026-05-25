@@ -6,6 +6,7 @@ import type { IReactionDisposer } from "mobx";
 import type { RouletteEventModel } from "../models/RouletteEvent";
 import { EventState } from "../models/Event";
 import { AppConfig } from "../config";
+import { resolveRouletteImageUrl } from "../assets/resolveOverlayAssetUrl";
 import { playOverlayAudio } from "../audio/playOverlayAudio";
 
 type RollAnimation = {
@@ -132,7 +133,7 @@ export default class RouletteEvent extends React.Component<IRouletteEventProps> 
             data-start={item.start}
             data-end={item.end}
             style={{
-              backgroundImage: `url(${AppConfig.assetUrl(`/assets/images/roulette/${item.image}`)})`,
+              backgroundImage: `url(${resolveRouletteImageUrl(item.image)})`,
             }}
             key={`reward_${index++}`}
             title={item.name}
@@ -144,7 +145,7 @@ export default class RouletteEvent extends React.Component<IRouletteEventProps> 
             data-start={item.start}
             data-end={item.end}
             style={{
-              backgroundImage: `url(${AppConfig.assetUrl(`/assets/images/roulette/${item.image}`)})`,
+              backgroundImage: `url(${resolveRouletteImageUrl(item.image)})`,
             }}
             key={`reward_${index++}`}
             title={item.name}

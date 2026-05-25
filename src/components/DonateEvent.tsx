@@ -2,9 +2,12 @@ import React from "react";
 import { observer } from "mobx-react";
 
 import type { DonateEventModel } from "../models/DonateEvent";
-import { AppConfig } from "../config";
 import { debugLog } from "../debug";
 import { resolveBackendAudioUrl } from "../audio/resolveBackendAudioUrl";
+import {
+  resolveDonationAudioUrl,
+  resolveDonationGifUrl,
+} from "../assets/resolveOverlayAssetUrl";
 import {
   getMutedFixtureAudioDelayMs,
   isDevFixtureAudioMuted,
@@ -55,9 +58,9 @@ const templates: DonateTemplateConfig[] = [
   {
     amount: 50,
     amountWithoutCommission: true,
-    images: [AppConfig.assetUrl("/media/gif/1.gif")],
+    images: [resolveDonationGifUrl("1.gif")],
     sound: {
-      url: AppConfig.assetUrl("/media/audio/1.mpga"),
+      url: resolveDonationAudioUrl("1.mpga"),
       volume: 0.4,
     },
     speech: {
@@ -72,9 +75,9 @@ const templates: DonateTemplateConfig[] = [
   {
     amount: 500,
     amountWithoutCommission: true,
-    images: [AppConfig.assetUrl("/media/gif/2.gif")],
+    images: [resolveDonationGifUrl("2.gif")],
     sound: {
-      url: AppConfig.assetUrl("/media/audio/2.mpga"),
+      url: resolveDonationAudioUrl("2.mpga"),
       volume: 0.14,
     },
     speech: {
@@ -90,9 +93,9 @@ const templates: DonateTemplateConfig[] = [
   {
     amount: 2500,
     amountWithoutCommission: true,
-    images: [AppConfig.assetUrl("/media/gif/3.gif")],
+    images: [resolveDonationGifUrl("3.gif")],
     sound: {
-      url: AppConfig.assetUrl("/media/audio/3.mpga"),
+      url: resolveDonationAudioUrl("3.mpga"),
       volume: 0.3,
     },
     speech: {
@@ -108,9 +111,9 @@ const templates: DonateTemplateConfig[] = [
   {
     amount: 5000,
     amountWithoutCommission: true,
-    images: [AppConfig.assetUrl("/media/gif/4.gif")],
+    images: [resolveDonationGifUrl("4.gif")],
     sound: {
-      url: AppConfig.assetUrl("/media/audio/4.mpga"),
+      url: resolveDonationAudioUrl("4.mpga"),
       volume: 0.4,
     },
     speech: {
@@ -127,9 +130,9 @@ const templates: DonateTemplateConfig[] = [
     amount: 10000,
     //amount: 9000,
     amountWithoutCommission: true,
-    images: [AppConfig.assetUrl("/media/gif/5.gif")],
+    images: [resolveDonationGifUrl("5.gif")],
     sound: {
-      url: AppConfig.assetUrl("/media/audio/5.mp3"),
+      url: resolveDonationAudioUrl("5.mp3"),
       volume: 0.3,
     },
     speech: {
@@ -145,9 +148,9 @@ const templates: DonateTemplateConfig[] = [
   {
     amount: 15000,
     amountWithoutCommission: true,
-    images: [AppConfig.assetUrl("/media/gif/6.gif")],
+    images: [resolveDonationGifUrl("6.gif")],
     sound: {
-      url: AppConfig.assetUrl("/media/audio/6.mpga"),
+      url: resolveDonationAudioUrl("6.mpga"),
       volume: 1,
     },
     speech: {
@@ -163,9 +166,9 @@ const templates: DonateTemplateConfig[] = [
   /*{
         amount: 20000,
         amountWithoutCommission: true,
-        images: [AppConfig.assetUrl("/media/gif/6.gif")],
+        images: [resolveDonationGifUrl("6.gif")],
         sound: {
-            url: AppConfig.assetUrl("/media/audio/7.mp3"),
+            url: resolveDonationAudioUrl("7.mp3"),
             volume: 1,
         },
         speech: {
@@ -181,9 +184,9 @@ const templates: DonateTemplateConfig[] = [
   {
     amount: 30000,
     amountWithoutCommission: true,
-    images: [AppConfig.assetUrl("/media/gif/7.gif")],
+    images: [resolveDonationGifUrl("7.gif")],
     sound: {
-      url: AppConfig.assetUrl("/media/audio/7.mp3"),
+      url: resolveDonationAudioUrl("7.mp3"),
       volume: 1,
     },
     speech: {
@@ -199,9 +202,9 @@ const templates: DonateTemplateConfig[] = [
   {
     amount: 40000,
     amountWithoutCommission: true,
-    images: [AppConfig.assetUrl("/media/gif/7.gif")],
+    images: [resolveDonationGifUrl("7.gif")],
     sound: {
-      url: AppConfig.assetUrl("/media/audio/7.mp3"),
+      url: resolveDonationAudioUrl("7.mp3"),
       volume: 1,
     },
     speech: {
@@ -217,9 +220,9 @@ const templates: DonateTemplateConfig[] = [
   {
     amount: 50000,
     amountWithoutCommission: true,
-    images: [AppConfig.assetUrl("/media/gif/7.gif")],
+    images: [resolveDonationGifUrl("7.gif")],
     sound: {
-      url: AppConfig.assetUrl("/media/audio/7.mp3"),
+      url: resolveDonationAudioUrl("7.mp3"),
       volume: 1,
     },
     speech: {
