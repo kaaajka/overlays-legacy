@@ -1,7 +1,6 @@
-import React from "react";
+import { createRef, useEffect, useRef, useState } from "react";
+import type { RefObject } from "react";
 import { observer } from "mobx-react";
-import { action, makeObservable, observable, reaction } from "mobx";
-import type { IReactionDisposer } from "mobx";
 
 import type { CoinflipEventModel } from "../models/CoinflipEvent";
 import { EventState } from "../models/Event";
@@ -13,127 +12,126 @@ const timeoutTimes: { spin: number; hideSegmentImage: number } = {
   hideSegmentImage: (2 + 7 + 0.5 + 4 + 1.5) * 1000,
 };
 
-@observer
-export default class CoinflipEvent extends React.Component<ICoinflipEventProps> {
-  private readonly spinningSoundUrl = resolveSharedEventSoundUrl("spinning");
+const segmentItems = [...new Array(100)].map((_, index) => ({
+  index,
+  key: `segment_${index}`,
+}));
 
-  private segmentRefs: React.RefObject<HTMLDivElement>[] = [...new Array(100)].map(() =>
-    React.createRef(),
+const CoinflipEvent = ({ event, images }: ICoinflipEventProps) => {
+  const [hideSegmentImage, setHideSegmentImage] = useState(false);
+  const spinningSoundUrl = useRef(resolveSharedEventSoundUrl("spinning"));
+  const segmentRefs = useRef<RefObject<HTMLDivElement>[]>(
+    [...new Array(100)].map(() => createRef<HTMLDivElement>()),
   );
-  private timeouts: {
-    spin?: ReturnType<typeof setTimeout>;
-    hideSegmentImage?: ReturnType<typeof setTimeout>;
-  } = {};
-  private disposeWinnerReaction?: IReactionDisposer;
+  const spinTimeout = useRef<ReturnType<typeof setTimeout>>();
+  const hideSegmentImageTimeout = useRef<ReturnType<typeof setTimeout>>();
 
-  hideSegmentImage: boolean = false;
+  useEffect(() => {
+    if (spinTimeout.current) clearTimeout(spinTimeout.current);
+    if (hideSegmentImageTimeout.current)
+      clearTimeout(hideSegmentImageTimeout.current);
 
-  constructor(props: ICoinflipEventProps) {
-    super(props);
+    if (typeof event.winner !== "number") return;
 
-    this.disposeWinnerReaction = reaction(
-      () => this.props.event.winner,
-      (winner) => {
-        if (typeof winner === "number") {
-          if (this.timeouts.spin) clearTimeout(this.timeouts.spin);
-          if (this.timeouts.hideSegmentImage) clearTimeout(this.timeouts.hideSegmentImage);
+    setHideSegmentImage(false);
 
-          this.timeouts.spin = setTimeout(() => {
-            playOverlayAudio({
-              url: this.spinningSoundUrl,
-              volume: 0.5,
-              label: "Coinflip spinning sound",
-              mutedFixtureAudioKind: "template",
-            });
-          }, timeoutTimes.spin);
+    spinTimeout.current = setTimeout(() => {
+      playOverlayAudio({
+        url: spinningSoundUrl.current,
+        volume: 0.5,
+        label: "Coinflip spinning sound",
+        mutedFixtureAudioKind: "template",
+      });
+    }, timeoutTimes.spin);
 
-          this.timeouts.hideSegmentImage = setTimeout(() => {
-            this.setHideSegmentImage(true);
-          }, timeoutTimes.hideSegmentImage);
-        }
-      },
-    );
+    hideSegmentImageTimeout.current = setTimeout(() => {
+      setHideSegmentImage(true);
+    }, timeoutTimes.hideSegmentImage);
 
-    makeObservable(this, {
-      hideSegmentImage: observable,
-      setHideSegmentImage: action,
-    });
-  }
+    return () => {
+      if (spinTimeout.current) clearTimeout(spinTimeout.current);
+      if (hideSegmentImageTimeout.current)
+        clearTimeout(hideSegmentImageTimeout.current);
+    };
+  }, [event.winner]);
 
-  componentWillUnmount() {
-    this.disposeWinnerReaction?.();
-    this.disposeWinnerReaction = undefined;
+  useEffect(
+    () => () => {
+      if (spinTimeout.current) clearTimeout(spinTimeout.current);
+      if (hideSegmentImageTimeout.current)
+        clearTimeout(hideSegmentImageTimeout.current);
+    },
+    [],
+  );
 
-    if (this.timeouts.spin) clearTimeout(this.timeouts.spin);
-    if (this.timeouts.hideSegmentImage) clearTimeout(this.timeouts.hideSegmentImage);
-  }
-
-  render() {
-    const { event, images } = this.props;
-
-    if (event.state === EventState.PREPARE) {
-      return (
-        <div className={"event center"}>
-          {Object.hasOwn(images, event.key) && (
-            <div className={"image"}>
-              <img src={images[event.key]} alt={""} />
-            </div>
-          )}
-          <div className={"desc"}>{event.description}</div>
-        </div>
-      );
-    }
-
-    const coinLandingSide = this.props.event.coin_landing_side === 1 ? "head" : "tail";
-
-    const rouletteClassNames = ["roulette", `chosen-segment-${this.props.event.winner}`];
-    const notChosenSegmentClassNames = ["segment", "not-chosen"];
-    const coinClassNames = ["coin", `land-${coinLandingSide}`];
-    const coinFrontClassNames = ["front"];
-
-    if (this.hideSegmentImage) coinFrontClassNames.push("show-head-image");
-    if (this.props.event.coin_chosen_side) {
-      const coinChosenSide = this.props.event.coin_chosen_side === 1 ? "head" : "tail";
-      rouletteClassNames.push("chosen-side");
-      coinClassNames.push(`chosen-${coinChosenSide}`);
-    }
-
+  if (event.state === EventState.PREPARE) {
     return (
-      <div className={"event coinflip"}>
-        <div className={rouletteClassNames.join(" ")}>
-          {[...new Array(100)].map((_, i) => {
-            if (this.props.event.winner === i) {
-              return (
-                // biome-ignore lint/suspicious/noArrayIndexKey: Fixed decorative animation list, not dynamic user data.
-                <div key={`segment_${i}`} className={"segment chosen"} ref={this.segmentRefs[i]}>
-                  <div className={"inner"}>
-                    <div className={coinClassNames.join(" ")}>
-                      <div className={coinFrontClassNames.join(" ")}>
-                        {!this.hideSegmentImage && <p>{event.segments[i]?.name ?? ""}</p>}
-                      </div>
-                      <div className={"thick"}></div>
-                      <div className={"back"}></div>
-                    </div>
-                  </div>
-                </div>
-              );
-            }
-            return (
-              // biome-ignore lint/suspicious/noArrayIndexKey: Fixed decorative animation list, not dynamic user data.
-              <div key={`segment_${i}`} className={notChosenSegmentClassNames.join(" ")} ref={this.segmentRefs[i]}></div>
-            );
-          })}
-        </div>
+      <div className={"event center"}>
+        {Object.hasOwn(images, event.key) && (
+          <div className={"image"}>
+            <img src={images[event.key]} alt={""} />
+          </div>
+        )}
+        <div className={"desc"}>{event.description}</div>
       </div>
     );
   }
 
-  setHideSegmentImage(state: boolean) {
-    if (this.hideSegmentImage !== state) this.hideSegmentImage = state;
+  const coinLandingSide = event.coin_landing_side === 1 ? "head" : "tail";
+
+  const rouletteClassNames = ["roulette", `chosen-segment-${event.winner}`];
+  const notChosenSegmentClassNames = ["segment", "not-chosen"];
+  const coinClassNames = ["coin", `land-${coinLandingSide}`];
+  const coinFrontClassNames = ["front"];
+
+  if (hideSegmentImage) coinFrontClassNames.push("show-head-image");
+  if (event.coin_chosen_side) {
+    const coinChosenSide = event.coin_chosen_side === 1 ? "head" : "tail";
+    rouletteClassNames.push("chosen-side");
+    coinClassNames.push(`chosen-${coinChosenSide}`);
   }
-}
+
+  return (
+    <div className={"event coinflip"}>
+      <div className={rouletteClassNames.join(" ")}>
+        {segmentItems.map(({ index, key }) => {
+          if (event.winner === index) {
+            return (
+              <div
+                key={key}
+                className={"segment chosen"}
+                ref={segmentRefs.current[index]}
+              >
+                <div className={"inner"}>
+                  <div className={coinClassNames.join(" ")}>
+                    <div className={coinFrontClassNames.join(" ")}>
+                      {!hideSegmentImage && (
+                        <p>{event.segments[index]?.name ?? ""}</p>
+                      )}
+                    </div>
+                    <div className={"thick"}></div>
+                    <div className={"back"}></div>
+                  </div>
+                </div>
+              </div>
+            );
+          }
+          return (
+            <div
+              key={key}
+              className={notChosenSegmentClassNames.join(" ")}
+              ref={segmentRefs.current[index]}
+            ></div>
+          );
+        })}
+      </div>
+    </div>
+  );
+};
 
 interface ICoinflipEventProps {
   images: Record<string, string>;
   event: CoinflipEventModel;
 }
+
+export default observer(CoinflipEvent);
