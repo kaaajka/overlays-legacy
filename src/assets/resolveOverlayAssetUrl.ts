@@ -43,6 +43,10 @@ export function resolveCoinflipImageUrl(side: "head" | "tail"): string {
   return resolvePublicAssetUrl(`assets/images/coinflip/${side}.png`);
 }
 
+export function resolveGoalImageUrl(name: "kaaajk4-love"): string {
+  return resolvePublicAssetUrl(`assets/images/goals/${name}.png`);
+}
+
 export function resolveRewardRandomSoundUrl(index: number): string {
   return resolvePublicAssetUrl(
     `assets/sounds/rewards/random/random-${normalizeSequentialAssetIndex(index)}.mp3`,

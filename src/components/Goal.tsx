@@ -2,6 +2,7 @@ import React from "react";
 import { makeObservable, observable, reaction } from "mobx";
 import type { IReactionDisposer } from "mobx";
 import { observer } from "mobx-react";
+import { resolveGoalImageUrl } from "../assets/resolveOverlayAssetUrl";
 
 @observer
 export default class Goal extends React.Component<IGoalProps> {
@@ -120,7 +121,7 @@ export default class Goal extends React.Component<IGoalProps> {
 
     if (this.backgroundLoaded) this.draw();
     else {
-      this.backgroundImage.src = "/assets/images/subs/miecioch.png";
+      this.backgroundImage.src = resolveGoalImageUrl("kaaajk4-love");
       this.backgroundImage.onload = () => {
         this.backgroundLoaded = true;
         this.draw();

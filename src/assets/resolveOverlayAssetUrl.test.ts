@@ -5,6 +5,7 @@ import {
   resolveCoinflipPrepareSoundUrl,
   resolveDonationAudioUrl,
   resolveDonationGifUrl,
+  resolveGoalImageUrl,
   resolveRewardImageUrl,
   resolveRewardRandomSoundUrl,
   resolveRouletteImageUrl,
@@ -68,6 +69,12 @@ describe("overlay asset URL resolvers", () => {
     );
     expect(resolveCoinflipImageUrl("tail")).toBe(
       joinPublicAssetPath(import.meta.env.BASE_URL, "assets/images/coinflip/tail.png"),
+    );
+  });
+
+  it("resolves goal image paths", () => {
+    expect(resolveGoalImageUrl("kaaajk4-love")).toBe(
+      joinPublicAssetPath(import.meta.env.BASE_URL, "assets/images/goals/kaaajk4-love.png"),
     );
   });
 
