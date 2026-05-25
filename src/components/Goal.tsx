@@ -22,7 +22,7 @@ export default class Goal extends React.Component<IGoalProps> {
 
   private resizeTimeout?: ReturnType<typeof setTimeout>;
   private savedPixels?: Uint8ClampedArray;
-  private isMounted = false;
+  private isComponentMounted = false;
 
   private disposeCurrentReaction?: IReactionDisposer;
   private disposeGoalReaction?: IReactionDisposer;
@@ -60,14 +60,14 @@ export default class Goal extends React.Component<IGoalProps> {
   }
 
   componentDidMount() {
-    this.isMounted = true;
+    this.isComponentMounted = true;
     this.setup();
 
     window.addEventListener("resize", this.onResize);
   }
 
   componentWillUnmount() {
-    this.isMounted = false;
+    this.isComponentMounted = false;
 
     this.disposeCurrentReaction?.();
     this.disposeCurrentReaction = undefined;
@@ -103,7 +103,7 @@ export default class Goal extends React.Component<IGoalProps> {
   }
 
   private setup() {
-    if (!this.isMounted) return;
+    if (!this.isComponentMounted) return;
 
     const windowWidth = window.innerWidth;
     const windowHeight = window.innerHeight;
@@ -132,7 +132,7 @@ export default class Goal extends React.Component<IGoalProps> {
     else {
       this.backgroundImage.src = resolveGoalImageUrl("kaaajk4-love");
       this.backgroundImage.onload = () => {
-        if (!this.isMounted) return;
+        if (!this.isComponentMounted) return;
 
         this.backgroundLoaded = true;
         this.draw();
@@ -141,7 +141,7 @@ export default class Goal extends React.Component<IGoalProps> {
   }
 
   private draw() {
-    if (!this.isMounted || !this.canvasContext || !this.centerPosition) return;
+    if (!this.isComponentMounted || !this.canvasContext || !this.centerPosition) return;
 
     this.canvasContext.clearRect(0, 0, this.canvasSize, this.canvasSize);
 

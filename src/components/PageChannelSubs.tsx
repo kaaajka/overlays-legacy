@@ -31,7 +31,7 @@ export class PageChannelSubs extends React.Component<PageChannelChildProps> {
 
   private socket?: LegacyOverlaySocketController;
 
-  constructor(props: RouterCompatProps) {
+  constructor(props: PageChannelChildProps) {
     super(props);
 
     makeObservable(this, {

@@ -16,7 +16,7 @@ export default class DonateEvent extends React.Component<
   IDonateEventProps,
   { shouldRender: boolean }
 > {
-  private isMounted = false;
+  private isComponentMounted = false;
   private sequenceId = 0;
   private activeTimeouts = new Map<number, () => void>();
   private audioAbortController: AbortController | null = null;
@@ -27,7 +27,7 @@ export default class DonateEvent extends React.Component<
   }
 
   componentDidMount() {
-    this.isMounted = true;
+    this.isComponentMounted = true;
     this.startDonateSequence();
   }
 
@@ -38,7 +38,7 @@ export default class DonateEvent extends React.Component<
   }
 
   componentWillUnmount() {
-    this.isMounted = false;
+    this.isComponentMounted = false;
     this.sequenceId += 1;
     this.cancelAudioSequence();
     this.clearActiveTimeouts();
@@ -167,7 +167,7 @@ export default class DonateEvent extends React.Component<
   }
 
   private isCurrentSequence(sequenceId: number) {
-    return this.isMounted && sequenceId === this.sequenceId;
+    return this.isComponentMounted && sequenceId === this.sequenceId;
   }
 
   private cancelAudioSequence() {

@@ -33,7 +33,7 @@ export class PageChannelFollowers extends React.Component<PageChannelChildProps>
 
   private testTimeout?: ReturnType<typeof setTimeout>;
 
-  constructor(props: RouterCompatProps) {
+  constructor(props: PageChannelChildProps) {
     super(props);
 
     makeObservable(this, {
