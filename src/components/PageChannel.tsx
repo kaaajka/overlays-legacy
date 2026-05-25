@@ -30,6 +30,7 @@ import coinflipImage from "../assets/images/alerts/coinflip-alert.gif";
 import { debugLog } from "../debug";
 import { safeJsonParse } from "../protocol/safeJson";
 import type { MainOverlayMode } from "../protocol/mainOverlayMode";
+import { resolveMainOverlayAlertListTransition } from "../protocol/resolveMainOverlayAlertListTransition";
 import { resolveMainOverlayEventAction } from "../protocol/resolveMainOverlayEventAction";
 import { buildMainOverlaySocketUrl } from "../socket/buildOverlaySocketUrl";
 import { createLegacyOverlaySocket } from "../socket/createLegacyOverlaySocket";
@@ -434,24 +435,16 @@ export class PageChannel extends React.Component<PageChannelProps> {
       this.pushDonate(new DonateEventModel(preparedArgs));
     } else if (action.type === "alert_list") {
       const { args } = action;
-      if (json.key === "set" && Array.isArray(args.list)) {
-        this.donateAlertQueue = args.list.filter(
-          (item): item is string => typeof item === "string",
-        );
+      const transition = resolveMainOverlayAlertListTransition(
+        this.donateAlertQueue,
+        json.key,
+        args,
+      );
 
+      this.donateAlertQueue = transition.queue;
+
+      if (transition.shouldSubmitFirstAlert) {
         this.submitFirstAlert();
-      } else if (json.key === "add" && typeof args.id === "string") {
-        const index = this.donateAlertQueue.indexOf(args.id);
-
-        if (index === -1) {
-          this.donateAlertQueue.push(args.id);
-
-          this.submitFirstAlert();
-        }
-      } else if (json.key === "delete" && typeof args.id === "string") {
-        const index = this.donateAlertQueue.indexOf(args.id);
-
-        if (index > -1) this.donateAlertQueue.splice(index, 1);
       }
     } else if (action.type === "prepare_started") {
       const { args } = action;
