@@ -9,8 +9,7 @@ This document freezes the current legacy OBS overlay contract. The old backend i
 - The backend identifies the overlay by `?account=:uuid`.
 - The frontend must not require backend payload changes.
 - Unknown payloads should be ignored safely and logged only through `debugLog`.
-- Active OBS URLs must use the explicit overlay routes documented below.
-- Overlay URLs should not be shown publicly.
+- Existing OBS URLs must remain valid.
 
 ## Environment
 
@@ -23,61 +22,43 @@ VITE_DEBUG_LOGS=false
 
 Runtime URL creation is centralized in `src/socket/buildOverlaySocketUrl.ts`. The old `src/protocol/legacyWsUrl.ts` helper is only a compatibility wrapper around the tested socket URL builders. The mapping is intentionally small and only preserves the frozen legacy contract:
 
-| Socket kind | Normal WebSocket URL | Test-mode WebSocket URL |
-| --- | --- | --- |
-| `main` | `VITE_WS_URL?account=:uuid` | `VITE_WS_URL?account=:uuid&test=true` |
-| `subs` | `VITE_WS_URL/subs?account=:uuid` | `VITE_WS_URL/subs?account=:uuid&test=true` |
-| `followers` | `VITE_WS_URL/followers?account=:uuid` | `VITE_WS_URL/followers?account=:uuid&test=true` |
-| `queue` | `VITE_WS_URL/queue?account=:uuid` | `VITE_WS_URL/queue?account=:uuid&test=true` |
+| Socket kind | Final WebSocket URL |
+| --- | --- |
+| `main` | `VITE_WS_URL?account=:uuid` |
+| `subs` | `VITE_WS_URL/subs?account=:uuid` |
+| `followers` | `VITE_WS_URL/followers?account=:uuid` |
+| `queue` | `VITE_WS_URL/queue?account=:uuid` |
 
-Do not change this helper to introduce token auth or new endpoint names while this repo targets the old backend. `test=true` is the only documented runtime query extension and existing legacy backends may ignore it.
+Do not change this helper to introduce token auth, new query params, or new endpoint names while this repo targets the old backend.
 
 ## Overlay routes
 
-`/` renders the Home/link generator page. It is not an OBS overlay and does not open a WebSocket.
+The current frontend uses explicit overlay routes only. Removed historical `/channel/*` and `/test/channel/*` routes should render `Overlay not found` and must not be documented as active runtime behavior.
 
-Only the explicit uppercase overlay routes are active:
+| Overlay | Legacy route | Preferred route alias |
+| --- | --- | --- |
+| Main alert overlay, all legacy event keys | removed historical channel-prefixed route | `/ALERTS/:uuid` |
+| Tip/donate-only main overlay mode | - | `/TIP_ALERT/:uuid` |
+| Reward-like main overlay mode | - | `/REWARD_ALERT/:uuid` |
+| Subscriber goal | removed historical channel-prefixed route | `/SUB_GOAL/:uuid` |
+| Follower goal | removed historical channel-prefixed route | `/FOLLOW_GOAL/:uuid` |
+| Queue | removed historical channel-prefixed route | `/QUEUE/:uuid` |
 
-| Overlay | Active route | Normal WebSocket URL | Test-mode example |
-| --- | --- | --- | --- |
-| Main alert overlay, all alert types | `/ALERTS/:uuid` | `VITE_WS_URL?account=:uuid` | `/ALERTS/:uuid?test=true` |
-| Tip/donate-only main overlay mode | `/TIP_ALERT/:uuid` | `VITE_WS_URL?account=:uuid` | `/TIP_ALERT/:uuid?test=true` |
-| Twitch reward-only main overlay mode | `/REWARD_ALERT/:uuid` | `VITE_WS_URL?account=:uuid` | `/REWARD_ALERT/:uuid?test=true` |
-| Subscriber goal | `/SUB_GOAL/:uuid` | `VITE_WS_URL/subs?account=:uuid` | `/SUB_GOAL/:uuid?test=true` |
-| Follower goal | `/FOLLOW_GOAL/:uuid` | `VITE_WS_URL/followers?account=:uuid` | `/FOLLOW_GOAL/:uuid?test=true` |
-| Queue | `/QUEUE/:uuid` | `VITE_WS_URL/queue?account=:uuid` | `/QUEUE/:uuid?test=true` |
-
-Removed historical routes are rejected and must not be documented as active runtime behavior:
-
-```txt
-/channel/*
-/test/channel/*
-```
-
-`?fixture=<name>`, `&muteAudio=true` and `&fast=true` remain development/replay query parameters on the explicit routes. `?test=true` enables runtime test mode. `?test=false`, missing `test`, or any unrelated query parameter does not enable test mode.
-
-There is one build. Runtime test mode replaces the old two-build model (`build:test`, `PUBLIC_URL=/test/` and build-time route prefixing).
+`?fixture=<name>`, `&muteAudio=true` and `&fast=true` work on both legacy routes and preferred aliases. Invalid or unsupported overlay URLs render a minimal `Overlay not found` screen instead of a blank page.
 
 Main alert route modes share the same `PageChannel` component and the same legacy main WebSocket endpoint, but apply minimal frontend filtering:
 
-- `/ALERTS/:uuid` runs in `all` mode.
+- `/ALERTS/:uuid` runs in `all` mode and is the recommended modern all-events route.
 - `/TIP_ALERT/:uuid` runs in `tip` mode and accepts donate events only (`key === "donate"`).
 - `/REWARD_ALERT/:uuid` runs in `reward` mode. If a payload includes optional top-level `origin`, reward mode prefers it: `origin === "reward"` is accepted and `origin === "manual"` is rejected. If `origin` is missing, reward mode preserves legacy behavior and falls back to reward-like key filtering for `censure`, `mute`, `withoutR`, `dogs`, `roulette`, and `coinflip`.
 
 `/REWARD_ALERT/:uuid` does not create a separate backend WebSocket endpoint and does not use `/ws/rewards`. With older backend payloads that do not include `origin`, manual `createEvent` events with the same legacy keys may still appear in `REWARD_ALERT`. True reward-origin isolation requires backend origin/source metadata, such as a reward discriminator, reward id, redemption id, or a dedicated backend channel.
 
-Runtime event-name filtering is intentionally strict:
 
-| Mode | Accepted main overlay event names | Ignored event names |
-| --- | --- | --- |
-| Normal | `prepare`, `started`, `update`, `finished`, `alertList` where relevant | `test`, `t_prepare`, `t_started`, `t_update`, `t_finished` |
-| Test mode `?test=true` | `test`, `t_prepare`, `t_started`, `t_update`, `t_finished` | `prepare`, `started`, `update`, `finished`, `alertList` |
-
-Existing legacy backend test commands do not need backend changes. They already emit test-shaped event names, and the frontend filters by event name. Future backends may additionally read the appended `test=true` WebSocket query parameter.
 
 ## Invalid routes vs unavailable overlays
 
-Route validation only checks URL syntax. Malformed or missing UUIDs, for example `/QUEUE/not-a-uuid`, should render the minimal `Overlay not found` screen. Removed routes such as `/channel/:uuid` and `/test/channel/:uuid` should also render `Overlay not found`.
+Route validation only checks URL syntax. Malformed or missing UUIDs, for example `/QUEUE/not-a-uuid`, should render the minimal `Overlay not found` screen. Removed historical `/channel/*` and `/test/channel/*` routes should also render `Overlay not found`.
 
 A syntactically valid UUID can still point to a missing or disabled legacy overlay account. The router cannot know that. In that case the overlay opens the normal legacy WebSocket URL, retries a small number of times, and then renders:
 
@@ -95,6 +76,7 @@ All overlay WebSocket clients (`main`, `queue`, `subs`, `followers`) share their
 ### URL
 
 ```txt
+/ALERTS/:uuid
 /ALERTS/:uuid
 /TIP_ALERT/:uuid
 /REWARD_ALERT/:uuid
@@ -385,6 +367,7 @@ This is a legacy test/development message. Do not remove it if backend test tool
 
 ```txt
 /SUB_GOAL/:uuid
+/SUB_GOAL/:uuid
 ```
 
 ### WebSocket
@@ -428,6 +411,7 @@ Standalone OBS widget for the current subscription goal.
 
 ```txt
 /FOLLOW_GOAL/:uuid
+/FOLLOW_GOAL/:uuid
 ```
 
 ### WebSocket
@@ -447,6 +431,7 @@ The message shape matches the subs goal route.
 ### URL
 
 ```txt
+/QUEUE/:uuid
 /QUEUE/:uuid
 ```
 
@@ -510,14 +495,14 @@ Standalone OBS widget for queued events.
 
 ## Compatibility notes
 
-- Do not reintroduce `/channel/:uuid*` or `/test/channel/:uuid*` as active routes without an explicit migration decision. They are historical/removed behavior.
+- Do not reintroduce removed historical `/channel/*` or `/test/channel/*` routes without an explicit migration decision. Use explicit routes only.
 - Do not replace `?account=:uuid` while the legacy backend is still used.
-- Do not remove `test`, `t_prepare`, `t_started`, `t_update`, `t_finished` support unless the legacy backend test commands are removed.
+- Do not remove `t_prepare`, `t_started`, `t_update`, `t_finished` support unless the legacy backend test commands are removed.
 - Do not assume every backend payload is valid; guard and ignore invalid messages.
 
 
 ## Runtime routing parser
 
-Runtime overlay routing is resolved by `src/routing/parseOverlayRoute.ts` in `src/index.tsx` instead of React Router runtime matching. The parser accepts `/` as Home, accepts only the explicit uppercase overlay routes, rejects `/channel/*` and `/test/channel/*`, validates UUID syntax and exposes `testMode: boolean` when `?test=true` is present. The parser preserves distinct `ALERTS` and `REWARD_ALERT` route types so runtime can pass `all` or `reward` mode into the shared main overlay.
+Runtime overlay routing is resolved by `src/routing/parseOverlayRoute.ts` in `src/index.tsx` instead of React Router runtime matching. The parser accepts `/` as Home, accepts explicit overlay routes only, rejects removed historical `/channel/*` and `/test/channel/*` routes, validates UUID syntax and exposes `testMode` only for `?test=true`. The parser preserves distinct `ALERTS` and `REWARD_ALERT` route types so runtime can pass `all` or `reward` mode into the shared main overlay.
 
 React Router dependencies are intentionally still present in `package.json` for this commit; dependency cleanup should happen only after manual OBS validation. Query parameters such as `fixture`, `muteAudio` and `fast` still come from `window.location.search`, so fixture replay behavior is unchanged.

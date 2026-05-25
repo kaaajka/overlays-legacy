@@ -46,14 +46,29 @@ Removed as unused/deprecated in this legacy frontend:
 - `safeJsonParse` prevents invalid JSON from crashing overlays.
 - Minimal type guards ignore unknown queue/goal/main payloads safely.
 
-## Legacy routes
+## Current explicit routes
 
-These routes are part of the legacy OBS contract and must not be removed without backward-compatible aliases:
+The current frontend route contract is explicit-route only:
+
+- `/` - Home/link generator
+- `/ALERTS/:uuid` - all alert types
+- `/TIP_ALERT/:uuid` - donations/tips only
+- `/REWARD_ALERT/:uuid` - Twitch rewards only
+- `/SUB_GOAL/:uuid` - subscription goal
+- `/FOLLOW_GOAL/:uuid` - follower goal
+- `/QUEUE/:uuid` - queue overlay
+
+Runtime test mode uses `?test=true` on the same explicit routes.
+
+### Historical removed routes from old `build.zip` frontend
+
+The old frontend used these routes, but they are no longer active and should render `Overlay not found` now:
 
 - `/channel/:uuid`
 - `/channel/:uuid/subs`
 - `/channel/:uuid/followers`
 - `/channel/:uuid/queue`
+- `/test/channel/:uuid`
 
 ## Legacy WebSocket mapping
 

@@ -13,15 +13,8 @@ Use them for manual testing, future replay tooling and contract documentation.
 - `main-coinflip-prepare.json`
 - `main-coinflip-started.json`
 
-Routes:
-
-- `/ALERTS/:uuid`
-- `/TIP_ALERT/:uuid`
-- `/REWARD_ALERT/:uuid`
-
+Routes: `/ALERTS/:uuid`, `/TIP_ALERT/:uuid`, `/REWARD_ALERT/:uuid`
 WebSocket: `VITE_WS_URL?account=:uuid`
-
-Test mode: append `?test=true` to the route. The test-mode WebSocket appends `&test=true` and accepts only `test`, `t_prepare`, `t_started`, `t_update`, `t_finished` event names.
 
 ## Queue overlay
 
@@ -31,7 +24,6 @@ Test mode: append `?test=true` to the route. The test-mode WebSocket appends `&t
 
 Route: `/QUEUE/:uuid`
 WebSocket: `VITE_WS_URL/queue?account=:uuid`
-Test mode route: `/QUEUE/:uuid?test=true`
 
 Important: `queue[0]` is the active event and is intentionally hidden by the queue overlay. Waiting items start at `queue.slice(1)`.
 
@@ -52,20 +44,22 @@ WebSockets:
 - `VITE_WS_URL/subs?account=:uuid`
 - `VITE_WS_URL/followers?account=:uuid`
 
-Test mode routes:
 
-- `/SUB_GOAL/:uuid?test=true`
-- `/FOLLOW_GOAL/:uuid?test=true`
-
-## Removed historical routes
-
-The following routes existed in the old build model but are not active now:
+## Fixture replay examples
 
 ```txt
-/channel/*
-/test/channel/*
+/ALERTS/:uuid?fixture=main-donate-prepare
+/ALERTS/:uuid?test=true&fixture=main-donate-prepare
+/SUB_GOAL/:uuid?fixture=subs-set
+/SUB_GOAL/:uuid?test=true&fixture=subs-set
+/FOLLOW_GOAL/:uuid?fixture=followers-set
+/FOLLOW_GOAL/:uuid?test=true&fixture=followers-set
+/QUEUE/:uuid?fixture=queue-set
+/QUEUE/:uuid?test=true&fixture=queue-set
 ```
 
-Do not use them in fixture replay examples.
+## Removed routes should be rejected
+
+Removed historical `/channel/*` and `/test/channel/*` routes may appear only in rejection checks, not fixture replay examples.
 
 Overlay URLs should not be shown publicly.

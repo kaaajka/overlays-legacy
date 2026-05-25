@@ -289,19 +289,34 @@ Recommended sequence:
 
 ## Build and test scripts
 
-Current scripts:
+Current scripts in current `package.json`:
 
 ```json
 {
   "dev": "vite",
   "start": "vite",
   "build": "vite build",
-  "build:test": "vite build --mode test --base=/test/",
   "preview": "vite preview",
   "test": "vitest run",
-  "test:watch": "vitest"
+  "test:watch": "vitest",
+  "check": "biome check .",
+  "check:write": "biome check --write .",
+  "lint": "biome lint .",
+  "format": "biome format --write .",
+  "format:check": "biome format .",
+  "typecheck": "tsc --noEmit"
 }
 ```
+
+Historical removed script from the old two-build route model:
+
+```json
+{
+  "build:test": "vite build --mode test --base=/test/"
+}
+```
+
+`build:test` must not be presented as a current package script. Runtime test mode now uses `?test=true`.
 
 Missing but recommended:
 

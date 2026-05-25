@@ -8,27 +8,16 @@ It is a snapshot of the existing backend/frontend overlay protocol, not a redesi
 
 ## 2. WebSocket channels
 
-The frontend consumes four legacy WebSocket channels derived from `VITE_WS_URL` and the public overlay account UUID. Frontend environment parsing lives in `src/config/env.ts`: `wsUrl` uses `VITE_WS_URL` when present and falls back to `wss://kaaajka.nedi.me/ws` when missing or empty. This fallback is part of the current frontend runtime behavior and should not be changed casually because existing deployments depend on stable WebSocket URL shapes.
+The frontend consumes four legacy WebSocket channels derived from `VITE_WS_URL` and the public overlay account UUID. Frontend environment parsing lives in `src/config/env.ts`: `wsUrl` uses `VITE_WS_URL` when present and falls back to `wss://kaaajka.nedi.me/ws` when missing or empty. This fallback is part of the current frontend runtime behavior and should not be changed casually because existing OBS scenes depend on stable overlay URLs.
 
-| Channel | Frontend component | Current active routes | Normal WebSocket URL | Test-mode WebSocket URL |
+| Channel | Frontend component | Current active routes | Normal WebSocket URL shape | Test-mode WebSocket URL shape |
 | --- | --- | --- | --- | --- |
 | Main alert overlay NORMAL websocket | `PageChannel` | `/ALERTS/:uuid`, `/TIP_ALERT/:uuid`, `/REWARD_ALERT/:uuid` | `VITE_WS_URL?account=:uuid` | `VITE_WS_URL?account=:uuid&test=true` |
 | Subscriber goal websocket | `PageChannelSubs` | `/SUB_GOAL/:uuid` | `VITE_WS_URL/subs?account=:uuid` | `VITE_WS_URL/subs?account=:uuid&test=true` |
 | Follower goal websocket | `PageChannelFollowers` | `/FOLLOW_GOAL/:uuid` | `VITE_WS_URL/followers?account=:uuid` | `VITE_WS_URL/followers?account=:uuid&test=true` |
 | Queue websocket | `PageChannelQueue` | `/QUEUE/:uuid` | `VITE_WS_URL/queue?account=:uuid` | `VITE_WS_URL/queue?account=:uuid&test=true` |
 
-`/` renders the Home/link generator page and does not open a WebSocket. Overlay URLs should not be shown publicly.
-
-Removed historical routes are not active and should render `Overlay not found`:
-
-```txt
-/channel/*
-/test/channel/*
-```
-
-The explicit routes do not imply new backend endpoints. The `:uuid` route parameter is still passed to the backend as `?account=:uuid`. Runtime `?test=true` causes the frontend to append `test=true` to the WebSocket URL, but existing legacy backends do not need to read it. Existing backend test commands already emit test-shaped event names and are filtered by the frontend.
-
-Normal mode accepts only normal main event names: `prepare`, `started`, `update`, `finished` and `alertList` where relevant. Test mode accepts only `test`, `t_prepare`, `t_started`, `t_update`, `t_finished`.
+The explicit routes do not imply new backend endpoints. `/` renders the Home/link generator page and does not open a WebSocket. Removed historical `/channel/*` and `/test/channel/*` routes are not active and should render `Overlay not found`. Runtime `?test=true` is frontend-side mode selection; existing backend test commands do not require backend changes because test traffic is identified by event names.
 
 ## 3. Main overlay payload shape
 
@@ -106,7 +95,7 @@ The frontend does not consume raw Tipply webhooks. Tipply-derived fields may be 
 
 `/TIP_ALERT/:uuid` currently filters main overlay traffic to donate events only, using `key === "donate"`.
 
-Runtime test/prod overlay mode is selected only by the URL query `?test=true`.
+Runtime test/prod overlay mode is selected only by URL query: `?test=true`. `VITE_APP_ENV`/`appEnv` overlay mode is removed and must not be documented as current behavior.
 
 TTS URLs are backend-provided dynamic URLs. Template GIFs, music, sounds and other visual media are frontend-owned local assets.
 

@@ -1,6 +1,6 @@
 # Professionalization Checklist 2026
 
-This repo is a legacy OBS overlay frontend. The old backend remains unchanged, so frontend improvements must preserve the legacy WebSocket protocol and existing OBS routes.
+This repo is a legacy OBS overlay frontend. The old backend remains unchanged, so frontend improvements must preserve the legacy WebSocket protocol and current explicit OBS routes.
 
 ## Completed in this package
 
@@ -18,10 +18,10 @@ This repo is a legacy OBS overlay frontend. The old backend remains unchanged, s
 
 ## Do not change without a separate PR
 
-- [ ] Do not remove `/channel/:uuid` routes.
+- [ ] Do not reintroduce removed legacy `/channel/*` routes without an explicit migration decision.
 - [ ] Do not replace `?account=:uuid` while the legacy backend is still used.
 - [ ] Do not remove `t_prepare`, `t_started`, `t_update`, `t_finished` support.
-- [ ] Do not replace React Router until routes are covered by fixtures and manual QA.
+- [ ] Do not change runtime route parsing until explicit routes are covered by fixtures and manual QA.
 - [ ] Do not upgrade React/MobX in the same PR as protocol hardening.
 
 ## Next recommended PRs

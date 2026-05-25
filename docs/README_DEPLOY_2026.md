@@ -1,11 +1,12 @@
 # Kaaajka legacy overlays frontend - 2026 deploy notes
 
-This project is a legacy OBS overlay frontend migrated from Create React App to Vite. The goal is stable static hosting while preserving compatibility with the old backend payloads.
+This project is a legacy OBS overlay frontend migrated from Create React App to Vite. The goal is stable static hosting while preserving compatibility with the old backend.
 
 ## Stack
 
 - Vite
 - React 17
+- React Router 5
 - MobX + `mobx-react`
 - Sass
 - Node.js 24 LTS
@@ -32,20 +33,16 @@ The old backend is not changed. The active frontend route contract is explicit-r
 /QUEUE/:uuid
 ```
 
-`/` renders the Home/link generator page. It does not connect to the backend.
+`/` renders the Home/link generator page and does not connect to the backend. Overlay URLs should not be shown publicly.
 
-Removed historical routes are not supported:
+Removed historical routes are not supported and should render `Overlay not found`:
 
 ```txt
 /channel/*
 /test/channel/*
 ```
 
-Overlay URLs should not be shown publicly.
-
-## Runtime test mode
-
-Use one build only. Test mode is selected at runtime with `?test=true`:
+Runtime test mode uses the same explicit routes with `?test=true`:
 
 ```txt
 /ALERTS/:uuid?test=true
@@ -56,48 +53,15 @@ Use one build only. Test mode is selected at runtime with `?test=true`:
 /QUEUE/:uuid?test=true
 ```
 
-The old two-build model is removed. Do not document or reintroduce:
-
-```txt
-build:test
-PUBLIC_URL=/test/
-build-time test route prefix
-/test/channel/*
-```
-
-Normal main overlay mode accepts only:
-
-```txt
-prepare
-started
-update
-finished
-alertList
-```
-
-Runtime test mode accepts only:
-
-```txt
-test
-t_prepare
-t_started
-t_update
-t_finished
-```
-
-Existing legacy backend test commands do not require backend changes because test traffic is identified by event names. The frontend also appends `test=true` to the WebSocket URL for future backend support; existing backends may ignore it.
-
-## Main alert route modes
+Normal mode accepts only `prepare`, `started`, `update`, `finished` and `alertList` where relevant. Test mode accepts only `test`, `t_prepare`, `t_started`, `t_update`, `t_finished`. Existing backend test commands do not require backend changes because test traffic is identified by event names; the frontend appends `test=true` to the WebSocket URL for future backend support.
 
 Main alert routes use one shared `PageChannel` component with route modes:
 
-- `/ALERTS/:uuid` uses `all` mode and accepts all normal alert types.
+- `/ALERTS/:uuid` uses `all` mode and accepts all current main overlay events.
 - `/TIP_ALERT/:uuid` uses `tip` mode and accepts donate events only (`key === "donate"`).
-- `/REWARD_ALERT/:uuid` uses `reward` mode and accepts reward-origin events when `origin === "reward"`; without origin metadata it falls back to reward-like legacy keys: `censure`, `mute`, `withoutR`, `dogs`, `roulette`, and `coinflip`.
+- `/REWARD_ALERT/:uuid` uses `reward` mode and accepts reward-like legacy keys: `censure`, `mute`, `withoutR`, `dogs`, `roulette`, and `coinflip`.
 
-`/REWARD_ALERT/:uuid` does not create `/ws/rewards` or any separate backend endpoint. Manual `createEvent` events with the same keys may also appear in `REWARD_ALERT` when backend payloads omit origin metadata. True reward-origin isolation requires backend origin/source metadata or a dedicated backend channel.
-
-## WebSocket endpoints
+`/REWARD_ALERT/:uuid` does not create `/ws/rewards` or any separate backend endpoint. Manual `createEvent` events with the same keys may also appear in `REWARD_ALERT`. True reward-origin isolation requires backend origin/source metadata or a dedicated backend channel.
 
 WebSocket endpoints are derived from `VITE_WS_URL`:
 
@@ -129,7 +93,7 @@ pnpm typecheck
 
 ## Environment variables
 
-Frontend environment parsing is centralized in `src/config/env.ts`. Runtime overlay test/prod mode is selected only by `?test=true` on the overlay URL.
+Frontend environment parsing is centralized in `src/config/env.ts`. The module exposes `wsUrl` so overlay runtime code does not read Vite env values directly. Env parsing must stay tolerant: a missing or invalid env value should not blank-screen OBS overlays. It should be diagnosable without changing existing overlay URLs.
 
 ```env
 VITE_WS_URL=wss://kaaajka.nedi.me/ws
@@ -138,7 +102,14 @@ VITE_DEBUG_LOGS=false
 
 ### `VITE_WS_URL`
 
-`VITE_WS_URL` is optional. When it is provided, `AppConfig.ws` uses that value to build the legacy overlay websocket URLs.
+`VITE_WS_URL` is optional. When it is provided, `AppConfig.ws` uses that value to build the legacy overlay websocket URLs:
+
+```txt
+main      -> VITE_WS_URL?account=:uuid
+subs      -> VITE_WS_URL/subs?account=:uuid
+followers -> VITE_WS_URL/followers?account=:uuid
+queue     -> VITE_WS_URL/queue?account=:uuid
+```
 
 When `VITE_WS_URL` is missing or empty, the frontend keeps the legacy fallback:
 
@@ -146,7 +117,11 @@ When `VITE_WS_URL` is missing or empty, the frontend keeps the legacy fallback:
 wss://kaaajka.nedi.me/ws
 ```
 
-This fallback is intentional so old payload-compatible deployments do not fail with a blank screen just because an environment variable was omitted during static hosting setup.
+This fallback is intentional so old OBS overlay URLs do not fail with a blank screen just because an environment variable was omitted during static hosting setup.
+
+### Removed old app env overlay mode
+
+`VITE_APP_ENV`/`appEnv` no longer controls prod/test overlay mode. Runtime test mode is query-based: `?test=true`.
 
 ### `VITE_DEBUG_LOGS`
 
@@ -212,6 +187,8 @@ pnpm test
 pnpm build
 ```
 
+
+
 Invalid UUID paths should show the small `Overlay not found` screen. Valid-format UUIDs that cannot connect to the legacy backend should show `Overlay unavailable` after repeated WebSocket failures instead of reconnecting aggressively forever.
 
 Manual route check:
@@ -219,20 +196,17 @@ Manual route check:
 ```txt
 /
 /ALERTS/:uuid
+/ALERTS/:uuid?test=true
 /TIP_ALERT/:uuid
+/TIP_ALERT/:uuid?test=true
 /REWARD_ALERT/:uuid
+/REWARD_ALERT/:uuid?test=true
 /SUB_GOAL/:uuid
 /FOLLOW_GOAL/:uuid
 /QUEUE/:uuid
-/ALERTS/:uuid?test=true
-/TIP_ALERT/:uuid?test=true
-/REWARD_ALERT/:uuid?test=true
-/SUB_GOAL/:uuid?test=true
-/FOLLOW_GOAL/:uuid?test=true
-/QUEUE/:uuid?test=true
 ```
 
-Removed-route check:
+Historical removed-route rejection check:
 
 ```txt
 /channel/:uuid
@@ -246,12 +220,13 @@ Expected runtime:
 
 - no red runtime errors from the app bundle,
 - Home page renders the link generator at `/`,
-- WebSocket connects on valid overlay routes,
+- WebSocket connects on valid explicit overlay routes,
 - removed routes render `Overlay not found`,
 - debug `console.log` output is hidden unless `VITE_DEBUG_LOGS=true`.
 
+
 ## Runtime routing parser
 
-Runtime overlay routing is resolved by `src/routing/parseOverlayRoute.ts` in `src/index.tsx` instead of React Router runtime matching. The parser accepts `/` as Home, accepts only explicit uppercase overlay routes, rejects `/channel/*` and `/test/channel/*`, validates UUID syntax and exposes `testMode: boolean` only when `?test=true` is present.
+Runtime overlay routing is resolved by `src/routing/parseOverlayRoute.ts` in `src/index.tsx` instead of React Router runtime matching. The parser accepts `/` as Home, accepts explicit overlay routes only, rejects `/channel/*` and `/test/channel/*`, validates UUID syntax and exposes `testMode: boolean` only when `?test=true` is present.
 
-Query parameters such as `fixture`, `muteAudio` and `fast` still come from `window.location.search`, so fixture replay behavior is unchanged.
+React Router dependencies are intentionally still present in `package.json` for this commit; dependency cleanup should happen only after manual OBS validation. Query parameters such as `fixture`, `muteAudio` and `fast` still come from `window.location.search`, so fixture replay behavior is unchanged.

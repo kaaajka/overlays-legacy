@@ -31,36 +31,35 @@ The deployed app must receive the correct `VITE_WS_URL` for the legacy backend W
 
 ## 3. Available overlay routes
 
-Use a real account UUID in place of `:uuid`. `/` renders the Home/link generator page and should be used to generate OBS Browser Source URLs.
+Use a real account UUID in place of `:uuid`.
 
-| OBS overlay | Route | Backend WebSocket shape | Test-mode WebSocket shape |
-| --- | --- | --- | --- |
-| Home/link generator | `/` | none | none |
-| All alerts/main overlay | `/ALERTS/:uuid` | `VITE_WS_URL?account=:uuid` | `VITE_WS_URL?account=:uuid&test=true` |
-| Donation/tip alerts | `/TIP_ALERT/:uuid` | `VITE_WS_URL?account=:uuid` | `VITE_WS_URL?account=:uuid&test=true` |
-| Reward alerts | `/REWARD_ALERT/:uuid` | `VITE_WS_URL?account=:uuid` | `VITE_WS_URL?account=:uuid&test=true` |
-| Subscriber goal | `/SUB_GOAL/:uuid` | `VITE_WS_URL/subs?account=:uuid` | `VITE_WS_URL/subs?account=:uuid&test=true` |
-| Follower goal | `/FOLLOW_GOAL/:uuid` | `VITE_WS_URL/followers?account=:uuid` | `VITE_WS_URL/followers?account=:uuid&test=true` |
-| Queue | `/QUEUE/:uuid` | `VITE_WS_URL/queue?account=:uuid` | `VITE_WS_URL/queue?account=:uuid&test=true` |
+### Legacy routes
 
-Removed routes are not active and must not be used in new OBS sources:
+| OBS overlay | Route | Backend WebSocket shape |
+| --- | --- | --- |
+| Main alert overlay | `/ALERTS/:uuid` | `VITE_WS_URL?account=:uuid` |
+| Subscriber goal | `/SUB_GOAL/:uuid` | `VITE_WS_URL/subs?account=:uuid` |
+| Follower goal | `/FOLLOW_GOAL/:uuid` | `VITE_WS_URL/followers?account=:uuid` |
+| Queue | `/QUEUE/:uuid` | `VITE_WS_URL/queue?account=:uuid` |
 
-```txt
-/channel/*
-/test/channel/*
-```
+### Modern naming aliases currently present
 
-## 4. Critical route, security and test-mode warning
+| OBS overlay | Alias route | Backend WebSocket shape |
+| --- | --- | --- |
+| All alerts/main overlay | `/ALERTS/:uuid` | `VITE_WS_URL?account=:uuid` |
+| Donation/tip alerts | `/TIP_ALERT/:uuid` | `VITE_WS_URL?account=:uuid` |
+| Reward alerts | `/REWARD_ALERT/:uuid` | `VITE_WS_URL?account=:uuid` |
+| Subscriber goal | `/SUB_GOAL/:uuid` | `VITE_WS_URL/subs?account=:uuid` |
+| Follower goal | `/FOLLOW_GOAL/:uuid` | `VITE_WS_URL/followers?account=:uuid` |
+| Queue | `/QUEUE/:uuid` | `VITE_WS_URL/queue?account=:uuid` |
 
-The explicit uppercase routes are route names only.
+## 4. Critical route warning
+
+The modern route aliases are naming aliases only.
 
 They do not create a new backend protocol, a new authentication model, new WebSocket endpoints or a new dashboard token model. They still use the legacy account UUID WebSocket model and still pass the route UUID to the backend as `?account=:uuid`.
 
-Do not tell operators that `/ALERTS/:uuid`, `/TIP_ALERT/:uuid`, `/REWARD_ALERT/:uuid`, `/SUB_GOAL/:uuid`, `/FOLLOW_GOAL/:uuid` or `/QUEUE/:uuid` are a new secure overlay-token system. They are not. That would be bullshit and would create a false security assumption. Overlay URLs should not be shown publicly.
-
-Test mode is runtime query based. Use `?test=true` on the same explicit route. There is no separate `/test/channel/*` route, no build-time test route prefix and no separate test build.
-
-Normal mode accepts only normal main event names: `prepare`, `started`, `update`, `finished` and `alertList` where relevant. Test mode accepts only test event names: `test`, `t_prepare`, `t_started`, `t_update`, `t_finished`. Existing legacy backend test commands do not need backend changes because the frontend identifies test traffic by event name.
+Do not tell operators that `/ALERTS/:uuid`, `/TIP_ALERT/:uuid`, `/REWARD_ALERT/:uuid`, `/SUB_GOAL/:uuid`, `/FOLLOW_GOAL/:uuid` or `/QUEUE/:uuid` are a new secure overlay-token system. They are not. That would be bullshit and would create a false security assumption.
 
 ## 5. Recommended OBS Browser Source settings
 
@@ -91,6 +90,14 @@ Replace `https://overlay.example.com` and `:uuid` with the real deployed fronten
 
 ### Main all-alerts overlay
 
+Recommended alias for new OBS sources:
+
+```txt
+https://overlay.example.com/ALERTS/:uuid
+```
+
+Legacy route that must keep working for existing scenes:
+
 ```txt
 https://overlay.example.com/ALERTS/:uuid
 ```
@@ -115,17 +122,41 @@ Expected content: reward-like events such as roulette and coinflip according to 
 
 ### Subscriber goal overlay
 
+Recommended alias:
+
+```txt
+https://overlay.example.com/SUB_GOAL/:uuid
+```
+
+Legacy route:
+
 ```txt
 https://overlay.example.com/SUB_GOAL/:uuid
 ```
 
 ### Follower goal overlay
 
+Recommended alias:
+
+```txt
+https://overlay.example.com/FOLLOW_GOAL/:uuid
+```
+
+Legacy route:
+
 ```txt
 https://overlay.example.com/FOLLOW_GOAL/:uuid
 ```
 
 ### Queue overlay
+
+Recommended alias:
+
+```txt
+https://overlay.example.com/QUEUE/:uuid
+```
+
+Legacy route:
 
 ```txt
 https://overlay.example.com/QUEUE/:uuid
@@ -205,9 +236,10 @@ main-coinflip-started
 
 ### Followers goal
 
-Check the explicit route:
+Check both route styles:
 
 ```txt
+/FOLLOW_GOAL/:uuid?fixture=followers-set
 /FOLLOW_GOAL/:uuid?fixture=followers-set
 ```
 
@@ -220,9 +252,10 @@ Expected:
 
 ### Subs goal
 
-Check the explicit route:
+Check both route styles:
 
 ```txt
+/SUB_GOAL/:uuid?fixture=subs-set
 /SUB_GOAL/:uuid?fixture=subs-set
 ```
 
@@ -235,9 +268,10 @@ Expected:
 
 ### Queue
 
-Check the explicit route:
+Check both route styles:
 
 ```txt
+/QUEUE/:uuid?fixture=queue-set
 /QUEUE/:uuid?fixture=queue-set
 ```
 
