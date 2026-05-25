@@ -36,7 +36,6 @@
     "dev": "vite",
     "start": "vite",
     "build": "vite build",
-    "build:test": "vite build --mode test --base=/test/",
     "preview": "vite preview",
     "test": "vitest run",
     "test:watch": "vitest",

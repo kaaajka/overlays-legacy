@@ -18,8 +18,12 @@ import {
   replayRequestedLegacyFixture,
 } from "../dev/replay/legacyReplay";
 
+type PageChannelChildProps = RouterCompatProps & {
+  testMode?: boolean;
+};
+
 @observer
-export class PageChannelFollowers extends React.Component<RouterCompatProps> {
+export class PageChannelFollowers extends React.Component<PageChannelChildProps> {
   connecting: boolean = true;
   connectionFailed: boolean = false;
   current: number | undefined = undefined;
@@ -68,13 +72,17 @@ export class PageChannelFollowers extends React.Component<RouterCompatProps> {
     if (this.connectionFailed) return <OverlayUnavailable />;
 
     const canDraw =
-      !this.connecting && typeof this.current !== "undefined" && typeof this.goal !== "undefined";
+      !this.connecting &&
+      typeof this.current !== "undefined" &&
+      typeof this.goal !== "undefined";
 
     return (
       <div className={"subGoal"}>
         {!!this.connecting && <h1>Łączenie...</h1>}
 
-        {canDraw && <Goal current={this.current} goal={this.goal} type={"followers"} />}
+        {canDraw && (
+          <Goal current={this.current} goal={this.goal} type={"followers"} />
+        )}
       </div>
     );
   }
@@ -94,7 +102,11 @@ export class PageChannelFollowers extends React.Component<RouterCompatProps> {
 
   private createConnection(accountKey: string) {
     this.socket = createLegacyOverlaySocket({
-      url: buildFollowersOverlaySocketUrl(AppConfig.ws, accountKey),
+      url: buildFollowersOverlaySocketUrl(
+        AppConfig.ws,
+        accountKey,
+        this.testMode,
+      ),
       label: "followers",
       onOpen: () => {
         this.setConnectionFailed(false);
@@ -134,11 +146,16 @@ export class PageChannelFollowers extends React.Component<RouterCompatProps> {
         break;
       case "update":
         runInAction(() => {
-          if (typeof json.args.current !== "undefined") this.current = json.args.current;
+          if (typeof json.args.current !== "undefined")
+            this.current = json.args.current;
           if (typeof json.args.goal !== "undefined") this.goal = json.args.goal;
         });
         break;
     }
+  }
+
+  get testMode(): boolean {
+    return this.props.testMode === true;
   }
 
   get accountKey(): string {

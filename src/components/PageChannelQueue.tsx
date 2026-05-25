@@ -18,8 +18,12 @@ import {
   replayRequestedLegacyFixture,
 } from "../dev/replay/legacyReplay";
 
+type PageChannelChildProps = RouterCompatProps & {
+  testMode?: boolean;
+};
+
 @observer
-export class PageChannelQueue extends React.Component<RouterCompatProps> {
+export class PageChannelQueue extends React.Component<PageChannelChildProps> {
   connecting: boolean = true;
   connectionFailed: boolean = false;
   queue: QueueEventModel[] = [];
@@ -97,7 +101,7 @@ export class PageChannelQueue extends React.Component<RouterCompatProps> {
 
   private createConnection(accountKey: string) {
     this.socket = createLegacyOverlaySocket({
-      url: buildQueueOverlaySocketUrl(AppConfig.ws, accountKey),
+      url: buildQueueOverlaySocketUrl(AppConfig.ws, accountKey, this.testMode),
       label: "queue",
       onOpen: () => {
         this.setConnectionFailed(false);
@@ -140,6 +144,10 @@ export class PageChannelQueue extends React.Component<RouterCompatProps> {
     });
   }
 
+  get testMode(): boolean {
+    return this.props.testMode === true;
+  }
+
   get accountKey(): string {
     const {
       match: {
@@ -150,4 +158,3 @@ export class PageChannelQueue extends React.Component<RouterCompatProps> {
     return id;
   }
 }
-

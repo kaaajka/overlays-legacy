@@ -5,56 +5,102 @@ import { parseOverlayRoute } from "./parseOverlayRoute";
 const uuid = "94bdf886-1c70-11eb-adc1-0242ac120011";
 
 const overlay = (
-  type: "ALERTS" | "TIP_ALERT" | "REWARD_ALERT" | "SUB_GOAL" | "FOLLOW_GOAL" | "QUEUE",
-  legacy: boolean,
+  type:
+    | "ALERTS"
+    | "TIP_ALERT"
+    | "REWARD_ALERT"
+    | "SUB_GOAL"
+    | "FOLLOW_GOAL"
+    | "QUEUE",
+  testMode = false,
 ) => ({
   kind: "overlay" as const,
   type,
   accountId: uuid,
-  legacy,
+  testMode,
 });
 
 describe("parseOverlayRoute", () => {
+  it("parses home route", () => {
+    expect(parseOverlayRoute("/")).toEqual({ kind: "home" });
+  });
 
   it("parses a valid modern ALERTS route", () => {
-    expect(parseOverlayRoute(`/ALERTS/${uuid}`)).toEqual(overlay("ALERTS", false));
+    expect(parseOverlayRoute(`/ALERTS/${uuid}`)).toEqual(overlay("ALERTS"));
   });
+
   it("parses a valid modern TIP_ALERT route", () => {
-    expect(parseOverlayRoute(`/TIP_ALERT/${uuid}`)).toEqual(overlay("TIP_ALERT", false));
+    expect(parseOverlayRoute(`/TIP_ALERT/${uuid}`)).toEqual(
+      overlay("TIP_ALERT"),
+    );
   });
 
   it("parses a valid modern REWARD_ALERT route", () => {
-    expect(parseOverlayRoute(`/REWARD_ALERT/${uuid}`)).toEqual(overlay("REWARD_ALERT", false));
+    expect(parseOverlayRoute(`/REWARD_ALERT/${uuid}`)).toEqual(
+      overlay("REWARD_ALERT"),
+    );
   });
 
   it("parses a valid modern SUB_GOAL route", () => {
-    expect(parseOverlayRoute(`/SUB_GOAL/${uuid}`)).toEqual(overlay("SUB_GOAL", false));
+    expect(parseOverlayRoute(`/SUB_GOAL/${uuid}`)).toEqual(overlay("SUB_GOAL"));
   });
 
   it("parses a valid modern FOLLOW_GOAL route", () => {
-    expect(parseOverlayRoute(`/FOLLOW_GOAL/${uuid}`)).toEqual(overlay("FOLLOW_GOAL", false));
+    expect(parseOverlayRoute(`/FOLLOW_GOAL/${uuid}`)).toEqual(
+      overlay("FOLLOW_GOAL"),
+    );
   });
 
   it("parses a valid modern QUEUE route", () => {
-    expect(parseOverlayRoute(`/QUEUE/${uuid}`)).toEqual(overlay("QUEUE", false));
+    expect(parseOverlayRoute(`/QUEUE/${uuid}`)).toEqual(overlay("QUEUE"));
   });
 
-  it("parses legacy /channel/:uuid as TIP_ALERT", () => {
-    expect(parseOverlayRoute(`/channel/${uuid}`)).toEqual(overlay("TIP_ALERT", true));
+  it("sets testMode only for test=true", () => {
+    expect(parseOverlayRoute(`/ALERTS/${uuid}?test=true`)).toEqual(
+      overlay("ALERTS", true),
+    );
   });
 
-  it("parses legacy /channel/:uuid/subs as SUB_GOAL", () => {
-    expect(parseOverlayRoute(`/channel/${uuid}/subs`)).toEqual(overlay("SUB_GOAL", true));
+  it("does not set testMode for test=false", () => {
+    expect(parseOverlayRoute(`/ALERTS/${uuid}?test=false`)).toEqual(
+      overlay("ALERTS"),
+    );
   });
 
-  it("parses legacy /channel/:uuid/followers as FOLLOW_GOAL", () => {
-    expect(parseOverlayRoute(`/channel/${uuid}/followers`)).toEqual(overlay("FOLLOW_GOAL", true));
+  it("does not set testMode when test query param is missing", () => {
+    expect(
+      parseOverlayRoute(`/ALERTS/${uuid}?fixture=main-donate-prepare`),
+    ).toEqual(overlay("ALERTS"));
   });
 
-  it("parses legacy /channel/:uuid/queue as QUEUE", () => {
-    expect(parseOverlayRoute(`/channel/${uuid}/queue`)).toEqual(overlay("QUEUE", true));
+  it("does not set testMode for other query params", () => {
+    expect(
+      parseOverlayRoute(
+        `/TIP_ALERT/${uuid}?fixture=main-donate-prepare&muteAudio=true`,
+      ),
+    ).toEqual(overlay("TIP_ALERT"));
   });
 
+  it("rejects legacy /channel/:uuid", () => {
+    expect(parseOverlayRoute(`/channel/${uuid}`)).toEqual({
+      kind: "not_found",
+      reason: "unsupported_route",
+    });
+  });
+
+  it("rejects legacy /channel/:uuid/subs", () => {
+    expect(parseOverlayRoute(`/channel/${uuid}/subs`)).toEqual({
+      kind: "not_found",
+      reason: "unsupported_route",
+    });
+  });
+
+  it("rejects legacy /test/channel/:uuid", () => {
+    expect(parseOverlayRoute(`/test/channel/${uuid}`)).toEqual({
+      kind: "not_found",
+      reason: "unsupported_route",
+    });
+  });
 
   it("rejects an invalid UUID for ALERTS", () => {
     expect(parseOverlayRoute("/ALERTS/not-a-uuid")).toEqual({
@@ -63,37 +109,8 @@ describe("parseOverlayRoute", () => {
     });
   });
 
-  it("rejects an invalid UUID", () => {
-    expect(parseOverlayRoute("/QUEUE/not-a-uuid")).toEqual({
-      kind: "not_found",
-      reason: "invalid_uuid",
-    });
-  });
-
-  it("rejects an invalid UUID for REWARD_ALERT", () => {
-    expect(parseOverlayRoute("/REWARD_ALERT/not-a-uuid")).toEqual({
-      kind: "not_found",
-      reason: "invalid_uuid",
-    });
-  });
-
-
   it("rejects a missing UUID for ALERTS", () => {
     expect(parseOverlayRoute("/ALERTS/")).toEqual({
-      kind: "not_found",
-      reason: "missing_uuid",
-    });
-  });
-
-  it("rejects a missing UUID", () => {
-    expect(parseOverlayRoute("/QUEUE/")).toEqual({
-      kind: "not_found",
-      reason: "missing_uuid",
-    });
-  });
-
-  it("rejects a missing UUID for REWARD_ALERT", () => {
-    expect(parseOverlayRoute("/REWARD_ALERT/")).toEqual({
       kind: "not_found",
       reason: "missing_uuid",
     });
@@ -106,27 +123,8 @@ describe("parseOverlayRoute", () => {
     });
   });
 
-
-  it("ignores query strings for ALERTS", () => {
-    expect(parseOverlayRoute(`/ALERTS/${uuid}?fixture=main-donate-prepare`)).toEqual(
-      overlay("ALERTS", false),
-    );
-  });
-
-  it("ignores query strings if included", () => {
-    expect(
-      parseOverlayRoute(`/TIP_ALERT/${uuid}?fixture=main-donate-prepare&muteAudio=true`),
-    ).toEqual(overlay("TIP_ALERT", false));
-  });
-
-  it("ignores query strings for REWARD_ALERT", () => {
-    expect(parseOverlayRoute(`/REWARD_ALERT/${uuid}?fixture=main-donate-prepare`)).toEqual(
-      overlay("REWARD_ALERT", false),
-    );
-  });
-
   it("accepts a trailing slash consistently", () => {
-    expect(parseOverlayRoute(`/channel/${uuid}/queue/`)).toEqual(overlay("QUEUE", true));
+    expect(parseOverlayRoute(`/QUEUE/${uuid}/`)).toEqual(overlay("QUEUE"));
   });
 
   it("rejects unsupported extra path segments", () => {

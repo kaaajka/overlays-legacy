@@ -11,6 +11,28 @@ export const REWARD_LIKE_EVENT_KEYS = new Set([
   "coinflip",
 ]);
 
+const NORMAL_MAIN_EVENTS = new Set([
+  "prepare",
+  "started",
+  "update",
+  "finished",
+  "alertList",
+]);
+const TEST_MAIN_EVENTS = new Set([
+  "test",
+  "t_prepare",
+  "t_started",
+  "t_update",
+  "t_finished",
+]);
+
+export function shouldHandleMainOverlayEventName(
+  event: string,
+  testMode: boolean,
+): boolean {
+  return testMode ? TEST_MAIN_EVENTS.has(event) : NORMAL_MAIN_EVENTS.has(event);
+}
+
 export function shouldHandleMainOverlayEvent(
   mode: MainOverlayMode,
   key: string,
