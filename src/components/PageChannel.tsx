@@ -8,7 +8,7 @@ import { type EventModel, EventState } from "../models/Event";
 import { RouletteEventModel } from "../models/RouletteEvent";
 import type { IRouletteItemSchema } from "../models/RouletteItem";
 import { NormalEventModel } from "../models/NormalEvent";
-import { DonateEventModel } from "../models/DonateEvent";
+import type { DonateEventModel } from "../models/DonateEvent";
 import { CoinflipEventModel } from "../models/CoinflipEvent";
 import type { ICoinflipSegmentSchema } from "../models/CoinflipSegment";
 
@@ -45,6 +45,7 @@ import {
   isRequestedLegacyFixtureReplayActive,
   replayRequestedLegacyFixture,
 } from "../dev/replay/legacyReplay";
+import { createDonateEventModelFromArgs } from "../donations/createDonateEventModelFromArgs";
 
 const images: Record<string, string> = {
   mute: muteImage,
@@ -395,44 +396,11 @@ export class PageChannel extends React.Component<PageChannelProps> {
       });
     } else if (action.type === "donate_prepare") {
       const { args } = action;
-      const preparedArgs = {
-        id: typeof args.id === "string" ? args.id : json.id,
-        nickname: typeof args.nickname === "string" ? args.nickname : "",
-        message:
-          typeof args.message === "string"
-            ? this.prepareDonateMessage(args.message)
-            : "",
-        amount: typeof args.amount === "number" ? args.amount : 0,
-        commission: typeof args.commission === "number" ? args.commission : 0,
-        audio_url: typeof args.audio_url === "string" ? args.audio_url : null,
-        tts_nickname_google_male:
-          typeof args.tts_nickname_google_male === "string"
-            ? args.tts_nickname_google_male
-            : "",
-        tts_nickname_google_female:
-          typeof args.tts_nickname_google_female === "string"
-            ? args.tts_nickname_google_female
-            : "",
-        tts_message_google_male:
-          typeof args.tts_message_google_male === "string"
-            ? args.tts_message_google_male
-            : "",
-        tts_message_google_female:
-          typeof args.tts_message_google_female === "string"
-            ? args.tts_message_google_female
-            : "",
-        tts_amount_google_male:
-          typeof args.tts_amount_google_male === "string"
-            ? args.tts_amount_google_male
-            : "",
-        tts_amount_google_female:
-          typeof args.tts_amount_google_female === "string"
-            ? args.tts_amount_google_female
-            : "",
-        test: typeof args.test === "boolean" ? args.test : false,
-        resent: typeof args.resent === "boolean" ? args.resent : false,
-      };
-      this.pushDonate(new DonateEventModel(preparedArgs));
+      const donate = createDonateEventModelFromArgs(args, {
+        fallbackId: json.id,
+      });
+
+      if (donate) this.pushDonate(donate);
     } else if (action.type === "alert_list") {
       const { args } = action;
       const transition = resolveMainOverlayAlertListTransition(
@@ -528,17 +496,6 @@ export class PageChannel extends React.Component<PageChannelProps> {
       if (this.currentEvent && this.currentEvent.id === json.id)
         this.setCurrentEvent(undefined);
     }
-  }
-
-  private prepareDonateMessage(message: string) {
-    let output = message;
-    // output = output.replaceAll('/default/light/1.0', '/default/light/2.0');
-    // return ReactHTMLParser(output);
-    output = output.replaceAll(
-      /<img(?:.*?)alt="(.*?)"(?:.*?)>/g,
-      (_match, p1) => (p1 ? p1 : ""),
-    );
-    return output;
   }
 
   private submitFirstAlert() {
