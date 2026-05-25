@@ -176,9 +176,22 @@ function playOverlayAudioStep(
       resolve();
     };
 
+    let beforePlayCalled = false;
+
+    const runBeforePlayOnce = () => {
+      if (beforePlayCalled) return;
+
+      beforePlayCalled = true;
+      runBeforePlay(step);
+    };
+
     const failSafely = (message: string, error: unknown) => {
       if (!isAbortError(error)) {
         debugLog(message, { url: step.url, error });
+      }
+
+      if (!isSignalAborted(signal)) {
+        runBeforePlayOnce();
       }
 
       finish(true);
@@ -207,7 +220,7 @@ function playOverlayAudioStep(
         return;
       }
 
-      runBeforePlay(step);
+      runBeforePlayOnce();
 
       const playTimeout = setTimeout(() => {
         debugLog("Overlay audio play timed out safely", {
@@ -231,6 +244,9 @@ function playOverlayAudioStep(
         label: step.label,
         timeoutMs: options.loadTimeoutMs,
       });
+      if (!isSignalAborted(signal)) {
+        runBeforePlayOnce();
+      }
       finish(true);
     }, options.loadTimeoutMs);
 

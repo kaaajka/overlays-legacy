@@ -160,11 +160,53 @@ describe("playOverlayAudioSequence", () => {
     await promise;
   });
 
+  it("runs before-play callback when audio load fails before playback", async () => {
+    const onBeforePlay = vi.fn();
+    const promise = playOverlayAudioSequence([
+      { url: "/broken-load.mp3", label: "broken-load", onBeforePlay },
+    ]);
+
+    const audio = latestAudio();
+    audio.emit("error", new Error("load failed"));
+
+    await promise;
+
+    expect(onBeforePlay).toHaveBeenCalledTimes(1);
+  });
+
+  it("runs before-play callback when audio load times out before playback", async () => {
+    const onBeforePlay = vi.fn();
+    const promise = playOverlayAudioSequence(
+      [{ url: "/never-loads.mp3", label: "never-loads", onBeforePlay }],
+      { loadTimeoutMs: 8_000 },
+    );
+
+    await vi.advanceTimersByTimeAsync(8_000);
+    await promise;
+
+    expect(onBeforePlay).toHaveBeenCalledTimes(1);
+  });
+
+  it("does not run before-play callback twice when playback fails after loading", async () => {
+    const onBeforePlay = vi.fn();
+    const promise = playOverlayAudioSequence([
+      { url: "/play-rejects.mp3", label: "play-rejects", onBeforePlay },
+    ]);
+
+    latestAudio().play.mockRejectedValueOnce(new Error("play failed"));
+    latestAudio().emit("canplaythrough");
+
+    await promise;
+
+    expect(onBeforePlay).toHaveBeenCalledTimes(1);
+  });
+
   it("cancels the active step and does not start later steps", async () => {
     const abortController = new AbortController();
+    const onBeforePlay = vi.fn();
     const promise = playOverlayAudioSequence(
       [
-        { url: "/active.mp3", label: "active" },
+        { url: "/active.mp3", label: "active", onBeforePlay },
         { url: "/stale.mp3", label: "stale" },
       ],
       { signal: abortController.signal },
@@ -179,10 +221,25 @@ describe("playOverlayAudioSequence", () => {
     abortController.abort();
     await promise;
 
+    expect(onBeforePlay).toHaveBeenCalledTimes(1);
     expect(activeAudio.pause).toHaveBeenCalledTimes(1);
     expect(activeAudio.removeAttribute).toHaveBeenCalledWith("src");
     expect(activeAudio.load).toHaveBeenCalledTimes(1);
     expect(MockAudio.instances).toHaveLength(1);
+  });
+
+  it("does not run before-play callback when cancelled before audio loads", async () => {
+    const abortController = new AbortController();
+    const onBeforePlay = vi.fn();
+    const promise = playOverlayAudioSequence(
+      [{ url: "/active.mp3", label: "active", onBeforePlay }],
+      { signal: abortController.signal },
+    );
+
+    abortController.abort();
+    await promise;
+
+    expect(onBeforePlay).not.toHaveBeenCalled();
   });
 
   it("cleans up event listeners after a step finishes", async () => {
