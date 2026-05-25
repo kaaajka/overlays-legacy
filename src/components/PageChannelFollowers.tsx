@@ -1,7 +1,7 @@
 import { observer } from "mobx-react";
 import React from "react";
 import { action, makeObservable, observable, runInAction } from "mobx";
-import type { OverlayRouteProps } from "../routing/overlayRouteProps";
+import type { RouterCompatProps } from "../routing/routerCompat";
 
 import Goal from "./Goal";
 import { OverlayUnavailable } from "./OverlayUnavailable";
@@ -18,8 +18,12 @@ import {
   replayRequestedLegacyFixture,
 } from "../dev/replay/legacyReplay";
 
+type PageChannelChildProps = RouterCompatProps & {
+  testMode?: boolean;
+};
+
 @observer
-export class PageChannelFollowers extends React.Component<OverlayRouteProps> {
+export class PageChannelFollowers extends React.Component<PageChannelChildProps> {
   connecting: boolean = true;
   connectionFailed: boolean = false;
   current: number | undefined = undefined;
@@ -29,7 +33,7 @@ export class PageChannelFollowers extends React.Component<OverlayRouteProps> {
 
   private testTimeout?: ReturnType<typeof setTimeout>;
 
-  constructor(props: OverlayRouteProps) {
+  constructor(props: PageChannelChildProps) {
     super(props);
 
     makeObservable(this, {
@@ -68,13 +72,17 @@ export class PageChannelFollowers extends React.Component<OverlayRouteProps> {
     if (this.connectionFailed) return <OverlayUnavailable />;
 
     const canDraw =
-      !this.connecting && typeof this.current !== "undefined" && typeof this.goal !== "undefined";
+      !this.connecting &&
+      typeof this.current !== "undefined" &&
+      typeof this.goal !== "undefined";
 
     return (
       <div className={"subGoal"}>
         {!!this.connecting && <h1>Łączenie...</h1>}
 
-        {canDraw && <Goal current={this.current} goal={this.goal} type={"followers"} />}
+        {canDraw && (
+          <Goal current={this.current} goal={this.goal} type={"followers"} />
+        )}
       </div>
     );
   }
@@ -94,7 +102,11 @@ export class PageChannelFollowers extends React.Component<OverlayRouteProps> {
 
   private createConnection(accountKey: string) {
     this.socket = createLegacyOverlaySocket({
-      url: buildFollowersOverlaySocketUrl(AppConfig.ws, accountKey),
+      url: buildFollowersOverlaySocketUrl(
+        AppConfig.ws,
+        accountKey,
+        this.testMode,
+      ),
       label: "followers",
       onOpen: () => {
         this.setConnectionFailed(false);
@@ -134,14 +146,25 @@ export class PageChannelFollowers extends React.Component<OverlayRouteProps> {
         break;
       case "update":
         runInAction(() => {
-          if (typeof json.args.current !== "undefined") this.current = json.args.current;
+          if (typeof json.args.current !== "undefined")
+            this.current = json.args.current;
           if (typeof json.args.goal !== "undefined") this.goal = json.args.goal;
         });
         break;
     }
   }
 
+  get testMode(): boolean {
+    return this.props.testMode === true;
+  }
+
   get accountKey(): string {
-    return this.props.accountId;
+    const {
+      match: {
+        params: { id },
+      },
+    } = this.props;
+
+    return id;
   }
 }
