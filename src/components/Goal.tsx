@@ -117,7 +117,9 @@ export default class Goal extends React.Component<IGoalProps> {
 
     this.centerPosition = { x: this.canvasSize / 2, y: this.canvasSize / 2 };
 
-    if (!this.canvasContext) this.canvasContext = this.canvasRef.current.getContext("2d");
+    if (!this.canvasContext) {
+      this.canvasContext = this.canvasRef.current.getContext("2d", { willReadFrequently: true });
+    }
 
     if (this.backgroundLoaded) this.draw();
     else {
