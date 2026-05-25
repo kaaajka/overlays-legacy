@@ -29,18 +29,8 @@ import rouletteImage from "../assets/images/alerts/roulette-alert.webp";
 import coinflipImage from "../assets/images/alerts/coinflip-alert.gif";
 import { debugLog } from "../debug";
 import { safeJsonParse } from "../protocol/safeJson";
-import {
-  getLegacyMainArgsRecord,
-  isLegacyCoinflipStartedArgs,
-  isLegacyMainMessage,
-  isLegacyRouletteStartedArgs,
-  isLegacyUpdateArgs,
-} from "../protocol/legacyMainOverlayProtocol";
-import {
-  type MainOverlayMode,
-  shouldHandleMainOverlayEvent,
-  shouldHandleMainOverlayEventName,
-} from "../protocol/mainOverlayMode";
+import type { MainOverlayMode } from "../protocol/mainOverlayMode";
+import { resolveMainOverlayEventAction } from "../protocol/resolveMainOverlayEventAction";
 import { buildMainOverlaySocketUrl } from "../socket/buildOverlaySocketUrl";
 import { createLegacyOverlaySocket } from "../socket/createLegacyOverlaySocket";
 import type { LegacyOverlaySocketController } from "../socket/createLegacyOverlaySocket";
@@ -100,11 +90,6 @@ type PageChannelProps = RouterCompatProps & {
   mode?: MainOverlayMode;
   testMode?: boolean;
 };
-
-const NORMAL_DONATE_PREPARE_EVENTS = new Set(["prepare"]);
-const TEST_DONATE_PREPARE_EVENTS = new Set(["test", "t_prepare"]);
-const NORMAL_PREPARE_STARTED_EVENTS = new Set(["prepare", "started"]);
-const TEST_PREPARE_STARTED_EVENTS = new Set(["t_prepare", "t_started"]);
 
 @observer
 export class PageChannel extends React.Component<PageChannelProps> {
@@ -314,40 +299,88 @@ export class PageChannel extends React.Component<PageChannelProps> {
   }
 
   private handleLegacyMessage(payload: unknown) {
-    const json = payload;
-    if (!isLegacyMainMessage(json)) {
-      debugLog("Ignored unknown legacy main websocket payload", json);
+    const action = resolveMainOverlayEventAction(payload, {
+      mode: this.mode,
+      testMode: this.testMode,
+    });
+
+    if (action.type === "ignore" && action.reason === "unknown_payload") {
+      debugLog("Ignored unknown legacy main websocket payload", payload);
       return;
     }
 
-    if (!shouldHandleMainOverlayEventName(json.event, this.testMode)) {
+    if (action.type === "ignore" && action.reason === "inactive_event_name") {
       debugLog(
         "Ignored legacy main websocket payload outside active test mode",
         {
           testMode: this.testMode,
-          event: json.event,
-          key: json.key,
+          event: action.message.event,
+          key: action.message.key,
         },
       );
       return;
     }
 
-    const args = getLegacyMainArgsRecord(json);
-
-    if (!shouldHandleMainOverlayEvent(this.mode, json.key, json.origin)) {
+    if (
+      action.type === "ignore" &&
+      action.reason === "inactive_overlay_mode"
+    ) {
       debugLog(
         "Ignored legacy main websocket payload outside active overlay mode",
         {
           mode: this.mode,
-          event: json.event,
-          key: json.key,
-          origin: json.origin,
+          event: action.message.event,
+          key: action.message.key,
+          origin: action.message.origin,
         },
       );
       return;
     }
 
-    if (json.event === "prepare" && json.key === "playSound") {
+    if (
+      action.type === "ignore" &&
+      action.reason === "missing_prepare_started_args"
+    ) {
+      debugLog(
+        "Ignored malformed legacy prepare/started payload",
+        action.message,
+      );
+      return;
+    }
+
+    if (
+      action.type === "ignore" &&
+      action.reason === "malformed_roulette_started_args"
+    ) {
+      debugLog(
+        "Ignored malformed legacy roulette started payload",
+        action.message,
+      );
+      return;
+    }
+
+    if (
+      action.type === "ignore" &&
+      action.reason === "malformed_coinflip_started_args"
+    ) {
+      debugLog(
+        "Ignored malformed legacy coinflip started payload",
+        action.message,
+      );
+      return;
+    }
+
+    if (action.type === "ignore" && action.reason === "malformed_update_args") {
+      debugLog("Ignored malformed legacy update payload", action.message);
+      return;
+    }
+
+    if (action.type === "ignore") return;
+
+    const { message: json } = action;
+
+    if (action.type === "play_sound") {
+      const { args } = action;
       const volume = typeof args?.volume === "number" ? args.volume : undefined;
       const url = typeof args?.url === "string" ? args.url : undefined;
 
@@ -359,11 +392,8 @@ export class PageChannel extends React.Component<PageChannelProps> {
         label: "Legacy overlay playSound",
         mutedFixtureAudioKind: "fallback",
       });
-    } else if (
-      this.isDonatePrepareEvent(json.event) &&
-      json.key === "donate" &&
-      args
-    ) {
+    } else if (action.type === "donate_prepare") {
+      const { args } = action;
       const preparedArgs = {
         id: typeof args.id === "string" ? args.id : json.id,
         nickname: typeof args.nickname === "string" ? args.nickname : "",
@@ -402,7 +432,8 @@ export class PageChannel extends React.Component<PageChannelProps> {
         resent: typeof args.resent === "boolean" ? args.resent : false,
       };
       this.pushDonate(new DonateEventModel(preparedArgs));
-    } else if (json.event === "alertList" && args) {
+    } else if (action.type === "alert_list") {
+      const { args } = action;
       if (json.key === "set" && Array.isArray(args.list)) {
         this.donateAlertQueue = args.list.filter(
           (item): item is string => typeof item === "string",
@@ -422,117 +453,87 @@ export class PageChannel extends React.Component<PageChannelProps> {
 
         if (index > -1) this.donateAlertQueue.splice(index, 1);
       }
-    } else {
-      if (this.isPrepareStartedEvent(json.event)) {
-        if (!args) {
-          debugLog("Ignored malformed legacy prepare/started payload", json);
-          return;
-        }
+    } else if (action.type === "prepare_started") {
+      const { args } = action;
+      const isPrepareState = action.state === "prepare";
+      const params = {
+        id: json.id,
+        key: json.key,
+        name: typeof args.name === "string" ? args.name : "",
+        description:
+          typeof args.description === "string" ? args.description : "",
+      };
+      let event: EventModel;
+      switch (json.key) {
+        case "roulette":
+          event = new RouletteEventModel({
+            ...params,
+            items: Array.isArray(args.items)
+              ? (args.items as IRouletteItemSchema[])
+              : [],
+          });
+          break;
+        case "coinflip":
+          event = new CoinflipEventModel({
+            ...params,
+            segments: Array.isArray(args.segments)
+              ? (args.segments as ICoinflipSegmentSchema[])
+              : [],
+          });
+          break;
+        default:
+          event = new NormalEventModel(params);
+          break;
+      }
+      const toUpdate: {
+        state: EventState;
+        time?: number;
+        winner?: number;
+        coin_landing_side?: number;
+      } = { state: isPrepareState ? EventState.PREPARE : EventState.STARTED };
 
-        const isPrepareState =
-          json.event === "prepare" || json.event === "t_prepare";
-
-        if (
-          !isPrepareState &&
-          json.key === "roulette" &&
-          !isLegacyRouletteStartedArgs(args)
-        ) {
-          debugLog("Ignored malformed legacy roulette started payload", json);
-          return;
-        }
-
-        if (
-          !isPrepareState &&
-          json.key === "coinflip" &&
-          !isLegacyCoinflipStartedArgs(args)
-        ) {
-          debugLog("Ignored malformed legacy coinflip started payload", json);
-          return;
-        }
-
-        const params = {
-          id: json.id,
-          key: json.key,
-          name: typeof args.name === "string" ? args.name : "",
-          description:
-            typeof args.description === "string" ? args.description : "",
-        };
-        let event: EventModel;
+      if (isPrepareState) {
+        let list: string[];
         switch (json.key) {
-          case "roulette":
-            event = new RouletteEventModel({
-              ...params,
-              items: Array.isArray(args.items)
-                ? (args.items as IRouletteItemSchema[])
-                : [],
-            });
+          case "dogs":
+            list = dogsSounds;
             break;
           case "coinflip":
-            event = new CoinflipEventModel({
-              ...params,
-              segments: Array.isArray(args.segments)
-                ? (args.segments as ICoinflipSegmentSchema[])
-                : [],
-            });
+            list = coinflipSounds;
             break;
           default:
-            event = new NormalEventModel(params);
+            list = randomSounds;
             break;
         }
-        const toUpdate: {
-          state: EventState;
-          time?: number;
-          winner?: number;
-          coin_landing_side?: number;
-        } = { state: isPrepareState ? EventState.PREPARE : EventState.STARTED };
+        const randomSound = list[Math.floor(Math.random() * list.length)];
 
-        if (isPrepareState) {
-          let list: string[];
-          switch (json.key) {
-            case "dogs":
-              list = dogsSounds;
-              break;
-            case "coinflip":
-              list = coinflipSounds;
-              break;
-            default:
-              list = randomSounds;
-              break;
-          }
-          const randomSound = list[Math.floor(Math.random() * list.length)];
+        this.setCurrentPlaying(randomSound);
+      } else {
+        if (
+          ["roulette", "coinflip"].includes(json.key) &&
+          typeof args.winner === "number"
+        )
+          toUpdate.winner = args.winner;
+        if (
+          json.key === "coinflip" &&
+          typeof args.coin_landing_side === "number"
+        )
+          toUpdate.coin_landing_side = args.coin_landing_side;
 
-          this.setCurrentPlaying(randomSound);
-        } else {
-          if (
-            ["roulette", "coinflip"].includes(json.key) &&
-            typeof args.winner === "number"
-          )
-            toUpdate.winner = args.winner;
-          if (
-            json.key === "coinflip" &&
-            typeof args.coin_landing_side === "number"
-          )
-            toUpdate.coin_landing_side = args.coin_landing_side;
-
-          if (typeof args.time === "number") toUpdate.time = args.time;
-        }
-
-        event.update(toUpdate);
-
-        this.setCurrentEvent(event);
-      } else if (this.isUpdateEvent(json.event)) {
-        if (!isLegacyUpdateArgs(args)) {
-          debugLog("Ignored malformed legacy update payload", json);
-          return;
-        }
-
-        if (this.currentEvent && this.currentEvent.id === json.id) {
-          this.currentEvent.update({ [args.key]: args.value });
-        }
-      } else if (this.isFinishedEvent(json.event)) {
-        if (this.currentEvent && this.currentEvent.id === json.id)
-          this.setCurrentEvent(undefined);
+        if (typeof args.time === "number") toUpdate.time = args.time;
       }
+
+      event.update(toUpdate);
+
+      this.setCurrentEvent(event);
+    } else if (action.type === "update") {
+      const { args } = action;
+      if (this.currentEvent && this.currentEvent.id === json.id) {
+        this.currentEvent.update({ [args.key]: args.value });
+      }
+    } else if (action.type === "finished") {
+      if (this.currentEvent && this.currentEvent.id === json.id)
+        this.setCurrentEvent(undefined);
     }
   }
 
@@ -560,26 +561,6 @@ export class PageChannel extends React.Component<PageChannelProps> {
         }),
       );
     }
-  }
-
-  private isDonatePrepareEvent(event: string): boolean {
-    return this.testMode
-      ? TEST_DONATE_PREPARE_EVENTS.has(event)
-      : NORMAL_DONATE_PREPARE_EVENTS.has(event);
-  }
-
-  private isPrepareStartedEvent(event: string): boolean {
-    return this.testMode
-      ? TEST_PREPARE_STARTED_EVENTS.has(event)
-      : NORMAL_PREPARE_STARTED_EVENTS.has(event);
-  }
-
-  private isUpdateEvent(event: string): boolean {
-    return this.testMode ? event === "t_update" : event === "update";
-  }
-
-  private isFinishedEvent(event: string): boolean {
-    return this.testMode ? event === "t_finished" : event === "finished";
   }
 
   get testMode(): boolean {
