@@ -1,7 +1,7 @@
 import { observer } from "mobx-react";
 import React from "react";
 import { action, makeObservable, observable, runInAction } from "mobx";
-import type { RouterCompatProps } from "../routing/routerCompat";
+import type { OverlayRouteProps } from "../routing/overlayRouteProps";
 
 import Goal from "./Goal";
 import { OverlayUnavailable } from "./OverlayUnavailable";
@@ -18,12 +18,8 @@ import {
   replayRequestedLegacyFixture,
 } from "../dev/replay/legacyReplay";
 
-type PageChannelChildProps = RouterCompatProps & {
-  testMode?: boolean;
-};
-
 @observer
-export class PageChannelSubs extends React.Component<PageChannelChildProps> {
+export class PageChannelSubs extends React.Component<OverlayRouteProps> {
   connecting: boolean = true;
   connectionFailed: boolean = false;
   current: number | undefined = undefined;
@@ -31,7 +27,7 @@ export class PageChannelSubs extends React.Component<PageChannelChildProps> {
 
   private socket?: LegacyOverlaySocketController;
 
-  constructor(props: PageChannelChildProps) {
+  constructor(props: OverlayRouteProps) {
     super(props);
 
     makeObservable(this, {
@@ -68,16 +64,12 @@ export class PageChannelSubs extends React.Component<PageChannelChildProps> {
     if (this.connectionFailed) return <OverlayUnavailable />;
 
     const canDraw =
-      !this.connecting &&
-      typeof this.current !== "undefined" &&
-      typeof this.goal !== "undefined";
+      !this.connecting && typeof this.current !== "undefined" && typeof this.goal !== "undefined";
 
     return (
       <div className={"subGoal"}>
         {!!this.connecting && <h1>Łączenie...</h1>}
-        {canDraw && (
-          <Goal current={this.current} goal={this.goal} type={"subs"} />
-        )}
+        {canDraw && <Goal current={this.current} goal={this.goal} type={"subs"} />}
       </div>
     );
   }
@@ -97,7 +89,7 @@ export class PageChannelSubs extends React.Component<PageChannelChildProps> {
 
   private createConnection(accountKey: string) {
     this.socket = createLegacyOverlaySocket({
-      url: buildSubsOverlaySocketUrl(AppConfig.ws, accountKey, this.testMode),
+      url: buildSubsOverlaySocketUrl(AppConfig.ws, accountKey),
       label: "subs",
       onOpen: () => {
         this.setConnectionFailed(false);
@@ -137,25 +129,14 @@ export class PageChannelSubs extends React.Component<PageChannelChildProps> {
         break;
       case "update":
         runInAction(() => {
-          if (typeof json.args.current !== "undefined")
-            this.current = json.args.current;
+          if (typeof json.args.current !== "undefined") this.current = json.args.current;
           if (typeof json.args.goal !== "undefined") this.goal = json.args.goal;
         });
         break;
     }
   }
 
-  get testMode(): boolean {
-    return this.props.testMode === true;
-  }
-
   get accountKey(): string {
-    const {
-      match: {
-        params: { id },
-      },
-    } = this.props;
-
-    return id;
+    return this.props.accountId;
   }
 }

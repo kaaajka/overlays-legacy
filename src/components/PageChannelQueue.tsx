@@ -1,7 +1,7 @@
 import { observer } from "mobx-react";
 import React from "react";
 import { action, makeObservable, observable, runInAction } from "mobx";
-import type { RouterCompatProps } from "../routing/routerCompat";
+import type { OverlayRouteProps } from "../routing/overlayRouteProps";
 
 import { OverlayUnavailable } from "./OverlayUnavailable";
 
@@ -18,19 +18,15 @@ import {
   replayRequestedLegacyFixture,
 } from "../dev/replay/legacyReplay";
 
-type PageChannelChildProps = RouterCompatProps & {
-  testMode?: boolean;
-};
-
 @observer
-export class PageChannelQueue extends React.Component<PageChannelChildProps> {
+export class PageChannelQueue extends React.Component<OverlayRouteProps> {
   connecting: boolean = true;
   connectionFailed: boolean = false;
   queue: QueueEventModel[] = [];
 
   private socket?: LegacyOverlaySocketController;
 
-  constructor(props: PageChannelChildProps) {
+  constructor(props: OverlayRouteProps) {
     super(props);
 
     makeObservable(this, {
@@ -101,7 +97,7 @@ export class PageChannelQueue extends React.Component<PageChannelChildProps> {
 
   private createConnection(accountKey: string) {
     this.socket = createLegacyOverlaySocket({
-      url: buildQueueOverlaySocketUrl(AppConfig.ws, accountKey, this.testMode),
+      url: buildQueueOverlaySocketUrl(AppConfig.ws, accountKey),
       label: "queue",
       onOpen: () => {
         this.setConnectionFailed(false);
@@ -144,17 +140,8 @@ export class PageChannelQueue extends React.Component<PageChannelChildProps> {
     });
   }
 
-  get testMode(): boolean {
-    return this.props.testMode === true;
-  }
-
   get accountKey(): string {
-    const {
-      match: {
-        params: { id },
-      },
-    } = this.props;
-
-    return id;
+    return this.props.accountId;
   }
 }
+

@@ -1,7 +1,7 @@
 import React from "react";
 import { observer } from "mobx-react";
 import { action, makeObservable, observable, reaction } from "mobx";
-import type { RouterCompatProps } from "../routing/routerCompat";
+import type { OverlayRouteProps } from "../routing/overlayRouteProps";
 import type { IReactionDisposer } from "mobx";
 
 import { type EventModel, EventState } from "../models/Event";
@@ -19,6 +19,8 @@ import CoinflipEvent from "./CoinflipEvent";
 import { OverlayUnavailable } from "./OverlayUnavailable";
 
 import { AppConfig } from "../config";
+import { appEnv } from "../config/env";
+
 import "../style/app.scss";
 
 import muteImage from "../assets/images/alerts/mute-alert.png";
@@ -36,11 +38,7 @@ import {
   isLegacyRouletteStartedArgs,
   isLegacyUpdateArgs,
 } from "../protocol/legacyMainOverlayProtocol";
-import {
-  type MainOverlayMode,
-  shouldHandleMainOverlayEvent,
-  shouldHandleMainOverlayEventName,
-} from "../protocol/mainOverlayMode";
+import { type MainOverlayMode, shouldHandleMainOverlayEvent } from "../protocol/mainOverlayMode";
 import { buildMainOverlaySocketUrl } from "../socket/buildOverlaySocketUrl";
 import { createLegacyOverlaySocket } from "../socket/createLegacyOverlaySocket";
 import type { LegacyOverlaySocketController } from "../socket/createLegacyOverlaySocket";
@@ -96,15 +94,24 @@ const coinflipSounds = [
   resolveCoinflipPrepareSoundUrl(4),
 ];
 
-type PageChannelProps = RouterCompatProps & {
+type PageChannelProps = OverlayRouteProps & {
   mode?: MainOverlayMode;
-  testMode?: boolean;
 };
 
-const NORMAL_DONATE_PREPARE_EVENTS = new Set(["prepare"]);
-const TEST_DONATE_PREPARE_EVENTS = new Set(["test", "t_prepare"]);
-const NORMAL_PREPARE_STARTED_EVENTS = new Set(["prepare", "started"]);
-const TEST_PREPARE_STARTED_EVENTS = new Set(["t_prepare", "t_started"]);
+const EVENTS =
+  appEnv === "test"
+    ? {
+        donate_prepare: ["prepare", "test"],
+        prepare_started: ["prepare", "started", "t_prepare", "t_started"],
+        update: ["update", "t_update"],
+        finished: ["finished", "t_finished"],
+      }
+    : {
+        donate_prepare: ["prepare"],
+        prepare_started: ["prepare", "started"],
+        update: ["update"],
+        finished: ["finished"],
+      };
 
 @observer
 export class PageChannel extends React.Component<PageChannelProps> {
@@ -181,10 +188,7 @@ export class PageChannel extends React.Component<PageChannelProps> {
       <div>
         {this.connecting && <h1>Łączenie...</h1>}
         {!this.connecting && !!this.currentDonate && (
-          <DonateEvent
-            donate={this.currentDonate}
-            onFinished={this.donateFinished}
-          />
+          <DonateEvent donate={this.currentDonate} onFinished={this.donateFinished} />
         )}
 
         {!this.connecting &&
@@ -194,10 +198,7 @@ export class PageChannel extends React.Component<PageChannelProps> {
           ) : this.currentEvent instanceof CoinflipEventModel ? (
             <CoinflipEvent images={images} event={this.currentEvent} />
           ) : (
-            <NormalEvent
-              images={images}
-              event={this.currentEvent as NormalEventModel}
-            />
+            <NormalEvent images={images} event={this.currentEvent as NormalEventModel} />
           ))}
       </div>
     );
@@ -285,14 +286,12 @@ export class PageChannel extends React.Component<PageChannelProps> {
 
   private createConnection(accountKey: string) {
     if (isRequestedLegacyFixtureReplayActive()) {
-      debugLog(
-        "Skipped legacy main websocket connection during fixture replay",
-      );
+      debugLog("Skipped legacy main websocket connection during fixture replay");
       return;
     }
 
     this.socket = createLegacyOverlaySocket({
-      url: buildMainOverlaySocketUrl(AppConfig.ws, accountKey, this.testMode),
+      url: buildMainOverlaySocketUrl(AppConfig.ws, accountKey),
       label: "main",
       onOpen: () => {
         this.setConnectionFailed(false);
@@ -320,30 +319,15 @@ export class PageChannel extends React.Component<PageChannelProps> {
       return;
     }
 
-    if (!shouldHandleMainOverlayEventName(json.event, this.testMode)) {
-      debugLog(
-        "Ignored legacy main websocket payload outside active test mode",
-        {
-          testMode: this.testMode,
-          event: json.event,
-          key: json.key,
-        },
-      );
-      return;
-    }
-
     const args = getLegacyMainArgsRecord(json);
 
     if (!shouldHandleMainOverlayEvent(this.mode, json.key, json.origin)) {
-      debugLog(
-        "Ignored legacy main websocket payload outside active overlay mode",
-        {
-          mode: this.mode,
-          event: json.event,
-          key: json.key,
-          origin: json.origin,
-        },
-      );
+      debugLog("Ignored legacy main websocket payload outside active overlay mode", {
+        mode: this.mode,
+        event: json.event,
+        key: json.key,
+        origin: json.origin,
+      });
       return;
     }
 
@@ -359,45 +343,28 @@ export class PageChannel extends React.Component<PageChannelProps> {
         label: "Legacy overlay playSound",
         mutedFixtureAudioKind: "fallback",
       });
-    } else if (
-      this.isDonatePrepareEvent(json.event) &&
-      json.key === "donate" &&
-      args
-    ) {
+    } else if (EVENTS.donate_prepare.includes(json.event) && json.key === "donate" && args) {
       const preparedArgs = {
         id: typeof args.id === "string" ? args.id : json.id,
         nickname: typeof args.nickname === "string" ? args.nickname : "",
-        message:
-          typeof args.message === "string"
-            ? this.prepareDonateMessage(args.message)
-            : "",
+        message: typeof args.message === "string" ? this.prepareDonateMessage(args.message) : "",
         amount: typeof args.amount === "number" ? args.amount : 0,
         commission: typeof args.commission === "number" ? args.commission : 0,
         audio_url: typeof args.audio_url === "string" ? args.audio_url : null,
         tts_nickname_google_male:
-          typeof args.tts_nickname_google_male === "string"
-            ? args.tts_nickname_google_male
-            : "",
+          typeof args.tts_nickname_google_male === "string" ? args.tts_nickname_google_male : "",
         tts_nickname_google_female:
           typeof args.tts_nickname_google_female === "string"
             ? args.tts_nickname_google_female
             : "",
         tts_message_google_male:
-          typeof args.tts_message_google_male === "string"
-            ? args.tts_message_google_male
-            : "",
+          typeof args.tts_message_google_male === "string" ? args.tts_message_google_male : "",
         tts_message_google_female:
-          typeof args.tts_message_google_female === "string"
-            ? args.tts_message_google_female
-            : "",
+          typeof args.tts_message_google_female === "string" ? args.tts_message_google_female : "",
         tts_amount_google_male:
-          typeof args.tts_amount_google_male === "string"
-            ? args.tts_amount_google_male
-            : "",
+          typeof args.tts_amount_google_male === "string" ? args.tts_amount_google_male : "",
         tts_amount_google_female:
-          typeof args.tts_amount_google_female === "string"
-            ? args.tts_amount_google_female
-            : "",
+          typeof args.tts_amount_google_female === "string" ? args.tts_amount_google_female : "",
         test: typeof args.test === "boolean" ? args.test : false,
         resent: typeof args.resent === "boolean" ? args.resent : false,
       };
@@ -423,29 +390,20 @@ export class PageChannel extends React.Component<PageChannelProps> {
         if (index > -1) this.donateAlertQueue.splice(index, 1);
       }
     } else {
-      if (this.isPrepareStartedEvent(json.event)) {
+      if (EVENTS.prepare_started.includes(json.event)) {
         if (!args) {
           debugLog("Ignored malformed legacy prepare/started payload", json);
           return;
         }
 
-        const isPrepareState =
-          json.event === "prepare" || json.event === "t_prepare";
+        const isPrepareState = ["t_prepare", "prepare"].includes(json.event);
 
-        if (
-          !isPrepareState &&
-          json.key === "roulette" &&
-          !isLegacyRouletteStartedArgs(args)
-        ) {
+        if (!isPrepareState && json.key === "roulette" && !isLegacyRouletteStartedArgs(args)) {
           debugLog("Ignored malformed legacy roulette started payload", json);
           return;
         }
 
-        if (
-          !isPrepareState &&
-          json.key === "coinflip" &&
-          !isLegacyCoinflipStartedArgs(args)
-        ) {
+        if (!isPrepareState && json.key === "coinflip" && !isLegacyCoinflipStartedArgs(args)) {
           debugLog("Ignored malformed legacy coinflip started payload", json);
           return;
         }
@@ -454,17 +412,14 @@ export class PageChannel extends React.Component<PageChannelProps> {
           id: json.id,
           key: json.key,
           name: typeof args.name === "string" ? args.name : "",
-          description:
-            typeof args.description === "string" ? args.description : "",
+          description: typeof args.description === "string" ? args.description : "",
         };
         let event: EventModel;
         switch (json.key) {
           case "roulette":
             event = new RouletteEventModel({
               ...params,
-              items: Array.isArray(args.items)
-                ? (args.items as IRouletteItemSchema[])
-                : [],
+              items: Array.isArray(args.items) ? (args.items as IRouletteItemSchema[]) : [],
             });
             break;
           case "coinflip":
@@ -503,15 +458,9 @@ export class PageChannel extends React.Component<PageChannelProps> {
 
           this.setCurrentPlaying(randomSound);
         } else {
-          if (
-            ["roulette", "coinflip"].includes(json.key) &&
-            typeof args.winner === "number"
-          )
+          if (["roulette", "coinflip"].includes(json.key) && typeof args.winner === "number")
             toUpdate.winner = args.winner;
-          if (
-            json.key === "coinflip" &&
-            typeof args.coin_landing_side === "number"
-          )
+          if (json.key === "coinflip" && typeof args.coin_landing_side === "number")
             toUpdate.coin_landing_side = args.coin_landing_side;
 
           if (typeof args.time === "number") toUpdate.time = args.time;
@@ -520,7 +469,7 @@ export class PageChannel extends React.Component<PageChannelProps> {
         event.update(toUpdate);
 
         this.setCurrentEvent(event);
-      } else if (this.isUpdateEvent(json.event)) {
+      } else if (EVENTS.update.includes(json.event)) {
         if (!isLegacyUpdateArgs(args)) {
           debugLog("Ignored malformed legacy update payload", json);
           return;
@@ -529,9 +478,8 @@ export class PageChannel extends React.Component<PageChannelProps> {
         if (this.currentEvent && this.currentEvent.id === json.id) {
           this.currentEvent.update({ [args.key]: args.value });
         }
-      } else if (this.isFinishedEvent(json.event)) {
-        if (this.currentEvent && this.currentEvent.id === json.id)
-          this.setCurrentEvent(undefined);
+      } else if (EVENTS.finished.includes(json.event)) {
+        if (this.currentEvent && this.currentEvent.id === json.id) this.setCurrentEvent(undefined);
       }
     }
   }
@@ -540,10 +488,7 @@ export class PageChannel extends React.Component<PageChannelProps> {
     let output = message;
     // output = output.replaceAll('/default/light/1.0', '/default/light/2.0');
     // return ReactHTMLParser(output);
-    output = output.replaceAll(
-      /<img(?:.*?)alt="(.*?)"(?:.*?)>/g,
-      (_match, p1) => (p1 ? p1 : ""),
-    );
+    output = output.replaceAll(/<img(?:.*?)alt="(.*?)"(?:.*?)>/g, (_match, p1) => (p1 ? p1 : ""));
     return output;
   }
 
@@ -562,41 +507,12 @@ export class PageChannel extends React.Component<PageChannelProps> {
     }
   }
 
-  private isDonatePrepareEvent(event: string): boolean {
-    return this.testMode
-      ? TEST_DONATE_PREPARE_EVENTS.has(event)
-      : NORMAL_DONATE_PREPARE_EVENTS.has(event);
-  }
-
-  private isPrepareStartedEvent(event: string): boolean {
-    return this.testMode
-      ? TEST_PREPARE_STARTED_EVENTS.has(event)
-      : NORMAL_PREPARE_STARTED_EVENTS.has(event);
-  }
-
-  private isUpdateEvent(event: string): boolean {
-    return this.testMode ? event === "t_update" : event === "update";
-  }
-
-  private isFinishedEvent(event: string): boolean {
-    return this.testMode ? event === "t_finished" : event === "finished";
-  }
-
-  get testMode(): boolean {
-    return this.props.testMode === true;
-  }
-
   get mode(): MainOverlayMode {
     return this.props.mode ?? "all";
   }
 
   get accountKey(): string {
-    const {
-      match: {
-        params: { id },
-      },
-    } = this.props;
-
-    return id;
+    return this.props.accountId;
   }
 }
+
