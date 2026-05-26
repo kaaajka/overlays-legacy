@@ -1,6 +1,5 @@
 import { createRef, useEffect, useRef, useState } from "react";
 import type { RefObject } from "react";
-import { observer } from "mobx-react";
 
 import type { CoinflipEventModel } from "../models/CoinflipEvent";
 import { EventState } from "../models/Event";
@@ -134,4 +133,4 @@ interface ICoinflipEventProps {
   event: CoinflipEventModel;
 }
 
-export default observer(CoinflipEvent);
+export default CoinflipEvent;

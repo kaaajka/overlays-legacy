@@ -1,5 +1,4 @@
 import type React from "react";
-import { observer } from "mobx-react";
 
 import { EventState } from "../models/Event";
 import type { NormalEventModel } from "../models/NormalEvent";
@@ -25,4 +24,4 @@ interface INormalEventProps {
   event: NormalEventModel;
 }
 
-export default observer(NormalEvent);
+export default NormalEvent;

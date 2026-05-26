@@ -1,5 +1,4 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import { observer } from "mobx-react";
 
 import type { RouletteEventModel } from "../models/RouletteEvent";
 import { EventState } from "../models/Event";
@@ -230,7 +229,7 @@ function RouletteEvent({ event, images }: IRouletteEventProps) {
   );
 }
 
-export default observer(RouletteEvent);
+export default RouletteEvent;
 
 interface IRouletteEventProps {
   images: Record<string, string>;
