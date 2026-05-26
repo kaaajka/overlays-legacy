@@ -17,6 +17,9 @@ export type OverlayRoute =
       kind: "home";
     }
   | {
+      kind: "generator";
+    }
+  | {
       kind: "not_found";
       reason: "missing_uuid" | "invalid_uuid" | "unsupported_route";
     };
@@ -75,6 +78,12 @@ export function parseOverlayRoute(input: string): OverlayRoute {
 
   if (!root) {
     return { kind: "home" };
+  }
+
+  if (root === "generate") {
+    return segments.length === 1
+      ? { kind: "generator" }
+      : { kind: "not_found", reason: "unsupported_route" };
   }
 
   const modernType = modernRouteTypes[root];

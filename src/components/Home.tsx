@@ -1,6 +1,26 @@
 import { useState } from 'react';
 import type { OverlayWidgetType } from '../routing/parseOverlayRoute';
 
+const pageStyle = {
+  color: '#f5f7fb',
+  fontFamily: 'sans-serif',
+  lineHeight: 1.5,
+  maxWidth: 960,
+  padding: 24,
+} as const;
+
+const linkStyle = {
+  color: '#8cc8ff',
+} as const;
+
+const panelStyle = {
+  background: '#111827',
+  border: '1px solid #334155',
+  borderRadius: 8,
+  marginBottom: 16,
+  padding: 16,
+} as const;
+
 export const overlayLinkTypes: OverlayWidgetType[] = [
   'ALERTS',
   'TIP_ALERT',
@@ -60,6 +80,27 @@ export function buildOverlayLinks(
 }
 
 export function Home() {
+  const generateUrl = `${buildHomeBaseUrl(window.location.origin, import.meta.env.BASE_URL)}/generate`;
+
+  return (
+    <main style={pageStyle}>
+      <h1>Kaaajka overlay preview</h1>
+      <p>
+        This frontend serves OBS overlay widgets for the legacy Kaaajka backend.
+      </p>
+      <p>
+        Use the generator to create private overlay URLs for a specific account.
+      </p>
+      <p>
+        <a href={generateUrl} style={linkStyle}>
+          Open overlay link generator
+        </a>
+      </p>
+    </main>
+  );
+}
+
+export function OverlayLinkGenerator() {
   const [accountId, setAccountId] = useState('');
   const baseUrl = buildHomeBaseUrl(
     window.location.origin,
@@ -68,7 +109,7 @@ export function Home() {
   const links = buildOverlayLinks(baseUrl, accountId);
 
   return (
-    <main style={{ fontFamily: 'sans-serif', padding: 24, maxWidth: 960 }}>
+    <main style={pageStyle}>
       <h1>Overlay link generator</h1>
       <p>Overlay URLs should not be shown publicly.</p>
 
@@ -81,7 +122,10 @@ export function Home() {
         onChange={(event) => setAccountId(event.currentTarget.value)}
         placeholder="Enter account UUID"
         style={{
+          background: '#0f172a',
+          border: '1px solid #475569',
           boxSizing: 'border-box',
+          color: '#f8fafc',
           marginTop: 8,
           padding: 8,
           width: '100%',
@@ -92,7 +136,7 @@ export function Home() {
         <section>
           <h2>Generated links</h2>
           {links.map((link) => (
-            <article key={link.type} style={{ marginBottom: 16 }}>
+            <article key={link.type} style={panelStyle}>
               <h3>{link.type}</h3>
               <p>{link.description}</p>
               <p>
@@ -106,7 +150,7 @@ export function Home() {
         </section>
       )}
 
-      <section>
+      <section style={panelStyle}>
         <h2>Legend</h2>
         <ul>
           {overlayLinkTypes.map((type) => (

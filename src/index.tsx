@@ -7,7 +7,7 @@ import type { MainOverlayMode } from "./protocol/mainOverlayMode";
 import { PageChannelSubs } from "./components/PageChannelSubs";
 import { PageChannelFollowers } from "./components/PageChannelFollowers";
 import { PageChannelQueue } from "./components/PageChannelQueue";
-import { Home } from "./components/Home";
+import { Home, OverlayLinkGenerator } from "./components/Home";
 import { NotFound } from "./components/NotFound";
 import { parseOverlayRoute } from "./routing/parseOverlayRoute";
 import type { OverlayRoute } from "./routing/parseOverlayRoute";
@@ -53,6 +53,7 @@ function getMainOverlayMode(
 
 function renderOverlayRoute(route: OverlayRoute): React.ReactElement {
   if (route.kind === "home") return <Home />;
+  if (route.kind === "generator") return <OverlayLinkGenerator />;
   if (route.kind === "not_found") return <NotFound />;
 
   const routerCompatProps = createRouterCompatProps(route.accountId);

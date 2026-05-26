@@ -25,6 +25,10 @@ describe("parseOverlayRoute", () => {
     expect(parseOverlayRoute("/")).toEqual({ kind: "home" });
   });
 
+  it("parses generator route", () => {
+    expect(parseOverlayRoute("/generate")).toEqual({ kind: "generator" });
+  });
+
   it("parses a valid modern ALERTS route", () => {
     expect(parseOverlayRoute(`/ALERTS/${uuid}`)).toEqual(overlay("ALERTS"));
   });
