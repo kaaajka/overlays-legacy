@@ -89,9 +89,13 @@ export default function DonateEvent({ donate, onFinished }: IDonateEventProps) {
         speech.voiceType === "GOOGLE_POLISH_MALE"
           ? donateSnapshot.tts_message_google_male
           : donateSnapshot.tts_message_google_female;
-      const resolveTtsAudioUrl = (url: string | null | undefined) => {
+      const resolveTtsAudioUrl = (
+        url: string | null | undefined,
+        kind: "tts-nickname" | "tts-amount" | "tts-message",
+      ) => {
         const ttsAudioUrl = resolveDonateTtsAudioUrl(url, {
           isTestDonate: donateSnapshot.test,
+          kind,
         });
 
         return donateSnapshot.test ? ttsAudioUrl : resolveBackendAudioUrl(ttsAudioUrl);
@@ -112,21 +116,25 @@ export default function DonateEvent({ donate, onFinished }: IDonateEventProps) {
             },
           },
           {
-            url: speech.readNickname ? resolveTtsAudioUrl(speechNicknamePath) : null,
+            url: speech.readNickname
+              ? resolveTtsAudioUrl(speechNicknamePath, "tts-nickname")
+              : null,
             volume: speech.volume,
             label: "Donate nickname TTS",
             kind: "tts",
             mutedFixtureAudioKind: "tts-nickname",
           },
           {
-            url: speech.readAmount ? resolveTtsAudioUrl(speechAmountPath) : null,
+            url: speech.readAmount ? resolveTtsAudioUrl(speechAmountPath, "tts-amount") : null,
             volume: speech.volume,
             label: "Donate amount TTS",
             kind: "tts",
             mutedFixtureAudioKind: "tts-amount",
           },
           {
-            url: speech.readMessage ? resolveTtsAudioUrl(speechMessagePath) : null,
+            url: speech.readMessage
+              ? resolveTtsAudioUrl(speechMessagePath, "tts-message")
+              : null,
             volume: speech.volume,
             label: "Donate message TTS",
             kind: "tts",
