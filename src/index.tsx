@@ -1,5 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import "animate.css";
 
 import { PageChannel } from "./components/PageChannel";
 import type { MainOverlayMode } from "./protocol/mainOverlayMode";
