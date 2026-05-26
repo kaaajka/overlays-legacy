@@ -41,6 +41,14 @@ import {
   replayRequestedLegacyFixture,
 } from "../dev/replay/legacyReplay";
 import { createDonateEventModelFromArgs } from "../donations/createDonateEventModelFromArgs";
+import {
+  type DonationQueueState,
+  type DonationQueueTransition,
+  resolveDonationQueueFinished,
+  resolveDonationQueuePush,
+  resolveDonationQueueScheduledChange,
+  resolveDonationQueueSubmitFirstAlert,
+} from "../donations/resolveDonationQueueTransition";
 import { resolvePrepareSoundUrl } from "../protocol/resolvePrepareSoundUrl";
 
 const images: Record<string, string> = {
@@ -190,38 +198,17 @@ export class PageChannel extends React.Component<PageChannelProps> {
   }
 
   donateFinished() {
-    if (!this.currentDonate) return;
+    const transition = resolveDonationQueueFinished(this.getDonationQueueState());
+    this.applyDonationQueueState(transition.state);
 
-    this.donateList = this.donateList.slice(1);
-    this.currentDonate = undefined;
-
-    if (this.changeDonateTimeout) clearTimeout(this.changeDonateTimeout);
-
-    this.changeDonateTimeout = setTimeout(
-      action(() => {
-        this.currentDonateAlert = undefined;
-
-        this.submitFirstAlert();
-
-        if (this.donateList.length) this.currentDonate = this.donateList[0];
-      }),
-      50,
-    );
+    if (transition.shouldScheduleDonationChange) this.scheduleDonationChange(true);
   }
 
   pushDonate(donate: DonateEventModel) {
-    this.donateList.push(donate);
+    const transition = resolveDonationQueuePush(this.getDonationQueueState(), donate);
+    this.applyDonationQueueState(transition.state);
 
-    if (!this.currentDonate) {
-      if (this.changeDonateTimeout) clearTimeout(this.changeDonateTimeout);
-
-      this.changeDonateTimeout = setTimeout(
-        action(() => {
-          if (this.donateList.length) this.currentDonate = this.donateList[0];
-        }),
-        50,
-      );
-    }
+    if (transition.shouldScheduleDonationChange) this.scheduleDonationChange(false);
   }
 
   private closeConnection() {
@@ -406,18 +393,56 @@ export class PageChannel extends React.Component<PageChannelProps> {
   }
 
   private submitFirstAlert() {
-    if (!this.currentDonateAlert && this.donateAlertQueue.length > 0) {
-      this.currentDonateAlert = this.donateAlertQueue[0];
+    const transition = resolveDonationQueueSubmitFirstAlert(this.getDonationQueueState());
 
-      this.socket?.send(
-        JSON.stringify({
-          type: "acceptAlert",
-          args: {
-            id: this.currentDonateAlert,
-          },
-        }),
-      );
-    }
+    this.currentDonateAlert = transition.state.currentDonateAlert;
+    this.acceptDonationAlert(transition.acceptAlertId);
+  }
+
+  private getDonationQueueState(): DonationQueueState<DonateEventModel> {
+    return {
+      donateList: this.donateList,
+      currentDonate: this.currentDonate,
+      donateAlertQueue: this.donateAlertQueue,
+      currentDonateAlert: this.currentDonateAlert,
+    };
+  }
+
+  private applyDonationQueueState(state: DonationQueueState<DonateEventModel>) {
+    this.donateList = [...state.donateList];
+    this.currentDonate = state.currentDonate;
+    this.donateAlertQueue = [...state.donateAlertQueue];
+    this.currentDonateAlert = state.currentDonateAlert;
+  }
+
+  private scheduleDonationChange(submitFirstAlert: boolean) {
+    if (this.changeDonateTimeout) clearTimeout(this.changeDonateTimeout);
+
+    this.changeDonateTimeout = setTimeout(
+      action(() => {
+        const transition = resolveDonationQueueScheduledChange(
+          this.getDonationQueueState(),
+          { submitFirstAlert },
+        );
+
+        this.applyDonationQueueState(transition.state);
+        this.acceptDonationAlert(transition.acceptAlertId);
+      }),
+      50,
+    );
+  }
+
+  private acceptDonationAlert(id: DonationQueueTransition<DonateEventModel>["acceptAlertId"]) {
+    if (!id) return;
+
+    this.socket?.send(
+      JSON.stringify({
+        type: "acceptAlert",
+        args: {
+          id,
+        },
+      }),
+    );
   }
 
   get testMode(): boolean {
