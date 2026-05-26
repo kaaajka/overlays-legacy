@@ -36,15 +36,12 @@ import { createLegacyOverlaySocket } from "../socket/createLegacyOverlaySocket";
 import type { LegacyOverlaySocketController } from "../socket/createLegacyOverlaySocket";
 import { playOverlayAudio } from "../audio/playOverlayAudio";
 import {
-  resolveCoinflipPrepareSoundUrl,
-  resolveRewardRandomSoundUrl,
-} from "../assets/resolveOverlayAssetUrl";
-import {
   cleanupFixtureAudioUnlockPrompt,
   isRequestedLegacyFixtureReplayActive,
   replayRequestedLegacyFixture,
 } from "../dev/replay/legacyReplay";
 import { createDonateEventModelFromArgs } from "../donations/createDonateEventModelFromArgs";
+import { resolvePrepareSoundUrl } from "../protocol/resolvePrepareSoundUrl";
 
 const images: Record<string, string> = {
   mute: muteImage,
@@ -54,38 +51,6 @@ const images: Record<string, string> = {
   roulette: rouletteImage,
   coinflip: coinflipImage,
 };
-
-const randomSounds = [
-  resolveRewardRandomSoundUrl(1),
-  resolveRewardRandomSoundUrl(2),
-  resolveRewardRandomSoundUrl(3),
-  resolveRewardRandomSoundUrl(4),
-  resolveRewardRandomSoundUrl(5),
-  resolveRewardRandomSoundUrl(6),
-  resolveRewardRandomSoundUrl(7),
-  resolveRewardRandomSoundUrl(8),
-  resolveRewardRandomSoundUrl(9),
-  resolveRewardRandomSoundUrl(10),
-  resolveRewardRandomSoundUrl(11),
-];
-
-const dogsSounds = [
-  randomSounds[2],
-  randomSounds[4],
-  randomSounds[5],
-  randomSounds[6],
-  randomSounds[7],
-  randomSounds[8],
-  randomSounds[9],
-  randomSounds[10],
-];
-
-const coinflipSounds = [
-  resolveCoinflipPrepareSoundUrl(1),
-  resolveCoinflipPrepareSoundUrl(2),
-  resolveCoinflipPrepareSoundUrl(3),
-  resolveCoinflipPrepareSoundUrl(4),
-];
 
 type PageChannelProps = RouterCompatProps & {
   mode?: MainOverlayMode;
@@ -418,21 +383,7 @@ export class PageChannel extends React.Component<PageChannelProps> {
       const isPrepareState = action.state === "prepare";
 
       if (isPrepareState) {
-        let list: string[];
-        switch (json.key) {
-          case "dogs":
-            list = dogsSounds;
-            break;
-          case "coinflip":
-            list = coinflipSounds;
-            break;
-          default:
-            list = randomSounds;
-            break;
-        }
-        const randomSound = list[Math.floor(Math.random() * list.length)];
-
-        this.setCurrentPlaying(randomSound);
+        this.setCurrentPlaying(resolvePrepareSoundUrl(json.key));
       }
 
       const event = createMainOverlayEventModelFromAction({
