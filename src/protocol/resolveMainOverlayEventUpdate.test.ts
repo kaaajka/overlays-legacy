@@ -46,6 +46,58 @@ describe("resolveMainOverlayEventUpdate", () => {
     expect(event.state).toBe(EventState.PREPARE);
   });
 
+  it("updates EventModel with valid state values only", () => {
+    const event = new NormalEventModel({
+      id: "normal-1",
+      key: "dogs",
+      name: "Dogs",
+      description: "Dog reward",
+    });
+
+    event.update({ state: EventState.STARTED });
+    expect(event.state).toBe(EventState.STARTED);
+
+    event.update({ state: EventState.FINISHED });
+    expect(event.state).toBe(EventState.FINISHED);
+
+    event.update({ state: EventState.PREPARE });
+    expect(event.state).toBe(EventState.PREPARE);
+  });
+
+  it("ignores invalid EventModel state updates", () => {
+    const event = new NormalEventModel({
+      id: "normal-1",
+      key: "dogs",
+      name: "Dogs",
+      description: "Dog reward",
+    });
+
+    event.update({ state: EventState.STARTED });
+    event.update({ state: "bad" });
+
+    expect(event.state).toBe(EventState.STARTED);
+  });
+
+  it("ignores invalid state through immutable updates", () => {
+    const event = new NormalEventModel({
+      id: "normal-1",
+      key: "dogs",
+      name: "Dogs",
+      description: "Dog reward",
+    });
+    event.update({ state: EventState.STARTED });
+
+    const nextEvent = resolveMainOverlayEventUpdate(event, {
+      key: "state",
+      value: "bad",
+    });
+
+    expect(nextEvent).toBeInstanceOf(NormalEventModel);
+    expect(nextEvent).not.toBe(event);
+    expect(nextEvent.state).toBe(EventState.STARTED);
+    expect(event.state).toBe(EventState.STARTED);
+  });
+
   it("updates RouletteEventModel winner with a new RouletteEventModel instance", () => {
     const event = new RouletteEventModel({
       id: "roulette-1",

@@ -31,7 +31,11 @@ export class EventModel {
       if (!Object.hasOwn(this, key)) continue;
 
       if (key === "state") {
-        if (Object.values(EventState).includes(value as EventState)) this.state = value as EventState;
+        if (Object.values(EventState).includes(value as EventState)) {
+          this.state = value as EventState;
+        }
+
+        continue;
       }
 
       // biome-ignore lint/suspicious/noExplicitAny: Legacy dynamic model update boundary; proper removal requires a typed model-update contract.
