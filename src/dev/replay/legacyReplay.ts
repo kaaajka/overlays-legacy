@@ -25,6 +25,16 @@ export function isRequestedLegacyFixtureReplayActive(search = window.location.se
   return !!fixtureName && isLegacyFixtureReplayEnabled() && !!getLegacyFixture(fixtureName);
 }
 
+export function isRuntimeTestModeRequested(search = window.location.search): boolean {
+  const params = new URLSearchParams(search);
+
+  return params.get("test")?.trim().toLowerCase() === "true";
+}
+
+export function shouldShowAudioUnlockPrompt(search = window.location.search): boolean {
+  return isRequestedLegacyFixtureReplayActive(search) || isRuntimeTestModeRequested(search);
+}
+
 export function isDevFixtureAudioMuted(search = window.location.search): boolean {
   if (!isRequestedLegacyFixtureReplayActive(search)) return false;
 
@@ -86,6 +96,10 @@ export function shouldWaitForFixtureAudioUnlock(search = window.location.search)
   );
 }
 
+export function shouldWaitForTestOverlayAudioUnlock(search = window.location.search): boolean {
+  return isRuntimeTestModeRequested(search) && !fixtureAudioUnlocked;
+}
+
 function clearScheduledFixtureReplayTimers(): void {
   for (const timer of scheduledFixtureReplayTimers) {
     clearTimeout(timer);
@@ -121,7 +135,16 @@ function tryUnlockBrowserAudio(): void {
   }
 }
 
-function showFixtureAudioUnlockPrompt(onUnlock: () => void): void {
+function showFixtureAudioUnlockPrompt(
+  onUnlock: () => void,
+  {
+    buttonText = "Click to start fixture preview with audio",
+    debugMessage = "Started legacy fixture replay after audio unlock click",
+  }: {
+    buttonText?: string;
+    debugMessage?: string;
+  } = {},
+): void {
   cleanupFixtureAudioUnlockPrompt();
 
   const root = document.createElement("div");
@@ -139,7 +162,7 @@ function showFixtureAudioUnlockPrompt(onUnlock: () => void): void {
 
   const button = document.createElement("button");
   button.type = "button";
-  button.textContent = "Click to start fixture preview with audio";
+  button.textContent = buttonText;
   Object.assign(button.style, {
     padding: "18px 24px",
     border: "1px solid rgba(255,255,255,0.28)",
@@ -158,7 +181,7 @@ function showFixtureAudioUnlockPrompt(onUnlock: () => void): void {
       markFixtureAudioUnlocked();
       cleanupFixtureAudioUnlockPrompt();
       tryUnlockBrowserAudio();
-      debugLog("Started legacy fixture replay after audio unlock click");
+      debugLog(debugMessage);
       onUnlock();
     },
     { once: true },
@@ -167,6 +190,19 @@ function showFixtureAudioUnlockPrompt(onUnlock: () => void): void {
   root.appendChild(button);
   document.body.appendChild(root);
   fixtureAudioUnlockPrompt = root;
+}
+
+export function requestTestOverlayAudioUnlockPrompt(
+  search = window.location.search,
+): boolean {
+  if (!shouldWaitForTestOverlayAudioUnlock(search)) return false;
+
+  showFixtureAudioUnlockPrompt(() => undefined, {
+    buttonText: "Click to unlock test overlay audio",
+    debugMessage: "Unlocked test overlay audio after click",
+  });
+
+  return true;
 }
 
 function isLegacyFixtureReplaySequence(value: unknown): value is LegacyFixtureReplaySequence {

@@ -36,6 +36,7 @@ import { playOverlayAudio } from "../audio/playOverlayAudio";
 import {
   cleanupFixtureAudioUnlockPrompt,
   isRequestedLegacyFixtureReplayActive,
+  requestTestOverlayAudioUnlockPrompt,
   replayRequestedLegacyFixture,
 } from "../dev/replay/legacyReplay";
 import { createDonateEventModelFromArgs } from "../donations/createDonateEventModelFromArgs";
@@ -393,6 +394,7 @@ export function PageChannel(props: PageChannelProps) {
       };
     }
 
+    requestTestOverlayAudioUnlockPrompt();
     createConnection(accountKey);
 
     return () => {
