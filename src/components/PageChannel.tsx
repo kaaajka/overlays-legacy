@@ -28,6 +28,7 @@ import type { MainOverlayMode } from "../protocol/mainOverlayMode";
 import { resolveMainOverlayAlertListTransition } from "../protocol/resolveMainOverlayAlertListTransition";
 import { resolveMainOverlayEventAction } from "../protocol/resolveMainOverlayEventAction";
 import { createMainOverlayEventModelFromAction } from "../protocol/createMainOverlayEventModelFromAction";
+import { resolveMainOverlayEventUpdate } from "../protocol/resolveMainOverlayEventUpdate";
 import { buildMainOverlaySocketUrl } from "../socket/buildOverlaySocketUrl";
 import { createLegacyOverlaySocket } from "../socket/createLegacyOverlaySocket";
 import type { LegacyOverlaySocketController } from "../socket/createLegacyOverlaySocket";
@@ -322,7 +323,9 @@ export function PageChannel(props: PageChannelProps) {
       } else if (action.type === "update") {
         const { args } = action;
         if (currentEventRef.current && currentEventRef.current.id === json.id) {
-          currentEventRef.current.update({ [args.key]: args.value });
+          const nextEvent = resolveMainOverlayEventUpdate(currentEventRef.current, args);
+
+          setCurrentEvent(nextEvent);
         }
       } else if (action.type === "finished") {
         if (currentEventRef.current && currentEventRef.current.id === json.id)
