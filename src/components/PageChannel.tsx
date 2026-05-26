@@ -1,8 +1,5 @@
-import React from "react";
-import { observer } from "mobx-react";
-import { action, makeObservable, observable, reaction } from "mobx";
+import { useCallback, useEffect, useRef, useState } from "react";
 import type { RouterCompatProps } from "../routing/routerCompat";
-import type { IReactionDisposer } from "mobx";
 
 import type { EventModel } from "../models/Event";
 import { RouletteEventModel } from "../models/RouletteEvent";
@@ -65,401 +62,361 @@ type PageChannelProps = RouterCompatProps & {
   testMode?: boolean;
 };
 
-@observer
-export class PageChannel extends React.Component<PageChannelProps> {
-  connecting: boolean = true;
-  connectionFailed: boolean = false;
-  currentEvent: EventModel | undefined = undefined;
-  currentPlaying: HTMLAudioElement | undefined = undefined;
+export function PageChannel(props: PageChannelProps) {
+  const [connecting, setConnectingState] = useState(true);
+  const [connectionFailed, setConnectionFailedState] = useState(false);
+  const [currentEvent, setCurrentEventState] = useState<EventModel | undefined>();
+  const [currentDonate, setCurrentDonateState] = useState<DonateEventModel | undefined>();
 
-  donateList: DonateEventModel[] = [];
-  currentDonate: DonateEventModel | undefined = undefined;
+  const socketRef = useRef<LegacyOverlaySocketController>();
+  const currentPlayingRef = useRef<HTMLAudioElement>();
+  const donateListRef = useRef<DonateEventModel[]>([]);
+  const currentEventRef = useRef<EventModel | undefined>();
+  const currentDonateRef = useRef<DonateEventModel | undefined>();
+  const donateAlertQueueRef = useRef<string[]>([]);
+  const currentDonateAlertRef = useRef<string | undefined>();
+  const changeDonateTimeoutRef = useRef<ReturnType<typeof setTimeout>>();
+  const isMountedRef = useRef(false);
+  const modeRef = useRef<MainOverlayMode>("all");
+  const testModeRef = useRef(false);
 
-  private socket?: LegacyOverlaySocketController;
-  private changeDonateTimeout?: ReturnType<typeof setTimeout>;
-  private disposeAccountKeyReaction?: IReactionDisposer;
+  const {
+    match: {
+      params: { id: accountKey },
+    },
+    mode,
+    testMode,
+  } = props;
 
-  private donateAlertQueue: string[] = [];
-  private currentDonateAlert?: string;
+  modeRef.current = mode ?? "all";
+  testModeRef.current = testMode === true;
 
-  constructor(props: PageChannelProps) {
-    super(props);
+  const setConnecting = useCallback((state: boolean) => {
+    if (!isMountedRef.current) return;
+    setConnectingState((current) => (current !== state ? state : current));
+  }, []);
 
-    makeObservable(this, {
-      connecting: observable,
-      connectionFailed: observable,
-      currentEvent: observable,
-      currentPlaying: observable,
-      donateList: observable,
-      currentDonate: observable,
+  const setConnectionFailed = useCallback((state: boolean) => {
+    if (!isMountedRef.current) return;
+    setConnectionFailedState((current) => (current !== state ? state : current));
+  }, []);
 
-      setConnecting: action,
-      setConnectionFailed: action,
-      setCurrentEvent: action,
-      setCurrentPlaying: action,
-      pushDonate: action,
-      donateFinished: action.bound,
-    });
+  const setCurrentEvent = useCallback((event?: EventModel) => {
+    currentEventRef.current = event;
+    if (!isMountedRef.current) return;
+    setCurrentEventState(event);
+  }, []);
 
-    this.disposeAccountKeyReaction = reaction(
-      () => this.accountKey,
-      (accountKey) => {
-        this.closeConnection();
-        this.createConnection(accountKey);
-      },
-    );
-  }
+  const setCurrentDonate = useCallback((donate?: DonateEventModel) => {
+    currentDonateRef.current = donate;
+    if (!isMountedRef.current) return;
+    setCurrentDonateState(donate);
+  }, []);
 
-  componentDidMount() {
-    this.closeConnection();
-
-    const didReplayFixture = replayRequestedLegacyFixture((payload) =>
-      this.handleLegacyMessage(payload),
-    );
-    if (didReplayFixture) {
-      this.setConnecting(false);
-      return;
-    }
-
-    this.createConnection(this.accountKey);
-  }
-
-  componentWillUnmount() {
-    cleanupFixtureAudioUnlockPrompt();
-
-    this.disposeAccountKeyReaction?.();
-    this.disposeAccountKeyReaction = undefined;
-
-    this.closeConnection();
-  }
-
-  render() {
-    if (this.connectionFailed) return <OverlayUnavailable />;
-
-    return (
-      <div>
-        {this.connecting && <h1>Łączenie...</h1>}
-        {!this.connecting && !!this.currentDonate && (
-          <DonateEvent
-            donate={this.currentDonate}
-            onFinished={this.donateFinished}
-          />
-        )}
-
-        {!this.connecting &&
-          !!this.currentEvent &&
-          (this.currentEvent instanceof RouletteEventModel ? (
-            <RouletteEvent images={images} event={this.currentEvent} />
-          ) : this.currentEvent instanceof CoinflipEventModel ? (
-            <CoinflipEvent images={images} event={this.currentEvent} />
-          ) : (
-            <NormalEvent
-              images={images}
-              event={this.currentEvent as NormalEventModel}
-            />
-          ))}
-      </div>
-    );
-  }
-
-  setConnecting(state: boolean) {
-    if (this.connecting !== state) this.connecting = state;
-  }
-
-  setConnectionFailed(state: boolean) {
-    if (this.connectionFailed !== state) this.connectionFailed = state;
-  }
-
-  setCurrentEvent(event?: EventModel) {
-    this.currentEvent = event;
-  }
-
-  setCurrentPlaying(url?: string) {
+  const setCurrentPlaying = useCallback((url?: string) => {
     if (typeof url !== "undefined") {
-      if (this.currentPlaying) {
-        this.currentPlaying.pause();
-        this.currentPlaying = undefined;
+      if (currentPlayingRef.current) {
+        currentPlayingRef.current.pause();
+        currentPlayingRef.current = undefined;
       }
 
-      this.currentPlaying =
+      currentPlayingRef.current =
         playOverlayAudio({
           url,
           volume: 0.3,
           label: "Legacy overlay event sound",
           mutedFixtureAudioKind: "template",
         }) ?? undefined;
-    } else {
-      if (this.currentPlaying) {
-        this.currentPlaying.pause();
 
-        this.currentPlaying = undefined;
-      }
+      return;
     }
-  }
 
-  donateFinished() {
-    const transition = resolveDonationQueueFinished(this.getDonationQueueState());
-    this.applyDonationQueueState(transition.state);
+    if (currentPlayingRef.current) {
+      currentPlayingRef.current.pause();
+      currentPlayingRef.current = undefined;
+    }
+  }, []);
 
-    if (transition.shouldScheduleDonationChange) this.scheduleDonationChange(true);
-  }
+  const getDonationQueueState = useCallback((): DonationQueueState<DonateEventModel> => {
+    return {
+      donateList: donateListRef.current,
+      currentDonate: currentDonateRef.current,
+      donateAlertQueue: donateAlertQueueRef.current,
+      currentDonateAlert: currentDonateAlertRef.current,
+    };
+  }, []);
 
-  pushDonate(donate: DonateEventModel) {
-    const transition = resolveDonationQueuePush(this.getDonationQueueState(), donate);
-    this.applyDonationQueueState(transition.state);
+  const applyDonationQueueState = useCallback(
+    (state: DonationQueueState<DonateEventModel>) => {
+      donateListRef.current = [...state.donateList];
+      setCurrentDonate(state.currentDonate);
+      donateAlertQueueRef.current = [...state.donateAlertQueue];
+      currentDonateAlertRef.current = state.currentDonateAlert;
+    },
+    [setCurrentDonate],
+  );
 
-    if (transition.shouldScheduleDonationChange) this.scheduleDonationChange(false);
-  }
+  const acceptDonationAlert = useCallback(
+    (id: DonationQueueTransition<DonateEventModel>["acceptAlertId"]) => {
+      if (!id) return;
 
-  private closeConnection() {
-    if (this.changeDonateTimeout) clearTimeout(this.changeDonateTimeout);
-
-    this.setCurrentEvent(undefined);
-    this.setCurrentPlaying(undefined);
-
-    this.socket?.disconnect();
-    this.socket = undefined;
-  }
-
-  private createConnection(accountKey: string) {
-    if (isRequestedLegacyFixtureReplayActive()) {
-      debugLog(
-        "Skipped legacy main websocket connection during fixture replay",
+      socketRef.current?.send(
+        JSON.stringify({
+          type: "acceptAlert",
+          args: {
+            id,
+          },
+        }),
       );
-      return;
-    }
+    },
+    [],
+  );
 
-    this.socket = createLegacyOverlaySocket({
-      url: buildMainOverlaySocketUrl(AppConfig.ws, accountKey, this.testMode),
-      label: "main",
-      onOpen: () => {
-        this.setConnectionFailed(false);
-        if (this.connecting) this.setConnecting(false);
-      },
-      onClose: () => {
-        this.setCurrentEvent(undefined);
-      },
-      onMessage: (data) => {
-        this.handleLegacyMessage(safeJsonParse(data));
-      },
-      onFailure: () => {
-        this.setConnecting(false);
-        this.setConnectionFailed(true);
-      },
-    });
+  const submitFirstAlert = useCallback(() => {
+    const transition = resolveDonationQueueSubmitFirstAlert(getDonationQueueState());
 
-    this.socket.connect();
-  }
+    currentDonateAlertRef.current = transition.state.currentDonateAlert;
+    acceptDonationAlert(transition.acceptAlertId);
+  }, [acceptDonationAlert, getDonationQueueState]);
 
-  private handleLegacyMessage(payload: unknown) {
-    const action = resolveMainOverlayEventAction(payload, {
-      mode: this.mode,
-      testMode: this.testMode,
-    });
+  const scheduleDonationChange = useCallback(
+    (submitFirstAlertAfterDelay: boolean) => {
+      if (changeDonateTimeoutRef.current) clearTimeout(changeDonateTimeoutRef.current);
 
-    if (action.type === "ignore" && action.reason === "unknown_payload") {
-      debugLog("Ignored unknown legacy main websocket payload", payload);
-      return;
-    }
+      changeDonateTimeoutRef.current = setTimeout(() => {
+        if (!isMountedRef.current) return;
 
-    if (action.type === "ignore" && action.reason === "inactive_event_name") {
-      debugLog(
-        "Ignored legacy main websocket payload outside active test mode",
-        {
-          testMode: this.testMode,
+        const transition = resolveDonationQueueScheduledChange(
+          getDonationQueueState(),
+          { submitFirstAlert: submitFirstAlertAfterDelay },
+        );
+
+        applyDonationQueueState(transition.state);
+        acceptDonationAlert(transition.acceptAlertId);
+      }, 50);
+    },
+    [acceptDonationAlert, applyDonationQueueState, getDonationQueueState],
+  );
+
+  const donateFinished = useCallback(() => {
+    const transition = resolveDonationQueueFinished(getDonationQueueState());
+    applyDonationQueueState(transition.state);
+
+    if (transition.shouldScheduleDonationChange) scheduleDonationChange(true);
+  }, [applyDonationQueueState, getDonationQueueState, scheduleDonationChange]);
+
+  const pushDonate = useCallback(
+    (donate: DonateEventModel) => {
+      const transition = resolveDonationQueuePush(getDonationQueueState(), donate);
+      applyDonationQueueState(transition.state);
+
+      if (transition.shouldScheduleDonationChange) scheduleDonationChange(false);
+    },
+    [applyDonationQueueState, getDonationQueueState, scheduleDonationChange],
+  );
+
+  const handleLegacyMessage = useCallback(
+    (payload: unknown) => {
+      const action = resolveMainOverlayEventAction(payload, {
+        mode: modeRef.current,
+        testMode: testModeRef.current,
+      });
+
+      if (action.type === "ignore" && action.reason === "unknown_payload") {
+        debugLog("Ignored unknown legacy main websocket payload", payload);
+        return;
+      }
+
+      if (action.type === "ignore" && action.reason === "inactive_event_name") {
+        debugLog("Ignored legacy main websocket payload outside active test mode", {
+          testMode: testModeRef.current,
           event: action.message.event,
           key: action.message.key,
-        },
-      );
-      return;
-    }
+        });
+        return;
+      }
 
-    if (
-      action.type === "ignore" &&
-      action.reason === "inactive_overlay_mode"
-    ) {
-      debugLog(
-        "Ignored legacy main websocket payload outside active overlay mode",
-        {
-          mode: this.mode,
+      if (action.type === "ignore" && action.reason === "inactive_overlay_mode") {
+        debugLog("Ignored legacy main websocket payload outside active overlay mode", {
+          mode: modeRef.current,
           event: action.message.event,
           key: action.message.key,
           origin: action.message.origin,
-        },
-      );
-      return;
-    }
-
-    if (
-      action.type === "ignore" &&
-      action.reason === "missing_prepare_started_args"
-    ) {
-      debugLog(
-        "Ignored malformed legacy prepare/started payload",
-        action.message,
-      );
-      return;
-    }
-
-    if (
-      action.type === "ignore" &&
-      action.reason === "malformed_roulette_started_args"
-    ) {
-      debugLog(
-        "Ignored malformed legacy roulette started payload",
-        action.message,
-      );
-      return;
-    }
-
-    if (
-      action.type === "ignore" &&
-      action.reason === "malformed_coinflip_started_args"
-    ) {
-      debugLog(
-        "Ignored malformed legacy coinflip started payload",
-        action.message,
-      );
-      return;
-    }
-
-    if (action.type === "ignore" && action.reason === "malformed_update_args") {
-      debugLog("Ignored malformed legacy update payload", action.message);
-      return;
-    }
-
-    if (action.type === "ignore") return;
-
-    const { message: json } = action;
-
-    if (action.type === "play_sound") {
-      const { args } = action;
-      const volume = typeof args?.volume === "number" ? args.volume : undefined;
-      const url = typeof args?.url === "string" ? args.url : undefined;
-
-      if (typeof volume !== "number" || !url) return;
-
-      playOverlayAudio({
-        url,
-        volume,
-        label: "Legacy overlay playSound",
-        mutedFixtureAudioKind: "fallback",
-      });
-    } else if (action.type === "donate_prepare") {
-      const { args } = action;
-      const donate = createDonateEventModelFromArgs(args, {
-        fallbackId: json.id,
-      });
-
-      if (donate) this.pushDonate(donate);
-    } else if (action.type === "alert_list") {
-      const { args } = action;
-      const transition = resolveMainOverlayAlertListTransition(
-        this.donateAlertQueue,
-        json.key,
-        args,
-      );
-
-      this.donateAlertQueue = transition.queue;
-
-      if (transition.shouldSubmitFirstAlert) {
-        this.submitFirstAlert();
-      }
-    } else if (action.type === "prepare_started") {
-      const { args } = action;
-      const isPrepareState = action.state === "prepare";
-
-      if (isPrepareState) {
-        this.setCurrentPlaying(resolvePrepareSoundUrl(json.key));
+        });
+        return;
       }
 
-      const event = createMainOverlayEventModelFromAction({
-        id: json.id,
-        key: json.key,
-        state: action.state,
-        args,
-      });
-
-      if (event) this.setCurrentEvent(event);
-    } else if (action.type === "update") {
-      const { args } = action;
-      if (this.currentEvent && this.currentEvent.id === json.id) {
-        this.currentEvent.update({ [args.key]: args.value });
+      if (action.type === "ignore" && action.reason === "missing_prepare_started_args") {
+        debugLog("Ignored malformed legacy prepare/started payload", action.message);
+        return;
       }
-    } else if (action.type === "finished") {
-      if (this.currentEvent && this.currentEvent.id === json.id)
-        this.setCurrentEvent(undefined);
-    }
-  }
 
-  private submitFirstAlert() {
-    const transition = resolveDonationQueueSubmitFirstAlert(this.getDonationQueueState());
+      if (action.type === "ignore" && action.reason === "malformed_roulette_started_args") {
+        debugLog("Ignored malformed legacy roulette started payload", action.message);
+        return;
+      }
 
-    this.currentDonateAlert = transition.state.currentDonateAlert;
-    this.acceptDonationAlert(transition.acceptAlertId);
-  }
+      if (action.type === "ignore" && action.reason === "malformed_coinflip_started_args") {
+        debugLog("Ignored malformed legacy coinflip started payload", action.message);
+        return;
+      }
 
-  private getDonationQueueState(): DonationQueueState<DonateEventModel> {
-    return {
-      donateList: this.donateList,
-      currentDonate: this.currentDonate,
-      donateAlertQueue: this.donateAlertQueue,
-      currentDonateAlert: this.currentDonateAlert,
-    };
-  }
+      if (action.type === "ignore" && action.reason === "malformed_update_args") {
+        debugLog("Ignored malformed legacy update payload", action.message);
+        return;
+      }
 
-  private applyDonationQueueState(state: DonationQueueState<DonateEventModel>) {
-    this.donateList = [...state.donateList];
-    this.currentDonate = state.currentDonate;
-    this.donateAlertQueue = [...state.donateAlertQueue];
-    this.currentDonateAlert = state.currentDonateAlert;
-  }
+      if (action.type === "ignore") return;
 
-  private scheduleDonationChange(submitFirstAlert: boolean) {
-    if (this.changeDonateTimeout) clearTimeout(this.changeDonateTimeout);
+      const { message: json } = action;
 
-    this.changeDonateTimeout = setTimeout(
-      action(() => {
-        const transition = resolveDonationQueueScheduledChange(
-          this.getDonationQueueState(),
-          { submitFirstAlert },
+      if (action.type === "play_sound") {
+        const { args } = action;
+        const volume = typeof args?.volume === "number" ? args.volume : undefined;
+        const url = typeof args?.url === "string" ? args.url : undefined;
+
+        if (typeof volume !== "number" || !url) return;
+
+        playOverlayAudio({
+          url,
+          volume,
+          label: "Legacy overlay playSound",
+          mutedFixtureAudioKind: "fallback",
+        });
+      } else if (action.type === "donate_prepare") {
+        const { args } = action;
+        const donate = createDonateEventModelFromArgs(args, {
+          fallbackId: json.id,
+        });
+
+        if (donate) pushDonate(donate);
+      } else if (action.type === "alert_list") {
+        const { args } = action;
+        const transition = resolveMainOverlayAlertListTransition(
+          donateAlertQueueRef.current,
+          json.key,
+          args,
         );
 
-        this.applyDonationQueueState(transition.state);
-        this.acceptDonationAlert(transition.acceptAlertId);
-      }),
-      50,
-    );
-  }
+        donateAlertQueueRef.current = transition.queue;
 
-  private acceptDonationAlert(id: DonationQueueTransition<DonateEventModel>["acceptAlertId"]) {
-    if (!id) return;
+        if (transition.shouldSubmitFirstAlert) {
+          submitFirstAlert();
+        }
+      } else if (action.type === "prepare_started") {
+        const { args } = action;
+        const isPrepareState = action.state === "prepare";
 
-    this.socket?.send(
-      JSON.stringify({
-        type: "acceptAlert",
-        args: {
-          id,
+        if (isPrepareState) {
+          setCurrentPlaying(resolvePrepareSoundUrl(json.key));
+        }
+
+        const event = createMainOverlayEventModelFromAction({
+          id: json.id,
+          key: json.key,
+          state: action.state,
+          args,
+        });
+
+        if (event) setCurrentEvent(event);
+      } else if (action.type === "update") {
+        const { args } = action;
+        if (currentEventRef.current && currentEventRef.current.id === json.id) {
+          currentEventRef.current.update({ [args.key]: args.value });
+        }
+      } else if (action.type === "finished") {
+        if (currentEventRef.current && currentEventRef.current.id === json.id)
+          setCurrentEvent(undefined);
+      }
+    },
+    [pushDonate, setCurrentEvent, setCurrentPlaying, submitFirstAlert],
+  );
+
+  const closeConnection = useCallback(() => {
+    if (changeDonateTimeoutRef.current) clearTimeout(changeDonateTimeoutRef.current);
+
+    setCurrentEvent(undefined);
+    setCurrentPlaying(undefined);
+
+    socketRef.current?.disconnect();
+    socketRef.current = undefined;
+  }, [setCurrentEvent, setCurrentPlaying]);
+
+  const createConnection = useCallback(
+    (nextAccountKey: string) => {
+      if (isRequestedLegacyFixtureReplayActive()) {
+        debugLog("Skipped legacy main websocket connection during fixture replay");
+        return;
+      }
+
+      const socket = createLegacyOverlaySocket({
+        url: buildMainOverlaySocketUrl(AppConfig.ws, nextAccountKey, testModeRef.current),
+        label: "main",
+        onOpen: () => {
+          setConnectionFailed(false);
+          setConnecting(false);
         },
-      }),
+        onClose: () => {
+          setCurrentEvent(undefined);
+        },
+        onMessage: (data) => {
+          handleLegacyMessage(safeJsonParse(data));
+        },
+        onFailure: () => {
+          setConnecting(false);
+          setConnectionFailed(true);
+        },
+      });
+
+      socketRef.current = socket;
+      socket.connect();
+    },
+    [handleLegacyMessage, setConnecting, setConnectionFailed, setCurrentEvent],
+  );
+
+  useEffect(() => {
+    isMountedRef.current = true;
+    closeConnection();
+
+    const didReplayFixture = replayRequestedLegacyFixture((payload) =>
+      handleLegacyMessage(payload),
     );
-  }
+    if (didReplayFixture) {
+      setConnecting(false);
+      return () => {
+        cleanupFixtureAudioUnlockPrompt();
+        isMountedRef.current = false;
+        closeConnection();
+      };
+    }
 
-  get testMode(): boolean {
-    return this.props.testMode === true;
-  }
+    createConnection(accountKey);
 
-  get mode(): MainOverlayMode {
-    return this.props.mode ?? "all";
-  }
+    return () => {
+      cleanupFixtureAudioUnlockPrompt();
+      isMountedRef.current = false;
+      closeConnection();
+    };
+  }, [accountKey, closeConnection, createConnection, handleLegacyMessage, setConnecting]);
 
-  get accountKey(): string {
-    const {
-      match: {
-        params: { id },
-      },
-    } = this.props;
+  if (connectionFailed) return <OverlayUnavailable />;
 
-    return id;
-  }
+  return (
+    <div>
+      {connecting && <h1>Łączenie...</h1>}
+      {!connecting && !!currentDonate && (
+        <DonateEvent donate={currentDonate} onFinished={donateFinished} />
+      )}
+
+      {!connecting &&
+        !!currentEvent &&
+        (currentEvent instanceof RouletteEventModel ? (
+          <RouletteEvent images={images} event={currentEvent} />
+        ) : currentEvent instanceof CoinflipEventModel ? (
+          <CoinflipEvent images={images} event={currentEvent} />
+        ) : (
+          <NormalEvent images={images} event={currentEvent as NormalEventModel} />
+        ))}
+    </div>
+  );
 }
