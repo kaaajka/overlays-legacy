@@ -1,5 +1,3 @@
-import { computed, makeObservable, observable } from "mobx";
-
 import { EventModel, type IEventModelSchema } from "./Event";
 
 export class NormalEventModel extends EventModel {
@@ -7,11 +5,6 @@ export class NormalEventModel extends EventModel {
 
   constructor(data: IEventModelSchema) {
     super(data);
-
-    makeObservable(this, {
-      time: observable,
-      formattedTime: computed,
-    });
   }
 
   get formattedTime(): string | null {

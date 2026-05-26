@@ -1,5 +1,3 @@
-import { action, makeObservable, observable } from "mobx";
-
 import { EventModel, type IEventModelSchema } from "./Event";
 import { type ICoinflipSegmentSchema, CoinflipSegmentModel } from "./CoinflipSegment";
 
@@ -17,21 +15,6 @@ export class CoinflipEventModel extends EventModel {
     super(data);
 
     if (data.segments) this.segments = data.segments.map((item) => new CoinflipSegmentModel(item));
-
-    makeObservable(this, {
-      winner: observable,
-      setWinner: action,
-    });
-
-    makeObservable(this, {
-      coin_landing_side: observable,
-      setCoinLandingSide: action,
-    });
-
-    makeObservable(this, {
-      coin_chosen_side: observable,
-      setCoinChosenSide: action,
-    });
   }
 
   setWinner(ticket: number) {

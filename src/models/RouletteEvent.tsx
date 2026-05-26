@@ -1,5 +1,3 @@
-import { action, makeObservable, observable } from "mobx";
-
 import { EventModel, EventState, type IEventModelSchema } from "./Event";
 import { type IRouletteItemSchema, RouletteItemModel } from "./RouletteItem";
 
@@ -16,11 +14,6 @@ export class RouletteEventModel extends EventModel {
     super(data);
 
     if (data.items) this.items = data.items.map((item) => new RouletteItemModel(item));
-
-    makeObservable(this, {
-      winner: observable,
-      setWinner: action,
-    });
   }
 
   setWinner(ticket: number) {

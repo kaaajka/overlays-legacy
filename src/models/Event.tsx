@@ -1,5 +1,3 @@
-import { action, makeObservable, observable } from "mobx";
-
 export interface IEventModelSchema {
   id: string;
   key: string;
@@ -26,11 +24,6 @@ export class EventModel {
     this.key = data.key;
     this.name = data.name;
     this.description = data.description;
-
-    makeObservable(this, {
-      state: observable,
-      update: action,
-    });
   }
 
   update(args: Record<string, unknown>) {
