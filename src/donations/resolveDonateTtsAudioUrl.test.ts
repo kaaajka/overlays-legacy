@@ -1,11 +1,19 @@
 import { describe, expect, it } from "vitest";
 
+import { resolvePublicAssetUrl } from "../assets/resolveOverlayAssetUrl";
 import {
   resolveDonateTtsAudioUrl,
+  TEST_DONATE_TTS_AUDIO_PATH,
   TEST_DONATE_TTS_AUDIO_URL,
 } from "./resolveDonateTtsAudioUrl";
 
 describe("resolveDonateTtsAudioUrl", () => {
+  it("builds the local test TTS URL through the public asset resolver", () => {
+    expect(TEST_DONATE_TTS_AUDIO_URL).toBe(
+      resolvePublicAssetUrl(TEST_DONATE_TTS_AUDIO_PATH),
+    );
+  });
+
   it("returns local TTS audio for test donation message TTS", () => {
     expect(
       resolveDonateTtsAudioUrl("/ttscache/abc.mp3", {

@@ -1,4 +1,7 @@
-export const TEST_DONATE_TTS_AUDIO_URL = "/assets/sounds/shared/tipply-test-tts.mp3";
+import { resolvePublicAssetUrl } from "../assets/resolveOverlayAssetUrl";
+
+export const TEST_DONATE_TTS_AUDIO_PATH = "assets/sounds/shared/tipply-test-tts.mp3";
+export const TEST_DONATE_TTS_AUDIO_URL = resolvePublicAssetUrl(TEST_DONATE_TTS_AUDIO_PATH);
 
 export type DonateTtsAudioKind = "tts-nickname" | "tts-amount" | "tts-message";
 

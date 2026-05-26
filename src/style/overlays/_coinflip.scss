@@ -54,8 +54,8 @@
     $segmentCoinScaleInDelay: $segmentCoinSpinDelay +
       ($segmentCoinSpinDurationHead * $coinSpins) + 0.5s;
 
-    $headImage: url("/assets/images/coinflip/head.png");
-    $tailImage: url("/assets/images/coinflip/tail.png");
+    $headImage: url("../../../public/assets/images/coinflip/head.png");
+    $tailImage: url("../../../public/assets/images/coinflip/tail.png");
 
     .roulette {
       display: block;
