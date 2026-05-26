@@ -4,13 +4,11 @@ import { action, makeObservable, observable, reaction } from "mobx";
 import type { RouterCompatProps } from "../routing/routerCompat";
 import type { IReactionDisposer } from "mobx";
 
-import { type EventModel, EventState } from "../models/Event";
+import type { EventModel } from "../models/Event";
 import { RouletteEventModel } from "../models/RouletteEvent";
-import type { IRouletteItemSchema } from "../models/RouletteItem";
-import { NormalEventModel } from "../models/NormalEvent";
+import type { NormalEventModel } from "../models/NormalEvent";
 import type { DonateEventModel } from "../models/DonateEvent";
 import { CoinflipEventModel } from "../models/CoinflipEvent";
-import type { ICoinflipSegmentSchema } from "../models/CoinflipSegment";
 
 import RouletteEvent from "./RouletteEvent";
 import NormalEvent from "./NormalEvent";
@@ -32,6 +30,7 @@ import { safeJsonParse } from "../protocol/safeJson";
 import type { MainOverlayMode } from "../protocol/mainOverlayMode";
 import { resolveMainOverlayAlertListTransition } from "../protocol/resolveMainOverlayAlertListTransition";
 import { resolveMainOverlayEventAction } from "../protocol/resolveMainOverlayEventAction";
+import { createMainOverlayEventModelFromAction } from "../protocol/createMainOverlayEventModelFromAction";
 import { buildMainOverlaySocketUrl } from "../socket/buildOverlaySocketUrl";
 import { createLegacyOverlaySocket } from "../socket/createLegacyOverlaySocket";
 import type { LegacyOverlaySocketController } from "../socket/createLegacyOverlaySocket";
@@ -417,41 +416,6 @@ export class PageChannel extends React.Component<PageChannelProps> {
     } else if (action.type === "prepare_started") {
       const { args } = action;
       const isPrepareState = action.state === "prepare";
-      const params = {
-        id: json.id,
-        key: json.key,
-        name: typeof args.name === "string" ? args.name : "",
-        description:
-          typeof args.description === "string" ? args.description : "",
-      };
-      let event: EventModel;
-      switch (json.key) {
-        case "roulette":
-          event = new RouletteEventModel({
-            ...params,
-            items: Array.isArray(args.items)
-              ? (args.items as IRouletteItemSchema[])
-              : [],
-          });
-          break;
-        case "coinflip":
-          event = new CoinflipEventModel({
-            ...params,
-            segments: Array.isArray(args.segments)
-              ? (args.segments as ICoinflipSegmentSchema[])
-              : [],
-          });
-          break;
-        default:
-          event = new NormalEventModel(params);
-          break;
-      }
-      const toUpdate: {
-        state: EventState;
-        time?: number;
-        winner?: number;
-        coin_landing_side?: number;
-      } = { state: isPrepareState ? EventState.PREPARE : EventState.STARTED };
 
       if (isPrepareState) {
         let list: string[];
@@ -469,24 +433,16 @@ export class PageChannel extends React.Component<PageChannelProps> {
         const randomSound = list[Math.floor(Math.random() * list.length)];
 
         this.setCurrentPlaying(randomSound);
-      } else {
-        if (
-          ["roulette", "coinflip"].includes(json.key) &&
-          typeof args.winner === "number"
-        )
-          toUpdate.winner = args.winner;
-        if (
-          json.key === "coinflip" &&
-          typeof args.coin_landing_side === "number"
-        )
-          toUpdate.coin_landing_side = args.coin_landing_side;
-
-        if (typeof args.time === "number") toUpdate.time = args.time;
       }
 
-      event.update(toUpdate);
+      const event = createMainOverlayEventModelFromAction({
+        id: json.id,
+        key: json.key,
+        state: action.state,
+        args,
+      });
 
-      this.setCurrentEvent(event);
+      if (event) this.setCurrentEvent(event);
     } else if (action.type === "update") {
       const { args } = action;
       if (this.currentEvent && this.currentEvent.id === json.id) {
