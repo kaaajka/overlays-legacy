@@ -7,6 +7,7 @@ import type {
   DonateTemplateSound,
   DonateTemplateSpeech,
 } from "../donations/donationTemplateTypes";
+import { resolveDonateTtsAudioUrl } from "../donations/resolveDonateTtsAudioUrl";
 import { resolveDonationTemplate } from "../donations/resolveDonationTemplate";
 import type { DonateEventModel } from "../models/DonateEvent";
 
@@ -88,6 +89,13 @@ export default function DonateEvent({ donate, onFinished }: IDonateEventProps) {
         speech.voiceType === "GOOGLE_POLISH_MALE"
           ? donateSnapshot.tts_message_google_male
           : donateSnapshot.tts_message_google_female;
+      const resolveTtsAudioUrl = (url: string | null | undefined) => {
+        const ttsAudioUrl = resolveDonateTtsAudioUrl(url, {
+          isTestDonate: donateSnapshot.test,
+        });
+
+        return donateSnapshot.test ? ttsAudioUrl : resolveBackendAudioUrl(ttsAudioUrl);
+      };
 
       await playOverlayAudioSequence(
         [
@@ -104,21 +112,21 @@ export default function DonateEvent({ donate, onFinished }: IDonateEventProps) {
             },
           },
           {
-            url: speech.readNickname ? resolveBackendAudioUrl(speechNicknamePath) : null,
+            url: speech.readNickname ? resolveTtsAudioUrl(speechNicknamePath) : null,
             volume: speech.volume,
             label: "Donate nickname TTS",
             kind: "tts",
             mutedFixtureAudioKind: "tts-nickname",
           },
           {
-            url: speech.readAmount ? resolveBackendAudioUrl(speechAmountPath) : null,
+            url: speech.readAmount ? resolveTtsAudioUrl(speechAmountPath) : null,
             volume: speech.volume,
             label: "Donate amount TTS",
             kind: "tts",
             mutedFixtureAudioKind: "tts-amount",
           },
           {
-            url: speech.readMessage ? resolveBackendAudioUrl(speechMessagePath) : null,
+            url: speech.readMessage ? resolveTtsAudioUrl(speechMessagePath) : null,
             volume: speech.volume,
             label: "Donate message TTS",
             kind: "tts",
