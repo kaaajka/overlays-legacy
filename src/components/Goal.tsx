@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useRef } from "react";
 import { resolveGoalImageUrl } from "../assets/resolveOverlayAssetUrl";
+import { calculateGoalPercentage } from "./calculateGoalPercentage";
 
 const CIRCLE_MAX_SIZE = 790;
 const LINE_WIDTH = 35;
@@ -26,7 +27,7 @@ export default function Goal({ current, goal, type }: IGoalProps) {
   const resizeTimeoutRef = useRef<ReturnType<typeof setTimeout>>();
   const savedPixelsRef = useRef<Uint8ClampedArray>();
   const isMountedRef = useRef(false);
-  const goalPercentageRef = useRef(current / goal);
+  const goalPercentageRef = useRef(calculateGoalPercentage(current, goal));
 
   if (!backgroundImageRef.current) {
     backgroundImageRef.current = new Image();
@@ -266,10 +267,8 @@ export default function Goal({ current, goal, type }: IGoalProps) {
   }, [setup, onResize]);
 
   useEffect(() => {
-    goalPercentageRef.current = current / goal;
-
-    if (goalPercentageRef.current > 1) goalPercentageRef.current = 1;
-    else draw();
+    goalPercentageRef.current = calculateGoalPercentage(current, goal);
+    draw();
   }, [current, goal, draw]);
 
   return (
