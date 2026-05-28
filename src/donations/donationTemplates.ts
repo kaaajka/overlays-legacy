@@ -9,8 +9,6 @@ import Donate4 from "../components/donations/Donate4";
 import Donate5 from "../components/donations/Donate5";
 import Donate6 from "../components/donations/Donate6";
 import Donate7 from "../components/donations/Donate7";
-import Donate8 from "../components/donations/Donate8";
-import Donate10 from "../components/donations/Donate10";
 
 import type { DonateTemplateConfig } from "./donationTemplateTypes";
 
@@ -88,7 +86,6 @@ export const donationTemplates: DonateTemplateConfig[] = [
 
   {
     minAmount: 10000,
-    // minAmount: 9000,
     amountWithoutCommission: true,
     images: [resolveDonationGifUrl(5)],
     sound: {
@@ -123,24 +120,6 @@ export const donationTemplates: DonateTemplateConfig[] = [
     template: Donate6,
   },
 
-  /*{
-    minAmount: 20000,
-    amountWithoutCommission: true,
-    images: [resolveDonationGifUrl(6)],
-    sound: {
-      url: resolveDonationAudioUrl(7),
-      volume: 1,
-    },
-    speech: {
-      readAmount: true,
-      readMessage: true,
-      readNickname: true,
-      voiceType: "GOOGLE_POLISH_FEMALE",
-      volume: 0.4,
-    },
-    template: Donate9,
-  },*/
-
   {
     minAmount: 30000,
     amountWithoutCommission: true,
@@ -157,41 +136,5 @@ export const donationTemplates: DonateTemplateConfig[] = [
       volume: 0.4,
     },
     template: Donate7,
-  },
-
-  {
-    minAmount: 40000,
-    amountWithoutCommission: true,
-    images: [resolveDonationGifUrl(7)],
-    sound: {
-      url: resolveDonationAudioUrl(7),
-      volume: 1,
-    },
-    speech: {
-      readAmount: true,
-      readMessage: true,
-      readNickname: true,
-      voiceType: "GOOGLE_POLISH_FEMALE",
-      volume: 0.4,
-    },
-    template: Donate8,
-  },
-
-  {
-    minAmount: 50000,
-    amountWithoutCommission: true,
-    images: [resolveDonationGifUrl(7)],
-    sound: {
-      url: resolveDonationAudioUrl(7),
-      volume: 1,
-    },
-    speech: {
-      readAmount: true,
-      readMessage: true,
-      readNickname: true,
-      voiceType: "GOOGLE_POLISH_FEMALE",
-      volume: 0.4,
-    },
-    template: Donate10,
   },
 ];
