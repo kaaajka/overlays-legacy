@@ -1,7 +1,51 @@
-# Donate2 — Ember / momentum
+# Donate2 - Masked dance floor
 
-Copper diagonal blades anticipate an oblique amount reveal. Supporting words move on opposite rails, then settle away from the name. Background uses amber streaks with clear negative space. Camera briefly banks into the impact; tiny embers describe direction. Budget: two GPU draw calls, 220–520 instances.
+## Source GIF
 
-Hero cue: **3.66875s**. Compression begins at 3.43s; release settles at 6.47837s. Exact timings are authored against the existing file's measured transients and the legacy track's structure; listening and recording in OBS remain part of final art-direction approval. Automated tempo is an estimate. No reliable downbeats are claimed.
+`public/assets/donations/gif/donation-template-02.gif`: 343x480, 142 frames, 5.68s, infinite loop. White-masked dancer in dark coat with red hands, isolated on alpha.
 
-Information state: white Poppins donor/amount header, full plain-text message on a restrained dark translucent reading surface. Long messages scroll slowly, with opening and final holds. No truncation. Secondary particles shut down during speech. SAFE retains the same typography, SVG aperture and shockwave cues.
+Characteristic motion/gesture: Kicks and leans; hands lift overhead at2.52s. Transparent margins are essential. Hero source time: **2.52s**. True source transparency, preserve the silhouette and negative space.
+
+## Source music
+
+Authoritative template2, 15.46558s, estimated129.199 BPM. Strong measured spectral-flux transients: 0.62694s, 1.32354s, 2.25234s, 2.71673s, 3.66875s. These are observations, not audible drop labels. Existing authored hero **3.66875s** remains fixed. firstImpact/donorReveal/buildStart/preDrop/settle retain current cue map and exact track/gain. Tension is visual restraint at preDrop; payoff occurs at hero, not every beat. No reliable downbeats asserted. Audible GIF/music interpretation needs manual listening approval; analysis supplies timing evidence, not certainty about musical genre.
+
+## Legacy DNA
+
+Warm dancing thanks and heart. Preserve the selected subject and emotional joke rather than mechanically reproducing CSS.
+
+## New concept
+
+A three-position transparent dance echo with arms-up freeze on the hit.
+
+## Full-screen storyboard
+
+-0.000s: source-pose tease at scene-specific location, transparent broadcast around it.
+-firstImpact: media enters in its characteristic direction; no independent visual timer.
+-donorReveal: Name descends overhead; amount lands at foot level without blocking white mask.
+-buildStart: echo silhouettes join in staggered positions.
+-preDrop: source holds the characteristic pose, reduce secondary motion.
+-3.66875s hero: selected source pose, amount and signature technique land together.
+-hero+50ms: release begins while subject, name and amount remain readable.
+-settle: source loop resumes; dramatic detail falls away.
+-15.46558s end: media unloads, spectacle hides and full readable information takes over.
+
+## GIF usage
+
+Primary height830 at(670,100); delayed echoes height600/650 at(280,300)/(1330,250). Delays0.12/0.24s. Name above and amount at y850. Preserve alpha; no silhouette recolor. All geometry is logical1920x1080. No generated/replacement footage. Source loops against music time, holds the chosen pose from hero-0.12s (bounded by preDrop) until hero+0.08s, then resumes from that pose and loops. Echoes use authored source offsets. Original GIF fallback preserves recognizable content but cannot guarantee exact source-frame synchronization. Poster is an unmodified source frame.
+
+## Nickname and amount
+
+Name descends overhead; amount lands at foot level without blocking white mask. Dynamic Polish amount/currency preserved; shrink long strings and reserve independent text space. Amount's exact cue is **3.66875s**. The source cannot be swapped with another tier without breaking the joke, spatial balance and chosen gesture.
+
+## Message / information state
+
+Keep shared1240px reading card, complete plain text, slow overflow scrolling and opening/final holds. Keep existing nickname -> amount -> message TTS and queue completion. Hide and unload media/effects at information; no ongoing decode when idle.
+
+## Unique signature technique
+
+A three-position transparent dance echo with arms-up freeze on the hit. This is the main idea only for this tier.
+
+## Performance budget
+
+Maximum3 paused video decoders at original source dimensions. Coalesced frame-cadence seeks, bounded preload and latest-clock recovery. No GPU effects for this scene. No blur stack or DOM particle forest. Video sources/listeners release at information/unmount. WebM is selected for control, not a promise of smaller files: lossless opaque assets are larger than GIF; transparent asset is smaller. Do not sacrifice selected content fidelity.

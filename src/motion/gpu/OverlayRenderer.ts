@@ -100,6 +100,7 @@ export class OverlayRenderer {
     seed: string,
     private quality: QualityTier,
     onFallback: () => void,
+    private particleLimit = 520,
   ) {
     this.gl = canvas.getContext("webgl2", {
       alpha: true,
@@ -208,6 +209,7 @@ export class OverlayRenderer {
           6,
           Math.min(
             qualityBudgets[this.quality].particles,
+            this.particleLimit,
             [70, 110, 170, 200, 260, 380, 520, 400][motifs.indexOf(this.motif)],
           ),
         );

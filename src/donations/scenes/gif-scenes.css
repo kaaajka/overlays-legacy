@@ -1,0 +1,492 @@
+/* Source-led scenes, direction d2f60c0f. Geometry/type belongs to each show; infrastructure is shared. */
+.scene-content {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+}
+.source-media {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+.source-media :is(video, img) {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.source-video {
+  visibility: hidden;
+}
+.scene-copy {
+  position: absolute;
+  z-index: 6;
+}
+.scene-copy .motion-name {
+  max-width: 100%;
+  text-align: inherit;
+}
+.scene-copy .motion-amount {
+  position: absolute;
+  max-width: 100%;
+}
+.scene-phrase {
+  font-size: 25px;
+  font-weight: 500;
+  margin: 0 0 35px;
+}
+.donation-motion[data-phase="information"] .scene-content {
+  display: none;
+}
+.turkey-room {
+  position: absolute;
+  left: 100px;
+  top: 170px;
+  width: 780px;
+  height: 650px;
+}
+.turkey-floor {
+  position: absolute;
+  bottom: -25px;
+  left: 110px;
+  width: 560px;
+  height: 8px;
+  background: #ffe0a1;
+  border-radius: 50%;
+}
+.turkey-reply {
+  position: absolute;
+  left: 1010px;
+  top: 270px;
+  width: 790px;
+}
+.turkey-reply .scene-copy {
+  width: 100%;
+  top: 75px;
+}
+.turkey-reply .motion-name {
+  text-align: left;
+}
+.turkey-reply .motion-amount {
+  top: 160px;
+}
+.turkey-step {
+  position: absolute;
+  left: 990px;
+  top: 765px;
+  width: 800px;
+  height: 60px;
+  fill: none;
+  stroke: #ffe0a1;
+  stroke-width: 3;
+  transform-origin: left;
+}
+.mask-lead {
+  position: absolute;
+  left: 670px;
+  top: 100px;
+  width: 593px;
+  height: 830px;
+}
+.mask-echo {
+  position: absolute;
+}
+.echo-left {
+  left: 280px;
+  top: 300px;
+  width: 429px;
+  height: 600px;
+}
+.echo-right {
+  left: 1330px;
+  top: 250px;
+  width: 464px;
+  height: 650px;
+}
+.mask-floor {
+  position: absolute;
+  left: 280px;
+  top: 892px;
+  width: 1490px;
+  height: 4px;
+  background: #e84531;
+}
+.scene-mask .scene-copy {
+  inset: 0;
+  text-align: center;
+}
+.scene-mask .motion-name {
+  position: absolute;
+  left: 280px;
+  top: 35px;
+  width: 1360px;
+}
+.scene-mask .motion-amount {
+  left: 460px;
+  top: 865px;
+  width: 1000px;
+  justify-content: center;
+}
+.mask-call {
+  position: absolute;
+  left: 70px;
+  top: 750px;
+  width: 250px;
+  font-size: 24px;
+  color: #ffb9a5;
+}
+.rodent-projector {
+  position: absolute;
+  left: 560px;
+  top: 230px;
+  width: 800px;
+  height: 600px;
+  overflow: hidden;
+}
+.rodent-left {
+  position: absolute;
+  left: 40px;
+  top: 470px;
+  width: 350px;
+  height: 263px;
+}
+.rodent-right {
+  position: absolute;
+  left: 1530px;
+  top: 220px;
+  width: 350px;
+  height: 263px;
+}
+.scene-rodent .source-media {
+  image-rendering: pixelated;
+}
+.shutter {
+  position: absolute;
+  width: 100%;
+  height: 50%;
+  background: #1b1310;
+  transform: scaleY(0);
+}
+.shutter-top {
+  top: 0;
+  transform-origin: top;
+}
+.shutter-bottom {
+  bottom: 0;
+  transform-origin: bottom;
+}
+.rodent-omg {
+  position: absolute;
+  left: 1490px;
+  top: 575px;
+  font-size: 120px;
+  font-weight: 700;
+  color: #ffe297;
+  opacity: 0;
+}
+.scene-rodent .scene-copy {
+  inset: 0;
+  text-align: center;
+}
+.scene-rodent .motion-name {
+  position: absolute;
+  left: 360px;
+  top: 90px;
+  width: 1200px;
+}
+.scene-rodent .motion-amount {
+  top: 865px;
+  left: 400px;
+  width: 1120px;
+  justify-content: center;
+}
+.paper-portrait {
+  position: absolute;
+  left: 1230px;
+  top: 90px;
+  width: 560px;
+  height: 835px;
+}
+.paper-answer {
+  position: absolute;
+  left: 120px;
+  top: 95px;
+  width: 950px;
+}
+.paper-caption {
+  margin: 0;
+  font-size: 75px;
+  line-height: 1.15;
+  font-weight: 600;
+  opacity: 0;
+}
+.paper-strip {
+  position: absolute;
+  top: 355px;
+  width: 950px;
+  height: 270px;
+  background: #f4eee1;
+  clip-path: polygon(
+    0 0,
+    98% 0,
+    100% 5%,
+    98% 12%,
+    100% 20%,
+    98% 28%,
+    100% 38%,
+    98% 48%,
+    100% 57%,
+    98% 66%,
+    100% 76%,
+    98% 85%,
+    100% 94%,
+    98% 100%,
+    0 100%
+  );
+  transform-origin: left;
+}
+.scene-paper .scene-copy {
+  top: 215px;
+  width: 950px;
+}
+.scene-paper .motion-name {
+  text-align: left;
+}
+.scene-paper .motion-amount {
+  top: 175px;
+  left: 30px;
+  color: #30271f;
+  text-shadow: none;
+  transform-origin: left;
+}
+.paper-perforation {
+  position: absolute;
+  left: 120px;
+  top: 735px;
+  width: 950px;
+  height: 20px;
+  stroke: #f4eee1;
+  stroke-width: 2;
+  stroke-dasharray: 8 14;
+  opacity: 0;
+}
+.ovation-panorama {
+  position: absolute;
+  left: 260px;
+  top: 80px;
+  width: 1400px;
+  height: 788px;
+}
+.ovation-lip {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 4px;
+  background: #f4c882;
+}
+.ovation-wing {
+  position: absolute;
+  top: 250px;
+  font-size: 184px;
+  line-height: 1;
+  font-weight: 700;
+  writing-mode: vertical-rl;
+  color: #ffe0a1;
+}
+.wing-holy {
+  left: 32px;
+  transform: rotate(180deg);
+}
+.wing-moly {
+  right: 32px;
+}
+.scene-ovation .scene-copy {
+  inset: 0;
+  text-align: center;
+}
+.scene-ovation .motion-name {
+  position: absolute;
+  top: 0;
+  left: 300px;
+  width: 1320px;
+}
+.scene-ovation .motion-amount {
+  top: 870px;
+  left: 350px;
+  width: 1220px;
+  justify-content: center;
+}
+.ovation-call {
+  position: absolute;
+  left: 65px;
+  bottom: 55px;
+  width: 270px;
+  font-size: 27px;
+  opacity: 0;
+}
+.heart-booth {
+  position: absolute;
+  left: 1080px;
+  top: 110px;
+  width: 720px;
+  height: 720px;
+}
+.heart-booth .source-media {
+  clip-path: polygon(0 0, 92% 0, 100% 8%, 100% 100%, 8% 100%, 0 92%);
+}
+.heart-call {
+  position: absolute;
+  right: 0;
+  bottom: -95px;
+  font-size: 60px;
+  font-weight: 600;
+  color: #ffc1ce;
+}
+.heart-bridge {
+  position: absolute;
+  left: 30px;
+  top: 225px;
+  width: 1100px;
+  height: 760px;
+  overflow: visible;
+  fill: none;
+  stroke: #ffc1ce;
+  stroke-width: 7;
+}
+.scene-heart .scene-copy {
+  left: 120px;
+  top: 325px;
+  width: 840px;
+}
+.scene-heart .motion-name {
+  text-align: left;
+}
+.scene-heart .motion-amount {
+  top: 170px;
+  left: 50px;
+}
+.heart-thanks {
+  position: absolute;
+  left: 145px;
+  top: 820px;
+  width: 720px;
+  font-size: 29px;
+  margin: 0;
+  opacity: 0;
+}
+.webcam-wall {
+  position: absolute;
+  inset: 0;
+}
+.webcam-wall img,
+.webcam-wall video {
+  image-rendering: pixelated;
+}
+.webcam-still {
+  position: absolute;
+  width: 240px;
+  height: 240px;
+  background: #171517;
+  border: 3px solid #9b9b9b;
+}
+.webcam-still img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.webcam-still span {
+  position: absolute;
+  bottom: 5px;
+  left: 10px;
+  font-size: 19px;
+  color: #ece9dd;
+}
+.monitor-slot-0 {
+  left: 1070px;
+  top: 60px;
+  transform: rotate(-10deg);
+}
+.monitor-slot-1 {
+  left: 1430px;
+  top: 20px;
+  transform: rotate(7deg);
+}
+.monitor-slot-2 {
+  left: 1750px;
+  top: 190px;
+  transform: rotate(14deg);
+}
+.monitor-slot-3 {
+  left: 1700px;
+  top: 700px;
+  transform: rotate(-10deg);
+}
+.monitor-slot-4 {
+  left: 1310px;
+  top: 780px;
+  transform: rotate(8deg);
+}
+.monitor-slot-5 {
+  left: 980px;
+  top: 710px;
+  transform: rotate(-8deg);
+}
+.webcam-main {
+  position: absolute;
+  left: 1360px;
+  top: 310px;
+  width: 360px;
+  height: 360px;
+  border: 6px solid #ece9dd;
+}
+.webcam-satellite {
+  position: absolute;
+  width: 240px;
+  height: 240px;
+  border: 3px solid #9b9b9b;
+}
+.satellite-a {
+  left: 1020px;
+  top: 380px;
+  transform: rotate(8deg);
+}
+.satellite-b {
+  left: 1700px;
+  top: 430px;
+  transform: rotate(-10deg);
+}
+.webcam-shout {
+  position: absolute;
+  left: 100px;
+  top: 55px;
+  font-size: 134px;
+  line-height: 1.02;
+  font-weight: 700;
+}
+.webcam-shout strong {
+  display: block;
+  font-size: 164px;
+  color: #ece9dd;
+}
+.scene-webcam .scene-copy {
+  left: 120px;
+  top: 465px;
+  width: 840px;
+  transform: rotate(-7deg);
+}
+.scene-webcam .motion-name {
+  text-align: left;
+}
+.scene-webcam .motion-amount {
+  top: 240px;
+}
+.webcam-wtf {
+  position: absolute;
+  left: 210px;
+  top: 875px;
+  font-size: 75px;
+  font-weight: 700;
+  color: #ece9dd;
+  transform: rotate(-7deg);
+}

@@ -204,6 +204,7 @@ export default function MotionStudio() {
         quality: stats.quality,
         duration: music.current?.duration,
         cue: cue?.name,
+        media: scene.current?.media() ?? [],
       }),
     };
     (window as typeof window & { motionStudio?: typeof debug }).motionStudio = debug;
@@ -309,6 +310,18 @@ export default function MotionStudio() {
             <dd>{treatment.analysis.bpm} BPM</dd>
             <dt>Current cue</dt>
             <dd>{cue?.name ?? "intro"}</dd>
+            <dt>Source media</dt>
+            <dd>
+              {tier <= 7
+                ? `GIF ${String(tier).padStart(2, "0")} → VP9 WebM`
+                : "Studio-only · no source GIF"}
+            </dd>
+            <dt>Source position</dt>
+            <dd>
+              {stats.media?.length
+                ? `${stats.media[0].time.toFixed(3)}s / frame ${stats.media[0].frame} · ${stats.media[0].frozen ? "pose hold" : `loop ${stats.media[0].loop}`} · ${stats.media[0].state}`
+                : "No media layer"}
+            </dd>
           </dl>
           <div className="studio-features">
             {Object.entries(stats.features).map(([name, value]) => (

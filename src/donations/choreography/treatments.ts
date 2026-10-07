@@ -32,13 +32,13 @@ const analyses = [a1, a2, a3, a4, a5, a6, a7].map((analysis, i) =>
 analyses.push(analyses[6]);
 const cues = [c1, c2, c3, c4, c5, c6, c7, c8];
 const identities = [
-  ["Signal", "signal", "#73e4dc", "#dafff2", ["DZIĘKI"]],
-  ["Ember", "ember", "#ffa667", "#ffe0a1", ["DZIĘKI", "ZA WSPARCIE"]],
-  ["Prism", "prism", "#d2bdff", "#97f4ff", ["OMG"]],
-  ["Vault", "vault", "#b0f984", "#f5ffe2", ["WOWOW!!", "TAK O!"]],
-  ["Holy Moly", "holy", "#ff7b61", "#ffedb3", ["HOLY", "MOLY"]],
-  ["Halo", "halo", "#ffd77b", "#fff4d0", ["HALO", "HALO"]],
-  ["Takeover", "takeover", "#d3f57a", "#fff4be", ["CO ZA", "POJEB!!!"]],
+  ["Turkey two-step", "signal", "#eec692", "#fff2cf", ["DZIĘKI"]],
+  ["Masked dance floor", "ember", "#e84531", "#ffcab8", ["DZIĘKI", "ZA WSPARCIE"]],
+  ["Rodent rave", "prism", "#ce9759", "#ffe297", ["OMG"]],
+  ["Deadpan paper roll", "vault", "#eee4d4", "#f4eee1", ["WOWOW!!", "TAK O!"]],
+  ["Arms-wide ovation", "holy", "#e09055", "#ffe0a1", ["HOLY", "MOLY"]],
+  ["Heart from the booth", "halo", "#ee7998", "#ffd5df", ["HALO", "HALO"]],
+  ["Webcam overload", "takeover", "#bdb6b0", "#ece9dd", ["CO ZA", "POJEB!!!"]],
   ["Say my name · shared Donate7 track", "name", "#bcb8ff", "#f1eaff", ["SAY MY", "NAME"]],
 ] as const;
 

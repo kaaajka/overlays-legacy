@@ -1,8 +1,8 @@
-/* THESIS: typography occupies a 1920×1080 broadcast stage; the amount releases an authored musical impact.
-OWN-WORLD: aqua, copper, prism, lime, coral, gold; Poppins; fractured vector apertures and analytic light.
-STORY: donor tease, compression, impact, settle, full readable message and existing TTS.
-FIRST VIEWPORT: transparent stage, name above the central amount, giant words on opposing edges, foreground bills.
-FORM: live broadcast motion graphics, grounded candidate 4, seed 1760fcca; the explicit brief delegates art direction.
+/* THESIS: seven source-led meme shows share a music clock, not a composition.
+OWN-WORLD: unchanged Kaaajka GIFs, source poses, independent layouts and restrained supporting effects.
+STORY: each selected subject conducts its own donor payoff, then a complete readable message and existing TTS.
+FIRST VIEWPORT: room dance, alpha echoes, rodent film strip, paper roll, ovation, hand-heart or pixel monitor wall.
+FORM: explicit GIF-led brief overrides the direction roll, seed d2f60c0f.
 FINISH: unreviewed and undocumented is unfinished; this build ends with the finish review, the verdict, and DESIGN.md */
 import { forwardRef, useImperativeHandle, useRef } from "react";
 import type { CSSProperties } from "react";
@@ -17,17 +17,32 @@ import { QualityGovernor, selectQuality } from "../quality";
 import { motionIntensity } from "../random";
 import type { DirectedScene } from "../gsap/createChoreography";
 import "./donation-motion.css";
+import "../../donations/scenes/gif-scenes.css";
+import {
+  Donate1Scene,
+  Donate2Scene,
+  Donate3Scene,
+  Donate4Scene,
+  Donate5Scene,
+  Donate6Scene,
+  Donate7Scene,
+} from "../../donations/scenes";
+import { MediaLayer } from "../media/MediaLayer";
+import type { MediaStats } from "../media/MediaLayer";
+import { mediaAssets, mediaUrls } from "../media/SourceMedia";
 
 gsap.registerPlugin(useGSAP);
 export type SceneStats = {
   quality: QualityTier;
   frameMs: number;
   features: ReturnType<typeof featuresAt>;
+  media?: MediaStats[];
 };
 export type DonationSceneHandle = {
   renderAt: (time: number, frameMs?: number) => SceneStats;
   information: (readingMs: number) => void;
   outro: () => void;
+  media: () => MediaStats[];
 };
 type Props = {
   donate: DonateEventModel;
@@ -47,6 +62,7 @@ export const DonationScene = forwardRef<DonationSceneHandle, Props>(function Don
   const message = useRef<HTMLDivElement>(null);
   const director = useRef<DirectedScene>();
   const gpu = useRef<OverlayRenderer>();
+  const media = useRef<MediaLayer[]>([]);
   const governor = useRef(new QualityGovernor("safe"));
   const effects = useRef<EffectParameters>({
     atmosphere: 0,
@@ -61,6 +77,15 @@ export const DonationScene = forwardRef<DonationSceneHandle, Props>(function Don
     minimumFractionDigits: 2,
     maximumFractionDigits: 2,
   }).format(netAmount / 100);
+  const LiveScene = [
+    Donate1Scene,
+    Donate2Scene,
+    Donate3Scene,
+    Donate4Scene,
+    Donate5Scene,
+    Donate6Scene,
+    Donate7Scene,
+  ][treatment.tier - 1];
   const intensity = motionIntensity(
     donate.amount,
     liveMinimums[treatment.tier - 1] ?? 30000,
@@ -86,7 +111,20 @@ export const DonationScene = forwardRef<DonationSceneHandle, Props>(function Don
         information.style.opacity = "1";
         information.style.visibility = "visible";
       }
-      if (quality !== "safe") {
+      media.current = [...root.current.querySelectorAll<HTMLElement>(".source-media")].map(
+        (element) => {
+          const tier = Number(element.dataset.mediaTier);
+          return new MediaLayer(
+            element.querySelector("video"),
+            element.querySelector("img"),
+            mediaAssets[tier - 1],
+            treatment.cues,
+            mediaUrls(tier),
+            Number(element.dataset.mediaDelay) || 0,
+          );
+        },
+      );
+      if (quality !== "safe" && treatment.tier >= 5) {
         try {
           const initial = selectQuality(true, navigator.hardwareConcurrency ?? 4, quality);
           gpu.current = new OverlayRenderer(
@@ -96,6 +134,7 @@ export const DonationScene = forwardRef<DonationSceneHandle, Props>(function Don
             seed ?? donate.id,
             initial,
             fallback,
+            treatment.tier === 8 ? 400 : treatment.tier === 6 ? 70 : 110,
           );
           governor.current = new QualityGovernor(initial);
           root.current.dataset.quality = initial;
@@ -113,7 +152,8 @@ export const DonationScene = forwardRef<DonationSceneHandle, Props>(function Don
       const observer = new ResizeObserver(resize);
       observer.observe(root.current);
       resize();
-      director.current?.timeline.seek(lastTime.current, true);
+      director.current?.timeline.seek(Math.max(0.000001, lastTime.current), true);
+      for (const layer of media.current) layer.sync(lastTime.current);
       gpu.current?.render(
         lastTime.current,
         effects.current,
@@ -127,6 +167,8 @@ export const DonationScene = forwardRef<DonationSceneHandle, Props>(function Don
         director.current = undefined;
         gpu.current?.dispose();
         gpu.current = undefined;
+        for (const layer of media.current) layer.dispose();
+        media.current = [];
       };
     },
     {
@@ -149,9 +191,10 @@ export const DonationScene = forwardRef<DonationSceneHandle, Props>(function Don
         const features = featuresAt(treatment.analysis, time);
         try {
           director.current?.timeline.seek(
-            Math.min(treatment.analysis.duration, Math.max(0, time)),
+            Math.min(treatment.analysis.duration, Math.max(0.000001, time)),
             true,
           );
+          for (const layer of media.current) layer.sync(time);
           if (governor.current.record(frameMs)) {
             gpu.current?.setQuality(governor.current.tier);
             root.current.dataset.quality = governor.current.tier;
@@ -164,9 +207,15 @@ export const DonationScene = forwardRef<DonationSceneHandle, Props>(function Don
           governor.current.tier = "safe";
           root.current.dataset.quality = "safe";
         }
-        return { quality: governor.current.tier, frameMs, features };
+        return {
+          quality: governor.current.tier,
+          frameMs,
+          features,
+          media: media.current.map((layer) => layer.stats),
+        };
       },
       information(readingMs) {
+        for (const layer of media.current) layer.release();
         root.current.dataset.phase = "information";
         root.current.style.opacity = "1";
         try {
@@ -195,6 +244,7 @@ export const DonationScene = forwardRef<DonationSceneHandle, Props>(function Don
       outro() {
         root.current.style.opacity = "0";
       },
+      media: () => media.current.map((layer) => layer.stats),
     }),
     [treatment, intensity],
   );
@@ -216,76 +266,87 @@ export const DonationScene = forwardRef<DonationSceneHandle, Props>(function Don
       <div ref={stage} className="motion-stage">
         <div className="motion-atmosphere" aria-hidden="true" />
         <canvas ref={canvas} className="motion-gpu" aria-hidden="true" tabIndex={-1} />
-        <div className="motion-frame" aria-hidden="true">
-          <i />
-          <i />
-          <i />
-          <i />
-        </div>
-        {treatment.words.map((word, index) => (
-          // biome-ignore lint/suspicious/noArrayIndexKey: The two authored stage words are fixed decorative slots.
-          <div key={`${word}-${index}`} className={`motion-word word-${index}`} aria-hidden="true">
-            {word}
-          </div>
-        ))}
-        <div className="motion-emblem" aria-hidden="true">
-          <svg className="motion-aperture" viewBox="0 0 800 800" fill="none">
-            <title>Donation aperture</title>
-            <circle
-              className="aperture-circle"
-              cx="400"
-              cy="400"
-              r="306"
-              stroke="currentColor"
-              strokeWidth="2"
-            />
-            <circle
-              className="aperture-segments"
-              cx="400"
-              cy="400"
-              r="326"
-              stroke="currentColor"
-              strokeWidth="18"
-              strokeDasharray="92 78"
-            />
-            <path
-              className="aperture-diamond"
-              d="M400 50 750 400 400 750 50 400Z"
-              stroke="currentColor"
-              strokeWidth="3"
-            />
-            <path
-              className="aperture-brackets"
-              d="M190 110H110V190M610 110H690V190M690 610V690H610M110 610V690H190"
-              stroke="currentColor"
-              strokeWidth="9"
-            />
-            <path
-              className="aperture-rift"
-              d="M-350 285H80L130 245H670L720 285H1150M-350 515H80L130 555H670L720 515H1150"
-              stroke="currentColor"
-              strokeWidth="6"
-            />
-          </svg>
-        </div>
-        <div className="motion-wave" aria-hidden="true" />
-        <div className="motion-hero">
-          <div
-            className="motion-name"
-            style={{
-              fontSize: donate.nickname.length > 30 ? 48 : donate.nickname.length > 18 ? 64 : 84,
-            }}
-          >
-            {donate.nickname || "Anonim"}
-          </div>
-          <div
-            className="motion-amount"
-            style={{ fontSize: amount.length > 12 ? 140 : amount.length > 9 ? 190 : 256 }}
-          >
-            <span className="motion-amount-number">{amount}</span>
-            <span className="motion-currency">zł</span>
-          </div>
-        </div>
+        {LiveScene ? (
+          <LiveScene donate={donate} amount={amount} />
+        ) : (
+          <>
+            <div className="motion-frame" aria-hidden="true">
+              <i />
+              <i />
+              <i />
+              <i />
+            </div>
+            {treatment.words.map((word, index) => (
+              <div
+                // biome-ignore lint/suspicious/noArrayIndexKey: The two authored stage words are fixed decorative slots.
+                key={`${word}-${index}`}
+                className={`motion-word word-${index}`}
+                aria-hidden="true"
+              >
+                {word}
+              </div>
+            ))}
+            <div className="motion-emblem" aria-hidden="true">
+              <svg className="motion-aperture" viewBox="0 0 800 800" fill="none">
+                <title>Donation aperture</title>
+                <circle
+                  className="aperture-circle"
+                  cx="400"
+                  cy="400"
+                  r="306"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                />
+                <circle
+                  className="aperture-segments"
+                  cx="400"
+                  cy="400"
+                  r="326"
+                  stroke="currentColor"
+                  strokeWidth="18"
+                  strokeDasharray="92 78"
+                />
+                <path
+                  className="aperture-diamond"
+                  d="M400 50 750 400 400 750 50 400Z"
+                  stroke="currentColor"
+                  strokeWidth="3"
+                />
+                <path
+                  className="aperture-brackets"
+                  d="M190 110H110V190M610 110H690V190M690 610V690H610M110 610V690H190"
+                  stroke="currentColor"
+                  strokeWidth="9"
+                />
+                <path
+                  className="aperture-rift"
+                  d="M-350 285H80L130 245H670L720 285H1150M-350 515H80L130 555H670L720 515H1150"
+                  stroke="currentColor"
+                  strokeWidth="6"
+                />
+              </svg>
+            </div>
+            <div className="motion-wave" aria-hidden="true" />
+            <div className="motion-hero">
+              <div
+                className="motion-name"
+                style={{
+                  fontSize:
+                    donate.nickname.length > 30 ? 48 : donate.nickname.length > 18 ? 64 : 84,
+                }}
+              >
+                {donate.nickname || "Anonim"}
+              </div>
+              <div
+                className="motion-amount"
+                style={{ fontSize: amount.length > 12 ? 140 : amount.length > 9 ? 190 : 256 }}
+              >
+                <span className="motion-amount-number">{amount}</span>
+                <span className="motion-currency">zł</span>
+              </div>
+            </div>
+          </>
+        )}
         <div className="motion-information">
           <div className="information-header">
             <strong>{donate.nickname || "Anonim"}</strong>
