@@ -21,6 +21,31 @@ import { mediaAssets } from "../../motion/media/SourceMedia";
 import { cashWaves } from "../../motion/cash/CashRenderer";
 import { lifecyclePlan, parsePln, stressPresets, timecode } from "./studioModel";
 import Timeline from "./Timeline";
+import ProgramMonitor from "./ProgramMonitor";
+import { Workspace } from "./Workspace";
+import type { WorkspaceHandle, PanelName } from "./Workspace";
+import { IconButton } from "./editorControls";
+import {
+  Play,
+  Pause,
+  RotateCcw,
+  SkipBack,
+  SkipForward,
+  PanelLeftClose,
+  PanelRightClose,
+  Maximize2,
+  Minimize2,
+  LayoutTemplate,
+  Eye,
+  EyeOff,
+  Film,
+  Type,
+  Sparkles,
+  Info,
+  Banknote,
+  AlertTriangle,
+  Volume2,
+} from "lucide-react";
 import speech from "./speech.json";
 import "./motion-studio.css";
 
@@ -43,7 +68,36 @@ const layers = [
   { name: "Information", selector: ".motion-information" },
 ];
 type Job = { id?: string; state: string; progress?: number; error?: string };
-export default function MotionStudio() {
+export default function MotionStudioGate() {
+  const [viewport, setViewport] = useState({
+    width: window.innerWidth,
+    height: window.innerHeight,
+  });
+  useEffect(() => {
+    const resize = () => setViewport({ width: window.innerWidth, height: window.innerHeight });
+    window.addEventListener("resize", resize);
+    return () => window.removeEventListener("resize", resize);
+  }, []);
+  if (params.get("clean") !== "1" && (viewport.width < 1280 || viewport.height < 720))
+    return (
+      <main className="studio-desktop-required">
+        <AlertTriangle size={28} />
+        <h1>Motion Studio requires a desktop-sized viewport.</h1>
+        <p>
+          Current viewport:{" "}
+          <strong>
+            {viewport.width} × {viewport.height}
+          </strong>
+        </p>
+        <p>
+          Recommended minimum: <strong>1280 × 720</strong>
+        </p>
+        <small>Use a desktop or laptop and enlarge the browser window.</small>
+      </main>
+    );
+  return <MotionStudio />;
+}
+function MotionStudio() {
   const [tier, setTier] = useState(initialTier);
   const [seed, setSeed] = useState(params.get("seed") ?? "kaaajka-motion-01");
   const [quality, setQuality] = useState(params.get("quality") ?? "auto");
@@ -56,6 +110,46 @@ export default function MotionStudio() {
   const [commission, setCommission] = useState(params.get("commission") ?? "0");
   const [automatic, setAutomatic] = useState(false);
   const [mode, setMode] = useState("hero");
+  const modeRef = useRef("hero");
+  const [activePanel, setActivePanel] = useState<PanelName>("stage");
+  const [maximized, setMaximized] = useState<PanelName>();
+  const workspace = useRef<WorkspaceHandle>(null);
+  const [streamFrame, setStreamFrame] = useState(
+    params.get("streamFrame") ?? "/__studio-assets/stream/kaaajka-rocket-league.jpg",
+  );
+  const customFile = useRef<File>();
+  const customUrl = useRef<string>();
+  const [selectedTts, setSelectedTts] = useState<string>();
+  const [audibleTts, setAudibleTts] = useState<string>();
+  const [speechState, setSpeechState] = useState<Record<string, string>>({});
+  const fullPlaying = useRef(false);
+  const lifecycleClock = useRef({
+    at: 0,
+    now: 0,
+    audio: undefined as HTMLAudioElement | undefined,
+  });
+  const phaseRef = useRef("hero");
+  const phaseChange = (value: string) => {
+    phaseRef.current = value;
+    setPhase(value);
+  };
+  const customStream = (file: File) => {
+    if (!["image/png", "image/jpeg", "image/webp"].includes(file.type) || file.size > 2_000_000) {
+      setStatus("Choose a local PNG, JPEG or WebP smaller than 2 MB");
+      return;
+    }
+    if (customUrl.current) URL.revokeObjectURL(customUrl.current);
+    customFile.current = file;
+    customUrl.current = URL.createObjectURL(file);
+    setStreamFrame(customUrl.current);
+    setBackground("stream");
+  };
+  useEffect(
+    () => () => {
+      if (customUrl.current) URL.revokeObjectURL(customUrl.current);
+    },
+    [],
+  );
   const [time, setTime] = useState(0);
   const position = useRef(0);
   const [playing, setPlaying] = useState(false);
@@ -126,6 +220,8 @@ export default function MotionStudio() {
       })[clip.name],
   );
   const plan = lifecyclePlan(treatment.analysis.duration, message, enabledSpeech);
+  const planRef = useRef(plan);
+  planRef.current = plan;
   const [stats, setStats] = useState<SceneStats>({
     quality: "safe",
     frameMs: 16.67,
@@ -140,6 +236,8 @@ export default function MotionStudio() {
   loopRef.current = { loop, selection };
   const pause = useCallback(() => {
     generation.current++;
+    fullPlaying.current = false;
+    setAudibleTts(undefined);
     calibration.current?.abort();
     abort.current?.abort();
     if (music.current?.isPlaying) {
@@ -153,13 +251,37 @@ export default function MotionStudio() {
   const seek = useCallback(
     (next: number) => {
       pause();
-      const at = Math.min(treatment.analysis.duration, Math.max(0, next));
+      const full = modeRef.current === "full",
+        plan = planRef.current;
+      const at = Math.min(full ? plan.duration : treatment.analysis.duration, Math.max(0, next));
       position.current = at;
-      music.current?.seek(at);
-      setPhase("hero");
       setTime(at);
-      const result = scene.current?.renderAt(at);
-      if (result) setStats(result);
+      music.current?.seek(Math.min(at, treatment.analysis.duration));
+      const root = document.querySelector<HTMLElement>(".donation-motion");
+      if (root) {
+        root.style.transition = "none";
+        root.style.opacity = "1";
+      }
+      if (full && at >= plan.informationStart) {
+        scene.current?.informationAt(
+          (at - plan.informationStart) * 1000,
+          plan.informationDuration * 1000,
+        );
+        setStats((current) => ({ ...current, media: scene.current?.media() ?? [] }));
+        const stage = plan.stages.find(
+          (stage) => stage.name !== "information" && at >= stage.start && at < stage.end,
+        );
+        phaseRef.current = at >= plan.duration ? "complete" : (stage?.name ?? "information");
+        setPhase(phaseRef.current);
+        const outro = plan.stages.find((stage) => stage.name === "outro");
+        if (root && at >= outro.start)
+          root.style.opacity = String(Math.max(0, 1 - (at - outro.start) / 0.65));
+      } else {
+        phaseRef.current = "hero";
+        setPhase("hero");
+        const result = scene.current?.renderAt(at);
+        if (result) setStats(result);
+      }
     },
     [pause, treatment.analysis.duration],
   );
@@ -173,7 +295,7 @@ export default function MotionStudio() {
       playback.visualSyncOffsetMs = readVisualSyncOffset(window.location.search);
       music.current = playback;
     } catch (error) {
-      setStatus(`Audio unavailable: ${error}`);
+      setStatus(`AUDIO CLOCK UNAVAILABLE · ${error}`);
       return;
     }
     const initial =
@@ -193,7 +315,9 @@ export default function MotionStudio() {
       .catch((error) => {
         if (!cancellation.signal.aborted) {
           playback.setSilentFallback(source.analysis.duration);
-          setStatus(`Silent fallback: ${error}`);
+          setStatus(
+            `AUDIO DECODE FAILED · ${config.sound.url.split("/").at(-1)} · SILENT CLOCK ACTIVE · ${error}`,
+          );
           seek(initial);
         }
       });
@@ -211,10 +335,8 @@ export default function MotionStudio() {
   // biome-ignore lint/correctness/useExhaustiveDependencies: Editing data or remounting quality must cancel playback and restore inspection.
   useEffect(() => {
     pause();
-    setPhase("hero");
-    const result = scene.current?.renderAt(position.current);
-    if (result) setStats(result);
-  }, [donate, quality, treatment, pause]);
+    seek(position.current);
+  }, [donate, quality, treatment, pause, seek]);
   // biome-ignore lint/correctness/useExhaustiveDependencies: A tier switch resets its local editor selection.
   useEffect(() => {
     setAuthored(undefined);
@@ -242,6 +364,13 @@ export default function MotionStudio() {
       return;
     pause();
     const token = ++generation.current;
+    fullPlaying.current = full;
+    phaseRef.current = "hero";
+    const root = document.querySelector<HTMLElement>(".donation-motion");
+    if (root) {
+      root.style.transition = "";
+      root.style.opacity = "1";
+    }
     const controller = new AbortController();
     abort.current = controller;
     const playback = music.current;
@@ -255,9 +384,20 @@ export default function MotionStudio() {
       lastUI = 0;
     const frame = (now: number) => {
       if (token !== generation.current) return;
-      const at = playback.time;
+      const clock = lifecycleClock.current;
+      const at =
+        full && phaseRef.current !== "hero"
+          ? Math.min(
+              plan.duration,
+              clock.at +
+                (clock.audio && !clock.audio.paused
+                  ? clock.audio.currentTime
+                  : (now - clock.now) / 1000),
+            )
+          : (playback?.time ?? 0);
       position.current = at;
-      const result = scene.current?.renderAt(at, now - previous);
+      const result =
+        phaseRef.current === "hero" ? scene.current?.renderAt(at, now - previous) : undefined;
       previous = now;
       if (now - lastUI > 60) {
         setTime(at);
@@ -280,7 +420,7 @@ export default function MotionStudio() {
         !controller.signal.aborted &&
         token === generation.current
       );
-      cancelAnimationFrame(raf.current);
+      if (!full) cancelAnimationFrame(raf.current);
       if (token === generation.current) {
         position.current = playback.time;
         setTime(playback.time);
@@ -293,24 +433,51 @@ export default function MotionStudio() {
             music: playMusic,
             information: (ms) => {
               if (token !== generation.current) return;
-              setPhase("information");
+              lifecycleClock.current = {
+                at: plan.informationStart,
+                now: performance.now(),
+                audio: undefined,
+              };
+              phaseChange("information");
               scene.current?.information(ms);
+              setStats((current) => ({ ...current, media: scene.current?.media() ?? [] }));
             },
             speech: async (steps) => {
               await playOverlayAudioSequence(steps, {
                 signal: controller.signal,
                 loadTimeoutMs: 1500,
               });
-              if (token === generation.current && !controller.signal.aborted)
-                setPhase("information");
+              if (token === generation.current && !controller.signal.aborted) {
+                lifecycleClock.current = {
+                  at: Math.max(
+                    position.current,
+                    plan.stages.filter((stage) => stage.name.startsWith("tts-")).at(-1)?.end ??
+                      plan.informationStart,
+                  ),
+                  now: performance.now(),
+                  audio: undefined,
+                };
+                setAudibleTts(undefined);
+                phaseChange("information");
+              }
             },
             outro: () => {
               if (token !== generation.current) return;
-              setPhase("outro");
+              lifecycleClock.current = {
+                at: plan.stages.find((stage) => stage.name === "outro").start,
+                now: performance.now(),
+                audio: undefined,
+              };
+              phaseChange("outro");
               scene.current?.outro();
             },
             finished: () => {
-              if (token === generation.current) setPhase("complete");
+              if (token === generation.current) {
+                position.current = plan.duration;
+                setTime(plan.duration);
+                phaseChange("complete");
+                setAudibleTts(undefined);
+              }
             },
           },
           enabledSpeech.map((clip) => ({
@@ -318,8 +485,32 @@ export default function MotionStudio() {
             volume: config.speech.volume,
             kind: "tts",
             label: clip.name,
+            onFailure: (error) => {
+              if (token === generation.current) {
+                setSpeechState((state) => ({
+                  ...state,
+                  [clip.name]: "Failed · no fallback substituted",
+                }));
+                setStatus(`TTS FIXTURE FAILED · ${clip.file} · ${error}`);
+                setAudibleTts(undefined);
+              }
+            },
+            onPlaying: (audio) => {
+              if (token !== generation.current) return;
+              lifecycleClock.current = {
+                at: plan.stages.find((stage) => stage.name === `tts-${clip.name}`).start,
+                now: performance.now(),
+                audio,
+              };
+              setSpeechState((state) => ({ ...state, [clip.name]: "Normal · local fixture" }));
+              setAudibleTts(clip.name);
+              phaseChange(`tts-${clip.name}`);
+            },
             onBeforePlay: () => {
-              if (token === generation.current) setPhase(`tts-${clip.name}`);
+              if (token === generation.current) {
+                setAudibleTts(undefined);
+                phaseChange(`tts-${clip.name}`);
+              }
             },
           })),
           message,
@@ -332,8 +523,43 @@ export default function MotionStudio() {
       if (token === generation.current) {
         cancelAnimationFrame(raf.current);
         setPlaying(false);
+        fullPlaying.current = false;
+        setAudibleTts(undefined);
       }
     }
+  };
+  const previewTts = async (name: string) => {
+    pause();
+    setSelectedTts(name);
+    setTab("analysis");
+    const clip = speech.find((clip) => clip.name === name);
+    const controller = new AbortController();
+    abort.current = controller;
+    const token = ++generation.current;
+    await playOverlayAudioSequence(
+      [
+        {
+          url: `/__studio-assets/speech/${clip.file}`,
+          volume: config.speech.volume,
+          kind: "tts",
+          onFailure: (error) => {
+            if (token === generation.current) {
+              setSpeechState((state) => ({ ...state, [name]: "Failed · no fallback substituted" }));
+              setStatus(`TTS FIXTURE FAILED · ${clip.file} · ${error}`);
+              setAudibleTts(undefined);
+            }
+          },
+          onPlaying: () => {
+            if (token === generation.current) {
+              setSpeechState((state) => ({ ...state, [name]: "Normal · local fixture" }));
+              setAudibleTts(name);
+            }
+          },
+        },
+      ],
+      { signal: controller.signal, loadTimeoutMs: 1500 },
+    );
+    if (token === generation.current) setAudibleTts(undefined);
   };
   const cue = treatment.cues.filter((cue) => cue.at <= time).at(-1);
   const nextCue = (direction: number) => {
@@ -348,8 +574,34 @@ export default function MotionStudio() {
   };
   useEffect(() => {
     const key = (event: KeyboardEvent) => {
-      if ((event.target as HTMLElement).closest('input,textarea,select,[contenteditable="true"]'))
+      if (
+        (event.target as HTMLElement).closest(
+          'input,textarea,select,[contenteditable="true"],[role="menu"],[role="separator"]',
+        )
+      )
         return;
+      if (event.ctrlKey && event.shiftKey) {
+        if (event.code === "KeyM") {
+          event.preventDefault();
+          workspace.current?.maximize();
+          return;
+        }
+        if (event.code === "KeyL") {
+          event.preventDefault();
+          workspace.current?.toggleLeft();
+          return;
+        }
+        if (event.code === "KeyR") {
+          event.preventDefault();
+          workspace.current?.toggleRight();
+          return;
+        }
+      }
+      if (event.code === "Escape" && maximized) {
+        event.preventDefault();
+        workspace.current?.restore();
+        return;
+      }
       if (event.code === "Space") {
         event.preventDefault();
         if (playing) pause();
@@ -384,6 +636,7 @@ export default function MotionStudio() {
     return () => clearInterval(timer);
   }, [job.id, job.state]);
   const chooseWord = (region: TimedRegion, kind: string) => {
+    setSelectedTts(undefined);
     wordOriginal.current = region;
     setRegionKind(
       kind === "section-region" ? "sections" : kind === "vocal-region" ? "vocalPhrases" : "words",
@@ -441,6 +694,15 @@ export default function MotionStudio() {
   const requestExport = async () => {
     setJob({ state: "starting" });
     try {
+      const custom =
+        exportBackground === "stream" && customFile.current
+          ? await new Promise<string>((resolve, reject) => {
+              const reader = new FileReader();
+              reader.onload = () => resolve(String(reader.result));
+              reader.onerror = reject;
+              reader.readAsDataURL(customFile.current);
+            })
+          : undefined;
       const response = await fetch("/__studio/export", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -459,6 +721,7 @@ export default function MotionStudio() {
           format,
           background: exportBackground,
           audio: exportAudio,
+          streamFrame: custom,
         }),
       });
       const result = await response.json();
@@ -481,7 +744,11 @@ export default function MotionStudio() {
         scene.current?.information(ms);
       },
       status: () => ({
-        time: music.current?.isPlaying ? music.current.time : position.current,
+        time: fullPlaying.current
+          ? position.current
+          : music.current?.isPlaying
+            ? music.current.time
+            : position.current,
         playing: music.current?.isPlaying ?? false,
         active: playing,
         phase,
@@ -492,6 +759,12 @@ export default function MotionStudio() {
         data: { nickname, amount: cents, message },
         selection,
         loop,
+        mode,
+        timelineDuration: mode === "full" ? plan.duration : treatment.analysis.duration,
+        plan,
+        audibleTts,
+        selectedTts,
+        workspace: workspace.current?.layout(),
       }),
       exportMetadata: () => ({
         analysis: treatment.analysis,
@@ -544,10 +817,12 @@ export default function MotionStudio() {
   const preview = (
     <div className={`studio-preview background-${background}`}>
       {background === "stream" && (
-        <div className="studio-stream" aria-hidden="true">
-          <div className="stream-horizon" />
-          <span>ILLUSTRATIVE BROADCAST</span>
-        </div>
+        <img
+          className="studio-stream"
+          src={streamFrame}
+          alt="Kaaajka Rocket League stream reference"
+          draggable={false}
+        />
       )}
       <DonationScene
         key={`${tier}:${seed}:${quality}:${nickname}:${cents}:${commissionCents}`}
@@ -569,11 +844,9 @@ export default function MotionStudio() {
     <div className="motion-studio">
       <header className="studio-topbar">
         <div className="studio-brand">
-          <img src="/assets/donations/brand/bunny-cyan.png" alt="" />
-          <div>
-            <strong>Motion Studio</strong>
-            <span>KAAAJKA / PRODUCTION</span>
-          </div>
+          <img src="/assets/donations/brand/bunny-cyan.png" alt="" draggable={false} />
+          <strong>Motion Studio</strong>
+          <small>2.1</small>
         </div>
         <label className="scene-picker">
           Scene
@@ -593,587 +866,665 @@ export default function MotionStudio() {
           </select>
         </label>
         <div className="studio-modes">
-          <button
-            type="button"
-            aria-pressed={mode === "hero"}
-            onClick={() => {
-              pause();
-              setMode("hero");
-              seek(time);
-            }}
-          >
-            Hero Only
-          </button>
-          <button
-            type="button"
-            aria-pressed={mode === "full"}
-            onClick={() => {
-              pause();
-              setMode("full");
-            }}
-          >
-            Full Alert
-          </button>
+          {[
+            ["hero", "Hero Only"],
+            ["full", "Full Alert"],
+          ].map(([value, label]) => (
+            <button
+              type="button"
+              key={value}
+              aria-pressed={mode === value}
+              onClick={() => {
+                pause();
+                modeRef.current = value;
+                setMode(value);
+                seek(position.current);
+              }}
+            >
+              {label}
+            </button>
+          ))}
         </div>
         <div className="studio-transport">
-          <button
-            type="button"
-            className="primary"
+          <IconButton
+            icon={SkipBack}
+            label="Previous cue"
+            shortcut="↑"
+            onClick={() => nextCue(-1)}
+          />
+          <IconButton
+            icon={playing ? Pause : Play}
+            label={playing ? "Pause" : "Play"}
+            shortcut="Space"
             onClick={() => (playing ? pause() : void play())}
-          >
-            {playing ? "Pause" : "Play"}
-          </button>
+          />
+          <IconButton icon={RotateCcw} label="Restart" shortcut="Home" onClick={() => seek(0)} />
+          <IconButton icon={SkipForward} label="Next cue" shortcut="↓" onClick={() => nextCue(1)} />
           <button
             type="button"
-            onClick={() => {
-              seek(0);
-            }}
+            title="Seek −50 ms (Shift+←)"
+            onClick={() => seek(position.current - 0.05)}
           >
-            Restart
-          </button>
-          <button type="button" onClick={() => seek(position.current - 0.05)}>
             −50 ms
           </button>
-          <button type="button" onClick={() => seek(position.current + 0.05)}>
+          <button
+            type="button"
+            title="Seek +50 ms (Shift+→)"
+            onClick={() => seek(position.current + 0.05)}
+          >
             +50 ms
           </button>
         </div>
-        <output className="studio-status" title={status}>
+        <output
+          className={`studio-status ${status.includes("FAILED") ? "audio-warning" : ""}`}
+          title={status}
+        >
+          {status.includes("FAILED") && <AlertTriangle size={14} />}
           <i className={playing ? "active" : ""} />
           {status}
         </output>
+        <div className="workspace-actions">
+          <IconButton
+            icon={PanelLeftClose}
+            label="Toggle Scene Tree"
+            shortcut="Ctrl+Shift+L"
+            onClick={() => workspace.current?.toggleLeft()}
+          />
+          <IconButton
+            icon={PanelRightClose}
+            label="Toggle Inspector"
+            shortcut="Ctrl+Shift+R"
+            onClick={() => workspace.current?.toggleRight()}
+          />
+          <IconButton
+            icon={maximized ? Minimize2 : Maximize2}
+            label={maximized ? "Restore workspace" : "Maximize active panel"}
+            shortcut="Ctrl+Shift+M"
+            onClick={() => workspace.current?.maximize()}
+          />
+          <IconButton
+            icon={LayoutTemplate}
+            label="Reset Workspace"
+            onClick={() => workspace.current?.reset()}
+          />
+        </div>
       </header>
-      <main className="studio-workspace">
-        <aside className="studio-tree">
-          <div className="panel-title">
-            Scene tree <span>DEV</span>
-          </div>
-          <h2>Donate{tier}</h2>
-          <p>{treatment.title}</p>
-          {[
-            ...layers,
-            ...(tier >= 5 && tier <= 7 ? [{ name: "Cash", selector: ".motion-cash" }] : []),
-          ].map((layer) => (
-            <div
-              className={`layer-row ${selectedLayer === layer.name ? "selected" : ""}`}
-              key={layer.name}
-            >
-              <button
-                type="button"
-                onClick={() => {
-                  setSelectedLayer(layer.name);
-                  setTab("analysis");
-                }}
+      <Workspace
+        ref={workspace}
+        active={activePanel}
+        setActive={setActivePanel}
+        onMaximized={setMaximized}
+        tree={
+          <aside className="studio-tree">
+            <h2>Donate{tier}</h2>
+            <p>{treatment.title}</p>
+            {[
+              ...layers,
+              ...(tier >= 5 && tier <= 7 ? [{ name: "Cash", selector: ".motion-cash" }] : []),
+            ].map((layer) => (
+              <div
+                className={`layer-row ${selectedLayer === layer.name ? "selected" : ""}`}
+                key={layer.name}
               >
-                {layer.name}
-              </button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setSelectedTts(undefined);
+                    setWord(undefined);
+                    setSelectedLayer(layer.name);
+                    setTab("analysis");
+                  }}
+                >
+                  {layer.name === "Source media" ? (
+                    <Film size={14} />
+                  ) : ["Name", "Amount", "Callouts"].includes(layer.name) ? (
+                    <Type size={14} />
+                  ) : layer.name === "Cash" ? (
+                    <Banknote size={14} />
+                  ) : layer.name === "Information" ? (
+                    <Info size={14} />
+                  ) : (
+                    <Sparkles size={14} />
+                  )}{" "}
+                  {layer.name}
+                </button>
+                <IconButton
+                  icon={hidden.includes(layer.name) ? EyeOff : Eye}
+                  label={`Show ${layer.name}`}
+                  pressed={!hidden.includes(layer.name)}
+                  onClick={() =>
+                    setHidden(
+                      hidden.includes(layer.name)
+                        ? hidden.filter((name) => name !== layer.name)
+                        : [...hidden, layer.name],
+                    )
+                  }
+                />
+              </div>
+            ))}
+            <div className="tree-bottom">
+              <label>
+                Detail budget
+                <select
+                  id="studio-quality"
+                  value={quality}
+                  onChange={(event) => setQuality(event.target.value)}
+                >
+                  {["auto", "high", "medium", "safe"].map((value) => (
+                    <option key={value}>{value}</option>
+                  ))}
+                </select>
+              </label>
+              <label>
+                Replay seed
+                <input
+                  id="studio-seed"
+                  value={seed}
+                  onChange={(event) => setSeed(event.target.value)}
+                />
+              </label>
+              <small>Visibility overrides are local to Studio.</small>
+            </div>
+          </aside>
+        }
+        stage={
+          <section className="studio-center">
+            {(status.includes("FAILED") || status.includes("UNAVAILABLE")) && (
+              <div className="stage-audio-error" role="alert">
+                <AlertTriangle size={14} />
+                {status}
+              </div>
+            )}
+            <ProgramMonitor
+              background={background}
+              setBackground={setBackground}
+              onCustom={customStream}
+            >
+              {preview}
+            </ProgramMonitor>
+            <div className="playhead-readout">
+              <strong>
+                {mode === "full" ? "ALERT " : ""}
+                {timecode(time)}
+              </strong>
+              {time < treatment.analysis.duration ? (
+                <>
+                  <span>
+                    BEAT {beatIndex} · BAR ≈{barIndex}
+                  </span>
+                  <span>{cue?.name ?? "intro"}</span>
+                  <span>
+                    MEDIA {timecode(stats.media?.[0]?.time ?? 0)}{" "}
+                    {stats.media?.[0]?.frozen ? "HOLD" : "LOOP"}
+                  </span>
+                  {vocal && <span title={vocal.source}>VOCAL ≈ {vocal.text}</span>}
+                </>
+              ) : (
+                <>
+                  <span>HERO ENDED {timecode(treatment.analysis.duration)}</span>
+                  <span>LIFECYCLE +{timecode(time - treatment.analysis.duration)}</span>
+                  <span>{phase.replace("tts-", "TTS ").toUpperCase()}</span>
+                </>
+              )}
               <input
-                type="checkbox"
-                aria-label={`Show ${layer.name}`}
-                checked={!hidden.includes(layer.name)}
-                onChange={(event) =>
-                  setHidden(
-                    event.target.checked
-                      ? hidden.filter((name) => name !== layer.name)
-                      : [...hidden, layer.name],
-                  )
-                }
+                aria-label="Music time"
+                id="studio-time"
+                type="number"
+                step=".001"
+                value={Number(time.toFixed(3))}
+                onChange={(event) => seek(Number(event.target.value))}
               />
             </div>
-          ))}
-          <div className="tree-bottom">
-            <label>
-              Detail budget
-              <select
-                id="studio-quality"
-                value={quality}
-                onChange={(event) => setQuality(event.target.value)}
-              >
-                {["auto", "high", "medium", "safe"].map((value) => (
-                  <option key={value}>{value}</option>
-                ))}
-              </select>
-            </label>
-            <label>
-              Replay seed
-              <input
-                id="studio-seed"
-                value={seed}
-                onChange={(event) => setSeed(event.target.value)}
-              />
-            </label>
-            <small>Visibility overrides are local to Studio.</small>
-          </div>
-        </aside>
-        <section className="studio-center">
-          <div className="preview-toolbar">
-            <span>STAGE · 1920 × 1080</span>
-            <label>
-              Background
-              <select
-                id="studio-background"
-                value={background}
-                onChange={(event) => setBackground(event.target.value)}
-              >
-                {["stream", "checker", "transparent", "solid"].map((value) => (
-                  <option key={value}>{value}</option>
-                ))}
-              </select>
-            </label>
-            <span>
-              {stats.quality.toUpperCase()} ·{" "}
-              {playing ? `${stats.frameMs.toFixed(1)} ms` : "PAUSED"}
-            </span>
-          </div>
-          <div className="preview-fit">{preview}</div>
-          <div className="playhead-readout">
-            <input
-              aria-label="Music time"
-              id="studio-time"
-              type="number"
-              step=".001"
-              value={Number(time.toFixed(3))}
-              onChange={(event) => seek(Number(event.target.value))}
-            />
-            <strong>{timecode(time)}</strong>
-            <span>
-              BEAT {beatIndex} · {bars.length ? `BAR ≈${barIndex}` : "BAR UNKNOWN"}
-            </span>
-            <span>{cue?.name ?? "intro"}</span>
-            <span>
-              MEDIA {timecode(stats.media?.[0]?.time ?? 0)}{" "}
-              {stats.media?.[0]?.frozen ? "HOLD" : "LOOP"}
-            </span>
-            {vocal && <span title={vocal.source}>VOCAL ≈ {vocal.text}</span>}
-          </div>
-          <fieldset className="studio-lifecycle" aria-label="Donation lifecycle">
-            {[
-              "hero",
-              "information",
-              "tts-nickname",
-              "tts-amount",
-              "tts-message",
-              "outro",
-              "complete",
-            ]
-              .filter(
-                (name) =>
-                  !name.startsWith("tts-") ||
-                  enabledSpeech.some((clip) => name === `tts-${clip.name}`),
-              )
-              .map((name) => (
-                <span
-                  key={name}
-                  aria-current={phase === name ? "step" : undefined}
-                  className={phase === name ? "current" : ""}
-                >
-                  {name.replace("tts-", "TTS ")}
-                  <small>
-                    {plan.stages.find((stage) => stage.name === name)
-                      ? `${(plan.stages.find((stage) => stage.name === name).end - plan.stages.find((stage) => stage.name === name).start).toFixed(2)} s`
-                      : ""}
-                  </small>
-                </span>
+          </section>
+        }
+        inspector={
+          <aside className="studio-inspector">
+            <div className="inspector-tabs">
+              {[
+                ["data", "Donation data"],
+                ["analysis", "Inspector"],
+                ["export", "Export"],
+              ].map(([id, label]) => (
+                <button type="button" key={id} aria-pressed={tab === id} onClick={() => setTab(id)}>
+                  {label}
+                </button>
               ))}
-          </fieldset>
-        </section>
-        <aside className="studio-inspector">
-          <div className="inspector-tabs">
-            {[
-              ["data", "Donation data"],
-              ["analysis", "Inspector"],
-              ["export", "Export"],
-            ].map(([id, label]) => (
-              <button type="button" key={id} aria-pressed={tab === id} onClick={() => setTab(id)}>
-                {label}
-              </button>
-            ))}
-          </div>
-          <div className="inspector-content">
-            {tab === "data" && (
-              <>
-                <h2>Donation data</h2>
-                <p>Test viewer content in this scene.</p>
-                <label>
-                  Nickname
-                  <input
-                    aria-label="Nickname"
-                    value={nickname}
-                    onChange={(event) => setNickname(event.target.value)}
-                  />
-                </label>
-                <div className="preset-row">
-                  {Object.entries(stressPresets.nickname).map(([key, value]) => (
-                    <button type="button" key={key} onClick={() => setNickname(value)}>
-                      {key}
+            </div>
+            <div className="inspector-content">
+              {tab === "data" && (
+                <>
+                  <h2>Donation data</h2>
+                  <p>Test viewer content in this scene.</p>
+                  <label>
+                    Nickname
+                    <input
+                      aria-label="Nickname"
+                      value={nickname}
+                      onChange={(event) => setNickname(event.target.value)}
+                    />
+                  </label>
+                  <div className="preset-row">
+                    {Object.entries(stressPresets.nickname).map(([key, value]) => (
+                      <button type="button" key={key} onClick={() => setNickname(value)}>
+                        {key}
+                      </button>
+                    ))}
+                  </div>
+                  <label>
+                    Amount · PLN
+                    <input
+                      aria-label="Amount PLN"
+                      inputMode="decimal"
+                      value={amount}
+                      onChange={(event) => setAmount(event.target.value)}
+                      aria-invalid={cents === undefined}
+                    />
+                  </label>
+                  {cents === undefined && (
+                    <small className="error">Enter PLN with up to two decimal places.</small>
+                  )}
+                  <div className="preset-row">
+                    <button
+                      type="button"
+                      onClick={() =>
+                        setAmount((liveMinimums[Math.min(6, tier - 1)] / 100).toFixed(2))
+                      }
+                    >
+                      threshold
                     </button>
-                  ))}
-                </div>
-                <label>
-                  Amount · PLN
-                  <input
-                    aria-label="Amount PLN"
-                    inputMode="decimal"
-                    value={amount}
-                    onChange={(event) => setAmount(event.target.value)}
-                    aria-invalid={cents === undefined}
-                  />
-                </label>
-                {cents === undefined && (
-                  <small className="error">Enter PLN with up to two decimal places.</small>
-                )}
-                <div className="preset-row">
+                    {Object.entries(stressPresets.amount).map(([key, value]) => (
+                      <button type="button" key={key} onClick={() => setAmount(value)}>
+                        {key}
+                      </button>
+                    ))}
+                  </div>
+                  <label className="checkbox-label">
+                    <input
+                      type="checkbox"
+                      checked={automatic}
+                      onChange={(event) => setAutomatic(event.target.checked)}
+                    />
+                    Resolve tier from amount
+                  </label>
+                  <label>
+                    Message
+                    <textarea
+                      aria-label="Message"
+                      rows={5}
+                      value={message}
+                      onChange={(event) => setMessage(event.target.value)}
+                    />
+                  </label>
+                  <div className="preset-row">
+                    {Object.entries(stressPresets.message).map(([key, value]) => (
+                      <button type="button" key={key} onClick={() => setMessage(value)}>
+                        {key}
+                      </button>
+                    ))}
+                  </div>
+                  <small>{message.length} characters · full text retained</small>
+                  <label>
+                    Commission · PLN
+                    <input
+                      aria-label="Commission PLN"
+                      value={commission}
+                      onChange={(event) => setCommission(event.target.value)}
+                      aria-invalid={commissionCents === undefined}
+                    />
+                  </label>
+                  <div className="speech-note">
+                    <strong>Local test voice · Paulina</strong>
+                    <p>
+                      Fixed spoken samples exercise enabled TTS stages. Custom data appears on the
+                      information card.
+                    </p>
+                    {enabledSpeech.map((clip) => (
+                      <small key={clip.name}>
+                        {clip.name}: {clip.text}
+                      </small>
+                    ))}
+                  </div>
+                </>
+              )}
+              {tab === "analysis" && selectedTts && (
+                <section className="tts-inspector">
+                  <h2>TTS · {selectedTts}</h2>
+                  <dl>
+                    <dt>Fixture</dt>
+                    <dd>{speech.find((clip) => clip.name === selectedTts).file}</dd>
+                    <dt>Duration</dt>
+                    <dd>
+                      {speech.find((clip) => clip.name === selectedTts).duration.toFixed(6)} s
+                    </dd>
+                    <dt>Volume</dt>
+                    <dd>{config.speech.volume}</dd>
+                    <dt>Voice</dt>
+                    <dd>{speech.find((clip) => clip.name === selectedTts).voice}</dd>
+                    <dt>Sample</dt>
+                    <dd>{speech.find((clip) => clip.name === selectedTts).text}</dd>
+                    <dt>State</dt>
+                    <dd>
+                      {audibleTts === selectedTts
+                        ? "Playing local fixture"
+                        : (speechState[selectedTts] ?? "Normal · local fixture")}
+                    </dd>
+                  </dl>
+                  <button type="button" onClick={() => void previewTts(selectedTts)}>
+                    <Volume2 size={14} /> Preview this TTS
+                  </button>
+                </section>
+              )}
+              {tab === "analysis" && (
+                <>
+                  <h2>{word ? "Vocal timing" : selectedLayer}</h2>
+                  <dl>
+                    <dt>Selected cue</dt>
+                    <dd>
+                      {selectedCue} · {timecode(selected?.at ?? 0)}
+                    </dd>
+                    <dt>Source</dt>
+                    <dd>
+                      {asset
+                        ? `${asset.width} × ${asset.height} · ${asset.frameCount} frames`
+                        : "Studio-only procedural scene"}
+                    </dd>
+                    <dt>Media position</dt>
+                    <dd>
+                      {stats.media?.[0]
+                        ? `${timecode(stats.media[0].time)} / frame ${stats.media[0].frame} · ${stats.media[0].state}`
+                        : "None"}
+                    </dd>
+                    <dt>Pose hold</dt>
+                    <dd>
+                      {asset
+                        ? `${asset.heroSourceTime.toFixed(3)} s · music hero ${timecode(treatment.cues.find((c) => c.name === "heroDrop").at)}`
+                        : "None"}
+                    </dd>
+                    <dt>Echo delay</dt>
+                    <dd>
+                      {stats.media
+                        ?.slice(1)
+                        .map((media) => `${timecode(media.time)} / frame ${media.frame}`)
+                        .join(" · ") || "No live echoes"}
+                    </dd>
+                    <dt>Tempo estimate</dt>
+                    <dd>{treatment.analysis.bpm} BPM</dd>
+                    <dt>Detail tier</dt>
+                    <dd>
+                      {stats.quality} ·{" "}
+                      {tier === 6
+                        ? 12
+                        : stats.quality === "safe"
+                          ? 14
+                          : stats.quality === "medium"
+                            ? 40
+                            : 72}{" "}
+                      maximum bills
+                    </dd>
+                    {tier >= 5 && tier <= 7 && (
+                      <>
+                        <dt>Cash cue</dt>
+                        <dd>
+                          {cashCue
+                            ? `${timecode(cashCue.at)} · intensity ${cashCue.intensity.toFixed(2)}`
+                            : "No active cash wave"}
+                        </dd>
+                      </>
+                    )}
+                  </dl>
+                  <h3>Measured activity</h3>
+                  <label>
+                    Visual sync offset · ms
+                    <input
+                      id="studio-offset"
+                      type="number"
+                      min="-500"
+                      max="500"
+                      value={offset}
+                      onChange={(event) =>
+                        setOffset(Math.min(500, Math.max(-500, Number(event.target.value))))
+                      }
+                    />
+                  </label>
                   <button
                     type="button"
-                    onClick={() =>
-                      setAmount((liveMinimums[Math.min(6, tier - 1)] / 100).toFixed(2))
-                    }
+                    onClick={() => {
+                      pause();
+                      calibration.current?.abort();
+                      calibration.current = new AbortController();
+                      void runSyncCalibration(
+                        flash.current,
+                        offset,
+                        calibration.current.signal,
+                      ).catch((error) => setStatus(String(error)));
+                    }}
                   >
-                    threshold
+                    Schedule click + flash
                   </button>
-                  {Object.entries(stressPresets.amount).map(([key, value]) => (
-                    <button type="button" key={key} onClick={() => setAmount(value)}>
-                      {key}
-                    </button>
-                  ))}
-                </div>
-                <label className="checkbox-label">
-                  <input
-                    type="checkbox"
-                    checked={automatic}
-                    onChange={(event) => setAutomatic(event.target.checked)}
-                  />
-                  Resolve tier from amount
-                </label>
-                <label>
-                  Message
-                  <textarea
-                    aria-label="Message"
-                    rows={5}
-                    value={message}
-                    onChange={(event) => setMessage(event.target.value)}
-                  />
-                </label>
-                <div className="preset-row">
-                  {Object.entries(stressPresets.message).map(([key, value]) => (
-                    <button type="button" key={key} onClick={() => setMessage(value)}>
-                      {key}
-                    </button>
-                  ))}
-                </div>
-                <small>{message.length} characters · full text retained</small>
-                <label>
-                  Commission · PLN
-                  <input
-                    aria-label="Commission PLN"
-                    value={commission}
-                    onChange={(event) => setCommission(event.target.value)}
-                    aria-invalid={commissionCents === undefined}
-                  />
-                </label>
-                <div className="speech-note">
-                  <strong>Local test voice · Paulina</strong>
-                  <p>
-                    Fixed spoken samples exercise enabled TTS stages. Custom data appears on the
-                    information card.
-                  </p>
-                  {enabledSpeech.map((clip) => (
-                    <small key={clip.name}>
-                      {clip.name}: {clip.text}
-                    </small>
-                  ))}
-                </div>
-              </>
-            )}
-            {tab === "analysis" && (
-              <>
-                <h2>{word ? "Vocal timing" : selectedLayer}</h2>
-                <dl>
-                  <dt>Selected cue</dt>
-                  <dd>
-                    {selectedCue} · {timecode(selected?.at ?? 0)}
-                  </dd>
-                  <dt>Source</dt>
-                  <dd>
-                    {asset
-                      ? `${asset.width} × ${asset.height} · ${asset.frameCount} frames`
-                      : "Studio-only procedural scene"}
-                  </dd>
-                  <dt>Media position</dt>
-                  <dd>
-                    {stats.media?.[0]
-                      ? `${timecode(stats.media[0].time)} / frame ${stats.media[0].frame} · ${stats.media[0].state}`
-                      : "None"}
-                  </dd>
-                  <dt>Pose hold</dt>
-                  <dd>
-                    {asset
-                      ? `${asset.heroSourceTime.toFixed(3)} s · music hero ${timecode(treatment.cues.find((c) => c.name === "heroDrop").at)}`
-                      : "None"}
-                  </dd>
-                  <dt>Echo delay</dt>
-                  <dd>
-                    {stats.media
-                      ?.slice(1)
-                      .map((media) => `${timecode(media.time)} / frame ${media.frame}`)
-                      .join(" · ") || "No live echoes"}
-                  </dd>
-                  <dt>Tempo estimate</dt>
-                  <dd>{treatment.analysis.bpm} BPM</dd>
-                  <dt>Detail tier</dt>
-                  <dd>
-                    {stats.quality} ·{" "}
-                    {tier === 6
-                      ? 12
-                      : stats.quality === "safe"
-                        ? 14
-                        : stats.quality === "medium"
-                          ? 40
-                          : 72}{" "}
-                    maximum bills
-                  </dd>
-                  {tier >= 5 && tier <= 7 && (
-                    <>
-                      <dt>Cash cue</dt>
-                      <dd>
-                        {cashCue
-                          ? `${timecode(cashCue.at)} · intensity ${cashCue.intensity.toFixed(2)}`
-                          : "No active cash wave"}
-                      </dd>
-                    </>
-                  )}
-                </dl>
-                <h3>Measured activity</h3>
-                <label>
-                  Visual sync offset · ms
-                  <input
-                    id="studio-offset"
-                    type="number"
-                    min="-500"
-                    max="500"
-                    value={offset}
-                    onChange={(event) =>
-                      setOffset(Math.min(500, Math.max(-500, Number(event.target.value))))
-                    }
-                  />
-                </label>
-                <button
-                  type="button"
-                  onClick={() => {
-                    pause();
-                    calibration.current?.abort();
-                    calibration.current = new AbortController();
-                    void runSyncCalibration(
-                      flash.current,
-                      offset,
-                      calibration.current.signal,
-                    ).catch((error) => setStatus(String(error)));
-                  }}
-                >
-                  Schedule click + flash
-                </button>
-                <button
-                  type="button"
-                  onClick={() => {
-                    const current = authored ?? treatment.analysis.intelligence?.authored;
-                    if (!current) return;
-                    setAuthored({
-                      ...current,
-                      sourceSha256: treatment.analysis.sourceSha256,
-                      downbeats: [
-                        ...current.downbeats,
-                        {
-                          at: time,
-                          approved: true,
-                          confidence: 1,
-                          source: "Studio downbeat correction",
-                        },
-                      ].sort((a, b) => a.at - b.at),
-                    });
-                  }}
-                >
-                  Approve downbeat at playhead
-                </button>
-                <div className="studio-features">
-                  {Object.entries(stats.features).map(([name, value]) => (
-                    <label key={name}>
-                      {name}
-                      <meter min="0" max="1" value={value} />
-                    </label>
-                  ))}
-                </div>
-                {word ? (
-                  <div className="word-editor">
-                    <h3>{word.approved ? "Approved" : "Inference · needs review"}</h3>
-                    <p>
-                      {word.source} · confidence {word.confidence.toFixed(2)}
-                    </p>
-                    <label>
-                      Word / phrase
-                      <input
-                        value={word.text ?? word.label ?? ""}
-                        onChange={(event) => setWord({ ...word, text: event.target.value })}
-                      />
-                    </label>
-                    <div className="field-pair">
-                      <label>
-                        Start
-                        <input
-                          type="number"
-                          step=".001"
-                          value={word.start}
-                          onChange={(event) =>
-                            setWord({ ...word, start: Number(event.target.value) })
-                          }
-                        />
-                      </label>
-                      <label>
-                        End
-                        <input
-                          type="number"
-                          step=".001"
-                          value={word.end}
-                          onChange={(event) =>
-                            setWord({ ...word, end: Number(event.target.value) })
-                          }
-                        />
-                      </label>
-                    </div>
-                    <button type="button" onClick={() => correctWord()}>
-                      Approve correction
-                    </button>
-                    <button type="button" onClick={() => correctWord(true)}>
-                      Use as vocal reaction cue
-                    </button>
-                  </div>
-                ) : (
-                  <p>
-                    Select a word or phrase in the timeline to review its timing. Automatic words
-                    and downbeats are candidates.
-                  </p>
-                )}
-                {tier <= 7 && (
-                  <button type="button" className="primary" onClick={() => void saveCorrections()}>
-                    Save authored corrections
-                  </button>
-                )}
-              </>
-            )}
-            {tab === "export" && (
-              <>
-                <h2>Render export</h2>
-                <p>Deterministic frames · local worker</p>
-                <label>
-                  Range
-                  <select
-                    aria-label="Export range"
-                    value={range}
-                    onChange={(event) => setRange(event.target.value)}
+                  <button
+                    type="button"
+                    onClick={() => {
+                      const current = authored ?? treatment.analysis.intelligence?.authored;
+                      if (!current) return;
+                      setAuthored({
+                        ...current,
+                        sourceSha256: treatment.analysis.sourceSha256,
+                        downbeats: [
+                          ...current.downbeats,
+                          {
+                            at: time,
+                            approved: true,
+                            confidence: 1,
+                            source: "Studio downbeat correction",
+                          },
+                        ].sort((a, b) => a.at - b.at),
+                      });
+                    }}
                   >
-                    {[
-                      ["hero", "Hero only"],
-                      ["full", "Full donation"],
-                      ["selection", "Current selection"],
-                      ["cue", "Cue neighborhood"],
-                    ].map(([id, label]) => (
-                      <option key={id} value={id}>
-                        {label}
-                      </option>
+                    Approve downbeat at playhead
+                  </button>
+                  <div className="studio-features">
+                    {Object.entries(stats.features).map(([name, value]) => (
+                      <label key={name}>
+                        {name}
+                        <meter min="0" max="1" value={value} />
+                      </label>
                     ))}
-                  </select>
-                </label>
-                <div className="field-pair">
+                  </div>
+                  {word ? (
+                    <div className="word-editor">
+                      <h3>{word.approved ? "Approved" : "Inference · needs review"}</h3>
+                      <p>
+                        {word.source} · confidence {word.confidence.toFixed(2)}
+                      </p>
+                      <label>
+                        Word / phrase
+                        <input
+                          value={word.text ?? word.label ?? ""}
+                          onChange={(event) => setWord({ ...word, text: event.target.value })}
+                        />
+                      </label>
+                      <div className="field-pair">
+                        <label>
+                          Start
+                          <input
+                            type="number"
+                            step=".001"
+                            value={word.start}
+                            onChange={(event) =>
+                              setWord({ ...word, start: Number(event.target.value) })
+                            }
+                          />
+                        </label>
+                        <label>
+                          End
+                          <input
+                            type="number"
+                            step=".001"
+                            value={word.end}
+                            onChange={(event) =>
+                              setWord({ ...word, end: Number(event.target.value) })
+                            }
+                          />
+                        </label>
+                      </div>
+                      <button type="button" onClick={() => correctWord()}>
+                        Approve correction
+                      </button>
+                      <button type="button" onClick={() => correctWord(true)}>
+                        Use as vocal reaction cue
+                      </button>
+                    </div>
+                  ) : (
+                    <p>
+                      Select a word or phrase in the timeline to review its timing. Automatic words
+                      and downbeats are candidates.
+                    </p>
+                  )}
+                  {tier <= 7 && (
+                    <button
+                      type="button"
+                      className="primary"
+                      onClick={() => void saveCorrections()}
+                    >
+                      Save authored corrections
+                    </button>
+                  )}
+                </>
+              )}
+              {tab === "export" && (
+                <>
+                  <h2>Render export</h2>
+                  <p>Deterministic frames · local worker</p>
                   <label>
-                    Resolution
-                    <input value="1920 × 1080" readOnly />
-                  </label>
-                  <label>
-                    FPS
-                    <select value={fps} onChange={(event) => setFps(Number(event.target.value))}>
-                      <option>60</option>
-                      <option>30</option>
+                    Range
+                    <select
+                      aria-label="Export range"
+                      value={range}
+                      onChange={(event) => setRange(event.target.value)}
+                    >
+                      {[
+                        ["hero", "Hero only"],
+                        ["full", "Full donation"],
+                        ["selection", "Current selection"],
+                        ["cue", "Cue neighborhood"],
+                      ].map(([id, label]) => (
+                        <option key={id} value={id}>
+                          {label}
+                        </option>
+                      ))}
                     </select>
                   </label>
-                </div>
-                <label>
-                  Format
-                  <select value={format} onChange={(event) => setFormat(event.target.value)}>
-                    <option value="mp4">MP4 · H.264</option>
-                    <option value="webm">WebM · VP9 / alpha</option>
-                  </select>
-                </label>
-                <label>
-                  Background
-                  <select
-                    value={exportBackground}
-                    onChange={(event) => setExportBackground(event.target.value)}
+                  <div className="field-pair">
+                    <label>
+                      Resolution
+                      <input value="1920 × 1080" readOnly />
+                    </label>
+                    <label>
+                      FPS
+                      <select value={fps} onChange={(event) => setFps(Number(event.target.value))}>
+                        <option>60</option>
+                        <option>30</option>
+                      </select>
+                    </label>
+                  </div>
+                  <label>
+                    Format
+                    <select value={format} onChange={(event) => setFormat(event.target.value)}>
+                      <option value="mp4">MP4 · H.264</option>
+                      <option value="webm">WebM · VP9 / alpha</option>
+                    </select>
+                  </label>
+                  <label>
+                    Background
+                    <select
+                      value={exportBackground}
+                      onChange={(event) => setExportBackground(event.target.value)}
+                    >
+                      <option value="solid">Solid graphite</option>
+                      <option value="stream">Stream preview</option>
+                      <option value="transparent" disabled={format === "mp4"}>
+                        Transparent · WebM
+                      </option>
+                    </select>
+                  </label>
+                  <label className="checkbox-label">
+                    <input
+                      type="checkbox"
+                      checked={exportAudio}
+                      onChange={(event) => setExportAudio(event.target.checked)}
+                    />
+                    Original music + full alert test TTS
+                  </label>
+                  <dl>
+                    <dt>Seed</dt>
+                    <dd>{seed}</dd>
+                    <dt>Quality</dt>
+                    <dd>{quality}</dd>
+                    <dt>Selection</dt>
+                    <dd>
+                      {timecode(selection[0])} → {timecode(selection[1])}
+                    </dd>
+                  </dl>
+                  <button
+                    type="button"
+                    className="primary"
+                    disabled={
+                      ["starting", "rendering", "encoding"].includes(job.state) ||
+                      cents === undefined
+                    }
+                    onClick={() => void requestExport()}
                   >
-                    <option value="solid">Solid graphite</option>
-                    <option value="stream">Stream preview</option>
-                    <option value="transparent" disabled={format === "mp4"}>
-                      Transparent · WebM
-                    </option>
-                  </select>
-                </label>
-                <label className="checkbox-label">
-                  <input
-                    type="checkbox"
-                    checked={exportAudio}
-                    onChange={(event) => setExportAudio(event.target.checked)}
-                  />
-                  Original music + full alert test TTS
-                </label>
-                <dl>
-                  <dt>Seed</dt>
-                  <dd>{seed}</dd>
-                  <dt>Quality</dt>
-                  <dd>{quality}</dd>
-                  <dt>Selection</dt>
-                  <dd>
-                    {timecode(selection[0])} → {timecode(selection[1])}
-                  </dd>
-                </dl>
-                <button
-                  type="button"
-                  className="primary"
-                  disabled={
-                    ["starting", "rendering", "encoding"].includes(job.state) || cents === undefined
-                  }
-                  onClick={() => void requestExport()}
-                >
-                  Render Export
-                </button>
-                <div className="export-progress">
-                  <strong>{job.state}</strong>
-                  {job.progress !== undefined && <progress max="1" value={job.progress} />}
-                  <p className="error">{job.error}</p>
-                  {job.state === "complete" && (
-                    <a href={`/__studio/export/${job.id}/file`}>Download {format.toUpperCase()}</a>
-                  )}
-                </div>
-                <small>CLI fallback: pnpm motion:export --tier {tier} --range hero</small>
-              </>
-            )}
-          </div>
-        </aside>
-      </main>
-      <Timeline
-        treatment={treatment}
-        time={time}
-        seek={seek}
-        zoom={zoom}
-        setZoom={setZoom}
-        selection={selection}
-        setSelection={setSelection}
-        loop={loop}
-        setLoop={setLoop}
-        selectedCue={selectedCue}
-        selectCue={(name) => {
-          setSelectedCue(name);
-          setWord(undefined);
-          setTab("analysis");
-        }}
-        selectWord={chooseWord}
+                    Render Export
+                  </button>
+                  <div className="export-progress">
+                    <strong>{job.state}</strong>
+                    {job.progress !== undefined && <progress max="1" value={job.progress} />}
+                    <p className="error">{job.error}</p>
+                    {job.state === "complete" && (
+                      <a href={`/__studio/export/${job.id}/file`}>
+                        Download {format.toUpperCase()}
+                      </a>
+                    )}
+                  </div>
+                  <small>CLI fallback: pnpm motion:export --tier {tier} --range hero</small>
+                </>
+              )}
+            </div>
+          </aside>
+        }
+        timeline={
+          <Timeline
+            treatment={treatment}
+            mode={mode}
+            plan={plan}
+            speech={enabledSpeech}
+            speechVolume={config.speech.volume}
+            audibleTts={audibleTts}
+            selectTts={(name) => {
+              setSelectedTts(name);
+              setWord(undefined);
+              setTab("analysis");
+            }}
+            previewTts={(name) => void previewTts(name)}
+            time={time}
+            seek={seek}
+            zoom={zoom}
+            setZoom={setZoom}
+            selection={selection}
+            setSelection={setSelection}
+            loop={loop}
+            setLoop={setLoop}
+            selectedCue={selectedCue}
+            selectCue={(name) => {
+              setSelectedTts(undefined);
+              setSelectedCue(name);
+              setWord(undefined);
+              setTab("analysis");
+            }}
+            selectWord={chooseWord}
+          />
+        }
       />
       <footer className="studio-shortcuts">
         <span>Space play/pause · Home start · ← → 10 ms · Shift ← → 50 ms · ↑ ↓ cues</span>

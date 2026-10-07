@@ -16,9 +16,9 @@ test("editable PLN content, manual tier, stress data and local visibility", asyn
   await expect(page.locator(".motion-amount-number")).toHaveText("57,32");
   await page.evaluate(() => window.motionStudio.information(6000));
   await expect(page.locator(".information-message")).toHaveText("Pełna nowa wiadomość");
-  await page.getByLabel("Show Name", { exact: true }).uncheck();
+  await page.getByLabel("Show Name", { exact: true }).click();
   await expect(page.locator(".motion-name")).toHaveAttribute("data-studio-hidden", "true");
-  await page.getByLabel("Show Name", { exact: true }).check();
+  await page.getByLabel("Show Name", { exact: true }).click();
   await page.getByLabel("Amount PLN", { exact: true }).fill("1.999");
   await expect(page.getByText("Enter PLN with up to two decimal places.")).toBeVisible();
 });

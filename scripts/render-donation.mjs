@@ -67,6 +67,7 @@ try {
     amount: String(request.amount),
     message: request.message,
     commission: String((request.commission ?? 0) / 100),
+    ...(request.streamFrame ? { streamFrame: request.streamFrame } : {}),
   });
   browser = await chromium.launch({ args: ["--autoplay-policy=no-user-gesture-required"] });
   const page = await browser.newPage({
@@ -77,6 +78,11 @@ try {
   await page.goto(`${request.url}/motion-studio?${query}`);
   await page.waitForFunction(() => window.motionStudio?.status().duration > 0, { timeout: 30000 });
   await page.evaluate(() => document.fonts.ready);
+  await page.waitForFunction(() =>
+    [...document.querySelectorAll(".studio-stream")].every(
+      (image) => image.complete && image.naturalWidth > 0,
+    ),
+  );
   const metadata = await page.evaluate(() => window.motionStudio.exportMetadata());
   const speech = JSON.parse(readFileSync(resolve("src/dev/motion-studio/speech.json")));
   const plan = lifecyclePlan(

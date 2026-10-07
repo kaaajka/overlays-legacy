@@ -27,6 +27,22 @@ export function motionStudioServer() {
           res.end(JSON.stringify(value));
         };
         try {
+          if (url.pathname === "/__studio-assets/stream/kaaajka-rocket-league.jpg") {
+            res.setHeader("Content-Type", "image/jpeg");
+            return createReadStream(
+              resolve("dev-assets/studio-stream/kaaajka-rocket-league.jpg"),
+            ).pipe(res);
+          }
+          if (
+            req.method === "GET" &&
+            url.pathname.startsWith("/__studio/export/") &&
+            url.pathname.endsWith("/stream")
+          ) {
+            const job = jobs.get(url.pathname.split("/")[3]);
+            if (!job?.streamFile) return json({ error: "No custom stream frame" }, 404);
+            res.setHeader("Content-Type", job.streamType);
+            return createReadStream(job.streamFile).pipe(res);
+          }
           if (url.pathname.startsWith("/__studio-assets/speech/")) {
             const file = url.pathname.split("/").at(-1);
             if (!["nickname.wav", "amount.wav", "message.wav"].includes(file)) {
@@ -50,7 +66,8 @@ export function motionStudioServer() {
           let body = "";
           for await (const chunk of req) {
             body += chunk;
-            if (body.length > 512000) throw Error("Request too large");
+            if (body.length > (url.pathname === "/__studio/export" ? 3_000_000 : 512000))
+              throw Error("Request too large");
           }
           const value = JSON.parse(body);
           if (url.pathname === "/__studio/corrections" && req.method === "POST") {
@@ -113,11 +130,28 @@ export function motionStudioServer() {
           const id = randomUUID(),
             folder = resolve(".motion-exports", id);
           mkdirSync(folder, { recursive: true });
-          const request = { ...value, url: `http://127.0.0.1:${server.config.server.port}`, id };
+          let streamFile, streamType;
+          if (value.streamFrame && value.background === "stream") {
+            const match = /^data:(image\/(?:png|jpeg|webp));base64,([A-Za-z0-9+/=]+)$/.exec(
+              value.streamFrame,
+            );
+            if (!match) throw Error("Custom stream frame must be PNG, JPEG or WebP");
+            streamType = match[1];
+            streamFile = resolve(folder, "stream-frame");
+            writeFileSync(streamFile, Buffer.from(match[2], "base64"));
+          }
+          const request = {
+            ...value,
+            streamFrame: streamFile ? `/__studio/export/${id}/stream` : undefined,
+            url: `http://127.0.0.1:${server.config.server.port}`,
+            id,
+          };
           const requestFile = resolve(folder, "request.json");
           writeFileSync(requestFile, JSON.stringify(request));
           const job = {
             id,
+            streamFile,
+            streamType,
             state: "rendering",
             progress: 0,
             format: value.format,
