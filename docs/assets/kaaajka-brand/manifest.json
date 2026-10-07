@@ -1,0 +1,182 @@
+[
+  {
+    "file": "banner.png",
+    "originalName": "45e828bf-4f23-49fd-ba9b-bbf49635b2f7-profile_banner-480.png",
+    "width": 1700,
+    "height": 480,
+    "frames": 1,
+    "durationMs": 0,
+    "sha256": "2ae1eed1d65a679a2ff9fb00cdb11516f590706abb893f7088f18a362d66821a"
+  },
+  {
+    "file": "emote-01.gif",
+    "originalName": "2 (10).0.gif",
+    "width": 56,
+    "height": 56,
+    "frames": 9,
+    "durationMs": 540,
+    "sha256": "88bd28f256049618600e541c9f01a86c104590cadffec4be563912d1de1efaf3"
+  },
+  {
+    "file": "emote-02.gif",
+    "originalName": "2 (9).0.gif",
+    "width": 56,
+    "height": 56,
+    "frames": 30,
+    "durationMs": 1220,
+    "sha256": "f5d6d92178c45cc9d6077db079f02cfca403f97aa4c06de4b3d5aeb5781684b0"
+  },
+  {
+    "file": "emote-03.png",
+    "originalName": "2 {13).0.png",
+    "width": 56,
+    "height": 56,
+    "frames": 1,
+    "durationMs": 0,
+    "sha256": "f2d16c9dee9fb426fa02ffda7dc764614be8fa7e623f87af46f5a06a87c5c6e5"
+  },
+  {
+    "file": "emote-04.png",
+    "originalName": "2 {12).0.png",
+    "width": 56,
+    "height": 56,
+    "frames": 1,
+    "durationMs": 0,
+    "sha256": "733720006bdc295334da84e1b3b39c850c5ee896d3eb6da3b2e49457fe081b35"
+  },
+  {
+    "file": "emote-05.gif",
+    "originalName": "2 (8).0.gif",
+    "width": 56,
+    "height": 56,
+    "frames": 60,
+    "durationMs": 1800,
+    "sha256": "d54e911a8c275c2f2848440311b232b18ad6b56c066b363c35d82fbf07ffb01e"
+  },
+  {
+    "file": "emote-06.png",
+    "originalName": "2 {11).0.png",
+    "width": 56,
+    "height": 56,
+    "frames": 1,
+    "durationMs": 0,
+    "sha256": "a11061ad8710e66580932a67737ab73acaa4a927d7a7403a3da91869ba4712ea"
+  },
+  {
+    "file": "emote-07.png",
+    "originalName": "2 {10).0.png",
+    "width": 56,
+    "height": 56,
+    "frames": 1,
+    "durationMs": 0,
+    "sha256": "da5d62d923fc09b850079385fd5aeab57196219862d1964eacdfd9bf9a214f59"
+  },
+  {
+    "file": "emote-08.png",
+    "originalName": "2 {9).0.png",
+    "width": 56,
+    "height": 56,
+    "frames": 1,
+    "durationMs": 0,
+    "sha256": "5b0bbcefeaf4bb5ef3acff56997145212b553978bd44071c88556e522b781eaf"
+  },
+  {
+    "file": "emote-09.png",
+    "originalName": "2 {8).0.png",
+    "width": 56,
+    "height": 56,
+    "frames": 1,
+    "durationMs": 0,
+    "sha256": "94a51ddb03d9adc4ceb6474dedd1a478fbe36a2e82998b8dbed8267e1ee850c8"
+  },
+  {
+    "file": "emote-10.png",
+    "originalName": "2 (7).0.png",
+    "width": 56,
+    "height": 56,
+    "frames": 1,
+    "durationMs": 0,
+    "sha256": "7fe03874d07244f814326359794096aa4e3494b6ad57b1dc5503f60ad8771837"
+  },
+  {
+    "file": "emote-11.png",
+    "originalName": "2 (6).0.png",
+    "width": 56,
+    "height": 56,
+    "frames": 1,
+    "durationMs": 0,
+    "sha256": "4c989fa924b5cda2da9ccea7ab72cae838ff5f836bb02990bb668391cda81b12"
+  },
+  {
+    "file": "emote-12.gif",
+    "originalName": "2 (7).0.gif",
+    "width": 56,
+    "height": 56,
+    "frames": 58,
+    "durationMs": 2900,
+    "sha256": "4072ba8183285722a8c8adc9bc2d7fb547994d1617bd9e820692bf67a289dc37"
+  },
+  {
+    "file": "emote-13.gif",
+    "originalName": "2 (6).0.gif",
+    "width": 56,
+    "height": 56,
+    "frames": 20,
+    "durationMs": 1510,
+    "sha256": "f29c51fa9e0364dbf639e7698a84b946ceb52442e9940e5380bda0b85237d92b"
+  },
+  {
+    "file": "emote-14.png",
+    "originalName": "2 (5).0.png",
+    "width": 56,
+    "height": 56,
+    "frames": 1,
+    "durationMs": 0,
+    "sha256": "5097c9cf162fae4b3a71edcabcb5405c0f85d8962a4a1002d5c835a9e97b89e8"
+  },
+  {
+    "file": "emote-15.png",
+    "originalName": "2 (4).0.png",
+    "width": 56,
+    "height": 56,
+    "frames": 1,
+    "durationMs": 0,
+    "sha256": "3b886791b76a2385c5f85ca48941a582dd1eed283d5473fea6c78c8802e29d57"
+  },
+  {
+    "file": "emote-16.png",
+    "originalName": "2 (3).0.png",
+    "width": 56,
+    "height": 56,
+    "frames": 1,
+    "durationMs": 0,
+    "sha256": "8f7bcc1e27a96d0aeb96f4fb590a387de6f4d0f53fc34dff73edc54aaac8b078"
+  },
+  {
+    "file": "emote-17.png",
+    "originalName": "2 (2).0.png",
+    "width": 56,
+    "height": 56,
+    "frames": 1,
+    "durationMs": 0,
+    "sha256": "8d1f440b2e4d8c969a89d4f9651fc1f57eba62df380bf48f7c3da9a962f96a49"
+  },
+  {
+    "file": "emote-18.png",
+    "originalName": "2 (1).0.png",
+    "width": 56,
+    "height": 56,
+    "frames": 1,
+    "durationMs": 0,
+    "sha256": "847cb18cf9d31a77d071eba0c13b431a5ea0b50bdae54cb754f2fde8bc5a0f79"
+  },
+  {
+    "file": "emote-19.png",
+    "originalName": "2.0.png",
+    "width": 56,
+    "height": 56,
+    "frames": 1,
+    "durationMs": 0,
+    "sha256": "4513602c28ab753213dba74444ebb59391dcf494813fe2d8e9092dda4301a9a1"
+  }
+]

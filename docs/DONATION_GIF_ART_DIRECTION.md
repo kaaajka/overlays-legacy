@@ -16,7 +16,7 @@ Design contract: source-led miniature music videos, seed `d2f60c0f`. User-select
 
 ## Representation and fidelity
 
-All seven use GIF-derived VP9 WebM for authored freeze/restart and clock seek. Opaque sources use lossless 4:4:4; the dancer uses lossless VP9 alpha with 4:2:0 chroma. Original GIFs are the failure fallback. No crop/recolor/interpolation in conversion; transforms belong to each scene. The manifest records original SHA, every frame start, loop length, container duration and bytes. A millisecond encoder time base preserves variable frame cadence; conversion asserts every timestamp within 1 ms and every frame count. All encoded loop durations equal the originals. Lossless conversion increases opaque file sizes; control/fidelity is the benefit. At most one source asset loads per scene, with up to three paused video layers; all media unloads for information.
+All seven use GIF-derived VP9 WebM for authored freeze/restart and clock seek. Opaque sources use audited visually lossless VP9 CRF 4 / 4:4:4; the dancer uses lossless VP9 alpha with 4:2:0 chroma. Original GIFs are the failure fallback. No crop/recolor/interpolation in conversion; transforms belong to each scene. The manifest records original SHA, every frame start, loop length, container duration and bytes. A millisecond encoder time base preserves variable frame cadence; conversion asserts every timestamp within 1 ms and every frame count. All encoded loop durations equal the originals. Audited conversion reduces the previous lossless opaque files while preserving recognizable frame fidelity; control/seek remains the benefit. See DONATION_MEDIA_V2_AUDIT.md for exact quality/size decisions. At most one source asset loads per scene, with up to three paused video layers; all media unloads for information.
 
 | Tier | Hero source pose | Source-frame index (zero-based) |
 |---|---|---:|
@@ -28,7 +28,7 @@ All seven use GIF-derived VP9 WebM for authored freeze/restart and clock seek. O
 |6|Hand-heart at 2.32 s|29|
 |7|Webcam smile at 1.52 s|38|
 
-Run `python scripts/prepare-donation-media.py` with Pillow and ffmpeg/ffprobe, then format the generated manifest. See per-tier TREATMENT.md for exact source observations, music transients, positions, storyboard and decode budget. Source sheets and hero contact sheet are reproducible QA artifacts.
+Run `python scripts/prepare-donation-media.py` with Pillow and ffmpeg/ffprobe, then run `scripts/audit-donation-media.py` in the intelligence environment. See per-tier TREATMENT.md for exact source observations, music transients, positions, storyboard and decode budget. Source sheets and hero contact sheet are reproducible QA artifacts.
 
 ## Swap test
 
@@ -37,3 +37,5 @@ A seated bathroom portrait cannot conduct the masked silhouette echo. A frantic 
 ## Manual release checks
 
 OBS source alpha (especially the dancer), source fidelity at real output size, continuous audible cue/pose approval, device A/V offset and decoder/GPU load under an AAA game on 7800X3D/RTX 3070 remain operator gates.
+
+Production-v2 stage footprint, rhythmic motion, cash and brand rules are recorded in KAAAJKA_BRAND_DIRECTION.md. The source concepts and hero pose times above remain binding.

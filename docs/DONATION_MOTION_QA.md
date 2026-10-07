@@ -1,55 +1,71 @@
-# GIF-led motion verification — 2026-10-07
+# Production v2 verification — 2026-10-07
+
+This pass starts at `1b65044837abafb89f485329f842adc4e91525f3`. The three completed GIF-led commits were published unchanged before new work. See [baseline audit](DONATION_PRODUCTION_V2_AUDIT.md), [Music Intelligence](MUSIC_INTELLIGENCE_V2.md), [Studio operation](MOTION_STUDIO_V2.md) and [media decisions](DONATION_MEDIA_V2_AUDIT.md).
 
 ## Automated evidence
 
-- Vitest: **278 passing tests in 27 suites**, including source-frame mapping, deterministic holds, media seek coalescing, preload timeout/fallback and release/disposal, alongside existing music-clock, quality, FIFO and TTS sequencing checks.
-- Playwright: **19 passing scenarios in the final run (37.6 s)**. The new seven-tier exact-zero regression verifies fresh initialization, backward seek and Restart yield identical authored states, including normalized transforms and primary/echo media positions.
-- All seven live tiers and Studio-only Donate8 have initial, hero −50 ms, exact hero, +50 ms, settle and information captures. Captures wait for decoded media and two animation frames; information additionally asserts the scene is hidden and video sources are released.
-- Original-pose comparisons at native resolution: RGB mean absolute error on visible pixels is 0.40 / 2.44 / 0.43 / 0.48 / 0.34 / 0.44 / 0.21 levels out of 255 for Donate1–7. Alpha error is zero for every captured pose, including the transparent dancer. This verifies the selected hero poses, not every possible OBS decoding configuration.
-- Conversion verifies identical frame counts, every original variable-delay frame timestamp within 1 ms, matching loop durations and original source SHA-256. Original GIF and audio files remain unchanged.
-- Source video corrects after a 500 ms main-thread stall, seeks backward to the authored pose, uses the original animated GIF if WebM fails, and releases both media sources in information. GIF fallback preserves identity but cannot guarantee seek synchronization.
-- Audio-clock stall capture advanced from 0.406 s to 0.942 s during a 500 ms stall. This demonstrates clock catch-up, not OBS output latency.
-- Lint, typecheck and production build pass. Production excludes Motion Studio. Built CSS is 366.87 kB / 25.43 kB gzip; JS is 477.71 kB / 166.17 kB gzip. Global formatting has 34 preexisting legacy-file differences; no unrelated formatting sweep was applied.
+- Vitest: **293 passing tests in 31 suites**. Schema v1/v2, bounded/sorted words and timing, source-hash correction precedence, optional-analysis failure, deterministic seven-track fixtures, shared lifecycle/PLN conversion, cash determinism/caps and the existing clocks, FIFO, media and TTS contracts pass.
+- Playwright: **26 passing scenarios, 1.7 minutes in the final run**. All eight previews (seven live tiers), exact-zero/backward/restart state, SAFE, failed WebM/music/TTS, media catch-up after a stall, FIFO, long-message final-line visibility, GPU loss, calibration, manual tier/data edits, all-seven extreme names, vocal correction, zoom/loop/cue navigation, actual three-stage local TTS, restart cancellation and the real UI export/download pass.
+- Lint, typecheck and production build pass. Build: 162 modules, CSS 367.73 kB / 25.59 kB gzip, JS 753.61 kB / 230.17 kB gzip. The normal Vite >500 kB chunk advisory remains; the larger committed analysis fixtures account for added runtime data. Built JS is checked to exclude Studio export endpoints, test speech and inference/worker imports.
+- Original GIFs, pose posters and production audio are unchanged. Six opaque WebMs passed every-frame cadence/dimension/fidelity checks with conservative CRF 4; the existing verified lossless-alpha dancer stays unchanged. Current WebMs total **41,604,844 bytes**, down from approximately 63.7 MB. See the per-source audit for PSNR, errors and decoder limits.
+- Information hides the scene and releases videos. Cash is seeded and evaluated at absolute time, with total drawn caps of 72/40/14 for high/medium/SAFE; intimate Donate6 caps at 12. Cash excludes the top-tier donor/amount column. No independent animation loop or DOM bill forest is added.
 
-## Reproducing captures
-
-```powershell
-pnpm motion:qa
-python scripts/create-motion-contact-sheet.py
-```
-
-Ignored `.motion-qa/` contains source sheets, per-tier six-frame storyboards, `gif-led-heroes.jpg`, desktop/mobile Studio captures, fidelity JSON and clock-stall measurements. Source sheets were inspected before treatments and implementation. Contact sheets composite transparent captures over a labeled inspection background; they do not alter source footage.
-
-Chromium uses SwiftShader. These checks establish compatibility and deterministic behavior; they do not measure RTX 3070 or OBS decoder throughput.
+Chromium tests establish local compatibility and repeatability. SwiftShader/browser timing and FFmpeg decode samples do not measure OBS plus AAA-game throughput on the requested target hardware.
 
 ## Independent visual review
 
-The fresh review accepted seven distinct silhouettes, actual GIF recognizability, source-specific signatures and donor/amount readability. It requested a fix for inconsistent exact-zero GSAP rendering and stable repaint before final information screenshots. GSAP now renders its zero-duration sets at a one-microsecond positive timeline position; music and source media stay at exact zero. New opening regressions cover all seven tiers.
+A fresh reviewer examined the seven hero/contact and rhythmic compositions, late top-tier cash, information/extreme content, Studio/timeline/inspector/export and mobile fallback. **Final verdict: PASS.** All four material findings were fixed and independently confirmed:
 
-Final disposition: **Accepted for implementation and visual review**. The reviewer inspected the corrections and authoritative browser PNGs. Some displayed composite cells appeared cached; a pixel comparison independently confirmed that every regenerated information cell matches its PNG input, with less than one RGB level of mean JPEG compression error.
-
-| Criterion | Final verdict |
+| Finding | Confirmed resolution |
 |---|---|
-| Original GIF identity and recognizability | Pass |
-| Seven distinct compositions and signatures | Pass |
-| Captured hero donor legibility | Pass |
-| Exact-zero initialization and Restart | Resolved |
-| Information visibility and source release | Resolved |
-| Stable individual QA PNGs | Pass |
-| Composite evidence consistency | Confirmed from regenerated outputs |
-| Music/media clock architecture | Pass |
-| Studio desktop/mobile | Pass |
-| Audible and OBS/reference hardware checks | Manual release gate |
+| Extreme nickname unreadable or still revealing at hero | Stage type stays at least 32px, wraps without truncation, total character stagger bounded; all seven tested |
+| Long information header pushes message outside card | Fixed bounded flex card gives full message its own scrolling area |
+| Mobile shell clips remaining editor | Scoped body/root and stacked editor scroll through the complete footer |
+| Top-tier cash crosses name/amount | Deterministic exclusion keeps the donor column clear while retaining the upper storm |
+
+![Seven localized hero compositions](assets/donation-production-v2/contact.jpg)
+
+![Selected rhythmic sections](assets/donation-production-v2/rhythm.jpg)
+
+Full-resolution hero PNGs, late cash, desktop/inspector/export, extreme name and information/mobile captures are committed in `docs/assets/donation-production-v2/`. The source-specific scales and normal hero footprints are documented in [brand direction](KAAAJKA_BRAND_DIRECTION.md). Contact sheets composite original transparent captures over an inspection background only.
+
+## Deterministic export evidence
+
+The worker uses a clean 1920×1080 stage, absolute frame time and decoder completion; development websocket is closed during capture. Local FFmpeg/ffprobe verify streams, frame count and rate. The committed [evidence JSON](assets/donation-production-v2/export-evidence.json) records request, IN/OUT, lifecycle plan, hashes and probe results.
+
+| Render | Verified output |
+|---|---|
+| Donate6 selection, 3.9–4.1s, no audio | MP4/H.264, 1920×1080, 60 FPS, 12 frames, 0.2s |
+| Donate1 Full Donation, custom StudioReview / 57,32 zł / Polish message | MP4/H.264 + AAC, 1920×1080, 60 FPS, 908 frames, 15.133333s; information, all three enabled local speech stages and 650ms outro |
+| Donate2 selection, 3.6–3.8s, transparent/no audio | VP9 WebM, 1920×1080, 60 FPS, 12 frames, 0.2s; decoded alpha checked |
+| Studio UI selection/export/download | Real local worker completes and MP4 downloads; manifest contains the normalized analysis snapshot/hash |
+
+Repeated Donate6 first/middle/last PNG hashes match. Independent fresh Studio `renderExportAt()` captures at 3.9, 4.0 and 4.083333s **also match those PNG hashes byte-for-byte**; results are in [comparison JSON](assets/donation-production-v2/export-studio-comparison.json). First/last samples use IN and IN+(count−1)/FPS; frame-rounded duration is count/FPS, not a real-time recording duration. Full export's first information frame contains the requested nickname, formatted amount and complete message; its final sample is in the outro approaching zero opacity.
+
+Decoded WebM alpha compared to original capture: maximum error **1/255**, mean **0.01577/255**; 94.03% fully transparent, 2.48% opaque, 3.49% intermediate. [Alpha evidence](assets/donation-production-v2/export-alpha-verification.json) verifies no opaque full-frame fill. This establishes the local FFmpeg alpha path, not every browser/OBS codec installation.
+
+## Reproduction
+
+```powershell
+pnpm lint --diagnostic-level=error
+pnpm typecheck
+pnpm build
+pnpm test
+pnpm motion:qa
+node scripts/capture-production-v2.mjs
+```
+
+Studio/CLI export examples are in its operating document. Heavy Python environment/stems and export frame sequences stay ignored. ASR candidates are unapproved; measured-energy reactions are creative timing and make no semantic lyric claim. Verified local-text forced alignment is supported but was not executed without supplied approved lyrics.
 
 ## Manual release gates
 
 | Check | Status |
 |---|---|
-| Continuous audible GIF/music fit, source-pose impact and legacy personality | Not executed here |
-| OBS transparency over bright/dark gameplay, especially the dancer's alpha | Not executed here |
-| Recorded click/flash calibration and verified source URL sync offset | Not executed here |
-| Real Tipply nickname → amount → complete message speech | Not executed here |
-| Sustained 60 FPS and decoder/GPU load alongside an AAA game on Ryzen 7 7800X3D / RTX 3070 / 16 GB | Not executed here |
-| OBS source hide/refresh and coordinated backend replay | Not executed here |
+| Continuous listening review of musical fit, source-pose impact and meaningful lyric boundaries | Not executed here |
+| OBS transparency/fidelity/VP9 support over bright and dark gameplay | Not executed here |
+| Recorded click/flash calibration and real source URL sync offset | Not executed here |
+| Real Tipply nickname → amount → complete message and backend replay | Not executed here |
+| Sustained 60 FPS, decoder/GPU load with AAA game on Ryzen 7 7800X3D / RTX 3070 / 16 GB | Not executed here |
+| OBS source hide/refresh, cancellation and return from idle | Not executed here |
 
-Conversion prioritizes controllable faithful playback, not download reduction: seven WebMs total about 64 MB, with the largest about 24 MB. Only the current asset loads, with at most three paused video layers; information/idle releases them. Verify actual OBS codec/alpha support and seek/decode costs before production approval. See `DONATION_MOTION_ENGINE.md` for the operator procedure.
+Implementation and independent visual review are complete; deployment approval still requires these actual OBS/backend/target-hardware checks. Production retains the original audio clock, queue and Tipply voice behavior.

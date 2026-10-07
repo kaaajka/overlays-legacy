@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-10-07T18:35:44.485Z",
+  "generatedAt": "2026-10-07T20:08:23.994235Z",
   "title": "Design System: Kaaajka GIF-led Donation Shows",
   "extensions": {
     "typographyMeta": {
@@ -22,15 +22,27 @@
       },
       "label": {
         "displayName": "Studio controls",
-        "purpose": "Inspector labels, fields and transport buttons."
+        "purpose": "Compact Poppins transport, native fields and deliberate actions."
       },
       "studio-title": {
-        "displayName": "Studio title",
-        "purpose": "Authoring title, 18px at narrow breakpoint."
+        "displayName": "Studio brand",
+        "purpose": "15px identity title, retained on mobile."
       },
       "studio-small": {
-        "displayName": "Studio detail",
-        "purpose": "Cue actions, features and scrub label."
+        "displayName": "Studio labels",
+        "purpose": "11px explicit field labels, status and tree actions."
+      },
+      "studio-heading": {
+        "displayName": "Inspector title",
+        "purpose": "16px semibold panel heading."
+      },
+      "studio-track": {
+        "displayName": "Timeline detail",
+        "purpose": "9px regions, track names and compact lifecycle labels."
+      },
+      "timecode": {
+        "displayName": "Music timecode",
+        "purpose": "Genuine 20px monospace current time; supporting numerical readouts use 9–10px monospace."
       }
     },
     "shadows": [
@@ -75,12 +87,29 @@
         "name": "reading-scroll-pause",
         "value": "2500ms",
         "purpose": "Opening hold before complete overflow reading."
+      },
+      {
+        "name": "cash-wave",
+        "value": "2.8s",
+        "purpose": "Maximum lifetime of short source-specific higher-tier cash waves; none in information."
       }
     ],
     "breakpoints": [
       {
+        "name": "studio-wide",
+        "value": "1700px"
+      },
+      {
+        "name": "studio-compact",
+        "value": "1150px"
+      },
+      {
         "name": "studio-stack",
-        "value": "900px"
+        "value": "760px"
+      },
+      {
+        "name": "studio-pinned",
+        "value": "761px"
       }
     ],
     "provenance": {
@@ -92,97 +121,762 @@
         "Studio-only Donate8"
       ],
       "sources": [
-        "src/motion/engine/DonationScene.tsx",
-        "src/donations/scenes/",
-        "src/donations/choreography/donate1..7/",
-        "src/donations/choreography/treatments.ts",
-        "src/motion/engine/donation-motion.css",
+        "index.html",
+        "src/dev/motion-studio/MotionStudio.tsx",
         "src/dev/motion-studio/motion-studio.css",
-        "docs/DONATION_GIF_ART_DIRECTION.md"
+        "src/dev/motion-studio/Timeline.tsx",
+        "src/donations/scenes/gif-scenes.css",
+        "src/donations/scenes/shared.tsx",
+        "src/motion/engine/donation-motion.css",
+        "src/motion/cash/CashRenderer.ts",
+        "docs/KAAAJKA_BRAND_DIRECTION.md"
       ],
       "visualEvidence": [
-        "docs/assets/donation-gif-led-heroes.jpg",
-        ".motion-qa/donate1-storyboard.jpg..donate7-storyboard.jpg",
-        ".motion-qa/studio-desktop.png",
-        ".motion-qa/studio-mobile.png"
+        ".motion-qa/v2/studio-desktop.png",
+        ".motion-qa/v2/studio-mobile.png",
+        ".motion-qa/v2/studio-export.png",
+        ".motion-qa/v2/studio-extreme.png",
+        ".motion-qa/v2/studio-information.png",
+        ".motion-qa/v2/studio-inspector.png",
+        ".motion-qa/v2/contact.jpg",
+        ".motion-qa/v2/rhythm.jpg"
       ],
-      "snippetPolicy": "Four observed self-contained ds-prefixed Studio/information specimens with literal values. Reading card uses 30% specimen scale. No framework, media playback, GSAP or WebGL runtime; Poppins falls back to sans-serif.",
+      "snippetPolicy": "Seven observed self-contained ds-prefixed Studio/information specimens with literal values. Reading card uses 30% specimen scale. No framework, media playback or animation runtime; Poppins falls back to sans-serif.",
       "mediaPolicy": "Seven original GIF identities remain unchanged; controlled VP9 WebM preserves source cadence and authored hero holds. Original GIF fallback preserves recognizable content without guaranteed frame sync. Source instances per scene: 1,3,3,1,1,1,3; release media at information/unmount.",
-      "gpuScope": "No GPU for Donate1–4. Supporting detail only in Donate5–7: maximum 110/70/110 particles and two draws; Safe removes this detail while preserving choreography.",
       "donate8": "Retained old lavender aperture/name composition in Studio with shared Donate7 track; no live threshold or separate audio asset.",
-      "verificationLimit": "Parent handoff reports 278 unit tests and 19 browser scenarios plus typecheck, lint and build passing. Documentation scan did not rerun these. OBS alpha, audible cue/pose approval, A/V device offset and target-hardware performance under gameplay remain manual."
+      "expansion": "production-v2: localized transparent shows, supplied Kaaajka identity, source-specific cash and pinned graphite Studio",
+      "reviewEvidence": "Parent handoff: independent reviewer PASS after F1–F4 fixes to extreme names, bounded message, mobile scroll and cash exclusion. Prior detector drift was advisory and consistent with the authorized production-v2 expansion. Documenter inspected source and supplied captures; did not rerun detector or browser checks."
+    },
+    "layout": {
+      "stage": "1920 × 1080; uniform viewport fitting; no donation reflow",
+      "sceneScale": {
+        "donate1": 0.65,
+        "donate2": 0.67,
+        "donate3": 0.64,
+        "donate4": 0.7,
+        "donate5": 0.78,
+        "donate6": 0.73,
+        "donate7": 0.78
+      },
+      "desktopWorkspace": "210px minmax(0, 1fr) 310px; 230px/335px at 1700px; 170px/270px at 1150px",
+      "desktopTimeline": "350px fixed allocation; internal track scrolling; sticky 150px labels",
+      "mobileOrder": [
+        "stage",
+        "inspector",
+        "two-column scene tree",
+        "timeline"
+      ],
+      "timelineWidth": "max(100%, 900px × zoom), zoom 1–12",
+      "information": "1240 × 620px bounded flex panel; wrapped header reduces message viewport"
+    },
+    "cash": {
+      "eligibleTiers": [
+        5,
+        6,
+        7
+      ],
+      "forms": [
+        "ovation fountain",
+        "heart handoff",
+        "webcam storm"
+      ],
+      "qualityCaps": {
+        "high": 72,
+        "medium": 40,
+        "safe": 14,
+        "heart": 12
+      },
+      "waveLifetime": "2.8s maximum",
+      "topTierExclusion": {
+        "x": [
+          200,
+          1100
+        ],
+        "y": [
+          440,
+          1040
+        ],
+        "basis": "bill centres in logical stage coordinates"
+      },
+      "information": "hidden and cleared"
+    },
+    "identity": {
+      "authority": "docs/KAAAJKA_BRAND_DIRECTION.md and archived supplied channel banner/avatar/bunny assets",
+      "bunnyUse": [
+        "70px heart-scene sticker, −8° rotation before localization scale",
+        "36px Studio identity mark"
+      ],
+      "negativeSpace": "transparent lower-tier margins; area guidance is intent, not a quota"
+    },
+    "colorMeta": {
+      "turkey-tan": {
+        "role": "primary",
+        "displayName": "Turkey Tan",
+        "tonalRamp": [
+          "oklch(15.00% 0.0813 73.66)",
+          "oklch(26.43% 0.0813 73.66)",
+          "oklch(37.86% 0.0813 73.66)",
+          "oklch(49.29% 0.0813 73.66)",
+          "oklch(60.71% 0.0813 73.66)",
+          "oklch(72.14% 0.0813 73.66)",
+          "oklch(83.57% 0.0813 73.66)",
+          "oklch(95.00% 0.0813 73.66)"
+        ]
+      },
+      "turkey-cream": {
+        "role": "primary",
+        "displayName": "Turkey Cream",
+        "tonalRamp": [
+          "oklch(15.00% 0.0476 90.06)",
+          "oklch(26.43% 0.0476 90.06)",
+          "oklch(37.86% 0.0476 90.06)",
+          "oklch(49.29% 0.0476 90.06)",
+          "oklch(60.71% 0.0476 90.06)",
+          "oklch(72.14% 0.0476 90.06)",
+          "oklch(83.57% 0.0476 90.06)",
+          "oklch(95.00% 0.0476 90.06)"
+        ]
+      },
+      "mask-red": {
+        "role": "primary",
+        "displayName": "Mask Red",
+        "tonalRamp": [
+          "oklch(15.00% 0.2028 30.51)",
+          "oklch(26.43% 0.2028 30.51)",
+          "oklch(37.86% 0.2028 30.51)",
+          "oklch(49.29% 0.2028 30.51)",
+          "oklch(60.71% 0.2028 30.51)",
+          "oklch(72.14% 0.2028 30.51)",
+          "oklch(83.57% 0.2028 30.51)",
+          "oklch(95.00% 0.2028 30.51)"
+        ]
+      },
+      "mask-peach": {
+        "role": "primary",
+        "displayName": "Mask Peach",
+        "tonalRamp": [
+          "oklch(15.00% 0.0655 39.59)",
+          "oklch(26.43% 0.0655 39.59)",
+          "oklch(37.86% 0.0655 39.59)",
+          "oklch(49.29% 0.0655 39.59)",
+          "oklch(60.71% 0.0655 39.59)",
+          "oklch(72.14% 0.0655 39.59)",
+          "oklch(83.57% 0.0655 39.59)",
+          "oklch(95.00% 0.0655 39.59)"
+        ]
+      },
+      "rodent-ochre": {
+        "role": "primary",
+        "displayName": "Rodent Ochre",
+        "tonalRamp": [
+          "oklch(15.00% 0.1031 68.21)",
+          "oklch(26.43% 0.1031 68.21)",
+          "oklch(37.86% 0.1031 68.21)",
+          "oklch(49.29% 0.1031 68.21)",
+          "oklch(60.71% 0.1031 68.21)",
+          "oklch(72.14% 0.1031 68.21)",
+          "oklch(83.57% 0.1031 68.21)",
+          "oklch(95.00% 0.1031 68.21)"
+        ]
+      },
+      "rodent-yellow": {
+        "role": "primary",
+        "displayName": "Rodent Yellow",
+        "tonalRamp": [
+          "oklch(15.00% 0.0989 89.19)",
+          "oklch(26.43% 0.0989 89.19)",
+          "oklch(37.86% 0.0989 89.19)",
+          "oklch(49.29% 0.0989 89.19)",
+          "oklch(60.71% 0.0989 89.19)",
+          "oklch(72.14% 0.0989 89.19)",
+          "oklch(83.57% 0.0989 89.19)",
+          "oklch(95.00% 0.0989 89.19)"
+        ]
+      },
+      "paper-tile": {
+        "role": "primary",
+        "displayName": "Paper Tile",
+        "tonalRamp": [
+          "oklch(15.00% 0.0240 79.74)",
+          "oklch(26.43% 0.0240 79.74)",
+          "oklch(37.86% 0.0240 79.74)",
+          "oklch(49.29% 0.0240 79.74)",
+          "oklch(60.71% 0.0240 79.74)",
+          "oklch(72.14% 0.0240 79.74)",
+          "oklch(83.57% 0.0240 79.74)",
+          "oklch(95.00% 0.0240 79.74)"
+        ]
+      },
+      "paper-cream": {
+        "role": "primary",
+        "displayName": "Paper Cream",
+        "tonalRamp": [
+          "oklch(15.00% 0.0184 86.15)",
+          "oklch(26.43% 0.0184 86.15)",
+          "oklch(37.86% 0.0184 86.15)",
+          "oklch(49.29% 0.0184 86.15)",
+          "oklch(60.71% 0.0184 86.15)",
+          "oklch(72.14% 0.0184 86.15)",
+          "oklch(83.57% 0.0184 86.15)",
+          "oklch(95.00% 0.0184 86.15)"
+        ]
+      },
+      "paper-ink": {
+        "role": "primary",
+        "displayName": "Paper Ink",
+        "tonalRamp": [
+          "oklch(15.00% 0.0196 63.53)",
+          "oklch(26.43% 0.0196 63.53)",
+          "oklch(37.86% 0.0196 63.53)",
+          "oklch(49.29% 0.0196 63.53)",
+          "oklch(60.71% 0.0196 63.53)",
+          "oklch(72.14% 0.0196 63.53)",
+          "oklch(83.57% 0.0196 63.53)",
+          "oklch(95.00% 0.0196 63.53)"
+        ]
+      },
+      "ovation-amber": {
+        "role": "primary",
+        "displayName": "Ovation Amber",
+        "tonalRamp": [
+          "oklch(15.00% 0.1227 55.74)",
+          "oklch(26.43% 0.1227 55.74)",
+          "oklch(37.86% 0.1227 55.74)",
+          "oklch(49.29% 0.1227 55.74)",
+          "oklch(60.71% 0.1227 55.74)",
+          "oklch(72.14% 0.1227 55.74)",
+          "oklch(83.57% 0.1227 55.74)",
+          "oklch(95.00% 0.1227 55.74)"
+        ]
+      },
+      "ovation-cream": {
+        "role": "primary",
+        "displayName": "Ovation Cream",
+        "tonalRamp": [
+          "oklch(15.00% 0.0869 84.58)",
+          "oklch(26.43% 0.0869 84.58)",
+          "oklch(37.86% 0.0869 84.58)",
+          "oklch(49.29% 0.0869 84.58)",
+          "oklch(60.71% 0.0869 84.58)",
+          "oklch(72.14% 0.0869 84.58)",
+          "oklch(83.57% 0.0869 84.58)",
+          "oklch(95.00% 0.0869 84.58)"
+        ]
+      },
+      "heart-rose": {
+        "role": "primary",
+        "displayName": "Heart Rose",
+        "tonalRamp": [
+          "oklch(15.00% 0.1467 4.68)",
+          "oklch(26.43% 0.1467 4.68)",
+          "oklch(37.86% 0.1467 4.68)",
+          "oklch(49.29% 0.1467 4.68)",
+          "oklch(60.71% 0.1467 4.68)",
+          "oklch(72.14% 0.1467 4.68)",
+          "oklch(83.57% 0.1467 4.68)",
+          "oklch(95.00% 0.1467 4.68)"
+        ]
+      },
+      "heart-pale": {
+        "role": "primary",
+        "displayName": "Heart Pale",
+        "tonalRamp": [
+          "oklch(15.00% 0.0486 2.10)",
+          "oklch(26.43% 0.0486 2.10)",
+          "oklch(37.86% 0.0486 2.10)",
+          "oklch(49.29% 0.0486 2.10)",
+          "oklch(60.71% 0.0486 2.10)",
+          "oklch(72.14% 0.0486 2.10)",
+          "oklch(83.57% 0.0486 2.10)",
+          "oklch(95.00% 0.0486 2.10)"
+        ]
+      },
+      "heart-line": {
+        "role": "primary",
+        "displayName": "Heart Line",
+        "tonalRamp": [
+          "oklch(15.00% 0.0728 4.76)",
+          "oklch(26.43% 0.0728 4.76)",
+          "oklch(37.86% 0.0728 4.76)",
+          "oklch(49.29% 0.0728 4.76)",
+          "oklch(60.71% 0.0728 4.76)",
+          "oklch(72.14% 0.0728 4.76)",
+          "oklch(83.57% 0.0728 4.76)",
+          "oklch(95.00% 0.0728 4.76)"
+        ]
+      },
+      "webcam-grey": {
+        "role": "primary",
+        "displayName": "Webcam Grey",
+        "tonalRamp": [
+          "oklch(15.00% 0.0116 63.32)",
+          "oklch(26.43% 0.0116 63.32)",
+          "oklch(37.86% 0.0116 63.32)",
+          "oklch(49.29% 0.0116 63.32)",
+          "oklch(60.71% 0.0116 63.32)",
+          "oklch(72.14% 0.0116 63.32)",
+          "oklch(83.57% 0.0116 63.32)",
+          "oklch(95.00% 0.0116 63.32)"
+        ]
+      },
+      "webcam-paper": {
+        "role": "primary",
+        "displayName": "Webcam Paper",
+        "tonalRamp": [
+          "oklch(15.00% 0.0163 95.23)",
+          "oklch(26.43% 0.0163 95.23)",
+          "oklch(37.86% 0.0163 95.23)",
+          "oklch(49.29% 0.0163 95.23)",
+          "oklch(60.71% 0.0163 95.23)",
+          "oklch(72.14% 0.0163 95.23)",
+          "oklch(83.57% 0.0163 95.23)",
+          "oklch(95.00% 0.0163 95.23)"
+        ]
+      },
+      "monitor-border": {
+        "role": "primary",
+        "displayName": "Monitor Border",
+        "tonalRamp": [
+          "oklch(15.00% 0.0000 89.88)",
+          "oklch(26.43% 0.0000 89.88)",
+          "oklch(37.86% 0.0000 89.88)",
+          "oklch(49.29% 0.0000 89.88)",
+          "oklch(60.71% 0.0000 89.88)",
+          "oklch(72.14% 0.0000 89.88)",
+          "oklch(83.57% 0.0000 89.88)",
+          "oklch(95.00% 0.0000 89.88)"
+        ]
+      },
+      "name-lavender": {
+        "role": "secondary",
+        "displayName": "Name Lavender",
+        "tonalRamp": [
+          "oklch(15.00% 0.0995 286.54)",
+          "oklch(26.43% 0.0995 286.54)",
+          "oklch(37.86% 0.0995 286.54)",
+          "oklch(49.29% 0.0995 286.54)",
+          "oklch(60.71% 0.0995 286.54)",
+          "oklch(72.14% 0.0995 286.54)",
+          "oklch(83.57% 0.0995 286.54)",
+          "oklch(95.00% 0.0995 286.54)"
+        ]
+      },
+      "name-pale": {
+        "role": "secondary",
+        "displayName": "Name Pale",
+        "tonalRamp": [
+          "oklch(15.00% 0.0289 301.00)",
+          "oklch(26.43% 0.0289 301.00)",
+          "oklch(37.86% 0.0289 301.00)",
+          "oklch(49.29% 0.0289 301.00)",
+          "oklch(60.71% 0.0289 301.00)",
+          "oklch(72.14% 0.0289 301.00)",
+          "oklch(83.57% 0.0289 301.00)",
+          "oklch(95.00% 0.0289 301.00)"
+        ]
+      },
+      "white": {
+        "role": "neutral",
+        "displayName": "White",
+        "tonalRamp": [
+          "oklch(15.00% 0.0000 89.88)",
+          "oklch(26.43% 0.0000 89.88)",
+          "oklch(37.86% 0.0000 89.88)",
+          "oklch(49.29% 0.0000 89.88)",
+          "oklch(60.71% 0.0000 89.88)",
+          "oklch(72.14% 0.0000 89.88)",
+          "oklch(83.57% 0.0000 89.88)",
+          "oklch(95.00% 0.0000 89.88)"
+        ]
+      },
+      "information-ink": {
+        "role": "neutral",
+        "displayName": "Information Ink"
+      },
+      "studio-peach": {
+        "role": "secondary",
+        "displayName": "Studio Peach",
+        "tonalRamp": [
+          "oklch(15.00% 0.0790 40.09)",
+          "oklch(26.43% 0.0790 40.09)",
+          "oklch(37.86% 0.0790 40.09)",
+          "oklch(49.29% 0.0790 40.09)",
+          "oklch(60.71% 0.0790 40.09)",
+          "oklch(72.14% 0.0790 40.09)",
+          "oklch(83.57% 0.0790 40.09)",
+          "oklch(95.00% 0.0790 40.09)"
+        ]
+      },
+      "studio-peach-ink": {
+        "role": "neutral",
+        "displayName": "Studio Peach Ink",
+        "tonalRamp": [
+          "oklch(15.00% 0.0183 35.76)",
+          "oklch(26.43% 0.0183 35.76)",
+          "oklch(37.86% 0.0183 35.76)",
+          "oklch(49.29% 0.0183 35.76)",
+          "oklch(60.71% 0.0183 35.76)",
+          "oklch(72.14% 0.0183 35.76)",
+          "oklch(83.57% 0.0183 35.76)",
+          "oklch(95.00% 0.0183 35.76)"
+        ]
+      },
+      "studio-cyan": {
+        "role": "secondary",
+        "displayName": "Studio Cyan",
+        "tonalRamp": [
+          "oklch(15.00% 0.0423 194.28)",
+          "oklch(26.43% 0.0423 194.28)",
+          "oklch(37.86% 0.0423 194.28)",
+          "oklch(49.29% 0.0423 194.28)",
+          "oklch(60.71% 0.0423 194.28)",
+          "oklch(72.14% 0.0423 194.28)",
+          "oklch(83.57% 0.0423 194.28)",
+          "oklch(95.00% 0.0423 194.28)"
+        ]
+      },
+      "studio-bar-cyan": {
+        "role": "secondary",
+        "displayName": "Studio Bar Cyan",
+        "tonalRamp": [
+          "oklch(15.00% 0.0588 189.00)",
+          "oklch(26.43% 0.0588 189.00)",
+          "oklch(37.86% 0.0588 189.00)",
+          "oklch(49.29% 0.0588 189.00)",
+          "oklch(60.71% 0.0588 189.00)",
+          "oklch(72.14% 0.0588 189.00)",
+          "oklch(83.57% 0.0588 189.00)",
+          "oklch(95.00% 0.0588 189.00)"
+        ]
+      },
+      "studio-cue": {
+        "role": "secondary",
+        "displayName": "Studio Cue",
+        "tonalRamp": [
+          "oklch(15.00% 0.0720 40.21)",
+          "oklch(26.43% 0.0720 40.21)",
+          "oklch(37.86% 0.0720 40.21)",
+          "oklch(49.29% 0.0720 40.21)",
+          "oklch(60.71% 0.0720 40.21)",
+          "oklch(72.14% 0.0720 40.21)",
+          "oklch(83.57% 0.0720 40.21)",
+          "oklch(95.00% 0.0720 40.21)"
+        ]
+      },
+      "studio-playhead": {
+        "role": "secondary",
+        "displayName": "Studio Playhead",
+        "tonalRamp": [
+          "oklch(15.00% 0.0344 42.70)",
+          "oklch(26.43% 0.0344 42.70)",
+          "oklch(37.86% 0.0344 42.70)",
+          "oklch(49.29% 0.0344 42.70)",
+          "oklch(60.71% 0.0344 42.70)",
+          "oklch(72.14% 0.0344 42.70)",
+          "oklch(83.57% 0.0344 42.70)",
+          "oklch(95.00% 0.0344 42.70)"
+        ]
+      },
+      "studio-ink": {
+        "role": "neutral",
+        "displayName": "Studio Ink",
+        "tonalRamp": [
+          "oklch(15.00% 0.0085 264.38)",
+          "oklch(26.43% 0.0085 264.38)",
+          "oklch(37.86% 0.0085 264.38)",
+          "oklch(49.29% 0.0085 264.38)",
+          "oklch(60.71% 0.0085 264.38)",
+          "oklch(72.14% 0.0085 264.38)",
+          "oklch(83.57% 0.0085 264.38)",
+          "oklch(95.00% 0.0085 264.38)"
+        ]
+      },
+      "studio-panel": {
+        "role": "neutral",
+        "displayName": "Studio Panel",
+        "tonalRamp": [
+          "oklch(15.00% 0.0104 260.70)",
+          "oklch(26.43% 0.0104 260.70)",
+          "oklch(37.86% 0.0104 260.70)",
+          "oklch(49.29% 0.0104 260.70)",
+          "oklch(60.71% 0.0104 260.70)",
+          "oklch(72.14% 0.0104 260.70)",
+          "oklch(83.57% 0.0104 260.70)",
+          "oklch(95.00% 0.0104 260.70)"
+        ]
+      },
+      "studio-stage": {
+        "role": "neutral",
+        "displayName": "Studio Stage",
+        "tonalRamp": [
+          "oklch(15.00% 0.0087 264.35)",
+          "oklch(26.43% 0.0087 264.35)",
+          "oklch(37.86% 0.0087 264.35)",
+          "oklch(49.29% 0.0087 264.35)",
+          "oklch(60.71% 0.0087 264.35)",
+          "oklch(72.14% 0.0087 264.35)",
+          "oklch(83.57% 0.0087 264.35)",
+          "oklch(95.00% 0.0087 264.35)"
+        ]
+      },
+      "studio-timeline": {
+        "role": "neutral",
+        "displayName": "Studio Timeline",
+        "tonalRamp": [
+          "oklch(15.00% 0.0106 260.69)",
+          "oklch(26.43% 0.0106 260.69)",
+          "oklch(37.86% 0.0106 260.69)",
+          "oklch(49.29% 0.0106 260.69)",
+          "oklch(60.71% 0.0106 260.69)",
+          "oklch(72.14% 0.0106 260.69)",
+          "oklch(83.57% 0.0106 260.69)",
+          "oklch(95.00% 0.0106 260.69)"
+        ]
+      },
+      "studio-text": {
+        "role": "neutral",
+        "displayName": "Studio Text",
+        "tonalRamp": [
+          "oklch(15.00% 0.0046 258.32)",
+          "oklch(26.43% 0.0046 258.32)",
+          "oklch(37.86% 0.0046 258.32)",
+          "oklch(49.29% 0.0046 258.32)",
+          "oklch(60.71% 0.0046 258.32)",
+          "oklch(72.14% 0.0046 258.32)",
+          "oklch(83.57% 0.0046 258.32)",
+          "oklch(95.00% 0.0046 258.32)"
+        ]
+      },
+      "studio-muted": {
+        "role": "neutral",
+        "displayName": "Studio Muted",
+        "tonalRamp": [
+          "oklch(15.00% 0.0159 260.73)",
+          "oklch(26.43% 0.0159 260.73)",
+          "oklch(37.86% 0.0159 260.73)",
+          "oklch(49.29% 0.0159 260.73)",
+          "oklch(60.71% 0.0159 260.73)",
+          "oklch(72.14% 0.0159 260.73)",
+          "oklch(83.57% 0.0159 260.73)",
+          "oklch(95.00% 0.0159 260.73)"
+        ]
+      },
+      "studio-label": {
+        "role": "neutral",
+        "displayName": "Studio Label",
+        "tonalRamp": [
+          "oklch(15.00% 0.0124 259.82)",
+          "oklch(26.43% 0.0124 259.82)",
+          "oklch(37.86% 0.0124 259.82)",
+          "oklch(49.29% 0.0124 259.82)",
+          "oklch(60.71% 0.0124 259.82)",
+          "oklch(72.14% 0.0124 259.82)",
+          "oklch(83.57% 0.0124 259.82)",
+          "oklch(95.00% 0.0124 259.82)"
+        ]
+      },
+      "studio-control": {
+        "role": "neutral",
+        "displayName": "Studio Control",
+        "tonalRamp": [
+          "oklch(15.00% 0.0139 261.70)",
+          "oklch(26.43% 0.0139 261.70)",
+          "oklch(37.86% 0.0139 261.70)",
+          "oklch(49.29% 0.0139 261.70)",
+          "oklch(60.71% 0.0139 261.70)",
+          "oklch(72.14% 0.0139 261.70)",
+          "oklch(83.57% 0.0139 261.70)",
+          "oklch(95.00% 0.0139 261.70)"
+        ]
+      },
+      "studio-control-hover": {
+        "role": "neutral",
+        "displayName": "Studio Control Hover",
+        "tonalRamp": [
+          "oklch(15.00% 0.0174 258.37)",
+          "oklch(26.43% 0.0174 258.37)",
+          "oklch(37.86% 0.0174 258.37)",
+          "oklch(49.29% 0.0174 258.37)",
+          "oklch(60.71% 0.0174 258.37)",
+          "oklch(72.14% 0.0174 258.37)",
+          "oklch(83.57% 0.0174 258.37)",
+          "oklch(95.00% 0.0174 258.37)"
+        ]
+      },
+      "studio-border": {
+        "role": "neutral",
+        "displayName": "Studio Border",
+        "tonalRamp": [
+          "oklch(15.00% 0.0155 259.81)",
+          "oklch(26.43% 0.0155 259.81)",
+          "oklch(37.86% 0.0155 259.81)",
+          "oklch(49.29% 0.0155 259.81)",
+          "oklch(60.71% 0.0155 259.81)",
+          "oklch(72.14% 0.0155 259.81)",
+          "oklch(83.57% 0.0155 259.81)",
+          "oklch(95.00% 0.0155 259.81)"
+        ]
+      },
+      "studio-selection": {
+        "role": "neutral",
+        "displayName": "Studio Selection",
+        "tonalRamp": [
+          "oklch(15.00% 0.0167 305.52)",
+          "oklch(26.43% 0.0167 305.52)",
+          "oklch(37.86% 0.0167 305.52)",
+          "oklch(49.29% 0.0167 305.52)",
+          "oklch(60.71% 0.0167 305.52)",
+          "oklch(72.14% 0.0167 305.52)",
+          "oklch(83.57% 0.0167 305.52)",
+          "oklch(95.00% 0.0167 305.52)"
+        ]
+      },
+      "studio-error": {
+        "role": "secondary",
+        "displayName": "Studio Error",
+        "tonalRamp": [
+          "oklch(15.00% 0.1162 12.01)",
+          "oklch(26.43% 0.1162 12.01)",
+          "oklch(37.86% 0.1162 12.01)",
+          "oklch(49.29% 0.1162 12.01)",
+          "oklch(60.71% 0.1162 12.01)",
+          "oklch(72.14% 0.1162 12.01)",
+          "oklch(83.57% 0.1162 12.01)",
+          "oklch(95.00% 0.1162 12.01)"
+        ]
+      },
+      "cash-paper": {
+        "role": "secondary",
+        "displayName": "Cash Paper",
+        "tonalRamp": [
+          "oklch(15.00% 0.0655 85.82)",
+          "oklch(26.43% 0.0655 85.82)",
+          "oklch(37.86% 0.0655 85.82)",
+          "oklch(49.29% 0.0655 85.82)",
+          "oklch(60.71% 0.0655 85.82)",
+          "oklch(72.14% 0.0655 85.82)",
+          "oklch(83.57% 0.0655 85.82)",
+          "oklch(95.00% 0.0655 85.82)"
+        ]
+      },
+      "cash-ink": {
+        "role": "secondary",
+        "displayName": "Cash Ink",
+        "tonalRamp": [
+          "oklch(15.00% 0.0327 61.10)",
+          "oklch(26.43% 0.0327 61.10)",
+          "oklch(37.86% 0.0327 61.10)",
+          "oklch(49.29% 0.0327 61.10)",
+          "oklch(60.71% 0.0327 61.10)",
+          "oklch(72.14% 0.0327 61.10)",
+          "oklch(83.57% 0.0327 61.10)",
+          "oklch(95.00% 0.0327 61.10)"
+        ]
+      }
     }
   },
   "components": [
     {
-      "name": "Studio action button",
+      "name": "Studio neutral action",
       "kind": "button",
       "refersTo": "studio-button",
-      "description": "Transport and calibration actions share this compact neutral control.",
-      "html": "<button class=\"ds-studio-button\" type=\"button\">Play</button>",
-      "css": ".ds-studio-button{font:14px/1.5 Poppins,sans-serif;color:#eef4fa;background:#25323e;border:1px solid #4a5b69;border-radius:6px;padding:8px 10px;cursor:pointer}.ds-studio-button:hover{background:#3b4e5d}.ds-studio-button:focus-visible{outline:2px solid #73e4dc;outline-offset:2px;}"
+      "description": "Neutral transport and inspection action.",
+      "html": "<button class=\"ds-studio-button\" type=\"button\">Restart</button>",
+      "css": ".ds-studio-button{font:13px/1.45 Poppins,sans-serif;color:#eef0f3;background:#292d34;border:1px solid #363b43;border-radius:4px;padding:7px 9px;min-height:32px;cursor:pointer;white-space:nowrap;}.ds-studio-button:hover{background:#3b414a;}.ds-studio-button:focus-visible{outline:2px solid #ffc0aa;outline-offset:2px;}"
+    },
+    {
+      "name": "Studio primary action",
+      "kind": "button",
+      "refersTo": "studio-button-primary",
+      "description": "Compact explicit Studio action; peach marks primary/selected state.",
+      "html": "<button class=\"ds-studio-primary\" type=\"button\">Render Export</button>",
+      "css": ".ds-studio-primary{font:13px/1.45 Poppins,sans-serif;color:#eef0f3;background:#292d34;border:1px solid #363b43;border-radius:4px;padding:7px 9px;min-height:32px;cursor:pointer;white-space:nowrap;}.ds-studio-primary:hover{background:#3b414a;}.ds-studio-primary:focus-visible{outline:2px solid #ffc0aa;outline-offset:2px;}.ds-studio-primary{background:#ffc0aa;border-color:#ffc0aa;color:#281d1a;font-weight:600;}.ds-studio-primary:disabled{opacity:.45;cursor:wait;}"
     },
     {
       "name": "Replay seed field",
       "kind": "input",
       "refersTo": "studio-field",
-      "description": "Explicit label and common focus treatment for inspector fields; native selects share the same surface.",
+      "description": "Explicit compact label and native field with peach focus.",
       "html": "<label class=\"ds-field-label\" for=\"ds-replay-seed\">Replay seed</label><input class=\"ds-field\" id=\"ds-replay-seed\" value=\"kaaajka-motion-01\">",
-      "css": ".ds-field-label{display:block;margin:12px 0 5px;color:#c4d3e1;font:14px/1.5 Poppins,sans-serif}.ds-field{font:14px/1.5 Poppins,sans-serif;color:#eef4fa;background:#25323e;border:1px solid #4a5b69;border-radius:6px;padding:8px 10px;width:calc(100% - 22px)}.ds-field:focus-visible{outline:2px solid #73e4dc;outline-offset:2px;}"
+      "css": ".ds-field-label{display:block;margin-bottom:5px;color:#c4c9d1;font:11px/1.45 Poppins,sans-serif;}.ds-field{font:13px/1.45 Poppins,sans-serif;color:#eef0f3;background:#292d34;border:1px solid #363b43;border-radius:4px;padding:7px 9px;min-height:32px;width:100%;}.ds-field:focus-visible{outline:2px solid #ffc0aa;outline-offset:2px;}"
     },
     {
-      "name": "Authored hero cue button",
+      "name": "Inspector navigation",
+      "kind": "nav",
+      "refersTo": "studio-button-primary",
+      "description": "Dense pressed-state buttons across the inspector header.",
+      "html": "<nav class=\"ds-tabs\" aria-label=\"Inspector\"><button type=\"button\" aria-pressed=\"true\">Donation data</button><button type=\"button\" aria-pressed=\"false\">Inspector</button><button type=\"button\" aria-pressed=\"false\">Export</button></nav>",
+      "css": ".ds-tabs{display:flex;gap:3px;padding:12px 10px;background:#202328;border-bottom:1px solid #363b43;}.ds-tabs button{font:13px/1.45 Poppins,sans-serif;color:#eef0f3;background:#292d34;border:1px solid #363b43;border-radius:4px;padding:7px 9px;min-height:32px;font-size:10px;flex:1;padding:6px;cursor:pointer;}.ds-tabs button[aria-pressed=\"true\"]{background:#ffc0aa;border-color:#ffc0aa;color:#281d1a;font-weight:600;}.ds-tabs button:hover{background:#3b414a;}.ds-tabs button:focus-visible{outline:2px solid #ffc0aa;outline-offset:2px;}"
+    },
+    {
+      "name": "Selected layer row",
+      "kind": "custom",
+      "refersTo": "studio-layer-selected",
+      "description": "Subtle plum selection with an inset peach leading edge and visibility checkbox.",
+      "html": "<div class=\"ds-layer\"><button type=\"button\">Source media</button><input aria-label=\"Source media visible\" type=\"checkbox\" checked></div>",
+      "css": ".ds-layer{display:flex;align-items:center;gap:8px;background:#343039;box-shadow:inset 2px 0 #ffc0aa;border-radius:4px;padding:4px 6px 4px 0;}.ds-layer button{font:11px/1.45 Poppins,sans-serif;color:#eef0f3;background:transparent;border:0;padding:7px 9px 7px 12px;flex:1;text-align:left;cursor:pointer;}.ds-layer input{width:15px;height:15px;accent-color:#ffc0aa;}.ds-layer button:hover{background:#3b414a;}.ds-layer :focus-visible{outline:2px solid #ffc0aa;outline-offset:2px;}"
+    },
+    {
+      "name": "Authored hero cue",
       "kind": "button",
       "refersTo": "studio-hero-cue",
-      "description": "Dense cue action with the observed gold border and label; its muted timestamp remains secondary.",
-      "html": "<button class=\"ds-hero-cue\" type=\"button\">heroDrop <span class=\"ds-cue-time\">3.901s</span></button>",
-      "css": ".ds-hero-cue{font:14px/1.5 Poppins,sans-serif;color:#eef4fa;background:#25323e;border:1px solid #4a5b69;border-radius:6px;padding:8px 10px;padding:5px 9px;font-size:11px;border-color:#ffd77b;color:#ffd77b;cursor:pointer}.ds-cue-time{color:#aec1d3}.ds-hero-cue:hover{background:#3b4e5d}.ds-hero-cue:focus-visible{outline:2px solid #73e4dc;outline-offset:2px;}"
+      "description": "Muted-peach hero cue label in the multitrack timeline.",
+      "html": "<button class=\"ds-hero-cue\" type=\"button\">heroDrop</button>",
+      "css": ".ds-hero-cue{font:9px/1.45 Poppins,sans-serif;color:#17191d;background:#c18b78;border:0;border-radius:2px;padding:3px 7px;height:23px;max-width:118px;cursor:pointer;}.ds-hero-cue:hover{background:#ffc0aa;}.ds-hero-cue:focus-visible{outline:2px solid #ffc0aa;outline-offset:2px;}"
     },
     {
       "name": "Quiet information card",
       "kind": "card",
       "refersTo": "information-card",
-      "description": "Heart reading state at 30% scale; shared complete-message landing after source media releases.",
-      "html": "<div class=\"ds-information-specimen\"><article class=\"ds-information-card\"><div class=\"ds-information-header\"><strong class=\"ds-information-donor\">Michaś</strong><span class=\"ds-information-amount\">150,00 zł</span></div><div class=\"ds-information-message\">Dzięki za wsparcie!</div></article></div>",
-      "css": ".ds-information-specimen{width:372px;height:100px;position:relative}.ds-information-card{position:absolute;left:0;top:0;width:1240px;box-sizing:border-box;padding:42px 48px;background:rgba(9,12,18,.87);border-radius:14px;box-shadow:0 18px 60px rgba(0,0,0,.25);color:#fff;font-family:Poppins,sans-serif;transform:scale(.3);transform-origin:top left}.ds-information-header{display:flex;justify-content:space-between;align-items:baseline;gap:35px;padding-bottom:22px;color:#ffd5df;font-size:40px;line-height:1.25}.ds-information-donor{font-weight:600;overflow-wrap:anywhere;min-width:0}.ds-information-amount{flex-shrink:0;font-weight:500}.ds-information-message{font-size:32px;line-height:1.6;max-height:405px;overflow:hidden;white-space:pre-wrap;overflow-wrap:anywhere}"
+      "description": "Heart reading state at 30% scale; bounded flex message follows the wrapped header.",
+      "html": "<div class=\"ds-information-specimen\"><article class=\"ds-information-card\"><div class=\"ds-information-header\"><strong>Michaś</strong><span>150,00 zł</span></div><div class=\"ds-information-message\">Dzięki za wsparcie!\nPełna wiadomość zachowuje podział wierszy.</div></article></div>",
+      "css": ".ds-information-specimen{width:372px;height:186px;position:relative}.ds-information-card{position:absolute;left:0;top:0;width:1240px;height:620px;box-sizing:border-box;display:flex;flex-direction:column;overflow:hidden;padding:42px 48px;background:rgba(9,12,18,.87);border-radius:14px;box-shadow:0 18px 60px rgba(0,0,0,.25);color:#fff;font-family:Poppins,sans-serif;transform:scale(.3);transform-origin:top left}.ds-information-header{flex:none;display:flex;justify-content:space-between;align-items:baseline;gap:35px;padding-bottom:22px;color:#ffd5df;font-size:40px;line-height:1.25}.ds-information-header strong{font-weight:600;overflow-wrap:anywhere;min-width:0}.ds-information-header span{flex-shrink:0;font-weight:500}.ds-information-message{font-size:32px;line-height:1.6;flex:1;min-height:0;overflow:hidden;white-space:pre-wrap;overflow-wrap:anywhere}"
     }
   ],
   "narrative": {
     "northStar": "Seven GIFs Conduct the Show",
-    "overview": "Each live donation is a miniature music video conducted by Kaaajka's selected GIF, its existing track and its legacy joke. The room dancer calls for a two-step, the masked dancer leaves transparent echoes, the rodent cuts through a film strip, the seated portrait unrolls paper, the crowd opens its arms, the streamer passes a heart, and the tiny webcam interrupts through a monitor wall. Exuberance and ascending importance come from these subjects, their distinct layouts and their timed donor payoffs.\n\nShared infrastructure supports those seven compositions: a transparent broadcast stage, solid donor typography, absolute music time, source-frame seeking and a calm complete-message landing. Motion Studio is a dark, compact instrument panel around the show. Its subdued controls make timing and source state inspectable without defining the broadcast's visual identity.\n\nThis document records the built donation world, direction seed `d2f60c0f`, and DEV Motion Studio. It replaces the former common-aperture live art direction. The old SAY MY NAME composition remains a Studio-only Donate8 exploration sharing Donate7's track. Unrelated legacy overlay styles remain outside this document's scope. Source code is authoritative for exact values; hero and storyboard composites, per-tier PNGs and desktop/mobile Studio captures provide visual evidence. OBS alpha compositing, audible cue/pose approval and performance under gameplay remain manual release checks.",
+    "overview": "Each live donation is a miniature music video conducted by Kaaajka's selected GIF, its existing track and its legacy joke. The room dancer calls for a two-step, the masked dancer leaves transparent echoes, the rodent cuts through a film strip, the seated portrait unrolls paper, the crowd opens its arms, the streamer passes a heart, and the tiny webcam interrupts through a monitor wall. Exuberance and ascending importance come from these subjects, their distinct layouts and their timed donor payoffs.\n\nShared infrastructure supports those seven compositions: a transparent broadcast stage, solid donor typography, absolute music time, source-frame seeking and a calm complete-message landing. Production-v2 extends this world with deliberate negative space, source-specific cash payoffs and selective community stickers. The supplied peach channel banner, controller avatar and white bunny emotes establish warmth and expressive reaction; they do not recolor the selected GIFs.\n\nMotion Studio is a professional graphite authoring desk: tree, central fitted stage, inspector and multitrack timeline. Peach marks selection and deliberate actions; cyan carries measurement and the small bunny identity mark. This document records the built production-v2 expansion of direction seed `d2f60c0f`, with `.motion-qa/v2/` captures as visual evidence. The old SAY MY NAME composition remains a Studio-only Donate8 exploration sharing Donate7's track. Unrelated legacy overlay styles remain outside this document's scope.",
     "keyCharacteristics": [
       "Seven recognizable, unchanged source GIF identities and seven distinct compositions.",
       "Scene-specific gestures, text placement and donor impact.",
       "Honest source alpha, room context, frame cadence and pixel texture.",
       "Supporting effects restrained around the source and readable donor.",
       "Shared music clock, deterministic seeking and a quiet complete-message landing.",
-      "Flat, practical Studio controls with visible keyboard focus."
+      "Localized compositions with transparent margins that preserve gameplay.",
+      "Cash fountain, handoff and storm reserved for selected higher-tier payoffs.",
+      "Selective bunny reaction in the heart scene and a small Studio identity mark.",
+      "Flat graphite Studio panels, compact controls and peach keyboard focus."
     ],
     "rules": [
       {
         "name": "The Source Palette Rule",
         "body": "Preserve the selected source's colors and alpha. Apply each treatment's paired accents to authored graphics, amount and reading header; use dark Paper Ink for the paper-strip amount.",
-        "section": "neutral"
+        "section": "colors"
       },
       {
         "name": "The Transparent Stage Rule",
         "body": "Leave the broadcast around source windows transparent. Studio stream and checker backgrounds are inspection context.",
-        "section": "neutral"
+        "section": "colors"
+      },
+      {
+        "name": "The Selective Sticker Rule",
+        "body": "Use the original bunny as a meaningful community response in the heart scene and a small Studio identity mark. Preserve its source colors and resolution; do not scatter mascots across every show.",
+        "section": "colors"
       },
       {
         "name": "The Donor Space Rule",
         "body": "Reserve independent readable space for nickname and amount within each composition. Keep the source gesture visible and fit long donor strings rather than forcing every show into one text layout.",
-        "section": "hierarchy"
+        "section": "typography"
       },
       {
         "name": "The Quiet Landing Rule",
         "body": "Hide the source scene and all supporting spectacle in the information phase, release source media, and retain the name, amount and complete message.",
-        "section": "shadow vocabulary"
+        "section": "elevation & depth"
       },
       {
         "name": "The Music Clock Rule",
         "body": "Derive authored scene and controlled source frames from absolute music time. Quality reduction changes supporting detail, not cue timing, donor layout or the reading phase.",
-        "section": "source media and seven donor payoffs"
+        "section": "components"
       }
     ],
     "dos": [
@@ -192,7 +886,10 @@
       "**Do** leave broadcast space transparent and uniformly scale the logical stage.",
       "**Do** clear spectacle, release source media and preserve complete readable messages.",
       "**Do** use absolute music time for reproducible seeking and keep cue timing consistent across quality modes.",
-      "**Do** retain explicit Studio labels, visible focus and the stacked narrow-screen inspector."
+      "**Do** retain explicit Studio labels, visible focus and the stacked narrow-screen inspector.",
+      "**Do** preserve transparent negative space and the built per-scene localization scales.",
+      "**Do** use peach for Studio selection, cyan for measurement, and monospace for genuine timecode.",
+      "**Do** keep cash distinct by source and protect the top-tier donor column."
     ],
     "donts": [
       "**Don't** replace selected GIF footage, recolor the sources or turn seven scenes into one recolored template.",
@@ -201,7 +898,9 @@
       "**Don't** force a universal centred hero, crop donor text or permanently truncate messages.",
       "**Don't** turn Studio inspection backgrounds into opaque broadcast artwork.",
       "**Don't** invent a live Donate8 threshold, new track or fully static reduced-motion behavior.",
-      "**Don't** apply this scoped donation identity to unrelated legacy overlays."
+      "**Don't** apply this scoped donation identity to unrelated legacy overlays.",
+      "**Don't** use the banner gradient as a full-frame donation background or add bunny confetti.",
+      "**Don't** restore spacious rounded cards, pill tabs or gold hero cues in the graphite Studio."
     ]
   }
 }

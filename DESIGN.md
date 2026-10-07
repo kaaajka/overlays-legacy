@@ -1,6 +1,6 @@
 ---
 name: Kaaajka GIF-led Donation Shows
-description: Seven source-led meme music videos with a shared clock and readable landing.
+description: Seven localized source-led meme shows and a graphite authoring desk with peach/cyan accents.
 colors:
   turkey-tan: "#eec692"
   turkey-cream: "#fff2cf"
@@ -23,16 +23,26 @@ colors:
   name-pale: "#f1eaff"
   white: "#fff"
   information-ink: "rgba(9, 12, 18, 0.87)"
-  studio-aqua: "#73e4dc"
-  studio-gold: "#ffd77b"
-  studio-ink: "#111820"
-  studio-text: "#eef4fa"
-  studio-muted: "#aec1d3"
-  studio-label: "#c4d3e1"
-  studio-control: "#25323e"
-  studio-control-hover: "#3b4e5d"
-  studio-border: "#4a5b69"
-  studio-divider: "#34424f"
+  studio-peach: "#ffc0aa"
+  studio-peach-ink: "#281d1a"
+  studio-cyan: "#83aaa9"
+  studio-bar-cyan: "#82bab5"
+  studio-cue: "#c18b78"
+  studio-playhead: "#ffe3d8"
+  studio-ink: "#17191d"
+  studio-panel: "#202328"
+  studio-stage: "#121418"
+  studio-timeline: "#1b1e23"
+  studio-text: "#eef0f3"
+  studio-muted: "#a5abb5"
+  studio-label: "#c4c9d1"
+  studio-control: "#292d34"
+  studio-control-hover: "#3b414a"
+  studio-border: "#363b43"
+  studio-selection: "#343039"
+  studio-error: "#ff9eaa"
+  cash-paper: "#f8e2b3"
+  cash-ink: "#524133"
 typography:
   donor-name:
     fontFamily: "Poppins, sans-serif"
@@ -54,24 +64,38 @@ typography:
     lineHeight: 1.6
   label:
     fontFamily: "Poppins, sans-serif"
-    fontSize: "14px"
-    lineHeight: 1.5
+    fontSize: "13px"
+    lineHeight: 1.45
   studio-title:
     fontFamily: "Poppins, sans-serif"
-    fontSize: "22px"
+    fontSize: "15px"
+    fontWeight: 700
+  studio-heading:
+    fontFamily: "Poppins, sans-serif"
+    fontSize: "16px"
     fontWeight: 600
   studio-small:
     fontFamily: "Poppins, sans-serif"
     fontSize: "11px"
+  studio-track:
+    fontFamily: "Poppins, sans-serif"
+    fontSize: "9px"
+  timecode:
+    fontFamily: "monospace"
+    fontSize: "20px"
+    fontWeight: 700
+    lineHeight: 1.5
 rounded:
-  control: "6px"
+  control: "4px"
+  timeline: "2px"
+  lifecycle: "3px"
   information: "14px"
 spacing:
-  control-gap: "8px"
-  cue-gap: "7px"
-  studio-inset: "20px"
-  studio-gap: "22px"
-  header-gap: "24px"
+  compact-gap: "4px"
+  field-gap: "5px"
+  pair-gap: "8px"
+  studio-inset: "18px"
+  tree-inset: "12px"
   currency-gap: "25px"
 components:
   studio-button:
@@ -79,27 +103,36 @@ components:
     textColor: "{colors.studio-text}"
     typography: "{typography.label}"
     rounded: "{rounded.control}"
-    padding: "8px 10px"
+    padding: "7px 9px"
+    height: "32px"
   studio-button-hover:
     backgroundColor: "{colors.studio-control-hover}"
+  studio-button-primary:
+    backgroundColor: "{colors.studio-peach}"
+    textColor: "{colors.studio-peach-ink}"
+    typography: "{typography.label}"
+    rounded: "{rounded.control}"
+    padding: "7px 9px"
+    height: "32px"
   studio-field:
     backgroundColor: "{colors.studio-control}"
     textColor: "{colors.studio-text}"
     typography: "{typography.label}"
     rounded: "{rounded.control}"
-    padding: "8px 10px"
-  studio-cue:
-    backgroundColor: "{colors.studio-control}"
-    textColor: "{colors.studio-text}"
-    typography: "{typography.studio-small}"
-    rounded: "{rounded.control}"
-    padding: "5px 9px"
+    padding: "7px 9px"
+    height: "32px"
   studio-hero-cue:
-    backgroundColor: "{colors.studio-control}"
-    textColor: "{colors.studio-gold}"
-    typography: "{typography.studio-small}"
+    backgroundColor: "{colors.studio-cue}"
+    textColor: "{colors.studio-ink}"
+    typography: "{typography.studio-track}"
+    rounded: "{rounded.timeline}"
+    padding: "3px 7px"
+    height: "23px"
+  studio-layer-selected:
+    backgroundColor: "{colors.studio-selection}"
+    textColor: "{colors.studio-text}"
     rounded: "{rounded.control}"
-    padding: "5px 9px"
+    padding: "4px 6px 4px 0"
   information-card:
     backgroundColor: "{colors.information-ink}"
     textColor: "{colors.white}"
@@ -121,9 +154,9 @@ components:
 
 Each live donation is a miniature music video conducted by Kaaajka's selected GIF, its existing track and its legacy joke. The room dancer calls for a two-step, the masked dancer leaves transparent echoes, the rodent cuts through a film strip, the seated portrait unrolls paper, the crowd opens its arms, the streamer passes a heart, and the tiny webcam interrupts through a monitor wall. Exuberance and ascending importance come from these subjects, their distinct layouts and their timed donor payoffs.
 
-Shared infrastructure supports those seven compositions: a transparent broadcast stage, solid donor typography, absolute music time, source-frame seeking and a calm complete-message landing. Motion Studio is a dark, compact instrument panel around the show. Its subdued controls make timing and source state inspectable without defining the broadcast's visual identity.
+Shared infrastructure supports those seven compositions: a transparent broadcast stage, solid donor typography, absolute music time, source-frame seeking and a calm complete-message landing. Production-v2 extends this world with deliberate negative space, source-specific cash payoffs and selective community stickers. The supplied peach channel banner, controller avatar and white bunny emotes establish warmth and expressive reaction; they do not recolor the selected GIFs.
 
-This document records the built donation world, direction seed `d2f60c0f`, and DEV Motion Studio. It replaces the former common-aperture live art direction. The old SAY MY NAME composition remains a Studio-only Donate8 exploration sharing Donate7's track. Unrelated legacy overlay styles remain outside this document's scope. Source code is authoritative for exact values; hero and storyboard composites, per-tier PNGs and desktop/mobile Studio captures provide visual evidence. OBS alpha compositing, audible cue/pose approval and performance under gameplay remain manual release checks.
+Motion Studio is a professional graphite authoring desk: tree, central fitted stage, inspector and multitrack timeline. Peach marks selection and deliberate actions; cyan carries measurement and the small bunny identity mark. This document records the built production-v2 expansion of direction seed `d2f60c0f`, with `.motion-qa/v2/` captures as visual evidence. The old SAY MY NAME composition remains a Studio-only Donate8 exploration sharing Donate7's track. Unrelated legacy overlay styles remain outside this document's scope.
 
 **Key Characteristics:**
 
@@ -132,11 +165,14 @@ This document records the built donation world, direction seed `d2f60c0f`, and D
 - Honest source alpha, room context, frame cadence and pixel texture.
 - Supporting effects restrained around the source and readable donor.
 - Shared music clock, deterministic seeking and a quiet complete-message landing.
-- Flat, practical Studio controls with visible keyboard focus.
+- Localized compositions with transparent margins that preserve gameplay.
+- Cash fountain, handoff and storm reserved for selected higher-tier payoffs.
+- Selective bunny reaction in the heart scene and a small Studio identity mark.
+- Flat graphite Studio panels, compact controls and peach keyboard focus.
 
 ## Colors
 
-Source footage supplies the dominant image color. Treatment accents echo that footage; they are not a recoloring instruction. Frontmatter records the source values, while the names below describe their use.
+Source footage supplies the dominant image color. Treatment accents echo that footage, while peach and cyan connect the authoring desk to Kaaajka's supplied identity. Frontmatter records the source values, while the names below describe their use.
 
 ### Primary
 
@@ -150,44 +186,53 @@ Source footage supplies the dominant image color. Treatment accents echo that fo
 
 ### Secondary
 
-- **Studio Aqua:** focus outlines, waveform, ordinary authored cue markers and range accent.
-- **Studio Gold:** the hero-drop cue's text, border and waveform marker, independently of the selected scene.
+- **Studio Peach / Peach Ink:** selected modes and inspector tabs, primary actions, focus outlines, range accents and overlay measurement trace; dark ink keeps selected-control text legible.
+- **Studio Cyan / Bar Cyan:** subdued waveform and downbeat measurement. The original cyan bunny remains unchanged in the Studio brand mark.
+- **Studio Cue / Playhead:** muted peach hero/selected cue labels and a pale one-pixel time indicator.
+- **Cash Paper / Cash Ink:** warm drawn bills for ovation and webcam; the heart handoff uses Heart Pale.
 - **Name Lavender / Name Pale:** retained only for the old Studio-only SAY MY NAME treatment.
 
 ### Neutral
 
 - **White:** live donor names, complete messages and timeline playhead.
 - **Information Ink:** translucent reading surface over arbitrary broadcast content.
-- **Studio Ink / Studio Text:** authoring canvas and foreground.
+- **Studio Ink / Panel / Stage / Timeline:** graphite shell, side panels, darker preview well and timeline bed.
+- **Studio Text:** primary authoring foreground.
 - **Studio Muted / Studio Label:** secondary status, timestamps and field labels.
 - **Studio Control / Studio Control Hover:** control fill and hover response.
-- **Studio Border / Studio Divider:** control boundaries and header/footer separators.
+- **Studio Border / Selection:** thin boundaries and a subtly plum selected tree row with a peach leading edge.
+- **Studio Error:** inline validation and export-error text.
 
 **The Source Palette Rule.** Preserve the selected source's colors and alpha. Apply each treatment's paired accents to authored graphics, amount and reading header; use dark Paper Ink for the paper-strip amount.
 
 **The Transparent Stage Rule.** Leave the broadcast around source windows transparent. Studio stream and checker backgrounds are inspection context.
 
+**The Selective Sticker Rule.** Use the original bunny as a meaningful community response in the heart scene and a small Studio identity mark. Preserve its source colors and resolution; do not scatter mascots across every show.
+
 ## Typography
 
 **Display Font:** Poppins with sans-serif fallback.
 **Body Font:** Poppins with sans-serif fallback.
+**Timecode Font:** monospace, reserved for genuine time and numerical inspection readouts.
 
 Local regular, medium, semibold and bold files supply weights 400, 500, 600 and 700. Rounded geometric type carries a solid donor hierarchy and blunt legacy calls. Size and alignment belong to each scene; there is no universal centred hero or universal display size.
 
 ### Hierarchy
 
-- **Donor name:** shared donor-name role with scene-specific caps. Donate1–7 caps are respectively 70, 76, 70, 68, 64, 70 and 70px. Actual size is `max(24, min(cap, 790 / max(1, nickname.length × 0.65)))`; names wrap anywhere inside their scene's text region. Empty identity displays Anonim.
+- **Donor name:** shared donor-name role with scene-specific caps. Donate1–7 caps are respectively 70, 76, 70, 68, 64, 70 and 70px. Actual size is `max(32, min(cap, 790 / max(1, nickname.length × 0.65)))`; names wrap anywhere inside their scene's text region. Empty identity displays Anonim. These values precede each scene's localization scale.
 - **Donor amount:** shared donor-amount role. Donate1–7 caps are respectively 176, 176, 174, 195, 174, 184 and 202px. Actual size is `min(cap, 790 / (formattedAmount.length × 0.62 + 0.55))`. Preserve Polish two-decimal formatting and baseline currency: 0.26em, weight 500, normal tracking and the currency gap.
 - **Information title:** the frontmatter role separates donor (600) and amount (500).
 - **Body:** complete plain-text message uses the body role with preserved line breaks and long-word wrapping. The optional special thank-you line is 25px with an 18px bottom margin.
 - **Legacy calls:** scene-specific solid text: Turkey's gratitude is 25px/500; paper caption 75px/600 at 1.15 line height; rodent OMG 120px/700; ovation wings 184px/700 at line height 1; HALO call 60px/600; webcam shout 134px with a 164px strong second line, both 700 at 1.02 line height. These are authored graphic roles, not a shared heading scale.
-- **Studio:** control text uses label; title uses studio-title and becomes 18px at the narrow breakpoint. Status is 12px; feature labels and cue buttons use studio-small.
+- **Studio:** common controls use label; the brand uses studio-title and inspector titles use studio-heading. Field labels, status and tree actions are 11px; inspector tabs and detail are 10px; tracks, regions and lifecycle labels are 9px. Sparse uppercase panel labels use 10px with 1.3px tracking. The production eyebrow is 8px with 1.6px tracking. The main timecode uses its own role; supporting time, ruler and IN/OUT values use 9–10px monospace. Keep the compact hierarchy on mobile.
 
 **The Donor Space Rule.** Reserve independent readable space for nickname and amount within each composition. Keep the source gesture visible and fit long donor strings rather than forcing every show into one text layout.
 
 ## Layout
 
-The broadcast is a 1920 × 1080 logical stage, centred and uniformly scaled using the smaller viewport-to-stage ratio. It does not reflow into a mobile donation layout. The following coordinates are authored stage pixels from the JSX/CSS; timeline transforms change poses during the sequence.
+The broadcast is a 1920 × 1080 logical stage, centred and uniformly scaled using the smaller viewport-to-stage ratio. It does not reflow into a mobile donation layout. Each live composition additionally scales around stage centre: Donate1–7 use 0.65, 0.67, 0.64, 0.70, 0.78, 0.73 and 0.78 respectively. The following coordinates are internal authored pixels before those localization scales; timeline transforms change poses during the sequence. Do not read the table as final screen coverage.
+
+Lower scenes leave broad transparent margins; middle scenes grow in importance without filling the frame. The brand direction's approximate 25–40% lower-tier and 40–55% middle-tier area guidance expresses intent, not a coverage quota. Higher cash/interruption moments may briefly expand at named cues, then return to readable negative space.
 
 | Live scene | Source placement | Donor and signature composition |
 | --- | --- | --- |
@@ -199,13 +244,15 @@ The broadcast is a 1920 × 1080 logical stage, centred and uniformly scaled usin
 | Donate6 · Heart from the booth | One 720 × 720 booth at (1080, 110). | Left copy at (120, 325), width 840; amount at (50, 170) within it. A 1100 × 760 drawn bridge at (30, 225) links the hand-heart to the donor; HALO sits below the booth. |
 | Donate7 · Webcam overload | Main 360 × 360 at (1360, 310), two 240px moving satellites and six tilted 240px source-pose stills on the right. | Left shout at (100, 55); copy at (120, 465), width 840, rotated −7°, amount 240px below it. WTF lands below; some edge monitors intentionally continue beyond the stage. |
 
-The common information card begins at (340, 270), has a 620px maximum height and uses frontmatter width/padding. Its header has a 35px gap and 22px bottom padding; message viewport maximum height is 405px. Overflow scrolls after a 2500ms reading pause with a closing hold. The readable error fallback centres at width `min(80vw, 1240px)`, maximum height `80vh`.
+The common information card begins at (340, 270), has a fixed 620px height and maximum height, and uses frontmatter width/padding. Its header has a 35px gap and 22px bottom padding. The message fills the remaining flex space with `min-height: 0`, so long wrapped names reduce the message viewport without enlarging or escaping the panel. Overflow scrolls after a 2500ms reading pause with a closing hold. The readable error fallback centres at width `min(80vw, 1240px)`, maximum height `80vh`.
 
-Studio is a full-height flex column. A wrapping header sits above the flexible preview and 295px inspector; transport and timeline occupy the footer. Main content uses the Studio inset/gap, header padding is 18px 24px, footer padding 16px 24px 20px. At 900px and below, preview and inspector stack, preview returns to 16:9, fields and inspector buttons span the row, and the page scrolls vertically. Transport/cues wrap. Waveform height is 75px; native scrubber height is 20px.
+Studio uses a viewport-pinned flex shell above 760px. The topbar contains brand, scene picker, modes and transport. The workspace is a three-column grid: 210px tree, flexible stage and 310px inspector; at 1700px it uses 230px/335px side panels, and at 1150px and below 170px/270px. The topbar wraps below 1150px. Desktop tree and inspector scroll internally. The stage stays 16:9, fitted to both available width and height; timeline reserves 350px below the workspace and scrolls within its track area.
+
+At 760px and below the page scrolls vertically in the order stage, inspector, two-column scene tree, then timeline. Inspector height is unrestricted, lifecycle labels wrap, transport wraps, and the secondary preview status hides. The topbar and preview inset tighten to 12px. Timeline toolbars wrap while track content scrolls horizontally; its minimum content width is 900px multiplied by zoom (1–12×), and the 150px track labels remain sticky. Standard track rows are 31px high, the ruler is 25px and waveform 52px. Desktop panel/preview insets are 18px, tree inset 12px; controls use 3–9px compact gaps rather than spacious cards.
 
 ## Elevation & Depth
 
-Depth follows the source: opaque footage remains a bounded room, portrait or crowd window; the alpha dancer stands directly over broadcast content; tilted rodent screens and webcam monitors create layering. Live scene content sits above supporting GPU detail, with donor copy above the source windows. Donate1–4 use no GPU effects. Donate5–7 retain limited light and particles behind the source: ovation glints, heart money detail and webcam money rain. The information scene clears the spectacle and media. Studio uses tonal layering, thin boundaries and separators without card shadows.
+Depth follows the source: opaque footage remains a bounded room, portrait or crowd window; the alpha dancer stands directly over broadcast content; tilted rodent screens and webcam monitors create layering. Live scene content sits above supporting GPU detail, with donor copy above source windows. Donate1–4 use no GPU effects or cash. Donate5–7 combine restrained light detail behind the source with drawn cash above it: ovation fountain, heart handoff and webcam storm. Cash thins before impact, appears in short authored waves, and clears completely in information. The top-tier storm excludes the donor/callout area while preserving overhead and right-hand movement. Safe quality retains a smaller cash signature. Studio uses tonal layering, thin boundaries and inset selection edges without card shadows.
 
 ### Shadow Vocabulary
 
@@ -219,17 +266,21 @@ Depth follows the source: opaque footage remains a bounded room, portrait or cro
 
 There is no common live aperture silhouette. Each show uses its own source-derived form: Turkey's foot ellipse and stepped line, the dancer's fine red floor, rodent shutters and tilted rectangles, paper's torn polygon/perforation, ovation's panorama and vertical wings, the booth's clipped opposing corners and drawn heart, or the webcam's bordered square monitors. Preserve these forms in their scenes.
 
-Control and information radii are shared frontmatter primitives. Live media is square-edged except for authored reveal clipping and the booth's polygon corners. The old diamond/circular aperture, outline words and corner frame belong to Studio-only Donate8. Studio's clipped illustrative horizon is preview context.
+Studio controls use restrained corners: common fields/buttons and tree rows use the control radius, timeline regions use timeline radius, and lifecycle segments use lifecycle radius. The information card keeps its larger reading radius. Live media is square-edged except for authored reveal clipping and the booth's polygon corners. The heart's original bunny emote is a 70px sticker at (840, 775), rotated −8° before the scene scale; the Studio mark is 36px. The old diamond/circular aperture, outline words and corner frame belong to Studio-only Donate8. Studio's illustrative horizon is preview context.
 
 ## Components
 
 ### Studio buttons and cue actions
 
-Compact neutral actions use studio-button and a 1px Studio Border. Hover uses Studio Control Hover. Focus is a 2px Studio Aqua outline with 2px offset. Transport, restart, previous/next cue, ±50ms and click-plus-flash calibration share this treatment. Cue buttons use the dense studio-cue variant and seek to the authored timestamp; muted timestamps remain secondary. The hero cue uses Studio Gold for both text and border. Cue controls are buttons, not passive chips.
+Compact neutral actions use studio-button and a 1px Studio Border. Hover uses Studio Control Hover. Focus is a 2px Studio Peach outline with 2px offset. Selected modes, inspector tabs and primary actions use studio-button-primary with weight 600; disabled actions fade to 0.45 opacity. Transport, restart, ±50ms and click-plus-flash calibration keep explicit labels. Timeline cue marks are 2px strokes at rest; hero, selected, hovered and focused cues expand into the 23px-high muted-peach label, capped at 118px width. Candidate timing regions use dashed borders. Cue and timing regions are actionable buttons.
 
 ### Fields
 
-Inputs and native selects share studio-field and a 1px Studio Border. Inspector fields span their container. Explicit labels sit above with 12px top and 5px bottom margins. Keep the common focus outline; the range control uses Studio Aqua. No custom error/disabled hierarchy or separate navigation system is implemented.
+Inputs, native selects and resizable textareas share studio-field and a 1px Studio Border. Inspector fields span their container. Explicit 11px labels sit above with a 5px gap and 16px between inspector fields; paired numeric fields use an 8px grid gap. Keep the common peach focus outline and range/checkbox accent. Invalid PLN and export failures use inline Studio Error text. Stress-preset buttons are subdued 9px controls, 23px minimum height and 3px 7px padding.
+
+### Tree and inspector navigation
+
+The selected scene-tree row uses Studio Selection with a 2px inset peach leading edge. Each layer has an explicit action and visibility checkbox; cash appears for the three eligible scenes. Donation data, Inspector and Export use compact 10px pressed-state buttons across the inspector header. Desktop scroll preserves access to panel content; mobile places the inspector before the two-column tree. Avoid floating navigation cards or pill tabs.
 
 ### Source media and seven donor payoffs
 
@@ -255,9 +306,15 @@ The last 0.5s clears source scene/effects; the last 0.4s reveals information. Ro
 
 Use the shared information-card surface, treatment pale header and white complete message. Preserve line breaks, unbroken-word wrapping and slow overflow reading. The optional special thanks remains a small pale-accent paragraph. Information stays readable during renderer degradation and releases source videos and fallbacks when the show ends.
 
+### Cash and community reaction
+
+Cash is a scene-specific accent: Donate5 throws a warm fountain from the panorama's base, Donate6 passes a small pink arc beside the hand-heart, and Donate7 sends a warm storm overhead and to the right. Drawn bills are 62 × 30px with a 3px corner and dark outline. The handoff caps at 12 bills; other eligible scenes cap at 72/40/14 in high/medium/safe quality. Top-tier bill centres skip (200–1100, 440–1040) on the logical stage to protect the tilted donor/callout column. Each wave lasts at most 2.8s; cash disappears during information. The original heart bunny supplies one small community response rather than a universal ornament.
+
 ### Studio timeline and preview
 
-Waveform layers include the translucent aqua energy envelope, beat ticks, white downbeats, authored aqua cues, gold hero-drop and white playhead. The SVG is labelled accessibly. Transport, precise time input, native scrubber and cue buttons inspect the same music time. The inspector exposes source media, position/frame, frozen/loop and ready/fallback state. Preview modes are illustrative stream geometry, 40px checker tiles or transparency. Safe mode hides GPU detail while keeping authored source/DOM/SVG choreography.
+The multitrack timeline separates measured music waveform, estimated beats and bars, authored structure/cues, vocal phrases/words, source media, eligible cash, typography and scene/camera. Cyan waveform and downbeat ticks distinguish measurement; peach overlay traces and pale playhead indicate inspection. Vocal regions are subdued blue, media teal, cash ochre, type rose, camera lavender and structure taupe. Candidate regions are dashed; estimates stay visibly labelled. The SVG is labelled accessibly. Genuine timecode, transport, precise time input and clickable tracks inspect the same music time.
+
+The inspector exposes source position/frame and pose hold, measurement, vocal timing and correction; export uses the same compact fields, peach primary action and a thin progress indicator. Preview modes are illustrative stream geometry, 24px checker tiles, solid graphite or transparency. Clean preview fills the viewport without Studio chrome. Safe mode hides supporting GPU detail while preserving source/DOM/SVG choreography and reduced cash.
 
 Donate8 retains the older name-centred, lavender aperture composition in Studio using the existing Donate7 track. It has no live threshold or independent audio asset.
 
@@ -272,6 +329,9 @@ Donate8 retains the older name-centred, lavender aperture composition in Studio 
 - **Do** clear spectacle, release source media and preserve complete readable messages.
 - **Do** use absolute music time for reproducible seeking and keep cue timing consistent across quality modes.
 - **Do** retain explicit Studio labels, visible focus and the stacked narrow-screen inspector.
+- **Do** preserve transparent negative space and the built per-scene localization scales.
+- **Do** use peach for Studio selection, cyan for measurement, and monospace for genuine timecode.
+- **Do** keep cash distinct by source and protect the top-tier donor column.
 
 ### Don't:
 
@@ -282,3 +342,5 @@ Donate8 retains the older name-centred, lavender aperture composition in Studio 
 - **Don't** turn Studio inspection backgrounds into opaque broadcast artwork.
 - **Don't** invent a live Donate8 threshold, new track or fully static reduced-motion behavior.
 - **Don't** apply this scoped donation identity to unrelated legacy overlays.
+- **Don't** use the banner gradient as a full-frame donation background or add bunny confetti.
+- **Don't** restore spacious rounded cards, pill tabs or gold hero cues in the graphite Studio.

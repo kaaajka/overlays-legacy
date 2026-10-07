@@ -1,0 +1,23 @@
+[
+  {
+    "frame": 0,
+    "at": 3.9,
+    "expected": "05b669fff058560db47c3b162a297e53e29e33bf742beaff1ff4a41e4e402f6c",
+    "actual": "05b669fff058560db47c3b162a297e53e29e33bf742beaff1ff4a41e4e402f6c",
+    "identical": true
+  },
+  {
+    "frame": 6,
+    "at": 4,
+    "expected": "40011ceb482586a4b51c7028caed672c543b03077b62d31b0326a2661f9cc5fb",
+    "actual": "40011ceb482586a4b51c7028caed672c543b03077b62d31b0326a2661f9cc5fb",
+    "identical": true
+  },
+  {
+    "frame": 11,
+    "at": 4.083333333333333,
+    "expected": "ea604b1169ca043ad57d57cfe2a5c517e56859b510ac62f7f5354055c3e074e0",
+    "actual": "ea604b1169ca043ad57d57cfe2a5c517e56859b510ac62f7f5354055c3e074e0",
+    "identical": true
+  }
+]

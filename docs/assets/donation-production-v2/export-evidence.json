@@ -1,0 +1,536 @@
+[
+  {
+    "artifact": "cli-1791402777317",
+    "request": {
+      "tier": 6,
+      "range": "selection",
+      "fps": 60,
+      "format": "mp4",
+      "background": "solid",
+      "audio": false,
+      "nickname": "Kaaajka",
+      "amount": 5732,
+      "message": "Dziękuję za stream!",
+      "seed": "kaaajka-motion-01",
+      "quality": "safe",
+      "selection": [
+        3.9,
+        4.1
+      ],
+      "url": "http://127.0.0.1:5173"
+    },
+    "start": 3.9,
+    "end": 4.1,
+    "count": 12,
+    "duration": 0.2,
+    "plan": {
+      "stages": [
+        {
+          "name": "hero",
+          "start": 0,
+          "end": 21.76494
+        },
+        {
+          "name": "tts-nickname",
+          "start": 21.76494,
+          "end": 23.151244
+        },
+        {
+          "name": "tts-amount",
+          "start": 23.151244,
+          "end": 26.455779
+        },
+        {
+          "name": "tts-message",
+          "start": 26.455779,
+          "end": 28.214237
+        },
+        {
+          "name": "information",
+          "start": 21.76494,
+          "end": 28.214237
+        },
+        {
+          "name": "outro",
+          "start": 28.214237,
+          "end": 28.864237
+        }
+      ],
+      "duration": 28.864237,
+      "informationStart": 21.76494,
+      "informationDuration": 6.449297000000001
+    },
+    "hashes": {
+      "0": "05b669fff058560db47c3b162a297e53e29e33bf742beaff1ff4a41e4e402f6c",
+      "6": "40011ceb482586a4b51c7028caed672c543b03077b62d31b0326a2661f9cc5fb",
+      "11": "ea604b1169ca043ad57d57cfe2a5c517e56859b510ac62f7f5354055c3e074e0"
+    },
+    "probe": {
+      "streams": [
+        {
+          "index": 0,
+          "codec_name": "h264",
+          "codec_long_name": "H.264 / AVC / MPEG-4 AVC / MPEG-4 part 10",
+          "profile": "High",
+          "codec_type": "video",
+          "codec_tag_string": "avc1",
+          "codec_tag": "0x31637661",
+          "mime_codec_string": "avc1.64002a",
+          "width": 1920,
+          "height": 1080,
+          "coded_width": 1920,
+          "coded_height": 1088,
+          "has_b_frames": 2,
+          "pix_fmt": "yuv420p",
+          "level": 42,
+          "chroma_location": "left",
+          "field_order": "progressive",
+          "refs": 4,
+          "is_avc": "true",
+          "nal_length_size": "4",
+          "id": "0x1",
+          "r_frame_rate": "60/1",
+          "avg_frame_rate": "60/1",
+          "time_base": "1/15360",
+          "start_pts": 0,
+          "start_time": "0.000000",
+          "duration_ts": 3072,
+          "duration": "0.200000",
+          "bit_rate": "2606680",
+          "bits_per_raw_sample": "8",
+          "nb_frames": "12",
+          "nb_read_frames": "12",
+          "extradata_size": 47,
+          "disposition": {
+            "default": 1,
+            "dub": 0,
+            "original": 0,
+            "comment": 0,
+            "lyrics": 0,
+            "karaoke": 0,
+            "forced": 0,
+            "hearing_impaired": 0,
+            "visual_impaired": 0,
+            "clean_effects": 0,
+            "attached_pic": 0,
+            "timed_thumbnails": 0,
+            "non_diegetic": 0,
+            "captions": 0,
+            "descriptions": 0,
+            "metadata": 0,
+            "dependent": 0,
+            "still_image": 0,
+            "multilayer": 0
+          },
+          "tags": {
+            "language": "und",
+            "handler_name": "VideoHandler",
+            "encoder": "Lavc63.1.100 libx264"
+          }
+        }
+      ],
+      "format": {
+        "filename": "C:\\Projects\\overlays-legacy\\.motion-exports\\cli-1791402777317\\export.mp4",
+        "nb_streams": 1,
+        "nb_programs": 0,
+        "nb_stream_groups": 0,
+        "format_name": "mov,mp4,m4a,3gp,3g2,mj2",
+        "format_long_name": "QuickTime / MOV",
+        "start_time": "0.000000",
+        "duration": "0.200000",
+        "size": "66162",
+        "bit_rate": "2646480",
+        "probe_score": 100,
+        "tags": {
+          "major_brand": "isom",
+          "minor_version": "512",
+          "compatible_brands": "isomiso2avc1mp41",
+          "encoder": "Lavf63.1.100"
+        }
+      }
+    },
+    "bytes": 66162
+  },
+  {
+    "artifact": "cli-1791401965086",
+    "request": {
+      "tier": 1,
+      "range": "full",
+      "fps": 60,
+      "format": "mp4",
+      "background": "solid",
+      "audio": true,
+      "nickname": "StudioReview",
+      "amount": 5732,
+      "message": "Pełna wiadomość testowa",
+      "seed": "kaaajka-motion-01",
+      "quality": "safe",
+      "selection": [
+        0,
+        2
+      ],
+      "url": "http://127.0.0.1:5173"
+    },
+    "start": 0,
+    "end": 15.132716999999998,
+    "count": 908,
+    "duration": 15.133333333333333,
+    "plan": {
+      "stages": [
+        {
+          "name": "hero",
+          "start": 0,
+          "end": 8.03342
+        },
+        {
+          "name": "tts-nickname",
+          "start": 8.03342,
+          "end": 9.419723999999999
+        },
+        {
+          "name": "tts-amount",
+          "start": 9.419723999999999,
+          "end": 12.724258999999998
+        },
+        {
+          "name": "tts-message",
+          "start": 12.724258999999998,
+          "end": 14.482716999999997
+        },
+        {
+          "name": "information",
+          "start": 8.03342,
+          "end": 14.482716999999997
+        },
+        {
+          "name": "outro",
+          "start": 14.482716999999997,
+          "end": 15.132716999999998
+        }
+      ],
+      "duration": 15.132716999999998,
+      "informationStart": 8.03342,
+      "informationDuration": 6.449296999999998
+    },
+    "hashes": {
+      "0": "01394eda8d163fd11c7f40af3e620075d358273f0ae48fdf7626f2155bba5c91",
+      "454": "0db9595fec396db5b5af2c4b189a7479b2b88aaa877292e8eb7ccd6a660b43fc",
+      "907": "89ab03f27d749ba412e503a3f73b88039fe4ca0579b0b9d0daf4816a2ecf26bc"
+    },
+    "probe": {
+      "streams": [
+        {
+          "index": 0,
+          "codec_name": "h264",
+          "codec_long_name": "H.264 / AVC / MPEG-4 AVC / MPEG-4 part 10",
+          "profile": "High",
+          "codec_type": "video",
+          "codec_tag_string": "avc1",
+          "codec_tag": "0x31637661",
+          "mime_codec_string": "avc1.64002a",
+          "width": 1920,
+          "height": 1080,
+          "coded_width": 1920,
+          "coded_height": 1088,
+          "has_b_frames": 2,
+          "pix_fmt": "yuv420p",
+          "level": 42,
+          "chroma_location": "left",
+          "field_order": "progressive",
+          "refs": 4,
+          "is_avc": "true",
+          "nal_length_size": "4",
+          "id": "0x1",
+          "r_frame_rate": "60/1",
+          "avg_frame_rate": "60/1",
+          "time_base": "1/15360",
+          "start_pts": 0,
+          "start_time": "0.000000",
+          "duration_ts": 232448,
+          "duration": "15.133333",
+          "bit_rate": "630749",
+          "bits_per_raw_sample": "8",
+          "nb_frames": "908",
+          "nb_read_frames": "908",
+          "extradata_size": 47,
+          "disposition": {
+            "default": 1,
+            "dub": 0,
+            "original": 0,
+            "comment": 0,
+            "lyrics": 0,
+            "karaoke": 0,
+            "forced": 0,
+            "hearing_impaired": 0,
+            "visual_impaired": 0,
+            "clean_effects": 0,
+            "attached_pic": 0,
+            "timed_thumbnails": 0,
+            "non_diegetic": 0,
+            "captions": 0,
+            "descriptions": 0,
+            "metadata": 0,
+            "dependent": 0,
+            "still_image": 0,
+            "multilayer": 0
+          },
+          "tags": {
+            "language": "und",
+            "handler_name": "VideoHandler",
+            "encoder": "Lavc63.1.100 libx264"
+          }
+        },
+        {
+          "index": 1,
+          "codec_name": "aac",
+          "codec_long_name": "AAC (Advanced Audio Coding)",
+          "profile": "LC",
+          "codec_type": "audio",
+          "codec_tag_string": "mp4a",
+          "codec_tag": "0x6134706d",
+          "mime_codec_string": "mp4a.40.2",
+          "sample_fmt": "fltp",
+          "sample_rate": "44100",
+          "channels": 2,
+          "channel_layout": "stereo",
+          "bits_per_sample": 0,
+          "initial_padding": 1024,
+          "id": "0x2",
+          "r_frame_rate": "0/0",
+          "avg_frame_rate": "0/0",
+          "time_base": "1/44100",
+          "start_pts": 0,
+          "start_time": "0.000000",
+          "duration_ts": 638676,
+          "duration": "14.482449",
+          "bit_rate": "110860",
+          "nb_frames": "625",
+          "nb_read_frames": "624",
+          "extradata_size": 5,
+          "disposition": {
+            "default": 1,
+            "dub": 0,
+            "original": 0,
+            "comment": 0,
+            "lyrics": 0,
+            "karaoke": 0,
+            "forced": 0,
+            "hearing_impaired": 0,
+            "visual_impaired": 0,
+            "clean_effects": 0,
+            "attached_pic": 0,
+            "timed_thumbnails": 0,
+            "non_diegetic": 0,
+            "captions": 0,
+            "descriptions": 0,
+            "metadata": 0,
+            "dependent": 0,
+            "still_image": 0,
+            "multilayer": 0
+          },
+          "tags": {
+            "language": "und",
+            "handler_name": "SoundHandler"
+          }
+        }
+      ],
+      "format": {
+        "filename": "C:\\Projects\\overlays-legacy\\.motion-exports\\cli-1791401965086\\export.mp4",
+        "nb_streams": 2,
+        "nb_programs": 0,
+        "nb_stream_groups": 0,
+        "format_name": "mov,mp4,m4a,3gp,3g2,mj2",
+        "format_long_name": "QuickTime / MOV",
+        "start_time": "0.000000",
+        "duration": "15.133333",
+        "size": "1419880",
+        "bit_rate": "750597",
+        "probe_score": 100,
+        "tags": {
+          "major_brand": "isom",
+          "minor_version": "512",
+          "compatible_brands": "isomiso2avc1mp41",
+          "encoder": "Lavf63.1.100"
+        }
+      }
+    },
+    "bytes": 1419880
+  },
+  {
+    "artifact": "cli-1791401965084",
+    "request": {
+      "tier": 2,
+      "range": "selection",
+      "fps": 60,
+      "format": "webm",
+      "background": "transparent",
+      "audio": false,
+      "nickname": "Kaaajka",
+      "amount": 5732,
+      "message": "Dziękuję za stream!",
+      "seed": "kaaajka-motion-01",
+      "quality": "safe",
+      "selection": [
+        3.6,
+        3.8
+      ],
+      "url": "http://127.0.0.1:5173"
+    },
+    "start": 3.6,
+    "end": 3.8,
+    "count": 12,
+    "duration": 0.2,
+    "plan": {
+      "stages": [
+        {
+          "name": "hero",
+          "start": 0,
+          "end": 15.46558
+        },
+        {
+          "name": "tts-nickname",
+          "start": 15.46558,
+          "end": 16.851884
+        },
+        {
+          "name": "tts-amount",
+          "start": 16.851884,
+          "end": 20.156419
+        },
+        {
+          "name": "tts-message",
+          "start": 20.156419,
+          "end": 21.914877
+        },
+        {
+          "name": "information",
+          "start": 15.46558,
+          "end": 21.914877
+        },
+        {
+          "name": "outro",
+          "start": 21.914877,
+          "end": 22.564877
+        }
+      ],
+      "duration": 22.564877,
+      "informationStart": 15.46558,
+      "informationDuration": 6.449297000000001
+    },
+    "hashes": {
+      "0": "c0f0b4bc4a1f75a7d8e71f6aba16f0bd2fe19b210b9123c323cbefd27107c78f",
+      "6": "f134b491e57430bd1efc133cfa4cf669da7964d5fdc40b8b13f9ef43627b3cbe",
+      "11": "6e646b9648afb1cee9473c906a094dd1112d6588948095642d62e8feb11e54b7"
+    },
+    "probe": {
+      "streams": [
+        {
+          "index": 0,
+          "codec_name": "vp9",
+          "codec_long_name": "Google VP9",
+          "profile": "Profile 0",
+          "codec_type": "video",
+          "codec_tag_string": "[0][0][0][0]",
+          "codec_tag": "0x0000",
+          "mime_codec_string": "vp09.00.41.08",
+          "width": 1920,
+          "height": 1080,
+          "coded_width": 1920,
+          "coded_height": 1080,
+          "has_b_frames": 0,
+          "sample_aspect_ratio": "1:1",
+          "display_aspect_ratio": "16:9",
+          "pix_fmt": "yuv420p",
+          "level": -99,
+          "color_range": "tv",
+          "field_order": "progressive",
+          "refs": 1,
+          "r_frame_rate": "60/1",
+          "avg_frame_rate": "60/1",
+          "time_base": "1/1000",
+          "start_pts": 0,
+          "start_time": "0.000000",
+          "nb_read_frames": "12",
+          "disposition": {
+            "default": 0,
+            "dub": 0,
+            "original": 0,
+            "comment": 0,
+            "lyrics": 0,
+            "karaoke": 0,
+            "forced": 0,
+            "hearing_impaired": 0,
+            "visual_impaired": 0,
+            "clean_effects": 0,
+            "attached_pic": 0,
+            "timed_thumbnails": 0,
+            "non_diegetic": 0,
+            "captions": 0,
+            "descriptions": 0,
+            "metadata": 0,
+            "dependent": 0,
+            "still_image": 0,
+            "multilayer": 0
+          },
+          "tags": {
+            "alpha_mode": "1",
+            "ENCODER": "Lavc63.1.100 libvpx-vp9",
+            "DURATION": "00:00:00.200000000"
+          }
+        }
+      ],
+      "format": {
+        "filename": "C:\\Projects\\overlays-legacy\\.motion-exports\\cli-1791401965084\\export.webm",
+        "nb_streams": 1,
+        "nb_programs": 0,
+        "nb_stream_groups": 0,
+        "format_name": "matroska,webm",
+        "format_long_name": "Matroska / WebM",
+        "start_time": "0.000000",
+        "duration": "0.200000",
+        "size": "328281",
+        "bit_rate": "13131240",
+        "probe_score": 100,
+        "tags": {
+          "ENCODER": "Lavf63.1.100"
+        }
+      }
+    },
+    "bytes": 328281
+  },
+  {
+    "artifact": "412556de-e00b-42d0-85f4-b3ad4cc6a2b0",
+    "request": {
+      "tier": 1,
+      "seed": "kaaajka-motion-01",
+      "quality": "safe",
+      "nickname": "ExportWidz",
+      "amount": 5732,
+      "commission": 0,
+      "message": "Dziękuję za stream!",
+      "range": "selection",
+      "selection": [
+        1.99,
+        3.1
+      ],
+      "cue": "heroDrop",
+      "fps": 60,
+      "format": "mp4",
+      "background": "solid",
+      "audio": true,
+      "url": "http://127.0.0.1:5173",
+      "id": "412556de-e00b-42d0-85f4-b3ad4cc6a2b0"
+    },
+    "analysisSha256": "4e7add830a592488610d266e0cc654f136556b76f3cfbdbd3b69c755c5fe2dca",
+    "start": 1.99,
+    "end": 3.1,
+    "count": 67,
+    "duration": 1.1166666666666667,
+    "hashes": {
+      "0": "022796bda25d3138b1d9178a60fb0ed449c9baf1cee38737e75b606dab2e7b50",
+      "33": "e4494c5ce4d5c361034a4b2a7c8773cdc34f5d7e190f75f5d63102dcbd98b5e4",
+      "66": "a6cd8e2e9813528c94d6438a8d92d8929e96329a5a1549beafb415d5db2d8f3e"
+    },
+    "bytes": 178245
+  }
+]

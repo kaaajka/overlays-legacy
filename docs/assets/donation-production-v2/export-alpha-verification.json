@@ -1,0 +1,10 @@
+{
+  "format": "VP9 WebM alpha",
+  "width": 1920,
+  "height": 1080,
+  "maxAlphaError255": 1.0,
+  "meanAlphaError255": 0.015766300154320987,
+  "transparentFraction": 0.9402879050925926,
+  "opaqueFraction": 0.024779128086419754,
+  "intermediateFraction": 0.034932966820987656
+}

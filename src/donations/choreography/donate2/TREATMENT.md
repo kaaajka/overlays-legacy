@@ -48,4 +48,8 @@ A three-position transparent dance echo with arms-up freeze on the hit. This is 
 
 ## Performance budget
 
-Maximum 3 paused video decoders at original source dimensions. Coalesced frame-cadence seeks, bounded preload and latest-clock recovery. No GPU effects for this scene. No blur stack or DOM particle forest. Video sources/listeners release at information/unmount. WebM is selected for control, not a promise of smaller files: lossless opaque assets are larger than GIF; transparent asset is smaller. Do not sacrifice selected content fidelity.
+Maximum 3 paused video decoders at original source dimensions. Coalesced frame-cadence seeks, bounded preload and latest-clock recovery. No GPU effects for this scene. No blur stack or DOM particle forest. Video sources/listeners release at information/unmount. WebM is selected for control, not a promise of smaller files: opaque files use audited visually lossless VP9 CRF 4; the transparent dancer retains lossless alpha. Do not sacrifice selected content fidelity.
+
+## Production-v2 extension
+
+The logical geometry above is localized by the assembly scale in KAAAJKA_BRAND_DIRECTION.md. Original hero/music/source-pose times are unchanged. Music Intelligence v2 adds estimated beat/downbeat motifs, explicitly authored section regions and bounded source reactions from measured vocal-energy peaks. Important guessed lyrics remain unapproved; no automatic lyric captioning occurs. Cash/brand/footprint decisions and current media bytes are documented in the production-v2 brand/media audits.
