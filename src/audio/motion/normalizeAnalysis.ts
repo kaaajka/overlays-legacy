@@ -1,5 +1,6 @@
 import type { MusicAnalysis } from "../../motion/types";
 import { bands } from "./AudioFeatureBus";
+import { normalizeIntelligence } from "./musicIntelligence";
 
 /** Bundled analysis is immutable in production; invalid authoring data still degrades safely. */
 export function normalizeAnalysis(input: unknown, duration: number, source: string): MusicAnalysis {
@@ -20,7 +21,7 @@ export function normalizeAnalysis(input: unknown, duration: number, source: stri
           .sort((a, b) => a - b)
       : [];
   if (
-    candidate?.schemaVersion === 1 &&
+    (candidate?.schemaVersion === 1 || candidate?.schemaVersion === 2) &&
     candidate.duration > 0 &&
     Number.isFinite(candidate.duration) &&
     candidate.sampleInterval > 0 &&
@@ -30,7 +31,17 @@ export function normalizeAnalysis(input: unknown, duration: number, source: stri
     Array.isArray(candidate.beats) &&
     Array.isArray(candidate.downbeats)
   )
-    return candidate as MusicAnalysis;
+    return {
+      ...candidate,
+      intelligence:
+        candidate.schemaVersion === 2
+          ? normalizeIntelligence(
+              candidate.intelligence,
+              candidate.duration,
+              candidate.sourceSha256,
+            )
+          : undefined,
+    } as MusicAnalysis;
   return {
     schemaVersion: 1,
     source,

@@ -1,0 +1,65 @@
+{
+  "sourceSha256": "96c5d2df93f024e729bb660b09edd2cba13ff8d82c58eba299b1206f1ecc6a18",
+  "beats": [],
+  "downbeats": [],
+  "sections": [
+    {
+      "start": 0,
+      "end": 2.94893,
+      "label": "intro / reveal",
+      "confidence": 1,
+      "approved": true,
+      "source": "Authored scene phrase; creative timing, not MIR ground truth"
+    },
+    {
+      "start": 2.94893,
+      "end": 4.5,
+      "label": "build",
+      "confidence": 1,
+      "approved": true,
+      "source": "Authored scene phrase; creative timing, not MIR ground truth"
+    },
+    {
+      "start": 4.5,
+      "end": 4.82975,
+      "label": "restraint",
+      "confidence": 1,
+      "approved": true,
+      "source": "Authored scene phrase; creative timing, not MIR ground truth"
+    },
+    {
+      "start": 4.82975,
+      "end": 6.22295,
+      "label": "payoff",
+      "confidence": 1,
+      "approved": true,
+      "source": "Authored scene phrase; creative timing, not MIR ground truth"
+    },
+    {
+      "start": 6.22295,
+      "end": 11.1,
+      "label": "rhythmic response",
+      "confidence": 1,
+      "approved": true,
+      "source": "Authored scene phrase; creative timing, not MIR ground truth"
+    },
+    {
+      "start": 11.1,
+      "end": 11.6,
+      "label": "release",
+      "confidence": 1,
+      "approved": true,
+      "source": "Authored scene phrase; creative timing, not MIR ground truth"
+    }
+  ],
+  "words": [],
+  "vocalPhrases": [],
+  "cues": [
+    {
+      "at": 2.65,
+      "name": "vocal-energy-1",
+      "intensity": 0.35,
+      "group": "media"
+    }
+  ]
+}

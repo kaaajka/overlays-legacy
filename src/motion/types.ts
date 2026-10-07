@@ -1,6 +1,6 @@
 export type Band = "subBass" | "bass" | "lowMid" | "mid" | "upperMid" | "presence" | "brilliance";
 export type MusicAnalysis = {
-  schemaVersion: 1;
+  schemaVersion: 1 | 2;
   source: string;
   duration: number;
   bpm: number;
@@ -10,6 +10,49 @@ export type MusicAnalysis = {
   sampleInterval: number;
   loudness: number[];
   bands: Record<Band, number[]>;
+  sourceSha256?: string;
+  intelligence?: MusicIntelligence;
+};
+export type TimingMark = { at: number; confidence: number; approved: boolean; source: string };
+export type TimedRegion = {
+  start: number;
+  end: number;
+  text?: string;
+  label?: string;
+  confidence: number;
+  approved: boolean;
+  source: string;
+};
+export type MusicIntelligence = {
+  measured: {
+    waveform: number[][];
+    drums: number[];
+    vocals: number[];
+    drumEvents: {
+      at: number;
+      kind: string;
+      strength: number;
+      confidence: number;
+      source: string;
+    }[];
+  };
+  inferred: {
+    beats: TimingMark[];
+    downbeats: TimingMark[];
+    sections: TimedRegion[];
+    vocalPhrases: TimedRegion[];
+    words: TimedRegion[];
+  };
+  authored: {
+    sourceSha256?: string;
+    beats: TimingMark[];
+    downbeats: TimingMark[];
+    sections: TimedRegion[];
+    vocalPhrases: TimedRegion[];
+    words: TimedRegion[];
+    cues: { at: number; name: string; intensity: number; group: string }[];
+  };
+  provenance: Record<string, unknown>;
 };
 export type CueName =
   | "intro"

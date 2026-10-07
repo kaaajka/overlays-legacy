@@ -1,0 +1,7 @@
+# Install torch/torchaudio for your platform before these offline-only packages.
+librosa==0.11.0
+demucs-onnx==0.3.4
+faster-whisper==1.2.1
+stable-ts==2.19.1
+beat-this==1.1.0
+Pillow==12.3.0

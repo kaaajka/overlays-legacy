@@ -8,3 +8,6 @@ dist/
 .venv-motion/
 .motion-qa/
 __pycache__/
+.venv-intelligence/
+.music-work/
+.motion-exports/

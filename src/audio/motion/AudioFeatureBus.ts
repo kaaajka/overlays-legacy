@@ -1,5 +1,6 @@
 import type { AudioFeatures, Band, Cue, MusicAnalysis } from "../../motion/types";
 import { clamp } from "./audioBindings";
+import { rhythmMarks } from "./musicIntelligence";
 
 export const bands: Band[] = [
   "subBass",
@@ -36,12 +37,18 @@ export function featuresAt(analysis: MusicAnalysis | undefined, time: number): A
     bands.map((band) => [band, sample(analysis?.bands?.[band], frame)]),
   ) as AudioFeatures;
   result.loudness = sample(analysis?.loudness, frame);
-  const beats = analysis?.beats ?? [];
+  const beats = analysis ? rhythmMarks(analysis).map((mark) => mark.at) : [];
   const beatIndex = countThrough(beats, time) - 1;
   const beat = beats[beatIndex] ?? 0;
   const interval = (beats[beatIndex + 1] ?? beat + 60 / (analysis?.bpm || 120)) - beat;
   result.beatPhase = clamp((time - beat) / Math.max(0.01, interval));
   result.barPhase = ((Math.max(0, beatIndex) % 4) + result.beatPhase) / 4;
+  const downbeats = analysis ? rhythmMarks(analysis, true).map((mark) => mark.at) : [];
+  const barIndex = countThrough(downbeats, time) - 1;
+  if (barIndex >= 0 && downbeats[barIndex + 1] !== undefined)
+    result.barPhase = clamp(
+      (time - downbeats[barIndex]) / (downbeats[barIndex + 1] - downbeats[barIndex]),
+    );
   const onsets = analysis?.onsets ?? [];
   const onsetIndex =
     countThrough(
@@ -51,6 +58,16 @@ export function featuresAt(analysis: MusicAnalysis | undefined, time: number): A
   const onset = onsets[onsetIndex];
   result.onset = onset ? onset.strength * Math.exp(-Math.max(0, time - onset.at) / 0.09) : 0;
   result.kick = result.onset * result.bass;
+  const kicks =
+    analysis?.intelligence?.measured.drumEvents.filter((event) => event.kind === "kick-like") ?? [];
+  const kick =
+    kicks[
+      countThrough(
+        kicks.map((event) => event.at),
+        time,
+      ) - 1
+    ];
+  if (kick) result.kick = kick.strength * Math.exp(-Math.max(0, time - kick.at) / 0.09);
   return result;
 }
 

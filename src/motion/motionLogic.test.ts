@@ -58,7 +58,7 @@ describe("audio-authoritative synchronization", () => {
 describe("authored tiers and feature bus", () => {
   it.each(treatments)("validates all cues and analysis for Donate$tier", (treatment) => {
     expect(validateCues(treatment.cues, treatment.analysis.duration)).toBe(treatment.cues);
-    expect(treatment.analysis.schemaVersion).toBe(1);
+    expect(treatment.analysis.schemaVersion).toBe(2);
     expect(treatment.analysis.loudness.length).toBeGreaterThan(100);
     expect(treatment.analysis.bands.bass.length).toBe(treatment.analysis.loudness.length);
     expect(treatment.analysis.beats.every((beat) => beat <= treatment.analysis.duration)).toBe(
