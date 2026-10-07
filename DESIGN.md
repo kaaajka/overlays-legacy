@@ -1,25 +1,30 @@
 ---
-name: Kaaajka Donation Motion
-description: Music-directed broadcast spectacle with a quiet, readable landing.
+name: Kaaajka GIF-led Donation Shows
+description: Seven source-led meme music videos with a shared clock and readable landing.
 colors:
-  signal-aqua: "#73e4dc"
-  signal-mint: "#dafff2"
-  ember-copper: "#ffa667"
-  ember-cream: "#ffe0a1"
-  prism-lilac: "#d2bdff"
-  prism-ice: "#97f4ff"
-  vault-lime: "#b0f984"
-  vault-pale: "#f5ffe2"
-  holy-coral: "#ff7b61"
-  holy-cream: "#ffedb3"
-  halo-gold: "#ffd77b"
-  halo-ivory: "#fff4d0"
-  takeover-lime: "#d3f57a"
-  takeover-cream: "#fff4be"
+  turkey-tan: "#eec692"
+  turkey-cream: "#fff2cf"
+  mask-red: "#e84531"
+  mask-peach: "#ffcab8"
+  rodent-ochre: "#ce9759"
+  rodent-yellow: "#ffe297"
+  paper-tile: "#eee4d4"
+  paper-cream: "#f4eee1"
+  paper-ink: "#30271f"
+  ovation-amber: "#e09055"
+  ovation-cream: "#ffe0a1"
+  heart-rose: "#ee7998"
+  heart-pale: "#ffd5df"
+  heart-line: "#ffc1ce"
+  webcam-grey: "#bdb6b0"
+  webcam-paper: "#ece9dd"
+  monitor-border: "#9b9b9b"
   name-lavender: "#bcb8ff"
   name-pale: "#f1eaff"
   white: "#fff"
   information-ink: "rgba(9, 12, 18, 0.87)"
+  studio-aqua: "#73e4dc"
+  studio-gold: "#ffd77b"
   studio-ink: "#111820"
   studio-text: "#eef4fa"
   studio-muted: "#aec1d3"
@@ -29,19 +34,17 @@ colors:
   studio-border: "#4a5b69"
   studio-divider: "#34424f"
 typography:
-  display:
+  donor-name:
     fontFamily: "Poppins, sans-serif"
-    fontSize: "256px"
-    fontWeight: 700
-    lineHeight: 1.08
-    letterSpacing: "-0.035em"
-  headline:
-    fontFamily: "Poppins, sans-serif"
-    fontSize: "84px"
     fontWeight: 600
     lineHeight: 1.25
     letterSpacing: "-0.025em"
-  title:
+  donor-amount:
+    fontFamily: "Poppins, sans-serif"
+    fontWeight: 700
+    lineHeight: 1.08
+    letterSpacing: "-0.035em"
+  information-title:
     fontFamily: "Poppins, sans-serif"
     fontSize: "40px"
     lineHeight: 1.25
@@ -60,23 +63,16 @@ typography:
   studio-small:
     fontFamily: "Poppins, sans-serif"
     fontSize: "11px"
-  outline-word:
-    fontFamily: "Poppins, sans-serif"
-    fontSize: "240px"
-    fontWeight: 700
-    lineHeight: 1.06
-    letterSpacing: "-0.035em"
 rounded:
   control: "6px"
   information: "14px"
-  circle: "50%"
 spacing:
   control-gap: "8px"
   cue-gap: "7px"
   studio-inset: "20px"
   studio-gap: "22px"
   header-gap: "24px"
-  hero-gap: "64px"
+  currency-gap: "25px"
 components:
   studio-button:
     backgroundColor: "{colors.studio-control}"
@@ -100,7 +96,7 @@ components:
     padding: "5px 9px"
   studio-hero-cue:
     backgroundColor: "{colors.studio-control}"
-    textColor: "{colors.halo-gold}"
+    textColor: "{colors.studio-gold}"
     typography: "{typography.studio-small}"
     rounded: "{rounded.control}"
     padding: "5px 9px"
@@ -110,164 +106,179 @@ components:
     rounded: "{rounded.information}"
     padding: "42px 48px"
     width: "1240px"
-  donor-hero:
-    textColor: "{colors.white}"
-    typography: "{typography.headline}"
+  paper-strip:
+    backgroundColor: "{colors.paper-cream}"
+    textColor: "{colors.paper-ink}"
+    width: "950px"
+    height: "270px"
 ---
 
-# Design System: Kaaajka Donation Motion
+# Design System: Kaaajka GIF-led Donation Shows
 
 ## Overview
 
-**Creative North Star: "The Donor Takes the Stage"**
+**Creative North Star: "Seven GIFs Conduct the Show"**
 
-The donor is the centre of a musical event: a name appears, the stage compresses, and the amount releases the impact. Luminous vector apertures, oversized outlined words and money rain make ascending donation importance visible. The atmosphere is exuberant, cinematic and deliberately absurd at HOLY MOLY, HALO and Takeover, while solid donor typography stays legible above the effects.
+Each live donation is a miniature music video conducted by Kaaajka's selected GIF, its existing track and its legacy joke. The room dancer calls for a two-step, the masked dancer leaves transparent echoes, the rodent cuts through a film strip, the seated portrait unrolls paper, the crowd opens its arms, the streamer passes a heart, and the tiny webcam interrupts through a monitor wall. Exuberance and ascending importance come from these subjects, their distinct layouts and their timed donor payoffs.
 
-Spectacle resolves into a calm message scene. The stage clears around a dark translucent information card, retaining the tier's pale accent for the name and amount. Motion Studio uses a compact, subdued instrument-panel treatment so its controls support inspection of the broadcast rather than competing with it.
+Shared infrastructure supports those seven compositions: a transparent broadcast stage, solid donor typography, absolute music time, source-frame seeking and a calm complete-message landing. Motion Studio is a dark, compact instrument panel around the show. Its subdued controls make timing and source state inspectable without defining the broadcast's visual identity.
 
-This document records the implemented donation motion engine and DEV Motion Studio, direction seed `1760fcca`. It does not redefine unrelated legacy overlays. Source styles, treatments and choreography are authoritative; the local `.motion-qa/donate1` through `donate8` before/exact/after/information captures and `studio-desktop.png` / `studio-mobile.png` are visual evidence. Browser captures do not establish manual OBS compositing, audible synchronisation or target-hardware performance.
+This document records the built donation world, direction seed `d2f60c0f`, and DEV Motion Studio. It replaces the former common-aperture live art direction. The old SAY MY NAME composition remains a Studio-only Donate8 exploration sharing Donate7's track. Unrelated legacy overlay styles remain outside this document's scope. Source code is authoritative for exact values; hero and storyboard composites, per-tier PNGs and desktop/mobile Studio captures provide visual evidence. OBS alpha compositing, audible cue/pose approval and performance under gameplay remain manual release checks.
 
 **Key Characteristics:**
 
-- Transparent broadcast stage with a dominant donor name and amount.
-- Distinct tier geometry, palette and theatrical weight.
-- Compression before impact; expansion and settling after it.
-- Music as the absolute clock, with deterministic seeking.
-- A quiet, complete message after the spectacle.
-- Dark, functional studio controls with clear keyboard focus.
+- Seven recognizable, unchanged source GIF identities and seven distinct compositions.
+- Scene-specific gestures, text placement and donor impact.
+- Honest source alpha, room context, frame cadence and pixel texture.
+- Supporting effects restrained around the source and readable donor.
+- Shared music clock, deterministic seeking and a quiet complete-message landing.
+- Flat, practical Studio controls with visible keyboard focus.
 
 ## Colors
 
-The palette pairs luminous stage colors with pale reading accents, surrounded by restrained blue-black studio surfaces. Frontmatter contains the canonical source values; names below describe their roles.
+Source footage supplies the dominant image color. Treatment accents echo that footage; they are not a recoloring instruction. Frontmatter records the source values, while the names below describe their use.
 
 ### Primary
 
-- **Signal Aqua / Signal Mint:** aqua drives the first tier's horizontal signal and brackets; mint colors its amount and information header. Aqua also identifies studio focus, waveform and ordinary cue markers.
-- **Halo Gold / Halo Ivory:** warm gold drives the halo, rays and falling bills; ivory carries the donor amount and information header. Gold identifies the studio's authored hero-drop cue independently of the selected tier.
+- **Turkey Tan / Turkey Cream:** warm room-dance identity and pale amount/header.
+- **Mask Red / Mask Peach:** red foot line and warm amount/header around the unchanged masked silhouette.
+- **Rodent Ochre / Rodent Yellow:** fur-derived identity with a bright amount, OMG call and reading header.
+- **Paper Tile / Paper Cream / Paper Ink:** bathroom-derived neutrals, the unrolling strip and its dark amount. The information header returns to Paper Cream.
+- **Ovation Amber / Ovation Cream:** crowd-derived warmth, vertical HOLY/MOLY wings and pale amount/header.
+- **Heart Rose / Heart Pale / Heart Line:** restrained pink supporting effects, amount/header and the drawn hand-heart bridge.
+- **Webcam Grey / Webcam Paper / Monitor Border:** muted monitor-wall identity, pale shout/amount/header and thin monitor boundaries.
 
 ### Secondary
 
-- **Ember Copper / Ember Cream:** warm diagonal energy, segmented circular aperture and slanted thank-you words.
-- **Prism Lilac / Prism Ice:** lilac diamond geometry with an icy amount and information header.
-- **Vault Lime / Vault Pale:** green brackets and vertical vault geometry with a pale reading accent.
-- **Holy Coral / Holy Cream:** coral radial spectacle and giant HOLY / MOLY outlines with a warm amount.
-- **Takeover Lime / Takeover Cream:** electric lime rifts, horizontal travel and dense money rain with a pale amount.
-- **Name Lavender / Name Pale:** lavender identity for the studio-only SAY MY / NAME treatment sharing Donate7's track.
+- **Studio Aqua:** focus outlines, waveform, ordinary authored cue markers and range accent.
+- **Studio Gold:** the hero-drop cue's text, border and waveform marker, independently of the selected scene.
+- **Name Lavender / Name Pale:** retained only for the old Studio-only SAY MY NAME treatment.
 
 ### Neutral
 
-- **White:** solid donor name, complete message and timeline playhead.
-- **Information Ink:** translucent reading surface that separates the message from arbitrary broadcast content.
-- **Studio Ink / Studio Text:** the persistent authoring background and foreground.
-- **Studio Muted / Studio Label:** secondary status and form labels.
-- **Studio Control / Studio Control Hover:** resting and hovered controls.
-- **Studio Border / Studio Divider:** control boundaries and the header/footer separators.
+- **White:** live donor names, complete messages and timeline playhead.
+- **Information Ink:** translucent reading surface over arbitrary broadcast content.
+- **Studio Ink / Studio Text:** authoring canvas and foreground.
+- **Studio Muted / Studio Label:** secondary status, timestamps and field labels.
+- **Studio Control / Studio Control Hover:** control fill and hover response.
+- **Studio Border / Studio Divider:** control boundaries and header/footer separators.
 
-**The Tier Pair Rule.** Use each treatment's saturated color for its geometry and its paired pale color for the amount and information header; keep donor names and messages white.
+**The Source Palette Rule.** Preserve the selected source's colors and alpha. Apply each treatment's paired accents to authored graphics, amount and reading header; use dark Paper Ink for the paper-strip amount.
 
-**The Transparent Stage Rule.** The live stage has no opaque page background. Studio stream, checker and transparent backgrounds are inspection modes, not broadcast artwork.
+**The Transparent Stage Rule.** Leave the broadcast around source windows transparent. Studio stream and checker backgrounds are inspection context.
 
 ## Typography
 
 **Display Font:** Poppins with sans-serif fallback.
 **Body Font:** Poppins with sans-serif fallback.
 
-The same rounded geometric family connects the theatrical broadcast to the practical studio. Local regular, medium, semibold and bold files supply weights 400, 500, 600 and 700; no separate mono or icon font is part of this system.
+Local regular, medium, semibold and bold files supply weights 400, 500, 600 and 700. Rounded geometric type carries a solid donor hierarchy and blunt legacy calls. Size and alignment belong to each scene; there is no universal centred hero or universal display size.
 
 ### Hierarchy
 
-- **Display:** the amount uses the frontmatter display role. It steps down to 190px for formatted strings longer than nine characters and 140px beyond twelve. Currency is 0.26em at weight 500 with normal tracking; preserve baseline alignment and the 25px gap. Polish formatting keeps two decimal places and `zł`.
-- **Headline:** the donor name uses the headline role, stepping down to 64px beyond eighteen characters and 48px beyond thirty. It wraps anywhere within a 1500px maximum width.
-- **Title:** the information header uses the title role, with weight 600 for the donor and 500 for the amount.
-- **Body:** message text uses the body role, preserving line breaks and wrapping unbroken text.
-- **Label:** studio controls use the label role. The studio title uses its distinct title role and becomes 18px on narrow screens; status is 12px, while feature labels, scrub label and cue buttons use the small role.
-- **Outline words:** the base outline-word role is decorative stage architecture. Motif sizes are Signal 124px, Ember 150px, Prism 200px, Vault 174px, Holy 284px, Halo 268px, Takeover 242px and Name 230px. Halo uses wider tracking (0.035em); ordinary outlines are 2px and Holy is 3px.
+- **Donor name:** shared donor-name role with scene-specific caps. Donate1–7 caps are respectively 70, 76, 70, 68, 64, 70 and 70px. Actual size is `max(24, min(cap, 790 / max(1, nickname.length × 0.65)))`; names wrap anywhere inside their scene's text region. Empty identity displays Anonim.
+- **Donor amount:** shared donor-amount role. Donate1–7 caps are respectively 176, 176, 174, 195, 174, 184 and 202px. Actual size is `min(cap, 790 / (formattedAmount.length × 0.62 + 0.55))`. Preserve Polish two-decimal formatting and baseline currency: 0.26em, weight 500, normal tracking and the currency gap.
+- **Information title:** the frontmatter role separates donor (600) and amount (500).
+- **Body:** complete plain-text message uses the body role with preserved line breaks and long-word wrapping. The optional special thank-you line is 25px with an 18px bottom margin.
+- **Legacy calls:** scene-specific solid text: Turkey's gratitude is 25px/500; paper caption 75px/600 at 1.15 line height; rodent OMG 120px/700; ovation wings 184px/700 at line height 1; HALO call 60px/600; webcam shout 134px with a 164px strong second line, both 700 at 1.02 line height. These are authored graphic roles, not a shared heading scale.
+- **Studio:** control text uses label; title uses studio-title and becomes 18px at the narrow breakpoint. Status is 12px; feature labels and cue buttons use studio-small.
 
-**The Clear Centre Rule.** Keep solid donor text central and above decorative words, apertures and particles. Outlined words frame the event rather than replacing its readable content.
+**The Donor Space Rule.** Reserve independent readable space for nickname and amount within each composition. Keep the source gesture visible and fit long donor strings rather than forcing every show into one text layout.
 
 ## Layout
 
-The broadcast uses a fixed logical stage (1920 × 1080), centred and uniformly scaled by the smaller viewport-to-stage ratio. Its typography and geometry retain their authored relationships at every preview size; they do not reflow into a mobile donation layout. The hero centres the name above the amount with the frontmatter hero gap. Corner frame strokes sit inside a 68px inset. The ordinary emblem is 800 × 800 at stage position (560px, 140px); the expanding wave begins as a centred 500px circle.
+The broadcast is a 1920 × 1080 logical stage, centred and uniformly scaled using the smaller viewport-to-stage ratio. It does not reflow into a mobile donation layout. The following coordinates are authored stage pixels from the JSX/CSS; timeline transforms change poses during the sequence.
 
-The information card starts at stage position (340px, 270px), has a maximum height of 620px and uses the frontmatter width and padding. Its header has a 35px gap and 22px bottom padding. The message viewport reaches 405px maximum height. Overflow scrolls after a 2500ms reading pause, with time reserved at the end; preserve complete reading rather than truncating content. The standalone readable error fallback centres a card at width `min(80vw, 1240px)` and maximum height `80vh`.
+| Live scene | Source placement | Donor and signature composition |
+| --- | --- | --- |
+| Donate1 · Turkey two-step | One 780 × 650 room window at (100, 170). | Right reply at (1010, 270), width 790; name inside at y75, amount at y160 relative to that copy. Foot ellipse and stepped baseline answer the dancer. |
+| Donate2 · Masked dance floor | Lead 593 × 830 at (670, 100); echoes 429 × 600 at (280, 300) and 464 × 650 at (1330, 250). | Name above at (280, 35), width 1360; centred foot-level amount at (460, 865), width 1000. Red floor and transparent margins preserve the mask and raised arms. |
+| Donate3 · Rodent rave | Main 800 × 600 projector at (560, 230); 350 × 263 side screens at (40, 470) and (1530, 220). | Name above at (360, 90), width 1200; amount below at (400, 865), width 1120. Half-height shutter bars cut the central screen; OMG sits right. |
+| Donate4 · Deadpan paper roll | One 560 × 835 portrait at (1230, 90). | Left answer at (120, 95), width 950; copy starts at y215 and the amount at (30, 175) within it. The strip begins at y355 within the answer. Deadpan caption, torn edge and perforation frame the payoff. |
+| Donate5 · Arms-wide ovation | One 1400 × 788 panorama at (260, 80). | Name at (300, 0), width 1320; amount at (350, 870), width 1220. Vertical HOLY/MOLY wings occupy opposing edges; stage lip sits below the crowd. |
+| Donate6 · Heart from the booth | One 720 × 720 booth at (1080, 110). | Left copy at (120, 325), width 840; amount at (50, 170) within it. A 1100 × 760 drawn bridge at (30, 225) links the hand-heart to the donor; HALO sits below the booth. |
+| Donate7 · Webcam overload | Main 360 × 360 at (1360, 310), two 240px moving satellites and six tilted 240px source-pose stills on the right. | Left shout at (100, 55); copy at (120, 465), width 840, rotated −7°, amount 240px below it. WTF lands below; some edge monitors intentionally continue beyond the stage. |
 
-Studio is a full-height flex column with a wrapping header, flexible preview beside a 295px inspector, and a transport/timeline footer. Main content uses the frontmatter inset and gap; header padding is 18px 24px and footer padding is 16px 24px 20px. Desktop preview stretches into the available region while the logical stage scales inside it. At the observed 900px breakpoint, preview and inspector stack, preview restores 16:9, fields span the inspector width, inspector buttons fill the row, and the page scrolls vertically. Transport and cue controls wrap with their respective frontmatter gaps. The waveform is 75px high; the native scrubber is 20px high.
+The common information card begins at (340, 270), has a 620px maximum height and uses frontmatter width/padding. Its header has a 35px gap and 22px bottom padding; message viewport maximum height is 405px. Overflow scrolls after a 2500ms reading pause with a closing hold. The readable error fallback centres at width `min(80vw, 1240px)`, maximum height `80vh`.
+
+Studio is a full-height flex column. A wrapping header sits above the flexible preview and 295px inspector; transport and timeline occupy the footer. Main content uses the Studio inset/gap, header padding is 18px 24px, footer padding 16px 24px 20px. At 900px and below, preview and inspector stack, preview returns to 16:9, fields and inspector buttons span the row, and the page scrolls vertically. Transport/cues wrap. Waveform height is 75px; native scrubber height is 20px.
 
 ## Elevation & Depth
 
-Broadcast depth comes from transparent light, vector apertures, perspective, foreground particles and soft text shadows. Donor text stays above the GPU canvas and geometry. The information card uses a diffuse ambient shadow, then removes all hero graphics from the information phase. Studio is flat: surface tones, thin strokes and separators define controls without card shadows.
+Depth follows the source: opaque footage remains a bounded room, portrait or crowd window; the alpha dancer stands directly over broadcast content; tilted rodent screens and webcam monitors create layering. Live scene content sits above supporting GPU detail, with donor copy above the source windows. Donate1–4 use no GPU effects. Donate5–7 retain limited light and particles behind the source: ovation glints, heart money detail and webcam money rain. The information scene clears the spectacle and media. Studio uses tonal layering, thin boundaries and separators without card shadows.
 
 ### Shadow Vocabulary
 
-- **Donor legibility** (`text-shadow: 0 5px 20px rgba(0, 0, 0, 0.75)`): white names remain distinct over bright light or gameplay.
-- **Amount legibility** (`text-shadow: 0 12px 28px rgba(0, 0, 0, 0.6)`): the pale amount retains weight over impact effects.
+- **Donor legibility** (`text-shadow: 0 5px 20px rgba(0, 0, 0, 0.75)`): solid white names over source or broadcast.
+- **Amount legibility** (`text-shadow: 0 12px 28px rgba(0, 0, 0, 0.6)`): pale amount over transparent broadcast; disabled on the dark paper-strip amount.
 - **Reading surface** (`box-shadow: 0 18px 60px rgba(0, 0, 0, 0.25)`): ambient separation for the information card.
 
-**The Quiet Landing Rule.** In the information phase, hide the hero, decorative words, emblem, frame, atmosphere, GPU canvas and wave; retain the name, amount and complete message.
+**The Quiet Landing Rule.** Hide the source scene and all supporting spectacle in the information phase, release source media, and retain the name, amount and complete message.
 
 ## Shapes
 
-The stage vocabulary is circular and angular: thin shock rings, segmented apertures, diamonds, open brackets and stretched horizontal rifts. Four open corner strokes frame the stage without enclosing it in a panel. Money particles are rotating rectangular bills with border and seal detail, rather than photo assets. Use the treatment's geometry to preserve its silhouette.
+There is no common live aperture silhouette. Each show uses its own source-derived form: Turkey's foot ellipse and stepped line, the dancer's fine red floor, rodent shutters and tilted rectangles, paper's torn polygon/perforation, ovation's panorama and vertical wings, the booth's clipped opposing corners and drawn heart, or the webcam's bordered square monitors. Preserve these forms in their scenes.
 
-Studio controls have gently curved corners using the control radius. The reading card uses the larger information radius. Circular waves use the circle radius. The studio's illustrative horizon is a clipped quadrilateral; it belongs to preview context, not the live stage.
+Control and information radii are shared frontmatter primitives. Live media is square-edged except for authored reveal clipping and the booth's polygon corners. The old diamond/circular aperture, outline words and corner frame belong to Studio-only Donate8. Studio's clipped illustrative horizon is preview context.
 
 ## Components
 
-### Studio buttons
+### Studio buttons and cue actions
 
-Compact and practical. The studio-button frontmatter entry supplies the shared fill, foreground, type, radius and padding. A 1px Studio Border outlines each control. Hover uses Studio Control Hover. Keyboard focus is a 2px Signal Aqua outline with 2px offset. Play/Pause, Restart, Previous/Next cue, ±50ms and click-plus-flash calibration are ordinary action buttons; no unrelated primary/ghost hierarchy is implemented.
-
-### Cue buttons
-
-Small action tags, never passive chips. Studio-cue provides the dense variant; each button seeks to its authored timestamp. Ordinary cue times are muted. The hero-drop variant keeps the same shape and fill but colors both text and border Halo Gold. Cue rows wrap rather than truncating their labels.
+Compact neutral actions use studio-button and a 1px Studio Border. Hover uses Studio Control Hover. Focus is a 2px Studio Aqua outline with 2px offset. Transport, restart, previous/next cue, ±50ms and click-plus-flash calibration share this treatment. Cue buttons use the dense studio-cue variant and seek to the authored timestamp; muted timestamps remain secondary. The hero cue uses Studio Gold for both text and border. Cue controls are buttons, not passive chips.
 
 ### Fields
 
-Inputs and native selects share studio-field styling and a 1px Studio Border. Inspector fields span their container. Labels sit above them with 12px top and 5px bottom margins. Preserve the common keyboard focus outline and use explicit labels. The native range scrubber uses Signal Aqua as its accent. No bespoke disabled or error variant is defined.
+Inputs and native selects share studio-field and a 1px Studio Border. Inspector fields span their container. Explicit labels sit above with 12px top and 5px bottom margins. Keep the common focus outline; the range control uses Studio Aqua. No custom error/disabled hierarchy or separate navigation system is implemented.
 
-### Donor hero and apertures
+### Source media and seven donor payoffs
 
-A dominant solid name above an even larger pale amount. Both use independent character choreography; the currency remains small. Apertures supply each tier's visual identity:
+Use the selected originals through GIF-derived, seekable VP9 WebM, with an unmodified source poster while loading and original GIF fallback on failure. Preserve full source content and cadence in conversion: opaque sources are lossless 4:4:4; masked dancer is lossless VP9 alpha with 4:2:0 chroma. Scene transforms and reveal clips are authored separately. Rodent and webcam retain pixelated rendering. Original GIF fallback preserves identity but cannot guarantee authored frame synchronisation.
 
-| Treatment | Distinct visual grammar |
+| Scene | Signature motion and exact amount cue |
 | --- | --- |
-| Signal | Aqua horizontal energy, open brackets and a compressed wide aperture; a single DZIĘKI outline below. |
-| Ember | Copper diagonal energy and thick segmented circle; slanted words slide in, and the hero straightens from a small tilt. |
-| Prism | Lilac diamond aperture and diamond shock geometry; icy amount with an OMG outline above. |
-| Vault | Lime vertical geometry and broad open brackets; two thank-you words slide horizontally. |
-| Holy Moly | Coral radial spectacle, oversized opposing HOLY / MOLY outlines and a strong centre impact. |
-| Halo | Gold radial halo with perspective tilt, rotational release and falling outlined bills. |
-| Takeover | Lime horizontal rifts stretched across the stage, opposing left/right words, dense bills and later authored reprise impacts. |
-| Say my name | Lavender diamond plus circular aperture, SAY MY / NAME words, a name scale emphasis and the shared Donate7 reprises. Studio exploration only. |
+| Turkey two-step | Name arrives from right; the floor compresses, amount tilts from −7° through +4° and settles, source room answers with a short sideways sway. Hero 3.06503s; chosen source pose 1.13s. |
+| Masked dance floor | Lead kicks in from left; delayed transparent echoes join; name descends overhead. Foot-line compression precedes amount's vertical release from 0.78 to 1 over 0.48s with `back.out(1.8)`. Hero 3.66875s; arms-up source pose 2.52s. |
+| Rodent rave | Hard source cuts, staggered character steps and opposing tilted screens lead to three-step shutter closure. Hero cuts shutters open, reveals OMG/amount and stutters the projector. Hero 4.82975s; source pose 0.20s. |
+| Deadpan paper roll | Portrait reveals vertically while remaining planted; paper unrolls to 70% before the payoff. Amount appears at 0.88 horizontal scale, then strip/amount finish their 0.35s unroll. Hero 4.52789s; source roll pose 1.93s. |
+| Arms-wide ovation | Panorama opens horizontally; HOLY/MOLY rise from opposing directions. Pre-drop closes width to 0.72; hero releases to full width over 0.45s `expo.out`, with restrained glints. Hero 4.82975s; open-arms source pose 2.00s. |
+| Heart from the booth | Soft donor reveal and HALO anticipate a partial drawn heart. Hero reveals amount; the line completes over 0.7s `power1.out`, then the thank-you lands. Hero 3.90095s; hand-heart source pose 2.32s. |
+| Webcam overload | Tiny monitor enlarges in steps; beat-timed stills switch on, tilted name cuts in and the legacy shout anticipates impact. Hero expands main monitor, reveals amount/WTF and jolts the wall. Reprises at 22.64s and 37.5s. Hero 13.21215s; reaction source pose 1.52s. |
 
-Motion follows `intro → firstImpact → donorReveal → buildStart → preDrop → heroDrop → settle → information`. Names rise and rotate into place character by character (0.55s with a 0.3s total stagger). Pre-drop compresses geometry, lowers atmosphere and creates tension; hero-drop makes the amount visible at the exact cue, with scale 1.12 in the first two tiers or 1.25 in higher tiers, then releases to normal size over 0.65s using `expo.out`. The shock wave expands and disappears over 1.35s. Settling reduces decorative intensity; the final 0.55s clears the hero before the reading scene. Default tween easing is `power3.out`, with `power2.in` / `power3.in` for tension and linear slow drift after settling.
+Shared cue names are `intro → firstImpact → donorReveal → buildStart → preDrop → heroDrop → settle → information`; the timeline default is `power2.out`. Each scene owns its shots and tween choices. Chosen source poses hold near hero according to per-asset before/after windows, then resume looping from that pose. Dancer echoes delay 0.12/0.24s, rodent screens 0.08/0.16s, webcam satellites 0.12/0.24s. The source and music clock remain at exact zero on restart/reverse seek; the GSAP timeline uses a one-microsecond positive render position to establish its zero-duration initial state.
 
-**The Music Clock Rule.** Derive the whole scene from absolute music time and authored cues. Seeking must reproduce the same composition; quality reduction may change effect detail but must not change cue timing, donor layout or the reading phase.
+The last 0.5s clears source scene/effects; the last 0.4s reveals information. Root outro is an opacity transition of 0.65s ease-out. Reduced-motion CSS removes that root transition; it does not provide a complete static alternative to the GSAP scene.
+
+**The Music Clock Rule.** Derive authored scene and controlled source frames from absolute music time. Quality reduction changes supporting detail, not cue timing, donor layout or the reading phase.
 
 ### Information card
 
-Quiet and readable. Use information-card for the shared surface; the treatment's pale accent colors the split name/amount header, and white colors the complete message. Preserve literal line breaks and long-word wrapping. A special thank-you line, when applicable, is a smaller (25px) pale-accent paragraph with an 18px bottom margin. Keep this scene readable during renderer degradation as well as normal completion.
+Use the shared information-card surface, treatment pale header and white complete message. Preserve line breaks, unbroken-word wrapping and slow overflow reading. The optional special thanks remains a small pale-accent paragraph. Information stays readable during renderer degradation and releases source videos and fallbacks when the show ends.
 
 ### Studio timeline and preview
 
-The waveform combines a translucent aqua energy envelope, beat ticks, white downbeats, aqua authored cues, a gold hero drop and a white playhead. Its SVG has an accessible title and label. Transport, precise time input, range scrubber and clickable cues all inspect the same music time. Preview backgrounds are explicitly illustrative stream geometry, a checker pattern (40px tiles) or transparency. Safe mode removes GPU detail while preserving authored DOM/SVG motion and readable content. Reduced-motion CSS removes the final root-opacity transition; it does not currently replace the GSAP scene with a static presentation.
+Waveform layers include the translucent aqua energy envelope, beat ticks, white downbeats, authored aqua cues, gold hero-drop and white playhead. The SVG is labelled accessibly. Transport, precise time input, native scrubber and cue buttons inspect the same music time. The inspector exposes source media, position/frame, frozen/loop and ready/fallback state. Preview modes are illustrative stream geometry, 40px checker tiles or transparency. Safe mode hides GPU detail while keeping authored source/DOM/SVG choreography.
+
+Donate8 retains the older name-centred, lavender aperture composition in Studio using the existing Donate7 track. It has no live threshold or independent audio asset.
 
 ## Do's and Don'ts
 
 ### Do:
 
-- **Do** keep the live stage transparent and uniformly scale the authored broadcast composition.
-- **Do** preserve each tier's paired palette, geometry and musical compression/release.
-- **Do** keep solid donor information central, above decorative motion.
-- **Do** clear spectacle for the complete message and preserve readable fallback behavior.
-- **Do** use absolute music time for reproducible seeking and quality-independent cue timing.
-- **Do** retain explicit studio labels, visible keyboard focus and the stacked narrow-screen inspector.
+- **Do** build each live show's composition and signature gesture around its selected GIF, existing track and legacy joke.
+- **Do** preserve original source colors, alpha, environment, frame cadence and honest pixel texture.
+- **Do** keep independent donor space and fit complete names and Polish amounts within each authored scene.
+- **Do** leave broadcast space transparent and uniformly scale the logical stage.
+- **Do** clear spectacle, release source media and preserve complete readable messages.
+- **Do** use absolute music time for reproducible seeking and keep cue timing consistent across quality modes.
+- **Do** retain explicit Studio labels, visible focus and the stacked narrow-screen inspector.
 
 ### Don't:
 
-- **Don't** turn the studio's illustrative background into opaque live broadcast artwork.
-- **Don't** flatten all tiers into the same recolored ring or particle treatment.
-- **Don't** obscure, clip or permanently truncate the donor's name, amount or message.
-- **Don't** invent a live Donate8 threshold or a new track; its current identity shares Donate7's music in the studio.
-- **Don't** present safe rendering as a different musical sequence or treat the limited reduced-motion CSS as a complete static alternative.
-- **Don't** apply this document's scoped identity to unrelated legacy overlays without a separate design decision.
+- **Don't** replace selected GIF footage, recolor the sources or turn seven scenes into one recolored template.
+- **Don't** reinstate the common aperture as the live composition or swap source subjects between scenes.
+- **Don't** enlarge supporting effects until they compete with the source gesture or readable donor.
+- **Don't** force a universal centred hero, crop donor text or permanently truncate messages.
+- **Don't** turn Studio inspection backgrounds into opaque broadcast artwork.
+- **Don't** invent a live Donate8 threshold, new track or fully static reduced-motion behavior.
+- **Don't** apply this scoped donation identity to unrelated legacy overlays.

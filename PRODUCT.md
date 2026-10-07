@@ -22,6 +22,8 @@ Preserve legacy websocket messages, FIFO queue, acceptAlert, amount/commission l
 
 Full-screen cinematic motion, ascending importance, absurd HOLY MOLY / HALO energy, money rain and kinetic donor typography. The user delegates creative decisions explicitly in sections 21 and 40 of the supplied brief.
 
+The seven Kaaajka-selected source GIFs are binding identity assets. Each live show derives its composition, gesture and rhythm from its own GIF, existing track and legacy joke. They must remain recognizable; generated replacement footage and seven recolors of one composition violate the current redesign brief. Engine infrastructure remains shared; art direction is scene-specific.
+
 ## Evidence and open decisions
 
 Seven live configurations and seven music files exist. Donate8 is an orphaned SAY MY NAME component, without a configured threshold or audio asset. Do not invent a live eighth threshold. Studio can explore that identity with an explicitly shared existing track. Missing Donate10 references in baseline tests are stale, not evidence of a live tier.

@@ -1,4 +1,4 @@
-# Kaaajka Donation Motion Engine v1
+# Kaaajka Donation Motion Engine - GIF-led scenes
 
 The existing websocket → PageChannel → FIFO → DonateEvent path now presents live music-directed scenes. No backend messages, queue reducer, acceptAlert rule, amount thresholds or Tipply URL rules have changed. The scene does not own a queue.
 
@@ -27,15 +27,15 @@ Amounts below are **gross selection amounts in grosze**, as in the existing conf
 
 | Live scene | Minimum | Authoritative asset | Decoded duration | Music volume | Voice |
 |---|---:|---|---:|---:|---|
-| Donate1 / Signal | 50 | donation-template-01.mpga | 8.03342s | .4 | male |
-| Donate2 / Ember | 500 | donation-template-02.mpga | 15.46558s | .14 | male |
-| Donate3 / Prism | 2500 | donation-template-03.mpga | 11.60000s | .3 | female |
-| Donate4 / Vault | 5000 | donation-template-04.mpga | 12.84544s | .4 | female |
-| Donate5 / Holy Moly | 10000 | donation-template-05.mp3 | 16.34508s | .3 | female |
-| Donate6 / Halo | 15000 | donation-template-06.mpga | 21.76494s | 1 | female |
-| Donate7 / Takeover | 30000 | donation-template-07.mp3 | 46.23397s | 1 | female |
+| Donate1 / Turkey two-step | 50 | donation-template-01.mpga | 8.03342s | .4 | male |
+| Donate2 / Masked dance floor | 500 | donation-template-02.mpga | 15.46558s | .14 | male |
+| Donate3 / Rodent rave | 2500 | donation-template-03.mpga | 11.60000s | .3 | female |
+| Donate4 / Deadpan paper roll | 5000 | donation-template-04.mpga | 12.84544s | .4 | female |
+| Donate5 / Arms-wide ovation | 10000 | donation-template-05.mp3 | 16.34508s | .3 | female |
+| Donate6 / Heart from the booth | 15000 | donation-template-06.mpga | 21.76494s | 1 | female |
+| Donate7 / Webcam overload | 30000 | donation-template-07.mp3 | 46.23397s | 1 | female |
 
-All assets are under `public/assets/donations/audio`. Seven GIFs remain as legacy reference assets. Donate8's SAY MY NAME component has no configured threshold, eighth track or eighth GIF. The new Donate8 treatment is a **Studio-only alternate using Donate7 music**. It cannot be selected by a live amount. Activation needs a real product decision and asset; it must not be inferred from the stale baseline tests.
+All assets are under `public/assets/donations/audio`. Seven original GIFs are binding live-scene identity assets; each now has a faithful derived WebM and source-pose PNG under `public/assets/donations/media`. Donate8's SAY MY NAME component has no configured threshold, eighth track or eighth GIF. The new Donate8 treatment is a **Studio-only alternate using Donate7 music**. It cannot be selected by a live amount. Activation needs a real product decision and asset; it must not be inferred from the stale baseline tests.
 
 ## Runtime architecture
 
@@ -45,7 +45,11 @@ All assets are under `public/assets/donations/audio`. Seven GIFs remain as legac
 
 At every rendered frame, `audibleContextTime` projects a recent, valid `getOutputTimestamp()` pair into the current performance time. Unsupported, stale, zero or throwing timestamps fall back to `currentTime`. The resulting absolute track time plus `visualSyncOffsetMs` seeks a paused GSAP timeline. The animation never independently plays alongside audio. A visual stall skips frames and catches up to the music clock.
 
-`DonationScene` uses the official `@gsap/react` lifecycle and GSAP SplitText for name/amount graphemes. It scales a 1920×1080 composition to fit the browser source. Every hero state is authored by timeline sets/tweens, not callbacks. SVG apertures, opposing giant typography and shockwaves remain available in SAFE. The GPU renderer receives authored effect parameters and normalized offline audio features. Random trajectories use the donation ID; replay the same ID to reproduce them.
+`DonationScene` retains the official `@gsap/react` lifecycle, clock, quality and readable landing, but selects seven separate JSX scenes in `src/donations/scenes`. Their independent directors live in each `donateN/choreography.ts`. Shared helpers only set up SplitText, labels and cleanup. Room dance, alpha dancer echoes, rodent shutter strip, paper unroll, open-arm panorama, hand-heart bridge and pixel monitor wall have independent layouts and reveal language. Source GIF, music observations, exact media placement and storyboard are recorded in each `TREATMENT.md` and `DONATION_GIF_ART_DIRECTION.md`. Donate8's previous abstract director stays Studio-only.
+
+`MediaLayer` never calls video.play(). Videos are silent and paused; absolute music time selects the original GIF frame using the manifest's variable frame starts. Each source has its own pose-hold window before/after the hero; held poses land on the unchanged authored music cue. Source loops and delayed echoes use the same mapping. In-flight seeks coalesce to the latest requested clock; `seeked` flushes the newest request after a stall. Native decoder completion is asynchronous, so exact QA captures wait for seek completion and a browser paint. This is frame-level coordination, not sample-perfect video output.
+
+Preload is bounded at five seconds, independent of queue/music progress. A failed WebM uses the original animated GIF, with explicitly degraded source-frame synchronization. A source-derived PNG is visible while loading. All video/fallback sources unload at information/unmount; returning to a hero in Studio explicitly reloads them. The normal scene uses at most one source asset and one or three video elements; static top-tier monitors share the source pose.
 
 The message is rendered as plain React text, with the existing fixture/backend emote normalization. Nickname and amount remain dynamic. The information surface retains the complete message, including newlines, and slowly scrolls overflowing text with 2.5-second opening/final holds. Minimum reading time is `max(5500, 5000 + message.length / 18 * 1000)`. It waits for both speech and this hold. Very long messages deliberately take longer; there is no ellipsis or truncation. Particles stop rendering during information; idle has no donation RAF or GPU draw loop.
 
@@ -68,13 +72,13 @@ The analyzer does not invent downbeats, sections, tension or drops: those arrays
 
 ## Editing choreography
 
-Read a tier's `TREATMENT.md`, `analysis.json`, `cues.ts` and `choreography.ts` together. The treatment records concept, tension, hero, type, atmosphere, camera, particle role, information layout and budget. Keep a cue inside the actual decoded duration, with unique names and increasing times. `validateCues` checks required cues and ordering. Add all musical moves to the paused timeline, never `setTimeout`, CSS animation delays or GSAP callbacks that spawn live animations. `createChoreography` contains the shared scene grammar and motif-specific shots; a tier director is the entry point for extending a particular scene.
+Read a tier's `TREATMENT.md`, source GIF/contact sheet, `analysis.json`, `cues.ts` and `choreography.ts` together. Keep cues unique, ordered and inside decoded duration. Add musical moves only to the paused timeline. Each live scene owns its JSX and timeline; source media uses `SourceMedia` with a tier and optional delay. `sceneTools` provides lifecycle and typography primitives, not a common visual skeleton. The old `createChoreography` serves only Studio-only Donate8. Do not swap media between scenes as if they were skins.
 
 The audio-feature bus supplies continuous bands, loudness, onset/kick envelopes and beat/bar phase. `barPhase` is an approximate four-beat grouping, **not a detected downbeat**. The CueLatch primitive reports every crossed cue with increasing event IDs; it is available for future nonvisual event consumers. Current visuals use absolute-time envelopes and timeline seeks, which need no frame-sensitive event trigger. Secondary audio bindings live in `audioBindings.ts`: remap, clamp, gate, deadzone, exponent curve, inversion, scale, offset and time-domain smoothing. Do not route every beat to every element. Major impacts stay cue-authored.
 
 ## GPU, alpha and quality
 
-WebGL2 is the highest supported path for v1; WebGPU is not required. There is no speculative ULTRA mode. HIGH draws at .8 scale with at most 520 particle instances. MEDIUM uses .55 scale / 220. SAFE draws no GPU pixels but preserves all authored type/SVG timing. Core count is a conservative starting heuristic; `?motionQuality=medium` or `safe` overrides it. Sustained frames slower than 23ms in a 120-frame window lower HIGH to MEDIUM once. Rendering rate measurements include other work on the main thread and cannot establish GPU cost alone.
+WebGL2 is the highest supported path for v1; WebGPU is not required. There is no speculative ULTRA mode. Donate1-4 have no GPU layer and report SAFE even when HIGH is requested. Donate5-7 use HIGH at .8 scale or MEDIUM at .55 scale, with per-scene caps of 110/70/110 particle instances. Studio-only Donate8 retains its older 400-instance cap. SAFE draws no GPU pixels but preserves source media, all authored type/SVG timing and source-pose holds. Core count is a conservative starting heuristic; `?motionQuality=medium` or `safe` overrides it. Sustained frames slower than 23ms in a 120-frame window lower HIGH to MEDIUM once. Rendering rate measurements include other work on the main thread and cannot establish GPU cost alone.
 
 The GPU scene has two bounded draw calls: analytic atmosphere/shockwave and instanced, absolute-time particles/banknotes. No simulation accumulation, huge DOM particle forest, blur stack or render-target postprocessing. It requests alpha, premultiplied alpha, no depth/stencil/MSAA and low-power preference; clears RGBA to zero; outputs premultiplied color and blends ONE / ONE_MINUS_SRC_ALPHA. Shader/link/init errors and context loss preserve the SAFE scene. Resources are deleted and the context released on unmount. A React error boundary keeps a readable fallback and protects PageChannel from scene exceptions.
 
@@ -96,9 +100,9 @@ Existing account fixture example:
 
 Remove `fast=1` to exercise actual silent music-clock durations and readable holds. Remove `muteAudio=1` for audible template/TTS replay and the existing audio-unlock prompt. The queue fixture sends three donations with increasing amounts through the original PageChannel handler, not a Studio-only queue.
 
-`pnpm motion:qa` captures before/exact/after hero frames and information for all eight treatments into ignored `.motion-qa/`. It verifies backward seeks, canvas alpha coverage, SAFE without WebGL, failed audio loads, a 500ms main-thread stall, pause/restart, full-message scrolling, FIFO completion and idle cleanup. SwiftShader runs are compatibility tests, not RTX 3070 performance measurements. Unit tests exercise clock projection, cues, feature fallback/latching, bindings, seed/intensity, governor, audio source lifecycle/timeouts/abort and existing queue integration.
+`pnpm motion:qa` captures initial, before/exact/after hero, settle and information frames for all eight treatments into ignored `.motion-qa/`. It verifies exact-zero initialization/Restart, backward seeks, source-pose fidelity and alpha, media unload/fallback, canvas alpha coverage, SAFE without WebGL, failed audio loads, a 500 ms main-thread stall, full-message scrolling, FIFO completion and idle cleanup. SwiftShader runs are compatibility tests, not RTX 3070 performance measurements. Unit tests exercise source-frame mapping and media lifecycle alongside clock projection, cues, feature fallback/latching, bindings, seed/intensity, governor, audio lifecycle and existing queue integration.
 
-Final automated verification on 2026-10-07: 267 unit tests and 16 browser scenarios pass; lint, typecheck and production build pass. Changed motion files pass formatting. Repository-wide `format:check` still reports formatting differences in 34 unchanged legacy files; no unrelated formatting sweep was applied. The visual review found and corrected donor/amount overlap, overly uniform radial payoffs, narrow mobile Studio controls and colliding plot labels. The final review disposition is recorded in `DONATION_MOTION_QA.md`.
+GIF-led verification on 2026-10-07: 278 unit tests and 19 browser scenarios pass, along with lint, typecheck and production build. Changed motion files pass formatting. Repository-wide `format:check` has formatting differences in 34 unchanged legacy files; no unrelated formatting sweep was applied. Independent review accepted the seven distinct GIF-led shows after correcting exact-zero initialization and stabilizing information captures. The final verdict and manual gates are recorded in `DONATION_MOTION_QA.md`.
 
 ## OBS setup and calibration
 
@@ -116,3 +120,18 @@ Actual OBS alpha, device A/V latency, voice quality and reference-hardware load 
 ## Troubleshooting
 
 Black rectangle: remove custom CSS/OBS background, confirm the source build contains the transparent root rule, then try SAFE to isolate GPU alpha. Audio blocked: check source audio enablement/monitoring, browser permission and the Studio Play button. Failed file: inspect the inventory path; the engine uses a silent AudioBuffer and retains authored timing, then TTS. No Web Audio at all: music failure proceeds directly to information/TTS and completion. Queued alerts stuck: inspect original websocket/acceptAlert coordination separately from the motion renderer, and replay the FIFO fixture. Changed cue timestamp: inspect the source hash and regenerate analysis; do not assume BPM implies a drop.
+
+
+## Preparing source media
+
+```powershell
+python -m pip install -r scripts/requirements-media.txt
+pnpm motion:media
+pnpm exec biome format --write src/motion/media/assets.json
+pnpm motion:qa
+python scripts/create-motion-contact-sheet.py
+```
+
+Requires ffmpeg/ffprobe on PATH. Pillow 12.3.0 is the tested frame extraction version. Conversion uses lossless VP9, original dimensions, a millisecond encoder time base and keyframes at most 16 frames apart. It asserts every source-frame timestamp within 1 ms and identical frame counts; all output durations match the original loops. Opaque content uses 4:4:4 to preserve color detail. The dancer preserves alpha with 4:2:0 chroma; browser fidelity checks compare its alpha and visible RGB to the original pose PNG. Original GIFs are unchanged. Lossless opaque WebMs are larger than GIFs (about 64 MB total media, largest 24 MB); their benefit is reliable control and seek, not smaller downloads. Only the selected asset loads; do not preload all seven into OBS. Profile/alpha support and decode cost in actual OBS remain manual gates.
+
+Studio now shows source filename/representation, requested source time, frame number, pose hold/loop and decoder state. `window.motionStudio.status().media` also exposes current decoded time. QA checks source pose fidelity, media stall recovery, original-GIF failure fallback and complete unloading in addition to existing audio/FIFO/TTS/SAFE checks. Contact sheets deliberately composite transparent browser captures over a labeled inspection background; they are not new source assets.
