@@ -64,7 +64,7 @@ typography:
     lineHeight: 1.6
   label:
     fontFamily: "Poppins, sans-serif"
-    fontSize: "13px"
+    fontSize: "12px"
     lineHeight: 1.45
   studio-title:
     fontFamily: "Poppins, sans-serif"
@@ -72,7 +72,7 @@ typography:
     fontWeight: 700
   studio-heading:
     fontFamily: "Poppins, sans-serif"
-    fontSize: "16px"
+    fontSize: "14px"
     fontWeight: 600
   studio-small:
     fontFamily: "Poppins, sans-serif"
@@ -82,11 +82,11 @@ typography:
     fontSize: "9px"
   timecode:
     fontFamily: "monospace"
-    fontSize: "20px"
+    fontSize: "18px"
     fontWeight: 700
     lineHeight: 1.5
 rounded:
-  control: "4px"
+  control: "3px"
   timeline: "2px"
   lifecycle: "3px"
   information: "14px"
@@ -94,8 +94,8 @@ spacing:
   compact-gap: "4px"
   field-gap: "5px"
   pair-gap: "8px"
-  studio-inset: "18px"
-  tree-inset: "12px"
+  studio-inset: "12px"
+  tree-inset: "8px"
   currency-gap: "25px"
 components:
   studio-button:
@@ -103,8 +103,8 @@ components:
     textColor: "{colors.studio-text}"
     typography: "{typography.label}"
     rounded: "{rounded.control}"
-    padding: "7px 9px"
-    height: "32px"
+    padding: "4px 7px"
+    height: "26px"
   studio-button-hover:
     backgroundColor: "{colors.studio-control-hover}"
   studio-button-primary:
@@ -112,15 +112,15 @@ components:
     textColor: "{colors.studio-peach-ink}"
     typography: "{typography.label}"
     rounded: "{rounded.control}"
-    padding: "7px 9px"
-    height: "32px"
+    padding: "4px 7px"
+    height: "26px"
   studio-field:
     backgroundColor: "{colors.studio-control}"
     textColor: "{colors.studio-text}"
     typography: "{typography.label}"
     rounded: "{rounded.control}"
-    padding: "7px 9px"
-    height: "32px"
+    padding: "4px 7px"
+    height: "26px"
   studio-hero-cue:
     backgroundColor: "{colors.studio-cue}"
     textColor: "{colors.studio-ink}"
@@ -224,7 +224,7 @@ Local regular, medium, semibold and bold files supply weights 400, 500, 600 and 
 - **Information title:** the frontmatter role separates donor (600) and amount (500).
 - **Body:** complete plain-text message uses the body role with preserved line breaks and long-word wrapping. The optional special thank-you line is 25px with an 18px bottom margin.
 - **Legacy calls:** scene-specific solid text: Turkey's gratitude is 25px/500; paper caption 75px/600 at 1.15 line height; rodent OMG 120px/700; ovation wings 184px/700 at line height 1; HALO call 60px/600; webcam shout 134px with a 164px strong second line, both 700 at 1.02 line height. These are authored graphic roles, not a shared heading scale.
-- **Studio:** common controls use label; the brand uses studio-title and inspector titles use studio-heading. Field labels, status and tree actions are 11px; inspector tabs and detail are 10px; tracks, regions and lifecycle labels are 9px. Sparse uppercase panel labels use 10px with 1.3px tracking. The production eyebrow is 8px with 1.6px tracking. The main timecode uses its own role; supporting time, ruler and IN/OUT values use 9–10px monospace. Keep the compact hierarchy on mobile.
+- **Studio:** common controls use label; the brand uses studio-title and inspector titles use studio-heading. Field labels, status and tree actions are 11px; inspector tabs and detail are 10px; tracks, regions and lifecycle labels are 9px. Sparse uppercase panel labels use 10px with 1.3px tracking. The production eyebrow is 8px with 1.6px tracking. The main timecode uses its own role; supporting time, ruler and IN/OUT values use 9–10px monospace. Studio 2.1 supports desktop authoring at 1280 × 720 and above; smaller viewports show only the desktop-required screen.
 
 **The Donor Space Rule.** Reserve independent readable space for nickname and amount within each composition. Keep the source gesture visible and fit long donor strings rather than forcing every show into one text layout.
 
@@ -246,9 +246,11 @@ Lower scenes leave broad transparent margins; middle scenes grow in importance w
 
 The common information card begins at (340, 270), has a fixed 620px height and maximum height, and uses frontmatter width/padding. Its header has a 35px gap and 22px bottom padding. The message fills the remaining flex space with `min-height: 0`, so long wrapped names reduce the message viewport without enlarging or escaping the panel. Overflow scrolls after a 2500ms reading pause with a closing hold. The readable error fallback centres at width `min(80vw, 1240px)`, maximum height `80vh`.
 
-Studio uses a viewport-pinned flex shell above 760px. The topbar contains brand, scene picker, modes and transport. The workspace is a three-column grid: 210px tree, flexible stage and 310px inspector; at 1700px it uses 230px/335px side panels, and at 1150px and below 170px/270px. The topbar wraps below 1150px. Desktop tree and inspector scroll internally. The stage stays 16:9, fitted to both available width and height; timeline reserves 350px below the workspace and scrolls within its track area.
+Studio 2.1 owns the desktop viewport at 1280 × 720 and above. Below either threshold, only a desktop-required screen reports the current and recommended dimensions. No mobile editor is rendered. A 46px toolbar and 20px footer enclose docked React-17-compatible split panes. Default horizontal allocation is 14% tree / 64% Program / 22% properties; vertical allocation is 62% workspace / 38% Timeline. Side panes collapse, all three dividers resize, and local preferences persist. Reset Workspace and divider double-click restore defaults. Maximize active panel saves and restores the exact preceding layout. Compact 26px dock headers mark the active panel subtly; properties tabs remain integrated.
 
-At 760px and below the page scrolls vertically in the order stage, inspector, two-column scene tree, then timeline. Inspector height is unrestricted, lifecycle labels wrap, transport wraps, and the secondary preview status hides. The topbar and preview inset tighten to 12px. Timeline toolbars wrap while track content scrolls horizontally; its minimum content width is 900px multiplied by zoom (1–12×), and the 150px track labels remain sticky. Standard track rows are 31px high, the ruler is 25px and waveform 52px. Desktop panel/preview insets are 18px, tree inset 12px; controls use 3–9px compact gaps rather than spacious cards.
+The Program viewer uses ResizeObserver dimensions to fit the logical 1920 × 1080 stage. Fit refits immediately with every pane operation. Manual 25/50/75/100% views pan and scroll locally. The stage clips and contains paint; it never contributes document overflow. The supplied photographic Rocket League stream is the default authoring background, served from development-only assets. A custom PNG/JPEG/WebP can replace it locally. Production remains transparent.
+
+Timeline has a 36px control strip, sticky 150px track headers, 28px ruler, 31px standard tracks and 52px music waveform. Content width is max(available width, 900px × zoom), at 1–128×, with adaptive subsecond ruler ticks. Wheel scrolls locally; Shift-wheel pans horizontally and Ctrl/Cmd-wheel zooms around the pointer. Playhead and IN/OUT use pointer capture; Shift-drag creates a range without browser text selection. Hero Only spans original music. Full Alert spans the shared lifecycle plan: Hero, overlapping Information and sequential nickname/amount/message speech, then Outro and COMPLETE. Native audio playback determines the audible speech highlight; post-music seeking previews deterministic visual state. Detached lifecycle summary boxes are removed. Graphite/peach/cyan chrome, Poppins and Lucide preserve Studio identity. Scrollbars are subdued and visible; native text selection is restored in editable and explicitly copyable fields.
 
 ## Elevation & Depth
 
@@ -266,21 +268,21 @@ Depth follows the source: opaque footage remains a bounded room, portrait or cro
 
 There is no common live aperture silhouette. Each show uses its own source-derived form: Turkey's foot ellipse and stepped line, the dancer's fine red floor, rodent shutters and tilted rectangles, paper's torn polygon/perforation, ovation's panorama and vertical wings, the booth's clipped opposing corners and drawn heart, or the webcam's bordered square monitors. Preserve these forms in their scenes.
 
-Studio controls use restrained corners: common fields/buttons and tree rows use the control radius, timeline regions use timeline radius, and lifecycle segments use lifecycle radius. The information card keeps its larger reading radius. Live media is square-edged except for authored reveal clipping and the booth's polygon corners. The heart's original bunny emote is a 70px sticker at (840, 775), rotated −8° before the scene scale; the Studio mark is 36px. The old diamond/circular aperture, outline words and corner frame belong to Studio-only Donate8. Studio's illustrative horizon is preview context.
+Studio controls use restrained corners: common fields/buttons and tree rows use the control radius, timeline regions use timeline radius, and lifecycle segments use lifecycle radius. The information card keeps its larger reading radius. Live media is square-edged except for authored reveal clipping and the booth's polygon corners. The heart's original bunny emote is a 70px sticker at (840, 775), rotated −8° before the scene scale; the Studio mark is 36px. The old diamond/circular aperture, outline words and corner frame belong to Studio-only Donate8. Studio’s real stream photograph is authoring context only.
 
 ## Components
 
 ### Studio buttons and cue actions
 
-Compact neutral actions use studio-button and a 1px Studio Border. Hover uses Studio Control Hover. Focus is a 2px Studio Peach outline with 2px offset. Selected modes, inspector tabs and primary actions use studio-button-primary with weight 600; disabled actions fade to 0.45 opacity. Transport, restart, ±50ms and click-plus-flash calibration keep explicit labels. Timeline cue marks are 2px strokes at rest; hero, selected, hovered and focused cues expand into the 23px-high muted-peach label, capped at 118px width. Candidate timing regions use dashed borders. Cue and timing regions are actionable buttons.
+Compact neutral actions use studio-button and a 1px Studio Border. Hover uses Studio Control Hover. Focus is a 2px Studio Peach inset outline. Selected modes, inspector tabs and primary actions use studio-button-primary with weight 600; disabled actions fade to 0.45 opacity. Transport, restart, seeking, pane and visibility actions use coherent Lucide icons with accessible names and action/shortcut tooltips. Click-plus-flash calibration retains its textual label. Timeline cue marks are 2px strokes at rest; hero, selected, hovered and focused cues expand into the 23px-high muted-peach label, capped at 118px width. Candidate timing regions use dashed borders. Cue and timing regions are actionable buttons.
 
 ### Fields
 
-Inputs, native selects and resizable textareas share studio-field and a 1px Studio Border. Inspector fields span their container. Explicit 11px labels sit above with a 5px gap and 16px between inspector fields; paired numeric fields use an 8px grid gap. Keep the common peach focus outline and range/checkbox accent. Invalid PLN and export failures use inline Studio Error text. Stress-preset buttons are subdued 9px controls, 23px minimum height and 3px 7px padding.
+Inputs, native selects and resizable textareas share studio-field and a 1px Studio Border. Inspector fields span their container. Explicit 11px labels sit above with a 4px gap and 12px between inspector fields; paired numeric fields use an 8px grid gap. Keep the common peach focus outline and range/checkbox accent. Invalid PLN and export failures use inline Studio Error text. Stress-preset buttons are subdued 9px controls, 23px minimum height and 3px 7px padding.
 
 ### Tree and inspector navigation
 
-The selected scene-tree row uses Studio Selection with a 2px inset peach leading edge. Each layer has an explicit action and visibility checkbox; cash appears for the three eligible scenes. Donation data, Inspector and Export use compact 10px pressed-state buttons across the inspector header. Desktop scroll preserves access to panel content; mobile places the inspector before the two-column tree. Avoid floating navigation cards or pill tabs.
+The selected scene-tree row uses a muted plum fill and peach label. Each 30px row has a Lucide layer icon, a selection action and an independent Eye/EyeOff button; cash appears for the three eligible scenes. Donation data, Inspector and Export are integrated 30px tabs with 10px labels, a quiet selected fill and peach underline. Docked desktop panels scroll internally; smaller unsupported viewports render only the blocker. Avoid floating navigation cards or pill tabs.
 
 ### Source media and seven donor payoffs
 
@@ -314,7 +316,7 @@ Cash is a scene-specific accent: Donate5 throws a warm fountain from the panoram
 
 The multitrack timeline separates measured music waveform, estimated beats and bars, authored structure/cues, vocal phrases/words, source media, eligible cash, typography and scene/camera. Cyan waveform and downbeat ticks distinguish measurement; peach overlay traces and pale playhead indicate inspection. Vocal regions are subdued blue, media teal, cash ochre, type rose, camera lavender and structure taupe. Candidate regions are dashed; estimates stay visibly labelled. The SVG is labelled accessibly. Genuine timecode, transport, precise time input and clickable tracks inspect the same music time.
 
-The inspector exposes source position/frame and pose hold, measurement, vocal timing and correction; export uses the same compact fields, peach primary action and a thin progress indicator. Preview modes are illustrative stream geometry, 24px checker tiles, solid graphite or transparency. Clean preview fills the viewport without Studio chrome. Safe mode hides supporting GPU detail while preserving source/DOM/SVG choreography and reduced cash.
+The inspector exposes source position/frame and pose hold, measurement, vocal timing and correction; export uses the same compact fields, peach primary action and a thin progress indicator. Preview modes are the supplied real stream photograph, 24px checker tiles, solid graphite or transparency. Clean preview fills the viewport without Studio chrome. Safe mode hides supporting GPU detail while preserving source/DOM/SVG choreography and reduced cash.
 
 Donate8 retains the older name-centred, lavender aperture composition in Studio using the existing Donate7 track. It has no live threshold or independent audio asset.
 

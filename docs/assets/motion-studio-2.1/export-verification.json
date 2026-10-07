@@ -1,0 +1,54 @@
+{
+  "solidHashes": {
+    "0": "05b669fff058560db47c3b162a297e53e29e33bf742beaff1ff4a41e4e402f6c",
+    "6": "40011ceb482586a4b51c7028caed672c543b03077b62d31b0326a2661f9cc5fb",
+    "11": "ea604b1169ca043ad57d57cfe2a5c517e56859b510ac62f7f5354055c3e074e0"
+  },
+  "repeatedHashesIdentical": true,
+  "productionV2HashesIdentical": true,
+  "selection": [
+    3.9,
+    4.1
+  ],
+  "frameCount": 12,
+  "duration": 0.2,
+  "streamCorner": [
+    118,
+    98,
+    102,
+    255
+  ],
+  "transparentPngCorner": [
+    0,
+    0,
+    0,
+    0
+  ],
+  "decodedVp9Corner": [
+    0,
+    0,
+    0,
+    0
+  ],
+  "alphaComparison": {
+    "maxAlphaDifference": 1,
+    "meanDifference": 0.002515432098765432,
+    "transparentFraction": 0.8576793981481482,
+    "opaquePixels": 277171
+  },
+  "customStreamCorner": [
+    255,
+    0,
+    0,
+    255
+  ],
+  "customJob": "4ba05cfd-49b1-4bb5-9b27-a5164c89cf6f",
+  "streamManifest": {
+    "count": 6,
+    "background": "stream"
+  },
+  "transparentManifest": {
+    "count": 7,
+    "background": "transparent"
+  }
+}

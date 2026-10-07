@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-10-07T20:08:23.994235Z",
+  "generatedAt": "2026-10-07T21:31:41.558858+00:00",
   "title": "Design System: Kaaajka GIF-led Donation Shows",
   "extensions": {
     "typographyMeta": {
@@ -26,7 +26,7 @@
       },
       "studio-title": {
         "displayName": "Studio brand",
-        "purpose": "15px identity title, retained on mobile."
+        "purpose": "15px identity title in compact desktop chrome."
       },
       "studio-small": {
         "displayName": "Studio labels",
@@ -34,7 +34,7 @@
       },
       "studio-heading": {
         "displayName": "Inspector title",
-        "purpose": "16px semibold panel heading."
+        "purpose": "14px semibold panel heading."
       },
       "studio-track": {
         "displayName": "Timeline detail",
@@ -42,7 +42,7 @@
       },
       "timecode": {
         "displayName": "Music timecode",
-        "purpose": "Genuine 20px monospace current time; supporting numerical readouts use 9–10px monospace."
+        "purpose": "18px monospace current music/lifecycle time; supporting numerical readouts use 9–10px monospace."
       }
     },
     "shadows": [
@@ -96,20 +96,12 @@
     ],
     "breakpoints": [
       {
-        "name": "studio-wide",
-        "value": "1700px"
+        "name": "studio-minimum-width",
+        "value": "1280px"
       },
       {
-        "name": "studio-compact",
-        "value": "1150px"
-      },
-      {
-        "name": "studio-stack",
-        "value": "760px"
-      },
-      {
-        "name": "studio-pinned",
-        "value": "761px"
+        "name": "studio-minimum-height",
+        "value": "720px"
       }
     ],
     "provenance": {
@@ -158,16 +150,15 @@
         "donate6": 0.73,
         "donate7": 0.78
       },
-      "desktopWorkspace": "210px minmax(0, 1fr) 310px; 230px/335px at 1700px; 170px/270px at 1150px",
-      "desktopTimeline": "350px fixed allocation; internal track scrolling; sticky 150px labels",
-      "mobileOrder": [
-        "stage",
-        "inspector",
-        "two-column scene tree",
-        "timeline"
-      ],
-      "timelineWidth": "max(100%, 900px × zoom), zoom 1–12",
-      "information": "1240 × 620px bounded flex panel; wrapped header reduces message viewport"
+      "desktopWorkspace": "Desktop-only >=1280x720. Persisted docked horizontal 14/64/22%, vertical 62/38%; collapse sides; maximize/restore exact layout; reset and divider double-click.",
+      "desktopTimeline": "Resizable 38% default; local scrolling; sticky 150px headers; shared Hero/Full lifecycle axis.",
+      "timelineWidth": "max(100%, 900px × zoom), zoom 1–128; adaptive subsecond ruler",
+      "information": "1240 × 620px bounded flex panel; wrapped header reduces message viewport",
+      "unsupportedViewport": "Only clean desktop-required screen; full editor unmounted.",
+      "viewer": "ResizeObserver Fit; 25/50/75/100%; local pan/scroll; strict stage paint containment.",
+      "lifecycle": "Shared lifecyclePlan; Information overlaps sequential TTS; actual native playing highlights; deterministic visual post-music seek.",
+      "studioChrome": "46px toolbar, 26px dock headers, 36px timeline controls, 20px footer; Poppins and Lucide; themed visible local scrollbars.",
+      "streamPreview": "Supplied Rocket League JPG in dev-assets only; custom local PNG/JPEG/WebP; exports include photograph only with explicit stream background."
     },
     "cash": {
       "eligibleTiers": [
@@ -782,7 +773,7 @@
       "refersTo": "studio-button",
       "description": "Neutral transport and inspection action.",
       "html": "<button class=\"ds-studio-button\" type=\"button\">Restart</button>",
-      "css": ".ds-studio-button{font:13px/1.45 Poppins,sans-serif;color:#eef0f3;background:#292d34;border:1px solid #363b43;border-radius:4px;padding:7px 9px;min-height:32px;cursor:pointer;white-space:nowrap;}.ds-studio-button:hover{background:#3b414a;}.ds-studio-button:focus-visible{outline:2px solid #ffc0aa;outline-offset:2px;}"
+      "css": ".ds-studio-button{font:12px/1.45 Poppins,sans-serif;color:#eef0f3;background:#292d34;border:1px solid #363b43;border-radius:3px;padding:4px 7px;min-height:26px;cursor:pointer;white-space:nowrap;}.ds-studio-button:hover{background:#3b414a;}.ds-studio-button:focus-visible{outline:2px solid #ffc0aa;outline-offset:-2px;}"
     },
     {
       "name": "Studio primary action",
@@ -790,7 +781,7 @@
       "refersTo": "studio-button-primary",
       "description": "Compact explicit Studio action; peach marks primary/selected state.",
       "html": "<button class=\"ds-studio-primary\" type=\"button\">Render Export</button>",
-      "css": ".ds-studio-primary{font:13px/1.45 Poppins,sans-serif;color:#eef0f3;background:#292d34;border:1px solid #363b43;border-radius:4px;padding:7px 9px;min-height:32px;cursor:pointer;white-space:nowrap;}.ds-studio-primary:hover{background:#3b414a;}.ds-studio-primary:focus-visible{outline:2px solid #ffc0aa;outline-offset:2px;}.ds-studio-primary{background:#ffc0aa;border-color:#ffc0aa;color:#281d1a;font-weight:600;}.ds-studio-primary:disabled{opacity:.45;cursor:wait;}"
+      "css": ".ds-studio-primary{font:12px/1.45 Poppins,sans-serif;color:#eef0f3;background:#292d34;border:1px solid #363b43;border-radius:3px;padding:4px 7px;min-height:26px;cursor:pointer;white-space:nowrap;}.ds-studio-primary:hover{background:#3b414a;}.ds-studio-primary:focus-visible{outline:2px solid #ffc0aa;outline-offset:-2px;}.ds-studio-primary{background:#ffc0aa;border-color:#ffc0aa;color:#281d1a;font-weight:600;}.ds-studio-primary:disabled{opacity:.45;cursor:wait;}"
     },
     {
       "name": "Replay seed field",
@@ -798,7 +789,7 @@
       "refersTo": "studio-field",
       "description": "Explicit compact label and native field with peach focus.",
       "html": "<label class=\"ds-field-label\" for=\"ds-replay-seed\">Replay seed</label><input class=\"ds-field\" id=\"ds-replay-seed\" value=\"kaaajka-motion-01\">",
-      "css": ".ds-field-label{display:block;margin-bottom:5px;color:#c4c9d1;font:11px/1.45 Poppins,sans-serif;}.ds-field{font:13px/1.45 Poppins,sans-serif;color:#eef0f3;background:#292d34;border:1px solid #363b43;border-radius:4px;padding:7px 9px;min-height:32px;width:100%;}.ds-field:focus-visible{outline:2px solid #ffc0aa;outline-offset:2px;}"
+      "css": ".ds-field-label{display:block;margin-bottom:5px;color:#c4c9d1;font:11px/1.45 Poppins,sans-serif;}.ds-field{font:12px/1.45 Poppins,sans-serif;color:#eef0f3;background:#292d34;border:1px solid #363b43;border-radius:3px;padding:4px 7px;min-height:26px;width:100%;}.ds-field:focus-visible{outline:2px solid #ffc0aa;outline-offset:-2px;}"
     },
     {
       "name": "Inspector navigation",
@@ -806,15 +797,15 @@
       "refersTo": "studio-button-primary",
       "description": "Dense pressed-state buttons across the inspector header.",
       "html": "<nav class=\"ds-tabs\" aria-label=\"Inspector\"><button type=\"button\" aria-pressed=\"true\">Donation data</button><button type=\"button\" aria-pressed=\"false\">Inspector</button><button type=\"button\" aria-pressed=\"false\">Export</button></nav>",
-      "css": ".ds-tabs{display:flex;gap:3px;padding:12px 10px;background:#202328;border-bottom:1px solid #363b43;}.ds-tabs button{font:13px/1.45 Poppins,sans-serif;color:#eef0f3;background:#292d34;border:1px solid #363b43;border-radius:4px;padding:7px 9px;min-height:32px;font-size:10px;flex:1;padding:6px;cursor:pointer;}.ds-tabs button[aria-pressed=\"true\"]{background:#ffc0aa;border-color:#ffc0aa;color:#281d1a;font-weight:600;}.ds-tabs button:hover{background:#3b414a;}.ds-tabs button:focus-visible{outline:2px solid #ffc0aa;outline-offset:2px;}"
+      "css": ".ds-tabs{display:flex;height:30px;background:#202328;border-bottom:1px solid #363b43;}.ds-tabs button{font:10px/1.45 Poppins,sans-serif;color:#eef0f3;background:transparent;border:0;border-radius:0;flex:1;cursor:pointer;}.ds-tabs button[aria-pressed=\"true\"]{background:#30343a;color:#ffc0aa;box-shadow:inset 0 -2px #c8937f;}.ds-tabs button:hover{background:#3b414a;}.ds-tabs button:focus-visible{outline:2px solid #ffc0aa;outline-offset:-2px;}"
     },
     {
       "name": "Selected layer row",
       "kind": "custom",
       "refersTo": "studio-layer-selected",
-      "description": "Subtle plum selection with an inset peach leading edge and visibility checkbox.",
-      "html": "<div class=\"ds-layer\"><button type=\"button\">Source media</button><input aria-label=\"Source media visible\" type=\"checkbox\" checked></div>",
-      "css": ".ds-layer{display:flex;align-items:center;gap:8px;background:#343039;box-shadow:inset 2px 0 #ffc0aa;border-radius:4px;padding:4px 6px 4px 0;}.ds-layer button{font:11px/1.45 Poppins,sans-serif;color:#eef0f3;background:transparent;border:0;padding:7px 9px 7px 12px;flex:1;text-align:left;cursor:pointer;}.ds-layer input{width:15px;height:15px;accent-color:#ffc0aa;}.ds-layer button:hover{background:#3b414a;}.ds-layer :focus-visible{outline:2px solid #ffc0aa;outline-offset:2px;}"
+      "description": "Muted plum selection, peach layer label and independent Lucide eye action.",
+      "html": "<div class=\"ds-layer\"><button type=\"button\">Source media</button><button type=\"button\" aria-label=\"Show Source media\" title=\"Show Source media\" aria-pressed=\"true\"><svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" aria-hidden=\"true\"><path d=\"M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12Z\"/><circle cx=\"12\" cy=\"12\" r=\"3\"/></svg></button></div>",
+      "css": ".ds-layer{display:flex;align-items:center;gap:2px;height:30px;background:#3c3438;border-radius:2px;}.ds-layer button{font:11px/1.45 Poppins,sans-serif;color:#ffc0aa;background:transparent;border:0;padding:4px 5px;cursor:pointer;}.ds-layer button:first-child{flex:1;text-align:left;}.ds-layer button:last-child{width:27px;height:26px;padding:4px;color:#a5abb5;}.ds-layer button:hover{background:#3b414a;}.ds-layer :focus-visible{outline:2px solid #ffc0aa;outline-offset:-2px;}"
     },
     {
       "name": "Authored hero cue",

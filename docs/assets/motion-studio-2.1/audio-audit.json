@@ -1,0 +1,346 @@
+[
+  {
+    "tier": 1,
+    "file": "donation-template-01.mpga",
+    "authoredDuration": 8.03342,
+    "mpeg": {
+      "version": "1",
+      "layer": 3,
+      "headerOffset": 17625
+    },
+    "codec": "mp3",
+    "codecLongName": "MP3 (MPEG audio layer 3)",
+    "format": "mp3",
+    "sampleRate": "44100",
+    "channels": 2,
+    "bitRate": "192000",
+    "duration": "8.033401",
+    "startTime": "0.025056",
+    "firstPacket": [
+      {
+        "side_data_type": "Skip Samples",
+        "skip_samples": 1105,
+        "discard_padding": 0,
+        "skip_reason": 0,
+        "discard_reason": 0
+      }
+    ],
+    "lastPacket": [
+      {
+        "side_data_type": "Skip Samples",
+        "skip_samples": 0,
+        "discard_padding": 590,
+        "skip_reason": 0,
+        "discard_reason": 0
+      }
+    ],
+    "ffmpegExit": 0,
+    "decodeWarnings": "",
+    "browserDecode": {
+      "status": 200,
+      "mime": "audio/mpeg",
+      "duration": 8.033395833333334,
+      "sampleRate": 48000,
+      "channels": 2,
+      "rms": 0.14890645712462314
+    }
+  },
+  {
+    "tier": 2,
+    "file": "donation-template-02.mpga",
+    "authoredDuration": 15.46558,
+    "mpeg": {
+      "version": "1",
+      "layer": 3,
+      "headerOffset": 1210
+    },
+    "codec": "mp3",
+    "codecLongName": "MP3 (MPEG audio layer 3)",
+    "format": "mp3",
+    "sampleRate": "44100",
+    "channels": 2,
+    "bitRate": "192000",
+    "duration": "15.477551",
+    "startTime": "0.025057",
+    "firstPacket": [
+      {
+        "side_data_type": "Skip Samples",
+        "skip_samples": 1105,
+        "discard_padding": 0,
+        "skip_reason": 0,
+        "discard_reason": 0
+      }
+    ],
+    "lastPacket": [],
+    "ffmpegExit": 0,
+    "decodeWarnings": "",
+    "browserDecode": {
+      "status": 200,
+      "mime": "audio/mpeg",
+      "duration": 15.465541666666667,
+      "sampleRate": 48000,
+      "channels": 2,
+      "rms": 0.3784868079932409
+    }
+  },
+  {
+    "tier": 3,
+    "file": "donation-template-03.mpga",
+    "authoredDuration": 11.6,
+    "mpeg": {
+      "version": "1",
+      "layer": 3,
+      "headerOffset": 181
+    },
+    "codec": "mp3",
+    "codecLongName": "MP3 (MPEG audio layer 3)",
+    "format": "mp3",
+    "sampleRate": "44100",
+    "channels": 2,
+    "bitRate": "192000",
+    "duration": "11.600000",
+    "startTime": "0.025057",
+    "firstPacket": [
+      {
+        "side_data_type": "Skip Samples",
+        "skip_samples": 1105,
+        "discard_padding": 0,
+        "skip_reason": 0,
+        "discard_reason": 0
+      }
+    ],
+    "lastPacket": [
+      {
+        "side_data_type": "Skip Samples",
+        "skip_samples": 0,
+        "discard_padding": 1127,
+        "skip_reason": 0,
+        "discard_reason": 0
+      }
+    ],
+    "ffmpegExit": 0,
+    "decodeWarnings": "",
+    "browserDecode": {
+      "status": 200,
+      "mime": "audio/mpeg",
+      "duration": 11.6,
+      "sampleRate": 48000,
+      "channels": 2,
+      "rms": 0.38334181467549744
+    }
+  },
+  {
+    "tier": 4,
+    "file": "donation-template-04.mpga",
+    "authoredDuration": 12.84544,
+    "mpeg": {
+      "version": "1",
+      "layer": 3,
+      "headerOffset": 193
+    },
+    "codec": "mp3",
+    "codecLongName": "MP3 (MPEG audio layer 3)",
+    "format": "mp3",
+    "sampleRate": "44100",
+    "channels": 2,
+    "bitRate": "192000",
+    "duration": "12.845442",
+    "startTime": "0.025057",
+    "firstPacket": [
+      {
+        "side_data_type": "Skip Samples",
+        "skip_samples": 1105,
+        "discard_padding": 0,
+        "skip_reason": 0,
+        "discard_reason": 0
+      }
+    ],
+    "lastPacket": [
+      {
+        "side_data_type": "Skip Samples",
+        "skip_samples": 0,
+        "discard_padding": 347,
+        "skip_reason": 0,
+        "discard_reason": 0
+      }
+    ],
+    "ffmpegExit": 0,
+    "decodeWarnings": "",
+    "browserDecode": {
+      "status": 200,
+      "mime": "audio/mpeg",
+      "duration": 12.8454375,
+      "sampleRate": 48000,
+      "channels": 2,
+      "rms": 0.2545335507789871
+    }
+  },
+  {
+    "tier": 5,
+    "file": "donation-template-05.mp3",
+    "authoredDuration": 16.34508,
+    "mpeg": {
+      "version": "1",
+      "layer": 3,
+      "headerOffset": 14995
+    },
+    "codec": "mp3",
+    "codecLongName": "MP3 (MPEG audio layer 3)",
+    "format": "mp3",
+    "sampleRate": "48000",
+    "channels": 2,
+    "bitRate": "192000",
+    "duration": "16.345063",
+    "startTime": "0.023021",
+    "firstPacket": [
+      {
+        "side_data_type": "Skip Samples",
+        "skip_samples": 1105,
+        "discard_padding": 0,
+        "skip_reason": 0,
+        "discard_reason": 0
+      }
+    ],
+    "lastPacket": [
+      {
+        "side_data_type": "Skip Samples",
+        "skip_samples": 0,
+        "discard_padding": 1148,
+        "skip_reason": 0,
+        "discard_reason": 0
+      }
+    ],
+    "ffmpegExit": 0,
+    "decodeWarnings": "",
+    "browserDecode": {
+      "status": 200,
+      "mime": "audio/mpeg",
+      "duration": 16.3450625,
+      "sampleRate": 48000,
+      "channels": 2,
+      "rms": 0.33717574320394156
+    }
+  },
+  {
+    "tier": 6,
+    "file": "donation-template-06.mpga",
+    "authoredDuration": 21.76494,
+    "mpeg": {
+      "version": "1",
+      "layer": 3,
+      "headerOffset": 201
+    },
+    "codec": "mp3",
+    "codecLongName": "MP3 (MPEG audio layer 3)",
+    "format": "mp3",
+    "sampleRate": "44100",
+    "channels": 2,
+    "bitRate": "192000",
+    "duration": "21.764921",
+    "startTime": "0.025057",
+    "firstPacket": [
+      {
+        "side_data_type": "Skip Samples",
+        "skip_samples": 1105,
+        "discard_padding": 0,
+        "skip_reason": 0,
+        "discard_reason": 0
+      }
+    ],
+    "lastPacket": [
+      {
+        "side_data_type": "Skip Samples",
+        "skip_samples": 0,
+        "discard_padding": 982,
+        "skip_reason": 0,
+        "discard_reason": 0
+      }
+    ],
+    "ffmpegExit": 0,
+    "decodeWarnings": "",
+    "browserDecode": {
+      "status": 200,
+      "mime": "audio/mpeg",
+      "duration": 21.764916666666668,
+      "sampleRate": 48000,
+      "channels": 2,
+      "rms": 0.34849845552887376
+    }
+  },
+  {
+    "tier": 7,
+    "file": "donation-template-07.mp3",
+    "authoredDuration": 46.23397,
+    "mpeg": {
+      "version": "1",
+      "layer": 3,
+      "headerOffset": 183
+    },
+    "codec": "mp3",
+    "codecLongName": "MP3 (MPEG audio layer 3)",
+    "format": "mp3",
+    "sampleRate": "44100",
+    "channels": 2,
+    "bitRate": "192000",
+    "duration": "46.233968",
+    "startTime": "0.025057",
+    "firstPacket": [
+      {
+        "side_data_type": "Skip Samples",
+        "skip_samples": 1105,
+        "discard_padding": 0,
+        "skip_reason": 0,
+        "discard_reason": 0
+      }
+    ],
+    "lastPacket": [
+      {
+        "side_data_type": "Skip Samples",
+        "skip_samples": 0,
+        "discard_padding": 169,
+        "skip_reason": 0,
+        "discard_reason": 0
+      }
+    ],
+    "ffmpegExit": 0,
+    "decodeWarnings": "",
+    "browserDecode": {
+      "status": 200,
+      "mime": "audio/mpeg",
+      "duration": 46.233958333333334,
+      "sampleRate": 48000,
+      "channels": 2,
+      "rms": 0.22149641495926686
+    }
+  },
+  {
+    "tier": 0,
+    "file": "tipply-test-tts.mp3",
+    "url": "/assets/sounds/shared/tipply-test-tts.mp3",
+    "mpeg": {
+      "version": "2",
+      "layer": 3,
+      "headerOffset": 0
+    },
+    "codec": "mp3",
+    "codecLongName": "MP3 (MPEG audio layer 3)",
+    "format": "mp3",
+    "sampleRate": "24000",
+    "channels": 1,
+    "bitRate": "64000",
+    "duration": "8.160000",
+    "startTime": "0.000000",
+    "firstPacket": [],
+    "lastPacket": [],
+    "ffmpegExit": 0,
+    "decodeWarnings": "",
+    "browserDecode": {
+      "status": 200,
+      "mime": "audio/mpeg",
+      "duration": 8.16,
+      "sampleRate": 48000,
+      "channels": 1,
+      "rms": 0.10004678552154116
+    }
+  }
+]
