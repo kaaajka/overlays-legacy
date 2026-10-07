@@ -2,7 +2,7 @@ import type { DirectorContext } from "../../../motion/gsap/createChoreography";
 import { sceneTools } from "../../scenes/directorTools";
 
 export function choreography(context: DirectorContext) {
-  const { q, at, t, effects, finish } = sceneTools(context);
+  const { q, at, t, finish } = sceneTools(context);
   t.set(q(".source-media"), { autoAlpha: 0.25 }, 0);
   t.set(q(".source-media"), { autoAlpha: 1 }, at("firstImpact"));
   t.fromTo(
@@ -36,8 +36,6 @@ export function choreography(context: DirectorContext) {
   );
   t.set(q(".motion-amount"), { autoAlpha: 1, y: 0 }, at("heroDrop"));
   t.to(q(".ovation-panorama"), { scaleX: 1, duration: 0.45, ease: "expo.out" }, at("heroDrop"));
-  t.set(effects, { atmosphere: 0.08, burst: 0.6 }, at("heroDrop"));
-  t.to(effects, { burst: 0, atmosphere: 0.02, duration: 1.6 }, at("heroDrop"));
   t.set(q(".ovation-call"), { autoAlpha: 1 }, at("settle"));
   return finish();
 }

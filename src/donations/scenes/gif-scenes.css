@@ -9,6 +9,50 @@
   width: 100%;
   height: 100%;
 }
+.source-rhythm {
+  position: absolute;
+  inset: 0;
+  transform-origin: 50% 80%;
+}
+.scene-turkey {
+  transform: scale(0.65);
+  transform-origin: 50% 50%;
+}
+.scene-mask {
+  transform: scale(0.67);
+  transform-origin: 50% 50%;
+}
+.scene-rodent {
+  transform: scale(0.64);
+  transform-origin: 50% 50%;
+}
+.scene-paper {
+  transform: scale(0.7);
+  transform-origin: 50% 50%;
+}
+.scene-ovation {
+  transform: scale(0.78);
+  transform-origin: 50% 50%;
+}
+.scene-heart {
+  transform: scale(0.73);
+  transform-origin: 50% 50%;
+}
+.scene-webcam {
+  transform: scale(0.78);
+  transform-origin: 50% 50%;
+}
+.heart-community-sticker {
+  position: absolute;
+  width: 70px;
+  height: 70px;
+  left: 840px;
+  top: 775px;
+  transform: rotate(-8deg);
+}
+.donation-motion[data-phase="information"] .motion-cash {
+  display: none;
+}
 .source-media :is(video, img) {
   position: absolute;
   inset: 0;
@@ -25,6 +69,7 @@
 }
 .scene-copy .motion-name {
   max-width: 100%;
+  overflow-wrap: anywhere;
   text-align: inherit;
 }
 .scene-copy .motion-amount {

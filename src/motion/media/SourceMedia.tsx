@@ -23,6 +23,7 @@ export function SourceMedia({
   const asset = assets[tier - 1];
   return (
     <div className={`source-media ${className}`} data-media-tier={tier} data-media-delay={delay}>
+      <div className="source-rhythm">
       <img className="source-fallback" src={mediaUrls(tier).poster} alt="" aria-hidden="true" />
       <video
         className="source-video"
@@ -35,6 +36,7 @@ export function SourceMedia({
         aria-hidden="true"
         tabIndex={-1}
       />
+      </div>
     </div>
   );
 }

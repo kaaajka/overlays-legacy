@@ -2,7 +2,14 @@ import type { DirectorContext } from "../../../motion/gsap/createChoreography";
 import { sceneTools } from "../../scenes/directorTools";
 
 export function choreography(context: DirectorContext) {
-  const { q, at, t, name, effects, finish } = sceneTools(context);
+  const { q, at, t, name, finish } = sceneTools(context);
+  t.set(q(".heart-community-sticker"), { autoAlpha: 0 }, 0);
+  t.fromTo(
+    q(".heart-community-sticker"),
+    { scale: 0.5, rotation: -18 },
+    { autoAlpha: 1, scale: 1, rotation: -8, duration: 0.35 },
+    at("heroDrop") + 0.3,
+  );
   t.set(q(".source-media"), { autoAlpha: 0.25 }, 0);
   t.fromTo(
     q(".source-media"),
@@ -11,7 +18,12 @@ export function choreography(context: DirectorContext) {
     at("firstImpact"),
   );
   t.set(q(".motion-name"), { autoAlpha: 1 }, at("donorReveal"));
-  t.fromTo(name, { opacity: 0 }, { opacity: 1, stagger: 0.04, duration: 0.4 }, at("donorReveal"));
+  t.fromTo(
+    name,
+    { opacity: 0 },
+    { opacity: 1, stagger: Math.min(0.04, 0.6 / Math.max(1, name.length - 1)), duration: 0.4 },
+    at("donorReveal"),
+  );
   t.fromTo(
     q(".heart-call"),
     { opacity: 0, y: -30 },
@@ -30,8 +42,6 @@ export function choreography(context: DirectorContext) {
     { strokeDashoffset: 0, duration: 0.7, ease: "power1.out" },
     at("heroDrop"),
   );
-  t.set(effects, { atmosphere: 0.03, burst: 0.2 }, at("heroDrop"));
-  t.to(effects, { burst: 0, duration: 1 }, at("heroDrop"));
   t.set(q(".heart-thanks"), { autoAlpha: 1 }, at("settle"));
   return finish();
 }

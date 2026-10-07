@@ -17,6 +17,12 @@ export function Donate6Scene(props: SceneContentProps) {
       </svg>
       <DonorType {...props} amountSize={184} />
       <p className="heart-thanks">TO SERCE JEST DLA CIEBIE.</p>
+      <img
+        className="heart-community-sticker"
+        src={`${import.meta.env.BASE_URL}assets/donations/brand/bunny-cheer.png`}
+        alt=""
+        aria-hidden="true"
+      />
     </div>
   );
 }

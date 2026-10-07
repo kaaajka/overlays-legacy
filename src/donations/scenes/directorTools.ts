@@ -1,6 +1,7 @@
 import gsap from "gsap";
 import { SplitText } from "gsap/SplitText";
 import type { DirectorContext, DirectedScene } from "../../motion/gsap/createChoreography";
+import { rhythmMarks, vocalRegions } from "../../audio/motion/musicIntelligence";
 gsap.registerPlugin(SplitText);
 
 /** Lifecycle/type primitives only. Each director owns its shots, geometry and timing. */
@@ -17,6 +18,51 @@ export function sceneTools({ root, treatment, effects }: DirectorContext) {
   t.set(effects, { atmosphere: 0, burst: 0, tension: 0, ring: 0, travel: 0 }, 0);
   const finish = (): DirectedScene => {
     const duration = treatment.analysis.duration;
+    // Recurring phrases are small and source-specific; each wrapper preserves its director's larger move.
+    const profiles = [
+      { y: -5, rotation: 1.2, scaleX: 1.01 },
+      { y: -9, rotation: -0.8, scaleX: 1 },
+      { y: 0, rotation: 0, scaleX: 1.045 },
+      { y: -2, rotation: 0.3, scaleX: 1 },
+      { y: -4, rotation: 0, scaleX: 1.015 },
+      { y: -3, rotation: -0.4, scaleX: 1.005 },
+      { y: 0, rotation: 0.8, scaleX: 1.012 },
+    ];
+    const profile = profiles[treatment.tier - 1];
+    const hero = at("heroDrop");
+    rhythmMarks(treatment.analysis).forEach((beat, index) => {
+      if (beat.at < at("firstImpact") || beat.at > duration - 0.8 || Math.abs(beat.at - hero) < 0.4)
+        return;
+      // Deadpan and intimate scenes use alternating beats, not every transient.
+      if ((treatment.tier === 4 || treatment.tier === 6) && index % 2) return;
+      t.to(
+        q(".source-rhythm"),
+        { ...profile, duration: 0.09, ease: treatment.tier === 3 ? "steps(1)" : "power2.out" },
+        beat.at,
+      );
+      t.to(q(".source-rhythm"), { y: 0, rotation: 0, scaleX: 1, duration: 0.19 }, beat.at + 0.09);
+    });
+    const phrases = vocalRegions(treatment.analysis).filter(
+      (phrase) => phrase.approved && phrase.confidence >= 0.6,
+    );
+    for (const phrase of phrases) {
+      if (phrase.start < at("donorReveal") || phrase.start > duration - 0.6) continue;
+      t.to(
+        q(".scene-phrase, .heart-call, .webcam-wtf"),
+        { scale: 1.055, duration: 0.12 },
+        phrase.start,
+      );
+      t.to(
+        q(".scene-phrase, .heart-call, .webcam-wtf"),
+        { scale: 1, duration: 0.24 },
+        phrase.start + 0.12,
+      );
+    }
+    for (const cue of treatment.analysis.intelligence?.authored.cues ?? []) {
+      if (cue.group !== "media") continue;
+      t.to(q(".source-rhythm"), { scaleY: 1 + cue.intensity * 0.08, duration: 0.08 }, cue.at);
+      t.to(q(".source-rhythm"), { scaleY: 1, duration: 0.2 }, cue.at + 0.08);
+    }
     t.to(q(".scene-content"), { autoAlpha: 0, duration: 0.5 }, duration - 0.5);
     t.to(effects, { atmosphere: 0, burst: 0, ring: 0, duration: 0.5 }, duration - 0.5);
     t.to(q(".motion-information"), { autoAlpha: 1, duration: 0.4 }, duration - 0.4);

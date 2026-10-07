@@ -14,7 +14,12 @@ export function choreography(context: DirectorContext) {
   t.fromTo(
     name,
     { y: -60, opacity: 0 },
-    { y: 0, opacity: 1, stagger: 0.025, duration: 0.4 },
+    {
+      y: 0,
+      opacity: 1,
+      stagger: Math.min(0.025, 0.6 / Math.max(1, name.length - 1)),
+      duration: 0.4,
+    },
     at("donorReveal"),
   );
   t.fromTo(q(".echo-left"), { x: 180 }, { autoAlpha: 0.45, x: 0, duration: 0.4 }, at("buildStart"));

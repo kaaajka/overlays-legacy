@@ -9,7 +9,12 @@ export function choreography(context: DirectorContext) {
   t.fromTo(
     name,
     { opacity: 0 },
-    { opacity: 1, stagger: 0.04, duration: 0.04, ease: "steps(1)" },
+    {
+      opacity: 1,
+      stagger: Math.min(0.04, 0.6 / Math.max(1, name.length - 1)),
+      duration: 0.04,
+      ease: "steps(1)",
+    },
     at("donorReveal"),
   );
   t.set(q(".rodent-left"), { autoAlpha: 1, rotation: -9 }, at("buildStart"));

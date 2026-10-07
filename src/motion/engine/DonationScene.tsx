@@ -30,6 +30,7 @@ import {
 import { MediaLayer } from "../media/MediaLayer";
 import type { MediaStats } from "../media/MediaLayer";
 import { mediaAssets, mediaUrls } from "../media/SourceMedia";
+import { CashRenderer } from "../cash/CashRenderer";
 
 gsap.registerPlugin(useGSAP);
 export type SceneStats = {
@@ -43,6 +44,8 @@ export type DonationSceneHandle = {
   information: (readingMs: number) => void;
   outro: () => void;
   media: () => MediaStats[];
+  informationAt: (elapsedMs: number, readingMs: number) => void;
+  setLayerVisibility: (selector: string, visible: boolean) => void;
 };
 type Props = {
   donate: DonateEventModel;
@@ -59,6 +62,8 @@ export const DonationScene = forwardRef<DonationSceneHandle, Props>(function Don
   const root = useRef<HTMLDivElement>(null);
   const stage = useRef<HTMLDivElement>(null);
   const canvas = useRef<HTMLCanvasElement>(null);
+  const cashCanvas = useRef<HTMLCanvasElement>(null);
+  const cash = useRef<CashRenderer>();
   const message = useRef<HTMLDivElement>(null);
   const director = useRef<DirectedScene>();
   const gpu = useRef<OverlayRenderer>();
@@ -124,7 +129,22 @@ export const DonationScene = forwardRef<DonationSceneHandle, Props>(function Don
           );
         },
       );
-      if (quality !== "safe" && treatment.tier >= 5) {
+      if (treatment.tier >= 5 && treatment.tier <= 7) {
+        try {
+          const initial = selectQuality(true, navigator.hardwareConcurrency ?? 4, quality);
+          cash.current = new CashRenderer(
+            cashCanvas.current,
+            treatment,
+            seed ?? donate.id,
+            initial,
+          );
+          governor.current = new QualityGovernor(initial);
+          root.current.dataset.quality = initial;
+        } catch (error) {
+          console.warn("Cash detail unavailable; source identity retained", error);
+          fallback();
+        }
+      } else if (quality !== "safe" && treatment.tier === 8) {
         try {
           const initial = selectQuality(true, navigator.hardwareConcurrency ?? 4, quality);
           gpu.current = new OverlayRenderer(
@@ -160,6 +180,7 @@ export const DonationScene = forwardRef<DonationSceneHandle, Props>(function Don
         featuresAt(treatment.analysis, lastTime.current),
         intensity,
       );
+      cash.current?.render(lastTime.current, intensity);
       return () => {
         observer.disconnect();
         cancelAnimationFrame(scrollRaf.current);
@@ -167,6 +188,8 @@ export const DonationScene = forwardRef<DonationSceneHandle, Props>(function Don
         director.current = undefined;
         gpu.current?.dispose();
         gpu.current = undefined;
+        cash.current?.dispose();
+        cash.current = undefined;
         for (const layer of media.current) layer.dispose();
         media.current = [];
       };
@@ -197,13 +220,17 @@ export const DonationScene = forwardRef<DonationSceneHandle, Props>(function Don
           for (const layer of media.current) layer.sync(time);
           if (governor.current.record(frameMs)) {
             gpu.current?.setQuality(governor.current.tier);
+            cash.current?.setQuality(governor.current.tier);
             root.current.dataset.quality = governor.current.tier;
           }
           gpu.current?.render(time, effects.current, features, intensity);
+          cash.current?.render(time, intensity);
         } catch (error) {
           console.warn("Donation renderer failed; preserving audio and completion", error);
           gpu.current?.dispose();
           gpu.current = undefined;
+          cash.current?.dispose();
+          cash.current = undefined;
           governor.current.tier = "safe";
           root.current.dataset.quality = "safe";
         }
@@ -221,6 +248,7 @@ export const DonationScene = forwardRef<DonationSceneHandle, Props>(function Don
         try {
           director.current?.timeline.seek(treatment.analysis.duration, true);
           gpu.current?.clear();
+          cash.current?.clear();
         } catch (error) {
           console.warn("Information state recovered after scene error", error);
         }
@@ -245,6 +273,18 @@ export const DonationScene = forwardRef<DonationSceneHandle, Props>(function Don
         root.current.style.opacity = "0";
       },
       media: () => media.current.map((layer) => layer.stats),
+      informationAt(elapsedMs, readingMs) {
+        this.information(readingMs);
+        cancelAnimationFrame(scrollRaf.current);
+        const viewport = message.current;
+        const overflow = Math.max(0, viewport.scrollHeight - viewport.clientHeight);
+        viewport.scrollTop =
+          overflow * Math.min(1, Math.max(0, (elapsedMs - 2500) / Math.max(1, readingMs - 5000)));
+      },
+      setLayerVisibility(selector, visible) {
+        for (const element of root.current.querySelectorAll<HTMLElement>(selector))
+          element.dataset.studioHidden = String(!visible);
+      },
     }),
     [treatment, intensity],
   );
@@ -265,7 +305,12 @@ export const DonationScene = forwardRef<DonationSceneHandle, Props>(function Don
     >
       <div ref={stage} className="motion-stage">
         <div className="motion-atmosphere" aria-hidden="true" />
-        <canvas ref={canvas} className="motion-gpu" aria-hidden="true" tabIndex={-1} />
+        {treatment.tier === 8 && (
+          <canvas ref={canvas} className="motion-gpu" aria-hidden="true" tabIndex={-1} />
+        )}
+        {treatment.tier >= 5 && treatment.tier <= 7 && (
+          <canvas ref={cashCanvas} className="motion-cash" aria-hidden="true" tabIndex={-1} />
+        )}
         {LiveScene ? (
           <LiveScene donate={donate} amount={amount} />
         ) : (

@@ -14,7 +14,7 @@ export function DonorType({
         className="motion-name"
         style={{
           fontSize: Math.max(
-            24,
+            32,
             Math.min(nameSize, width / Math.max(1, donate.nickname.length * 0.65)),
           ),
         }}

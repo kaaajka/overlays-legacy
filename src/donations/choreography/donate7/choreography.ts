@@ -1,8 +1,9 @@
 import type { DirectorContext } from "../../../motion/gsap/createChoreography";
+import { rhythmMarks } from "../../../audio/motion/musicIntelligence";
 import { sceneTools } from "../../scenes/directorTools";
 
 export function choreography(context: DirectorContext) {
-  const { q, at, t, name, effects, finish } = sceneTools(context);
+  const { q, at, t, name, finish } = sceneTools(context);
   t.set(q(".webcam-main"), { autoAlpha: 0.25 }, 0);
   t.set(q(".webcam-still, .webcam-shout, .webcam-wtf"), { autoAlpha: 0 }, 0);
   t.fromTo(
@@ -15,12 +16,18 @@ export function choreography(context: DirectorContext) {
   t.fromTo(
     name,
     { x: -120, opacity: 0 },
-    { x: 0, opacity: 1, duration: 0.12, stagger: 0.03, ease: "steps(2)" },
+    {
+      x: 0,
+      opacity: 1,
+      duration: 0.12,
+      stagger: Math.min(0.03, 0.6 / Math.max(1, name.length - 1)),
+      ease: "steps(2)",
+    },
     at("donorReveal"),
   );
-  const beats = context.treatment.analysis.beats.filter(
-    (beat) => beat >= at("buildStart") && beat < at("heroDrop"),
-  );
+  const beats = rhythmMarks(context.treatment.analysis)
+    .map((mark) => mark.at)
+    .filter((beat) => beat >= at("buildStart") && beat < at("heroDrop"));
   q(".webcam-still").forEach((node, index) => {
     t.set(node, { autoAlpha: 1 }, beats[index] ?? at("buildStart") + index * 0.4);
   });
@@ -31,8 +38,6 @@ export function choreography(context: DirectorContext) {
   t.set(q(".motion-amount"), { autoAlpha: 1, rotation: 0 }, at("heroDrop"));
   t.set(q(".webcam-wtf"), { autoAlpha: 1 }, at("heroDrop"));
   for (const hit of [at("heroDrop"), 22.64, 37.5]) {
-    t.set(effects, { atmosphere: 0.045, burst: 0.4 }, hit);
-    t.to(effects, { burst: 0, duration: 1 }, hit);
     t.fromTo(q(".webcam-wall"), { x: 45 }, { x: 0, duration: 0.2, ease: "steps(3)" }, hit);
   }
   return finish();

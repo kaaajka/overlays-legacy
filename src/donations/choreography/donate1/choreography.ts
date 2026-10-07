@@ -14,7 +14,12 @@ export function choreography(context: DirectorContext) {
   t.fromTo(
     name,
     { x: 90, opacity: 0 },
-    { x: 0, opacity: 1, stagger: 0.018, duration: 0.35 },
+    {
+      x: 0,
+      opacity: 1,
+      stagger: Math.min(0.018, 0.6 / Math.max(1, name.length - 1)),
+      duration: 0.35,
+    },
     at("donorReveal"),
   );
   t.to(q(".scene-phrase"), { autoAlpha: 1, duration: 0.2 }, at("buildStart"));
