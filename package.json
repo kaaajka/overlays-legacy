@@ -49,6 +49,9 @@
     "lint": "biome lint .",
     "format": "biome format --write .",
     "format:check": "biome format .",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "motion:export": "node scripts/render-donation.mjs",
+    "motion:intelligence": "python scripts/music-intelligence.py",
+    "motion:media-audit": "python scripts/audit-donation-media.py"
   }
 }

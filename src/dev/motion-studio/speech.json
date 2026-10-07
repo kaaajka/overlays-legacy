@@ -1,0 +1,23 @@
+[
+  {
+    "file": "nickname.wav",
+    "voice": "Microsoft Paulina Desktop - Polish",
+    "text": "Kaaajka.",
+    "duration": 1.386304,
+    "name": "nickname"
+  },
+  {
+    "file": "amount.wav",
+    "voice": "Microsoft Paulina Desktop - Polish",
+    "text": "Pięćdziesiąt siedem złotych, trzydzieści dwa grosze.",
+    "duration": 3.304535,
+    "name": "amount"
+  },
+  {
+    "file": "message.wav",
+    "voice": "Microsoft Paulina Desktop - Polish",
+    "text": "Dziękuję za stream!",
+    "duration": 1.758458,
+    "name": "message"
+  }
+]

@@ -1,5 +1,7 @@
 import type { OverlayAudioSequenceStep } from "../audio/playOverlayAudioSequence";
 import { waitAbortable } from "../audio/motion/wait";
+import { messageReadingMs } from "./donationTiming";
+export { messageReadingMs } from "./donationTiming";
 
 export type DonationSequencePort = {
   music: () => Promise<void>;
@@ -8,9 +10,6 @@ export type DonationSequencePort = {
   outro: () => void;
   finished: () => void;
 };
-export function messageReadingMs(message: string): number {
-  return Math.max(5500, 5000 + (message.length / 18) * 1000);
-}
 
 /** Integration with the existing queue consists ONLY of the supplied completion callback. */
 export async function runMotionDonation(

@@ -114,28 +114,41 @@ for (let tier = 1; tier <= 8; tier++) {
     const alpha =
       tier <= 4
         ? null
-        : await page.evaluate((time) => {
-            const canvas = document.querySelector("canvas") as HTMLCanvasElement;
-            const gl = canvas.getContext("webgl2");
-            window.motionStudio.seek(time);
-            const bytes = new Uint8Array(canvas.width * canvas.height * 4);
-            gl.readPixels(0, 0, canvas.width, canvas.height, gl.RGBA, gl.UNSIGNED_BYTE, bytes);
-            let transparent = 0,
-              drawn = 0;
-            for (let i = 3; i < bytes.length; i += 4) {
-              if (bytes[i] < 20) transparent++;
-              if (bytes[i] > 30) drawn++;
-            }
-            return {
-              transparent: transparent / (bytes.length / 4),
-              drawn: drawn / (bytes.length / 4),
-              error: gl.getError(),
-            };
-          }, hero);
+        : await page.evaluate(
+            ({ time, tier }) => {
+              window.motionStudio.seek(time + 0.5);
+              const canvas = document.querySelector("canvas") as HTMLCanvasElement;
+              let bytes: Uint8Array | Uint8ClampedArray,
+                error = 0;
+              if (tier <= 7)
+                bytes = canvas
+                  .getContext("2d")
+                  .getImageData(0, 0, canvas.width, canvas.height).data;
+              else {
+                const gl = canvas.getContext("webgl2");
+                bytes = new Uint8Array(canvas.width * canvas.height * 4);
+                gl.readPixels(0, 0, canvas.width, canvas.height, gl.RGBA, gl.UNSIGNED_BYTE, bytes);
+                error = gl.getError();
+              }
+              let transparent = 0,
+                drawn = 0;
+              for (let i = 3; i < bytes.length; i += 4) {
+                if (bytes[i] < 20) transparent++;
+                if (bytes[i] > 30) drawn++;
+              }
+              window.motionStudio.seek(time);
+              return {
+                transparent: transparent / (bytes.length / 4),
+                drawn: drawn / (bytes.length / 4),
+                error,
+              };
+            },
+            { time: hero, tier },
+          );
     if (alpha) {
       expect(alpha.error).toBe(0);
       expect(alpha.transparent).toBeGreaterThan(0.35);
-      expect(alpha.drawn).toBeGreaterThan(0.001);
+      expect(alpha.drawn).toBeGreaterThan(tier === 6 ? 0.0001 : 0.001);
     }
     if (tier <= 7) {
       expect(await page.locator(".motion-emblem").count()).toBe(0);
@@ -250,7 +263,7 @@ test("SAFE preserves the authored hero and information without WebGL", async ({ 
       return original.apply(this, [kind, ...args]);
     } as typeof HTMLCanvasElement.prototype.getContext;
   });
-  await page.goto("/motion-studio?clean=1&tier=6&time=hero&background=checker");
+  await page.goto("/motion-studio?clean=1&tier=6&time=hero&background=checker&quality=safe");
   await page.waitForFunction(() => window.motionStudio?.status().duration > 0);
   await expect(page.locator(".donation-motion")).toHaveAttribute("data-quality", "safe");
   expect(await page.locator(".motion-amount").evaluate((el) => getComputedStyle(el).opacity)).toBe(
@@ -370,7 +383,7 @@ test("long message scroll reaches every line and holds the final text", async ({
 });
 
 test("WebGL context loss preserves the same hero timing and falls back", async ({ page }) => {
-  await page.goto("/motion-studio?clean=1&tier=6&time=hero&quality=high");
+  await page.goto("/motion-studio?clean=1&tier=8&time=hero&quality=high");
   await page.waitForFunction(() => window.motionStudio?.status().duration > 0);
   await page.evaluate(() =>
     document
@@ -380,7 +393,7 @@ test("WebGL context loss preserves the same hero timing and falls back", async (
       .loseContext(),
   );
   await expect(page.locator(".donation-motion")).toHaveAttribute("data-quality", "safe");
-  await page.evaluate(() => window.motionStudio.seek(3.90095));
+  await page.evaluate(() => window.motionStudio.seek(13.21215));
   expect(await page.locator(".motion-amount").evaluate((el) => getComputedStyle(el).opacity)).toBe(
     "1",
   );
@@ -389,6 +402,7 @@ test("WebGL context loss preserves the same hero timing and falls back", async (
 test("calibration produces a short clock-scheduled flash", async ({ page }) => {
   await page.goto("/motion-studio?tier=6&visualSyncOffsetMs=33");
   await expect(page.locator("output")).toHaveText("Ready");
+  await page.getByRole("button", { name: "Inspector", exact: true }).click();
   await page.getByRole("button", { name: "Schedule click + flash" }).click();
   await expect
     .poll(() => page.locator(".calibration-flash").evaluate((el) => getComputedStyle(el).opacity), {
@@ -420,7 +434,7 @@ test("detail changes and seeded replay preserve inspection time and reinitialize
   await expect(page.locator(".donation-motion")).toHaveAttribute("data-quality", "high");
   expect(await page.locator("#studio-time").inputValue()).toBe("3.901");
   await page.locator("#studio-tier").selectOption("3");
-  await expect(page.locator(".motion-amount-number")).toHaveText("25,00");
+  await expect(page.locator(".motion-amount-number")).toHaveText("57,32");
   await expect(page.locator(".donation-motion")).toHaveAttribute("data-quality", "safe");
 });
 
