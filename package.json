@@ -37,6 +37,7 @@
     "dev": "vite",
     "motion:studio": "vite --open /motion-studio",
     "motion:analyze": "python scripts/analyze-donation-audio.py",
+    "motion:media": "python scripts/prepare-donation-media.py",
     "motion:qa": "playwright test",
     "start": "vite",
     "build": "vite build",
