@@ -17,10 +17,7 @@ const routePrefix = import.meta.env.BASE_URL.replace(/\/$/, "");
 
 function stripBasePath(pathnameWithSearch: string): string {
   const queryIndex = pathnameWithSearch.indexOf("?");
-  const pathname =
-    queryIndex === -1
-      ? pathnameWithSearch
-      : pathnameWithSearch.slice(0, queryIndex);
+  const pathname = queryIndex === -1 ? pathnameWithSearch : pathnameWithSearch.slice(0, queryIndex);
   const search = queryIndex === -1 ? "" : pathnameWithSearch.slice(queryIndex);
 
   if (!routePrefix || routePrefix === "/") return pathnameWithSearch;
@@ -43,9 +40,7 @@ function createRouterCompatProps(accountId: string): RouterCompatProps {
   };
 }
 
-function getMainOverlayMode(
-  route: Extract<OverlayRoute, { kind: "overlay" }>,
-): MainOverlayMode {
+function getMainOverlayMode(route: Extract<OverlayRoute, { kind: "overlay" }>): MainOverlayMode {
   if (route.type === "ALERTS") return "all";
   if (route.type === "REWARD_ALERT") return "reward";
   return "tip";
@@ -70,20 +65,11 @@ function renderOverlayRoute(route: OverlayRoute): React.ReactElement {
         />
       );
     case "SUB_GOAL":
-      return (
-        <PageChannelSubs {...routerCompatProps} testMode={route.testMode} />
-      );
+      return <PageChannelSubs {...routerCompatProps} testMode={route.testMode} />;
     case "FOLLOW_GOAL":
-      return (
-        <PageChannelFollowers
-          {...routerCompatProps}
-          testMode={route.testMode}
-        />
-      );
+      return <PageChannelFollowers {...routerCompatProps} testMode={route.testMode} />;
     case "QUEUE":
-      return (
-        <PageChannelQueue {...routerCompatProps} testMode={route.testMode} />
-      );
+      return <PageChannelQueue {...routerCompatProps} testMode={route.testMode} />;
     default:
       return <NotFound />;
   }
@@ -93,7 +79,21 @@ const overlayRoute = parseOverlayRoute(
   stripBasePath(`${window.location.pathname}${window.location.search}`),
 );
 
+const Studio = import.meta.env.DEV
+  ? React.lazy(() => import("./dev/motion-studio/MotionStudio"))
+  : null;
+const isStudio =
+  import.meta.env.DEV && stripBasePath(window.location.pathname) === "/motion-studio";
+
 ReactDOM.render(
-  <React.StrictMode>{renderOverlayRoute(overlayRoute)}</React.StrictMode>,
+  <React.StrictMode>
+    {isStudio ? (
+      <React.Suspense fallback={<p>Loading Motion Studio…</p>}>
+        <Studio />
+      </React.Suspense>
+    ) : (
+      renderOverlayRoute(overlayRoute)
+    )}
+  </React.StrictMode>,
   document.getElementById("root"),
 );

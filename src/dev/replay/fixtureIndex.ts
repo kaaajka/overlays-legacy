@@ -85,6 +85,23 @@ const mainRouletteFlow = [
   },
 ] as const satisfies LegacyFixtureReplaySequence;
 
+const motionQueue = [50, 15000, 30000].map((amount, index) => ({
+  payload: {
+    ...mainDonatePrepare,
+    id: `motion-queue-${index + 1}`,
+    args: {
+      ...mainDonatePrepare.args,
+      id: `motion-queue-${index + 1}`,
+      nickname: `Motion FIFO ${index + 1}`,
+      amount,
+      commission: 0,
+      message: `Queue item ${index + 1}. Complete music, nickname, amount and message before advancing.`,
+    },
+  },
+  delayMs: index * 100,
+  fastDelayMs: index * 5,
+})) satisfies LegacyFixtureReplaySequence;
+
 const legacyFixtureMap = {
   "followers-set": followersSet,
   "followers-update": followersUpdate,
@@ -94,6 +111,7 @@ const legacyFixtureMap = {
   "main-donate-html-message": mainDonateHtmlMessage,
   "main-donate-prepare": mainDonatePrepare,
   "main-donate-without-audio-url": mainDonateWithoutAudioUrl,
+  "main-donate-motion-queue": motionQueue,
   "main-roulette-prepare": mainRoulettePrepare,
   "main-roulette-flow": mainRouletteFlow,
   "main-roulette-started": mainRouletteStarted,

@@ -1,5 +1,7 @@
 # Legacy Overlay Fixtures
 
+For the motion engine, `fixture=main-donate-motion-queue` sends three ascending donations through the existing PageChannel FIFO. Add `muteAudio=1&fast=1&motionQuality=safe` for quick lifecycle checks, or remove `fast=1` for actual silent audio-clock durations. See [Donation Motion Engine](../../../docs/DONATION_MOTION_ENGINE.md) for Studio, cue captures and OBS calibration.
+
 These JSON files mirror the legacy backend WebSocket payloads. They are intentionally compatible with the old backend protocol and should not be redesigned without backend changes.
 
 Use them for manual testing, future replay tooling and contract documentation.
