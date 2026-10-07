@@ -5,12 +5,6 @@
 @use './overlays/main-event';
 @use './overlays/coinflip';
 
-@use './effects/money-rain';
-@use './effects/halo-floats';
-@use './effects/holy-moly';
-@use './effects/fireworks';
-@use './effects/say-my-name';
-
-@use './overlays/donation';
+// Legacy donation effect sources remain as reference; live donation scenes load their own styles.
 @use './overlays/goals';
 @use './overlays/queue';

@@ -1,0 +1,342 @@
+.donation-motion {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  color: #fff;
+  isolation: isolate;
+  opacity: 1;
+  transition: opacity 0.65s ease-out;
+  font-family: "Poppins", sans-serif;
+}
+.motion-stage {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 1920px;
+  height: 1080px;
+  transform-origin: center;
+}
+.motion-gpu,
+.motion-atmosphere {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+.motion-atmosphere {
+  opacity: 0;
+  background: radial-gradient(
+    ellipse at center,
+    transparent 18%,
+    rgba(9, 11, 17, 0.12) 57%,
+    rgba(9, 11, 17, 0.3) 100%
+  );
+}
+.motion-gpu {
+  z-index: 2;
+}
+.motion-hero {
+  position: absolute;
+  z-index: 5;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 64px;
+  perspective: 900px;
+}
+.motion-name {
+  max-width: 1500px;
+  line-height: 1.25;
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  text-align: center;
+  overflow-wrap: anywhere;
+  text-shadow: 0 5px 20px rgba(0, 0, 0, 0.75);
+}
+.motion-name > div {
+  display: inline-block;
+}
+.motion-amount {
+  color: var(--motion-secondary);
+  font-weight: 700;
+  letter-spacing: -0.035em;
+  line-height: 1.08;
+  white-space: nowrap;
+  display: flex;
+  align-items: baseline;
+  gap: 25px;
+  text-shadow: 0 12px 28px rgba(0, 0, 0, 0.6);
+}
+.motion-currency {
+  font-size: 0.26em;
+  font-weight: 500;
+  letter-spacing: 0;
+}
+.motion-emblem {
+  position: absolute;
+  z-index: 1;
+  left: 560px;
+  top: 140px;
+  width: 800px;
+  height: 800px;
+  color: var(--motion-color);
+  opacity: 0;
+  perspective: 1200px;
+}
+.motion-aperture {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+.aperture-diamond,
+.aperture-brackets,
+.aperture-rift {
+  display: none;
+}
+.motion-wave {
+  position: absolute;
+  z-index: 3;
+  left: 710px;
+  top: 290px;
+  width: 500px;
+  height: 500px;
+  border: 2px solid var(--motion-secondary);
+  border-radius: 50%;
+  opacity: 0;
+}
+.motion-word {
+  position: absolute;
+  z-index: 0;
+  width: 1800px;
+  left: 60px;
+  font-size: 240px;
+  line-height: 1.06;
+  font-weight: 700;
+  letter-spacing: -0.035em;
+  text-align: center;
+  color: transparent;
+  -webkit-text-stroke: 2px var(--motion-color);
+  opacity: 0;
+  white-space: nowrap;
+}
+.word-0 {
+  top: 42px;
+}
+.word-1 {
+  bottom: 28px;
+}
+.motion-frame {
+  position: absolute;
+  inset: 68px;
+  z-index: 3;
+  color: var(--motion-color);
+  opacity: 0;
+}
+.motion-frame i {
+  position: absolute;
+  width: 105px;
+  height: 70px;
+  border-color: currentColor;
+  border-style: solid;
+  border-width: 0;
+}
+.motion-frame i:nth-child(1) {
+  left: 0;
+  top: 0;
+  border-top-width: 2px;
+  border-left-width: 2px;
+}
+.motion-frame i:nth-child(2) {
+  right: 0;
+  top: 0;
+  border-top-width: 2px;
+  border-right-width: 2px;
+}
+.motion-frame i:nth-child(3) {
+  left: 0;
+  bottom: 0;
+  border-bottom-width: 2px;
+  border-left-width: 2px;
+}
+.motion-frame i:nth-child(4) {
+  right: 0;
+  bottom: 0;
+  border-bottom-width: 2px;
+  border-right-width: 2px;
+}
+.motion-information {
+  position: absolute;
+  z-index: 6;
+  left: 340px;
+  top: 270px;
+  width: 1240px;
+  max-height: 620px;
+  padding: 42px 48px;
+  background: rgba(9, 12, 18, 0.87);
+  border-radius: 14px;
+  box-shadow: 0 18px 60px rgba(0, 0, 0, 0.25);
+  opacity: 0;
+  visibility: hidden;
+}
+.information-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 35px;
+  padding-bottom: 22px;
+  color: var(--motion-secondary);
+  font-size: 40px;
+  line-height: 1.25;
+}
+.information-header strong {
+  font-weight: 600;
+  overflow-wrap: anywhere;
+  min-width: 0;
+}
+.information-header span {
+  flex-shrink: 0;
+  font-weight: 500;
+}
+.information-message {
+  font-size: 32px;
+  line-height: 1.6;
+  max-height: 405px;
+  overflow: hidden;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  color: #fff;
+}
+.information-thanks {
+  font-size: 25px;
+  margin-bottom: 18px;
+  color: var(--motion-secondary);
+}
+.motion-readable-fallback {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: min(80vw, 1240px);
+  max-height: 80vh;
+  padding: 42px 48px;
+  color: #fff;
+  --motion-secondary: #fff4d0;
+  background: rgba(9, 12, 18, 0.87);
+  border-radius: 14px;
+}
+.donation-motion[data-phase="loading"] .motion-stage {
+  visibility: hidden;
+}
+.donation-motion[data-phase="information"] .motion-information {
+  opacity: 1;
+  visibility: visible;
+}
+.donation-motion[data-phase="information"]
+  :is(
+    .motion-hero,
+    .motion-word,
+    .motion-emblem,
+    .motion-frame,
+    .motion-atmosphere,
+    .motion-gpu,
+    .motion-wave
+  ) {
+  display: none;
+}
+.donation-motion[data-degraded="true"] .motion-information {
+  opacity: 1;
+  visibility: visible;
+}
+.donation-motion[data-quality="safe"] .motion-gpu {
+  display: none;
+}
+.motif-signal .motion-emblem {
+  left: 510px;
+  width: 900px;
+}
+.motif-signal :is(.aperture-circle, .aperture-segments) {
+  display: none;
+}
+.motif-signal .aperture-brackets {
+  display: block;
+}
+.motif-signal .motion-word {
+  font-size: 124px;
+  top: 760px;
+}
+.motif-signal .motion-wave {
+  border-width: 1px;
+}
+.motif-ember .motion-word {
+  font-size: 150px;
+}
+.motif-ember .motion-emblem {
+  transform-origin: center;
+}
+.motif-ember .aperture-segments {
+  stroke-dasharray: 16 170;
+  stroke-width: 38px;
+}
+.motif-prism :is(.aperture-circle, .aperture-segments) {
+  display: none;
+}
+.motif-prism .aperture-diamond {
+  display: block;
+  stroke-width: 8;
+}
+.motif-prism .motion-word {
+  font-size: 200px;
+  top: 45px;
+}
+.motif-vault :is(.aperture-circle, .aperture-segments) {
+  display: none;
+}
+.motif-vault .aperture-brackets {
+  display: block;
+}
+.motif-vault .motion-word {
+  font-size: 174px;
+}
+.motif-holy .motion-word {
+  font-size: 284px;
+  -webkit-text-stroke: 3px var(--motion-color);
+}
+.motif-halo .motion-word {
+  font-size: 268px;
+  letter-spacing: 0.035em;
+}
+.motif-halo .aperture-segments {
+  stroke-width: 28;
+  stroke-dasharray: 150 80;
+}
+.motif-takeover .motion-word {
+  font-size: 242px;
+  text-align: left;
+}
+.motif-takeover .word-1 {
+  text-align: right;
+}
+.motif-takeover .aperture-segments {
+  stroke-width: 35;
+  stroke-dasharray: 190 74;
+}
+.motif-takeover :is(.aperture-circle, .aperture-segments) {
+  display: none;
+}
+.motif-takeover .aperture-rift {
+  display: block;
+}
+.motif-name .motion-word {
+  font-size: 230px;
+}
+.motif-name .aperture-diamond {
+  display: block;
+}
+@media (prefers-reduced-motion: reduce) {
+  .donation-motion {
+    transition: none;
+  }
+}

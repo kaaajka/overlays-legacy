@@ -14,12 +14,15 @@
     ]
   },
   "dependencies": {
+    "@gsap/react": "^2.1.2",
     "animate.css": "4.1.1",
+    "gsap": "^3.15.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2"
   },
   "devDependencies": {
     "@biomejs/biome": "^2.4.15",
+    "@playwright/test": "^1.63.0",
     "@types/node": "^20.19.0",
     "@types/react": "^17.0.83",
     "@types/react-dom": "^17.0.26",
@@ -32,6 +35,9 @@
   },
   "scripts": {
     "dev": "vite",
+    "motion:studio": "vite --open /motion-studio",
+    "motion:analyze": "python scripts/analyze-donation-audio.py",
+    "motion:qa": "playwright test",
     "start": "vite",
     "build": "vite build",
     "preview": "vite preview",

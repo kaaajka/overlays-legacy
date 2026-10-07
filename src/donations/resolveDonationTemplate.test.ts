@@ -7,8 +7,6 @@ import Donate4 from "../components/donations/Donate4";
 import Donate5 from "../components/donations/Donate5";
 import Donate6 from "../components/donations/Donate6";
 import Donate7 from "../components/donations/Donate7";
-import Donate8 from "../components/donations/Donate8";
-import Donate10 from "../components/donations/Donate10";
 import { joinPublicAssetPath } from "../assets/resolveOverlayAssetUrl";
 import { resolveDonationTemplate } from "./resolveDonationTemplate";
 
@@ -28,16 +26,13 @@ describe("resolveDonationTemplate", () => {
     [29999, Donate6],
     [30000, Donate7],
     [39999, Donate7],
-    [40000, Donate8],
-    [49999, Donate8],
-    [50000, Donate10],
-    [999999, Donate10],
-  ])(
-    "locks legacy donation template selection for amount %i",
-    (amount, expectedTemplate) => {
-      expect(resolveDonationTemplate(amount).template).toBe(expectedTemplate);
-    },
-  );
+    [40000, Donate7],
+    [49999, Donate7],
+    [50000, Donate7],
+    [999999, Donate7],
+  ])("locks legacy donation template selection for amount %i", (amount, expectedTemplate) => {
+    expect(resolveDonationTemplate(amount).template).toBe(expectedTemplate);
+  });
 
   it("keeps exact threshold values assigned to the higher template as locked legacy behavior", () => {
     expect(resolveDonationTemplate(500).template).toBe(Donate2);
@@ -46,8 +41,8 @@ describe("resolveDonationTemplate", () => {
     expect(resolveDonationTemplate(10000).template).toBe(Donate5);
     expect(resolveDonationTemplate(15000).template).toBe(Donate6);
     expect(resolveDonationTemplate(30000).template).toBe(Donate7);
-    expect(resolveDonationTemplate(40000).template).toBe(Donate8);
-    expect(resolveDonationTemplate(50000).template).toBe(Donate10);
+    expect(resolveDonationTemplate(40000).template).toBe(Donate7);
+    expect(resolveDonationTemplate(50000).template).toBe(Donate7);
   });
 
   it("preserves sound, gif, speech, and commission config", () => {

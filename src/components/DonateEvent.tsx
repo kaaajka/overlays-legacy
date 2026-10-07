@@ -1,202 +1,150 @@
-import { useCallback, useEffect, useRef, useState } from "react";
-
+import { useEffect, useRef } from "react";
 import { playOverlayAudioSequence } from "../audio/playOverlayAudioSequence";
 import { resolveBackendAudioUrl } from "../audio/resolveBackendAudioUrl";
-import { debugLog } from "../debug";
-import type {
-  DonateTemplateSound,
-  DonateTemplateSpeech,
-} from "../donations/donationTemplateTypes";
+import { MusicPlayback } from "../audio/motion/MusicPlayback";
+import { readVisualSyncOffset } from "../audio/motion/AudioClock";
 import { resolveDonateTtsAudioUrl } from "../donations/resolveDonateTtsAudioUrl";
 import { resolveDonationTemplate } from "../donations/resolveDonationTemplate";
+import { treatmentForMinimum } from "../donations/choreography/treatments";
+import { runMotionDonation } from "../donations/runMotionDonation";
+import { isDevFixtureAudioMuted, isDevFixtureFastMode } from "../dev/replay/legacyReplay";
 import type { DonateEventModel } from "../models/DonateEvent";
+import { DonationScene } from "../motion/engine/DonationScene";
+import type { DonationSceneHandle } from "../motion/engine/DonationScene";
+import { SceneErrorBoundary } from "../motion/engine/SceneErrorBoundary";
 
-export default function DonateEvent({ donate, onFinished }: IDonateEventProps) {
-  const [shouldRender, setShouldRender] = useState(false);
-  const isMountedRef = useRef(false);
-  const sequenceIdRef = useRef(0);
-  const finishedSequenceIdRef = useRef<number | null>(null);
-  const activeTimeoutsRef = useRef(new Map<number, () => void>());
-  const audioAbortControllerRef = useRef<AbortController | null>(null);
-  const donateRef = useRef(donate);
-  const onFinishedRef = useRef(onFinished);
-
-  donateRef.current = donate;
-  onFinishedRef.current = onFinished;
-  const donateId = donate.id;
-
-  const isCurrentSequence = useCallback((sequenceId: number) => {
-    return isMountedRef.current && sequenceId === sequenceIdRef.current;
-  }, []);
-
-  const cancelAudioSequence = useCallback(() => {
-    audioAbortControllerRef.current?.abort();
-    audioAbortControllerRef.current = null;
-  }, []);
-
-  const clearActiveTimeouts = useCallback(() => {
-    activeTimeoutsRef.current.forEach((resolve, timeout) => {
-      window.clearTimeout(timeout);
-      resolve();
-    });
-
-    activeTimeoutsRef.current.clear();
-  }, []);
-
-  const sleep = useCallback((ms: number): Promise<void> => {
-    return new Promise((resolve) => {
-      const timeout = window.setTimeout(() => {
-        activeTimeoutsRef.current.delete(timeout);
-        resolve();
-      }, ms);
-
-      activeTimeoutsRef.current.set(timeout, resolve);
-    });
-  }, []);
-
-  const finishDonate = useCallback(
-    (sequenceId: number) => {
-      if (!isCurrentSequence(sequenceId)) return;
-      if (finishedSequenceIdRef.current === sequenceId) return;
-
-      finishedSequenceIdRef.current = sequenceId;
-
-      setShouldRender(false);
-
-      onFinishedRef.current?.();
-    },
-    [isCurrentSequence],
-  );
-
-  const runDonate = useCallback(
-    async (
-      sequenceId: number,
-      donateSnapshot: DonateEventModel,
-      sound: DonateTemplateSound,
-      speech: DonateTemplateSpeech,
-    ) => {
-      if (!isCurrentSequence(sequenceId)) return;
-
-      const speechNicknamePath =
-        speech.voiceType === "GOOGLE_POLISH_MALE"
-          ? donateSnapshot.tts_nickname_google_male
-          : donateSnapshot.tts_nickname_google_female;
-      const speechAmountPath =
-        speech.voiceType === "GOOGLE_POLISH_MALE"
-          ? donateSnapshot.tts_amount_google_male
-          : donateSnapshot.tts_amount_google_female;
-      const speechMessagePath =
-        speech.voiceType === "GOOGLE_POLISH_MALE"
-          ? donateSnapshot.tts_message_google_male
-          : donateSnapshot.tts_message_google_female;
-      const resolveTtsAudioUrl = (
-        url: string | null | undefined,
-        kind: "tts-nickname" | "tts-amount" | "tts-message",
-      ) => {
-        const ttsAudioUrl = resolveDonateTtsAudioUrl(url, {
-          isTestDonate: donateSnapshot.test,
-          kind,
-        });
-
-        return donateSnapshot.test ? ttsAudioUrl : resolveBackendAudioUrl(ttsAudioUrl);
-      };
-
-      await playOverlayAudioSequence(
-        [
-          {
-            url: sound.url,
-            volume: sound.volume,
-            label: "Donate template audio",
-            kind: "long-sound",
-            mutedFixtureAudioKind: "template",
-            onBeforePlay: () => {
-              if (isCurrentSequence(sequenceId)) {
-                setShouldRender(true);
-              }
-            },
-          },
-          {
-            url: speech.readNickname
-              ? resolveTtsAudioUrl(speechNicknamePath, "tts-nickname")
-              : null,
-            volume: speech.volume,
-            label: "Donate nickname TTS",
-            kind: "tts",
-            mutedFixtureAudioKind: "tts-nickname",
-          },
-          {
-            url: speech.readAmount ? resolveTtsAudioUrl(speechAmountPath, "tts-amount") : null,
-            volume: speech.volume,
-            label: "Donate amount TTS",
-            kind: "tts",
-            mutedFixtureAudioKind: "tts-amount",
-          },
-          {
-            url: speech.readMessage
-              ? resolveTtsAudioUrl(speechMessagePath, "tts-message")
-              : null,
-            volume: speech.volume,
-            label: "Donate message TTS",
-            kind: "tts",
-            mutedFixtureAudioKind: "tts-message",
-          },
-        ],
-        { signal: audioAbortControllerRef.current?.signal },
-      );
-      if (!isCurrentSequence(sequenceId)) return;
-
-      await sleep(1500);
-      if (!isCurrentSequence(sequenceId)) return;
-
-      finishDonate(sequenceId);
-    },
-    [finishDonate, isCurrentSequence, sleep],
-  );
-
-  const startDonateSequence = useCallback(() => {
-    sequenceIdRef.current += 1;
-    finishedSequenceIdRef.current = null;
-    cancelAudioSequence();
-    clearActiveTimeouts();
-    setShouldRender(false);
-
-    const sequenceId = sequenceIdRef.current;
-    const donateSnapshot = donateRef.current;
-    audioAbortControllerRef.current = new AbortController();
-    const { sound, speech } = resolveDonationTemplate(donateSnapshot.amount);
-
-    runDonate(sequenceId, donateSnapshot, sound, speech).catch((error) => {
-      debugLog("Donate sequence failed safely", error);
-      finishDonate(sequenceId);
-    });
-  }, [cancelAudioSequence, clearActiveTimeouts, finishDonate, runDonate]);
-
-  useEffect(() => {
-    if (donateRef.current.id !== donateId) return;
-
-    isMountedRef.current = true;
-    startDonateSequence();
-
-    return () => {
-      isMountedRef.current = false;
-      sequenceIdRef.current += 1;
-      cancelAudioSequence();
-      clearActiveTimeouts();
-    };
-  }, [donateId, cancelAudioSequence, clearActiveTimeouts, startDonateSequence]);
-
-  const { template: TemplateComponent, images, amountWithoutCommission } = resolveDonationTemplate(
-    donate.amount,
-  );
-
-  if (!TemplateComponent || !shouldRender) return null;
-
-  return (
-    <TemplateComponent donate={donate} images={images} withCommission={amountWithoutCommission} />
-  );
-}
-
-interface IDonateEventProps {
+export default function DonateEvent({
+  donate,
+  onFinished,
+}: {
   donate: DonateEventModel;
   onFinished: () => void;
+}) {
+  const scene = useRef<DonationSceneHandle>();
+  const finished = useRef(onFinished);
+  finished.current = onFinished;
+  const config = resolveDonationTemplate(donate.amount);
+  const treatment = treatmentForMinimum(config.minAmount);
+  const snapshot = useRef(donate);
+  snapshot.current = donate;
+
+  useEffect(() => {
+    const current = snapshot.current;
+    if (current.id !== donate.id) return;
+    const abort = new AbortController();
+    let playback: MusicPlayback;
+    let raf = 0;
+    let previousFrame = 0;
+    let completed = false;
+    const fast = isDevFixtureFastMode();
+    const { speech } = config;
+    const male = speech.voiceType === "GOOGLE_POLISH_MALE";
+    const url = (path: string, kind: "tts-nickname" | "tts-amount" | "tts-message") => {
+      const resolved = resolveDonateTtsAudioUrl(path, { isTestDonate: current.test, kind });
+      return current.test ? resolved : resolveBackendAudioUrl(resolved);
+    };
+    const steps = [
+      {
+        url: speech.readNickname
+          ? url(
+              male ? current.tts_nickname_google_male : current.tts_nickname_google_female,
+              "tts-nickname",
+            )
+          : null,
+        label: "Donate nickname TTS",
+        mutedFixtureAudioKind: "tts-nickname" as const,
+      },
+      {
+        url: speech.readAmount
+          ? url(
+              male ? current.tts_amount_google_male : current.tts_amount_google_female,
+              "tts-amount",
+            )
+          : null,
+        label: "Donate amount TTS",
+        mutedFixtureAudioKind: "tts-amount" as const,
+      },
+      {
+        url: speech.readMessage
+          ? url(
+              male ? current.tts_message_google_male : current.tts_message_google_female,
+              "tts-message",
+            )
+          : null,
+        label: "Donate message TTS",
+        mutedFixtureAudioKind: "tts-message" as const,
+      },
+    ].map((step) => ({ ...step, volume: speech.volume, kind: "tts" as const }));
+    const frame = (now: number) => {
+      if (abort.signal.aborted) return;
+      scene.current?.renderAt(playback.time, previousFrame ? now - previousFrame : 16.67);
+      previousFrame = now;
+      raf = requestAnimationFrame(frame);
+    };
+    void runMotionDonation(
+      {
+        async music() {
+          if (fast) {
+            scene.current?.renderAt(treatment.analysis.duration);
+            return;
+          }
+          playback = new MusicPlayback(config.sound.volume);
+          playback.visualSyncOffsetMs = readVisualSyncOffset(window.location.search);
+          playback.setMuted(isDevFixtureAudioMuted());
+          try {
+            await playback.load(config.sound.url, abort.signal);
+          } catch (error) {
+            if (abort.signal.aborted) return;
+            console.warn("Template decode failed; using silent audio-clock fallback", error);
+            playback.setSilentFallback(treatment.analysis.duration);
+          }
+          if (abort.signal.aborted) return;
+          scene.current?.renderAt(0);
+          raf = requestAnimationFrame(frame);
+          try {
+            await playback.play(abort.signal);
+          } finally {
+            cancelAnimationFrame(raf);
+            playback.dispose();
+          }
+        },
+        information: (ms) => scene.current?.information(ms),
+        speech: (ttsSteps) => playOverlayAudioSequence(ttsSteps, { signal: abort.signal }),
+        outro: () => scene.current?.outro(),
+        finished() {
+          if (completed) return;
+          completed = true;
+          finished.current();
+        },
+      },
+      steps,
+      current.message,
+      abort.signal,
+      fast,
+    ).catch((error) => console.warn("Donation sequence completed after failure", error));
+    return () => {
+      abort.abort();
+      cancelAnimationFrame(raf);
+      playback?.dispose();
+    };
+  }, [donate.id, config, treatment]);
+
+  return (
+    <SceneErrorBoundary
+      key={donate.id}
+      donate={donate}
+      netAmount={config.amountWithoutCommission ? donate.amount - donate.commission : donate.amount}
+    >
+      <DonationScene
+        key={donate.id}
+        ref={scene}
+        donate={donate}
+        treatment={treatment}
+        netAmount={
+          config.amountWithoutCommission ? donate.amount - donate.commission : donate.amount
+        }
+        quality={new URLSearchParams(window.location.search).get("motionQuality") ?? undefined}
+      />
+    </SceneErrorBoundary>
+  );
 }
