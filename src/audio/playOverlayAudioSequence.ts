@@ -20,6 +20,9 @@ export type OverlayAudioSequenceStep = {
   kind?: OverlayAudioSequenceStepKind;
   mutedFixtureAudioKind?: MutedFixtureAudioKind;
   onBeforePlay?: () => void;
+  /** Optional observer for Studio; does not control production playback. */
+  onPlaying?: (audio: HTMLAudioElement) => void;
+  onFailure?: (error: unknown) => void;
   timeoutMs?: number;
 };
 
@@ -149,6 +152,7 @@ function playOverlayAudioStep(
 
     const removeListeners = () => {
       audio.removeEventListener("canplaythrough", onCanPlayThrough);
+      audio.removeEventListener("playing", onPlaying);
       audio.removeEventListener("ended", onEnded);
       audio.removeEventListener("error", onError);
       signal?.removeEventListener("abort", onAbort);
@@ -185,7 +189,15 @@ function playOverlayAudioStep(
       runBeforePlay(step);
     };
 
+    const notifyFailure = (error: unknown) => {
+      try {
+        step.onFailure?.(error);
+      } catch {
+        /* Observers cannot interrupt the sequence. */
+      }
+    };
     const failSafely = (message: string, error: unknown) => {
+      if (!isAbortError(error)) notifyFailure(error);
       if (!isAbortError(error)) {
         debugLog(message, { url: step.url, error });
       }
@@ -199,6 +211,14 @@ function playOverlayAudioStep(
 
     const onAbort = () => {
       finish(true);
+    };
+
+    const onPlaying = () => {
+      try {
+        step.onPlaying?.(audio);
+      } catch {
+        /* Observer cannot interrupt speech. */
+      }
     };
 
     const onEnded = () => {
@@ -222,14 +242,18 @@ function playOverlayAudioStep(
 
       runBeforePlayOnce();
 
-      const playTimeout = setTimeout(() => {
-        debugLog("Overlay audio play timed out safely", {
-          url: step.url,
-          label: step.label,
-          timeoutMs: getStepTimeoutMs(step, options),
-        });
-        finish(true);
-      }, getStepTimeoutMs(step, options));
+      const playTimeout = setTimeout(
+        () => {
+          notifyFailure(new Error("Speech playback timed out"));
+          debugLog("Overlay audio play timed out safely", {
+            url: step.url,
+            label: step.label,
+            timeoutMs: getStepTimeoutMs(step, options),
+          });
+          finish(true);
+        },
+        getStepTimeoutMs(step, options),
+      );
 
       timers.add(playTimeout);
 
@@ -239,6 +263,7 @@ function playOverlayAudioStep(
     };
 
     loadTimeout = setTimeout(() => {
+      notifyFailure(new Error("Speech load timed out"));
       debugLog("Overlay audio load timed out safely", {
         url: step.url,
         label: step.label,
@@ -255,6 +280,7 @@ function playOverlayAudioStep(
     signal?.addEventListener("abort", onAbort, { once: true });
     audio.addEventListener("canplaythrough", onCanPlayThrough, { once: true });
     audio.addEventListener("ended", onEnded, { once: true });
+    audio.addEventListener("playing", onPlaying, { once: true });
     audio.addEventListener("error", onError, { once: true });
   });
 }

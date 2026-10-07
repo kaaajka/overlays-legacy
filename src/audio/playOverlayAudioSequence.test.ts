@@ -11,7 +11,7 @@ vi.mock("../dev/replay/legacyReplay", () => ({
   isDevFixtureAudioMuted: vi.fn(() => false),
 }));
 
-type MockAudioEvent = "canplaythrough" | "ended" | "error";
+type MockAudioEvent = "canplaythrough" | "playing" | "ended" | "error";
 
 class MockAudio {
   static instances: MockAudio[] = [];
@@ -258,6 +258,47 @@ describe("playOverlayAudioSequence", () => {
     expect(audio.listenerCount("canplaythrough")).toBe(0);
     expect(audio.listenerCount("ended")).toBe(0);
     expect(audio.listenerCount("error")).toBe(0);
+  });
+
+  it("observes native playback without letting observer failures alter sequencing", async () => {
+    const observer = vi.fn(() => {
+      throw new Error("authoring observer failed");
+    });
+    const sequence = playOverlayAudioSequence([
+      { url: "/first.wav", onPlaying: observer },
+      { url: "/second.wav" },
+    ]);
+    const first = latestAudio();
+    first.emit("canplaythrough");
+    expect(observer).not.toHaveBeenCalled();
+    first.emit("playing");
+    expect(observer).toHaveBeenCalledWith(first);
+    first.emit("ended");
+    await waitForMicrotasks();
+    expect(first.listenerCount("playing")).toBe(0);
+    expect(latestAudio().src).toBe("/second.wav");
+    latestAudio().emit("canplaythrough");
+    latestAudio().emit("ended");
+    await sequence;
+  });
+
+  it("exposes a failed load while keeping queue-safe advance when the observer throws", async () => {
+    const observer = vi.fn(() => {
+      throw new Error("diagnostic failed");
+    });
+    const sequence = playOverlayAudioSequence([
+      { url: "/broken.wav", onFailure: observer },
+      { url: "/next.wav" },
+    ]);
+    const failure = new Error("decode failed");
+    latestAudio().emit("error", failure);
+    await waitForMicrotasks();
+    expect(observer).toHaveBeenCalledOnce();
+    expect(observer).toHaveBeenCalledWith(failure);
+    expect(latestAudio().src).toBe("/next.wav");
+    latestAudio().emit("canplaythrough");
+    latestAudio().emit("ended");
+    await sequence;
   });
 
   it("does not hang forever when audio never becomes playable", async () => {
