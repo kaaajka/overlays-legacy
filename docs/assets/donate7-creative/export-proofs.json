@@ -1,0 +1,444 @@
+{
+  "conditions": "Current export CLI, actual VP9+alpha files, fixed quality high/seed, source controlled WebM. Native two independent fresh exports.",
+  "byteIdentical": true,
+  "proof": [
+    {
+      "name": "hero-a",
+      "width": 1920,
+      "height": 1080,
+      "count": 2,
+      "hashes": {
+        "0": "44a06d169eb9f831ac22a36e663913ae153927a039d0bcbea70725955ead2c10",
+        "1": "e57f6f5678510b376553caafeddea5221e3847e6aa299aa2cdea3347ea506b87"
+      },
+      "probe": {
+        "streams": [
+          {
+            "index": 0,
+            "codec_name": "vp9",
+            "codec_long_name": "Google VP9",
+            "profile": "Profile 0",
+            "codec_type": "video",
+            "codec_tag_string": "[0][0][0][0]",
+            "codec_tag": "0x0000",
+            "mime_codec_string": "vp09.00.40.08",
+            "width": 1920,
+            "height": 1080,
+            "coded_width": 1920,
+            "coded_height": 1080,
+            "has_b_frames": 0,
+            "sample_aspect_ratio": "1:1",
+            "display_aspect_ratio": "16:9",
+            "pix_fmt": "yuv420p",
+            "level": -99,
+            "color_range": "tv",
+            "field_order": "progressive",
+            "refs": 1,
+            "r_frame_rate": "30/1",
+            "avg_frame_rate": "30/1",
+            "time_base": "1/1000",
+            "start_pts": 0,
+            "start_time": "0.000000",
+            "nb_read_frames": "2",
+            "disposition": {
+              "default": 0,
+              "dub": 0,
+              "original": 0,
+              "comment": 0,
+              "lyrics": 0,
+              "karaoke": 0,
+              "forced": 0,
+              "hearing_impaired": 0,
+              "visual_impaired": 0,
+              "clean_effects": 0,
+              "attached_pic": 0,
+              "timed_thumbnails": 0,
+              "non_diegetic": 0,
+              "captions": 0,
+              "descriptions": 0,
+              "metadata": 0,
+              "dependent": 0,
+              "still_image": 0,
+              "multilayer": 0
+            },
+            "tags": {
+              "alpha_mode": "1",
+              "ENCODER": "Lavc63.1.100 libvpx-vp9",
+              "DURATION": "00:00:00.066000000"
+            }
+          }
+        ],
+        "format": {
+          "filename": "C:\\Projects\\overlays-legacy\\.motion-qa\\donate7-exports\\hero-a\\export.webm",
+          "nb_streams": 1,
+          "nb_programs": 0,
+          "nb_stream_groups": 0,
+          "format_name": "matroska,webm",
+          "format_long_name": "Matroska / WebM",
+          "start_time": "0.000000",
+          "duration": "0.066000",
+          "size": "1018428",
+          "bit_rate": "123445818",
+          "probe_score": 100,
+          "tags": {
+            "ENCODER": "Lavf63.1.100"
+          }
+        }
+      },
+      "bytes": 1018428
+    },
+    {
+      "name": "hero-b",
+      "width": 1920,
+      "height": 1080,
+      "count": 2,
+      "hashes": {
+        "0": "44a06d169eb9f831ac22a36e663913ae153927a039d0bcbea70725955ead2c10",
+        "1": "e57f6f5678510b376553caafeddea5221e3847e6aa299aa2cdea3347ea506b87"
+      },
+      "probe": {
+        "streams": [
+          {
+            "index": 0,
+            "codec_name": "vp9",
+            "codec_long_name": "Google VP9",
+            "profile": "Profile 0",
+            "codec_type": "video",
+            "codec_tag_string": "[0][0][0][0]",
+            "codec_tag": "0x0000",
+            "mime_codec_string": "vp09.00.40.08",
+            "width": 1920,
+            "height": 1080,
+            "coded_width": 1920,
+            "coded_height": 1080,
+            "has_b_frames": 0,
+            "sample_aspect_ratio": "1:1",
+            "display_aspect_ratio": "16:9",
+            "pix_fmt": "yuv420p",
+            "level": -99,
+            "color_range": "tv",
+            "field_order": "progressive",
+            "refs": 1,
+            "r_frame_rate": "30/1",
+            "avg_frame_rate": "30/1",
+            "time_base": "1/1000",
+            "start_pts": 0,
+            "start_time": "0.000000",
+            "nb_read_frames": "2",
+            "disposition": {
+              "default": 0,
+              "dub": 0,
+              "original": 0,
+              "comment": 0,
+              "lyrics": 0,
+              "karaoke": 0,
+              "forced": 0,
+              "hearing_impaired": 0,
+              "visual_impaired": 0,
+              "clean_effects": 0,
+              "attached_pic": 0,
+              "timed_thumbnails": 0,
+              "non_diegetic": 0,
+              "captions": 0,
+              "descriptions": 0,
+              "metadata": 0,
+              "dependent": 0,
+              "still_image": 0,
+              "multilayer": 0
+            },
+            "tags": {
+              "alpha_mode": "1",
+              "ENCODER": "Lavc63.1.100 libvpx-vp9",
+              "DURATION": "00:00:00.066000000"
+            }
+          }
+        ],
+        "format": {
+          "filename": "C:\\Projects\\overlays-legacy\\.motion-qa\\donate7-exports\\hero-b\\export.webm",
+          "nb_streams": 1,
+          "nb_programs": 0,
+          "nb_stream_groups": 0,
+          "format_name": "matroska,webm",
+          "format_long_name": "Matroska / WebM",
+          "start_time": "0.000000",
+          "duration": "0.066000",
+          "size": "1018428",
+          "bit_rate": "123445818",
+          "probe_score": 100,
+          "tags": {
+            "ENCODER": "Lavf63.1.100"
+          }
+        }
+      },
+      "bytes": 1018428
+    },
+    {
+      "name": "zero",
+      "width": 1920,
+      "height": 1080,
+      "count": 3,
+      "hashes": {
+        "0": "0f919687ec4cc34670b2c0e7c0dfe85748582612a9b1d953662fad9fcb3f8cb6",
+        "1": "0f919687ec4cc34670b2c0e7c0dfe85748582612a9b1d953662fad9fcb3f8cb6",
+        "2": "796bbf492b73eb7bb566a7f161c5b1b1c80cb5c2ab2547c28057724b0ad91822"
+      },
+      "probe": {
+        "streams": [
+          {
+            "index": 0,
+            "codec_name": "vp9",
+            "codec_long_name": "Google VP9",
+            "profile": "Profile 0",
+            "codec_type": "video",
+            "codec_tag_string": "[0][0][0][0]",
+            "codec_tag": "0x0000",
+            "mime_codec_string": "vp09.00.40.08",
+            "width": 1920,
+            "height": 1080,
+            "coded_width": 1920,
+            "coded_height": 1080,
+            "has_b_frames": 0,
+            "sample_aspect_ratio": "1:1",
+            "display_aspect_ratio": "16:9",
+            "pix_fmt": "yuv420p",
+            "level": -99,
+            "color_range": "tv",
+            "field_order": "progressive",
+            "refs": 1,
+            "r_frame_rate": "30/1",
+            "avg_frame_rate": "30/1",
+            "time_base": "1/1000",
+            "start_pts": 0,
+            "start_time": "0.000000",
+            "nb_read_frames": "3",
+            "disposition": {
+              "default": 0,
+              "dub": 0,
+              "original": 0,
+              "comment": 0,
+              "lyrics": 0,
+              "karaoke": 0,
+              "forced": 0,
+              "hearing_impaired": 0,
+              "visual_impaired": 0,
+              "clean_effects": 0,
+              "attached_pic": 0,
+              "timed_thumbnails": 0,
+              "non_diegetic": 0,
+              "captions": 0,
+              "descriptions": 0,
+              "metadata": 0,
+              "dependent": 0,
+              "still_image": 0,
+              "multilayer": 0
+            },
+            "tags": {
+              "alpha_mode": "1",
+              "ENCODER": "Lavc63.1.100 libvpx-vp9",
+              "DURATION": "00:00:00.100000000"
+            }
+          }
+        ],
+        "format": {
+          "filename": "C:\\Projects\\overlays-legacy\\.motion-qa\\donate7-exports\\zero\\export.webm",
+          "nb_streams": 1,
+          "nb_programs": 0,
+          "nb_stream_groups": 0,
+          "format_name": "matroska,webm",
+          "format_long_name": "Matroska / WebM",
+          "start_time": "0.000000",
+          "duration": "0.100000",
+          "size": "5045",
+          "bit_rate": "403600",
+          "probe_score": 100,
+          "tags": {
+            "ENCODER": "Lavf63.1.100"
+          }
+        }
+      },
+      "bytes": 5045
+    },
+    {
+      "name": "wide21",
+      "width": 3440,
+      "height": 1440,
+      "count": 2,
+      "hashes": {
+        "0": "f797d35085da2a8c6125fbfe88e7684d98a253dec6d983f29a17c7f6319eb8ec",
+        "1": "4fb546c1c8e84adf2aca58cd4145be16ce820df9ca2d923dd53fc1f5202bf550"
+      },
+      "probe": {
+        "streams": [
+          {
+            "index": 0,
+            "codec_name": "vp9",
+            "codec_long_name": "Google VP9",
+            "profile": "Profile 0",
+            "codec_type": "video",
+            "codec_tag_string": "[0][0][0][0]",
+            "codec_tag": "0x0000",
+            "mime_codec_string": "vp09.00.50.08",
+            "width": 3440,
+            "height": 1440,
+            "coded_width": 3440,
+            "coded_height": 1440,
+            "has_b_frames": 0,
+            "sample_aspect_ratio": "1:1",
+            "display_aspect_ratio": "43:18",
+            "pix_fmt": "yuv420p",
+            "level": -99,
+            "color_range": "tv",
+            "field_order": "progressive",
+            "refs": 1,
+            "r_frame_rate": "30/1",
+            "avg_frame_rate": "30/1",
+            "time_base": "1/1000",
+            "start_pts": 0,
+            "start_time": "0.000000",
+            "nb_read_frames": "2",
+            "disposition": {
+              "default": 0,
+              "dub": 0,
+              "original": 0,
+              "comment": 0,
+              "lyrics": 0,
+              "karaoke": 0,
+              "forced": 0,
+              "hearing_impaired": 0,
+              "visual_impaired": 0,
+              "clean_effects": 0,
+              "attached_pic": 0,
+              "timed_thumbnails": 0,
+              "non_diegetic": 0,
+              "captions": 0,
+              "descriptions": 0,
+              "metadata": 0,
+              "dependent": 0,
+              "still_image": 0,
+              "multilayer": 0
+            },
+            "tags": {
+              "alpha_mode": "1",
+              "ENCODER": "Lavc63.1.100 libvpx-vp9",
+              "DURATION": "00:00:00.066000000"
+            }
+          }
+        ],
+        "format": {
+          "filename": "C:\\Projects\\overlays-legacy\\.motion-qa\\donate7-exports\\wide21\\export.webm",
+          "nb_streams": 1,
+          "nb_programs": 0,
+          "nb_stream_groups": 0,
+          "format_name": "matroska,webm",
+          "format_long_name": "Matroska / WebM",
+          "start_time": "0.000000",
+          "duration": "0.066000",
+          "size": "4531752",
+          "bit_rate": "549303272",
+          "probe_score": 100,
+          "tags": {
+            "ENCODER": "Lavf63.1.100"
+          }
+        }
+      },
+      "bytes": 4531752
+    },
+    {
+      "name": "wide32",
+      "width": 5120,
+      "height": 1440,
+      "count": 2,
+      "hashes": {
+        "0": "04b34213e52ab2a05fe1bd76b1f241c32e50545000743e10e03bb69655a6dc86",
+        "1": "2a1e0eff1e21f9d3015deb181516e691f1e061deb86d66cba69251a331e95f32"
+      },
+      "probe": {
+        "streams": [
+          {
+            "index": 0,
+            "codec_name": "vp9",
+            "codec_long_name": "Google VP9",
+            "profile": "Profile 0",
+            "codec_type": "video",
+            "codec_tag_string": "[0][0][0][0]",
+            "codec_tag": "0x0000",
+            "mime_codec_string": "vp09.00.50.08",
+            "width": 5120,
+            "height": 1440,
+            "coded_width": 5120,
+            "coded_height": 1440,
+            "has_b_frames": 0,
+            "sample_aspect_ratio": "1:1",
+            "display_aspect_ratio": "32:9",
+            "pix_fmt": "yuv420p",
+            "level": -99,
+            "color_range": "tv",
+            "field_order": "progressive",
+            "refs": 1,
+            "r_frame_rate": "30/1",
+            "avg_frame_rate": "30/1",
+            "time_base": "1/1000",
+            "start_pts": 0,
+            "start_time": "0.000000",
+            "nb_read_frames": "2",
+            "disposition": {
+              "default": 0,
+              "dub": 0,
+              "original": 0,
+              "comment": 0,
+              "lyrics": 0,
+              "karaoke": 0,
+              "forced": 0,
+              "hearing_impaired": 0,
+              "visual_impaired": 0,
+              "clean_effects": 0,
+              "attached_pic": 0,
+              "timed_thumbnails": 0,
+              "non_diegetic": 0,
+              "captions": 0,
+              "descriptions": 0,
+              "metadata": 0,
+              "dependent": 0,
+              "still_image": 0,
+              "multilayer": 0
+            },
+            "tags": {
+              "alpha_mode": "1",
+              "ENCODER": "Lavc63.1.100 libvpx-vp9",
+              "DURATION": "00:00:00.066000000"
+            }
+          }
+        ],
+        "format": {
+          "filename": "C:\\Projects\\overlays-legacy\\.motion-qa\\donate7-exports\\wide32\\export.webm",
+          "nb_streams": 1,
+          "nb_programs": 0,
+          "nb_stream_groups": 0,
+          "format_name": "matroska,webm",
+          "format_long_name": "Matroska / WebM",
+          "start_time": "0.000000",
+          "duration": "0.066000",
+          "size": "6139607",
+          "bit_rate": "744194787",
+          "probe_score": 100,
+          "tags": {
+            "ENCODER": "Lavf63.1.100"
+          }
+        }
+      },
+      "bytes": 6139607
+    }
+  ],
+  "encodedFrameZero": {
+    "mode": "RGBA",
+    "size": [
+      1920,
+      1080
+    ],
+    "alphaExtrema": [
+      0,
+      0
+    ],
+    "nonTransparentPixels": 0
+  }
+}

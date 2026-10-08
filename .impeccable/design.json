@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-10-08T00:20:09.913Z",
+  "generatedAt": "2026-10-08T08:40:27.110Z",
   "title": "Design System: Kaaajka GIF-led Donation Shows",
   "extensions": {
     "typographyMeta": {
@@ -55,6 +55,11 @@
         "name": "reading-ambient",
         "value": "0 20px 45px rgba(0, 0, 0, 0.22)",
         "purpose": "Soft reading separation. The built card also carries an 8px hard lower edge, recorded in its specimen but not canonized as reusable depth."
+      },
+      {
+        "name": "reaction-crt",
+        "value": "5px 14px 26px rgb(15 9 18 / 55%), inset 0 0 0 2px #a78385",
+        "purpose": "Donate7 handmade CRT casing only"
       }
     ],
     "motion": [
@@ -86,17 +91,32 @@
       {
         "name": "cash-wave",
         "value": "2.8s",
-        "purpose": "Maximum lifetime of short source-specific higher-tier cash waves; none in information."
+        "purpose": "Maximum shared Donate5/6 cash-wave lifetime; Donate7 finite spectacle emission lifetimes reach 4.4s. None in information."
       },
       {
         "name": "source-entry",
         "value": "0.05s start, 0.1s duration",
-        "purpose": "First nonzero source entrance; public time zero hides every stage descendant."
+        "purpose": "First nonzero source entrance; public time zero hides every stage descendant. Donate7 main CRT opens from 0.05s over 0.22s."
       },
       {
         "name": "cash-donor-falloff",
         "value": "160 canonical units; back 0.14, front 0.35 minimum alpha multipliers",
-        "purpose": "Continuous donor-relative readability falloff; six of seven seeded bill indices route behind scene content and one in front, without invisible deletion rectangles."
+        "purpose": "Continuous donor-relative readability falloff; six of seven seeded bill indices route behind scene content and one in front, without invisible deletion rectangles. Applies to shared Donate5/6 renderer; Donate7 instead uses measured-bound routes and continuous trajectory deflection."
+      },
+      {
+        "name": "donate7-mechanical",
+        "value": "M0,0 C0.12,0 0.13,0.97 0.3,1 0.55,1 0.65,1 1,1",
+        "purpose": "CustomEase CRT recruitment and character response"
+      },
+      {
+        "name": "donate7-heavy",
+        "value": "M0,0 C0.3,0 0.33,0.13 0.46,0.86 0.53,1 0.68,1 1,1",
+        "purpose": "CustomEase weighted contraction and shutdown"
+      },
+      {
+        "name": "donate7-camera",
+        "value": "M0,0 C0.03,0.67 0.1,0.95 0.25,1 0.5,1 0.72,1 1,1",
+        "purpose": "CustomEase interruption punch and recovery"
       }
     ],
     "breakpoints": [
@@ -140,21 +160,29 @@
         "src/motion/media/MediaLayer.ts",
         "scripts/studio-tts.mjs",
         "public/studio-sw.js",
-        "public/motion-studio.webmanifest"
+        "public/motion-studio.webmanifest",
+        "docs/DONATE7_CREATIVE_DIRECTION.md",
+        "src/donations/choreography/donate7/choreography.ts",
+        "src/donations/choreography/donate7/show.ts",
+        "src/donations/choreography/donate7/SpectacleRenderer.ts",
+        "src/donations/scenes/Donate7Scene.tsx",
+        "src/donations/scenes/donate7-show.css"
       ],
       "visualEvidence": [
         "docs/assets/post-2.2/round-2/",
         "docs/assets/post-2.2/review-1/",
-        "docs/assets/post-2.2/visible/information-full.png"
+        "docs/assets/post-2.2/visible/information-full.png",
+        "docs/assets/donate7-creative/round-2/"
       ],
       "snippetPolicy": "Eight self-contained ds-prefixed Studio/information/help specimens with literal values; intrinsic reading card shown at 30% scale. No framework, media playback or animation runtime; Poppins falls back to sans-serif.",
       "mediaPolicy": "Seven original GIFs and MP3s unchanged. Forward native sequential VP9 playback follows audio-derived expected phase with source-aware drift correction; scrub, freeze and export retain exact frame selection. Only derived Donate4/Donate6 WebM changed to lossless all-intra VP9. Source fallback remains unsynchronized. Source instances per scene: 1,3,3,1,1,1,3; release media at information/unmount.",
       "donate8": "Retained old lavender aperture/name composition in Studio with shared Donate7 track; no live threshold or separate audio asset.",
-      "expansion": "post-v2.2 extension of pinned d2f60c0f: aspect-aware bounded sources, resumable Full authoring transport, current local speech, nullable ranges, unified timeline, full Program controls, cash depth, hybrid source playback and installable shell",
-      "reviewEvidence": "Fresh static reviewer final disposition: ship; four findings resolved (shortcut layout, Donate5 cash contrast, missing blocker evidence, stale cash documentation). No approved comp or QUALITY BAR exists. Static evidence does not independently establish motion aesthetics, owner approval or an After Effects-level finish; final tests are reported separately."
+      "expansion": "post-v2.2 extension of pinned d2f60c0f: aspect-aware bounded sources, resumable Full authoring transport, current local speech, nullable ranges, unified timeline, full Program controls, cash depth, hybrid source playback and installable shell; Donate7 now owns a handmade CRT wall, three authored interruptions, stable donor and finite three-depth Canvas spectacle",
+      "reviewEvidence": "Fresh static reviewer final disposition: ship; four findings resolved (shortcut layout, Donate5 cash contrast, missing blocker evidence, stale cash documentation). No approved comp or QUALITY BAR exists. Static evidence does not independently establish motion aesthetics, owner approval or an After Effects-level finish; final tests are reported separately.",
+      "donate7": "Owner-pinned reaction-wall extension. Original 120x120 GIF, WebM and 46.23397s audio unchanged; stills are original source frames 0/15/38/62. Primary current visual evidence: round-2 over the supplied real Rocket League stream. Exact-hero amount visibility correction is implemented; owner normal-speed music/visual approval pending. Browser evidence does not certify OBS hardware performance; functional QA/performance results are reported separately."
     },
     "layout": {
-      "stage": "Fixed canonical height 1080; virtual width viewport.width/viewport.height*1080; uniform scale viewport.height/1080. Horizontal groups apply 0.35/0.65 of virtualWidth-1920 while bounded source dimensions retain reference composition.",
+      "stage": "Fixed canonical height 1080; virtual width viewport.width/viewport.height*1080; uniform scale viewport.height/1080. Horizontal groups apply 0.35/0.65 of virtualWidth-1920 while bounded source dimensions retain reference composition. Donate7 uses authored extra-width factors 0.20–0.87 for source groups and 0.28 for donor/type.",
       "desktopWorkspace": "Desktop-only >=1280x720. Persisted docked horizontal 14/64/22%, vertical 62/38%; collapse sides; maximize/restore exact layout; reset and divider double-click.",
       "desktopTimeline": "Resizable 38% default; local scrolling; sticky 150px headers; one global axis/playhead across all tracks, bottom navigator pans/resizes its viewport, nullable IN/OUT and empty fresh selection.",
       "timelineWidth": "max(100%, 900px × zoom), zoom 1–128; adaptive subsecond ruler",
@@ -166,18 +194,17 @@
       "streamPreview": "Supplied Rocket League JPG as authoring context; custom local PNG/JPEG/WebP; exports include photograph only with explicit stream background.",
       "publicZero": "data-time-zero=true hides stage and every descendant at exact music/source zero, including loading and restart/reverse seek; private GSAP initialization never becomes public visual content",
       "output": "1280x720, 1366x768, 1920x1080, 2560x1440, 3840x2160, 1920x1200, 2560x1080, 3440x1440, 3840x1080, 5120x1440; custom even width 320–8192 and height 240–4320.",
-      "startup": "Donate1; Full Alert; manual selection; stream background; no range; loop off."
+      "startup": "Donate1; Full Alert; manual selection; stream background; no range; loop off.",
+      "donate7": "Main source window 240x240 at (1090,380); satellites 134x134 at (885,390)/(1385,475); six 100x100 stills from four original poses. CRT padding 9px 9px 23px. Stable 540px donor stack at (405,535), gap 20px, outside camera/wall transforms. Headline 650px at (385,265), WTF at (425,820). Canonical 1080 height, base source window twice native before brief wall/camera punches; extra width separates groups rather than enlarging footage."
     },
     "cash": {
       "eligibleTiers": [
         5,
-        6,
-        7
+        6
       ],
       "forms": [
         "ovation fountain",
-        "heart handoff",
-        "webcam storm"
+        "heart handoff"
       ],
       "qualityCaps": {
         "high": 72,
@@ -187,7 +214,7 @@
       },
       "waveLifetime": "2.8s maximum",
       "information": "hidden and cleared",
-      "qualityCapsBasis": "Per renderer; heart cap 12. Stable routing uses bill index modulo 7, rather than moving particles between depths.",
+      "qualityCapsBasis": "Shared CashRenderer applies to Donate5/6 only; heart cap 12. Donate7 uses its separate spectacle inventory and budgets. Stable shared routing uses bill index modulo 7, rather than moving particles between depths.",
       "depth": {
         "back": "six of seven seeded indices behind source/text",
         "front": "one in seven seeded indices in front"
@@ -203,8 +230,7 @@
       },
       "origins": {
         "donate5": "donor.x, donor.y + 240",
-        "donate6": "donor.x + 480, donor.y + 180",
-        "donate7": "seeded distribution across actual virtual viewport width"
+        "donate6": "donor.x + 480, donor.y + 180"
       },
       "backing": "Independent of geometry; at most 4,000,000 pixels per cash canvas."
     },
@@ -215,9 +241,10 @@
         "Dancer: authored 630×76px bunny-ear floor compresses/releases at existing cues",
         "Ovation: native cyan 56px aside at hero +0.1s",
         "Heart: native cheering 56px sticker at (875,712), −8° rotation",
-        "Studio: 24px identity mark"
+        "Studio: 24px identity mark",
+        "Donate7: original 90px cheer/cyan cue-led stickers and occasional small original emote stamps in finite paper emission"
       ],
-      "negativeSpace": "Transparent gameplay surrounds seven bounded compositions; previous assembly scales/coverage measures are historical, not current quotas",
+      "negativeSpace": "Transparent gameplay surrounds seven bounded compositions; previous assembly scales/coverage measures are historical, not current quotas; Donate7 adds brief authored dark veil and peach wash at interruption peaks",
       "lettering": "Transparent handwritten OMG at 200×80; two 280×187 CSS windows from HOLY/MOLY asset; original GIF footage unchanged"
     },
     "colorMeta": {
@@ -880,6 +907,141 @@
           "oklch(83.6% 0.08227 37.22)",
           "oklch(95.0% 0.08227 37.22)"
         ]
+      },
+      "reaction-plum": {
+        "role": "primary",
+        "displayName": "Reaction Plum",
+        "canonical": "#2b222a",
+        "tonalRamp": [
+          "oklch(15.0% 0.01966 329.77)",
+          "oklch(26.4% 0.01966 329.77)",
+          "oklch(37.9% 0.01966 329.77)",
+          "oklch(49.3% 0.01966 329.77)",
+          "oklch(60.7% 0.01966 329.77)",
+          "oklch(72.1% 0.01966 329.77)",
+          "oklch(83.6% 0.01966 329.77)",
+          "oklch(95.0% 0.01966 329.77)"
+        ]
+      },
+      "reaction-bezel": {
+        "role": "primary",
+        "displayName": "Reaction Bezel",
+        "canonical": "#a78385",
+        "tonalRamp": [
+          "oklch(15.0% 0.04444 14.64)",
+          "oklch(26.4% 0.04444 14.64)",
+          "oklch(37.9% 0.04444 14.64)",
+          "oklch(49.3% 0.04444 14.64)",
+          "oklch(60.7% 0.04444 14.64)",
+          "oklch(72.1% 0.04444 14.64)",
+          "oklch(83.6% 0.04444 14.64)",
+          "oklch(95.0% 0.04444 14.64)"
+        ]
+      },
+      "reaction-cream": {
+        "role": "primary",
+        "displayName": "Reaction Cream",
+        "canonical": "#fff4e5",
+        "tonalRamp": [
+          "oklch(15.0% 0.02308 75.86)",
+          "oklch(26.4% 0.02308 75.86)",
+          "oklch(37.9% 0.02308 75.86)",
+          "oklch(49.3% 0.02308 75.86)",
+          "oklch(60.7% 0.02308 75.86)",
+          "oklch(72.1% 0.02308 75.86)",
+          "oklch(83.6% 0.02308 75.86)",
+          "oklch(95.0% 0.02308 75.86)"
+        ]
+      },
+      "reaction-peach": {
+        "role": "primary",
+        "displayName": "Reaction Peach",
+        "canonical": "#f3a08f",
+        "tonalRamp": [
+          "oklch(15.0% 0.10273 32.13)",
+          "oklch(26.4% 0.10273 32.13)",
+          "oklch(37.9% 0.10273 32.13)",
+          "oklch(49.3% 0.10273 32.13)",
+          "oklch(60.7% 0.10273 32.13)",
+          "oklch(72.1% 0.10273 32.13)",
+          "oklch(83.6% 0.10273 32.13)",
+          "oklch(95.0% 0.10273 32.13)"
+        ]
+      },
+      "reaction-pink": {
+        "role": "primary",
+        "displayName": "Reaction Pink",
+        "canonical": "#ed7eaa",
+        "tonalRamp": [
+          "oklch(15.0% 0.14411 356.15)",
+          "oklch(26.4% 0.14411 356.15)",
+          "oklch(37.9% 0.14411 356.15)",
+          "oklch(49.3% 0.14411 356.15)",
+          "oklch(60.7% 0.14411 356.15)",
+          "oklch(72.1% 0.14411 356.15)",
+          "oklch(83.6% 0.14411 356.15)",
+          "oklch(95.0% 0.14411 356.15)"
+        ]
+      },
+      "reaction-cyan": {
+        "role": "primary",
+        "displayName": "Reaction Cyan",
+        "canonical": "#66d4dd",
+        "tonalRamp": [
+          "oklch(15.0% 0.10123 202.55)",
+          "oklch(26.4% 0.10123 202.55)",
+          "oklch(37.9% 0.10123 202.55)",
+          "oklch(49.3% 0.10123 202.55)",
+          "oklch(60.7% 0.10123 202.55)",
+          "oklch(72.1% 0.10123 202.55)",
+          "oklch(83.6% 0.10123 202.55)",
+          "oklch(95.0% 0.10123 202.55)"
+        ]
+      },
+      "reaction-paper": {
+        "role": "primary",
+        "displayName": "Reaction Paper",
+        "canonical": "#ffe7c7",
+        "tonalRamp": [
+          "oklch(15.0% 0.04949 75.02)",
+          "oklch(26.4% 0.04949 75.02)",
+          "oklch(37.9% 0.04949 75.02)",
+          "oklch(49.3% 0.04949 75.02)",
+          "oklch(60.7% 0.04949 75.02)",
+          "oklch(72.1% 0.04949 75.02)",
+          "oklch(83.6% 0.04949 75.02)",
+          "oklch(95.0% 0.04949 75.02)"
+        ]
+      },
+      "reaction-cash": {
+        "role": "primary",
+        "displayName": "Reaction Cash",
+        "canonical": "#f7dfad",
+        "tonalRamp": [
+          "oklch(15.0% 0.06979 85.27)",
+          "oklch(26.4% 0.06979 85.27)",
+          "oklch(37.9% 0.06979 85.27)",
+          "oklch(49.3% 0.06979 85.27)",
+          "oklch(60.7% 0.06979 85.27)",
+          "oklch(72.1% 0.06979 85.27)",
+          "oklch(83.6% 0.06979 85.27)",
+          "oklch(95.0% 0.06979 85.27)"
+        ]
+      },
+      "reaction-cash-ink": {
+        "role": "primary",
+        "displayName": "Reaction Cash Ink",
+        "canonical": "#654c42",
+        "tonalRamp": [
+          "oklch(15.0% 0.03776 42.82)",
+          "oklch(26.4% 0.03776 42.82)",
+          "oklch(37.9% 0.03776 42.82)",
+          "oklch(49.3% 0.03776 42.82)",
+          "oklch(60.7% 0.03776 42.82)",
+          "oklch(72.1% 0.03776 42.82)",
+          "oklch(83.6% 0.03776 42.82)",
+          "oklch(95.0% 0.03776 42.82)"
+        ]
       }
     },
     "authoring": {
@@ -887,6 +1049,71 @@
       "shortcuts": "Polish eleven-row accessible modal with initial/return focus, trapped Tab and Escape dismissal.",
       "pwa": "Public /motion-studio entry; standalone manifest, owned icons, install detection, explicit waiting-worker update restart and warmed shell modules/styles/fonts.",
       "capabilities": "authoringServices adapter exposes export, TTS, persistence. Local backend unavailable: visible Polish status; shell remains. Large music/scene media and service responses are not cached; no offline server replacement or desktop-host migration."
+    },
+    "donate7": {
+      "signature": "broadcast-reaction-wall",
+      "cues": {
+        "signal": 4.45823,
+        "co": 11.80735,
+        "za": 12.27175,
+        "hero": 13.21215,
+        "response": 16.43973,
+        "reprise": 22.89488,
+        "exchange": 25.44907,
+        "recovery": 30.25,
+        "calm": 33.52961,
+        "recruit": 36.06059,
+        "final": 37.66277,
+        "afterglow": 40.91356,
+        "exit": 43.67673
+      },
+      "clock": "One paused absolute-time GSAP director; CustomEase mechanical/heavy/camera curves, SplitText slam, DrawSVG impact strokes. Analytic seeded Canvas positions are independent of seek history.",
+      "amount": "Every digit visible at exact 13.21215s hero; short positional settle retains readability. Donor outside camera group.",
+      "falseCalm": "Authored visual counterpoint inside loud music; no claim of a silent passage or formal song section.",
+      "spectacle": {
+        "kinds": [
+          "bill",
+          "paper",
+          "streamer",
+          "spark"
+        ],
+        "depths": [
+          "back",
+          "mid",
+          "front"
+        ],
+        "particles": {
+          "high": 480,
+          "medium": 260,
+          "safe": 110
+        },
+        "backingPixelsPerCanvas": {
+          "high": 2000000,
+          "medium": 1200000,
+          "safe": 650000
+        },
+        "backingBasis": "Nominal target per each of three canvases; rounded dimensions can differ slightly. Total is approximately three times target. Geometry spans actual virtual width independently.",
+        "life": "Finite seeded inventory, emission lifetime at most 4.4s; no continuous rain",
+        "quality": "Per-emitter quotas preserve every signature type. Safe disables trails.",
+        "depth": "Sparks back; other indices modulo 9 front, else modulo 3 mid, else back. Stable seeded depth.",
+        "donorProtection": "Foreground sweeps route above/below actual donor bounds; continuous analytic trajectory deflection, without rectangular deletion or alpha holes.",
+        "fireworks": [
+          13.39215,
+          23.07488,
+          37.84277,
+          38.20277
+        ],
+        "information": "Hidden and cleared; dispose empties inventory and sets all backing canvases to 1x1"
+      },
+      "identity": "Original cheer/cyan bunny stickers at 90px; occasional original emote stamps at 32px local size in finite paper inventory. No replacement footage.",
+      "sourcePoses": [
+        0,
+        15,
+        38,
+        62
+      ],
+      "evidence": "docs/assets/donate7-creative/round-2/",
+      "approval": "Owner normal-speed musical/visual approval pending; no OBS hardware performance certification"
     }
   },
   "components": [
@@ -952,11 +1179,19 @@
       "description": "Readable warm graphite help explaining a timeline concept and its effect.",
       "html": "<aside class=\"ds-help\"><strong>Kulminacja</strong><p>Punkt, w którym kwota i główny gest sceny spotykają się z muzyką.</p></aside>",
       "css": ".ds-help{width:310px;padding:14px 16px;color:#f8e9e1;background:#302a2a;border:1px solid #967065;border-radius:8px;box-shadow:0 8px 28px #0009;font:13px/1.6 Poppins,sans-serif}.ds-help strong{color:#ffccb8}.ds-help p{margin:7px 0 0}"
+    },
+    {
+      "name": "Reaction CRT bezel",
+      "kind": "custom",
+      "refersTo": "reaction-monitor",
+      "description": "Donate7 handmade casing at 75% specimen scale; bounded black media well represents placement only. Source footage remains the original asset in the show.",
+      "html": "<div class=\"ds-reaction-specimen\"><div class=\"ds-reaction-crt\"><div class=\"ds-reaction-screen\" aria-label=\"Original webcam media placement\"></div><span class=\"ds-reaction-halo\">HALO?</span><i class=\"ds-reaction-led\" aria-hidden=\"true\"></i></div></div>",
+      "css": ".ds-reaction-specimen{height:210px;position:relative}.ds-reaction-crt{position:relative;width:240px;height:240px;padding:9px 9px 23px;background:#2b222a;border-radius:9px 9px 17px 9px;box-shadow:5px 14px 26px rgb(15 9 18 / 55%),inset 0 0 0 2px #a78385;transform:scale(.75) rotate(-3deg);transform-origin:top left}.ds-reaction-screen{position:relative;width:100%;height:100%;background:#0c090b;overflow:hidden}.ds-reaction-screen:after{content:\"\";position:absolute;inset:0;background:linear-gradient(transparent 48%,rgb(243 160 143 / 32%) 49%,transparent 53%);background-size:100% 7px;opacity:.08;box-shadow:inset 0 0 18px rgb(255 208 188 / 18%)}.ds-reaction-halo{position:absolute;left:10px;bottom:3px;font:600 13px Poppins,sans-serif;color:#f8d3c2}.ds-reaction-led{position:absolute;right:11px;bottom:8px;width:5px;height:5px;border-radius:50%;background:#66d4dd}"
     }
   ],
   "narrative": {
     "northStar": "Seven GIFs Conduct the Show",
-    "overview": "Each live donation is a miniature music video conducted by Kaaajka's selected GIF, its existing track and its legacy joke. The room dancer calls for a two-step, the masked dancer leaves transparent echoes, the rodent cuts through a film strip, the seated portrait unrolls paper, the crowd opens its arms, the streamer passes a heart, and the tiny webcam interrupts through a monitor wall. Exuberance and ascending importance come from these subjects, their distinct layouts and their timed donor payoffs.\n\nShared infrastructure supports those seven compositions: a transparent broadcast stage, solid donor typography, absolute music time, source-frame seeking and a calm complete-message landing. Production v2.2 composes smaller source-aware windows, a single donor/amount stack per show, deliberate negative space, source-specific cash payoffs and selective community replies. Handwritten OMG and HOLY/MOLY assets adapt the supplied banner's written character; original source GIFs remain unchanged. The supplied peach channel banner, controller avatar and white bunny emotes establish warmth and expressive reaction; they do not recolor the selected GIFs.\n\nMotion Studio is a graphite authoring desk: tree, central fitted stage, inspector and multitrack timeline. Peach marks selection and deliberate actions; cyan carries measurement and the small bunny identity mark. This document records the built post-v2.2 extension of pinned direction `d2f60c0f`, inspected from current source. `docs/assets/post-2.2/round-2/` records the responsive scene and Studio captures; `review-1/` records corrected shortcuts, Donate5 cash contrast and the smaller-screen blocker, while `visible/information-full.png` records the complete-message landing. The fresh static review's four findings (shortcut layout, Donate5 cash contrast, missing blocker evidence and stale cash documentation) are resolved. No approved comp or QUALITY BAR card exists. Static captures do not independently prove normal-speed motion quality, an After Effects-level finish or owner approval; test results belong to the final QA report. The old SAY MY NAME composition remains a Studio-only Donate8 exploration sharing Donate7's track. Unrelated legacy overlay styles remain outside this document's scope.",
+    "overview": "Each live donation is a miniature music video conducted by Kaaajka's selected GIF, its existing track and its legacy joke. The room dancer calls for a two-step, the masked dancer leaves transparent echoes, the rodent cuts through a film strip, the seated portrait unrolls paper, the crowd opens its arms, the streamer passes a heart, and the tiny webcam interrupts through a monitor wall. Exuberance and ascending importance come from these subjects, their distinct layouts and their timed donor payoffs.\n\nShared infrastructure supports those seven compositions: a transparent broadcast stage, solid donor typography, absolute music time, source-frame seeking and a calm complete-message landing. Production v2.2 composes smaller source-aware windows, a single donor/amount stack per show, deliberate negative space, source-specific cash payoffs and selective community replies. Handwritten OMG and HOLY/MOLY assets adapt the supplied banner's written character; original source GIFs remain unchanged. The supplied peach channel banner, controller avatar and white bunny emotes establish warmth and expressive reaction; they do not recolor the selected GIFs.\n\nDonate7 now builds a warm handmade CRT reaction wall around the original tiny webcam: solitary signal, monitor recruitment, three interruptions, recovery, authored false calm and sequential shutdown. Its donor stays outside the camera group. Finite seeded bills, paper, ribbons and four fireworks articulate the three peaks; original bunny stickers and source-pose stills answer the footage. This extension follows `docs/DONATE7_CREATIVE_DIRECTION.md`; the original GIF, WebM and audio remain unchanged.\n\nMotion Studio is a graphite authoring desk: tree, central fitted stage, inspector and multitrack timeline. Peach marks selection and deliberate actions; cyan carries measurement and the small bunny identity mark. This document records the built post-v2.2 extension of pinned direction `d2f60c0f`, inspected from current source. `docs/assets/post-2.2/round-2/` records the responsive scene and Studio captures; `review-1/` records corrected shortcuts, Donate5 cash contrast and the smaller-screen blocker, while `visible/information-full.png` records the complete-message landing. The fresh static review's four findings (shortcut layout, Donate5 cash contrast, missing blocker evidence and stale cash documentation) are resolved. No approved comp or QUALITY BAR card exists. Static captures do not independently prove normal-speed motion quality, an After Effects-level finish or owner approval; test results belong to the final QA report. The old SAY MY NAME composition remains a Studio-only Donate8 exploration sharing Donate7's track. Unrelated legacy overlay styles remain outside this document's scope.\n\nDonate7's current primary visual evidence is `docs/assets/donate7-creative/round-2/` over the supplied real Rocket League stream; checker, solid and transparent captures provide additional inspection contexts. Its review-required exact-hero amount visibility fix is implemented: every amount digit is visible at 13.21215s. Owner approval of normal-speed music and visual quality remains pending, and browser evidence does not certify OBS hardware performance. Functional and performance conclusions belong to the final QA report.",
     "keyCharacteristics": [
       "Seven recognizable, unchanged source GIF identities and seven distinct compositions.",
       "Scene-specific gestures, text placement and donor impact.",
@@ -964,7 +1199,8 @@
       "Supporting effects restrained around the source and readable donor.",
       "Shared music clock, deterministic seeking and a quiet complete-message landing.",
       "Localized compositions with transparent margins that preserve gameplay.",
-      "Cash fountain, handoff and storm reserved for selected higher-tier payoffs.",
+      "Cash fountain, handoff and finite reaction-wall spectacle reserved for selected higher-tier payoffs.",
+      "Donate7's handmade CRT wall, stable donor and finite three-depth spectacle at three authored interruptions.",
       "Cue-based cyan bunny replies for Turkey/ovation, drawn bunny-ear floor for the dancer, native cheering bunny for the heart and a small Studio identity mark.",
       "Exact transparent frame zero and a compact content-sized Information landing.",
       "Polish labels and contextual help in the incumbent docked Studio.",
@@ -981,12 +1217,12 @@
       },
       {
         "name": "The Transparent Stage Rule",
-        "body": "Leave the broadcast around source windows transparent. Studio stream and checker backgrounds are inspection context.",
+        "body": "Leave the broadcast around source windows transparent outside authored transient effects. Donate7's brief dark veil and peach light wash belong to its interruptions; Studio stream and checker backgrounds are inspection context.",
         "section": "colors"
       },
       {
         "name": "The Selective Sticker Rule",
-        "body": "Give each community device a job in its scene: the cyan bunny answers Turkey's step and ovation, the drawn ears compress with the dancer's floor, and the cheering bunny answers the hand-heart. Preserve original emote colors and honest resolution; the Studio mark stays small.",
+        "body": "Give each community device a job in its scene: the cyan bunny answers Turkey's step and ovation, the drawn ears compress with the dancer's floor, and the cheering bunny answers the hand-heart. Donate7's original cheer/cyan stickers answer its named interruptions, with occasional small original emote stamps in finite paper emission. Preserve original emote colors and honest resolution; the Studio mark stays small.",
         "section": "colors"
       },
       {
@@ -1015,7 +1251,7 @@
       "**Do** retain explicit Studio labels, visible focus and the supported desktop docked inspector and smaller-screen desktop gate.",
       "**Do** preserve transparent negative space, bounded source windows and source-specific anchors that accommodate extra width.",
       "**Do** use peach for Studio selection, cyan for measurement, and monospace for genuine timecode.",
-      "**Do** keep cash distinct by source, route stable front/back depth and derive continuous readability falloff from actual donor bounds.",
+      "**Do** keep cash distinct by source, route stable depth and derive readability protection from actual donor bounds: alpha falloff for Donate5/6, three-depth routes and trajectory deflection for Donate7.",
       "**Do** keep output format separate from Program zoom, Full transport resumable and speech provider labels honest."
     ],
     "donts": [
@@ -1026,7 +1262,7 @@
       "**Don't** turn Studio inspection backgrounds into opaque broadcast artwork.",
       "**Don't** invent a live Donate8 threshold, new track or fully static reduced-motion behavior.",
       "**Don't** apply this scoped donation identity to unrelated legacy overlays.",
-      "**Don't** use the banner gradient as a full-frame donation background or add bunny confetti.",
+      "**Don't** use the banner gradient as a full-frame donation background or spread Donate7's finite bunny-stamped paper treatment to other scenes.",
       "**Don't** restore spacious rounded cards, pill tabs or gold hero cues in the graphite Studio.",
       "**Don't** delete bills on entry to an invisible text rectangle or enlarge low-resolution source media merely to fill ultrawide output.",
       "**Don't** treat static captures as motion-quality approval, local SAPI as production Google speech or shell caching as offline authoring-service support."
