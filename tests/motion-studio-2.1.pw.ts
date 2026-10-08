@@ -150,6 +150,8 @@ test("Full timeline uses shared overlap and deterministically seeks information/
   await ready(page);
   const hero = await page.evaluate(() => window.motionStudio.status().duration);
   await page.getByRole("button", { name: "Pełny alert", exact: true }).click();
+  // Full-mode clips finish preparing asynchronously; inspect the current immutable plan.
+  await expect.poll(() => page.evaluate(() => window.motionStudio.status().speechDirty)).toBe(false);
   const status = await page.evaluate(() => window.motionStudio.status());
   const speech = status.speech;
   expect(status.timelineDuration).toBeGreaterThan(hero);
@@ -179,7 +181,7 @@ test("Full timeline uses shared overlap and deterministically seeks information/
   await page.getByRole("button", { name: "Edytuj czas alertu" }).click();
   await page.getByLabel("Czas alertu", { exact: true }).fill(status.plan.duration.toFixed(3));
   await page.getByLabel("Czas alertu", { exact: true }).press("Enter");
-  expect(await page.evaluate(() => window.motionStudio.status().phase)).toBe("complete");
+  await expect.poll(() => page.evaluate(() => window.motionStudio.status().phase)).toBe("complete");
 });
 test("native PCM from actual speech accompanies highlights, direct preview and complete Full Alert", async ({
   page,
@@ -274,7 +276,7 @@ test("pointer range/scrub, context actions, wheel zoom and sticky headers remain
   expect(await page.evaluate(() => getSelection().toString())).toBe("");
   await page.locator(".cue-marker.hero").click({ button: "right" });
   await page.getByRole("menuitem", { name: "Przejdź do punktu" }).click();
-  expect(await page.evaluate(() => window.motionStudio.status().cue)).toBe("heroDrop");
+  await expect.poll(() => page.evaluate(() => window.motionStudio.status().cue)).toBe("heroDrop");
   await page.mouse.move(ruler.x + 350, ruler.y + 50);
   await page.keyboard.down("Control");
   await page.mouse.wheel(0, -300);

@@ -32,6 +32,7 @@ import { MediaLayer } from "../media/MediaLayer";
 import type { MediaStats } from "../media/MediaLayer";
 import { mediaAssets, mediaUrls } from "../media/SourceMedia";
 import { CashRenderer } from "../cash/CashRenderer";
+import { SpectacleRenderer } from "../../donations/choreography/donate7/SpectacleRenderer";
 
 gsap.registerPlugin(useGSAP);
 export type SceneStats = {
@@ -39,6 +40,7 @@ export type SceneStats = {
   frameMs: number;
   features: ReturnType<typeof featuresAt>;
   media?: MediaStats[];
+  spectacle?: SpectacleRenderer["stats"];
 };
 export type DonationSceneHandle = {
   renderAt: (time: number, frameMs?: number, forward?: boolean) => SceneStats;
@@ -68,6 +70,8 @@ export const DonationScene = forwardRef<DonationSceneHandle, Props>(function Don
   const cash = useRef<CashRenderer>();
   const cashFrontCanvas = useRef<HTMLCanvasElement>(null);
   const cashFront = useRef<CashRenderer>();
+  const spectacleMidCanvas = useRef<HTMLCanvasElement>(null);
+  const spectacle = useRef<SpectacleRenderer>();
   const message = useRef<HTMLDivElement>(null);
   const director = useRef<DirectedScene>();
   const gpu = useRef<OverlayRenderer>();
@@ -133,7 +137,26 @@ export const DonationScene = forwardRef<DonationSceneHandle, Props>(function Don
           );
         },
       );
-      if (treatment.tier >= 5 && treatment.tier <= 7) {
+      if (treatment.tier === 7) {
+        try {
+          const initial = selectQuality(true, navigator.hardwareConcurrency ?? 4, quality);
+          spectacle.current = new SpectacleRenderer(
+            {
+              back: cashCanvas.current,
+              mid: spectacleMidCanvas.current,
+              front: cashFrontCanvas.current,
+            },
+            seed ?? donate.id,
+            initial,
+            root.current.querySelector<HTMLImageElement>(".d7-cheer"),
+          );
+          governor.current = new QualityGovernor(initial);
+          root.current.dataset.quality = initial;
+        } catch (error) {
+          console.warn("Donate7 spectacle unavailable; source and donor retained", error);
+          fallback();
+        }
+      } else if (treatment.tier >= 5 && treatment.tier <= 6) {
         try {
           const initial = selectQuality(true, navigator.hardwareConcurrency ?? 4, quality);
           cash.current = new CashRenderer(
@@ -183,6 +206,7 @@ export const DonationScene = forwardRef<DonationSceneHandle, Props>(function Don
         stage.current.style.transform = `translate(-50%, -50%) scale(${scale})`;
         cash.current?.resize(width);
         cashFront.current?.resize(width);
+        spectacle.current?.resize(width);
         gpu.current?.resize();
       };
       const observer = new ResizeObserver(resize);
@@ -198,6 +222,11 @@ export const DonationScene = forwardRef<DonationSceneHandle, Props>(function Don
       );
       cash.current?.render(lastTime.current, intensity);
       cashFront.current?.render(lastTime.current, intensity);
+      spectacle.current?.render(
+        lastTime.current,
+        effects.current,
+        featuresAt(treatment.analysis, lastTime.current),
+      );
       return () => {
         observer.disconnect();
         cancelAnimationFrame(scrollRaf.current);
@@ -209,6 +238,8 @@ export const DonationScene = forwardRef<DonationSceneHandle, Props>(function Don
         cash.current = undefined;
         cashFront.current?.dispose();
         cashFront.current = undefined;
+        spectacle.current?.dispose();
+        spectacle.current = undefined;
         for (const layer of media.current) layer.dispose();
         media.current = [];
       };
@@ -242,11 +273,12 @@ export const DonationScene = forwardRef<DonationSceneHandle, Props>(function Don
             gpu.current?.setQuality(governor.current.tier);
             cash.current?.setQuality(governor.current.tier);
             cashFront.current?.setQuality(governor.current.tier);
+            spectacle.current?.setQuality(governor.current.tier);
             root.current.dataset.quality = governor.current.tier;
           }
           gpu.current?.render(time, effects.current, features, intensity);
           const donor = root.current.querySelector<HTMLElement>(".scene-copy");
-          if (donor && cash.current) {
+          if (donor && (cash.current || spectacle.current)) {
             const bounds = donor.getBoundingClientRect(),
               viewport = root.current.getBoundingClientRect();
             const scale = viewport.height / 1080;
@@ -256,11 +288,13 @@ export const DonationScene = forwardRef<DonationSceneHandle, Props>(function Don
               width: bounds.width / scale,
               height: bounds.height / scale,
             };
-            cash.current.setDonor(area);
+            cash.current?.setDonor(area);
             cashFront.current?.setDonor(area);
+            spectacle.current?.setDonor(area);
           }
           cash.current?.render(time, intensity);
           cashFront.current?.render(time, intensity);
+          spectacle.current?.render(time, effects.current, features);
         } catch (error) {
           console.warn("Donation renderer failed; preserving audio and completion", error);
           gpu.current?.dispose();
@@ -269,6 +303,8 @@ export const DonationScene = forwardRef<DonationSceneHandle, Props>(function Don
           cash.current = undefined;
           cashFront.current?.dispose();
           cashFront.current = undefined;
+          spectacle.current?.dispose();
+          spectacle.current = undefined;
           governor.current.tier = "safe";
           root.current.dataset.quality = "safe";
         }
@@ -277,6 +313,7 @@ export const DonationScene = forwardRef<DonationSceneHandle, Props>(function Don
           frameMs,
           features,
           media: media.current.map((layer) => layer.stats),
+          spectacle: spectacle.current ? { ...spectacle.current.stats } : undefined,
         };
       },
       information(readingMs) {
@@ -289,6 +326,7 @@ export const DonationScene = forwardRef<DonationSceneHandle, Props>(function Don
           gpu.current?.clear();
           cash.current?.clear();
           cashFront.current?.clear();
+          spectacle.current?.clear();
         } catch (error) {
           console.warn("Information state recovered after scene error", error);
         }
@@ -356,7 +394,12 @@ export const DonationScene = forwardRef<DonationSceneHandle, Props>(function Don
           <canvas ref={canvas} className="motion-gpu" aria-hidden="true" tabIndex={-1} />
         )}
         {treatment.tier >= 5 && treatment.tier <= 7 && (
-          <canvas ref={cashCanvas} className="motion-cash" aria-hidden="true" tabIndex={-1} />
+          <canvas
+            ref={cashCanvas}
+            className={`motion-cash ${treatment.tier === 7 ? "d7-spectacle d7-spectacle-back" : ""}`}
+            aria-hidden="true"
+            tabIndex={-1}
+          />
         )}
         {LiveScene ? (
           <LiveScene donate={donate} amount={amount} />
@@ -431,7 +474,9 @@ export const DonationScene = forwardRef<DonationSceneHandle, Props>(function Don
               </div>
               <div
                 className="motion-amount"
-                style={{ fontSize: amount.length > 12 ? 140 : amount.length > 9 ? 190 : 256 }}
+                style={{
+                  fontSize: amount.length > 12 ? 140 : amount.length > 9 ? 190 : 256,
+                }}
               >
                 <span className="motion-amount-number">{amount}</span>
                 <span className="motion-currency">zł</span>
@@ -440,12 +485,22 @@ export const DonationScene = forwardRef<DonationSceneHandle, Props>(function Don
           </>
         )}
         {treatment.tier >= 5 && treatment.tier <= 7 && (
-          <canvas
-            ref={cashFrontCanvas}
-            className="motion-cash motion-cash-front"
-            aria-hidden="true"
-            tabIndex={-1}
-          />
+          <>
+            {treatment.tier === 7 && (
+              <canvas
+                ref={spectacleMidCanvas}
+                className="motion-cash d7-spectacle d7-spectacle-mid"
+                aria-hidden="true"
+                tabIndex={-1}
+              />
+            )}
+            <canvas
+              ref={cashFrontCanvas}
+              className={`motion-cash motion-cash-front ${treatment.tier === 7 ? "d7-spectacle d7-spectacle-front" : ""}`}
+              aria-hidden="true"
+              tabIndex={-1}
+            />
+          </>
         )}
         <div className="motion-information">
           <div className="information-header">

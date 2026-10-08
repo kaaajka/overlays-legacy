@@ -1,0 +1,266 @@
+/* Extra-wide edges have a job; base footage windows stay small, with brief punch multipliers. */
+.d7-show {
+  perspective: 1200px;
+}
+.d7-camera {
+  position: absolute;
+  inset: 0;
+  transform-origin: 50% 48%;
+}
+.d7-monitor-wall {
+  position: absolute;
+  inset: 0;
+  transform-origin: 64% 50%;
+}
+.d7-monitor {
+  position: absolute;
+  padding: 9px 9px 23px;
+  background: #2b222a;
+  border-radius: 9px 9px 17px 9px;
+  box-shadow:
+    5px 14px 26px rgb(15 9 18 / 55%),
+    inset 0 0 0 2px #a78385;
+  transform-origin: 50% 60%;
+  --d7-exposure: 0;
+}
+.d7-monitor::after {
+  content: "";
+  position: absolute;
+  inset: 9px 9px 23px;
+  pointer-events: none;
+  background: linear-gradient(transparent 48%, rgb(243 160 143 / 32%) 49%, transparent 53%);
+  background-size: 100% 7px;
+  opacity: calc(0.08 + var(--d7-exposure) * 0.18);
+  box-shadow: inset 0 0 18px rgb(255 208 188 / 18%);
+}
+.d7-screen,
+.d7-source {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: #0c090b;
+  overflow: hidden;
+}
+.d7-screen img,
+.d7-source :is(img, video) {
+  image-rendering: pixelated;
+}
+.d7-screen img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.d7-led {
+  position: absolute;
+  right: 11px;
+  bottom: 8px;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #66d4dd;
+}
+.d7-halo {
+  position: absolute;
+  left: 10px;
+  bottom: 3px;
+  font-size: 13px;
+  color: #f8d3c2;
+  font-weight: 600;
+}
+.d7-main-monitor {
+  left: calc(1090px + var(--stage-extra, 0px) * 0.58);
+  top: 380px;
+  width: 240px;
+  height: 240px;
+}
+.d7-satellite {
+  width: 134px;
+  height: 134px;
+}
+.d7-satellite-a {
+  left: calc(885px + var(--stage-extra, 0px) * 0.45);
+  top: 390px;
+}
+.d7-satellite-b {
+  left: calc(1385px + var(--stage-extra, 0px) * 0.67);
+  top: 475px;
+}
+.d7-still {
+  width: 100px;
+  height: 100px;
+}
+.d7-slot-0 {
+  left: calc(920px + var(--stage-extra, 0px) * 0.22);
+  top: 205px;
+}
+.d7-slot-1 {
+  left: calc(1210px + var(--stage-extra, 0px) * 0.55);
+  top: 190px;
+}
+.d7-slot-2 {
+  left: calc(1430px + var(--stage-extra, 0px) * 0.84);
+  top: 285px;
+}
+.d7-slot-3 {
+  left: calc(1465px + var(--stage-extra, 0px) * 0.87);
+  top: 695px;
+}
+.d7-slot-4 {
+  left: calc(1235px + var(--stage-extra, 0px) * 0.6);
+  top: 785px;
+}
+.d7-slot-5 {
+  left: calc(1020px + var(--stage-extra, 0px) * 0.2);
+  top: 735px;
+}
+.d7-headline {
+  position: absolute;
+  left: calc(385px + var(--stage-extra, 0px) * 0.28);
+  top: 265px;
+  width: 650px;
+  transform-origin: 45% 65%;
+}
+.d7-setup {
+  display: flex;
+  gap: 22px;
+  font-size: 60px;
+  font-weight: 800;
+  line-height: 1;
+  color: #f3a08f;
+  text-shadow: 2px 5px 8px #241923;
+}
+.d7-setup span {
+  display: inline-block;
+}
+.d7-slam-mask {
+  overflow: hidden;
+  margin: -6px -30px;
+  padding: 8px 30px 24px;
+}
+.d7-slam {
+  display: block;
+  font-size: 112px;
+  font-weight: 900;
+  letter-spacing: -0.035em;
+  line-height: 1.13;
+  color: #fff4e5;
+  text-shadow:
+    2px 5px 3px #291d26,
+    6px 14px 24px rgb(20 10 18 / 80%);
+}
+.d7-type-echo {
+  position: absolute;
+  left: 0;
+  top: 57px;
+  font-size: 112px;
+  letter-spacing: -0.035em;
+  color: transparent;
+  -webkit-text-stroke: 2px #ee8daa;
+  white-space: nowrap;
+}
+.d7-show .scene-copy {
+  left: calc(405px + var(--stage-extra, 0px) * 0.28);
+  top: 535px;
+  width: 540px;
+  gap: 20px;
+}
+.d7-show .motion-name {
+  color: #fff4e5;
+}
+.d7-show .motion-amount {
+  color: #fff4e5;
+}
+.d7-wtf {
+  position: absolute;
+  left: calc(425px + var(--stage-extra, 0px) * 0.28);
+  top: 820px;
+  font-size: 34px;
+  font-weight: 700;
+  color: #f3a08f;
+  text-shadow: 2px 5px 8px #241923;
+}
+.d7-light {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 60% 45%, rgb(243 160 143 / 24%), transparent 58%);
+  opacity: 0;
+}
+.d7-blackout {
+  position: absolute;
+  inset: 0;
+  background: #241922;
+  opacity: 0;
+}
+.d7-sticker {
+  position: absolute;
+  width: 90px;
+  height: 90px;
+  object-fit: contain;
+  filter: drop-shadow(3px 8px 8px rgb(28 15 24 / 70%));
+}
+.d7-cheer {
+  left: calc(915px + var(--stage-extra, 0px) * 0.3);
+  top: 705px;
+}
+.d7-cyan {
+  left: calc(1430px + var(--stage-extra, 0px) * 0.72);
+  top: 165px;
+}
+.d7-signal-word {
+  position: absolute;
+  left: calc(1040px + var(--stage-extra, 0px) * 0.5);
+  top: 685px;
+  font-size: 42px;
+  color: #f3a08f;
+  font-weight: 700;
+  transform: rotate(-7deg);
+  text-shadow: 2px 5px 8px #241923;
+}
+.d7-signal-word span {
+  color: #66d4dd;
+}
+.d7-impact {
+  position: absolute;
+  left: calc(325px + var(--stage-extra, 0px) * 0.28);
+  top: 240px;
+  width: 720px;
+  height: 360px;
+  overflow: visible;
+}
+.d7-impact path {
+  stroke: #f3a08f;
+  stroke-width: 7;
+  stroke-linecap: round;
+}
+.d7-monitor-ghost {
+  position: absolute;
+  left: calc(1090px + var(--stage-extra, 0px) * 0.58);
+  top: 380px;
+  width: 240px;
+  height: 240px;
+  box-shadow: 0 0 0 4px #66d4dd;
+  opacity: 0;
+}
+.d7-monitor-ghost img {
+  width: 100%;
+  height: 100%;
+  image-rendering: pixelated;
+}
+.d7-spectacle {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+.d7-spectacle-back {
+  z-index: 2;
+}
+.d7-spectacle-mid {
+  z-index: 4;
+}
+.d7-spectacle-front {
+  z-index: 5;
+}
+.donation-motion[data-phase="information"] .d7-spectacle {
+  display: none;
+}

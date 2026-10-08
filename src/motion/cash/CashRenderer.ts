@@ -1,9 +1,15 @@
 import type { MotionTreatment, QualityTier } from "../types";
 import { seededRandom } from "../random";
 import { rhythmMarks } from "../../audio/motion/musicIntelligence";
+import { spectacleCues } from "../../donations/choreography/donate7/show";
 
 export function cashWaves(treatment: MotionTreatment) {
   if (treatment.tier < 5 || treatment.tier > 7) return [];
+  if (treatment.tier === 7)
+    return spectacleCues
+      .filter((cue) => cue.kind === "bill")
+      .map((cue) => ({ at: cue.at, intensity: cue.power }))
+      .sort((a, b) => a.at - b.at);
   const cue = (name: string) => treatment.cues.find((cue) => cue.name === name).at;
   const hero = cue("heroDrop");
   const waves = [
@@ -14,8 +20,6 @@ export function cashWaves(treatment: MotionTreatment) {
     if (mark.at < hero + 1 || mark.at > treatment.analysis.duration - 2 || index % 2) continue;
     waves.push({ at: mark.at, intensity: treatment.tier === 6 ? 0.25 : 0.5 });
   }
-  // The last two top-tier interruptions preserve the old WTF/cash payoff.
-  if (treatment.tier === 7) waves.push({ at: 22.64, intensity: 0.9 }, { at: 37.5, intensity: 1 });
   for (const authored of treatment.analysis.intelligence?.authored.cues ?? [])
     if (authored.group === "money") waves.push({ at: authored.at, intensity: authored.intensity });
   return waves.sort((a, b) => a.at - b.at);

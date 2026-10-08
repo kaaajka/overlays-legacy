@@ -5,11 +5,20 @@ import { rhythmMarks, vocalRegions } from "../../audio/motion/musicIntelligence"
 gsap.registerPlugin(SplitText);
 
 /** Lifecycle/type primitives only. Each director owns its shots, geometry and timing. */
-export function sceneTools({ root, treatment, effects }: DirectorContext) {
+export function sceneTools(
+  { root, treatment, effects }: DirectorContext,
+  options: { ownRhythm?: boolean } = {},
+) {
   const q = gsap.utils.selector(root);
   const at = (name: string) => treatment.cues.find((cue) => cue.name === name).at;
-  const name = SplitText.create(q(".motion-name"), { type: "chars", aria: "auto" });
-  const amount = SplitText.create(q(".motion-amount-number"), { type: "chars", aria: "auto" });
+  const name = SplitText.create(q(".motion-name"), {
+    type: "chars",
+    aria: "auto",
+  });
+  const amount = SplitText.create(q(".motion-amount-number"), {
+    type: "chars",
+    aria: "auto",
+  });
   const t = gsap.timeline({ paused: true, defaults: { ease: "power2.out" } });
   for (const cue of treatment.cues) t.addLabel(cue.name, cue.at);
   t.set(q(".scene-content"), { autoAlpha: 1 }, 0);
@@ -30,14 +39,18 @@ export function sceneTools({ root, treatment, effects }: DirectorContext) {
     ];
     const profile = profiles[treatment.tier - 1];
     const hero = at("heroDrop");
-    rhythmMarks(treatment.analysis).forEach((beat, index) => {
+    (options.ownRhythm ? [] : rhythmMarks(treatment.analysis)).forEach((beat, index) => {
       if (beat.at < at("firstImpact") || beat.at > duration - 0.8 || Math.abs(beat.at - hero) < 0.4)
         return;
       // Deadpan and intimate scenes use alternating beats, not every transient.
       if ((treatment.tier === 4 || treatment.tier === 6) && index % 2) return;
       t.to(
         q(".source-rhythm"),
-        { ...profile, duration: 0.09, ease: treatment.tier === 3 ? "steps(1)" : "power2.out" },
+        {
+          ...profile,
+          duration: 0.09,
+          ease: treatment.tier === 3 ? "steps(1)" : "power2.out",
+        },
         beat.at,
       );
       t.to(q(".source-rhythm"), { y: 0, rotation: 0, scaleX: 1, duration: 0.19 }, beat.at + 0.09);
@@ -58,7 +71,9 @@ export function sceneTools({ root, treatment, effects }: DirectorContext) {
         phrase.start + 0.12,
       );
     }
-    for (const cue of treatment.analysis.intelligence?.authored.cues ?? []) {
+    for (const cue of options.ownRhythm
+      ? []
+      : (treatment.analysis.intelligence?.authored.cues ?? [])) {
       if (cue.group !== "media") continue;
       t.to(q(".source-rhythm"), { scaleY: 1 + cue.intensity * 0.08, duration: 0.08 }, cue.at);
       t.to(q(".source-rhythm"), { scaleY: 1, duration: 0.2 }, cue.at + 0.08);

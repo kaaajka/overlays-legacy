@@ -66,12 +66,12 @@ const layers = [
   {
     name: "Scene forms",
     selector:
-      ".heart-bridge, .turkey-floor, .turkey-step, .mask-floor, .paper-strip, .paper-perforation, .ovation-lip, .webcam-still",
+      ".heart-bridge, .turkey-floor, .turkey-step, .mask-floor, .paper-strip, .paper-perforation, .ovation-lip, .webcam-still, .d7-still",
   },
   {
     name: "Callouts",
     selector:
-      ".scene-phrase, .heart-call, .webcam-shout, .webcam-wtf, .ovation-wing, .paper-caption, .rodent-omg",
+      ".scene-phrase, .heart-call, .webcam-shout, .webcam-wtf, .ovation-wing, .paper-caption, .rodent-omg, .d7-headline, .d7-wtf, .d7-impact, .d7-sticker, .d7-signal-word",
   },
   { name: "Name", selector: ".motion-name" },
   { name: "Amount", selector: ".motion-amount" },
@@ -803,6 +803,7 @@ function MotionStudio() {
         active: playing,
         phase,
         quality: stats.quality,
+        spectacle: stats.spectacle,
         duration: music.current?.duration,
         cue: cue?.name,
         media: scene.current?.media() ?? [],
