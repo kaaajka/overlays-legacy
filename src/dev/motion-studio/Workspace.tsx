@@ -1,3 +1,4 @@
+import { pl } from "./polish";
 import { forwardRef, useImperativeHandle, useLayoutEffect, useRef, useState } from "react";
 import { Panel, PanelGroup, PanelResizeHandle } from "react-resizable-panels";
 import type { ImperativePanelGroupHandle, ImperativePanelHandle } from "react-resizable-panels";
@@ -131,10 +132,10 @@ export const Workspace = forwardRef<
       onFocusCapture={() => props.setActive(name)}
     >
       <header className="dock-header">
-        <span>{titles[name]}</span>
+        <span>{pl(titles[name])}</span>
         <IconButton
           icon={maximized ? Minimize2 : Maximize2}
-          label={maximized ? "Restore workspace" : `Maximize ${name}`}
+          label={maximized ? "Restore workspace" : `Powiększ ${pl(titles[name])}`}
           shortcut="Ctrl+Shift+M"
           onClick={() => maximize(name)}
         />
@@ -170,7 +171,7 @@ export const Workspace = forwardRef<
             </Panel>
             <PanelResizeHandle
               className="dock-divider horizontal"
-              aria-label="Resize Scene Tree"
+              aria-label={pl("Resize Scene Tree")}
               onDoubleClick={() => left.current?.resize(14)}
             />
             <Panel
@@ -183,7 +184,7 @@ export const Workspace = forwardRef<
             </Panel>
             <PanelResizeHandle
               className="dock-divider horizontal"
-              aria-label="Resize Inspector"
+              aria-label={pl("Resize Inspector")}
               onDoubleClick={() => right.current?.resize(22)}
             />
             <Panel
@@ -202,7 +203,7 @@ export const Workspace = forwardRef<
         </Panel>
         <PanelResizeHandle
           className="dock-divider vertical"
-          aria-label="Resize Timeline"
+          aria-label={pl("Resize Timeline")}
           onDoubleClick={() => v.current?.setLayout(defaults.vertical)}
         />
         <Panel

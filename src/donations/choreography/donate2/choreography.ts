@@ -3,7 +3,8 @@ import { sceneTools } from "../../scenes/directorTools";
 
 export function choreography(context: DirectorContext) {
   const { q, at, t, name, finish } = sceneTools(context);
-  t.set(q(".mask-lead"), { autoAlpha: 0.25 }, 0);
+  t.set(q(".mask-lead"), { autoAlpha: 0 }, 0);
+  t.to(q(".mask-lead"), { autoAlpha: 1, duration: 0.1 }, 0.05);
   t.fromTo(
     q(".mask-lead"),
     { x: -350, rotation: -12 },

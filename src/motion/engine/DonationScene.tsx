@@ -1,3 +1,4 @@
+import { MessageEmote, syncMessageEmotes } from "./MessageEmote";
 /* THESIS: seven source-led meme shows share a music clock, not a composition.
 OWN-WORLD: unchanged Kaaajka GIFs, source poses, independent layouts and restrained supporting effects.
 STORY: each selected subject conducts its own donor payoff, then a complete readable message and existing TTS.
@@ -40,10 +41,11 @@ export type SceneStats = {
   media?: MediaStats[];
 };
 export type DonationSceneHandle = {
-  renderAt: (time: number, frameMs?: number) => SceneStats;
+  renderAt: (time: number, frameMs?: number, forward?: boolean) => SceneStats;
   information: (readingMs: number) => void;
   outro: () => void;
   media: () => MediaStats[];
+  pauseMedia: () => void;
   informationAt: (elapsedMs: number, readingMs: number) => void;
   setLayerVisibility: (selector: string, visible: boolean) => void;
 };
@@ -64,6 +66,8 @@ export const DonationScene = forwardRef<DonationSceneHandle, Props>(function Don
   const canvas = useRef<HTMLCanvasElement>(null);
   const cashCanvas = useRef<HTMLCanvasElement>(null);
   const cash = useRef<CashRenderer>();
+  const cashFrontCanvas = useRef<HTMLCanvasElement>(null);
+  const cashFront = useRef<CashRenderer>();
   const message = useRef<HTMLDivElement>(null);
   const director = useRef<DirectedScene>();
   const gpu = useRef<OverlayRenderer>();
@@ -138,6 +142,13 @@ export const DonationScene = forwardRef<DonationSceneHandle, Props>(function Don
             seed ?? donate.id,
             initial,
           );
+          cashFront.current = new CashRenderer(
+            cashFrontCanvas.current,
+            treatment,
+            seed ?? donate.id,
+            initial,
+            "front",
+          );
           governor.current = new QualityGovernor(initial);
           root.current.dataset.quality = initial;
         } catch (error) {
@@ -165,8 +176,13 @@ export const DonationScene = forwardRef<DonationSceneHandle, Props>(function Don
       } else fallback();
       const resize = () => {
         const rect = root.current.getBoundingClientRect();
-        const scale = Math.min(rect.width / 1920, rect.height / 1080);
+        const scale = rect.height / 1080;
+        const width = rect.width / scale;
+        stage.current.style.width = `${width}px`;
+        stage.current.style.setProperty("--stage-extra", `${width - 1920}px`);
         stage.current.style.transform = `translate(-50%, -50%) scale(${scale})`;
+        cash.current?.resize(width);
+        cashFront.current?.resize(width);
         gpu.current?.resize();
       };
       const observer = new ResizeObserver(resize);
@@ -181,6 +197,7 @@ export const DonationScene = forwardRef<DonationSceneHandle, Props>(function Don
         intensity,
       );
       cash.current?.render(lastTime.current, intensity);
+      cashFront.current?.render(lastTime.current, intensity);
       return () => {
         observer.disconnect();
         cancelAnimationFrame(scrollRaf.current);
@@ -190,6 +207,8 @@ export const DonationScene = forwardRef<DonationSceneHandle, Props>(function Don
         gpu.current = undefined;
         cash.current?.dispose();
         cash.current = undefined;
+        cashFront.current?.dispose();
+        cashFront.current = undefined;
         for (const layer of media.current) layer.dispose();
         media.current = [];
       };
@@ -204,11 +223,12 @@ export const DonationScene = forwardRef<DonationSceneHandle, Props>(function Don
   useImperativeHandle(
     ref,
     () => ({
-      renderAt(time, frameMs = 16.67) {
+      renderAt(time, frameMs = 16.67, forward = false) {
         lastTime.current = time;
         cancelAnimationFrame(scrollRaf.current);
         if (root.current) {
           root.current.dataset.phase = "hero";
+          root.current.dataset.timeZero = String(time === 0);
           root.current.style.opacity = "1";
         }
         const features = featuresAt(treatment.analysis, time);
@@ -217,20 +237,38 @@ export const DonationScene = forwardRef<DonationSceneHandle, Props>(function Don
             Math.min(treatment.analysis.duration, Math.max(0.000001, time)),
             true,
           );
-          for (const layer of media.current) layer.sync(time);
+          for (const layer of media.current) layer.sync(time, forward);
           if (governor.current.record(frameMs)) {
             gpu.current?.setQuality(governor.current.tier);
             cash.current?.setQuality(governor.current.tier);
+            cashFront.current?.setQuality(governor.current.tier);
             root.current.dataset.quality = governor.current.tier;
           }
           gpu.current?.render(time, effects.current, features, intensity);
+          const donor = root.current.querySelector<HTMLElement>(".scene-copy");
+          if (donor && cash.current) {
+            const bounds = donor.getBoundingClientRect(),
+              viewport = root.current.getBoundingClientRect();
+            const scale = viewport.height / 1080;
+            const area = {
+              x: (bounds.x + bounds.width / 2 - viewport.x) / scale,
+              y: (bounds.y + bounds.height / 2 - viewport.y) / scale,
+              width: bounds.width / scale,
+              height: bounds.height / scale,
+            };
+            cash.current.setDonor(area);
+            cashFront.current?.setDonor(area);
+          }
           cash.current?.render(time, intensity);
+          cashFront.current?.render(time, intensity);
         } catch (error) {
           console.warn("Donation renderer failed; preserving audio and completion", error);
           gpu.current?.dispose();
           gpu.current = undefined;
           cash.current?.dispose();
           cash.current = undefined;
+          cashFront.current?.dispose();
+          cashFront.current = undefined;
           governor.current.tier = "safe";
           root.current.dataset.quality = "safe";
         }
@@ -244,11 +282,13 @@ export const DonationScene = forwardRef<DonationSceneHandle, Props>(function Don
       information(readingMs) {
         for (const layer of media.current) layer.release();
         root.current.dataset.phase = "information";
+        root.current.dataset.timeZero = "false";
         root.current.style.opacity = "1";
         try {
           director.current?.timeline.seek(treatment.analysis.duration, true);
           gpu.current?.clear();
           cash.current?.clear();
+          cashFront.current?.clear();
         } catch (error) {
           console.warn("Information state recovered after scene error", error);
         }
@@ -259,10 +299,12 @@ export const DonationScene = forwardRef<DonationSceneHandle, Props>(function Don
         const viewport = message.current;
         viewport.scrollTop = 0;
         const overflow = Math.max(0, viewport.scrollHeight - viewport.clientHeight);
-        if (overflow === 0) return;
+        syncMessageEmotes(root.current, 0);
+        if (overflow === 0 && !donate.messageRuns?.some((run) => "src" in run)) return;
         const start = performance.now();
         const scroll = () => {
           const elapsed = performance.now() - start;
+          syncMessageEmotes(root.current, elapsed / 1000);
           viewport.scrollTop =
             overflow * Math.min(1, Math.max(0, (elapsed - 2500) / Math.max(1, readingMs - 5000)));
           if (elapsed < readingMs) scrollRaf.current = requestAnimationFrame(scroll);
@@ -272,9 +314,13 @@ export const DonationScene = forwardRef<DonationSceneHandle, Props>(function Don
       outro() {
         root.current.style.opacity = "0";
       },
+      pauseMedia: () => {
+        for (const layer of media.current) layer.sync(lastTime.current);
+      },
       media: () => media.current.map((layer) => layer.stats),
       informationAt(elapsedMs, readingMs) {
         this.information(readingMs);
+        syncMessageEmotes(root.current, elapsedMs / 1000);
         cancelAnimationFrame(scrollRaf.current);
         const viewport = message.current;
         const overflow = Math.max(0, viewport.scrollHeight - viewport.clientHeight);
@@ -286,7 +332,7 @@ export const DonationScene = forwardRef<DonationSceneHandle, Props>(function Don
           element.dataset.studioHidden = String(!visible);
       },
     }),
-    [treatment, intensity],
+    [treatment, intensity, donate.messageRuns],
   );
 
   return (
@@ -294,6 +340,7 @@ export const DonationScene = forwardRef<DonationSceneHandle, Props>(function Don
       ref={root}
       className={`donation-motion motif-${treatment.motif}`}
       data-phase="loading"
+      data-time-zero="true"
       data-donation-id={donate.id}
       data-quality="safe"
       style={
@@ -392,6 +439,14 @@ export const DonationScene = forwardRef<DonationSceneHandle, Props>(function Don
             </div>
           </>
         )}
+        {treatment.tier >= 5 && treatment.tier <= 7 && (
+          <canvas
+            ref={cashFrontCanvas}
+            className="motion-cash motion-cash-front"
+            aria-hidden="true"
+            tabIndex={-1}
+          />
+        )}
         <div className="motion-information">
           <div className="information-header">
             <strong>{donate.nickname || "Anonim"}</strong>
@@ -401,7 +456,16 @@ export const DonationScene = forwardRef<DonationSceneHandle, Props>(function Don
             <p className="information-thanks">Dzięki za wyrównanie licznika, potężny techniku.</p>
           )}
           <div ref={message} className="information-message">
-            {donate.message || "Dzięki za wsparcie!"}
+            {donate.messageRuns?.length
+              ? donate.messageRuns.map((run, index) =>
+                  "text" in run ? (
+                    run.text
+                  ) : (
+                    // biome-ignore lint/suspicious/noArrayIndexKey: Runs are immutable per message; position distinguishes repeated emotes.
+                    <MessageEmote key={`${index}:${run.alt}`} src={run.src} alt={run.alt} />
+                  ),
+                )
+              : donate.message || "Dzięki za wsparcie!"}
           </div>
         </div>
       </div>

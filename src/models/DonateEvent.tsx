@@ -1,7 +1,9 @@
+import type { MessageRun } from "../donations/messageContent";
 interface IDonateEventSchema {
   id: string;
   nickname: string;
   message: string;
+  messageRuns?: MessageRun[];
   amount: number;
   commission: number;
   audio_url: string | null;
@@ -19,6 +21,7 @@ export class DonateEventModel {
   readonly id: string;
   readonly nickname: string;
   readonly message: string;
+  readonly messageRuns?: MessageRun[];
   readonly amount: number;
   readonly commission: number;
   readonly audio_url: string | null;
@@ -35,6 +38,7 @@ export class DonateEventModel {
     this.id = data.id;
     this.nickname = data.nickname;
     this.message = data.message;
+    this.messageRuns = data.messageRuns;
     this.amount = data.amount;
     this.commission = data.commission;
     this.audio_url = data.audio_url;

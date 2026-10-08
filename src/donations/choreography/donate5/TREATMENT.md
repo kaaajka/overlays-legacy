@@ -18,9 +18,10 @@ Timed HOLY/MOLY call-and-response and OMG. Preserve the selected subject and emo
 
 An arms-wide panorama with opposing word wings and a stage-lip amount.
 
-## Full-screen storyboard
+## Localized storyboard (production v2.2)
 
-- 0.000s: source-pose tease at scene-specific location, transparent broadcast around it.
+- 0.000s: fully transparent public stage, including loading and restart/reverse seek.
+- 0.050s–0.150s: source entry; INITIAL capture is 150ms and is distinct from ZERO.
 - 0.99846s · firstImpact: media enters in its characteristic direction; no independent visual timer.
 - 1.23066s · donorReveal: Name sits above crowd; amount lands below faces, confetti supports the ovation.
 - 3.01859s · buildStart: panorama opens and word wings lift.
@@ -32,15 +33,15 @@ An arms-wide panorama with opposing word wings and a stage-lip amount.
 
 ## GIF usage
 
-One 1400x788 panorama at (260,80); HOLY/MOLY wings on edges. Name above and amount at (500,870). Full source, no altered footage. Panorama expands on hit. All geometry is logical 1920x1080. No generated/replacement footage. Source loops against music time, holds the chosen pose from hero-0.12s (bounded by preDrop) until hero+0.1s, then resumes from that pose and loops. Echoes use authored source offsets. Original GIF fallback preserves recognizable content but cannot guarantee exact source-frame synchronization. Poster is an unmodified source frame.
+Bounded 600x338 source window at (475,365), about 1.25x the 480x270 original. The 420px donor/amount stack is beside it at (1120,440). Handwritten HOLY/MOLY uses two 280x187 CSS windows at x475/x780, y207, preserving the existing opposing wing gestures. Native 56px cyan reply at (1030,723) enters at hero+0.1s over 0.3s. No full-screen panorama. All geometry is direct logical 1920x1080, uniformly fitted to the viewport; no previous per-scene assembly scale applies. No generated/replacement footage. Source loops against music time, holds the chosen pose from hero-0.12s (bounded by preDrop) until hero+0.1s, then resumes from that pose and loops. Echoes use authored source offsets. Original GIF fallback preserves recognizable content but cannot guarantee exact source-frame synchronization. Poster is an unmodified source frame.
 
 ## Nickname and amount
 
-Name sits above crowd; amount lands below faces, confetti supports the ovation. Dynamic Polish amount/currency preserved; shrink long strings and reserve independent text space. Amount's exact cue is **4.82975s**. The source cannot be swapped with another tier without breaking the joke, spatial balance and chosen gesture.
+Name sits above crowd; amount lands below faces, confetti supports the ovation. Dynamic Polish amount/currency preserved; shared name/amount anchor has a 24px gap. Name is fitted to 28–44px and wraps in full; amount is fitted to at most 112px and the stack width. See DESIGN.md and PRODUCTION_22_DIRECTION.md for exact formulas. Amount's exact cue is **4.82975s**. The source cannot be swapped with another tier without breaking the joke, spatial balance and chosen gesture.
 
 ## Message / information state
 
-Keep shared 1240px reading card, complete plain text, slow overflow scrolling and opening/final holds. Keep existing nickname -> amount -> message TTS and queue completion. Hide and unload media/effects at information; no ongoing decode when idle.
+Use the shared intrinsic Information card: content width 560–960px, natural height capped at 600px, fixed header and body-only slow overflow scrolling with opening/final holds. Complete plain text and explicit allowlisted image runs retain line breaks and stable 45px emote slots; frame selection follows information time, without a private animation loop. Keep existing nickname -> amount -> message TTS and queue completion. Hide and unload media/effects at information; no ongoing decode when idle.
 
 ## Unique signature technique
 
@@ -52,4 +53,4 @@ Maximum 1 paused video decoders at original source dimensions. Coalesced frame-c
 
 ## Production-v2 extension
 
-The logical geometry above is localized by the assembly scale in KAAAJKA_BRAND_DIRECTION.md. Original hero/music/source-pose times are unchanged. Music Intelligence v2 adds estimated beat/downbeat motifs, explicitly authored section regions and bounded source reactions from measured vocal-energy peaks. Important guessed lyrics remain unapproved; no automatic lyric captioning occurs. Cash/brand/footprint decisions and current media bytes are documented in the production-v2 brand/media audits.
+The logical geometry above is the current directly authored production-v2.2 footprint; only uniform viewport fitting applies. See PRODUCTION_22_DIRECTION.md and KAAAJKA_BRAND_DIRECTION.md. Original hero/music/source-pose times are unchanged. Music Intelligence v2 adds estimated beat/downbeat motifs, explicitly authored section regions and bounded source reactions from measured vocal-energy peaks. Important guessed lyrics remain unapproved; no automatic lyric captioning occurs. Cash/brand/footprint decisions and current media bytes are documented in the production-v2 brand/media audits.

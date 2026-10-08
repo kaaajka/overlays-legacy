@@ -10,7 +10,8 @@ export function choreography(context: DirectorContext) {
     { autoAlpha: 1, scale: 1, rotation: -8, duration: 0.35 },
     at("heroDrop") + 0.3,
   );
-  t.set(q(".source-media"), { autoAlpha: 0.25 }, 0);
+  t.set(q(".source-media"), { autoAlpha: 0 }, 0);
+  t.to(q(".source-media"), { autoAlpha: 1, duration: 0.1 }, 0.05);
   t.fromTo(
     q(".source-media"),
     { x: 160 },

@@ -1,4 +1,6 @@
-import { useEffect, useRef, useState } from "react";
+import { Help } from "./Help";
+import { pl } from "./polish";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { AudioLines, Crosshair, Repeat2, Magnet, Focus, ZoomIn, RotateCcw } from "lucide-react";
 import { IconButton, ContextMenu } from "./editorControls";
 import type { MenuAction } from "./editorControls";
@@ -22,8 +24,8 @@ type Props = {
   seek: (time: number) => void;
   zoom: number;
   setZoom: (zoom: number) => void;
-  selection: [number, number];
-  setSelection: (value: [number, number]) => void;
+  selection: [number, number] | null;
+  setSelection: (value: [number, number] | null) => void;
   loop: boolean;
   setLoop: (value: boolean) => void;
   selectedCue: string;
@@ -51,15 +53,63 @@ export default function Timeline({
   selectCue,
   selectWord,
 }: Props) {
+  const analysis = treatment.analysis,
+    duration = mode === "full" ? plan.duration : analysis.duration;
   const scroll = useRef<HTMLDivElement>(null);
+  const content = useRef<HTMLDivElement>(null);
+  const navigatorRef = useRef<HTMLFieldSetElement>(null);
+  const [view, setView] = useState({ width: 900, header: 150, left: 0, total: 900, gutter: 0 });
+  const navDrag = useRef<{ kind: string; x: number; left: number; span: number }>();
+  const axis = useCallback(() => {
+    const el = scroll.current;
+    const header =
+      el.querySelector<HTMLElement>(".track-label")?.getBoundingClientRect().width ?? 0;
+    return {
+      width: el.clientWidth,
+      header,
+      left: el.scrollLeft,
+      total: el.scrollWidth,
+      gutter:
+        Number.parseFloat(
+          getComputedStyle(content.current).getPropertyValue("--timeline-gutter"),
+        ) || 0,
+    };
+  }, []);
+  // biome-ignore lint/correctness/useExhaustiveDependencies: Zoom and duration change DOM geometry even though axis reads refs.
+  useEffect(() => {
+    const update = () => setView(axis());
+    const el = scroll.current;
+    const observer = new ResizeObserver(update);
+    observer.observe(el);
+    el.addEventListener("scroll", update);
+    update();
+    return () => {
+      observer.disconnect();
+      el.removeEventListener("scroll", update);
+    };
+  }, [axis, zoom, duration]);
+  const center = (at = time) => {
+    const v = axis();
+    scroll.current.scrollLeft = Math.max(
+      0,
+      (at / duration) * (v.total - v.header - 2 * v.gutter) + v.gutter - (v.width - v.header) / 2,
+    );
+  };
+  const neighborhood = (at: number) => {
+    const a = Math.max(0, at - 0.3),
+      b = Math.min(duration, at + 0.3);
+    setSelection([a, b]);
+    setLoop(true);
+    seek(a);
+    requestAnimationFrame(() => center(a));
+  };
   const drag = useRef(false);
   const rangeDrag = useRef<{ anchor: number; kind: "range" | "in" | "out" }>();
   const [menu, setMenu] = useState<{ x: number; y: number; actions: MenuAction[] }>();
   const [hiddenTracks, setHiddenTracks] = useState<string[]>([]);
   const [largeTrack, setLargeTrack] = useState<string>();
   const snap = useRef<HTMLSelectElement>(null);
-  const analysis = treatment.analysis,
-    duration = mode === "full" ? plan.duration : analysis.duration;
+
   const beats = rhythmMarks(analysis),
     bars = rhythmMarks(analysis, true),
     phrases = vocalRegions(analysis),
@@ -96,9 +146,15 @@ export default function Timeline({
     );
   };
   const setIn = (at: number) =>
-    setSelection([Math.max(0, Math.min(at, selection[1] - 0.01)), selection[1]]);
+    setSelection([
+      Math.max(0, Math.min(at, (selection?.[1] ?? duration) - 0.01)),
+      selection?.[1] ?? duration,
+    ]);
   const setOut = (at: number) =>
-    setSelection([selection[0], Math.min(duration, Math.max(at, selection[0] + 0.01))]);
+    setSelection([
+      selection?.[0] ?? 0,
+      Math.min(duration, Math.max(at, (selection?.[0] ?? 0) + 0.01)),
+    ]);
   const context = (event: React.MouseEvent, actions: MenuAction[]) => {
     event.preventDefault();
     setMenu({ x: event.clientX, y: event.clientY, actions });
@@ -108,12 +164,15 @@ export default function Timeline({
     const wheel = (event: WheelEvent) => {
       if (event.ctrlKey || event.metaKey) {
         event.preventDefault();
-        const x = event.clientX - element.getBoundingClientRect().left - 150;
-        const ratio = (element.scrollLeft + x) / (element.scrollWidth - 150);
+        const v = axis();
+        const x = event.clientX - element.getBoundingClientRect().left - v.header;
+        const ratio = (element.scrollLeft + x - v.gutter) / (v.total - v.header - 2 * v.gutter);
         const next = Math.max(1, Math.min(128, zoom * Math.exp(-event.deltaY * 0.002)));
         setZoom(next);
         requestAnimationFrame(() => {
-          element.scrollLeft = ratio * (element.scrollWidth - 150) - x;
+          const after = axis();
+          element.scrollLeft =
+            ratio * (after.total - after.header - 2 * after.gutter) + after.gutter - x;
         });
       } else if (event.shiftKey) {
         event.preventDefault();
@@ -122,7 +181,7 @@ export default function Timeline({
     };
     element.addEventListener("wheel", wheel, { passive: false });
     return () => element.removeEventListener("wheel", wheel);
-  }, [zoom, setZoom]);
+  }, [zoom, setZoom, axis]);
   const scrub = (event: React.PointerEvent<HTMLDivElement>) => {
     const at = point(event),
       range = rangeDrag.current;
@@ -153,7 +212,7 @@ export default function Timeline({
     hiddenTracks.includes(name) ? null : (
       <div
         className={`timeline-row ${kind} ${largeTrack === name ? "large-track" : ""}`}
-        key={name}
+        key={pl(name)}
         data-track={name}
       >
         <button
@@ -169,8 +228,9 @@ export default function Timeline({
               { label: "Go to first event", run: () => seek(firstAt(name)) },
             ])
           }
+          title={pl(name)}
         >
-          {name}
+          {pl(name)}
         </button>
         <div
           className="timeline-body"
@@ -209,43 +269,39 @@ export default function Timeline({
           }}
         >
           {content}
-          <div
-            className="selection-band"
-            style={{
-              left: `${(selection[0] / duration) * 100}%`,
-              width: `${((selection[1] - selection[0]) / duration) * 100}%`,
-            }}
-          />
-          <i className="timeline-playhead" style={{ left: `${(time / duration) * 100}%` }} />
           {kind === "ruler" && (
             <>
               <button
                 type="button"
                 className="playhead-handle"
-                aria-label="Drag playhead"
-                title="Drag playhead · Shift-drag creates a range"
+                aria-label={pl("Drag playhead")}
+                title={pl("Drag playhead · Shift-drag creates a range")}
                 style={{ left: `${(time / duration) * 100}%` }}
               />
-              <button
-                type="button"
-                className="range-handle in-handle"
-                data-range-handle="in"
-                aria-label="Drag IN point"
-                title="Drag IN"
-                style={{ left: `${(selection[0] / duration) * 100}%` }}
-              >
-                I
-              </button>
-              <button
-                type="button"
-                className="range-handle out-handle"
-                data-range-handle="out"
-                aria-label="Drag OUT point"
-                title="Drag OUT"
-                style={{ left: `${(selection[1] / duration) * 100}%` }}
-              >
-                O
-              </button>
+              {selection && (
+                <>
+                  <button
+                    type="button"
+                    className="range-handle in-handle"
+                    data-range-handle="in"
+                    aria-label={pl("Drag IN point")}
+                    title={pl("Drag IN")}
+                    style={{ left: `${((selection?.[0] ?? 0) / duration) * 100}%` }}
+                  >
+                    {pl("I")}
+                  </button>
+                  <button
+                    type="button"
+                    className="range-handle out-handle"
+                    data-range-handle="out"
+                    aria-label={pl("Drag OUT point")}
+                    title={pl("Drag OUT")}
+                    style={{ left: `${((selection?.[1] ?? duration) / duration) * 100}%` }}
+                  >
+                    {pl("O")}
+                  </button>
+                </>
+              )}
             </>
           )}
         </div>
@@ -257,8 +313,8 @@ export default function Timeline({
         <button
           type="button"
           key={`${region.start}-${region.end}-${region.text}`}
-          title={`${region.text ?? region.label} · ${timecode(region.start)}–${timecode(region.end)} · ${region.approved ? "approved" : "candidate"} · ${region.source}`}
-          className={`timeline-region ${kind} ${region.approved ? "approved" : "candidate"}`}
+          title={`${region.text ?? pl(region.label)} · ${timecode(region.start)}–${timecode(region.end)} · ${region.approved ? "zatwierdzono" : "kandydat"} · ${region.source}`}
+          className={`timeline-region ${kind} ${region.approved ? "zatwierdzono" : "kandydat"}`}
           style={{
             left: `${(region.start / duration) * 100}%`,
             width: `${((region.end - region.start) / duration) * 100}%`,
@@ -268,7 +324,7 @@ export default function Timeline({
             seek(region.start);
           }}
         >
-          {region.text ?? region.label}
+          {region.text ?? pl(region.label)}
         </button>
       ))}
     </>
@@ -281,33 +337,38 @@ export default function Timeline({
         ? analysis.loudness
         : (analysis.intelligence?.measured[overlay] ?? []);
   const waveform = analysis.intelligence?.measured.waveform ?? [];
-  const pixelsPerSecond =
-    (Math.max(900 * zoom, scroll.current?.clientWidth ?? 900) - 150) / duration;
+  const pixelsPerSecond = (view.total - view.header - 2 * view.gutter) / duration;
   const tickStep =
     [0.01, 0.025, 0.05, 0.1, 0.25, 0.5, 1, 2, 5, 10, 30].find(
       (step) => step * pixelsPerSecond >= 70,
     ) ?? 30;
   return (
-    <section className="studio-timeline" aria-label="Multitrack timeline">
+    <section className="studio-timeline" aria-label={pl("Multitrack timeline")}>
       <div className="timeline-toolbar">
-        <strong className="timeline-mode">{mode === "full" ? "FULL ALERT" : "HERO ONLY"}</strong>
+        <strong className="timeline-mode">
+          {mode === "full" ? "PEŁNY ALERT" : "TYLKO ANIMACJA"}
+        </strong>
         <span className="timeline-duration">{timecode(duration)}</span>
         <label>
-          <AudioLines size={14} aria-hidden="true" /> Overlay
+          <AudioLines size={14} aria-hidden="true" />
+          {pl("Overlay")}
           <select
-            aria-label="Waveform overlay"
+            aria-label={pl("Waveform overlay")}
             value={overlay}
             onChange={(event) => setOverlay(event.target.value)}
           >
             {["none", "loudness", "bass", "vocals", "drums"].map((value) => (
-              <option key={value}>{value}</option>
+              <option key={value} value={value}>
+                {pl(value)}
+              </option>
             ))}
           </select>
         </label>
         <label>
-          <ZoomIn size={14} aria-hidden="true" /> Zoom{" "}
+          <ZoomIn size={14} aria-hidden="true" />
+          {pl("Zoom")}{" "}
           <input
-            aria-label="Timeline zoom"
+            aria-label={pl("Timeline zoom")}
             type="range"
             min="1"
             max="128"
@@ -319,68 +380,71 @@ export default function Timeline({
         <span>{zoom.toFixed(1)}×</span>
         <button
           type="button"
-          onClick={() => {
-            scroll.current.scrollLeft = Math.max(
-              0,
-              (time / duration) * (scroll.current.scrollWidth - 150) -
-                (scroll.current.clientWidth - 150) / 2,
-            );
-          }}
+          onClick={() => center()}
+          disabled={view.total <= view.width + 1}
+          title={
+            view.total <= view.width + 1
+              ? "Cała oś czasu jest widoczna"
+              : "Wyśrodkuj głowicę w widocznej części osi"
+          }
         >
-          <Crosshair size={14} aria-hidden="true" /> Center playhead
+          <Crosshair size={14} aria-hidden="true" />
+          {pl("Center playhead")}
         </button>
         <label>
-          <Magnet size={14} aria-hidden="true" /> Snap{" "}
-          <select ref={snap} aria-label="Timeline snapping">
-            <option value="off">Off</option>
-            <option value="beat">Beat (estimate)</option>
-            <option value="bar">Downbeat (estimate)</option>
-            <option value="cue">Cue</option>
-            <option value="frame">Source frame</option>
+          <Magnet size={14} aria-hidden="true" />
+          {pl("Snap")}
+          <Help topic="snap" />{" "}
+          <select ref={snap} aria-label={pl("Timeline snapping")}>
+            <option value="off">{pl("Off")}</option>
+            <option value="beat">{pl("Beat (estimate)")}</option>
+            <option value="bar">{pl("Downbeat (estimate)")}</option>
+            <option value="cue">{pl("Cue")}</option>
+            <option value="frame">{pl("Source frame")}</option>
           </select>
         </label>
         <label>
-          IN{" "}
+          {pl("IN")}
+          <Help topic="selection" />{" "}
           <input
-            aria-label="Loop IN"
+            aria-label={pl("Loop IN")}
             type="number"
             step=".001"
             min="0"
             max={duration}
-            value={Number(selection[0].toFixed(3))}
-            onChange={(event) =>
-              setSelection([
-                Math.min(selection[1] - 0.01, Math.max(0, Number(event.target.value))),
-                selection[1],
-              ])
-            }
+            value={selection ? Number(selection[0].toFixed(3)) : ""}
+            placeholder="—"
+            onChange={(event) => {
+              const start = Math.min(duration - 0.01, Math.max(0, Number(event.target.value)));
+              setSelection([start, Math.max(start + 0.01, selection?.[1] ?? duration)]);
+            }}
           />
         </label>
         <label>
-          OUT{" "}
+          {pl("OUT")}{" "}
           <input
-            aria-label="Loop OUT"
+            aria-label={pl("Loop OUT")}
             type="number"
             step=".001"
             min="0"
             max={duration}
-            value={Number(selection[1].toFixed(3))}
-            onChange={(event) =>
-              setSelection([
-                selection[0],
-                Math.min(duration, Math.max(selection[0] + 0.01, Number(event.target.value))),
-              ])
-            }
+            value={selection ? Number(selection[1].toFixed(3)) : ""}
+            placeholder="—"
+            onChange={(event) => {
+              const end = Math.min(duration, Math.max(0.01, Number(event.target.value)));
+              setSelection([Math.min(selection?.[0] ?? 0, end - 0.01), end]);
+            }}
           />
         </label>
         <button
           type="button"
           aria-pressed={loop}
           onClick={() => setLoop(!loop)}
-          title="Loop music selection"
-          disabled={mode === "full"}
+          title={pl("Loop music selection")}
+          disabled={!selection}
         >
-          <Repeat2 size={14} /> Loop selection
+          <Repeat2 size={14} />
+          Zapętl zakres
         </button>
         <button
           type="button"
@@ -388,30 +452,58 @@ export default function Timeline({
             const cue =
               treatment.cues.find((c) => c.name === selectedCue) ??
               treatment.cues.find((c) => c.name === "heroDrop");
-            setSelection([Math.max(0, cue.at - 0.75), Math.min(duration, cue.at + 1.5)]);
+            neighborhood(cue.at);
           }}
         >
-          <Focus size={14} aria-hidden="true" /> Cue neighborhood
+          <Focus size={14} aria-hidden="true" />
+          Zapętl wokół punktu
         </button>
         <button
           type="button"
           onClick={() => {
             setLoop(false);
-            setSelection([0, duration]);
+            setSelection(null);
           }}
         >
-          Clear loop
+          Wyczyść zakres
         </button>
         {!!hiddenTracks.length && (
           <IconButton
             icon={RotateCcw}
-            label="Restore hidden tracks"
+            label={pl("Restore hidden tracks")}
             onClick={() => setHiddenTracks([])}
           />
         )}
       </div>
       <div ref={scroll} className="timeline-scroll">
-        <div className="timeline-content" style={{ width: `${900 * zoom}px` }}>
+        <div
+          ref={content}
+          className="timeline-content"
+          style={
+            {
+              width: `${view.header + (view.width - view.header) * zoom + (zoom > 1 ? view.width - view.header : 0)}px`,
+              "--timeline-gutter": `${zoom > 1 ? (view.width - view.header) / 2 : 0}px`,
+            } as React.CSSProperties
+          }
+        >
+          <div
+            className="timeline-global-overlay"
+            style={{
+              left: view.header + (zoom > 1 ? (view.width - view.header) / 2 : 0),
+              right: zoom > 1 ? (view.width - view.header) / 2 : 0,
+            }}
+          >
+            {selection && (
+              <div
+                className="selection-band"
+                style={{
+                  left: `${(selection[0] / duration) * 100}%`,
+                  width: `${((selection[1] - selection[0]) / duration) * 100}%`,
+                }}
+              />
+            )}
+            <i className="timeline-playhead" style={{ left: `${(time / duration) * 100}%` }} />
+          </div>
           {row(
             "TIME",
             <div className="timeline-ruler">
@@ -437,10 +529,10 @@ export default function Timeline({
                     style={{ left: 0, width: `${(analysis.duration / duration) * 100}%` }}
                     onClick={() => seek(0)}
                   >
-                    Hero / original music
+                    {pl("Hero / original music")}
                   </button>
                   <span className="complete-marker" style={{ left: "calc(100% - 66px)" }}>
-                    COMPLETE
+                    {pl("COMPLETE")}
                   </span>
                 </>,
               )}
@@ -453,10 +545,10 @@ export default function Timeline({
                     left: `${(plan.informationStart / duration) * 100}%`,
                     width: `${(plan.informationDuration / duration) * 100}%`,
                   }}
-                  title="Information remains visible across all speech and the reading gate"
+                  title={pl("Information remains visible across all speech and the reading gate")}
                   onClick={() => seek(plan.informationStart)}
                 >
-                  Information · overlaps speech
+                  {pl("Information · overlaps speech")}
                 </button>,
               )}
               {speech.map((clip) => {
@@ -467,8 +559,8 @@ export default function Timeline({
                     type="button"
                     className={`timeline-region tts-region ${audibleTts === clip.name ? "audible" : ""}`}
                     data-tts={clip.name}
-                    aria-label={`TTS · ${clip.name}`}
-                    title={`${clip.file} · ${clip.duration.toFixed(6)} s · volume ${speechVolume} · ${clip.voice} · local fixture${audibleTts === clip.name ? " · PLAYING" : ""}`}
+                    aria-label={`TTS · ${pl(clip.name)}`}
+                    title={`${clip.file} · ${clip.duration.toFixed(6)} s · głośność ${speechVolume} · ${clip.voice} · próbka lokalna${audibleTts === clip.name ? " · ODTWARZANIE" : ""}`}
                     style={{
                       left: `${(stage.start / duration) * 100}%`,
                       width: `${((stage.end - stage.start) / duration) * 100}%`,
@@ -487,7 +579,8 @@ export default function Timeline({
                       ])
                     }
                   >
-                    {clip.name} · {clip.duration.toFixed(2)}s
+                    {pl(clip.name)} · {clip.duration.toFixed(2)}
+                    {pl("s")}
                   </button>,
                 );
               })}
@@ -502,7 +595,7 @@ export default function Timeline({
                   }}
                   onClick={() => seek(plan.stages.find((stage) => stage.name === "outro").start)}
                 >
-                  Out
+                  {pl("Out")}
                 </button>,
               )}
             </>
@@ -513,9 +606,9 @@ export default function Timeline({
               style={{ width: `${(analysis.duration / duration) * 100}%` }}
               viewBox="0 0 800 50"
               preserveAspectRatio="none"
-              aria-label="Original PCM waveform"
+              aria-label={pl("Original PCM waveform")}
             >
-              <title>Original music min/max waveform</title>
+              <title>{pl("Original music min/max waveform")}</title>
               {overlay !== "none" && (
                 <path
                   d={envelope
@@ -558,7 +651,7 @@ export default function Timeline({
                 className="beat-marker"
                 key={mark.at}
                 style={{ left: `${(mark.at / duration) * 100}%` }}
-                title={`${mark.source} · confidence ${mark.confidence}`}
+                title={`${mark.source} · pewność ${mark.confidence}`}
                 onClick={() => seek(mark.at)}
               />
             )),
@@ -572,7 +665,7 @@ export default function Timeline({
                   className="bar-marker"
                   key={mark.at}
                   style={{ left: `${(mark.at / duration) * 100}%` }}
-                  title={`${mark.approved ? "approved" : "estimated"} bar ${index + 1} · ${mark.source}`}
+                  title={`${mark.approved ? "zatwierdzono" : "szacunek"} takt ${index + 1} · ${mark.source}`}
                   onClick={() => seek(mark.at)}
                 >
                   {index + 1}
@@ -588,15 +681,15 @@ export default function Timeline({
                   <button
                     type="button"
                     className="timeline-region vocal-region"
-                    key={`${cue.at}-${cue.name}`}
+                    key={`${cue.at}-${pl(cue.name)}`}
                     style={{
                       left: `${(cue.at / duration) * 100}%`,
                       width: `${(0.28 / duration) * 100}%`,
                     }}
-                    title={`${cue.name} · ${cue.intensity}`}
+                    title={`${pl(cue.name)} · ${cue.intensity}`}
                     onClick={() => seek(cue.at)}
                   >
-                    {cue.name}
+                    {pl(cue.name)}
                   </button>
                 )),
             )}
@@ -605,6 +698,15 @@ export default function Timeline({
               "Structure · authored",
               regions(analysis.intelligence.authored.sections, "section-region"),
             )}
+          {row(
+            "Zweryfikowane frazy",
+            <span>
+              {analysis.intelligence?.authored.vocalPhrases.some((p) => p.approved)
+                ? "Zatwierdzone lokalnie"
+                : "Brak zatwierdzonego odsłuchu"}
+            </span>,
+          )}
+          {row("Reakcje na słowa", <span>Brak zatwierdzonych reakcji semantycznych</span>)}
           {!!phrases.length && row("Vocal phrases", regions(phrases, "vocal-region"))}
           {!!words.length && row("Vocal words", regions(words, "word-region"))}
           {row(
@@ -613,7 +715,7 @@ export default function Timeline({
               <button
                 type="button"
                 className={`cue-marker ${cue.name === "heroDrop" ? "hero" : ""} ${selectedCue === cue.name ? "selected" : ""}`}
-                key={cue.name}
+                key={pl(cue.name)}
                 style={{ left: `${(cue.at / duration) * 100}%` }}
                 onClick={() => {
                   selectCue(cue.name);
@@ -626,11 +728,7 @@ export default function Timeline({
                       label: "Loop around cue",
                       run: () => {
                         selectCue(cue.name);
-                        setSelection([
-                          Math.max(0, cue.at - 0.75),
-                          Math.min(analysis.duration, cue.at + 1.5),
-                        ]);
-                        setLoop(true);
+                        neighborhood(cue.at);
                       },
                     },
                     { label: "Set IN here", run: () => setIn(cue.at) },
@@ -641,9 +739,9 @@ export default function Timeline({
                     },
                   ])
                 }
-                title={`${cue.name} · ${timecode(cue.at)}`}
+                title={`${pl(cue.name)} · ${timecode(cue.at)}`}
               >
-                {cue.name}
+                {pl(cue.name)}
               </button>
             )),
           )}
@@ -660,9 +758,9 @@ export default function Timeline({
                     width: `${((region.end - region.start) / duration) * 100}%`,
                   }}
                   onClick={() => seek(region.start)}
-                  title={region.label}
+                  title={pl(region.label)}
                 >
-                  {region.label}
+                  {pl(region.label)}
                 </button>
               )),
             )}
@@ -683,9 +781,10 @@ export default function Timeline({
                     width: `${(Math.min(2.8, duration - wave.at) / duration) * 100}%`,
                   }}
                   onClick={() => seek(wave.at + 0.3)}
-                  title={`Authored cash wave ${wave.intensity}`}
+                  title={`Zatwierdzona fala gotówki ${wave.intensity}`}
                 >
-                  cash {wave.intensity.toFixed(1)}
+                  {pl("cash")}
+                  {wave.intensity.toFixed(1)}
                 </button>
               )),
             )}
@@ -697,14 +796,14 @@ export default function Timeline({
                 <button
                   type="button"
                   className="timeline-region type-region"
-                  key={cue.name}
+                  key={pl(cue.name)}
                   style={{
                     left: `${(cue.at / duration) * 100}%`,
                     width: `${(Math.min(0.6, duration - cue.at) / duration) * 100}%`,
                   }}
                   onClick={() => seek(cue.at)}
                 >
-                  {cue.name === "heroDrop" ? "amount" : "name"}
+                  {pl(cue.name === "heroDrop" ? "amount" : "name")}
                 </button>
               )),
           )}
@@ -718,15 +817,90 @@ export default function Timeline({
                   width: `${((analysis.duration * 0.97 - treatment.cues.find((cue) => cue.name === "buildStart").at) / duration) * 100}%`,
                 }}
               >
-                {treatment.tier === 3
-                  ? "shutter cuts"
-                  : treatment.tier === 5
-                    ? "panorama expansion"
-                    : "monitor cascade / interruptions"}
+                {pl(
+                  treatment.tier === 3
+                    ? "shutter cuts"
+                    : treatment.tier === 5
+                      ? "panorama expansion"
+                      : "monitor cascade / interruptions",
+                )}
               </div>,
             )}
         </div>
       </div>
+      <div className="timeline-navigator-tools">
+        <button type="button" onClick={() => setZoom(Math.max(1, zoom / 1.5))}>
+          −
+        </button>
+        <button type="button" onClick={() => setZoom(Math.min(128, zoom * 1.5))}>
+          +
+        </button>
+        <button
+          type="button"
+          onClick={() => {
+            setZoom(1);
+            scroll.current.scrollLeft = 0;
+          }}
+        >
+          Dopasuj całość
+        </button>
+      </div>
+      <fieldset
+        className="timeline-navigator"
+        aria-label="Nawigator osi czasu"
+        ref={navigatorRef}
+        onPointerDown={(e) => {
+          const v = axis();
+          navDrag.current = {
+            kind: (e.target as HTMLElement).dataset.edge ?? "pan",
+            x: e.clientX,
+            left: (v.left - v.gutter) / (v.total - v.header - 2 * v.gutter),
+            span: (v.width - v.header) / (v.total - v.header - 2 * v.gutter),
+          };
+          e.currentTarget.setPointerCapture(e.pointerId);
+        }}
+        onPointerMove={(e) => {
+          const d = navDrag.current;
+          if (!d) return;
+          const dx = (e.clientX - d.x) / navigatorRef.current.clientWidth;
+          let left = d.left,
+            span = d.span;
+          if (d.kind === "pan") left = Math.max(0, Math.min(1 - span, left + dx));
+          else if (d.kind === "left") {
+            left = Math.max(0, Math.min(d.left + d.span - 1 / 128, d.left + dx));
+            span = d.left + d.span - left;
+          } else span = Math.max(1 / 128, Math.min(1 - left, d.span + dx));
+          setZoom(1 / span);
+          requestAnimationFrame(() => {
+            const v = axis();
+            scroll.current.scrollLeft = left * (v.total - v.header - 2 * v.gutter) + v.gutter;
+          });
+        }}
+        onPointerUp={() => {
+          navDrag.current = undefined;
+        }}
+        onPointerCancel={() => {
+          navDrag.current = undefined;
+        }}
+      >
+        <div
+          className="navigator-window"
+          style={{
+            left:
+              String(
+                ((view.left - view.gutter) / (view.total - view.header - 2 * view.gutter)) * 100,
+              ) + "%",
+            width:
+              String(
+                ((view.width - view.header) / (view.total - view.header - 2 * view.gutter)) * 100,
+              ) + "%",
+          }}
+        >
+          <button type="button" aria-label="Lewa krawędź widoku" data-edge="left" />
+          <span>Widoczny fragment</span>
+          <button type="button" aria-label="Prawa krawędź widoku" data-edge="right" />
+        </div>
+      </fieldset>
       <ContextMenu menu={menu} close={() => setMenu(undefined)} />
     </section>
   );

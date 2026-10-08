@@ -12,6 +12,17 @@ export type MediaPosition = { time: number; frame: number; frozen: boolean; loop
 export type MediaStats = MediaPosition & {
   state: "loading" | "ready" | "gif-fallback" | "idle";
   decodedTime: number;
+  requestedFrames: number;
+  seeks: number;
+  coalesced: number;
+  seekLatencyMs: number;
+  presentedTime: number;
+  presentedFrames: number;
+  driftCorrections: number;
+  presentedFrame: number;
+  skippedPresentedFrames: number;
+  duplicatePresentedFrames: number;
+
   tier: number;
 };
 
@@ -43,12 +54,26 @@ export function sourcePosition(
   return { time: asset.frameStarts[frame], frame, frozen, loop };
 }
 
-/** Paused video seeks coalesce. No video.play(), internal simulation or independent frame loop. */
+/** Forward decoding follows audio phase. Scrub, authored holds and export select exact frames. */
 export class MediaLayer {
   private position: MediaPosition = { time: 0, frame: 0, frozen: false, loop: 0 };
   private state: MediaStats["state"] = "idle";
   private timeout: ReturnType<typeof setTimeout>;
   private disposed = false;
+  private forward = false;
+  private seekStarted = 0;
+  private requestedFrames = 0;
+  private seeks = 0;
+  private coalesced = 0;
+  private seekLatencyMs = 0;
+  private presentedTime = 0;
+  private presentedFrames = 0;
+  private driftCorrections = 0;
+  private callback = 0;
+  private presentedFrame = -1;
+  private presentationDiscontinuity = true;
+  private skippedPresentedFrames = 0;
+  private duplicatePresentedFrames = 0;
   constructor(
     private video: HTMLVideoElement,
     private fallback: HTMLImageElement,
@@ -60,6 +85,29 @@ export class MediaLayer {
     video.addEventListener("loadeddata", this.ready);
     video.addEventListener("seeked", this.seeked);
     video.addEventListener("error", this.fail);
+    video.muted = true;
+    video.loop = true;
+    const presented: VideoFrameRequestCallback = (_now, metadata) => {
+      let index = 0;
+      for (let frame = 1; frame < this.asset.frameStarts.length; frame++) {
+        if (this.asset.frameStarts[frame] > metadata.mediaTime + 0.00001) break;
+        index = frame;
+      }
+      if (this.forward && this.presentedFrame >= 0 && !this.presentationDiscontinuity) {
+        const distance =
+          (index - this.presentedFrame + this.asset.frameStarts.length) %
+          this.asset.frameStarts.length;
+        if (distance === 0) this.duplicatePresentedFrames++;
+        else if (distance < this.asset.frameStarts.length / 2)
+          this.skippedPresentedFrames += Math.max(0, distance - 1);
+      }
+      this.presentationDiscontinuity = false;
+      this.presentedFrame = index;
+      this.presentedTime = metadata.mediaTime;
+      this.presentedFrames++;
+      if (!this.disposed) this.callback = video.requestVideoFrameCallback(presented);
+    };
+    if (video.requestVideoFrameCallback) this.callback = video.requestVideoFrameCallback(presented);
     this.activate();
   }
   private activate() {
@@ -83,22 +131,33 @@ export class MediaLayer {
     this.reveal();
   };
   private reveal() {
-    if (!this.video.seeking && Math.abs(this.video.currentTime - this.position.time) < 0.035) {
+    if (
+      !this.video.seeking &&
+      (this.forward || Math.abs(this.video.currentTime - this.position.time) < 0.035)
+    ) {
       this.video.style.visibility = "visible";
       this.fallback.style.visibility = "hidden";
     }
   }
   private seeked = () => {
     if (this.state !== "ready") return;
+    this.seekLatencyMs = performance.now() - this.seekStarted;
     this.flush();
     this.reveal();
   };
   private flush() {
     if (this.state !== "ready" || this.video.seeking) return;
+    if (this.forward) {
+      this.reveal();
+      return;
+    }
     const desired = this.position.time + 0.001;
     if (Math.abs(this.video.currentTime - desired) > 0.002) {
       try {
+        this.presentationDiscontinuity = true;
         this.video.currentTime = desired;
+        this.seeks++;
+        this.seekStarted = performance.now();
       } catch {
         this.fail();
       }
@@ -116,10 +175,35 @@ export class MediaLayer {
     this.fallback.src = this.urls.gif;
     this.fallback.style.visibility = "visible";
   };
-  sync(musicTime: number) {
-    this.position = sourcePosition(this.asset, this.cues, musicTime, this.delay);
+  sync(musicTime: number, forward = false) {
+    const next = sourcePosition(this.asset, this.cues, musicTime, this.delay);
+    if (next.frame !== this.position.frame) {
+      this.requestedFrames++;
+      if (this.video.seeking) this.coalesced++;
+    }
+    this.position = next;
+    this.forward = forward && !next.frozen;
     if (this.state === "idle") this.activate();
     this.video.dataset.sourceFrame = String(this.position.frame);
+    if (this.forward && this.state === "ready") {
+      const step = this.asset.duration / this.asset.frameStarts.length;
+      const error = Math.abs(this.video.currentTime - next.time);
+      if (!this.video.seeking && (error > Math.max(0.14, step * 2) || this.video.paused)) {
+        this.presentationDiscontinuity = true;
+        this.video.currentTime = next.time + 0.001;
+        this.seeks++;
+        this.driftCorrections++;
+        this.seekStarted = performance.now();
+      }
+      if (this.video.paused)
+        void this.video.play().catch(() => {
+          this.forward = false;
+          this.flush();
+        });
+      this.reveal();
+      return;
+    }
+    this.video.pause();
     this.flush();
   }
   get stats(): MediaStats {
@@ -128,9 +212,20 @@ export class MediaLayer {
       state: this.state,
       decodedTime: this.video.currentTime,
       tier: this.asset.tier,
+      requestedFrames: this.requestedFrames,
+      seeks: this.seeks,
+      coalesced: this.coalesced,
+      seekLatencyMs: this.seekLatencyMs,
+      presentedTime: this.presentedTime,
+      presentedFrames: this.presentedFrames,
+      driftCorrections: this.driftCorrections,
+      presentedFrame: this.presentedFrame,
+      skippedPresentedFrames: this.skippedPresentedFrames,
+      duplicatePresentedFrames: this.duplicatePresentedFrames,
     };
   }
   release() {
+    if (this.state === "idle") return;
     clearTimeout(this.timeout);
     this.state = "idle";
     this.video.dataset.mediaState = this.state;
@@ -141,6 +236,7 @@ export class MediaLayer {
   }
   dispose() {
     this.disposed = true;
+    if (this.callback) this.video.cancelVideoFrameCallback(this.callback);
     this.video.removeEventListener("loadeddata", this.ready);
     this.video.removeEventListener("seeked", this.seeked);
     this.video.removeEventListener("error", this.fail);

@@ -3,7 +3,8 @@ import { sceneTools } from "../../scenes/directorTools";
 
 export function choreography(context: DirectorContext) {
   const { q, at, t, name, finish } = sceneTools(context);
-  t.set(q(".rodent-lead"), { autoAlpha: 0.25 }, 0);
+  t.set(q(".rodent-lead"), { autoAlpha: 0 }, 0);
+  t.to(q(".rodent-lead"), { autoAlpha: 1, duration: 0.1 }, 0.05);
   t.set(q(".rodent-lead"), { autoAlpha: 1 }, at("firstImpact"));
   t.set(q(".motion-name"), { autoAlpha: 1 }, at("donorReveal"));
   t.fromTo(

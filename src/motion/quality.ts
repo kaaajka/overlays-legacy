@@ -1,9 +1,9 @@
 import type { QualityTier } from "./types";
 
 export const qualityBudgets = {
-  high: { scale: 0.8, particles: 520 },
-  medium: { scale: 0.55, particles: 220 },
-  safe: { scale: 0, particles: 0 },
+  high: { scale: 0.8, particles: 520, pixels: 4_000_000 },
+  medium: { scale: 0.55, particles: 220, pixels: 2_000_000 },
+  safe: { scale: 0, particles: 0, pixels: 1 },
 } as const;
 
 export function selectQuality(webgl2: boolean, cores: number, requested?: string): QualityTier {
@@ -13,7 +13,7 @@ export function selectQuality(webgl2: boolean, cores: number, requested?: string
   return "high";
 }
 
-/** A sustained slow window reduces detail once. No timing, layout or cue edits. */
+/** A sustained slow window reduces detail. No timing, layout or cue edits. */
 export class QualityGovernor {
   private samples = 0;
   private slow = 0;
@@ -23,10 +23,10 @@ export class QualityGovernor {
     this.samples++;
     if (frameMs > 23) this.slow++;
     if (this.samples < 120) return false;
-    const reduce = this.slow / this.samples > 0.35 && this.tier === "high";
+    const reduce = this.slow / this.samples > 0.35 && this.tier !== "safe";
     this.samples = 0;
     this.slow = 0;
-    if (reduce) this.tier = "medium";
+    if (reduce) this.tier = this.tier === "high" ? "medium" : "safe";
     return reduce;
   }
 }

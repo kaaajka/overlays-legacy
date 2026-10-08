@@ -167,8 +167,12 @@ export class OverlayRenderer {
     this.resize();
   }
   resize(): void {
-    const scale = qualityBudgets[this.quality].scale;
     const rect = this.canvas.getBoundingClientRect();
+    const budget = qualityBudgets[this.quality];
+    const scale = Math.min(
+      budget.scale,
+      Math.sqrt(budget.pixels / Math.max(1, rect.width * rect.height)),
+    );
     this.canvas.width = Math.max(1, Math.round(rect.width * scale));
     this.canvas.height = Math.max(1, Math.round(rect.height * scale));
     this.gl.viewport(0, 0, this.canvas.width, this.canvas.height);

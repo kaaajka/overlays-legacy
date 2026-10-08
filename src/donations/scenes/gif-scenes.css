@@ -1,4 +1,4 @@
-/* Source-led scenes, direction d2f60c0f. Geometry/type belongs to each show; infrastructure is shared. */
+/* v2.2: native-sized reaction + one donor/amount unit; the stream remains the stage. */
 .scene-content {
   position: absolute;
   inset: 0;
@@ -14,45 +14,6 @@
   inset: 0;
   transform-origin: 50% 80%;
 }
-.scene-turkey {
-  transform: scale(0.65);
-  transform-origin: 50% 50%;
-}
-.scene-mask {
-  transform: scale(0.67);
-  transform-origin: 50% 50%;
-}
-.scene-rodent {
-  transform: scale(0.64);
-  transform-origin: 50% 50%;
-}
-.scene-paper {
-  transform: scale(0.7);
-  transform-origin: 50% 50%;
-}
-.scene-ovation {
-  transform: scale(0.78);
-  transform-origin: 50% 50%;
-}
-.scene-heart {
-  transform: scale(0.73);
-  transform-origin: 50% 50%;
-}
-.scene-webcam {
-  transform: scale(0.78);
-  transform-origin: 50% 50%;
-}
-.heart-community-sticker {
-  position: absolute;
-  width: 70px;
-  height: 70px;
-  left: 840px;
-  top: 775px;
-  transform: rotate(-8deg);
-}
-.donation-motion[data-phase="information"] .motion-cash {
-  display: none;
-}
 .source-media :is(video, img) {
   position: absolute;
   inset: 0;
@@ -66,62 +27,72 @@
 .scene-copy {
   position: absolute;
   z-index: 6;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  width: 480px;
+  text-align: left;
 }
 .scene-copy .motion-name {
+  position: relative;
   max-width: 100%;
-  overflow-wrap: anywhere;
   text-align: inherit;
+  overflow-wrap: anywhere;
+  line-height: 1.2;
 }
 .scene-copy .motion-amount {
-  position: absolute;
+  position: relative;
   max-width: 100%;
+  gap: 14px;
+  transform-origin: left center;
+}
+.scene-copy :is(.motion-name, .motion-amount) {
+  text-shadow:
+    0 2px 2px #1e1819,
+    0 4px 10px #1e1819;
 }
 .scene-phrase {
-  font-size: 25px;
+  font-size: 24px;
   font-weight: 500;
-  margin: 0 0 35px;
+  margin: 0;
+  color: #ffd6c1;
 }
-.donation-motion[data-phase="information"] .scene-content {
+.donation-motion[data-phase="information"] :is(.scene-content, .motion-cash) {
   display: none;
 }
 .turkey-room {
   position: absolute;
-  left: 100px;
-  top: 170px;
-  width: 780px;
-  height: 650px;
+  left: 470px;
+  top: 320px;
+  width: 480px;
+  height: 400px;
+  border-radius: 48% 48% 42% 42%;
 }
 .turkey-floor {
   position: absolute;
-  bottom: -25px;
-  left: 110px;
-  width: 560px;
-  height: 8px;
-  background: #ffe0a1;
+  bottom: -12px;
+  left: 80px;
+  width: 320px;
+  height: 5px;
   border-radius: 50%;
+  background: #ffe0a1;
 }
 .turkey-reply {
   position: absolute;
-  left: 1010px;
-  top: 270px;
-  width: 790px;
+  left: 1000px;
+  top: 425px;
+  width: 440px;
 }
 .turkey-reply .scene-copy {
-  width: 100%;
-  top: 75px;
-}
-.turkey-reply .motion-name {
-  text-align: left;
-}
-.turkey-reply .motion-amount {
-  top: 160px;
+  top: 46px;
+  width: 440px;
 }
 .turkey-step {
   position: absolute;
-  left: 990px;
-  top: 765px;
-  width: 800px;
-  height: 60px;
+  left: 1000px;
+  top: 655px;
+  width: 400px;
+  height: 30px;
   fill: none;
   stroke: #ffe0a1;
   stroke-width: 3;
@@ -129,79 +100,79 @@
 }
 .mask-lead {
   position: absolute;
-  left: 670px;
-  top: 100px;
-  width: 593px;
-  height: 830px;
+  left: 765px;
+  top: 250px;
+  width: 286px;
+  height: 400px;
 }
 .mask-echo {
   position: absolute;
 }
 .echo-left {
-  left: 280px;
-  top: 300px;
-  width: 429px;
-  height: 600px;
+  left: 550px;
+  top: 405px;
+  width: 150px;
+  height: 210px;
 }
 .echo-right {
-  left: 1330px;
-  top: 250px;
-  width: 464px;
-  height: 650px;
+  left: 1110px;
+  top: 380px;
+  width: 172px;
+  height: 240px;
 }
 .mask-floor {
   position: absolute;
-  left: 280px;
-  top: 892px;
-  width: 1490px;
+  left: 600px;
+  top: 659px;
+  width: 630px;
   height: 4px;
-  background: #e84531;
+  background: #ffb9a5;
+  border-radius: 50%;
 }
 .scene-mask .scene-copy {
-  inset: 0;
+  left: 650px;
+  top: 700px;
+  width: 580px;
   text-align: center;
 }
-.scene-mask .motion-name {
-  position: absolute;
-  left: 280px;
-  top: 35px;
-  width: 1360px;
-}
 .scene-mask .motion-amount {
-  left: 460px;
-  top: 865px;
-  width: 1000px;
   justify-content: center;
 }
 .mask-call {
   position: absolute;
-  left: 70px;
-  top: 750px;
-  width: 250px;
-  font-size: 24px;
+  left: 650px;
+  top: 880px;
+  width: 580px;
+  text-align: center;
+  font-size: 20px;
   color: #ffb9a5;
 }
 .rodent-projector {
   position: absolute;
-  left: 560px;
-  top: 230px;
-  width: 800px;
-  height: 600px;
+  left: 610px;
+  top: 320px;
+  width: 520px;
+  height: 390px;
   overflow: hidden;
+  border: 5px solid #fff1db;
+  border-radius: 8px;
+  box-shadow: 8px 9px 0 #392829;
 }
 .rodent-left {
   position: absolute;
-  left: 40px;
-  top: 470px;
-  width: 350px;
-  height: 263px;
+  left: 440px;
+  top: 495px;
+  width: 170px;
+  height: 128px;
+  border: 3px solid #fff1db;
 }
 .rodent-right {
   position: absolute;
-  left: 1530px;
-  top: 220px;
-  width: 350px;
-  height: 263px;
+  left: 1160px;
+  top: 390px;
+  width: 170px;
+  height: 128px;
+  border: 3px solid #fff1db;
 }
 .scene-rodent .source-media {
   image-rendering: pixelated;
@@ -223,93 +194,77 @@
 }
 .rodent-omg {
   position: absolute;
-  left: 1490px;
-  top: 575px;
-  font-size: 120px;
+  left: 1145px;
+  top: 565px;
+  font-size: 58px;
   font-weight: 700;
   color: #ffe297;
   opacity: 0;
 }
 .scene-rodent .scene-copy {
-  inset: 0;
-  text-align: center;
-}
-.scene-rodent .motion-name {
-  position: absolute;
-  left: 360px;
-  top: 90px;
-  width: 1200px;
-}
-.scene-rodent .motion-amount {
-  top: 865px;
-  left: 400px;
-  width: 1120px;
-  justify-content: center;
+  left: 630px;
+  top: 750px;
+  width: 620px;
+  text-align: left;
 }
 .paper-portrait {
   position: absolute;
-  left: 1230px;
-  top: 90px;
-  width: 560px;
-  height: 835px;
+  left: 1060px;
+  top: 260px;
+  width: 350px;
+  height: 522px;
 }
 .paper-answer {
   position: absolute;
-  left: 120px;
-  top: 95px;
-  width: 950px;
+  left: 525px;
+  top: 315px;
+  width: 480px;
 }
 .paper-caption {
   margin: 0;
-  font-size: 75px;
-  line-height: 1.15;
+  font-size: 44px;
+  line-height: 1.12;
   font-weight: 600;
   opacity: 0;
+  color: #fff0df;
 }
 .paper-strip {
   position: absolute;
-  top: 355px;
-  width: 950px;
-  height: 270px;
+  left: -24px;
+  top: 208px;
+  width: 520px;
+  height: 142px;
   background: #f4eee1;
   clip-path: polygon(
     0 0,
     98% 0,
-    100% 5%,
-    98% 12%,
-    100% 20%,
-    98% 28%,
-    100% 38%,
-    98% 48%,
-    100% 57%,
-    98% 66%,
-    100% 76%,
-    98% 85%,
-    100% 94%,
+    100% 8%,
+    98% 18%,
+    100% 28%,
+    98% 38%,
+    100% 48%,
+    98% 58%,
+    100% 68%,
+    98% 78%,
+    100% 88%,
     98% 100%,
     0 100%
   );
   transform-origin: left;
 }
 .scene-paper .scene-copy {
-  top: 215px;
-  width: 950px;
-}
-.scene-paper .motion-name {
-  text-align: left;
+  top: 125px;
 }
 .scene-paper .motion-amount {
-  top: 175px;
-  left: 30px;
+  margin-top: 24px;
   color: #30271f;
   text-shadow: none;
-  transform-origin: left;
 }
 .paper-perforation {
   position: absolute;
-  left: 120px;
-  top: 735px;
-  width: 950px;
+  left: 525px;
+  top: 703px;
+  width: 480px;
   height: 20px;
   stroke: #f4eee1;
   stroke-width: 2;
@@ -318,10 +273,14 @@
 }
 .ovation-panorama {
   position: absolute;
-  left: 260px;
-  top: 80px;
-  width: 1400px;
-  height: 788px;
+  left: 475px;
+  top: 365px;
+  width: 600px;
+  height: 338px;
+  border: 5px solid #ffd6b5;
+  border-radius: 18px 18px 50px 18px;
+  overflow: hidden;
+  box-shadow: 0 6px 0 #5e3630;
 }
 .ovation-lip {
   position: absolute;
@@ -332,93 +291,86 @@
 }
 .ovation-wing {
   position: absolute;
-  top: 250px;
-  font-size: 184px;
+  top: 260px;
+  font-size: 76px;
   line-height: 1;
   font-weight: 700;
-  writing-mode: vertical-rl;
   color: #ffe0a1;
+  text-shadow: 0 4px 3px #342321;
 }
 .wing-holy {
-  left: 32px;
-  transform: rotate(180deg);
+  left: 475px;
+  transform: rotate(-6deg);
 }
 .wing-moly {
-  right: 32px;
+  left: 780px;
+  transform: rotate(5deg);
 }
 .scene-ovation .scene-copy {
-  inset: 0;
-  text-align: center;
-}
-.scene-ovation .motion-name {
-  position: absolute;
-  top: 0;
-  left: 300px;
-  width: 1320px;
-}
-.scene-ovation .motion-amount {
-  top: 870px;
-  left: 350px;
-  width: 1220px;
-  justify-content: center;
+  left: 1120px;
+  top: 440px;
+  width: 420px;
 }
 .ovation-call {
   position: absolute;
-  left: 65px;
-  bottom: 55px;
-  width: 270px;
-  font-size: 27px;
+  left: 500px;
+  top: 742px;
+  width: 570px;
+  font-size: 23px;
   opacity: 0;
 }
 .heart-booth {
   position: absolute;
-  left: 1080px;
-  top: 110px;
-  width: 720px;
-  height: 720px;
+  left: 1070px;
+  top: 320px;
+  width: 400px;
+  height: 400px;
 }
 .heart-booth .source-media {
-  clip-path: polygon(0 0, 92% 0, 100% 8%, 100% 100%, 8% 100%, 0 92%);
+  clip-path: inset(0 round 40px 40px 64px 16px);
+  border: 5px solid #ffcbdb;
+  box-sizing: border-box;
+  background: #30222c;
 }
 .heart-call {
   position: absolute;
-  right: 0;
-  bottom: -95px;
-  font-size: 60px;
+  right: 24px;
+  bottom: -60px;
+  font-size: 34px;
   font-weight: 600;
   color: #ffc1ce;
 }
 .heart-bridge {
   position: absolute;
-  left: 30px;
-  top: 225px;
-  width: 1100px;
-  height: 760px;
+  left: 460px;
+  top: 450px;
+  width: 600px;
+  height: 414px;
   overflow: visible;
   fill: none;
   stroke: #ffc1ce;
   stroke-width: 7;
 }
 .scene-heart .scene-copy {
-  left: 120px;
-  top: 325px;
-  width: 840px;
-}
-.scene-heart .motion-name {
-  text-align: left;
-}
-.scene-heart .motion-amount {
-  top: 170px;
-  left: 50px;
+  left: 540px;
+  top: 400px;
 }
 .heart-thanks {
   position: absolute;
-  left: 145px;
-  top: 820px;
-  width: 720px;
-  font-size: 29px;
+  left: 540px;
+  top: 680px;
+  width: 480px;
+  font-size: 22px;
   margin: 0;
   opacity: 0;
+}
+.heart-community-sticker {
+  position: absolute;
+  width: 56px;
+  height: 56px;
+  left: 875px;
+  top: 712px;
+  transform: rotate(-8deg);
 }
 .webcam-wall {
   position: absolute;
@@ -430,10 +382,10 @@
 }
 .webcam-still {
   position: absolute;
-  width: 240px;
-  height: 240px;
+  width: 104px;
+  height: 104px;
   background: #171517;
-  border: 3px solid #9b9b9b;
+  border: 3px solid #e3c6c1;
 }
 .webcam-still img {
   width: 100%;
@@ -442,96 +394,275 @@
 }
 .webcam-still span {
   position: absolute;
-  bottom: 5px;
-  left: 10px;
-  font-size: 19px;
+  bottom: 4px;
+  left: 6px;
+  font-size: 14px;
   color: #ece9dd;
 }
 .monitor-slot-0 {
-  left: 1070px;
-  top: 60px;
+  left: 1020px;
+  top: 275px;
   transform: rotate(-10deg);
 }
 .monitor-slot-1 {
-  left: 1430px;
-  top: 20px;
+  left: 1270px;
+  top: 270px;
   transform: rotate(7deg);
 }
 .monitor-slot-2 {
-  left: 1750px;
-  top: 190px;
+  left: 1400px;
+  top: 405px;
   transform: rotate(14deg);
 }
 .monitor-slot-3 {
-  left: 1700px;
-  top: 700px;
+  left: 1400px;
+  top: 675px;
   transform: rotate(-10deg);
 }
 .monitor-slot-4 {
-  left: 1310px;
+  left: 1230px;
   top: 780px;
   transform: rotate(8deg);
 }
 .monitor-slot-5 {
-  left: 980px;
-  top: 710px;
+  left: 1010px;
+  top: 740px;
   transform: rotate(-8deg);
 }
 .webcam-main {
   position: absolute;
-  left: 1360px;
-  top: 310px;
-  width: 360px;
-  height: 360px;
-  border: 6px solid #ece9dd;
+  left: 1130px;
+  top: 410px;
+  width: 240px;
+  height: 240px;
+  border: 6px solid #ffe0d1;
+  border-radius: 16px;
+  background: #171517;
 }
 .webcam-satellite {
   position: absolute;
-  width: 240px;
-  height: 240px;
-  border: 3px solid #9b9b9b;
+  width: 144px;
+  height: 144px;
+  border: 3px solid #e3c6c1;
 }
 .satellite-a {
-  left: 1020px;
-  top: 380px;
+  left: 970px;
+  top: 495px;
   transform: rotate(8deg);
 }
 .satellite-b {
-  left: 1700px;
-  top: 430px;
+  left: 1370px;
+  top: 535px;
   transform: rotate(-10deg);
 }
 .webcam-shout {
   position: absolute;
-  left: 100px;
-  top: 55px;
-  font-size: 134px;
+  left: 480px;
+  top: 280px;
+  font-size: 56px;
   line-height: 1.02;
   font-weight: 700;
+  color: #ffcfbc;
+  text-shadow: 0 3px 2px #302227;
 }
 .webcam-shout strong {
   display: block;
-  font-size: 164px;
+  font-size: 82px;
   color: #ece9dd;
 }
 .scene-webcam .scene-copy {
-  left: 120px;
-  top: 465px;
-  width: 840px;
-  transform: rotate(-7deg);
-}
-.scene-webcam .motion-name {
-  text-align: left;
-}
-.scene-webcam .motion-amount {
-  top: 240px;
+  left: 500px;
+  top: 495px;
+  width: 440px;
 }
 .webcam-wtf {
   position: absolute;
-  left: 210px;
-  top: 875px;
-  font-size: 75px;
+  left: 520px;
+  top: 775px;
+  font-size: 38px;
   font-weight: 700;
   color: #ece9dd;
-  transform: rotate(-7deg);
+  transform: rotate(-4deg);
+}
+
+/* Community replies have different jobs: a Turkey step response and an ovation aside. */
+.turkey-community-reply {
+  position: absolute;
+  left: 960px;
+  top: 704px;
+  width: 72px;
+  height: 72px;
+}
+.turkey-step {
+  top: 718px;
+}
+.mask-floor {
+  top: 606px;
+  height: 76px;
+  background: none;
+  fill: none;
+  stroke: #fff1ee;
+  stroke-width: 5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  filter: drop-shadow(0 2px 0 #34232b);
+  transform-origin: 50% 100%;
+}
+.rodent-omg {
+  width: 200px;
+  height: 80px;
+  object-fit: contain;
+}
+.ovation-wing {
+  top: 207px;
+  width: 280px;
+  height: 187px;
+  background-image: url("/assets/donations/brand/holy-moly-handwritten.png");
+  background-size: 560px 187px;
+  background-repeat: no-repeat;
+}
+.wing-holy {
+  background-position: left center;
+}
+.wing-moly {
+  background-position: right center;
+}
+.ovation-community-reply {
+  position: absolute;
+  left: 1030px;
+  top: 723px;
+  width: 56px;
+  height: 56px;
+}
+.heart-bridge {
+  top: 620px;
+}
+.heart-thanks {
+  top: 650px;
+}
+
+/* Aspect-aware authored anchors: source stays bounded while groups separate across wider output. */
+.turkey-room {
+  left: calc(470px + var(--stage-extra, 0px) * 0.35);
+}
+.turkey-reply {
+  left: calc(1000px + var(--stage-extra, 0px) * 0.65);
+}
+.turkey-step {
+  left: calc(1000px + var(--stage-extra, 0px) * 0.65);
+}
+.mask-lead {
+  left: calc(765px + var(--stage-extra, 0px) * 0.35);
+}
+.echo-left {
+  left: calc(550px + var(--stage-extra, 0px) * 0.35);
+}
+.echo-right {
+  left: calc(1110px + var(--stage-extra, 0px) * 0.65);
+}
+.mask-floor {
+  left: calc(600px + var(--stage-extra, 0px) * 0.35);
+}
+.scene-mask .scene-copy {
+  left: calc(650px + var(--stage-extra, 0px) * 0.35);
+}
+.mask-call {
+  left: calc(650px + var(--stage-extra, 0px) * 0.35);
+}
+.rodent-projector {
+  left: calc(610px + var(--stage-extra, 0px) * 0.35);
+}
+.rodent-left {
+  left: calc(440px + var(--stage-extra, 0px) * 0.35);
+}
+.rodent-right {
+  left: calc(1160px + var(--stage-extra, 0px) * 0.65);
+}
+.rodent-omg {
+  left: calc(1145px + var(--stage-extra, 0px) * 0.65);
+}
+.scene-rodent .scene-copy {
+  left: calc(630px + var(--stage-extra, 0px) * 0.35);
+}
+.paper-portrait {
+  left: calc(1060px + var(--stage-extra, 0px) * 0.65);
+}
+.paper-answer {
+  left: calc(525px + var(--stage-extra, 0px) * 0.35);
+}
+.paper-perforation {
+  left: calc(525px + var(--stage-extra, 0px) * 0.35);
+}
+.ovation-panorama {
+  left: calc(475px + var(--stage-extra, 0px) * 0.35);
+}
+.wing-holy {
+  left: calc(475px + var(--stage-extra, 0px) * 0.35);
+}
+.wing-moly {
+  left: calc(780px + var(--stage-extra, 0px) * 0.35);
+}
+.scene-ovation .scene-copy {
+  left: calc(1120px + var(--stage-extra, 0px) * 0.65);
+}
+.ovation-call {
+  left: calc(500px + var(--stage-extra, 0px) * 0.35);
+}
+.heart-booth {
+  left: calc(1070px + var(--stage-extra, 0px) * 0.65);
+}
+.heart-bridge {
+  left: calc(460px + var(--stage-extra, 0px) * 0.35);
+}
+.scene-heart .scene-copy {
+  left: calc(540px + var(--stage-extra, 0px) * 0.35);
+}
+.heart-thanks {
+  left: calc(540px + var(--stage-extra, 0px) * 0.35);
+}
+.heart-community-sticker {
+  left: calc(875px + var(--stage-extra, 0px) * 0.35);
+}
+.monitor-slot-0 {
+  left: calc(1020px + var(--stage-extra, 0px) * 0.65);
+}
+.monitor-slot-1 {
+  left: calc(1270px + var(--stage-extra, 0px) * 0.65);
+}
+.monitor-slot-2 {
+  left: calc(1400px + var(--stage-extra, 0px) * 0.65);
+}
+.monitor-slot-3 {
+  left: calc(1400px + var(--stage-extra, 0px) * 0.65);
+}
+.monitor-slot-4 {
+  left: calc(1230px + var(--stage-extra, 0px) * 0.65);
+}
+.monitor-slot-5 {
+  left: calc(1010px + var(--stage-extra, 0px) * 0.65);
+}
+.webcam-main {
+  left: calc(1130px + var(--stage-extra, 0px) * 0.65);
+}
+.satellite-a {
+  left: calc(970px + var(--stage-extra, 0px) * 0.65);
+}
+.satellite-b {
+  left: calc(1370px + var(--stage-extra, 0px) * 0.65);
+}
+.webcam-shout {
+  left: calc(480px + var(--stage-extra, 0px) * 0.35);
+}
+.scene-webcam .scene-copy {
+  left: calc(500px + var(--stage-extra, 0px) * 0.35);
+}
+.webcam-wtf {
+  left: calc(520px + var(--stage-extra, 0px) * 0.35);
+}
+/* Community replies have different jobs: a Turkey step response and an ovation aside. */
+.turkey-community-reply {
+  left: calc(960px + var(--stage-extra, 0px) * 0.65);
+}
+.ovation-community-reply {
+  left: calc(1030px + var(--stage-extra, 0px) * 0.65);
 }

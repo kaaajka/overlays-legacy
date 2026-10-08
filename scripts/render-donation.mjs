@@ -14,8 +14,8 @@ const requestPath = option("request");
 const request = requestPath
   ? JSON.parse(readFileSync(requestPath))
   : {
-      tier: Number(option("tier", 6)),
-      range: option("range", "hero"),
+      tier: Number(option("tier", 1)),
+      range: option("range", "full"),
       fps: Number(option("fps", 60)),
       format: option("format", "mp4"),
       background: option("background", "solid"),
@@ -25,7 +25,11 @@ const request = requestPath
       message: option("message", "Dziękuję za stream!"),
       seed: option("seed", "kaaajka-motion-01"),
       quality: option("quality", "safe"),
-      selection: [Number(option("in", 0)), Number(option("out", 2))],
+      selection:
+        option("in") && option("out") ? [Number(option("in")), Number(option("out"))] : null,
+      width: Number(option("width", 1920)),
+      height: Number(option("height", 1080)),
+      voice: option("voice", "scene"),
       url: option("url", "http://127.0.0.1:5173"),
     };
 const folder = requestPath
@@ -57,8 +61,25 @@ try {
     throw Error("Unsupported FPS/format");
   if (request.format === "mp4" && request.background === "transparent")
     throw Error("H.264 cannot preserve alpha");
+  const width = request.width ?? 1920,
+    height = request.height ?? 1080;
+  if (
+    !Number.isInteger(width) ||
+    !Number.isInteger(height) ||
+    width % 2 ||
+    height % 2 ||
+    width < 320 ||
+    height < 240 ||
+    width > 8192 ||
+    height > 4320 ||
+    width * height > 34_000_000
+  )
+    throw Error("Invalid output dimensions");
   const query = new URLSearchParams({
     clean: "1",
+    width: String(width),
+    height: String(height),
+    voice: request.voice ?? "scene",
     tier: String(request.tier),
     seed: request.seed,
     quality: request.quality,
@@ -71,7 +92,7 @@ try {
   });
   browser = await chromium.launch({ args: ["--autoplay-policy=no-user-gesture-required"] });
   const page = await browser.newPage({
-    viewport: { width: 1920, height: 1080 },
+    viewport: { width, height },
     deviceScaleFactor: 1,
   });
   await page.routeWebSocket("**", (socket) => socket.close());
@@ -83,13 +104,27 @@ try {
       (image) => image.complete && image.naturalWidth > 0,
     ),
   );
+  await page.waitForFunction(() =>
+    [...document.querySelectorAll("canvas.information-emote")].every(
+      (canvas) => canvas.dataset.emoteState === "ready" || canvas.dataset.emoteState === "fallback",
+    ),
+  );
+  await page.evaluate(() => window.motionStudio.prepareSpeech());
   const metadata = await page.evaluate(() => window.motionStudio.exportMetadata());
-  const speech = JSON.parse(readFileSync(resolve("src/dev/motion-studio/speech.json")));
+  const speech = metadata.currentSpeech;
+  if (
+    request.speech &&
+    JSON.stringify(
+      request.speech.map((c) => [c.name, c.text, c.voiceIdentity, c.hash, c.duration]),
+    ) !== JSON.stringify(speech.map((c) => [c.name, c.text, c.voiceIdentity, c.hash, c.duration]))
+  )
+    throw Error("Current speech differs from immutable export request");
   const plan = lifecyclePlan(
     metadata.duration,
-    request.message,
+    metadata.semanticMessage,
     speech.filter((clip) => metadata.speech[clip.name]),
   );
+  const full = request.range === "full" || request.mode === "full";
   let start = 0,
     end = request.range === "full" ? plan.duration : metadata.duration;
   if (request.range === "selection") {
@@ -118,7 +153,7 @@ try {
     const time = start + frame / request.fps;
     await page.evaluate(({ time, full }) => window.motionStudio.renderExportAt(time, full), {
       time,
-      full: request.range === "full",
+      full,
     });
     await page.waitForFunction(
       () =>
@@ -165,12 +200,12 @@ try {
     // Original music is authoritative. No separated stems enter the export mix.
     ff.push("-i", resolve("public", metadata.musicUrl.replace(/^\//, "")));
     inputs.push({ index: 1, delay: 0, gain: metadata.musicVolume });
-    if (request.range === "full")
+    if (full)
       for (const stage of plan.stages.filter((stage) => stage.name.startsWith("tts-"))) {
         const name = stage.name.slice(4),
           clip = speech.find((clip) => clip.name === name);
         const index = inputs.length + 1;
-        ff.push("-i", resolve("dev-assets/studio-speech", clip.file));
+        ff.push("-i", resolve(".studio-tts", clip.key + ".wav"));
         inputs.push({ index, delay: stage.start, gain: metadata.speechVolume });
       }
     const filters = inputs.map(
@@ -228,8 +263,8 @@ try {
   );
   const video = probe.streams.find((stream) => stream.codec_type === "video");
   if (
-    video.width !== 1920 ||
-    video.height !== 1080 ||
+    video.width !== width ||
+    video.height !== height ||
     Number(video.nb_read_frames) !== count ||
     video.r_frame_rate !== `${request.fps}/1`
   )
@@ -253,6 +288,7 @@ try {
         count,
         duration: count / request.fps,
         plan,
+        speech,
         hashes,
         probe,
         bytes: statSync(file).size,

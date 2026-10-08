@@ -3,7 +3,8 @@ import { sceneTools } from "../../scenes/directorTools";
 
 export function choreography(context: DirectorContext) {
   const { q, at, t, finish } = sceneTools(context);
-  t.set(q(".paper-portrait"), { autoAlpha: 0.25 }, 0);
+  t.set(q(".paper-portrait"), { autoAlpha: 0 }, 0);
+  t.to(q(".paper-portrait"), { autoAlpha: 1, duration: 0.1 }, 0.05);
   t.fromTo(
     q(".paper-portrait"),
     { clipPath: "inset(100% 0 0 0)" },

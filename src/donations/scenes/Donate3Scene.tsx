@@ -11,8 +11,12 @@ export function Donate3Scene(props: SceneContentProps) {
         <div className="shutter shutter-bottom" />
       </div>
       <SourceMedia tier={3} className="rodent-right" delay={0.16} />
-      <div className="rodent-omg">OMG!</div>
-      <DonorType {...props} amountSize={174} />
+      <img
+        className="rodent-omg"
+        src={`${import.meta.env.BASE_URL}assets/donations/brand/omg-handwritten.png`}
+        alt="OMG!"
+      />
+      <DonorType {...props} width={620} amountSize={174} />
     </div>
   );
 }

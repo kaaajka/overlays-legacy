@@ -37,14 +37,14 @@ it.each(
   expect(a.intelligence.authored.sections.every((region) => region.approved)).toBe(true);
 });
 it.skipIf(!existsSync("dist/assets"))(
-  "production entry excludes Studio, worker, test speech and heavy authoring imports",
+  "production keeps Studio lazy and excludes server workers and heavy analysis imports",
   () => {
     const main = readFileSync("src/main.tsx", "utf8");
-    expect(main).toContain("import.meta.env.DEV");
+    expect(main).toContain("React.lazy");
+    expect(main).toContain('"/motion-studio"');
     for (const file of readdirSync("dist/assets").filter((file) => file.endsWith(".js"))) {
       const bundle = readFileSync(`dist/assets/${file}`, "utf8");
       for (const forbidden of [
-        "__studio/export",
         "/__studio-assets/speech",
         "render-donation.mjs",
         "demucs_onnx",

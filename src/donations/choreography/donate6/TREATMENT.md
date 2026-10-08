@@ -18,9 +18,10 @@ HALO HALO plus money rain; keep call, reinterpret halo through source gesture. P
 
 Hand-heart freeze and a drawn heart handoff to the donor.
 
-## Full-screen storyboard
+## Localized storyboard (production v2.2)
 
-- 0.000s: source-pose tease at scene-specific location, transparent broadcast around it.
+- 0.000s: fully transparent public stage, including loading and restart/reverse seek.
+- 0.050s–0.150s: source entry; INITIAL capture is 150ms and is distinct from ZERO.
 - 0.06966s · firstImpact: media enters in its characteristic direction; no independent visual timer.
 - 2.11302s · donorReveal: Soft left donor reveal anticipates hands; amount meets completed drawn heart.
 - 3.01859s · buildStart: hands lift and heart line anticipates.
@@ -32,15 +33,15 @@ Hand-heart freeze and a drawn heart handoff to the donor.
 
 ## GIF usage
 
-One 720x720 fullsquare booth at (1080,110); donor(120,330), amount(180,520). Heart line bridges empty gap. No celestial aperture. All geometry is logical 1920x1080. No generated/replacement footage. Source loops against music time, holds the chosen pose from hero-0.31s (bounded by preDrop) until hero+0.65s, then resumes from that pose and loops. Echoes use authored source offsets. Original GIF fallback preserves recognizable content but cannot guarantee exact source-frame synchronization. Poster is an unmodified source frame.
+Native 400x400 booth at (1070,320). One 480px donor/amount stack at (540,400). The 600x414 drawn bridge starts at (460,620), wholly below reserved donor data; thanks starts at y650 and the native 56px cheering bunny at (875,712). No celestial aperture. All geometry is direct logical 1920x1080, uniformly fitted to the viewport; no previous per-scene assembly scale applies. No generated/replacement footage. Source loops against music time, holds the chosen pose from hero-0.31s (bounded by preDrop) until hero+0.65s, then resumes from that pose and loops. Echoes use authored source offsets. Original GIF fallback preserves recognizable content but cannot guarantee exact source-frame synchronization. Poster is an unmodified source frame.
 
 ## Nickname and amount
 
-Soft left donor reveal anticipates hands; amount meets completed drawn heart. Dynamic Polish amount/currency preserved; shrink long strings and reserve independent text space. Amount's exact cue is **3.90095s**. The source cannot be swapped with another tier without breaking the joke, spatial balance and chosen gesture.
+Soft left donor reveal anticipates hands; amount meets completed drawn heart. Dynamic Polish amount/currency preserved; shared name/amount anchor has a 24px gap. Name is fitted to 28–44px and wraps in full; amount is fitted to at most 112px and the stack width. See DESIGN.md and PRODUCTION_22_DIRECTION.md for exact formulas. Amount's exact cue is **3.90095s**. The source cannot be swapped with another tier without breaking the joke, spatial balance and chosen gesture.
 
 ## Message / information state
 
-Keep shared 1240px reading card, complete plain text, slow overflow scrolling and opening/final holds. Keep existing nickname -> amount -> message TTS and queue completion. Hide and unload media/effects at information; no ongoing decode when idle.
+Use the shared intrinsic Information card: content width 560–960px, natural height capped at 600px, fixed header and body-only slow overflow scrolling with opening/final holds. Complete plain text and explicit allowlisted image runs retain line breaks and stable 45px emote slots; frame selection follows information time, without a private animation loop. Keep existing nickname -> amount -> message TTS and queue completion. Hide and unload media/effects at information; no ongoing decode when idle.
 
 ## Unique signature technique
 
@@ -52,4 +53,4 @@ Maximum 1 paused video decoders at original source dimensions. Coalesced frame-c
 
 ## Production-v2 extension
 
-The logical geometry above is localized by the assembly scale in KAAAJKA_BRAND_DIRECTION.md. Original hero/music/source-pose times are unchanged. Music Intelligence v2 adds estimated beat/downbeat motifs, explicitly authored section regions and bounded source reactions from measured vocal-energy peaks. Important guessed lyrics remain unapproved; no automatic lyric captioning occurs. Cash/brand/footprint decisions and current media bytes are documented in the production-v2 brand/media audits.
+The logical geometry above is the current directly authored production-v2.2 footprint; only uniform viewport fitting applies. See PRODUCTION_22_DIRECTION.md and KAAAJKA_BRAND_DIRECTION.md. Original hero/music/source-pose times are unchanged. Music Intelligence v2 adds estimated beat/downbeat motifs, explicitly authored section regions and bounded source reactions from measured vocal-energy peaks. Important guessed lyrics remain unapproved; no automatic lyric captioning occurs. Cash/brand/footprint decisions and current media bytes are documented in the production-v2 brand/media audits.

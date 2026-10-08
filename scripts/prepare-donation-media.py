@@ -28,7 +28,7 @@ for tier in range(1, 8):
     subprocess.run([
         'ffmpeg', '-hide_banner', '-loglevel', 'error', '-y', '-ignore_loop', '1',
         '-i', str(source), '-an', '-fps_mode', 'passthrough', '-t', str(duration),
-        '-c:v', 'libvpx-vp9', '-lossless', '1', '-g', '16', '-enc_time_base', '1:1000', '-auto-alt-ref', '0',
+        '-c:v', 'libvpx-vp9', '-lossless', '1', '-g', '1' if tier in (4,6) else '16', '-enc_time_base', '1:1000', '-auto-alt-ref', '0',
         '-pix_fmt', 'yuva420p' if transparent else 'yuv444p', str(output),
     ], check=True)
     probe = json.loads(subprocess.check_output([
@@ -49,7 +49,7 @@ for tier in range(1, 8):
         heroSourceTime=starts[POSES[tier-1]], representation='GIF-derived VP9 WebM',
         holdBeforeHero=[0.08, 0.12, 0.06, 0.35, 0.12, 0.31, 0.12][tier-1],
         holdAfterHero=[0.10, 0.08, 0.06, 0.35, 0.10, 0.65, 0.18][tier-1],
-        sourceBytes=source.stat().st_size, webmBytes=output.stat().st_size,
+        sourceBytes=source.stat().st_size, webmBytes=output.stat().st_size, gop=1 if tier in (4,6) else 16,
         encodedDuration=float(probe['format']['duration']),
         pixelFormat='yuva420p' if transparent else 'yuv444p',
     ))

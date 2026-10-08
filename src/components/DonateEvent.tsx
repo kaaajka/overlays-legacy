@@ -77,7 +77,7 @@ export default function DonateEvent({
     ].map((step) => ({ ...step, volume: speech.volume, kind: "tts" as const }));
     const frame = (now: number) => {
       if (abort.signal.aborted) return;
-      scene.current?.renderAt(playback.time, previousFrame ? now - previousFrame : 16.67);
+      scene.current?.renderAt(playback.time, previousFrame ? now - previousFrame : 16.67, true);
       previousFrame = now;
       raf = requestAnimationFrame(frame);
     };

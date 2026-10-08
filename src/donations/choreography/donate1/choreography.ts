@@ -3,7 +3,8 @@ import { sceneTools } from "../../scenes/directorTools";
 
 export function choreography(context: DirectorContext) {
   const { q, at, t, name, finish } = sceneTools(context);
-  t.set(q(".turkey-room .source-media"), { autoAlpha: 0.25 }, 0);
+  t.set(q(".turkey-room .source-media"), { autoAlpha: 0 }, 0);
+  t.to(q(".turkey-room .source-media"), { autoAlpha: 1, duration: 0.1 }, 0.05);
   t.fromTo(
     q(".turkey-room .source-media"),
     { y: -70 },
@@ -29,10 +30,17 @@ export function choreography(context: DirectorContext) {
     { scaleX: 0.65, duration: at("heroDrop") - at("preDrop") },
     at("preDrop"),
   );
-  t.set(q(".motion-amount"), { autoAlpha: 1, rotation: -7, y: 0 }, at("heroDrop"));
-  t.to(q(".motion-amount"), { rotation: 4, duration: 0.22 }, at("heroDrop"));
+  t.set(q(".motion-amount"), { autoAlpha: 1, rotation: -2, y: 0 }, at("heroDrop"));
+  t.to(q(".motion-amount"), { rotation: 2, duration: 0.22 }, at("heroDrop"));
   t.to(q(".motion-amount"), { rotation: 0, duration: 0.35 }, at("heroDrop") + 0.22);
   t.to(q(".turkey-floor"), { scaleX: 1, duration: 0.25 }, at("heroDrop"));
   t.to(q(".turkey-room"), { x: 25, duration: 0.2, yoyo: true, repeat: 1 }, at("heroDrop"));
+  t.set(q(".turkey-community-reply"), { autoAlpha: 0 }, 0);
+  t.fromTo(
+    q(".turkey-community-reply"),
+    { y: 18, rotation: -12 },
+    { autoAlpha: 1, y: 0, rotation: 4, duration: 0.3 },
+    at("heroDrop") + 0.1,
+  );
   return finish();
 }

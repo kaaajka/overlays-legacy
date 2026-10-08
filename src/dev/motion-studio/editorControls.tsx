@@ -1,3 +1,4 @@
+import { pl } from "./polish";
 import type { LucideIcon } from "lucide-react";
 import { useEffect, useRef } from "react";
 export function IconButton({
@@ -19,8 +20,8 @@ export function IconButton({
     <button
       type="button"
       className="icon-button"
-      aria-label={label}
-      title={`${label}${shortcut ? ` (${shortcut})` : ""}`}
+      aria-label={pl(label)}
+      title={`${pl(label)}${shortcut ? ` (${shortcut})` : ""}`}
       aria-pressed={pressed}
       disabled={disabled}
       onClick={onClick}
@@ -80,13 +81,13 @@ export function ContextMenu({
         <button
           type="button"
           role="menuitem"
-          key={action.label}
+          key={pl(action.label)}
           onClick={() => {
             action.run();
             close();
           }}
         >
-          {action.label}
+          {pl(action.label)}
         </button>
       ))}
     </div>

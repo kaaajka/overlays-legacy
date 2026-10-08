@@ -1,0 +1,85 @@
+[
+  {
+    "tier": 1,
+    "artist": "Tropkillaz",
+    "title": "Hideho",
+    "confidence": 0.95,
+    "version": "Lokalny wycinek 8,033 s; dokładny master niepotwierdzony",
+    "evidence": "ID3: HIDEHO / Tropkillaz / HIDEHO - Single; oficjalny katalog UMG",
+    "sources": [
+      "https://www.youtube.com/watch?v=JxAFKdEq5HQ",
+      "https://www.universalmusic.it/popular-music/album/hideho_35689199768/"
+    ],
+    "verified": []
+  },
+  {
+    "tier": 2,
+    "artist": "Flo Rida",
+    "title": "My House",
+    "confidence": 0.8,
+    "version": "Wycinek alertu 15,466 s; ID3 wskazuje kompilację alertów, dokładny edit niepotwierdzony",
+    "evidence": "ASR refrenu zgodny z oficjalnym nagraniem; nazwa oryginalnego utworu jest wnioskiem, nie fingerprintem",
+    "sources": [
+      "https://www.youtube.com/watch?v=uo35R9zQsAI",
+      "https://www.shazam.com/song/971238507/my-house"
+    ],
+    "verified": []
+  },
+  {
+    "tier": 3,
+    "artist": null,
+    "title": null,
+    "confidence": 0,
+    "version": "Lokalny alert 11,600 s, nieznany utwór i edit",
+    "evidence": "ID3: Best Donation Sound For Ever #3; ASR zwraca niewiarygodny tekst. Historia repo zawiera migrację nazw bez tożsamości muzyki",
+    "sources": [],
+    "verified": []
+  },
+  {
+    "tier": 4,
+    "artist": "Show Lo",
+    "title": "No Joke",
+    "confidence": 0.9,
+    "version": "Wycinek choreografii Kinjaz 12,845 s; master niepotwierdzony",
+    "evidence": "ID3: SHOW LO NO JOKE Choreography by The Kinjaz; opublikowana tożsamość choreografii i powtarzany tytuł w ASR",
+    "sources": ["https://coub.com/view/2bi4aj"],
+    "verified": []
+  },
+  {
+    "tier": 5,
+    "artist": "KORDO",
+    "title": "Holy Moly",
+    "confidence": 0.95,
+    "version": "ID3: Original Mix 2017; lokalny wycinek 16,345 s, pozycja wycinka/master niepotwierdzone",
+    "evidence": "ID3 artist/title zgodne z publikacją twórcy z 2017-09-15; nie pomylono z wydaniem katalogowym 2023",
+    "sources": ["https://www.youtube.com/watch?v=9hUWxoDtHmE"],
+    "verified": []
+  },
+  {
+    "tier": 6,
+    "artist": "J Paul Getto (kandydat)",
+    "title": "The Vibe (kandydat)",
+    "confidence": 0.65,
+    "version": "ID3: Fedor | iLoveCookiiezz DONATION SONG [Bass Boosted]; lokalny wycinek 21,765 s",
+    "evidence": "Kilka kolejnych fraz ASR zgadza się z tekstem The Vibe; możliwy wspólny sample. Nie potwierdzono mastera ani wersji bass boost",
+    "sources": [
+      "https://lyrhub.com/en/track/J-Paul-Getto/The-Vibe",
+      "https://linktr.ee/jpaulgetto"
+    ],
+    "verified": []
+  },
+  {
+    "tier": 7,
+    "artist": "Serhat Durmus",
+    "title": "Hislerim",
+    "confidence": 0.95,
+    "version": "Lokalny wycinek 46,234 s; dokładny master/edit niepotwierdzony",
+    "evidence": "ID3 artist/title zgodne z oficjalną publikacją i katalogiem. ASR tureckiego wokalu jest częściowo błędny; nie zatwierdzono znaczenia ani timingów",
+    "sources": [
+      "https://www.youtube.com/watch?v=Mc2-YM9Bhu4",
+      "https://serhatdurmus.lnk.to/Hislerim",
+      "https://www.shazam.com/song/1475500495/hislerim-feat-zerrin-temiz"
+    ],
+    "verified": []
+  }
+]

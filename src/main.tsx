@@ -79,18 +79,53 @@ const overlayRoute = parseOverlayRoute(
   stripBasePath(`${window.location.pathname}${window.location.search}`),
 );
 
-const Studio = import.meta.env.DEV
-  ? React.lazy(() => import("./dev/motion-studio/MotionStudio"))
-  : null;
-const isStudio =
-  import.meta.env.DEV && stripBasePath(window.location.pathname) === "/motion-studio";
+const Studio = React.lazy(() => import("./dev/motion-studio/MotionStudio"));
+const isStudio = stripBasePath(window.location.pathname) === "/motion-studio";
+
+class StudioShellBoundary extends React.Component<
+  { children: React.ReactNode },
+  { failed: boolean }
+> {
+  state = { failed: false };
+  static getDerivedStateFromError() {
+    return { failed: true };
+  }
+  componentDidCatch(error: Error) {
+    console.error("Motion Studio shell could not load", error);
+  }
+  render() {
+    return this.state.failed ? (
+      <main
+        style={{
+          position: "fixed",
+          inset: 0,
+          padding: 32,
+          color: "#eef0f3",
+          background: "#17191d",
+          fontFamily: "sans-serif",
+        }}
+      >
+        <h1>Motion Studio</h1>
+        <p>Usługi lokalne są niedostępne. Nie udało się wczytać edytora.</p>
+        <p>Uruchom lokalny serwer, aby przygotowywać czytanie, eksportować i zapisywać.</p>
+        <button type="button" onClick={() => location.reload()}>
+          Ponów wczytanie
+        </button>
+      </main>
+    ) : (
+      this.props.children
+    );
+  }
+}
 
 ReactDOM.render(
   <React.StrictMode>
     {isStudio ? (
-      <React.Suspense fallback={<p>Loading Motion Studio…</p>}>
-        <Studio />
-      </React.Suspense>
+      <StudioShellBoundary>
+        <React.Suspense fallback={<p>Wczytywanie Motion Studio…</p>}>
+          <Studio />
+        </React.Suspense>
+      </StudioShellBoundary>
     ) : (
       renderOverlayRoute(overlayRoute)
     )}

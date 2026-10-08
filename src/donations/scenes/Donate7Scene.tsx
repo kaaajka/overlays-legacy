@@ -19,7 +19,7 @@ export function Donate7Scene(props: SceneContentProps) {
         <span>CO ZA</span>
         <strong>POJEB!!!</strong>
       </div>
-      <DonorType {...props} amountSize={202} />
+      <DonorType {...props} width={440} amountSize={202} />
       <div className="webcam-wtf">!! WTF !!</div>
     </div>
   );

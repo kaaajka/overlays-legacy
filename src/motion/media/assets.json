@@ -409,11 +409,11 @@
     "sourceLoop": 0,
     "transparent": false,
     "heroSourceTime": 1.93,
-    "representation": "GIF-derived VP9 WebM",
+    "representation": "GIF-derived lossless VP9 WebM / all-intra",
     "holdBeforeHero": 0.35,
     "holdAfterHero": 0.35,
     "sourceBytes": 8333703,
-    "webmBytes": 13563131,
+    "webmBytes": 21517401,
     "encodedDuration": 6.47,
     "pixelFormat": "yuv444p",
     "encoding": "visually lossless VP9 CRF 4, 4:4:4",
@@ -438,7 +438,8 @@
         "decodeScope": "ffmpeg CPU wall time incl process startup; not OBS performance",
         "decision": "faithful current retained"
       }
-    ]
+    ],
+    "gop": 1
   },
   {
     "tier": 5,
@@ -637,11 +638,11 @@
     "sourceLoop": 0,
     "transparent": false,
     "heroSourceTime": 2.32,
-    "representation": "GIF-derived VP9 WebM",
+    "representation": "GIF-derived lossless VP9 WebM / all-intra",
     "holdBeforeHero": 0.31,
     "holdAfterHero": 0.65,
     "sourceBytes": 8232213,
-    "webmBytes": 16229794,
+    "webmBytes": 25278702,
     "encodedDuration": 7.84,
     "pixelFormat": "yuv444p",
     "encoding": "visually lossless VP9 CRF 4, 4:4:4",
@@ -666,7 +667,8 @@
         "decodeScope": "ffmpeg CPU wall time incl process startup; not OBS performance",
         "decision": "faithful current retained"
       }
-    ]
+    ],
+    "gop": 1
   },
   {
     "tier": 7,

@@ -6,16 +6,16 @@ export function DonorType({
   amount,
   amountSize,
   nameSize = 70,
-}: SceneContentProps & { amountSize: number; nameSize?: number }) {
-  const width = 790;
+  width = 480,
+}: SceneContentProps & { amountSize: number; nameSize?: number; width?: number }) {
   return (
     <div className="scene-copy">
       <div
         className="motion-name"
         style={{
           fontSize: Math.max(
-            32,
-            Math.min(nameSize, width / Math.max(1, donate.nickname.length * 0.65)),
+            28,
+            Math.min(44, nameSize, width / Math.max(1, donate.nickname.length * 0.7)),
           ),
         }}
       >
@@ -24,7 +24,7 @@ export function DonorType({
       <div
         className="motion-amount"
         style={{
-          fontSize: Math.min(amountSize, width / (amount.length * 0.62 + 0.55)),
+          fontSize: Math.min(112, amountSize, (width - 28) / (amount.length * 0.72 + 0.4)),
         }}
       >
         <span className="motion-amount-number">{amount}</span>

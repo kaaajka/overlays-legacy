@@ -25,11 +25,17 @@ export class CashRenderer {
   private context: CanvasRenderingContext2D;
   private random: number[];
   private waves: ReturnType<typeof cashWaves>;
+  private width = 1920;
+  private donor = { x: 960, y: 540, width: 480, height: 180 };
+  setDonor(bounds: { x: number; y: number; width: number; height: number }) {
+    this.donor = bounds;
+  }
   constructor(
     private canvas: HTMLCanvasElement,
     private treatment: MotionTreatment,
     seed: string,
     private quality: QualityTier,
+    private depth: "back" | "front" = "back",
   ) {
     this.context = canvas.getContext("2d");
     if (!this.context) throw new Error("Canvas2D unavailable");
@@ -42,8 +48,16 @@ export class CashRenderer {
   setQuality(quality: QualityTier) {
     this.quality = quality;
   }
+  resize(width: number) {
+    this.width = width;
+    // Geometry is independent of backing resolution; cap large desktop canvases.
+    const scale = Math.min(1, Math.sqrt(4_000_000 / (width * 1080)));
+    this.canvas.width = Math.round(width * scale);
+    this.canvas.height = Math.round(1080 * scale);
+    this.context.setTransform(scale, 0, 0, scale, 0, 0);
+  }
   clear() {
-    this.context.clearRect(0, 0, 1920, 1080);
+    this.context.clearRect(0, 0, this.width, 1080);
   }
   render(time: number, intensity: number) {
     this.clear();
@@ -66,26 +80,31 @@ export class CashRenderer {
           d = this.random[index * 4 + 2];
         const t = age - b * 0.25;
         if (t < 0) continue;
+        // Stable physical depth, never disappear when entering an invisible text rectangle.
+        if ((index % 7 === 0 ? "front" : "back") !== this.depth) continue;
         let x: number, y: number;
         if (tier === 5) {
-          x = 960 + (a - 0.5) * 900 * t;
-          y = 830 - 750 * t + 340 * t * t;
+          x = this.donor.x + (a - 0.5) * this.width * 0.47 * t;
+          y = this.donor.y + 240 - 750 * t + 340 * t * t;
         } else if (tier === 6) {
-          x = 1260 - t * 380 + (a - 0.5) * 140;
-          y = 520 - Math.sin(Math.min(1, t / 2.3) * Math.PI) * 150 + (b - 0.5) * 100;
+          x = this.donor.x + 480 - t * 380 + (a - 0.5) * 140;
+          y = this.donor.y + 180 - Math.sin(Math.min(1, t / 2.3) * Math.PI) * 150 + (b - 0.5) * 100;
         } else {
-          x = a * 1920 + (b - 0.5) * 270 * t;
+          x = a * this.width + (b - 0.5) * 270 * t;
           y = -60 + t * (380 + d * 170);
         }
-        if (x < -100 || x > 2020 || y > 1180) continue;
-        // Protect the tilted top-tier donor/callout column; preserve the overhead/right storm.
-        if (tier === 7 && x > 200 && x < 1100 && y > 440 && y < 1040) continue;
+        if (x < -100 || x > this.width + 100 || y > 1180) continue;
         if (drawn++ >= limit) return;
         c.save();
         c.translate(x, y);
         c.rotate((a - 0.5) * 3 + t * (b - 0.5) * 2);
         c.globalAlpha =
           Math.min(0.78, wave.intensity) * Math.min(1, t * 8) * Math.max(0, 1 - t / 2.8);
+        // Continuous paths at both depths; avoid a bright wall behind white donor copy.
+        const dx = Math.max(0, Math.abs(x - this.donor.x) - this.donor.width / 2);
+        const dy = Math.max(0, Math.abs(y - this.donor.y) - this.donor.height / 2);
+        const minimum = this.depth === "front" ? 0.35 : 0.14;
+        c.globalAlpha *= minimum + (1 - minimum) * Math.min(1, Math.hypot(dx, dy) / 160);
         c.fillStyle = tier === 6 ? "#ffd5df" : "#f8e2b3";
         c.strokeStyle = "#524133";
         c.lineWidth = 2;

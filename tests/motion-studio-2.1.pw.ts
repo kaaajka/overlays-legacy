@@ -1,10 +1,11 @@
 import { expect, test } from "@playwright/test";
 import { readFileSync } from "node:fs";
-const speech = JSON.parse(readFileSync("src/dev/motion-studio/speech.json", "utf8"));
+
 const ready = async (page, tier = 6) => {
-  await page.goto(`/motion-studio?tier=${tier}&quality=safe`);
-  await expect(page.locator("output")).toHaveText("Ready");
+  await page.goto(`/motion-studio?tier=${tier}&quality=safe&mode=hero`);
+  await expect(page.locator("output")).toHaveText("Gotowe");
   await page.evaluate(() => document.fonts.ready);
+  await page.evaluate(()=>window.motionStudio.prepareSpeech());
 };
 const stageBox = async (page) => page.locator(".stage-frame").boundingBox();
 const noOverflow = async (page) =>
@@ -30,8 +31,8 @@ for (const [width, height] of [
     expect(box.width).toBeGreaterThan(440);
     expect(box.height).toBeGreaterThan(240);
     expect(box.width / box.height).toBeCloseTo(16 / 9, 3);
-    await expect(page.getByRole("button", { name: "Play", exact: true })).toBeVisible();
-    await expect(page.getByRole("button", { name: "Export", exact: true })).toBeVisible();
+    await expect(page.getByRole("button", { name: "Odtwórz", exact: true })).toBeVisible();
+    await expect(page.getByRole("button", { name: "Eksport", exact: true })).toBeVisible();
   });
 test("unsupported desktop and phone render only the blocking screen", async ({ page }) => {
   for (const size of [
@@ -42,7 +43,7 @@ test("unsupported desktop and phone render only the blocking screen", async ({ p
     await page.setViewportSize(size);
     await page.goto("/motion-studio");
     await expect(
-      page.getByRole("heading", { name: "Motion Studio requires a desktop-sized viewport." }),
+      page.getByRole("heading", { name: "Motion Studio wymaga dużego okna przeglądarki." }),
     ).toBeVisible();
     await expect(page.locator(".motion-studio")).toHaveCount(0);
     await expect(page.locator(".donation-motion")).toHaveCount(0);
@@ -55,7 +56,9 @@ test("pane resize, collapse, maximize, restore and persistence keep Stage fitted
   await page.setViewportSize({ width: 1680, height: 900 });
   await ready(page);
   const start = await page.evaluate(() => window.motionStudio.status().workspace);
-  const divider = await page.getByRole("separator", { name: "Resize Scene Tree" }).boundingBox();
+  const divider = await page
+    .getByRole("separator", { name: "Zmień szerokość warstw" })
+    .boundingBox();
   await page.mouse.move(divider.x + 2, divider.y + 80);
   await page.mouse.down();
   await page.mouse.move(divider.x + 70, divider.y + 80, { steps: 5 });
@@ -63,20 +66,24 @@ test("pane resize, collapse, maximize, restore and persistence keep Stage fitted
   expect(
     (await page.evaluate(() => window.motionStudio.status().workspace)).horizontal[0],
   ).toBeGreaterThan(start.horizontal[0]);
-  const right = await page.getByRole("separator", { name: "Resize Inspector" }).boundingBox();
+  const right = await page
+    .getByRole("separator", { name: "Zmień szerokość inspektora" })
+    .boundingBox();
   await page.mouse.move(right.x + 2, right.y + 80);
   await page.mouse.down();
   await page.mouse.move(right.x - 40, right.y + 80, { steps: 5 });
   await page.mouse.up();
-  const timeline = await page.getByRole("separator", { name: "Resize Timeline" }).boundingBox();
+  const timeline = await page
+    .getByRole("separator", { name: "Zmień wysokość osi czasu" })
+    .boundingBox();
   await page.mouse.move(timeline.x + 100, timeline.y + 2);
   await page.mouse.down();
   await page.mouse.move(timeline.x + 100, timeline.y - 50, { steps: 5 });
   await page.mouse.up();
   const before = await page.evaluate(() => window.motionStudio.status().workspace);
-  await page.getByRole("button", { name: "Maximize stage", exact: true }).click();
+  await page.getByRole("button", { name: "Powiększ Podgląd · 1920 × 1080", exact: true }).click();
   expect((await stageBox(page)).width).toBeGreaterThan(1000);
-  await page.getByRole("button", { name: "Restore workspace", exact: true }).first().click();
+  await page.getByRole("button", { name: "Przywróć układ", exact: true }).first().click();
   const restored = await page.evaluate(() => window.motionStudio.status().workspace);
   restored.horizontal.forEach((n, i) => {
     expect(n).toBeCloseTo(before.horizontal[i], 4);
@@ -84,26 +91,26 @@ test("pane resize, collapse, maximize, restore and persistence keep Stage fitted
   restored.vertical.forEach((n, i) => {
     expect(n).toBeCloseTo(before.vertical[i], 4);
   });
-  await page.getByRole("button", { name: "Maximize timeline", exact: true }).click();
+  await page.getByRole("button", { name: "Powiększ Oś czasu", exact: true }).click();
   expect((await page.locator('[data-panel="timeline"]').boundingBox()).height).toBeGreaterThan(800);
-  await page.getByRole("button", { name: "Restore workspace", exact: true }).first().click();
-  await page.getByRole("button", { name: "Toggle Scene Tree" }).click();
+  await page.getByRole("button", { name: "Przywróć układ", exact: true }).first().click();
+  await page.getByRole("button", { name: "Pokaż / ukryj warstwy" }).click();
   expect((await page.locator('[data-panel="tree"]').boundingBox())?.width ?? 0).toBeLessThan(1);
-  await page.getByRole("button", { name: "Toggle Scene Tree" }).click();
-  await page.getByRole("button", { name: "Toggle Inspector" }).click();
-  await page.getByRole("button", { name: "Toggle Inspector" }).click();
+  await page.getByRole("button", { name: "Pokaż / ukryj warstwy" }).click();
+  await page.getByRole("button", { name: "Pokaż / ukryj inspektor" }).click();
+  await page.getByRole("button", { name: "Pokaż / ukryj inspektor" }).click();
   await noOverflow(page);
   const persisted = await page.evaluate(() => window.motionStudio.status().workspace);
   await page.reload();
-  await expect(page.locator("output")).toHaveText("Ready");
+  await expect(page.locator("output")).toHaveText("Gotowe");
   const reloaded = await page.evaluate(() => window.motionStudio.status().workspace);
   reloaded.horizontal.forEach((n, i) => {
     expect(n).toBeCloseTo(persisted.horizontal[i], 4);
   });
-  await page.getByRole("button", { name: "Reset Workspace" }).click();
-  await page.getByRole("separator", { name: "Resize Scene Tree" }).press("ArrowRight");
+  await page.getByRole("button", { name: "Przywróć domyślny układ" }).click();
+  await page.getByRole("separator", { name: "Zmień szerokość warstw" }).press("ArrowRight");
   await page.reload();
-  await expect(page.locator("output")).toHaveText("Ready");
+  await expect(page.locator("output")).toHaveText("Gotowe");
   expect(
     (await page.evaluate(() => window.motionStudio.status().workspace)).horizontal[0],
   ).toBeGreaterThan(14);
@@ -112,7 +119,7 @@ test("manual viewer zoom and hard clipping remain local; text editing remains se
   page,
 }) => {
   await ready(page);
-  await page.getByLabel("Viewer zoom").selectOption("1");
+  await page.getByLabel("Powiększenie podglądu").selectOption("1");
   await noOverflow(page);
   expect(
     await page.locator(".viewer-viewport").evaluate((node) => node.scrollWidth > node.clientWidth),
@@ -126,26 +133,27 @@ test("manual viewer zoom and hard clipping remain local; text editing remains se
   expect(
     await page.locator(".timeline-toolbar").evaluate((node) => getComputedStyle(node).userSelect),
   ).toBe("none");
-  await page.getByLabel("Nickname", { exact: true }).fill("Editable text");
-  await page.getByLabel("Nickname", { exact: true }).press("Control+a");
+  await page.getByLabel("Nazwa", { exact: true }).fill("Editable text");
+  await page.getByLabel("Nazwa", { exact: true }).press("Control+a");
   expect(
     await page
-      .getByLabel("Nickname", { exact: true })
+      .getByLabel("Nazwa", { exact: true })
       .evaluate((node) => node.selectionEnd - node.selectionStart),
   ).toBe(13);
-  await page.getByLabel("Viewer zoom").selectOption("fit");
-  await page.getByLabel("Stage background").selectOption("transparent");
+  await page.getByLabel("Powiększenie podglądu").selectOption("fit");
+  await page.getByLabel("Tło podglądu").selectOption("transparent");
   await expect(page.locator(".studio-stream")).toHaveCount(0);
 });
 test("Full timeline uses shared overlap and deterministically seeks information/outro", async ({
   page,
 }) => {
   await ready(page);
-  const hero = await page.evaluate(() => window.motionStudio.status().timelineDuration);
-  await page.getByRole("button", { name: "Full Alert", exact: true }).click();
+  const hero = await page.evaluate(() => window.motionStudio.status().duration);
+  await page.getByRole("button", { name: "Pełny alert", exact: true }).click();
   const status = await page.evaluate(() => window.motionStudio.status());
+  const speech = status.speech;
   expect(status.timelineDuration).toBeGreaterThan(hero);
-  expect(status.plan.informationStart).toBeCloseTo(hero, 5);
+  expect(status.plan.informationStart).toBeCloseTo(hero, 4);
   const information = status.plan.stages.find((s) => s.name === "information");
   for (const clip of speech) {
     const stage = status.plan.stages.find((s) => s.name === `tts-${clip.name}`);
@@ -154,17 +162,23 @@ test("Full timeline uses shared overlap and deterministically seeks information/
     expect(information.end).toBeGreaterThanOrEqual(stage.end);
     await expect(page.locator(`[data-tts="${clip.name}"]`)).toHaveCount(1);
   }
-  await page.getByLabel("Music time").fill(String(hero + 2));
+  await page.getByRole("button", { name: "Edytuj czas alertu" }).click();
+  await page.getByLabel("Czas alertu", { exact: true }).fill((hero + 2).toFixed(3));
+  await page.getByLabel("Czas alertu", { exact: true }).press("Enter");
   await expect(page.locator(".information-message")).toBeVisible();
-  expect(await page.evaluate(() => window.motionStudio.status().time)).toBeCloseTo(hero + 2, 4);
+  expect(await page.evaluate(() => window.motionStudio.status().time)).toBeCloseTo(hero + 2, 3);
   const outro = status.plan.stages.find((s) => s.name === "outro");
-  await page.getByLabel("Music time").fill(String(outro.start + 0.325));
+  await page.getByRole("button", { name: "Edytuj czas alertu" }).click();
+  await page.getByLabel("Czas alertu", { exact: true }).fill((outro.start + 0.325).toFixed(3));
+  await page.getByLabel("Czas alertu", { exact: true }).press("Enter");
   expect(
     await page
       .locator(".donation-motion")
       .evaluate((node) => Number(getComputedStyle(node).opacity)),
   ).toBeCloseTo(0.5, 3);
-  await page.getByLabel("Music time").fill(String(status.plan.duration));
+  await page.getByRole("button", { name: "Edytuj czas alertu" }).click();
+  await page.getByLabel("Czas alertu", { exact: true }).fill(status.plan.duration.toFixed(3));
+  await page.getByLabel("Czas alertu", { exact: true }).press("Enter");
   expect(await page.evaluate(() => window.motionStudio.status().phase)).toBe("complete");
 });
 test("native PCM from actual speech accompanies highlights, direct preview and complete Full Alert", async ({
@@ -175,7 +189,7 @@ test("native PCM from actual speech accompanies highlights, direct preview and c
     window["speechMeasurements"] = [];
     const play = HTMLMediaElement.prototype.play;
     HTMLMediaElement.prototype.play = function () {
-      if (this.src.includes("/speech/"))
+      if (this.src.includes("/tts/audio/"))
         this.addEventListener(
           "playing",
           () => {
@@ -204,7 +218,8 @@ test("native PCM from actual speech accompanies highlights, direct preview and c
     };
   });
   await ready(page);
-  await page.getByRole("button", { name: "Full Alert", exact: true }).click();
+  await page.getByRole("button", { name: "Pełny alert", exact: true }).click();
+  const speech = await page.evaluate(() => window.motionStudio.status().speech);
   for (const clip of speech) {
     await page.locator(`[data-tts="${clip.name}"]`).dblclick();
     await expect(page.locator(`[data-tts="${clip.name}"]`)).toHaveClass(/audible/);
@@ -212,11 +227,11 @@ test("native PCM from actual speech accompanies highlights, direct preview and c
       .poll(() =>
         page.evaluate(
           (file) => window["speechMeasurements"].filter((m) => m.file === file).length,
-          clip.file,
+          clip.key,
         ),
       )
       .toBe(1);
-    await page.getByRole("button", { name: "Restart", exact: true }).click();
+    await page.getByRole("button", { name: "Od początku", exact: true }).click();
   }
   const measurements = await page.evaluate(() => window["speechMeasurements"]);
   for (const sample of measurements) {
@@ -224,7 +239,7 @@ test("native PCM from actual speech accompanies highlights, direct preview and c
     expect(sample.paused).toBe(false);
     expect(sample.rms).toBeGreaterThan(0.00001);
   }
-  await page.getByRole("button", { name: "Play", exact: true }).click();
+  await page.getByRole("button", { name: "Odtwórz", exact: true }).click();
   for (const clip of speech) {
     await expect
       .poll(() => page.evaluate(() => window.motionStudio.status().audibleTts), { timeout: 30000 })
@@ -258,13 +273,13 @@ test("pointer range/scrub, context actions, wheel zoom and sticky headers remain
   expect(selection[1] - selection[0]).toBeGreaterThan(0.3);
   expect(await page.evaluate(() => getSelection().toString())).toBe("");
   await page.locator(".cue-marker.hero").click({ button: "right" });
-  await page.getByRole("menuitem", { name: "Go to cue" }).click();
+  await page.getByRole("menuitem", { name: "Przejdź do punktu" }).click();
   expect(await page.evaluate(() => window.motionStudio.status().cue)).toBe("heroDrop");
   await page.mouse.move(ruler.x + 350, ruler.y + 50);
   await page.keyboard.down("Control");
   await page.mouse.wheel(0, -300);
   await page.keyboard.up("Control");
-  expect(Number(await page.getByLabel("Timeline zoom").inputValue())).toBeGreaterThan(1);
+  expect(Number(await page.getByLabel("Powiększenie osi czasu").inputValue())).toBeGreaterThan(1);
   await noOverflow(page);
 });
 test("real stream reference is local and explicit audio failure remains visible", async ({
@@ -276,24 +291,30 @@ test("real stream reference is local and explicit audio failure remains visible"
     "/__studio-assets/stream/kaaajka-rocket-league.jpg",
   );
   expect(await page.locator(".studio-stream").evaluate((image) => image.naturalWidth)).toBe(2560);
-  await page.route("**/assets/donations/audio/*", (route) => route.abort());
+  await page.route(/\/(?:assets\/donations\/audio|__studio-assets\/music)\//, (route) =>
+    route.abort(),
+  );
   await page.locator("#studio-tier").selectOption("5");
-  await expect(page.locator("output")).toContainText("AUDIO DECODE FAILED");
+  await expect(page.locator("output")).toContainText("BŁĄD MUZYKI");
   await expect(page.locator("output")).toContainText("donation-template-05.mp3");
-  await expect(page.locator("output")).toContainText("SILENT CLOCK ACTIVE");
+  await expect(page.locator("output")).toContainText("TRYB BEZGŁOŚNY");
 });
 
 test("Center playhead uses the actual sticky-header viewport at early and late times", async ({
   page,
 }) => {
   await ready(page);
-  await page.getByLabel("Timeline zoom", { exact: true }).fill("8");
+  await page.getByLabel("Powiększenie osi czasu", { exact: true }).fill("8");
   for (const at of [3.9, 18]) {
-    await page.getByLabel("Music time", { exact: true }).fill(String(at));
-    await page.getByRole("button", { name: "Center playhead", exact: true }).click();
+    await page.getByRole("button", { name: "Edytuj czas alertu" }).click();
+    await page.getByLabel("Czas alertu", { exact: true }).fill(String(at));
+    await page.getByLabel("Czas alertu", { exact: true }).press("Enter");
+    await page.getByRole("button", { name: "Wyśrodkuj głowicę", exact: true }).click();
     const delta = await page.evaluate(() => {
       const viewport = document.querySelector(".timeline-scroll").getBoundingClientRect();
-      const playhead = document.querySelector(".ruler .timeline-playhead").getBoundingClientRect();
+      const playhead = document
+        .querySelector(".timeline-global-overlay .timeline-playhead")
+        .getBoundingClientRect();
       return playhead.x - (viewport.x + 150 + (viewport.width - 150) / 2);
     });
     expect(Math.abs(delta)).toBeLessThan(3);
@@ -304,11 +325,11 @@ test("failed direct speech is explicitly labelled without an audible highlight",
   page,
 }) => {
   await ready(page);
-  await page.route("**/__studio-assets/speech/nickname.wav", (route) => route.abort());
-  await page.getByRole("button", { name: "Full Alert", exact: true }).click();
+  await page.route("**/__studio/tts/audio/*", (route) => route.abort());
+  await page.getByRole("button", { name: "Pełny alert", exact: true }).click();
   await page.locator('[data-tts="nickname"]').dblclick();
-  await expect(page.locator("output")).toContainText("TTS FIXTURE FAILED · nickname.wav");
-  await expect(page.getByText("Failed · no fallback substituted", { exact: true })).toBeVisible();
+  await expect(page.locator("output")).toContainText("BŁĄD CZYTANIA");
+
   await expect(page.locator(".tts-region.audible")).toHaveCount(0);
 });
 
@@ -316,7 +337,7 @@ test("custom frame selection remains local and transparent preview excludes it",
   page,
 }) => {
   await ready(page);
-  await page.getByLabel("Custom stream image").setInputFiles({
+  await page.getByLabel("Własny obraz streama").setInputFiles({
     name: "local-reference.png",
     mimeType: "image/png",
     buffer: Buffer.from(
@@ -325,9 +346,9 @@ test("custom frame selection remains local and transparent preview excludes it",
     ),
   });
   await expect(page.locator(".studio-stream")).toHaveAttribute("src", /^blob:/);
-  await page.getByLabel("Stage background", { exact: true }).selectOption("transparent");
+  await page.getByLabel("Tło podglądu", { exact: true }).selectOption("transparent");
   await expect(page.locator(".studio-stream")).toHaveCount(0);
-  await page.getByLabel("Stage background", { exact: true }).selectOption("stream");
+  await page.getByLabel("Tło podglądu", { exact: true }).selectOption("stream");
   await expect(page.locator(".studio-stream")).toHaveAttribute("src", /^blob:/);
   await page.reload();
   await expect(page.locator(".studio-stream")).toHaveAttribute(

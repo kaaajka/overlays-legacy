@@ -3,7 +3,8 @@ import { sceneTools } from "../../scenes/directorTools";
 
 export function choreography(context: DirectorContext) {
   const { q, at, t, finish } = sceneTools(context);
-  t.set(q(".source-media"), { autoAlpha: 0.25 }, 0);
+  t.set(q(".source-media"), { autoAlpha: 0 }, 0);
+  t.to(q(".source-media"), { autoAlpha: 1, duration: 0.1 }, 0.05);
   t.set(q(".source-media"), { autoAlpha: 1 }, at("firstImpact"));
   t.fromTo(
     q(".ovation-panorama"),
@@ -37,5 +38,12 @@ export function choreography(context: DirectorContext) {
   t.set(q(".motion-amount"), { autoAlpha: 1, y: 0 }, at("heroDrop"));
   t.to(q(".ovation-panorama"), { scaleX: 1, duration: 0.45, ease: "expo.out" }, at("heroDrop"));
   t.set(q(".ovation-call"), { autoAlpha: 1 }, at("settle"));
+  t.set(q(".ovation-community-reply"), { autoAlpha: 0 }, 0);
+  t.fromTo(
+    q(".ovation-community-reply"),
+    { y: 18, rotation: -12 },
+    { autoAlpha: 1, y: 0, rotation: 4, duration: 0.3 },
+    at("heroDrop") + 0.1,
+  );
   return finish();
 }

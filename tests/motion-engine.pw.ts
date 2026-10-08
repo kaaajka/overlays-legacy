@@ -213,7 +213,7 @@ test("all seven openings match after fresh initialization, backward seek and Res
 }) => {
   for (let tier = 1; tier <= 7; tier++) {
     await page.goto(`/motion-studio?tier=${tier}&quality=safe`);
-    await expect(page.locator("output")).toHaveText("Ready");
+    await expect(page.locator("output")).toHaveText("Gotowe");
     const opening = () =>
       page.evaluate(() => ({
         time: window.motionStudio.status().time,
@@ -244,13 +244,13 @@ test("all seven openings match after fresh initialization, backward seek and Res
     const mediaOpacity = fresh.layers
       .filter((layer) => layer.selector.includes("source-media"))
       .map((layer) => layer.opacity);
-    expect(mediaOpacity.filter((opacity) => opacity === "0.25")).toHaveLength(1);
-    expect(mediaOpacity.every((opacity) => opacity === "0" || opacity === "0.25")).toBe(true);
+    expect(mediaOpacity.every((opacity) => opacity === "0")).toBe(true);
+    expect(fresh.layers.every((layer) => layer.visibility === "hidden")).toBe(true);
     await page.evaluate((time) => window.motionStudio.seek(time), heroes[tier - 1] + 3);
     await page.evaluate(() => window.motionStudio.seek(0));
     expect(await opening()).toEqual(fresh);
     await page.evaluate((time) => window.motionStudio.seek(time), heroes[tier - 1]);
-    await page.getByRole("button", { name: "Restart", exact: true }).click();
+    await page.getByRole("button", { name: "Od początku", exact: true }).click();
     expect(await opening()).toEqual(fresh);
   }
 });
@@ -289,11 +289,11 @@ test("source video corrects after a main-thread stall and backwards inspection",
   page,
 }) => {
   await page.goto("/motion-studio?tier=2");
-  await expect(page.locator("output")).toHaveText("Ready");
+  await expect(page.locator("output")).toHaveText("Gotowe");
   await page.waitForFunction(() =>
     window.motionStudio.status().media.every((layer) => layer.state === "ready"),
   );
-  await page.getByRole("button", { name: "Play", exact: true }).click();
+  await page.getByRole("button", { name: "Odtwórz", exact: true }).click();
   await page.waitForTimeout(300);
   await page.evaluate(() => {
     const start = performance.now();
@@ -312,7 +312,7 @@ test("source video corrects after a main-thread stall and backwards inspection",
       ),
     )
     .toBeLessThan(0.15);
-  await page.getByRole("button", { name: "Pause", exact: true }).click();
+  await page.getByRole("button", { name: "Pauza", exact: true }).click();
   await page.evaluate(() => window.motionStudio.seek(3.66875));
   await expect
     .poll(() => page.evaluate(() => window.motionStudio.status().media[0].decodedTime))
@@ -320,7 +320,9 @@ test("source video corrects after a main-thread stall and backwards inspection",
 });
 
 test("music decode failure retains clock fallback and seeks", async ({ page }) => {
-  await page.route("**/assets/donations/audio/*", (route) => route.abort());
+  await page.route(/\/(?:assets\/donations\/audio|__studio-assets\/music)\//, (route) =>
+    route.abort(),
+  );
   await page.goto("/motion-studio?clean=1&tier=6&time=hero");
   await page.waitForFunction(() => window.motionStudio?.status().duration > 0);
   expect((await page.evaluate(() => window.motionStudio.status())).duration).toBeCloseTo(
@@ -401,9 +403,9 @@ test("WebGL context loss preserves the same hero timing and falls back", async (
 
 test("calibration produces a short clock-scheduled flash", async ({ page }) => {
   await page.goto("/motion-studio?tier=6&visualSyncOffsetMs=33");
-  await expect(page.locator("output")).toHaveText("Ready");
-  await page.getByRole("button", { name: "Inspector", exact: true }).click();
-  await page.getByRole("button", { name: "Schedule click + flash" }).click();
+  await expect(page.locator("output")).toHaveText("Gotowe");
+  await page.getByRole("button", { name: "Inspektor", exact: true }).click();
+  await page.getByRole("button", { name: "Zaplanuj klik i błysk" }).click();
   await expect
     .poll(() => page.locator(".calibration-flash").evaluate((el) => getComputedStyle(el).opacity), {
       intervals: [10],
@@ -422,7 +424,7 @@ test("detail changes and seeded replay preserve inspection time and reinitialize
   page,
 }) => {
   await page.goto("/motion-studio?tier=6&time=hero&quality=high");
-  await expect(page.locator("output")).toHaveText("Ready");
+  await expect(page.locator("output")).toHaveText("Gotowe");
   await page.locator("#studio-quality").selectOption("safe");
   await expect(page.locator(".donation-motion")).toHaveAttribute("data-quality", "safe");
   expect(await page.locator(".motion-amount").evaluate((el) => getComputedStyle(el).opacity)).toBe(
@@ -432,7 +434,9 @@ test("detail changes and seeded replay preserve inspection time and reinitialize
   await expect(page.locator(".donation-motion")).toHaveAttribute("data-quality", "high");
   await page.locator("#studio-seed").fill("replay-seed-2");
   await expect(page.locator(".donation-motion")).toHaveAttribute("data-quality", "high");
-  expect(await page.locator("#studio-time").inputValue()).toBe("3.901");
+  expect(await page.getByRole("button", { name: "Edytuj czas alertu" }).textContent()).toBe(
+    "00:03.901",
+  );
   await page.locator("#studio-tier").selectOption("3");
   await expect(page.locator(".motion-amount-number")).toHaveText("57,32");
   await expect(page.locator(".donation-motion")).toHaveAttribute("data-quality", "safe");
@@ -442,8 +446,8 @@ test("audio clock catches up after a dropped visual frame and supports pause/res
   page,
 }) => {
   await page.goto("/motion-studio?tier=6");
-  await expect(page.locator("output")).toHaveText("Ready");
-  await page.getByRole("button", { name: "Play", exact: true }).click();
+  await expect(page.locator("output")).toHaveText("Gotowe");
+  await page.getByRole("button", { name: "Odtwórz", exact: true }).click();
   await page.waitForTimeout(500);
   const before = await page.evaluate(() => window.motionStudio.status().time);
   await page.evaluate(() => {
@@ -454,11 +458,11 @@ test("audio clock catches up after a dropped visual frame and supports pause/res
   });
   const after = await page.evaluate(() => window.motionStudio.status().time);
   expect(after - before).toBeGreaterThan(0.4);
-  await page.getByRole("button", { name: "Pause", exact: true }).click();
+  await page.getByRole("button", { name: "Pauza", exact: true }).click();
   const paused = await page.evaluate(() => window.motionStudio.status().time);
   await page.waitForTimeout(150);
   expect(await page.evaluate(() => window.motionStudio.status().time)).toBe(paused);
-  await page.getByRole("button", { name: "Restart", exact: true }).click();
+  await page.getByRole("button", { name: "Od początku", exact: true }).click();
   expect(await page.evaluate(() => window.motionStudio.status().time)).toBe(0);
   writeFileSync(
     `${artifacts}/clock-stall.json`,

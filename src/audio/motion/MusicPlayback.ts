@@ -2,7 +2,29 @@ import { audibleContextTime, synchronizedTime } from "./AudioClock";
 
 // A deliberately small cache: decoded music is much larger than compressed files.
 const buffers = new Map<string, AudioBuffer>();
+export type MusicLoadDiagnostic = {
+  url: string;
+  fetchUrl: string;
+  http?: number;
+  mime?: string;
+  contentLength?: string;
+  receivedBytes?: number;
+  signature?: number[];
+  sha256?: string;
+  contextState: string;
+  sampleRate: number;
+  cached: boolean;
+  error?: string;
+};
+type LoadOptions = {
+  fetchUrl?: string;
+  fresh?: boolean;
+  onDiagnostic?: (record: MusicLoadDiagnostic, failedBytes?: ArrayBuffer) => void;
+};
 export class MusicPlayback {
+  get decodedBuffer(): AudioBuffer | undefined {
+    return this.buffer;
+  }
   readonly context: AudioContext;
   private source?: AudioBufferSourceNode;
   private gain: GainNode;
@@ -41,7 +63,16 @@ export class MusicPlayback {
       this.visualSyncOffsetMs,
     );
   }
-  async load(url: string, signal: AbortSignal): Promise<void> {
+  async load(url: string, signal: AbortSignal, options: LoadOptions = {}): Promise<void> {
+    const cached = options.fresh ? undefined : buffers.get(url);
+    const record: MusicLoadDiagnostic = {
+      url,
+      fetchUrl: options.fetchUrl ?? url,
+      cached: Boolean(cached),
+      contextState: this.context.state,
+      sampleRate: this.context.sampleRate,
+    };
+    let retained: ArrayBuffer;
     const cancellation = new AbortController();
     const abort = () => cancellation.abort();
     signal.addEventListener("abort", abort, { once: true });
@@ -55,11 +86,26 @@ export class MusicPlayback {
         if (cancellation.signal.aborted) rejectLoad();
         else cancellation.signal.addEventListener("abort", rejectLoad, { once: true });
       });
-      const cached = buffers.get(url);
       const decode = async () => {
-        const response = await fetch(url, { signal: cancellation.signal });
+        const response = await fetch(record.fetchUrl, { signal: cancellation.signal });
+        record.http = response.status;
+        record.mime = response.headers?.get("Content-Type");
+        record.contentLength = response.headers?.get("Content-Length");
         if (!response.ok) throw new Error(`Music HTTP ${response.status}`);
-        return this.context.decodeAudioData(await response.arrayBuffer());
+        const bytes = await response.arrayBuffer();
+        record.receivedBytes = bytes.byteLength;
+        if (options.onDiagnostic) {
+          retained = bytes.slice(0);
+          record.signature = Array.from(new Uint8Array(bytes).slice(0, 16));
+          record.sha256 = Array.from(
+            new Uint8Array(await crypto.subtle.digest("SHA-256", retained)),
+          )
+            .map((value) => value.toString(16).padStart(2, "0"))
+            .join("");
+        }
+        if (!bytes.byteLength)
+          throw new Error(`Music HTTP ${response.status}: empty response body`);
+        return this.context.decodeAudioData(bytes);
       };
       const buffer = await Promise.race([cached ? Promise.resolve(cached) : decode(), cancelled]);
       if (this.disposed || signal.aborted) throw new DOMException("Disposed", "AbortError");
@@ -68,6 +114,11 @@ export class MusicPlayback {
       if (buffers.size > 3) buffers.delete(buffers.keys().next().value);
       this.buffer = buffer;
       this.durationValue = buffer.duration;
+      options.onDiagnostic?.(record);
+    } catch (error) {
+      record.error = String(error);
+      options.onDiagnostic?.(record, retained);
+      throw error;
     } finally {
       clearTimeout(timer);
       signal.removeEventListener("abort", abort);

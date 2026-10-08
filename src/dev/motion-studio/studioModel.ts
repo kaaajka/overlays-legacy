@@ -22,7 +22,7 @@ export function mediaRegions(treatment: MotionTreatment) {
   const end = hero + (asset.holdAfterHero ?? 0.18);
   return [
     { start: 0, end: start, label: "source loop" },
-    { start, end, label: `pose ${asset.heroSourceTime.toFixed(3)} s · HOLD` },
+    { start, end, label: `poza ${asset.heroSourceTime.toFixed(3)} s · ZATRZYMANIE` },
     { start: end, end: treatment.analysis.duration, label: "resume from pose → loop" },
   ];
 }
@@ -31,13 +31,23 @@ export const stressPresets = {
     short: "M",
     normal: "Kaaajka",
     long: "BardzoDługiNickZPolskimiZnakami",
-    extreme: "PotężnyWspierającySpołecznośćKaaajkiBezKońca".repeat(3),
+    extreme: "A".repeat(32),
   },
   message: {
     short: "Dzięki!",
     normal: "Kaaajka, dzięki za stream i świetną społeczność!",
-    long: "Dzięki za wszystkie wspólne wieczory. ".repeat(30) + "KONIEC WIADOMOŚCI",
-    extreme: "Pełna wiadomość musi pozostać czytelna. ".repeat(160) + "OSTATNIA LINIA",
+    long: "Dzięki za wszystkie wspólne wieczory i świetną społeczność. ".repeat(2).slice(0, 100),
+    extreme: "Dzięki za wszystkie wspólne wieczory i świetną społeczność. ".repeat(5).slice(0, 225),
+    emotes: "Ale stream! emojiBubbly xdd emojiBubbly",
+    maxEmotes: "Dzięki za stream! ".repeat(14).slice(0, 200) + " emojiBubbly xdd xdd xdd ",
   },
-  amount: { long: "12345.67", extreme: "9876543210.99" },
+  amount: { long: "99999.99", extreme: "1000000.00" },
+};
+export const presetLabels: Record<string, string> = {
+  short: "Krótka",
+  normal: "Normalna",
+  long: "Długa",
+  extreme: "Maksymalna",
+  emotes: "Z emotkami",
+  maxEmotes: "225 + emotki",
 };

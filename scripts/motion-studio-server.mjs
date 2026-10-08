@@ -1,12 +1,40 @@
-import { createReadStream, existsSync, readFileSync, writeFileSync, mkdirSync } from "node:fs";
+import {
+  createReadStream,
+  existsSync,
+  readFileSync,
+  writeFileSync,
+  mkdirSync,
+  statSync,
+} from "node:fs";
 import { resolve } from "node:path";
 import { randomUUID } from "node:crypto";
-import { spawn } from "node:child_process";
+import { spawn, execFile } from "node:child_process";
+import { previewVoices, prepareSpeech, speechFile } from "./studio-tts.mjs";
 
 /** Authoring services exist only on Vite's local development server. */
 /** @returns {import("vite").Plugin} */
 export function motionStudioServer() {
   const jobs = new Map();
+  const commandAvailable = (command) =>
+    new Promise((resolve) => {
+      execFile(command, ["-version"], { windowsHide: true, timeout: 3000 }, (error) =>
+        resolve(!error),
+      );
+    });
+  let capabilities;
+  const discoverCapabilities = () =>
+    (capabilities ??= Promise.all([
+      commandAvailable("ffmpeg"),
+      commandAvailable("ffprobe"),
+      previewVoices().catch(() => []),
+    ]).then(([ffmpeg, ffprobe, voices]) => ({
+      export: ffmpeg && ffprobe,
+      tts: voices.length > 0,
+      persistence: true,
+      node: process.versions.node,
+      ffmpeg,
+      ffprobe,
+    })));
   return {
     name: "motion-studio-local",
     apply: "serve",
@@ -27,6 +55,42 @@ export function motionStudioServer() {
           res.end(JSON.stringify(value));
         };
         try {
+          if (url.pathname === "/__studio/capabilities") return json(await discoverCapabilities());
+          if (url.pathname === "/__studio/tts/voices" && req.method === "GET")
+            return json(await previewVoices());
+          if (url.pathname.startsWith("/__studio/tts/audio/") && req.method === "GET") {
+            const file = speechFile(url.pathname.split("/").at(-1));
+            if (!existsSync(file)) return json({ error: "Speech not prepared" }, 404);
+            res.setHeader("Content-Type", "audio/wav");
+            res.setHeader("Content-Length", statSync(file).size);
+            return createReadStream(file).pipe(res);
+          }
+          // Chrome on this workstation receives injected empty 204s for .mp3 URLs.
+          // Serve the unchanged original through a local authoring URL, with no transcode.
+          const music = /^\/__studio-assets\/music\/(5|7)$/.exec(url.pathname);
+          if (music && req.method === "GET") {
+            const file = resolve(
+              `public/assets/donations/audio/donation-template-0${music[1]}.mp3`,
+            );
+            res.setHeader("Content-Type", "audio/mpeg");
+            res.setHeader("Content-Length", statSync(file).size);
+            res.setHeader("Cache-Control", "no-cache");
+            return createReadStream(file).pipe(res);
+          }
+          if (url.pathname === "/__studio/audio-failure" && req.method === "POST") {
+            let data = "";
+            for await (const chunk of req) {
+              data += chunk;
+              if (data.length > 2_000_000) throw Error("Diagnostic too large");
+            }
+            const value = JSON.parse(data);
+            const id = randomUUID();
+            const folder = resolve(".motion-qa/production-2.2/audio");
+            mkdirSync(folder, { recursive: true });
+            writeFileSync(resolve(folder, `${id}.bin`), Buffer.from(value.bytes ?? "", "base64"));
+            writeFileSync(resolve(folder, `${id}.json`), JSON.stringify(value.record, null, 2));
+            return json({ id });
+          }
           if (url.pathname === "/__studio-assets/stream/kaaajka-rocket-league.jpg") {
             res.setHeader("Content-Type", "image/jpeg");
             return createReadStream(
@@ -102,6 +166,8 @@ export function motionStudioServer() {
             );
             return json({ saved: true });
           }
+          if (url.pathname === "/__studio/tts/prepare" && req.method === "POST")
+            return json(await prepareSpeech(value));
           if (url.pathname !== "/__studio/export" || req.method !== "POST")
             return json({ error: "Unknown endpoint" }, 404);
           if (
