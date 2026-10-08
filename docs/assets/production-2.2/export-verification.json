@@ -1,0 +1,42 @@
+{
+  "solidHashes": {
+    "0": "27aa38ec357a7311225960f2eed785930bdd408817966bfde5b7ca6d78fe215a",
+    "6": "a24d40a4c925456d3022ff285cd0ad9ab405ba76deff94fa2a131311201e5195",
+    "11": "b9cfdd36dabff38e97ceb7c18c875e613eeb23fb88b882973638e22bc17854ef"
+  },
+  "repeatedHashesIdentical": true,
+  "productionV22HashesIdentical": true,
+  "selection": [3.9, 4.1],
+  "frameCount": 12,
+  "duration": 0.2,
+  "streamCorner": [118, 98, 102, 255],
+  "transparentPngCorner": [0, 0, 0, 0],
+  "decodedVp9Corner": [0, 0, 0, 0],
+  "alphaComparison": {
+    "maxAlphaDifference": 1,
+    "meanDifference": 0.0014168595679012346,
+    "transparentFraction": 0.9175699266975309,
+    "opaquePixels": 161908
+  },
+  "zeroAlpha": "all zero",
+  "zeroTiers": [1, 2, 3, 4, 5, 6, 7],
+  "fullAudio": {
+    "count": 704,
+    "duration": 23.466666666666665,
+    "audio": true,
+    "fps": 30
+  },
+  "informationRepeatedHashes": {
+    "0": "251d6c33818f59793534d9bfbdb921654975d40c9adf1df15198d08533d43be7",
+    "6": "8fbb7c1a42275ee6423671d978cbd586bd7ed91f68c3916eb59c940cdfed3192",
+    "12": "c85c4fe0498f2ccf6bbe2ad3bfa64081abaaa3eba58aa907db93254127ffd30e"
+  },
+  "streamManifest": {
+    "count": 6,
+    "background": "stream"
+  },
+  "transparentManifest": {
+    "count": 7,
+    "background": "transparent"
+  }
+}

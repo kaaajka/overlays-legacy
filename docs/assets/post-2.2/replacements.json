@@ -1,0 +1,16 @@
+[
+  {
+    "tier": 4,
+    "oldBytes": 13563131,
+    "oldHash": "a4eeca55bcbc31895ba0f079e9f0453a36b1754377b892fbe5b66235507b5a3a",
+    "newBytes": 21517401,
+    "newHash": "d1ff943718cf18d71306633a00342bb946728e4d83af40237899e8b90477b346"
+  },
+  {
+    "tier": 6,
+    "oldBytes": 16229794,
+    "oldHash": "90ba5e8ed8d044b1594aa0f6a1924da75fc9285959bd60b18a712ace7f4f9ba0",
+    "newBytes": 25278702,
+    "newHash": "4be59101d7247e88261979c31b05260729d0e716e04902c23a3b58ffe13efa53"
+  }
+]

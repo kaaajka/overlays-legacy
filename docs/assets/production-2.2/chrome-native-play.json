@@ -1,0 +1,19 @@
+{
+  "browser": "154.0.8037.98",
+  "rms": 0.13097441744224125,
+  "time": 2.5036513333363133,
+  "playing": true,
+  "diagnostic": {
+    "url": "/assets/donations/audio/donation-template-05.mp3",
+    "fetchUrl": "/__studio-assets/music/5",
+    "cached": false,
+    "contextState": "suspended",
+    "sampleRate": 48000,
+    "http": 200,
+    "mime": "audio/mpeg",
+    "contentLength": "408979",
+    "receivedBytes": 408979,
+    "signature": [73, 68, 51, 4, 0, 0, 0, 0, 117, 9, 84, 80, 69, 49, 0, 0],
+    "sha256": "ff3599db51b6550e8ba867e81fdcb23440451f639578c1db44c964d0312534a0"
+  }
+}

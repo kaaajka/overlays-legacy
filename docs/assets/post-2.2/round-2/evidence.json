@@ -1,0 +1,394 @@
+[
+  {
+    "tier": 1,
+    "width": 1280,
+    "height": 720,
+    "hero": 3.71503,
+    "path": "docs/assets/post-2.2/round-2/donate1-1280x720.jpg"
+  },
+  {
+    "tier": 2,
+    "width": 1280,
+    "height": 720,
+    "hero": 4.3187500000000005,
+    "path": "docs/assets/post-2.2/round-2/donate2-1280x720.jpg"
+  },
+  {
+    "tier": 3,
+    "width": 1280,
+    "height": 720,
+    "hero": 5.47975,
+    "path": "docs/assets/post-2.2/round-2/donate3-1280x720.jpg"
+  },
+  {
+    "tier": 4,
+    "width": 1280,
+    "height": 720,
+    "hero": 5.1778900000000005,
+    "path": "docs/assets/post-2.2/round-2/donate4-1280x720.jpg"
+  },
+  {
+    "tier": 5,
+    "width": 1280,
+    "height": 720,
+    "hero": 5.47975,
+    "path": "docs/assets/post-2.2/round-2/donate5-1280x720.jpg"
+  },
+  {
+    "tier": 6,
+    "width": 1280,
+    "height": 720,
+    "hero": 4.55095,
+    "path": "docs/assets/post-2.2/round-2/donate6-1280x720.jpg"
+  },
+  {
+    "tier": 7,
+    "width": 1280,
+    "height": 720,
+    "hero": 13.86215,
+    "path": "docs/assets/post-2.2/round-2/donate7-1280x720.jpg"
+  },
+  {
+    "tier": 1,
+    "width": 1920,
+    "height": 1080,
+    "hero": 3.71503,
+    "path": "docs/assets/post-2.2/round-2/donate1-1920x1080.jpg"
+  },
+  {
+    "tier": 2,
+    "width": 1920,
+    "height": 1080,
+    "hero": 4.3187500000000005,
+    "path": "docs/assets/post-2.2/round-2/donate2-1920x1080.jpg"
+  },
+  {
+    "tier": 3,
+    "width": 1920,
+    "height": 1080,
+    "hero": 5.47975,
+    "path": "docs/assets/post-2.2/round-2/donate3-1920x1080.jpg"
+  },
+  {
+    "tier": 4,
+    "width": 1920,
+    "height": 1080,
+    "hero": 5.1778900000000005,
+    "path": "docs/assets/post-2.2/round-2/donate4-1920x1080.jpg"
+  },
+  {
+    "tier": 5,
+    "width": 1920,
+    "height": 1080,
+    "hero": 5.47975,
+    "path": "docs/assets/post-2.2/round-2/donate5-1920x1080.jpg"
+  },
+  {
+    "tier": 6,
+    "width": 1920,
+    "height": 1080,
+    "hero": 4.55095,
+    "path": "docs/assets/post-2.2/round-2/donate6-1920x1080.jpg"
+  },
+  {
+    "tier": 7,
+    "width": 1920,
+    "height": 1080,
+    "hero": 13.86215,
+    "path": "docs/assets/post-2.2/round-2/donate7-1920x1080.jpg"
+  },
+  {
+    "tier": 1,
+    "width": 1920,
+    "height": 1200,
+    "hero": 3.71503,
+    "path": "docs/assets/post-2.2/round-2/donate1-1920x1200.jpg"
+  },
+  {
+    "tier": 2,
+    "width": 1920,
+    "height": 1200,
+    "hero": 4.3187500000000005,
+    "path": "docs/assets/post-2.2/round-2/donate2-1920x1200.jpg"
+  },
+  {
+    "tier": 3,
+    "width": 1920,
+    "height": 1200,
+    "hero": 5.47975,
+    "path": "docs/assets/post-2.2/round-2/donate3-1920x1200.jpg"
+  },
+  {
+    "tier": 4,
+    "width": 1920,
+    "height": 1200,
+    "hero": 5.1778900000000005,
+    "path": "docs/assets/post-2.2/round-2/donate4-1920x1200.jpg"
+  },
+  {
+    "tier": 5,
+    "width": 1920,
+    "height": 1200,
+    "hero": 5.47975,
+    "path": "docs/assets/post-2.2/round-2/donate5-1920x1200.jpg"
+  },
+  {
+    "tier": 6,
+    "width": 1920,
+    "height": 1200,
+    "hero": 4.55095,
+    "path": "docs/assets/post-2.2/round-2/donate6-1920x1200.jpg"
+  },
+  {
+    "tier": 7,
+    "width": 1920,
+    "height": 1200,
+    "hero": 13.86215,
+    "path": "docs/assets/post-2.2/round-2/donate7-1920x1200.jpg"
+  },
+  {
+    "tier": 1,
+    "width": 2560,
+    "height": 1080,
+    "hero": 3.71503,
+    "path": "docs/assets/post-2.2/round-2/donate1-2560x1080.jpg"
+  },
+  {
+    "tier": 2,
+    "width": 2560,
+    "height": 1080,
+    "hero": 4.3187500000000005,
+    "path": "docs/assets/post-2.2/round-2/donate2-2560x1080.jpg"
+  },
+  {
+    "tier": 3,
+    "width": 2560,
+    "height": 1080,
+    "hero": 5.47975,
+    "path": "docs/assets/post-2.2/round-2/donate3-2560x1080.jpg"
+  },
+  {
+    "tier": 4,
+    "width": 2560,
+    "height": 1080,
+    "hero": 5.1778900000000005,
+    "path": "docs/assets/post-2.2/round-2/donate4-2560x1080.jpg"
+  },
+  {
+    "tier": 5,
+    "width": 2560,
+    "height": 1080,
+    "hero": 5.47975,
+    "path": "docs/assets/post-2.2/round-2/donate5-2560x1080.jpg"
+  },
+  {
+    "tier": 6,
+    "width": 2560,
+    "height": 1080,
+    "hero": 4.55095,
+    "path": "docs/assets/post-2.2/round-2/donate6-2560x1080.jpg"
+  },
+  {
+    "tier": 7,
+    "width": 2560,
+    "height": 1080,
+    "hero": 13.86215,
+    "path": "docs/assets/post-2.2/round-2/donate7-2560x1080.jpg"
+  },
+  {
+    "tier": 1,
+    "width": 3440,
+    "height": 1440,
+    "hero": 3.71503,
+    "path": "docs/assets/post-2.2/round-2/donate1-3440x1440.jpg"
+  },
+  {
+    "tier": 2,
+    "width": 3440,
+    "height": 1440,
+    "hero": 4.3187500000000005,
+    "path": "docs/assets/post-2.2/round-2/donate2-3440x1440.jpg"
+  },
+  {
+    "tier": 3,
+    "width": 3440,
+    "height": 1440,
+    "hero": 5.47975,
+    "path": "docs/assets/post-2.2/round-2/donate3-3440x1440.jpg"
+  },
+  {
+    "tier": 4,
+    "width": 3440,
+    "height": 1440,
+    "hero": 5.1778900000000005,
+    "path": "docs/assets/post-2.2/round-2/donate4-3440x1440.jpg"
+  },
+  {
+    "tier": 5,
+    "width": 3440,
+    "height": 1440,
+    "hero": 5.47975,
+    "path": "docs/assets/post-2.2/round-2/donate5-3440x1440.jpg"
+  },
+  {
+    "tier": 6,
+    "width": 3440,
+    "height": 1440,
+    "hero": 4.55095,
+    "path": "docs/assets/post-2.2/round-2/donate6-3440x1440.jpg"
+  },
+  {
+    "tier": 7,
+    "width": 3440,
+    "height": 1440,
+    "hero": 13.86215,
+    "path": "docs/assets/post-2.2/round-2/donate7-3440x1440.jpg"
+  },
+  {
+    "tier": 1,
+    "width": 3840,
+    "height": 1080,
+    "hero": 3.71503,
+    "path": "docs/assets/post-2.2/round-2/donate1-3840x1080.jpg"
+  },
+  {
+    "tier": 2,
+    "width": 3840,
+    "height": 1080,
+    "hero": 4.3187500000000005,
+    "path": "docs/assets/post-2.2/round-2/donate2-3840x1080.jpg"
+  },
+  {
+    "tier": 3,
+    "width": 3840,
+    "height": 1080,
+    "hero": 5.47975,
+    "path": "docs/assets/post-2.2/round-2/donate3-3840x1080.jpg"
+  },
+  {
+    "tier": 4,
+    "width": 3840,
+    "height": 1080,
+    "hero": 5.1778900000000005,
+    "path": "docs/assets/post-2.2/round-2/donate4-3840x1080.jpg"
+  },
+  {
+    "tier": 5,
+    "width": 3840,
+    "height": 1080,
+    "hero": 5.47975,
+    "path": "docs/assets/post-2.2/round-2/donate5-3840x1080.jpg"
+  },
+  {
+    "tier": 6,
+    "width": 3840,
+    "height": 1080,
+    "hero": 4.55095,
+    "path": "docs/assets/post-2.2/round-2/donate6-3840x1080.jpg"
+  },
+  {
+    "tier": 7,
+    "width": 3840,
+    "height": 1080,
+    "hero": 13.86215,
+    "path": "docs/assets/post-2.2/round-2/donate7-3840x1080.jpg"
+  },
+  {
+    "tier": 1,
+    "width": 3840,
+    "height": 2160,
+    "hero": 3.71503,
+    "path": "docs/assets/post-2.2/round-2/donate1-3840x2160.jpg"
+  },
+  {
+    "tier": 2,
+    "width": 3840,
+    "height": 2160,
+    "hero": 4.3187500000000005,
+    "path": "docs/assets/post-2.2/round-2/donate2-3840x2160.jpg"
+  },
+  {
+    "tier": 3,
+    "width": 3840,
+    "height": 2160,
+    "hero": 5.47975,
+    "path": "docs/assets/post-2.2/round-2/donate3-3840x2160.jpg"
+  },
+  {
+    "tier": 4,
+    "width": 3840,
+    "height": 2160,
+    "hero": 5.1778900000000005,
+    "path": "docs/assets/post-2.2/round-2/donate4-3840x2160.jpg"
+  },
+  {
+    "tier": 5,
+    "width": 3840,
+    "height": 2160,
+    "hero": 5.47975,
+    "path": "docs/assets/post-2.2/round-2/donate5-3840x2160.jpg"
+  },
+  {
+    "tier": 6,
+    "width": 3840,
+    "height": 2160,
+    "hero": 4.55095,
+    "path": "docs/assets/post-2.2/round-2/donate6-3840x2160.jpg"
+  },
+  {
+    "tier": 7,
+    "width": 3840,
+    "height": 2160,
+    "hero": 13.86215,
+    "path": "docs/assets/post-2.2/round-2/donate7-3840x2160.jpg"
+  },
+  {
+    "tier": 1,
+    "width": 5120,
+    "height": 1440,
+    "hero": 3.71503,
+    "path": "docs/assets/post-2.2/round-2/donate1-5120x1440.jpg"
+  },
+  {
+    "tier": 2,
+    "width": 5120,
+    "height": 1440,
+    "hero": 4.3187500000000005,
+    "path": "docs/assets/post-2.2/round-2/donate2-5120x1440.jpg"
+  },
+  {
+    "tier": 3,
+    "width": 5120,
+    "height": 1440,
+    "hero": 5.47975,
+    "path": "docs/assets/post-2.2/round-2/donate3-5120x1440.jpg"
+  },
+  {
+    "tier": 4,
+    "width": 5120,
+    "height": 1440,
+    "hero": 5.1778900000000005,
+    "path": "docs/assets/post-2.2/round-2/donate4-5120x1440.jpg"
+  },
+  {
+    "tier": 5,
+    "width": 5120,
+    "height": 1440,
+    "hero": 5.47975,
+    "path": "docs/assets/post-2.2/round-2/donate5-5120x1440.jpg"
+  },
+  {
+    "tier": 6,
+    "width": 5120,
+    "height": 1440,
+    "hero": 4.55095,
+    "path": "docs/assets/post-2.2/round-2/donate6-5120x1440.jpg"
+  },
+  {
+    "tier": 7,
+    "width": 5120,
+    "height": 1440,
+    "hero": 13.86215,
+    "path": "docs/assets/post-2.2/round-2/donate7-5120x1440.jpg"
+  }
+]

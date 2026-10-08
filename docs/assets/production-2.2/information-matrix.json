@@ -1,0 +1,82 @@
+[
+  {
+    "name": "short",
+    "chars": 7,
+    "width": 560,
+    "height": 165,
+    "bodyHeight": 47,
+    "bodyScroll": 47
+  },
+  {
+    "name": "default",
+    "chars": 19,
+    "width": 560,
+    "height": 165,
+    "bodyHeight": 47,
+    "bodyScroll": 47
+  },
+  {
+    "name": "100",
+    "chars": 100,
+    "width": 960,
+    "height": 211,
+    "bodyHeight": 93,
+    "bodyScroll": 93
+  },
+  {
+    "name": "225",
+    "chars": 225,
+    "width": 960,
+    "height": 304,
+    "bodyHeight": 186,
+    "bodyScroll": 186
+  },
+  {
+    "name": "one",
+    "chars": 19,
+    "width": 560,
+    "height": 166,
+    "bodyHeight": 48,
+    "bodyScroll": 48
+  },
+  {
+    "name": "several",
+    "chars": 43,
+    "width": 560,
+    "height": 166,
+    "bodyHeight": 48,
+    "bodyScroll": 48
+  },
+  {
+    "name": "consecutive",
+    "chars": 31,
+    "width": 560,
+    "height": 166,
+    "bodyHeight": 48,
+    "bodyScroll": 48
+  },
+  {
+    "name": "max-emotes",
+    "chars": 225,
+    "width": 960,
+    "height": 306,
+    "bodyHeight": 188,
+    "bodyScroll": 188
+  },
+  {
+    "name": "max-name-short",
+    "chars": 7,
+    "width": 847,
+    "height": 165,
+    "bodyHeight": 47,
+    "bodyScroll": 47
+  },
+  {
+    "name": "max-name-225",
+    "chars": 225,
+    "width": 960,
+    "height": 304,
+    "bodyHeight": 186,
+    "bodyScroll": 186
+  }
+]

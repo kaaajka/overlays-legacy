@@ -1,0 +1,769 @@
+{
+  "browser": "154.0.8037.98",
+  "records": [
+    {
+      "url": "http://127.0.0.1:5173/assets/donations/audio/donation-template-05.mp3",
+      "http": 204,
+      "mime": null,
+      "length": null,
+      "sampleRate": 48000,
+      "contextState": "suspended",
+      "started": 193.39999999850988,
+      "signature": [],
+      "error": {
+        "name": "EncodingError",
+        "message": "Unable to decode audio data"
+      },
+      "finishedState": "suspended",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "url": "http://127.0.0.1:5173/assets/donations/audio/donation-template-05.mp3",
+      "http": 204,
+      "mime": null,
+      "length": null,
+      "sampleRate": 48000,
+      "contextState": "suspended",
+      "started": 180.89999999850988,
+      "signature": [],
+      "error": {
+        "name": "EncodingError",
+        "message": "Unable to decode audio data"
+      },
+      "finishedState": "suspended",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "url": "http://127.0.0.1:5173/assets/donations/audio/donation-template-05.mp3",
+      "http": 204,
+      "mime": null,
+      "length": null,
+      "sampleRate": 48000,
+      "contextState": "suspended",
+      "started": 181.60000000149012,
+      "signature": [],
+      "error": {
+        "name": "EncodingError",
+        "message": "Unable to decode audio data"
+      },
+      "finishedState": "suspended",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "url": "http://127.0.0.1:5173/assets/donations/audio/donation-template-05.mp3",
+      "http": 204,
+      "mime": null,
+      "length": null,
+      "sampleRate": 48000,
+      "contextState": "suspended",
+      "started": 167.39999999850988,
+      "signature": [],
+      "error": {
+        "name": "EncodingError",
+        "message": "Unable to decode audio data"
+      },
+      "finishedState": "suspended",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "url": "http://127.0.0.1:5173/assets/donations/audio/donation-template-05.mp3",
+      "http": 204,
+      "mime": null,
+      "length": null,
+      "sampleRate": 48000,
+      "contextState": "suspended",
+      "started": 196.39999999850988,
+      "signature": [],
+      "error": {
+        "name": "EncodingError",
+        "message": "Unable to decode audio data"
+      },
+      "finishedState": "suspended",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "url": "http://127.0.0.1:5173/assets/donations/audio/donation-template-05.mp3",
+      "http": 204,
+      "mime": null,
+      "length": null,
+      "sampleRate": 48000,
+      "contextState": "suspended",
+      "started": 195.29999999701977,
+      "signature": [],
+      "error": {
+        "name": "EncodingError",
+        "message": "Unable to decode audio data"
+      },
+      "finishedState": "suspended",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "url": "http://127.0.0.1:5173/assets/donations/audio/donation-template-05.mp3",
+      "http": 204,
+      "mime": null,
+      "length": null,
+      "sampleRate": 48000,
+      "contextState": "suspended",
+      "started": 167,
+      "signature": [],
+      "error": {
+        "name": "EncodingError",
+        "message": "Unable to decode audio data"
+      },
+      "finishedState": "suspended",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "url": "http://127.0.0.1:5173/assets/donations/audio/donation-template-05.mp3",
+      "http": 204,
+      "mime": null,
+      "length": null,
+      "sampleRate": 48000,
+      "contextState": "suspended",
+      "started": 160.69999999552965,
+      "signature": [],
+      "error": {
+        "name": "EncodingError",
+        "message": "Unable to decode audio data"
+      },
+      "finishedState": "suspended",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "url": "http://127.0.0.1:5173/assets/donations/audio/donation-template-05.mp3",
+      "http": 204,
+      "mime": null,
+      "length": null,
+      "sampleRate": 48000,
+      "contextState": "suspended",
+      "started": 160.89999999850988,
+      "signature": [],
+      "error": {
+        "name": "EncodingError",
+        "message": "Unable to decode audio data"
+      },
+      "finishedState": "suspended",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "url": "http://127.0.0.1:5173/assets/donations/audio/donation-template-05.mp3",
+      "http": 204,
+      "mime": null,
+      "length": null,
+      "sampleRate": 48000,
+      "contextState": "suspended",
+      "started": 157.10000000149012,
+      "signature": [],
+      "error": {
+        "name": "EncodingError",
+        "message": "Unable to decode audio data"
+      },
+      "finishedState": "suspended",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "url": "http://127.0.0.1:5173/assets/donations/audio/donation-template-05.mp3",
+      "http": 204,
+      "mime": null,
+      "length": null,
+      "sampleRate": 48000,
+      "contextState": "suspended",
+      "started": 215.5,
+      "signature": [],
+      "error": {
+        "name": "EncodingError",
+        "message": "Unable to decode audio data"
+      },
+      "finishedState": "suspended",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "url": "http://127.0.0.1:5173/assets/donations/audio/donation-template-05.mp3",
+      "http": 204,
+      "mime": null,
+      "length": null,
+      "sampleRate": 48000,
+      "contextState": "suspended",
+      "started": 198.5,
+      "signature": [],
+      "error": {
+        "name": "EncodingError",
+        "message": "Unable to decode audio data"
+      },
+      "finishedState": "suspended",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "url": "http://127.0.0.1:5173/assets/donations/audio/donation-template-05.mp3",
+      "http": 204,
+      "mime": null,
+      "length": null,
+      "sampleRate": 48000,
+      "contextState": "suspended",
+      "started": 197.29999999701977,
+      "signature": [],
+      "error": {
+        "name": "EncodingError",
+        "message": "Unable to decode audio data"
+      },
+      "finishedState": "suspended",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "url": "http://127.0.0.1:5173/assets/donations/audio/donation-template-05.mp3",
+      "http": 204,
+      "mime": null,
+      "length": null,
+      "sampleRate": 48000,
+      "contextState": "suspended",
+      "started": 221.5,
+      "signature": [],
+      "error": {
+        "name": "EncodingError",
+        "message": "Unable to decode audio data"
+      },
+      "finishedState": "suspended",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "url": "http://127.0.0.1:5173/assets/donations/audio/donation-template-05.mp3",
+      "http": 204,
+      "mime": null,
+      "length": null,
+      "sampleRate": 48000,
+      "contextState": "suspended",
+      "started": 198,
+      "signature": [],
+      "error": {
+        "name": "EncodingError",
+        "message": "Unable to decode audio data"
+      },
+      "finishedState": "suspended",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "url": "http://127.0.0.1:5173/assets/donations/audio/donation-template-05.mp3",
+      "http": 204,
+      "mime": null,
+      "length": null,
+      "sampleRate": 48000,
+      "contextState": "suspended",
+      "started": 210,
+      "signature": [],
+      "error": {
+        "name": "EncodingError",
+        "message": "Unable to decode audio data"
+      },
+      "finishedState": "suspended",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "url": "http://127.0.0.1:5173/assets/donations/audio/donation-template-05.mp3",
+      "http": 204,
+      "mime": null,
+      "length": null,
+      "sampleRate": 48000,
+      "contextState": "suspended",
+      "started": 226,
+      "signature": [],
+      "error": {
+        "name": "EncodingError",
+        "message": "Unable to decode audio data"
+      },
+      "finishedState": "suspended",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "url": "http://127.0.0.1:5173/assets/donations/audio/donation-template-05.mp3",
+      "http": 204,
+      "mime": null,
+      "length": null,
+      "sampleRate": 48000,
+      "contextState": "suspended",
+      "started": 198.59999999403954,
+      "signature": [],
+      "error": {
+        "name": "EncodingError",
+        "message": "Unable to decode audio data"
+      },
+      "finishedState": "suspended",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "url": "http://127.0.0.1:5173/assets/donations/audio/donation-template-05.mp3",
+      "http": 204,
+      "mime": null,
+      "length": null,
+      "sampleRate": 48000,
+      "contextState": "suspended",
+      "started": 199,
+      "signature": [],
+      "error": {
+        "name": "EncodingError",
+        "message": "Unable to decode audio data"
+      },
+      "finishedState": "suspended",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "url": "http://127.0.0.1:5173/assets/donations/audio/donation-template-05.mp3",
+      "http": 204,
+      "mime": null,
+      "length": null,
+      "sampleRate": 48000,
+      "contextState": "suspended",
+      "started": 199.89999999850988,
+      "signature": [],
+      "error": {
+        "name": "EncodingError",
+        "message": "Unable to decode audio data"
+      },
+      "finishedState": "suspended",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "url": "http://127.0.0.1:5173/assets/donations/audio/donation-template-05.mp3",
+      "http": 204,
+      "mime": null,
+      "length": null,
+      "sampleRate": 48000,
+      "contextState": "suspended",
+      "started": 213.30000000447035,
+      "signature": [],
+      "error": {
+        "name": "EncodingError",
+        "message": "Unable to decode audio data"
+      },
+      "finishedState": "suspended",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "url": "http://127.0.0.1:5173/assets/donations/audio/donation-template-05.mp3",
+      "http": 204,
+      "mime": null,
+      "length": null,
+      "sampleRate": 48000,
+      "contextState": "suspended",
+      "started": 196.5,
+      "signature": [],
+      "error": {
+        "name": "EncodingError",
+        "message": "Unable to decode audio data"
+      },
+      "finishedState": "suspended",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "url": "http://127.0.0.1:5173/assets/donations/audio/donation-template-05.mp3",
+      "http": 204,
+      "mime": null,
+      "length": null,
+      "sampleRate": 48000,
+      "contextState": "suspended",
+      "started": 214.70000000298023,
+      "signature": [],
+      "error": {
+        "name": "EncodingError",
+        "message": "Unable to decode audio data"
+      },
+      "finishedState": "suspended",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "url": "http://127.0.0.1:5173/assets/donations/audio/donation-template-05.mp3",
+      "http": 204,
+      "mime": null,
+      "length": null,
+      "sampleRate": 48000,
+      "contextState": "suspended",
+      "started": 204.30000000447035,
+      "signature": [],
+      "error": {
+        "name": "EncodingError",
+        "message": "Unable to decode audio data"
+      },
+      "finishedState": "suspended",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "url": "http://127.0.0.1:5173/assets/donations/audio/donation-template-05.mp3",
+      "http": 204,
+      "mime": null,
+      "length": null,
+      "sampleRate": 48000,
+      "contextState": "suspended",
+      "started": 243.30000000447035,
+      "signature": [],
+      "error": {
+        "name": "EncodingError",
+        "message": "Unable to decode audio data"
+      },
+      "finishedState": "suspended",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "url": "http://127.0.0.1:5173/assets/donations/audio/donation-template-05.mp3",
+      "http": 204,
+      "mime": null,
+      "length": null,
+      "sampleRate": 48000,
+      "contextState": "suspended",
+      "started": 216.80000000447035,
+      "signature": [],
+      "error": {
+        "name": "EncodingError",
+        "message": "Unable to decode audio data"
+      },
+      "finishedState": "suspended",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "url": "http://127.0.0.1:5173/assets/donations/audio/donation-template-05.mp3",
+      "http": 204,
+      "mime": null,
+      "length": null,
+      "sampleRate": 48000,
+      "contextState": "suspended",
+      "started": 218.29999999701977,
+      "signature": [],
+      "error": {
+        "name": "EncodingError",
+        "message": "Unable to decode audio data"
+      },
+      "finishedState": "suspended",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "url": "http://127.0.0.1:5173/assets/donations/audio/donation-template-05.mp3",
+      "http": 204,
+      "mime": null,
+      "length": null,
+      "sampleRate": 48000,
+      "contextState": "suspended",
+      "started": 220.5,
+      "signature": [],
+      "error": {
+        "name": "EncodingError",
+        "message": "Unable to decode audio data"
+      },
+      "finishedState": "suspended",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "url": "http://127.0.0.1:5173/assets/donations/audio/donation-template-05.mp3",
+      "http": 204,
+      "mime": null,
+      "length": null,
+      "sampleRate": 48000,
+      "contextState": "suspended",
+      "started": 214.10000000149012,
+      "signature": [],
+      "error": {
+        "name": "EncodingError",
+        "message": "Unable to decode audio data"
+      },
+      "finishedState": "suspended",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "url": "http://127.0.0.1:5173/assets/donations/audio/donation-template-05.mp3",
+      "http": 204,
+      "mime": null,
+      "length": null,
+      "sampleRate": 48000,
+      "contextState": "suspended",
+      "started": 225.89999999850988,
+      "signature": [],
+      "error": {
+        "name": "EncodingError",
+        "message": "Unable to decode audio data"
+      },
+      "finishedState": "suspended",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "url": "http://127.0.0.1:5173/assets/donations/audio/donation-template-05.mp3",
+      "http": 204,
+      "mime": null,
+      "length": null,
+      "sampleRate": 48000,
+      "contextState": "suspended",
+      "started": 237,
+      "signature": [],
+      "error": {
+        "name": "EncodingError",
+        "message": "Unable to decode audio data"
+      },
+      "finishedState": "suspended",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "url": "http://127.0.0.1:5173/assets/donations/audio/donation-template-05.mp3",
+      "http": 204,
+      "mime": null,
+      "length": null,
+      "sampleRate": 48000,
+      "contextState": "suspended",
+      "started": 213.5,
+      "signature": [],
+      "error": {
+        "name": "EncodingError",
+        "message": "Unable to decode audio data"
+      },
+      "finishedState": "suspended",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "url": "http://127.0.0.1:5173/assets/donations/audio/donation-template-05.mp3",
+      "http": 204,
+      "mime": null,
+      "length": null,
+      "sampleRate": 48000,
+      "contextState": "suspended",
+      "started": 205.79999999701977,
+      "signature": [],
+      "error": {
+        "name": "EncodingError",
+        "message": "Unable to decode audio data"
+      },
+      "finishedState": "suspended",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "url": "http://127.0.0.1:5173/assets/donations/audio/donation-template-05.mp3",
+      "http": 204,
+      "mime": null,
+      "length": null,
+      "sampleRate": 48000,
+      "contextState": "suspended",
+      "started": 231.29999999701977,
+      "signature": [],
+      "error": {
+        "name": "EncodingError",
+        "message": "Unable to decode audio data"
+      },
+      "finishedState": "suspended",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "url": "http://127.0.0.1:5173/assets/donations/audio/donation-template-05.mp3",
+      "http": 204,
+      "mime": null,
+      "length": null,
+      "sampleRate": 48000,
+      "contextState": "suspended",
+      "started": 214,
+      "signature": [],
+      "error": {
+        "name": "EncodingError",
+        "message": "Unable to decode audio data"
+      },
+      "finishedState": "suspended",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "url": "http://127.0.0.1:5173/assets/donations/audio/donation-template-05.mp3",
+      "http": 204,
+      "mime": null,
+      "length": null,
+      "sampleRate": 48000,
+      "contextState": "suspended",
+      "started": 230.39999999850988,
+      "signature": [],
+      "error": {
+        "name": "EncodingError",
+        "message": "Unable to decode audio data"
+      },
+      "finishedState": "suspended",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "url": "http://127.0.0.1:5173/assets/donations/audio/donation-template-05.mp3",
+      "http": 204,
+      "mime": null,
+      "length": null,
+      "sampleRate": 48000,
+      "contextState": "suspended",
+      "started": 210.09999999403954,
+      "signature": [],
+      "error": {
+        "name": "EncodingError",
+        "message": "Unable to decode audio data"
+      },
+      "finishedState": "suspended",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "url": "http://127.0.0.1:5173/assets/donations/audio/donation-template-05.mp3",
+      "http": 204,
+      "mime": null,
+      "length": null,
+      "sampleRate": 48000,
+      "contextState": "suspended",
+      "started": 208.79999999701977,
+      "signature": [],
+      "error": {
+        "name": "EncodingError",
+        "message": "Unable to decode audio data"
+      },
+      "finishedState": "suspended",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "url": "http://127.0.0.1:5173/assets/donations/audio/donation-template-05.mp3",
+      "http": 204,
+      "mime": null,
+      "length": null,
+      "sampleRate": 48000,
+      "contextState": "suspended",
+      "started": 239,
+      "signature": [],
+      "error": {
+        "name": "EncodingError",
+        "message": "Unable to decode audio data"
+      },
+      "finishedState": "suspended",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "url": "http://127.0.0.1:5173/assets/donations/audio/donation-template-04.mpga",
+      "http": 200,
+      "mime": "audio/mpeg",
+      "length": "309899",
+      "sampleRate": 48000,
+      "contextState": "suspended",
+      "started": 263.8999999985099,
+      "signature": [73, 68, 51, 4, 0, 0, 0, 0, 1, 55, 84, 73, 84, 50, 0, 0],
+      "rms": 0.25453351658581785,
+      "duration": 12.8454375,
+      "decodedRate": 48000,
+      "finishedState": "suspended",
+      "sha256": "c11a2d62d8ad6dac24e1d70879570e4664ef25f5c8e958aa557feb225ff30378"
+    },
+    {
+      "url": "http://127.0.0.1:5173/assets/donations/audio/donation-template-06.mpga",
+      "http": 200,
+      "mime": "audio/mpeg",
+      "length": "524320",
+      "sampleRate": 48000,
+      "contextState": "suspended",
+      "started": 244.30000000447035,
+      "signature": [73, 68, 51, 4, 0, 0, 0, 0, 1, 63, 84, 88, 88, 88, 0, 0],
+      "rms": 0.34849840072068433,
+      "duration": 21.764916666666668,
+      "decodedRate": 48000,
+      "finishedState": "suspended",
+      "sha256": "ffca8f4f9b1c2008b9e3319aa48ede832f93f3c443b45aff5f41301eb8d99c1f"
+    },
+    {
+      "url": "http://127.0.0.1:5173/assets/donations/audio/donation-template-07.mp3",
+      "http": 204,
+      "mime": null,
+      "length": null,
+      "sampleRate": 48000,
+      "contextState": "suspended",
+      "started": 326.3999999985099,
+      "signature": [],
+      "error": {
+        "name": "EncodingError",
+        "message": "Unable to decode audio data"
+      },
+      "finishedState": "suspended",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "url": "http://127.0.0.1:5173/assets/donations/audio/donation-template-04.mpga",
+      "http": 200,
+      "mime": "audio/mpeg",
+      "length": "309899",
+      "sampleRate": 48000,
+      "contextState": "suspended",
+      "started": 220.40000000596046,
+      "signature": [73, 68, 51, 4, 0, 0, 0, 0, 1, 55, 84, 73, 84, 50, 0, 0],
+      "rms": 0.25453351658581785,
+      "duration": 12.8454375,
+      "decodedRate": 48000,
+      "finishedState": "suspended",
+      "sha256": "c11a2d62d8ad6dac24e1d70879570e4664ef25f5c8e958aa557feb225ff30378"
+    },
+    {
+      "url": "http://127.0.0.1:5173/assets/donations/audio/donation-template-05.mp3",
+      "http": 204,
+      "mime": null,
+      "length": null,
+      "sampleRate": 48000,
+      "contextState": "suspended",
+      "started": 1520.4000000059605,
+      "signature": [],
+      "error": {
+        "name": "EncodingError",
+        "message": "Unable to decode audio data"
+      },
+      "finishedState": "suspended",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "url": "http://127.0.0.1:5173/assets/donations/audio/donation-template-06.mpga",
+      "http": 200,
+      "mime": "audio/mpeg",
+      "length": "524320",
+      "sampleRate": 48000,
+      "contextState": "suspended",
+      "started": 2373.4000000059605,
+      "signature": [73, 68, 51, 4, 0, 0, 0, 0, 1, 63, 84, 88, 88, 88, 0, 0],
+      "rms": 0.34849840072068433,
+      "duration": 21.764916666666668,
+      "decodedRate": 48000,
+      "finishedState": "suspended",
+      "sha256": "ffca8f4f9b1c2008b9e3319aa48ede832f93f3c443b45aff5f41301eb8d99c1f"
+    },
+    {
+      "url": "http://127.0.0.1:5173/assets/donations/audio/donation-template-05.mp3",
+      "http": 204,
+      "mime": null,
+      "length": null,
+      "sampleRate": 48000,
+      "contextState": "suspended",
+      "started": 4331.30000000447,
+      "signature": [],
+      "error": {
+        "name": "EncodingError",
+        "message": "Unable to decode audio data"
+      },
+      "finishedState": "suspended",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "url": "http://127.0.0.1:5173/assets/donations/audio/donation-template-05.mp3",
+      "http": 204,
+      "mime": null,
+      "length": null,
+      "sampleRate": 48000,
+      "contextState": "suspended",
+      "started": 6226.5,
+      "signature": [],
+      "error": {
+        "name": "EncodingError",
+        "message": "Unable to decode audio data"
+      },
+      "finishedState": "suspended",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "url": "http://127.0.0.1:5173/assets/donations/audio/donation-template-05.mp3",
+      "http": 204,
+      "mime": null,
+      "length": null,
+      "sampleRate": 48000,
+      "contextState": "suspended",
+      "started": 8112.10000000149,
+      "signature": [],
+      "error": {
+        "name": "EncodingError",
+        "message": "Unable to decode audio data"
+      },
+      "finishedState": "suspended",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ]
+}

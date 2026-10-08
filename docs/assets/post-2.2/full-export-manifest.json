@@ -1,0 +1,243 @@
+{
+  "request": {
+    "tier": 1,
+    "range": "full",
+    "fps": 30,
+    "format": "mp4",
+    "background": "stream",
+    "audio": true,
+    "nickname": "Victor",
+    "amount": 213769,
+    "message": "To jest aktualna wiadomość do eksportu",
+    "seed": "kaaajka-motion-01",
+    "quality": "safe",
+    "selection": null,
+    "width": 1280,
+    "height": 720,
+    "voice": "scene",
+    "url": "http://127.0.0.1:5173"
+  },
+  "analysisSha256": "4e7add830a592488610d266e0cc654f136556b76f3cfbdbd3b69c755c5fe2dca",
+  "start": 0,
+  "end": 17.243555999999998,
+  "count": 518,
+  "duration": 17.266666666666666,
+  "plan": {
+    "stages": [
+      {
+        "name": "hero",
+        "start": 0,
+        "end": 8.03342
+      },
+      {
+        "name": "tts-nickname",
+        "start": 8.03342,
+        "end": 9.25274
+      },
+      {
+        "name": "tts-amount",
+        "start": 9.25274,
+        "end": 13.729247999999998
+      },
+      {
+        "name": "tts-message",
+        "start": 13.729247999999998,
+        "end": 16.593556
+      },
+      {
+        "name": "information",
+        "start": 8.03342,
+        "end": 16.593556
+      },
+      {
+        "name": "outro",
+        "start": 16.593556,
+        "end": 17.243555999999998
+      }
+    ],
+    "duration": 17.243555999999998,
+    "informationStart": 8.03342,
+    "informationDuration": 8.560136
+  },
+  "speech": [
+    {
+      "key": "6033bf2b97d96ea286f351fdf825d04f67e4687105769981853fdfab8388aa8f",
+      "text": "Victor",
+      "voice": "Microsoft Paulina Desktop - Polish",
+      "voiceIdentity": "58e3a2f1b7d86988b5fabfece855b1bdaf5969e505b07f886b9bf255c9b2750b",
+      "provider": "Windows SAPI",
+      "hash": "a2dc0ada3bc1f946310c03706989348e78e2f5af58622588d981f62d45080270",
+      "duration": 1.21932,
+      "file": "6033bf2b97d96ea286f351fdf825d04f67e4687105769981853fdfab8388aa8f.wav",
+      "url": "/__studio/tts/audio/6033bf2b97d96ea286f351fdf825d04f67e4687105769981853fdfab8388aa8f",
+      "name": "nickname"
+    },
+    {
+      "key": "0903de4e2df2b6b3e55101645f8662658fd5c3cbc553cc40c9636252492a17a5",
+      "text": "dwa tysiące sto trzydzieści siedem złotych, sześćdziesiąt dziewięć groszy",
+      "voice": "Microsoft Paulina Desktop - Polish",
+      "voiceIdentity": "58e3a2f1b7d86988b5fabfece855b1bdaf5969e505b07f886b9bf255c9b2750b",
+      "provider": "Windows SAPI",
+      "hash": "462493d3c4e2b47be294ce535d2967ad3a1cffe938723229eb1d72abc5d2b97f",
+      "duration": 4.476508,
+      "file": "0903de4e2df2b6b3e55101645f8662658fd5c3cbc553cc40c9636252492a17a5.wav",
+      "url": "/__studio/tts/audio/0903de4e2df2b6b3e55101645f8662658fd5c3cbc553cc40c9636252492a17a5",
+      "name": "amount"
+    },
+    {
+      "key": "b0617ba8ecccb7711d0009ae4c16b0fa7bae7bd75201e244ca36f9a26dbe7a71",
+      "text": "To jest aktualna wiadomość do eksportu",
+      "voice": "Microsoft Paulina Desktop - Polish",
+      "voiceIdentity": "58e3a2f1b7d86988b5fabfece855b1bdaf5969e505b07f886b9bf255c9b2750b",
+      "provider": "Windows SAPI",
+      "hash": "b652eb27f882dbcd72bdf7d28d039f25bac8cbdac5651d8780e41de1b52b49cf",
+      "duration": 2.864308,
+      "file": "b0617ba8ecccb7711d0009ae4c16b0fa7bae7bd75201e244ca36f9a26dbe7a71.wav",
+      "url": "/__studio/tts/audio/b0617ba8ecccb7711d0009ae4c16b0fa7bae7bd75201e244ca36f9a26dbe7a71",
+      "name": "message"
+    }
+  ],
+  "hashes": {
+    "0": "6e125a1dc1f2255db38276be0799c0e53be3c917fbca999a3b5412fd4d46feb7",
+    "259": "b8cfc55bf5659ed0c47baa4e5331138d49d01178c631dfe760be74e284faedcb",
+    "517": "563240981cf2d08758425759a13560054f91ab1f62462c6f2db7dba121eaa214"
+  },
+  "probe": {
+    "streams": [
+      {
+        "index": 0,
+        "codec_name": "h264",
+        "codec_long_name": "H.264 / AVC / MPEG-4 AVC / MPEG-4 part 10",
+        "profile": "High",
+        "codec_type": "video",
+        "codec_tag_string": "avc1",
+        "codec_tag": "0x31637661",
+        "mime_codec_string": "avc1.64001f",
+        "width": 1280,
+        "height": 720,
+        "coded_width": 1280,
+        "coded_height": 720,
+        "has_b_frames": 2,
+        "pix_fmt": "yuv420p",
+        "level": 31,
+        "chroma_location": "left",
+        "field_order": "progressive",
+        "refs": 4,
+        "is_avc": "true",
+        "nal_length_size": "4",
+        "id": "0x1",
+        "r_frame_rate": "30/1",
+        "avg_frame_rate": "30/1",
+        "time_base": "1/15360",
+        "start_pts": 0,
+        "start_time": "0.000000",
+        "duration_ts": 265216,
+        "duration": "17.266667",
+        "bit_rate": "558708",
+        "bits_per_raw_sample": "8",
+        "nb_frames": "518",
+        "nb_read_frames": "518",
+        "extradata_size": 46,
+        "disposition": {
+          "default": 1,
+          "dub": 0,
+          "original": 0,
+          "comment": 0,
+          "lyrics": 0,
+          "karaoke": 0,
+          "forced": 0,
+          "hearing_impaired": 0,
+          "visual_impaired": 0,
+          "clean_effects": 0,
+          "attached_pic": 0,
+          "timed_thumbnails": 0,
+          "non_diegetic": 0,
+          "captions": 0,
+          "descriptions": 0,
+          "metadata": 0,
+          "dependent": 0,
+          "still_image": 0,
+          "multilayer": 0
+        },
+        "tags": {
+          "language": "und",
+          "handler_name": "VideoHandler",
+          "encoder": "Lavc63.1.100 libx264"
+        }
+      },
+      {
+        "index": 1,
+        "codec_name": "aac",
+        "codec_long_name": "AAC (Advanced Audio Coding)",
+        "profile": "LC",
+        "codec_type": "audio",
+        "codec_tag_string": "mp4a",
+        "codec_tag": "0x6134706d",
+        "mime_codec_string": "mp4a.40.2",
+        "sample_fmt": "fltp",
+        "sample_rate": "44100",
+        "channels": 2,
+        "channel_layout": "stereo",
+        "bits_per_sample": 0,
+        "initial_padding": 1024,
+        "id": "0x2",
+        "r_frame_rate": "0/0",
+        "avg_frame_rate": "0/0",
+        "time_base": "1/44100",
+        "start_pts": 0,
+        "start_time": "0.000000",
+        "duration_ts": 731764,
+        "duration": "16.593288",
+        "bit_rate": "113175",
+        "nb_frames": "716",
+        "nb_read_frames": "715",
+        "extradata_size": 5,
+        "disposition": {
+          "default": 1,
+          "dub": 0,
+          "original": 0,
+          "comment": 0,
+          "lyrics": 0,
+          "karaoke": 0,
+          "forced": 0,
+          "hearing_impaired": 0,
+          "visual_impaired": 0,
+          "clean_effects": 0,
+          "attached_pic": 0,
+          "timed_thumbnails": 0,
+          "non_diegetic": 0,
+          "captions": 0,
+          "descriptions": 0,
+          "metadata": 0,
+          "dependent": 0,
+          "still_image": 0,
+          "multilayer": 0
+        },
+        "tags": {
+          "language": "und",
+          "handler_name": "SoundHandler"
+        }
+      }
+    ],
+    "format": {
+      "filename": "C:\\Projects\\overlays-legacy\\.motion-qa\\continuation\\final\\full\\export.mp4",
+      "nb_streams": 2,
+      "nb_programs": 0,
+      "nb_stream_groups": 0,
+      "format_name": "mov,mp4,m4a,3gp,3g2,mj2",
+      "format_long_name": "QuickTime / MOV",
+      "start_time": "0.000000",
+      "duration": "17.266667",
+      "size": "1460639",
+      "bit_rate": "676743",
+      "probe_score": 100,
+      "tags": {
+        "major_brand": "isom",
+        "minor_version": "512",
+        "compatible_brands": "isomiso2avc1mp41",
+        "encoder": "Lavf63.1.100"
+      }
+    }
+  },
+  "bytes": 1460639
+}

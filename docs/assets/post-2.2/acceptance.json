@@ -1,0 +1,786 @@
+{
+  "zero": [
+    {
+      "tier": 1,
+      "width": 1280,
+      "height": 720,
+      "path": "C:\\Projects\\overlays-legacy\\.motion-qa\\continuation\\final\\zero-1-1280x720.png",
+      "alphaExtrema": [
+        0,
+        0
+      ]
+    },
+    {
+      "tier": 2,
+      "width": 1280,
+      "height": 720,
+      "path": "C:\\Projects\\overlays-legacy\\.motion-qa\\continuation\\final\\zero-2-1280x720.png",
+      "alphaExtrema": [
+        0,
+        0
+      ]
+    },
+    {
+      "tier": 3,
+      "width": 1280,
+      "height": 720,
+      "path": "C:\\Projects\\overlays-legacy\\.motion-qa\\continuation\\final\\zero-3-1280x720.png",
+      "alphaExtrema": [
+        0,
+        0
+      ]
+    },
+    {
+      "tier": 4,
+      "width": 1280,
+      "height": 720,
+      "path": "C:\\Projects\\overlays-legacy\\.motion-qa\\continuation\\final\\zero-4-1280x720.png",
+      "alphaExtrema": [
+        0,
+        0
+      ]
+    },
+    {
+      "tier": 5,
+      "width": 1280,
+      "height": 720,
+      "path": "C:\\Projects\\overlays-legacy\\.motion-qa\\continuation\\final\\zero-5-1280x720.png",
+      "alphaExtrema": [
+        0,
+        0
+      ]
+    },
+    {
+      "tier": 6,
+      "width": 1280,
+      "height": 720,
+      "path": "C:\\Projects\\overlays-legacy\\.motion-qa\\continuation\\final\\zero-6-1280x720.png",
+      "alphaExtrema": [
+        0,
+        0
+      ]
+    },
+    {
+      "tier": 7,
+      "width": 1280,
+      "height": 720,
+      "path": "C:\\Projects\\overlays-legacy\\.motion-qa\\continuation\\final\\zero-7-1280x720.png",
+      "alphaExtrema": [
+        0,
+        0
+      ]
+    },
+    {
+      "tier": 1,
+      "width": 1920,
+      "height": 1080,
+      "path": "C:\\Projects\\overlays-legacy\\.motion-qa\\continuation\\final\\zero-1-1920x1080.png",
+      "alphaExtrema": [
+        0,
+        0
+      ]
+    },
+    {
+      "tier": 2,
+      "width": 1920,
+      "height": 1080,
+      "path": "C:\\Projects\\overlays-legacy\\.motion-qa\\continuation\\final\\zero-2-1920x1080.png",
+      "alphaExtrema": [
+        0,
+        0
+      ]
+    },
+    {
+      "tier": 3,
+      "width": 1920,
+      "height": 1080,
+      "path": "C:\\Projects\\overlays-legacy\\.motion-qa\\continuation\\final\\zero-3-1920x1080.png",
+      "alphaExtrema": [
+        0,
+        0
+      ]
+    },
+    {
+      "tier": 4,
+      "width": 1920,
+      "height": 1080,
+      "path": "C:\\Projects\\overlays-legacy\\.motion-qa\\continuation\\final\\zero-4-1920x1080.png",
+      "alphaExtrema": [
+        0,
+        0
+      ]
+    },
+    {
+      "tier": 5,
+      "width": 1920,
+      "height": 1080,
+      "path": "C:\\Projects\\overlays-legacy\\.motion-qa\\continuation\\final\\zero-5-1920x1080.png",
+      "alphaExtrema": [
+        0,
+        0
+      ]
+    },
+    {
+      "tier": 6,
+      "width": 1920,
+      "height": 1080,
+      "path": "C:\\Projects\\overlays-legacy\\.motion-qa\\continuation\\final\\zero-6-1920x1080.png",
+      "alphaExtrema": [
+        0,
+        0
+      ]
+    },
+    {
+      "tier": 7,
+      "width": 1920,
+      "height": 1080,
+      "path": "C:\\Projects\\overlays-legacy\\.motion-qa\\continuation\\final\\zero-7-1920x1080.png",
+      "alphaExtrema": [
+        0,
+        0
+      ]
+    },
+    {
+      "tier": 1,
+      "width": 1920,
+      "height": 1200,
+      "path": "C:\\Projects\\overlays-legacy\\.motion-qa\\continuation\\final\\zero-1-1920x1200.png",
+      "alphaExtrema": [
+        0,
+        0
+      ]
+    },
+    {
+      "tier": 2,
+      "width": 1920,
+      "height": 1200,
+      "path": "C:\\Projects\\overlays-legacy\\.motion-qa\\continuation\\final\\zero-2-1920x1200.png",
+      "alphaExtrema": [
+        0,
+        0
+      ]
+    },
+    {
+      "tier": 3,
+      "width": 1920,
+      "height": 1200,
+      "path": "C:\\Projects\\overlays-legacy\\.motion-qa\\continuation\\final\\zero-3-1920x1200.png",
+      "alphaExtrema": [
+        0,
+        0
+      ]
+    },
+    {
+      "tier": 4,
+      "width": 1920,
+      "height": 1200,
+      "path": "C:\\Projects\\overlays-legacy\\.motion-qa\\continuation\\final\\zero-4-1920x1200.png",
+      "alphaExtrema": [
+        0,
+        0
+      ]
+    },
+    {
+      "tier": 5,
+      "width": 1920,
+      "height": 1200,
+      "path": "C:\\Projects\\overlays-legacy\\.motion-qa\\continuation\\final\\zero-5-1920x1200.png",
+      "alphaExtrema": [
+        0,
+        0
+      ]
+    },
+    {
+      "tier": 6,
+      "width": 1920,
+      "height": 1200,
+      "path": "C:\\Projects\\overlays-legacy\\.motion-qa\\continuation\\final\\zero-6-1920x1200.png",
+      "alphaExtrema": [
+        0,
+        0
+      ]
+    },
+    {
+      "tier": 7,
+      "width": 1920,
+      "height": 1200,
+      "path": "C:\\Projects\\overlays-legacy\\.motion-qa\\continuation\\final\\zero-7-1920x1200.png",
+      "alphaExtrema": [
+        0,
+        0
+      ]
+    },
+    {
+      "tier": 1,
+      "width": 2560,
+      "height": 1080,
+      "path": "C:\\Projects\\overlays-legacy\\.motion-qa\\continuation\\final\\zero-1-2560x1080.png",
+      "alphaExtrema": [
+        0,
+        0
+      ]
+    },
+    {
+      "tier": 2,
+      "width": 2560,
+      "height": 1080,
+      "path": "C:\\Projects\\overlays-legacy\\.motion-qa\\continuation\\final\\zero-2-2560x1080.png",
+      "alphaExtrema": [
+        0,
+        0
+      ]
+    },
+    {
+      "tier": 3,
+      "width": 2560,
+      "height": 1080,
+      "path": "C:\\Projects\\overlays-legacy\\.motion-qa\\continuation\\final\\zero-3-2560x1080.png",
+      "alphaExtrema": [
+        0,
+        0
+      ]
+    },
+    {
+      "tier": 4,
+      "width": 2560,
+      "height": 1080,
+      "path": "C:\\Projects\\overlays-legacy\\.motion-qa\\continuation\\final\\zero-4-2560x1080.png",
+      "alphaExtrema": [
+        0,
+        0
+      ]
+    },
+    {
+      "tier": 5,
+      "width": 2560,
+      "height": 1080,
+      "path": "C:\\Projects\\overlays-legacy\\.motion-qa\\continuation\\final\\zero-5-2560x1080.png",
+      "alphaExtrema": [
+        0,
+        0
+      ]
+    },
+    {
+      "tier": 6,
+      "width": 2560,
+      "height": 1080,
+      "path": "C:\\Projects\\overlays-legacy\\.motion-qa\\continuation\\final\\zero-6-2560x1080.png",
+      "alphaExtrema": [
+        0,
+        0
+      ]
+    },
+    {
+      "tier": 7,
+      "width": 2560,
+      "height": 1080,
+      "path": "C:\\Projects\\overlays-legacy\\.motion-qa\\continuation\\final\\zero-7-2560x1080.png",
+      "alphaExtrema": [
+        0,
+        0
+      ]
+    },
+    {
+      "tier": 1,
+      "width": 3440,
+      "height": 1440,
+      "path": "C:\\Projects\\overlays-legacy\\.motion-qa\\continuation\\final\\zero-1-3440x1440.png",
+      "alphaExtrema": [
+        0,
+        0
+      ]
+    },
+    {
+      "tier": 2,
+      "width": 3440,
+      "height": 1440,
+      "path": "C:\\Projects\\overlays-legacy\\.motion-qa\\continuation\\final\\zero-2-3440x1440.png",
+      "alphaExtrema": [
+        0,
+        0
+      ]
+    },
+    {
+      "tier": 3,
+      "width": 3440,
+      "height": 1440,
+      "path": "C:\\Projects\\overlays-legacy\\.motion-qa\\continuation\\final\\zero-3-3440x1440.png",
+      "alphaExtrema": [
+        0,
+        0
+      ]
+    },
+    {
+      "tier": 4,
+      "width": 3440,
+      "height": 1440,
+      "path": "C:\\Projects\\overlays-legacy\\.motion-qa\\continuation\\final\\zero-4-3440x1440.png",
+      "alphaExtrema": [
+        0,
+        0
+      ]
+    },
+    {
+      "tier": 5,
+      "width": 3440,
+      "height": 1440,
+      "path": "C:\\Projects\\overlays-legacy\\.motion-qa\\continuation\\final\\zero-5-3440x1440.png",
+      "alphaExtrema": [
+        0,
+        0
+      ]
+    },
+    {
+      "tier": 6,
+      "width": 3440,
+      "height": 1440,
+      "path": "C:\\Projects\\overlays-legacy\\.motion-qa\\continuation\\final\\zero-6-3440x1440.png",
+      "alphaExtrema": [
+        0,
+        0
+      ]
+    },
+    {
+      "tier": 7,
+      "width": 3440,
+      "height": 1440,
+      "path": "C:\\Projects\\overlays-legacy\\.motion-qa\\continuation\\final\\zero-7-3440x1440.png",
+      "alphaExtrema": [
+        0,
+        0
+      ]
+    },
+    {
+      "tier": 1,
+      "width": 3840,
+      "height": 1080,
+      "path": "C:\\Projects\\overlays-legacy\\.motion-qa\\continuation\\final\\zero-1-3840x1080.png",
+      "alphaExtrema": [
+        0,
+        0
+      ]
+    },
+    {
+      "tier": 2,
+      "width": 3840,
+      "height": 1080,
+      "path": "C:\\Projects\\overlays-legacy\\.motion-qa\\continuation\\final\\zero-2-3840x1080.png",
+      "alphaExtrema": [
+        0,
+        0
+      ]
+    },
+    {
+      "tier": 3,
+      "width": 3840,
+      "height": 1080,
+      "path": "C:\\Projects\\overlays-legacy\\.motion-qa\\continuation\\final\\zero-3-3840x1080.png",
+      "alphaExtrema": [
+        0,
+        0
+      ]
+    },
+    {
+      "tier": 4,
+      "width": 3840,
+      "height": 1080,
+      "path": "C:\\Projects\\overlays-legacy\\.motion-qa\\continuation\\final\\zero-4-3840x1080.png",
+      "alphaExtrema": [
+        0,
+        0
+      ]
+    },
+    {
+      "tier": 5,
+      "width": 3840,
+      "height": 1080,
+      "path": "C:\\Projects\\overlays-legacy\\.motion-qa\\continuation\\final\\zero-5-3840x1080.png",
+      "alphaExtrema": [
+        0,
+        0
+      ]
+    },
+    {
+      "tier": 6,
+      "width": 3840,
+      "height": 1080,
+      "path": "C:\\Projects\\overlays-legacy\\.motion-qa\\continuation\\final\\zero-6-3840x1080.png",
+      "alphaExtrema": [
+        0,
+        0
+      ]
+    },
+    {
+      "tier": 7,
+      "width": 3840,
+      "height": 1080,
+      "path": "C:\\Projects\\overlays-legacy\\.motion-qa\\continuation\\final\\zero-7-3840x1080.png",
+      "alphaExtrema": [
+        0,
+        0
+      ]
+    },
+    {
+      "tier": 1,
+      "width": 3840,
+      "height": 2160,
+      "path": "C:\\Projects\\overlays-legacy\\.motion-qa\\continuation\\final\\zero-1-3840x2160.png",
+      "alphaExtrema": [
+        0,
+        0
+      ]
+    },
+    {
+      "tier": 2,
+      "width": 3840,
+      "height": 2160,
+      "path": "C:\\Projects\\overlays-legacy\\.motion-qa\\continuation\\final\\zero-2-3840x2160.png",
+      "alphaExtrema": [
+        0,
+        0
+      ]
+    },
+    {
+      "tier": 3,
+      "width": 3840,
+      "height": 2160,
+      "path": "C:\\Projects\\overlays-legacy\\.motion-qa\\continuation\\final\\zero-3-3840x2160.png",
+      "alphaExtrema": [
+        0,
+        0
+      ]
+    },
+    {
+      "tier": 4,
+      "width": 3840,
+      "height": 2160,
+      "path": "C:\\Projects\\overlays-legacy\\.motion-qa\\continuation\\final\\zero-4-3840x2160.png",
+      "alphaExtrema": [
+        0,
+        0
+      ]
+    },
+    {
+      "tier": 5,
+      "width": 3840,
+      "height": 2160,
+      "path": "C:\\Projects\\overlays-legacy\\.motion-qa\\continuation\\final\\zero-5-3840x2160.png",
+      "alphaExtrema": [
+        0,
+        0
+      ]
+    },
+    {
+      "tier": 6,
+      "width": 3840,
+      "height": 2160,
+      "path": "C:\\Projects\\overlays-legacy\\.motion-qa\\continuation\\final\\zero-6-3840x2160.png",
+      "alphaExtrema": [
+        0,
+        0
+      ]
+    },
+    {
+      "tier": 7,
+      "width": 3840,
+      "height": 2160,
+      "path": "C:\\Projects\\overlays-legacy\\.motion-qa\\continuation\\final\\zero-7-3840x2160.png",
+      "alphaExtrema": [
+        0,
+        0
+      ]
+    },
+    {
+      "tier": 1,
+      "width": 5120,
+      "height": 1440,
+      "path": "C:\\Projects\\overlays-legacy\\.motion-qa\\continuation\\final\\zero-1-5120x1440.png",
+      "alphaExtrema": [
+        0,
+        0
+      ]
+    },
+    {
+      "tier": 2,
+      "width": 5120,
+      "height": 1440,
+      "path": "C:\\Projects\\overlays-legacy\\.motion-qa\\continuation\\final\\zero-2-5120x1440.png",
+      "alphaExtrema": [
+        0,
+        0
+      ]
+    },
+    {
+      "tier": 3,
+      "width": 5120,
+      "height": 1440,
+      "path": "C:\\Projects\\overlays-legacy\\.motion-qa\\continuation\\final\\zero-3-5120x1440.png",
+      "alphaExtrema": [
+        0,
+        0
+      ]
+    },
+    {
+      "tier": 4,
+      "width": 5120,
+      "height": 1440,
+      "path": "C:\\Projects\\overlays-legacy\\.motion-qa\\continuation\\final\\zero-4-5120x1440.png",
+      "alphaExtrema": [
+        0,
+        0
+      ]
+    },
+    {
+      "tier": 5,
+      "width": 5120,
+      "height": 1440,
+      "path": "C:\\Projects\\overlays-legacy\\.motion-qa\\continuation\\final\\zero-5-5120x1440.png",
+      "alphaExtrema": [
+        0,
+        0
+      ]
+    },
+    {
+      "tier": 6,
+      "width": 5120,
+      "height": 1440,
+      "path": "C:\\Projects\\overlays-legacy\\.motion-qa\\continuation\\final\\zero-6-5120x1440.png",
+      "alphaExtrema": [
+        0,
+        0
+      ]
+    },
+    {
+      "tier": 7,
+      "width": 5120,
+      "height": 1440,
+      "path": "C:\\Projects\\overlays-legacy\\.motion-qa\\continuation\\final\\zero-7-5120x1440.png",
+      "alphaExtrema": [
+        0,
+        0
+      ]
+    }
+  ],
+  "exports": [
+    {
+      "tier": 1,
+      "width": 1280,
+      "height": 720,
+      "count": 1,
+      "alphaMax": 0,
+      "pngHash": "a154b6531bd1abe834704c8194814602f200c87a2b7a97b594ebcf6959658e96",
+      "path": "C:\\Projects\\overlays-legacy\\.motion-qa\\continuation\\final\\export-1-1280x720\\export.webm"
+    },
+    {
+      "tier": 2,
+      "width": 1920,
+      "height": 1080,
+      "count": 1,
+      "alphaMax": 0,
+      "pngHash": "0f919687ec4cc34670b2c0e7c0dfe85748582612a9b1d953662fad9fcb3f8cb6",
+      "path": "C:\\Projects\\overlays-legacy\\.motion-qa\\continuation\\final\\export-2-1920x1080\\export.webm"
+    },
+    {
+      "tier": 3,
+      "width": 1920,
+      "height": 1200,
+      "count": 1,
+      "alphaMax": 0,
+      "pngHash": "0721361321645e8c01fab2269d843e50fd875d80a9f2a3d6cc6c5f0690fb14dc",
+      "path": "C:\\Projects\\overlays-legacy\\.motion-qa\\continuation\\final\\export-3-1920x1200\\export.webm"
+    },
+    {
+      "tier": 4,
+      "width": 2560,
+      "height": 1080,
+      "count": 1,
+      "alphaMax": 0,
+      "pngHash": "4ec811be6ce9ebba887054cc3974c8aee23f20cb12791000dccb105345e9726a",
+      "path": "C:\\Projects\\overlays-legacy\\.motion-qa\\continuation\\final\\export-4-2560x1080\\export.webm"
+    },
+    {
+      "tier": 5,
+      "width": 3440,
+      "height": 1440,
+      "count": 1,
+      "alphaMax": 0,
+      "pngHash": "4ff27beeb2f215b4eedda3bced498ea2091583fef2370901c2622a09bf75ec72",
+      "path": "C:\\Projects\\overlays-legacy\\.motion-qa\\continuation\\final\\export-5-3440x1440\\export.webm"
+    },
+    {
+      "tier": 6,
+      "width": 3840,
+      "height": 1080,
+      "count": 1,
+      "alphaMax": 0,
+      "pngHash": "e9aa8120d24af309064232f06135f10953f8258cf5502fe34cb006bb47298a6a",
+      "path": "C:\\Projects\\overlays-legacy\\.motion-qa\\continuation\\final\\export-6-3840x1080\\export.webm"
+    },
+    {
+      "tier": 7,
+      "width": 3840,
+      "height": 2160,
+      "count": 1,
+      "alphaMax": 0,
+      "pngHash": "1a6dfd2abe354fad1fe1795d7b0e03e00fb9ebd48118b859132bb3d4f0bd19e5",
+      "path": "C:\\Projects\\overlays-legacy\\.motion-qa\\continuation\\final\\export-7-3840x2160\\export.webm"
+    },
+    {
+      "tier": 1,
+      "width": 5120,
+      "height": 1440,
+      "count": 1,
+      "alphaMax": 0,
+      "pngHash": "0b458161a0f7029be76fbb4174410dfd0a3d24ed25904e7c355f26ebd2b33d01",
+      "path": "C:\\Projects\\overlays-legacy\\.motion-qa\\continuation\\final\\export-1-5120x1440\\export.webm"
+    }
+  ],
+  "heroExports": [
+    {
+      "tier": 1,
+      "width": 1280,
+      "height": 720,
+      "start": 3.71503,
+      "count": 2,
+      "hash": "89ea11ee726b9f1ef5c203d07d74c6ef961ac57c2dd29a15afc4f22b5fbcf6cf"
+    },
+    {
+      "tier": 2,
+      "width": 1920,
+      "height": 1080,
+      "start": 4.3187500000000005,
+      "count": 2,
+      "hash": "bc247eb8751babdd2c555bc2adfb95ec066e440be5a17608a74f7cf1af16d113"
+    },
+    {
+      "tier": 3,
+      "width": 1920,
+      "height": 1200,
+      "start": 5.47975,
+      "count": 2,
+      "hash": "6b643f87fd9b1bb5c0a0994de9949aa4e8dbaff5f05d4328594f1cd8731bbcd7"
+    },
+    {
+      "tier": 4,
+      "width": 2560,
+      "height": 1080,
+      "start": 5.1778900000000005,
+      "count": 2,
+      "hash": "d9f34162be04aa6fadedd7407f0ed0f9916d6e2c52bed5d7b0742e9f97f8fe21"
+    },
+    {
+      "tier": 5,
+      "width": 3440,
+      "height": 1440,
+      "start": 5.47975,
+      "count": 2,
+      "hash": "d3e394e9dd32f03292562f77a264e348f1cd478918658203041041e56b019161"
+    },
+    {
+      "tier": 6,
+      "width": 3840,
+      "height": 1080,
+      "start": 4.55095,
+      "count": 2,
+      "hash": "5a3fefb89357bb1d32560475f0e8038718696d05c8a0a74e4e1ccfff20fb9aa9"
+    },
+    {
+      "tier": 7,
+      "width": 3840,
+      "height": 2160,
+      "start": 13.86215,
+      "count": 2,
+      "hash": "8abf8ac889e04255145e2f4f393e836506df1c5318abaa6c3cad68a415cdd532"
+    },
+    {
+      "tier": 1,
+      "width": 5120,
+      "height": 1440,
+      "start": 3.71503,
+      "count": 2,
+      "hash": "46a7df1b470be9e04840bce53b483c5236613c8a4c3efc6bf24fb0dd9cb46453"
+    }
+  ],
+  "full": {
+    "request": {
+      "tier": 1,
+      "range": "full",
+      "fps": 30,
+      "format": "mp4",
+      "background": "stream",
+      "audio": true,
+      "nickname": "Victor",
+      "amount": 213769,
+      "message": "To jest aktualna wiadomość do eksportu",
+      "seed": "kaaajka-motion-01",
+      "quality": "safe",
+      "selection": null,
+      "width": 1280,
+      "height": 720,
+      "voice": "scene",
+      "url": "http://127.0.0.1:5173"
+    },
+    "count": 518,
+    "duration": 17.266666666666666,
+    "encodedDuration": "17.266667",
+    "parity": [
+      {
+        "frame": 0,
+        "hash": "6e125a1dc1f2255db38276be0799c0e53be3c917fbca999a3b5412fd4d46feb7"
+      },
+      {
+        "frame": 259,
+        "hash": "b8cfc55bf5659ed0c47baa4e5331138d49d01178c631dfe760be74e284faedcb"
+      },
+      {
+        "frame": 517,
+        "hash": "563240981cf2d08758425759a13560054f91ab1f62462c6f2db7dba121eaa214"
+      }
+    ],
+    "speechSignals": [
+      {
+        "key": "6033bf2b97d96ea286f351fdf825d04f67e4687105769981853fdfab8388aa8f",
+        "text": "Victor",
+        "voice": "Microsoft Paulina Desktop - Polish",
+        "voiceIdentity": "58e3a2f1b7d86988b5fabfece855b1bdaf5969e505b07f886b9bf255c9b2750b",
+        "provider": "Windows SAPI",
+        "hash": "a2dc0ada3bc1f946310c03706989348e78e2f5af58622588d981f62d45080270",
+        "duration": 1.21932,
+        "file": "6033bf2b97d96ea286f351fdf825d04f67e4687105769981853fdfab8388aa8f.wav",
+        "url": "/__studio/tts/audio/6033bf2b97d96ea286f351fdf825d04f67e4687105769981853fdfab8388aa8f",
+        "name": "nickname",
+        "rms": 0.028399557534748397,
+        "stageStart": 8.03342
+      },
+      {
+        "key": "0903de4e2df2b6b3e55101645f8662658fd5c3cbc553cc40c9636252492a17a5",
+        "text": "dwa tysiące sto trzydzieści siedem złotych, sześćdziesiąt dziewięć groszy",
+        "voice": "Microsoft Paulina Desktop - Polish",
+        "voiceIdentity": "58e3a2f1b7d86988b5fabfece855b1bdaf5969e505b07f886b9bf255c9b2750b",
+        "provider": "Windows SAPI",
+        "hash": "462493d3c4e2b47be294ce535d2967ad3a1cffe938723229eb1d72abc5d2b97f",
+        "duration": 4.476508,
+        "file": "0903de4e2df2b6b3e55101645f8662658fd5c3cbc553cc40c9636252492a17a5.wav",
+        "url": "/__studio/tts/audio/0903de4e2df2b6b3e55101645f8662658fd5c3cbc553cc40c9636252492a17a5",
+        "name": "amount",
+        "rms": 0.04293809944765987,
+        "stageStart": 9.25274
+      },
+      {
+        "key": "b0617ba8ecccb7711d0009ae4c16b0fa7bae7bd75201e244ca36f9a26dbe7a71",
+        "text": "To jest aktualna wiadomość do eksportu",
+        "voice": "Microsoft Paulina Desktop - Polish",
+        "voiceIdentity": "58e3a2f1b7d86988b5fabfece855b1bdaf5969e505b07f886b9bf255c9b2750b",
+        "provider": "Windows SAPI",
+        "hash": "b652eb27f882dbcd72bdf7d28d039f25bac8cbdac5651d8780e41de1b52b49cf",
+        "duration": 2.864308,
+        "file": "b0617ba8ecccb7711d0009ae4c16b0fa7bae7bd75201e244ca36f9a26dbe7a71.wav",
+        "url": "/__studio/tts/audio/b0617ba8ecccb7711d0009ae4c16b0fa7bae7bd75201e244ca36f9a26dbe7a71",
+        "name": "message",
+        "rms": 0.03982788851234287,
+        "stageStart": 13.729247999999998
+      }
+    ]
+  },
+  "errors": []
+}

@@ -20,7 +20,7 @@ Preserve legacy websocket messages, FIFO queue, acceptAlert, amount/commission l
 
 ## Brand commitments
 
-Full-screen cinematic motion, ascending importance, absurd HOLY MOLY / HALO energy, money rain and kinetic donor typography. The user delegates creative decisions explicitly in sections 21 and 40 of the supplied brief.
+Localized native-sized mini-shows preserve transparent gameplay space while ascending importance, absurd HOLY MOLY / HALO energy, cue-based cash payoffs and kinetic donor typography provide the reaction. Name and amount form one readable unit. Public frame zero is completely transparent, including loading, restart and reverse seek; Information grows with content within a bounded reading surface and keeps the complete message readable. The user delegates creative decisions explicitly in sections 21 and 40 of the supplied brief.
 
 The seven Kaaajka-selected source GIFs are binding identity assets. Each live show derives its composition, gesture and rhythm from its own GIF, existing track and legacy joke. They must remain recognizable; generated replacement footage and seven recolors of one composition violate the current redesign brief. Engine infrastructure remains shared; art direction is scene-specific.
 

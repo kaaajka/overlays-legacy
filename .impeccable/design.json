@@ -1,20 +1,20 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-10-07T21:31:41.558858+00:00",
+  "generatedAt": "2026-10-08T00:20:09.913Z",
   "title": "Design System: Kaaajka GIF-led Donation Shows",
   "extensions": {
     "typographyMeta": {
       "donor-name": {
         "displayName": "Scene donor name",
-        "purpose": "Per-scene caps and content-length fitting; independent donor space."
+        "purpose": "28–44px fitted complete name within the shared donor/amount anchor."
       },
       "donor-amount": {
         "displayName": "Scene donor amount",
-        "purpose": "Seven distinct payoff placements; fitted Polish amount and baseline currency."
+        "purpose": "At most 112px, width fitted; Polish number and baseline currency share the name anchor."
       },
       "information-title": {
         "displayName": "Reading header",
-        "purpose": "Treatment pale accent for donor and amount."
+        "purpose": "Shared peach fixed header; 28px donor, 26px nonwrapping amount."
       },
       "body": {
         "displayName": "Complete message",
@@ -26,7 +26,7 @@
       },
       "studio-title": {
         "displayName": "Studio brand",
-        "purpose": "15px identity title in compact desktop chrome."
+        "purpose": "12px identity title in compact Polish desktop chrome."
       },
       "studio-small": {
         "displayName": "Studio labels",
@@ -42,24 +42,19 @@
       },
       "timecode": {
         "displayName": "Music timecode",
-        "purpose": "18px monospace current music/lifecycle time; supporting numerical readouts use 9–10px monospace."
+        "purpose": "18px monospace current music/lifecycle time, editable inline against the shared authoring transport; supporting numerical readouts use 9–10px monospace."
       }
     },
     "shadows": [
       {
         "name": "donor-legibility",
-        "value": "0 5px 20px rgba(0, 0, 0, 0.75)",
-        "purpose": "Text shadow behind solid white donor name."
+        "value": "0 2px 2px #1e1819, 0 4px 10px #1e1819",
+        "purpose": "Shared text shadow for solid name/amount over gameplay; disabled on paper amount."
       },
       {
-        "name": "amount-legibility",
-        "value": "0 12px 28px rgba(0, 0, 0, 0.6)",
-        "purpose": "Pale donor amount; disabled for the dark paper-strip amount."
-      },
-      {
-        "name": "reading-surface",
-        "value": "0 18px 60px rgba(0, 0, 0, 0.25)",
-        "purpose": "Diffuse box shadow beneath the information card."
+        "name": "reading-ambient",
+        "value": "0 20px 45px rgba(0, 0, 0, 0.22)",
+        "purpose": "Soft reading separation. The built card also carries an 8px hard lower edge, recorded in its specimen but not canonized as reusable depth."
       }
     ],
     "motion": [
@@ -92,6 +87,16 @@
         "name": "cash-wave",
         "value": "2.8s",
         "purpose": "Maximum lifetime of short source-specific higher-tier cash waves; none in information."
+      },
+      {
+        "name": "source-entry",
+        "value": "0.05s start, 0.1s duration",
+        "purpose": "First nonzero source entrance; public time zero hides every stage descendant."
+      },
+      {
+        "name": "cash-donor-falloff",
+        "value": "160 canonical units; back 0.14, front 0.35 minimum alpha multipliers",
+        "purpose": "Continuous donor-relative readability falloff; six of seven seeded bill indices route behind scene content and one in front, without invisible deletion rectangles."
       }
     ],
     "breakpoints": [
@@ -109,7 +114,7 @@
       "directionSeed": "d2f60c0f",
       "scope": [
         "seven live GIF-led donation shows",
-        "DEV Motion Studio",
+        "public standalone desktop Motion Studio",
         "Studio-only Donate8"
       ],
       "sources": [
@@ -121,44 +126,47 @@
         "src/donations/scenes/shared.tsx",
         "src/motion/engine/donation-motion.css",
         "src/motion/cash/CashRenderer.ts",
-        "docs/KAAAJKA_BRAND_DIRECTION.md"
+        "docs/KAAAJKA_BRAND_DIRECTION.md",
+        "src/motion/engine/MessageEmote.tsx",
+        "src/dev/motion-studio/polish.ts",
+        "docs/PRODUCTION_22_DIRECTION.md",
+        "src/dev/motion-studio/ProgramMonitor.tsx",
+        "src/dev/motion-studio/AuthoringTransport.ts",
+        "src/dev/motion-studio/Shortcuts.tsx",
+        "src/dev/motion-studio/Timecode.tsx",
+        "src/dev/motion-studio/authoringServices.ts",
+        "src/dev/motion-studio/LocalCapabilities.tsx",
+        "src/motion/engine/DonationScene.tsx",
+        "src/motion/media/MediaLayer.ts",
+        "scripts/studio-tts.mjs",
+        "public/studio-sw.js",
+        "public/motion-studio.webmanifest"
       ],
       "visualEvidence": [
-        ".motion-qa/v2/studio-desktop.png",
-        ".motion-qa/v2/studio-mobile.png",
-        ".motion-qa/v2/studio-export.png",
-        ".motion-qa/v2/studio-extreme.png",
-        ".motion-qa/v2/studio-information.png",
-        ".motion-qa/v2/studio-inspector.png",
-        ".motion-qa/v2/contact.jpg",
-        ".motion-qa/v2/rhythm.jpg"
+        "docs/assets/post-2.2/round-2/",
+        "docs/assets/post-2.2/review-1/",
+        "docs/assets/post-2.2/visible/information-full.png"
       ],
-      "snippetPolicy": "Seven observed self-contained ds-prefixed Studio/information specimens with literal values. Reading card uses 30% specimen scale. No framework, media playback or animation runtime; Poppins falls back to sans-serif.",
-      "mediaPolicy": "Seven original GIF identities remain unchanged; controlled VP9 WebM preserves source cadence and authored hero holds. Original GIF fallback preserves recognizable content without guaranteed frame sync. Source instances per scene: 1,3,3,1,1,1,3; release media at information/unmount.",
+      "snippetPolicy": "Eight self-contained ds-prefixed Studio/information/help specimens with literal values; intrinsic reading card shown at 30% scale. No framework, media playback or animation runtime; Poppins falls back to sans-serif.",
+      "mediaPolicy": "Seven original GIFs and MP3s unchanged. Forward native sequential VP9 playback follows audio-derived expected phase with source-aware drift correction; scrub, freeze and export retain exact frame selection. Only derived Donate4/Donate6 WebM changed to lossless all-intra VP9. Source fallback remains unsynchronized. Source instances per scene: 1,3,3,1,1,1,3; release media at information/unmount.",
       "donate8": "Retained old lavender aperture/name composition in Studio with shared Donate7 track; no live threshold or separate audio asset.",
-      "expansion": "production-v2: localized transparent shows, supplied Kaaajka identity, source-specific cash and pinned graphite Studio",
-      "reviewEvidence": "Parent handoff: independent reviewer PASS after F1–F4 fixes to extreme names, bounded message, mobile scroll and cash exclusion. Prior detector drift was advisory and consistent with the authorized production-v2 expansion. Documenter inspected source and supplied captures; did not rerun detector or browser checks."
+      "expansion": "post-v2.2 extension of pinned d2f60c0f: aspect-aware bounded sources, resumable Full authoring transport, current local speech, nullable ranges, unified timeline, full Program controls, cash depth, hybrid source playback and installable shell",
+      "reviewEvidence": "Fresh static reviewer final disposition: ship; four findings resolved (shortcut layout, Donate5 cash contrast, missing blocker evidence, stale cash documentation). No approved comp or QUALITY BAR exists. Static evidence does not independently establish motion aesthetics, owner approval or an After Effects-level finish; final tests are reported separately."
     },
     "layout": {
-      "stage": "1920 × 1080; uniform viewport fitting; no donation reflow",
-      "sceneScale": {
-        "donate1": 0.65,
-        "donate2": 0.67,
-        "donate3": 0.64,
-        "donate4": 0.7,
-        "donate5": 0.78,
-        "donate6": 0.73,
-        "donate7": 0.78
-      },
+      "stage": "Fixed canonical height 1080; virtual width viewport.width/viewport.height*1080; uniform scale viewport.height/1080. Horizontal groups apply 0.35/0.65 of virtualWidth-1920 while bounded source dimensions retain reference composition.",
       "desktopWorkspace": "Desktop-only >=1280x720. Persisted docked horizontal 14/64/22%, vertical 62/38%; collapse sides; maximize/restore exact layout; reset and divider double-click.",
-      "desktopTimeline": "Resizable 38% default; local scrolling; sticky 150px headers; shared Hero/Full lifecycle axis.",
+      "desktopTimeline": "Resizable 38% default; local scrolling; sticky 150px headers; one global axis/playhead across all tracks, bottom navigator pans/resizes its viewport, nullable IN/OUT and empty fresh selection.",
       "timelineWidth": "max(100%, 900px × zoom), zoom 1–128; adaptive subsecond ruler",
-      "information": "1240 × 620px bounded flex panel; wrapped header reduces message viewport",
+      "information": "Intrinsic width max-content, min 560/max 960px; natural height max 600px; fixed header/body-only scroll; observed short 560x165, safe long 960x304, emote height about 306px.",
       "unsupportedViewport": "Only clean desktop-required screen; full editor unmounted.",
-      "viewer": "ResizeObserver Fit; 25/50/75/100%; local pan/scroll; strict stage paint containment.",
-      "lifecycle": "Shared lifecyclePlan; Information overlaps sequential TTS; actual native playing highlights; deterministic visual post-music seek.",
+      "viewer": "Selected output viewport fits using ResizeObserver; viewer zoom 10–400% independent of output. Ctrl/Cmd-wheel zoom under pointer; wheel/touchpad pan; Shift-wheel horizontal pan; drag outside Fit; explicit centering; strict paint containment.",
+      "lifecycle": "Full Alert sample-clock authoring transport reconstructs current music/speech on play, resume, seek and loop; shared lifecyclePlan spans Hero, overlapping Information, nickname/amount/message reading and Outro. Inline timecode edits the same position.",
       "studioChrome": "46px toolbar, 26px dock headers, 36px timeline controls, 20px footer; Poppins and Lucide; themed visible local scrollbars.",
-      "streamPreview": "Supplied Rocket League JPG in dev-assets only; custom local PNG/JPEG/WebP; exports include photograph only with explicit stream background."
+      "streamPreview": "Supplied Rocket League JPG as authoring context; custom local PNG/JPEG/WebP; exports include photograph only with explicit stream background.",
+      "publicZero": "data-time-zero=true hides stage and every descendant at exact music/source zero, including loading and restart/reverse seek; private GSAP initialization never becomes public visual content",
+      "output": "1280x720, 1366x768, 1920x1080, 2560x1440, 3840x2160, 1920x1200, 2560x1080, 3440x1440, 3840x1080, 5120x1440; custom even width 320–8192 and height 240–4320.",
+      "startup": "Donate1; Full Alert; manual selection; stream background; no range; loop off."
     },
     "cash": {
       "eligibleTiers": [
@@ -178,592 +186,707 @@
         "heart": 12
       },
       "waveLifetime": "2.8s maximum",
-      "topTierExclusion": {
-        "x": [
-          200,
-          1100
-        ],
-        "y": [
-          440,
-          1040
-        ],
-        "basis": "bill centres in logical stage coordinates"
+      "information": "hidden and cleared",
+      "qualityCapsBasis": "Per renderer; heart cap 12. Stable routing uses bill index modulo 7, rather than moving particles between depths.",
+      "depth": {
+        "back": "six of seven seeded indices behind source/text",
+        "front": "one in seven seeded indices in front"
       },
-      "information": "hidden and cleared"
+      "donorReadability": {
+        "bounds": "Measured actual moving scene-copy DOM rectangle, mapped to virtual stage coordinates each render",
+        "distanceFalloff": 160,
+        "minimumAlphaMultiplier": {
+          "back": 0.14,
+          "front": 0.35
+        },
+        "trajectory": "Continuous paths through donor area; no invisible deletion rectangle"
+      },
+      "origins": {
+        "donate5": "donor.x, donor.y + 240",
+        "donate6": "donor.x + 480, donor.y + 180",
+        "donate7": "seeded distribution across actual virtual viewport width"
+      },
+      "backing": "Independent of geometry; at most 4,000,000 pixels per cash canvas."
     },
     "identity": {
       "authority": "docs/KAAAJKA_BRAND_DIRECTION.md and archived supplied channel banner/avatar/bunny assets",
       "bunnyUse": [
-        "70px heart-scene sticker, −8° rotation before localization scale",
-        "36px Studio identity mark"
+        "Turkey: cyan 72px reply from native 56px original at hero +0.1s",
+        "Dancer: authored 630×76px bunny-ear floor compresses/releases at existing cues",
+        "Ovation: native cyan 56px aside at hero +0.1s",
+        "Heart: native cheering 56px sticker at (875,712), −8° rotation",
+        "Studio: 24px identity mark"
       ],
-      "negativeSpace": "transparent lower-tier margins; area guidance is intent, not a quota"
+      "negativeSpace": "Transparent gameplay surrounds seven bounded compositions; previous assembly scales/coverage measures are historical, not current quotas",
+      "lettering": "Transparent handwritten OMG at 200×80; two 280×187 CSS windows from HOLY/MOLY asset; original GIF footage unchanged"
     },
     "colorMeta": {
       "turkey-tan": {
         "role": "primary",
         "displayName": "Turkey Tan",
         "tonalRamp": [
-          "oklch(15.00% 0.0813 73.66)",
-          "oklch(26.43% 0.0813 73.66)",
-          "oklch(37.86% 0.0813 73.66)",
-          "oklch(49.29% 0.0813 73.66)",
-          "oklch(60.71% 0.0813 73.66)",
-          "oklch(72.14% 0.0813 73.66)",
-          "oklch(83.57% 0.0813 73.66)",
-          "oklch(95.00% 0.0813 73.66)"
-        ]
+          "oklch(15.0% 0.08134 73.66)",
+          "oklch(26.4% 0.08134 73.66)",
+          "oklch(37.9% 0.08134 73.66)",
+          "oklch(49.3% 0.08134 73.66)",
+          "oklch(60.7% 0.08134 73.66)",
+          "oklch(72.1% 0.08134 73.66)",
+          "oklch(83.6% 0.08134 73.66)",
+          "oklch(95.0% 0.08134 73.66)"
+        ],
+        "canonical": "#eec692"
       },
       "turkey-cream": {
         "role": "primary",
         "displayName": "Turkey Cream",
         "tonalRamp": [
-          "oklch(15.00% 0.0476 90.06)",
-          "oklch(26.43% 0.0476 90.06)",
-          "oklch(37.86% 0.0476 90.06)",
-          "oklch(49.29% 0.0476 90.06)",
-          "oklch(60.71% 0.0476 90.06)",
-          "oklch(72.14% 0.0476 90.06)",
-          "oklch(83.57% 0.0476 90.06)",
-          "oklch(95.00% 0.0476 90.06)"
-        ]
+          "oklch(15.0% 0.04761 90.06)",
+          "oklch(26.4% 0.04761 90.06)",
+          "oklch(37.9% 0.04761 90.06)",
+          "oklch(49.3% 0.04761 90.06)",
+          "oklch(60.7% 0.04761 90.06)",
+          "oklch(72.1% 0.04761 90.06)",
+          "oklch(83.6% 0.04761 90.06)",
+          "oklch(95.0% 0.04761 90.06)"
+        ],
+        "canonical": "#fff2cf"
       },
       "mask-red": {
         "role": "primary",
         "displayName": "Mask Red",
         "tonalRamp": [
-          "oklch(15.00% 0.2028 30.51)",
-          "oklch(26.43% 0.2028 30.51)",
-          "oklch(37.86% 0.2028 30.51)",
-          "oklch(49.29% 0.2028 30.51)",
-          "oklch(60.71% 0.2028 30.51)",
-          "oklch(72.14% 0.2028 30.51)",
-          "oklch(83.57% 0.2028 30.51)",
-          "oklch(95.00% 0.2028 30.51)"
-        ]
+          "oklch(15.0% 0.20284 30.51)",
+          "oklch(26.4% 0.20284 30.51)",
+          "oklch(37.9% 0.20284 30.51)",
+          "oklch(49.3% 0.20284 30.51)",
+          "oklch(60.7% 0.20284 30.51)",
+          "oklch(72.1% 0.20284 30.51)",
+          "oklch(83.6% 0.20284 30.51)",
+          "oklch(95.0% 0.20284 30.51)"
+        ],
+        "canonical": "#e84531"
       },
       "mask-peach": {
         "role": "primary",
         "displayName": "Mask Peach",
         "tonalRamp": [
-          "oklch(15.00% 0.0655 39.59)",
-          "oklch(26.43% 0.0655 39.59)",
-          "oklch(37.86% 0.0655 39.59)",
-          "oklch(49.29% 0.0655 39.59)",
-          "oklch(60.71% 0.0655 39.59)",
-          "oklch(72.14% 0.0655 39.59)",
-          "oklch(83.57% 0.0655 39.59)",
-          "oklch(95.00% 0.0655 39.59)"
-        ]
+          "oklch(15.0% 0.06548 39.59)",
+          "oklch(26.4% 0.06548 39.59)",
+          "oklch(37.9% 0.06548 39.59)",
+          "oklch(49.3% 0.06548 39.59)",
+          "oklch(60.7% 0.06548 39.59)",
+          "oklch(72.1% 0.06548 39.59)",
+          "oklch(83.6% 0.06548 39.59)",
+          "oklch(95.0% 0.06548 39.59)"
+        ],
+        "canonical": "#ffcab8"
       },
       "rodent-ochre": {
         "role": "primary",
         "displayName": "Rodent Ochre",
         "tonalRamp": [
-          "oklch(15.00% 0.1031 68.21)",
-          "oklch(26.43% 0.1031 68.21)",
-          "oklch(37.86% 0.1031 68.21)",
-          "oklch(49.29% 0.1031 68.21)",
-          "oklch(60.71% 0.1031 68.21)",
-          "oklch(72.14% 0.1031 68.21)",
-          "oklch(83.57% 0.1031 68.21)",
-          "oklch(95.00% 0.1031 68.21)"
-        ]
+          "oklch(15.0% 0.10310 68.21)",
+          "oklch(26.4% 0.10310 68.21)",
+          "oklch(37.9% 0.10310 68.21)",
+          "oklch(49.3% 0.10310 68.21)",
+          "oklch(60.7% 0.10310 68.21)",
+          "oklch(72.1% 0.10310 68.21)",
+          "oklch(83.6% 0.10310 68.21)",
+          "oklch(95.0% 0.10310 68.21)"
+        ],
+        "canonical": "#ce9759"
       },
       "rodent-yellow": {
         "role": "primary",
         "displayName": "Rodent Yellow",
         "tonalRamp": [
-          "oklch(15.00% 0.0989 89.19)",
-          "oklch(26.43% 0.0989 89.19)",
-          "oklch(37.86% 0.0989 89.19)",
-          "oklch(49.29% 0.0989 89.19)",
-          "oklch(60.71% 0.0989 89.19)",
-          "oklch(72.14% 0.0989 89.19)",
-          "oklch(83.57% 0.0989 89.19)",
-          "oklch(95.00% 0.0989 89.19)"
-        ]
+          "oklch(15.0% 0.09886 89.19)",
+          "oklch(26.4% 0.09886 89.19)",
+          "oklch(37.9% 0.09886 89.19)",
+          "oklch(49.3% 0.09886 89.19)",
+          "oklch(60.7% 0.09886 89.19)",
+          "oklch(72.1% 0.09886 89.19)",
+          "oklch(83.6% 0.09886 89.19)",
+          "oklch(95.0% 0.09886 89.19)"
+        ],
+        "canonical": "#ffe297"
       },
       "paper-tile": {
         "role": "primary",
         "displayName": "Paper Tile",
         "tonalRamp": [
-          "oklch(15.00% 0.0240 79.74)",
-          "oklch(26.43% 0.0240 79.74)",
-          "oklch(37.86% 0.0240 79.74)",
-          "oklch(49.29% 0.0240 79.74)",
-          "oklch(60.71% 0.0240 79.74)",
-          "oklch(72.14% 0.0240 79.74)",
-          "oklch(83.57% 0.0240 79.74)",
-          "oklch(95.00% 0.0240 79.74)"
-        ]
+          "oklch(15.0% 0.02397 79.74)",
+          "oklch(26.4% 0.02397 79.74)",
+          "oklch(37.9% 0.02397 79.74)",
+          "oklch(49.3% 0.02397 79.74)",
+          "oklch(60.7% 0.02397 79.74)",
+          "oklch(72.1% 0.02397 79.74)",
+          "oklch(83.6% 0.02397 79.74)",
+          "oklch(95.0% 0.02397 79.74)"
+        ],
+        "canonical": "#eee4d4"
       },
       "paper-cream": {
         "role": "primary",
         "displayName": "Paper Cream",
         "tonalRamp": [
-          "oklch(15.00% 0.0184 86.15)",
-          "oklch(26.43% 0.0184 86.15)",
-          "oklch(37.86% 0.0184 86.15)",
-          "oklch(49.29% 0.0184 86.15)",
-          "oklch(60.71% 0.0184 86.15)",
-          "oklch(72.14% 0.0184 86.15)",
-          "oklch(83.57% 0.0184 86.15)",
-          "oklch(95.00% 0.0184 86.15)"
-        ]
+          "oklch(15.0% 0.01842 86.15)",
+          "oklch(26.4% 0.01842 86.15)",
+          "oklch(37.9% 0.01842 86.15)",
+          "oklch(49.3% 0.01842 86.15)",
+          "oklch(60.7% 0.01842 86.15)",
+          "oklch(72.1% 0.01842 86.15)",
+          "oklch(83.6% 0.01842 86.15)",
+          "oklch(95.0% 0.01842 86.15)"
+        ],
+        "canonical": "#f4eee1"
       },
       "paper-ink": {
         "role": "primary",
         "displayName": "Paper Ink",
         "tonalRamp": [
-          "oklch(15.00% 0.0196 63.53)",
-          "oklch(26.43% 0.0196 63.53)",
-          "oklch(37.86% 0.0196 63.53)",
-          "oklch(49.29% 0.0196 63.53)",
-          "oklch(60.71% 0.0196 63.53)",
-          "oklch(72.14% 0.0196 63.53)",
-          "oklch(83.57% 0.0196 63.53)",
-          "oklch(95.00% 0.0196 63.53)"
-        ]
+          "oklch(15.0% 0.01955 63.53)",
+          "oklch(26.4% 0.01955 63.53)",
+          "oklch(37.9% 0.01955 63.53)",
+          "oklch(49.3% 0.01955 63.53)",
+          "oklch(60.7% 0.01955 63.53)",
+          "oklch(72.1% 0.01955 63.53)",
+          "oklch(83.6% 0.01955 63.53)",
+          "oklch(95.0% 0.01955 63.53)"
+        ],
+        "canonical": "#30271f"
       },
       "ovation-amber": {
         "role": "primary",
         "displayName": "Ovation Amber",
         "tonalRamp": [
-          "oklch(15.00% 0.1227 55.74)",
-          "oklch(26.43% 0.1227 55.74)",
-          "oklch(37.86% 0.1227 55.74)",
-          "oklch(49.29% 0.1227 55.74)",
-          "oklch(60.71% 0.1227 55.74)",
-          "oklch(72.14% 0.1227 55.74)",
-          "oklch(83.57% 0.1227 55.74)",
-          "oklch(95.00% 0.1227 55.74)"
-        ]
+          "oklch(15.0% 0.12271 55.74)",
+          "oklch(26.4% 0.12271 55.74)",
+          "oklch(37.9% 0.12271 55.74)",
+          "oklch(49.3% 0.12271 55.74)",
+          "oklch(60.7% 0.12271 55.74)",
+          "oklch(72.1% 0.12271 55.74)",
+          "oklch(83.6% 0.12271 55.74)",
+          "oklch(95.0% 0.12271 55.74)"
+        ],
+        "canonical": "#e09055"
       },
       "ovation-cream": {
         "role": "primary",
         "displayName": "Ovation Cream",
         "tonalRamp": [
-          "oklch(15.00% 0.0869 84.58)",
-          "oklch(26.43% 0.0869 84.58)",
-          "oklch(37.86% 0.0869 84.58)",
-          "oklch(49.29% 0.0869 84.58)",
-          "oklch(60.71% 0.0869 84.58)",
-          "oklch(72.14% 0.0869 84.58)",
-          "oklch(83.57% 0.0869 84.58)",
-          "oklch(95.00% 0.0869 84.58)"
-        ]
+          "oklch(15.0% 0.08685 84.58)",
+          "oklch(26.4% 0.08685 84.58)",
+          "oklch(37.9% 0.08685 84.58)",
+          "oklch(49.3% 0.08685 84.58)",
+          "oklch(60.7% 0.08685 84.58)",
+          "oklch(72.1% 0.08685 84.58)",
+          "oklch(83.6% 0.08685 84.58)",
+          "oklch(95.0% 0.08685 84.58)"
+        ],
+        "canonical": "#ffe0a1"
       },
       "heart-rose": {
         "role": "primary",
         "displayName": "Heart Rose",
         "tonalRamp": [
-          "oklch(15.00% 0.1467 4.68)",
-          "oklch(26.43% 0.1467 4.68)",
-          "oklch(37.86% 0.1467 4.68)",
-          "oklch(49.29% 0.1467 4.68)",
-          "oklch(60.71% 0.1467 4.68)",
-          "oklch(72.14% 0.1467 4.68)",
-          "oklch(83.57% 0.1467 4.68)",
-          "oklch(95.00% 0.1467 4.68)"
-        ]
+          "oklch(15.0% 0.14672 4.68)",
+          "oklch(26.4% 0.14672 4.68)",
+          "oklch(37.9% 0.14672 4.68)",
+          "oklch(49.3% 0.14672 4.68)",
+          "oklch(60.7% 0.14672 4.68)",
+          "oklch(72.1% 0.14672 4.68)",
+          "oklch(83.6% 0.14672 4.68)",
+          "oklch(95.0% 0.14672 4.68)"
+        ],
+        "canonical": "#ee7998"
       },
       "heart-pale": {
         "role": "primary",
         "displayName": "Heart Pale",
         "tonalRamp": [
-          "oklch(15.00% 0.0486 2.10)",
-          "oklch(26.43% 0.0486 2.10)",
-          "oklch(37.86% 0.0486 2.10)",
-          "oklch(49.29% 0.0486 2.10)",
-          "oklch(60.71% 0.0486 2.10)",
-          "oklch(72.14% 0.0486 2.10)",
-          "oklch(83.57% 0.0486 2.10)",
-          "oklch(95.00% 0.0486 2.10)"
-        ]
+          "oklch(15.0% 0.04860 2.10)",
+          "oklch(26.4% 0.04860 2.10)",
+          "oklch(37.9% 0.04860 2.10)",
+          "oklch(49.3% 0.04860 2.10)",
+          "oklch(60.7% 0.04860 2.10)",
+          "oklch(72.1% 0.04860 2.10)",
+          "oklch(83.6% 0.04860 2.10)",
+          "oklch(95.0% 0.04860 2.10)"
+        ],
+        "canonical": "#ffd5df"
       },
       "heart-line": {
         "role": "primary",
         "displayName": "Heart Line",
         "tonalRamp": [
-          "oklch(15.00% 0.0728 4.76)",
-          "oklch(26.43% 0.0728 4.76)",
-          "oklch(37.86% 0.0728 4.76)",
-          "oklch(49.29% 0.0728 4.76)",
-          "oklch(60.71% 0.0728 4.76)",
-          "oklch(72.14% 0.0728 4.76)",
-          "oklch(83.57% 0.0728 4.76)",
-          "oklch(95.00% 0.0728 4.76)"
-        ]
+          "oklch(15.0% 0.07280 4.76)",
+          "oklch(26.4% 0.07280 4.76)",
+          "oklch(37.9% 0.07280 4.76)",
+          "oklch(49.3% 0.07280 4.76)",
+          "oklch(60.7% 0.07280 4.76)",
+          "oklch(72.1% 0.07280 4.76)",
+          "oklch(83.6% 0.07280 4.76)",
+          "oklch(95.0% 0.07280 4.76)"
+        ],
+        "canonical": "#ffc1ce"
       },
       "webcam-grey": {
         "role": "primary",
         "displayName": "Webcam Grey",
         "tonalRamp": [
-          "oklch(15.00% 0.0116 63.32)",
-          "oklch(26.43% 0.0116 63.32)",
-          "oklch(37.86% 0.0116 63.32)",
-          "oklch(49.29% 0.0116 63.32)",
-          "oklch(60.71% 0.0116 63.32)",
-          "oklch(72.14% 0.0116 63.32)",
-          "oklch(83.57% 0.0116 63.32)",
-          "oklch(95.00% 0.0116 63.32)"
-        ]
+          "oklch(15.0% 0.01160 63.32)",
+          "oklch(26.4% 0.01160 63.32)",
+          "oklch(37.9% 0.01160 63.32)",
+          "oklch(49.3% 0.01160 63.32)",
+          "oklch(60.7% 0.01160 63.32)",
+          "oklch(72.1% 0.01160 63.32)",
+          "oklch(83.6% 0.01160 63.32)",
+          "oklch(95.0% 0.01160 63.32)"
+        ],
+        "canonical": "#bdb6b0"
       },
       "webcam-paper": {
         "role": "primary",
         "displayName": "Webcam Paper",
         "tonalRamp": [
-          "oklch(15.00% 0.0163 95.23)",
-          "oklch(26.43% 0.0163 95.23)",
-          "oklch(37.86% 0.0163 95.23)",
-          "oklch(49.29% 0.0163 95.23)",
-          "oklch(60.71% 0.0163 95.23)",
-          "oklch(72.14% 0.0163 95.23)",
-          "oklch(83.57% 0.0163 95.23)",
-          "oklch(95.00% 0.0163 95.23)"
-        ]
+          "oklch(15.0% 0.01631 95.23)",
+          "oklch(26.4% 0.01631 95.23)",
+          "oklch(37.9% 0.01631 95.23)",
+          "oklch(49.3% 0.01631 95.23)",
+          "oklch(60.7% 0.01631 95.23)",
+          "oklch(72.1% 0.01631 95.23)",
+          "oklch(83.6% 0.01631 95.23)",
+          "oklch(95.0% 0.01631 95.23)"
+        ],
+        "canonical": "#ece9dd"
       },
       "monitor-border": {
         "role": "primary",
         "displayName": "Monitor Border",
         "tonalRamp": [
-          "oklch(15.00% 0.0000 89.88)",
-          "oklch(26.43% 0.0000 89.88)",
-          "oklch(37.86% 0.0000 89.88)",
-          "oklch(49.29% 0.0000 89.88)",
-          "oklch(60.71% 0.0000 89.88)",
-          "oklch(72.14% 0.0000 89.88)",
-          "oklch(83.57% 0.0000 89.88)",
-          "oklch(95.00% 0.0000 89.88)"
-        ]
+          "oklch(15.0% 0.00000 89.88)",
+          "oklch(26.4% 0.00000 89.88)",
+          "oklch(37.9% 0.00000 89.88)",
+          "oklch(49.3% 0.00000 89.88)",
+          "oklch(60.7% 0.00000 89.88)",
+          "oklch(72.1% 0.00000 89.88)",
+          "oklch(83.6% 0.00000 89.88)",
+          "oklch(95.0% 0.00000 89.88)"
+        ],
+        "canonical": "#9b9b9b"
       },
       "name-lavender": {
         "role": "secondary",
         "displayName": "Name Lavender",
         "tonalRamp": [
-          "oklch(15.00% 0.0995 286.54)",
-          "oklch(26.43% 0.0995 286.54)",
-          "oklch(37.86% 0.0995 286.54)",
-          "oklch(49.29% 0.0995 286.54)",
-          "oklch(60.71% 0.0995 286.54)",
-          "oklch(72.14% 0.0995 286.54)",
-          "oklch(83.57% 0.0995 286.54)",
-          "oklch(95.00% 0.0995 286.54)"
-        ]
+          "oklch(15.0% 0.09946 286.54)",
+          "oklch(26.4% 0.09946 286.54)",
+          "oklch(37.9% 0.09946 286.54)",
+          "oklch(49.3% 0.09946 286.54)",
+          "oklch(60.7% 0.09946 286.54)",
+          "oklch(72.1% 0.09946 286.54)",
+          "oklch(83.6% 0.09946 286.54)",
+          "oklch(95.0% 0.09946 286.54)"
+        ],
+        "canonical": "#bcb8ff"
       },
       "name-pale": {
         "role": "secondary",
         "displayName": "Name Pale",
         "tonalRamp": [
-          "oklch(15.00% 0.0289 301.00)",
-          "oklch(26.43% 0.0289 301.00)",
-          "oklch(37.86% 0.0289 301.00)",
-          "oklch(49.29% 0.0289 301.00)",
-          "oklch(60.71% 0.0289 301.00)",
-          "oklch(72.14% 0.0289 301.00)",
-          "oklch(83.57% 0.0289 301.00)",
-          "oklch(95.00% 0.0289 301.00)"
-        ]
+          "oklch(15.0% 0.02894 301.00)",
+          "oklch(26.4% 0.02894 301.00)",
+          "oklch(37.9% 0.02894 301.00)",
+          "oklch(49.3% 0.02894 301.00)",
+          "oklch(60.7% 0.02894 301.00)",
+          "oklch(72.1% 0.02894 301.00)",
+          "oklch(83.6% 0.02894 301.00)",
+          "oklch(95.0% 0.02894 301.00)"
+        ],
+        "canonical": "#f1eaff"
       },
       "white": {
         "role": "neutral",
         "displayName": "White",
         "tonalRamp": [
-          "oklch(15.00% 0.0000 89.88)",
-          "oklch(26.43% 0.0000 89.88)",
-          "oklch(37.86% 0.0000 89.88)",
-          "oklch(49.29% 0.0000 89.88)",
-          "oklch(60.71% 0.0000 89.88)",
-          "oklch(72.14% 0.0000 89.88)",
-          "oklch(83.57% 0.0000 89.88)",
-          "oklch(95.00% 0.0000 89.88)"
-        ]
+          "oklch(15.0% 0.00000 89.88)",
+          "oklch(26.4% 0.00000 89.88)",
+          "oklch(37.9% 0.00000 89.88)",
+          "oklch(49.3% 0.00000 89.88)",
+          "oklch(60.7% 0.00000 89.88)",
+          "oklch(72.1% 0.00000 89.88)",
+          "oklch(83.6% 0.00000 89.88)",
+          "oklch(95.0% 0.00000 89.88)"
+        ],
+        "canonical": "#fff"
       },
       "information-ink": {
         "role": "neutral",
-        "displayName": "Information Ink"
+        "displayName": "Information Ink",
+        "canonical": "rgba(30, 23, 29, 0.95)",
+        "tonalRamp": [
+          "oklch(15.0% 0.01581 330.90)",
+          "oklch(26.4% 0.01581 330.90)",
+          "oklch(37.9% 0.01581 330.90)",
+          "oklch(49.3% 0.01581 330.90)",
+          "oklch(60.7% 0.01581 330.90)",
+          "oklch(72.1% 0.01581 330.90)",
+          "oklch(83.6% 0.01581 330.90)",
+          "oklch(95.0% 0.01581 330.90)"
+        ]
       },
       "studio-peach": {
         "role": "secondary",
         "displayName": "Studio Peach",
         "tonalRamp": [
-          "oklch(15.00% 0.0790 40.09)",
-          "oklch(26.43% 0.0790 40.09)",
-          "oklch(37.86% 0.0790 40.09)",
-          "oklch(49.29% 0.0790 40.09)",
-          "oklch(60.71% 0.0790 40.09)",
-          "oklch(72.14% 0.0790 40.09)",
-          "oklch(83.57% 0.0790 40.09)",
-          "oklch(95.00% 0.0790 40.09)"
-        ]
+          "oklch(15.0% 0.07901 40.09)",
+          "oklch(26.4% 0.07901 40.09)",
+          "oklch(37.9% 0.07901 40.09)",
+          "oklch(49.3% 0.07901 40.09)",
+          "oklch(60.7% 0.07901 40.09)",
+          "oklch(72.1% 0.07901 40.09)",
+          "oklch(83.6% 0.07901 40.09)",
+          "oklch(95.0% 0.07901 40.09)"
+        ],
+        "canonical": "#ffc0aa"
       },
       "studio-peach-ink": {
         "role": "neutral",
         "displayName": "Studio Peach Ink",
         "tonalRamp": [
-          "oklch(15.00% 0.0183 35.76)",
-          "oklch(26.43% 0.0183 35.76)",
-          "oklch(37.86% 0.0183 35.76)",
-          "oklch(49.29% 0.0183 35.76)",
-          "oklch(60.71% 0.0183 35.76)",
-          "oklch(72.14% 0.0183 35.76)",
-          "oklch(83.57% 0.0183 35.76)",
-          "oklch(95.00% 0.0183 35.76)"
-        ]
+          "oklch(15.0% 0.01831 35.76)",
+          "oklch(26.4% 0.01831 35.76)",
+          "oklch(37.9% 0.01831 35.76)",
+          "oklch(49.3% 0.01831 35.76)",
+          "oklch(60.7% 0.01831 35.76)",
+          "oklch(72.1% 0.01831 35.76)",
+          "oklch(83.6% 0.01831 35.76)",
+          "oklch(95.0% 0.01831 35.76)"
+        ],
+        "canonical": "#281d1a"
       },
       "studio-cyan": {
         "role": "secondary",
         "displayName": "Studio Cyan",
         "tonalRamp": [
-          "oklch(15.00% 0.0423 194.28)",
-          "oklch(26.43% 0.0423 194.28)",
-          "oklch(37.86% 0.0423 194.28)",
-          "oklch(49.29% 0.0423 194.28)",
-          "oklch(60.71% 0.0423 194.28)",
-          "oklch(72.14% 0.0423 194.28)",
-          "oklch(83.57% 0.0423 194.28)",
-          "oklch(95.00% 0.0423 194.28)"
-        ]
+          "oklch(15.0% 0.04228 194.28)",
+          "oklch(26.4% 0.04228 194.28)",
+          "oklch(37.9% 0.04228 194.28)",
+          "oklch(49.3% 0.04228 194.28)",
+          "oklch(60.7% 0.04228 194.28)",
+          "oklch(72.1% 0.04228 194.28)",
+          "oklch(83.6% 0.04228 194.28)",
+          "oklch(95.0% 0.04228 194.28)"
+        ],
+        "canonical": "#83aaa9"
       },
       "studio-bar-cyan": {
         "role": "secondary",
         "displayName": "Studio Bar Cyan",
         "tonalRamp": [
-          "oklch(15.00% 0.0588 189.00)",
-          "oklch(26.43% 0.0588 189.00)",
-          "oklch(37.86% 0.0588 189.00)",
-          "oklch(49.29% 0.0588 189.00)",
-          "oklch(60.71% 0.0588 189.00)",
-          "oklch(72.14% 0.0588 189.00)",
-          "oklch(83.57% 0.0588 189.00)",
-          "oklch(95.00% 0.0588 189.00)"
-        ]
+          "oklch(15.0% 0.05875 189.00)",
+          "oklch(26.4% 0.05875 189.00)",
+          "oklch(37.9% 0.05875 189.00)",
+          "oklch(49.3% 0.05875 189.00)",
+          "oklch(60.7% 0.05875 189.00)",
+          "oklch(72.1% 0.05875 189.00)",
+          "oklch(83.6% 0.05875 189.00)",
+          "oklch(95.0% 0.05875 189.00)"
+        ],
+        "canonical": "#82bab5"
       },
       "studio-cue": {
         "role": "secondary",
         "displayName": "Studio Cue",
         "tonalRamp": [
-          "oklch(15.00% 0.0720 40.21)",
-          "oklch(26.43% 0.0720 40.21)",
-          "oklch(37.86% 0.0720 40.21)",
-          "oklch(49.29% 0.0720 40.21)",
-          "oklch(60.71% 0.0720 40.21)",
-          "oklch(72.14% 0.0720 40.21)",
-          "oklch(83.57% 0.0720 40.21)",
-          "oklch(95.00% 0.0720 40.21)"
-        ]
+          "oklch(15.0% 0.07198 40.21)",
+          "oklch(26.4% 0.07198 40.21)",
+          "oklch(37.9% 0.07198 40.21)",
+          "oklch(49.3% 0.07198 40.21)",
+          "oklch(60.7% 0.07198 40.21)",
+          "oklch(72.1% 0.07198 40.21)",
+          "oklch(83.6% 0.07198 40.21)",
+          "oklch(95.0% 0.07198 40.21)"
+        ],
+        "canonical": "#c18b78"
       },
       "studio-playhead": {
         "role": "secondary",
         "displayName": "Studio Playhead",
         "tonalRamp": [
-          "oklch(15.00% 0.0344 42.70)",
-          "oklch(26.43% 0.0344 42.70)",
-          "oklch(37.86% 0.0344 42.70)",
-          "oklch(49.29% 0.0344 42.70)",
-          "oklch(60.71% 0.0344 42.70)",
-          "oklch(72.14% 0.0344 42.70)",
-          "oklch(83.57% 0.0344 42.70)",
-          "oklch(95.00% 0.0344 42.70)"
-        ]
+          "oklch(15.0% 0.03436 42.70)",
+          "oklch(26.4% 0.03436 42.70)",
+          "oklch(37.9% 0.03436 42.70)",
+          "oklch(49.3% 0.03436 42.70)",
+          "oklch(60.7% 0.03436 42.70)",
+          "oklch(72.1% 0.03436 42.70)",
+          "oklch(83.6% 0.03436 42.70)",
+          "oklch(95.0% 0.03436 42.70)"
+        ],
+        "canonical": "#ffe3d8"
       },
       "studio-ink": {
         "role": "neutral",
         "displayName": "Studio Ink",
         "tonalRamp": [
-          "oklch(15.00% 0.0085 264.38)",
-          "oklch(26.43% 0.0085 264.38)",
-          "oklch(37.86% 0.0085 264.38)",
-          "oklch(49.29% 0.0085 264.38)",
-          "oklch(60.71% 0.0085 264.38)",
-          "oklch(72.14% 0.0085 264.38)",
-          "oklch(83.57% 0.0085 264.38)",
-          "oklch(95.00% 0.0085 264.38)"
-        ]
+          "oklch(15.0% 0.00846 264.38)",
+          "oklch(26.4% 0.00846 264.38)",
+          "oklch(37.9% 0.00846 264.38)",
+          "oklch(49.3% 0.00846 264.38)",
+          "oklch(60.7% 0.00846 264.38)",
+          "oklch(72.1% 0.00846 264.38)",
+          "oklch(83.6% 0.00846 264.38)",
+          "oklch(95.0% 0.00846 264.38)"
+        ],
+        "canonical": "#17191d"
       },
       "studio-panel": {
         "role": "neutral",
         "displayName": "Studio Panel",
         "tonalRamp": [
-          "oklch(15.00% 0.0104 260.70)",
-          "oklch(26.43% 0.0104 260.70)",
-          "oklch(37.86% 0.0104 260.70)",
-          "oklch(49.29% 0.0104 260.70)",
-          "oklch(60.71% 0.0104 260.70)",
-          "oklch(72.14% 0.0104 260.70)",
-          "oklch(83.57% 0.0104 260.70)",
-          "oklch(95.00% 0.0104 260.70)"
-        ]
+          "oklch(15.0% 0.01041 260.70)",
+          "oklch(26.4% 0.01041 260.70)",
+          "oklch(37.9% 0.01041 260.70)",
+          "oklch(49.3% 0.01041 260.70)",
+          "oklch(60.7% 0.01041 260.70)",
+          "oklch(72.1% 0.01041 260.70)",
+          "oklch(83.6% 0.01041 260.70)",
+          "oklch(95.0% 0.01041 260.70)"
+        ],
+        "canonical": "#202328"
       },
       "studio-stage": {
         "role": "neutral",
         "displayName": "Studio Stage",
         "tonalRamp": [
-          "oklch(15.00% 0.0087 264.35)",
-          "oklch(26.43% 0.0087 264.35)",
-          "oklch(37.86% 0.0087 264.35)",
-          "oklch(49.29% 0.0087 264.35)",
-          "oklch(60.71% 0.0087 264.35)",
-          "oklch(72.14% 0.0087 264.35)",
-          "oklch(83.57% 0.0087 264.35)",
-          "oklch(95.00% 0.0087 264.35)"
-        ]
+          "oklch(15.0% 0.00870 264.35)",
+          "oklch(26.4% 0.00870 264.35)",
+          "oklch(37.9% 0.00870 264.35)",
+          "oklch(49.3% 0.00870 264.35)",
+          "oklch(60.7% 0.00870 264.35)",
+          "oklch(72.1% 0.00870 264.35)",
+          "oklch(83.6% 0.00870 264.35)",
+          "oklch(95.0% 0.00870 264.35)"
+        ],
+        "canonical": "#121418"
       },
       "studio-timeline": {
         "role": "neutral",
         "displayName": "Studio Timeline",
         "tonalRamp": [
-          "oklch(15.00% 0.0106 260.69)",
-          "oklch(26.43% 0.0106 260.69)",
-          "oklch(37.86% 0.0106 260.69)",
-          "oklch(49.29% 0.0106 260.69)",
-          "oklch(60.71% 0.0106 260.69)",
-          "oklch(72.14% 0.0106 260.69)",
-          "oklch(83.57% 0.0106 260.69)",
-          "oklch(95.00% 0.0106 260.69)"
-        ]
+          "oklch(15.0% 0.01064 260.69)",
+          "oklch(26.4% 0.01064 260.69)",
+          "oklch(37.9% 0.01064 260.69)",
+          "oklch(49.3% 0.01064 260.69)",
+          "oklch(60.7% 0.01064 260.69)",
+          "oklch(72.1% 0.01064 260.69)",
+          "oklch(83.6% 0.01064 260.69)",
+          "oklch(95.0% 0.01064 260.69)"
+        ],
+        "canonical": "#1b1e23"
       },
       "studio-text": {
         "role": "neutral",
         "displayName": "Studio Text",
         "tonalRamp": [
-          "oklch(15.00% 0.0046 258.32)",
-          "oklch(26.43% 0.0046 258.32)",
-          "oklch(37.86% 0.0046 258.32)",
-          "oklch(49.29% 0.0046 258.32)",
-          "oklch(60.71% 0.0046 258.32)",
-          "oklch(72.14% 0.0046 258.32)",
-          "oklch(83.57% 0.0046 258.32)",
-          "oklch(95.00% 0.0046 258.32)"
-        ]
+          "oklch(15.0% 0.00456 258.32)",
+          "oklch(26.4% 0.00456 258.32)",
+          "oklch(37.9% 0.00456 258.32)",
+          "oklch(49.3% 0.00456 258.32)",
+          "oklch(60.7% 0.00456 258.32)",
+          "oklch(72.1% 0.00456 258.32)",
+          "oklch(83.6% 0.00456 258.32)",
+          "oklch(95.0% 0.00456 258.32)"
+        ],
+        "canonical": "#eef0f3"
       },
       "studio-muted": {
         "role": "neutral",
         "displayName": "Studio Muted",
         "tonalRamp": [
-          "oklch(15.00% 0.0159 260.73)",
-          "oklch(26.43% 0.0159 260.73)",
-          "oklch(37.86% 0.0159 260.73)",
-          "oklch(49.29% 0.0159 260.73)",
-          "oklch(60.71% 0.0159 260.73)",
-          "oklch(72.14% 0.0159 260.73)",
-          "oklch(83.57% 0.0159 260.73)",
-          "oklch(95.00% 0.0159 260.73)"
-        ]
+          "oklch(15.0% 0.01590 260.73)",
+          "oklch(26.4% 0.01590 260.73)",
+          "oklch(37.9% 0.01590 260.73)",
+          "oklch(49.3% 0.01590 260.73)",
+          "oklch(60.7% 0.01590 260.73)",
+          "oklch(72.1% 0.01590 260.73)",
+          "oklch(83.6% 0.01590 260.73)",
+          "oklch(95.0% 0.01590 260.73)"
+        ],
+        "canonical": "#a5abb5"
       },
       "studio-label": {
         "role": "neutral",
         "displayName": "Studio Label",
         "tonalRamp": [
-          "oklch(15.00% 0.0124 259.82)",
-          "oklch(26.43% 0.0124 259.82)",
-          "oklch(37.86% 0.0124 259.82)",
-          "oklch(49.29% 0.0124 259.82)",
-          "oklch(60.71% 0.0124 259.82)",
-          "oklch(72.14% 0.0124 259.82)",
-          "oklch(83.57% 0.0124 259.82)",
-          "oklch(95.00% 0.0124 259.82)"
-        ]
+          "oklch(15.0% 0.01243 259.82)",
+          "oklch(26.4% 0.01243 259.82)",
+          "oklch(37.9% 0.01243 259.82)",
+          "oklch(49.3% 0.01243 259.82)",
+          "oklch(60.7% 0.01243 259.82)",
+          "oklch(72.1% 0.01243 259.82)",
+          "oklch(83.6% 0.01243 259.82)",
+          "oklch(95.0% 0.01243 259.82)"
+        ],
+        "canonical": "#c4c9d1"
       },
       "studio-control": {
         "role": "neutral",
         "displayName": "Studio Control",
         "tonalRamp": [
-          "oklch(15.00% 0.0139 261.70)",
-          "oklch(26.43% 0.0139 261.70)",
-          "oklch(37.86% 0.0139 261.70)",
-          "oklch(49.29% 0.0139 261.70)",
-          "oklch(60.71% 0.0139 261.70)",
-          "oklch(72.14% 0.0139 261.70)",
-          "oklch(83.57% 0.0139 261.70)",
-          "oklch(95.00% 0.0139 261.70)"
-        ]
+          "oklch(15.0% 0.01393 261.70)",
+          "oklch(26.4% 0.01393 261.70)",
+          "oklch(37.9% 0.01393 261.70)",
+          "oklch(49.3% 0.01393 261.70)",
+          "oklch(60.7% 0.01393 261.70)",
+          "oklch(72.1% 0.01393 261.70)",
+          "oklch(83.6% 0.01393 261.70)",
+          "oklch(95.0% 0.01393 261.70)"
+        ],
+        "canonical": "#292d34"
       },
       "studio-control-hover": {
         "role": "neutral",
         "displayName": "Studio Control Hover",
         "tonalRamp": [
-          "oklch(15.00% 0.0174 258.37)",
-          "oklch(26.43% 0.0174 258.37)",
-          "oklch(37.86% 0.0174 258.37)",
-          "oklch(49.29% 0.0174 258.37)",
-          "oklch(60.71% 0.0174 258.37)",
-          "oklch(72.14% 0.0174 258.37)",
-          "oklch(83.57% 0.0174 258.37)",
-          "oklch(95.00% 0.0174 258.37)"
-        ]
+          "oklch(15.0% 0.01740 258.37)",
+          "oklch(26.4% 0.01740 258.37)",
+          "oklch(37.9% 0.01740 258.37)",
+          "oklch(49.3% 0.01740 258.37)",
+          "oklch(60.7% 0.01740 258.37)",
+          "oklch(72.1% 0.01740 258.37)",
+          "oklch(83.6% 0.01740 258.37)",
+          "oklch(95.0% 0.01740 258.37)"
+        ],
+        "canonical": "#3b414a"
       },
       "studio-border": {
         "role": "neutral",
         "displayName": "Studio Border",
         "tonalRamp": [
-          "oklch(15.00% 0.0155 259.81)",
-          "oklch(26.43% 0.0155 259.81)",
-          "oklch(37.86% 0.0155 259.81)",
-          "oklch(49.29% 0.0155 259.81)",
-          "oklch(60.71% 0.0155 259.81)",
-          "oklch(72.14% 0.0155 259.81)",
-          "oklch(83.57% 0.0155 259.81)",
-          "oklch(95.00% 0.0155 259.81)"
-        ]
+          "oklch(15.0% 0.01550 259.81)",
+          "oklch(26.4% 0.01550 259.81)",
+          "oklch(37.9% 0.01550 259.81)",
+          "oklch(49.3% 0.01550 259.81)",
+          "oklch(60.7% 0.01550 259.81)",
+          "oklch(72.1% 0.01550 259.81)",
+          "oklch(83.6% 0.01550 259.81)",
+          "oklch(95.0% 0.01550 259.81)"
+        ],
+        "canonical": "#363b43"
       },
       "studio-selection": {
         "role": "neutral",
         "displayName": "Studio Selection",
         "tonalRamp": [
-          "oklch(15.00% 0.0167 305.52)",
-          "oklch(26.43% 0.0167 305.52)",
-          "oklch(37.86% 0.0167 305.52)",
-          "oklch(49.29% 0.0167 305.52)",
-          "oklch(60.71% 0.0167 305.52)",
-          "oklch(72.14% 0.0167 305.52)",
-          "oklch(83.57% 0.0167 305.52)",
-          "oklch(95.00% 0.0167 305.52)"
-        ]
+          "oklch(15.0% 0.01317 346.14)",
+          "oklch(26.4% 0.01317 346.14)",
+          "oklch(37.9% 0.01317 346.14)",
+          "oklch(49.3% 0.01317 346.14)",
+          "oklch(60.7% 0.01317 346.14)",
+          "oklch(72.1% 0.01317 346.14)",
+          "oklch(83.6% 0.01317 346.14)",
+          "oklch(95.0% 0.01317 346.14)"
+        ],
+        "canonical": "#3c3438"
       },
       "studio-error": {
         "role": "secondary",
         "displayName": "Studio Error",
         "tonalRamp": [
-          "oklch(15.00% 0.1162 12.01)",
-          "oklch(26.43% 0.1162 12.01)",
-          "oklch(37.86% 0.1162 12.01)",
-          "oklch(49.29% 0.1162 12.01)",
-          "oklch(60.71% 0.1162 12.01)",
-          "oklch(72.14% 0.1162 12.01)",
-          "oklch(83.57% 0.1162 12.01)",
-          "oklch(95.00% 0.1162 12.01)"
-        ]
+          "oklch(15.0% 0.11618 12.01)",
+          "oklch(26.4% 0.11618 12.01)",
+          "oklch(37.9% 0.11618 12.01)",
+          "oklch(49.3% 0.11618 12.01)",
+          "oklch(60.7% 0.11618 12.01)",
+          "oklch(72.1% 0.11618 12.01)",
+          "oklch(83.6% 0.11618 12.01)",
+          "oklch(95.0% 0.11618 12.01)"
+        ],
+        "canonical": "#ff9eaa"
       },
       "cash-paper": {
         "role": "secondary",
         "displayName": "Cash Paper",
         "tonalRamp": [
-          "oklch(15.00% 0.0655 85.82)",
-          "oklch(26.43% 0.0655 85.82)",
-          "oklch(37.86% 0.0655 85.82)",
-          "oklch(49.29% 0.0655 85.82)",
-          "oklch(60.71% 0.0655 85.82)",
-          "oklch(72.14% 0.0655 85.82)",
-          "oklch(83.57% 0.0655 85.82)",
-          "oklch(95.00% 0.0655 85.82)"
-        ]
+          "oklch(15.0% 0.06547 85.82)",
+          "oklch(26.4% 0.06547 85.82)",
+          "oklch(37.9% 0.06547 85.82)",
+          "oklch(49.3% 0.06547 85.82)",
+          "oklch(60.7% 0.06547 85.82)",
+          "oklch(72.1% 0.06547 85.82)",
+          "oklch(83.6% 0.06547 85.82)",
+          "oklch(95.0% 0.06547 85.82)"
+        ],
+        "canonical": "#f8e2b3"
       },
       "cash-ink": {
         "role": "secondary",
         "displayName": "Cash Ink",
         "tonalRamp": [
-          "oklch(15.00% 0.0327 61.10)",
-          "oklch(26.43% 0.0327 61.10)",
-          "oklch(37.86% 0.0327 61.10)",
-          "oklch(49.29% 0.0327 61.10)",
-          "oklch(60.71% 0.0327 61.10)",
-          "oklch(72.14% 0.0327 61.10)",
-          "oklch(83.57% 0.0327 61.10)",
-          "oklch(95.00% 0.0327 61.10)"
+          "oklch(15.0% 0.03272 61.10)",
+          "oklch(26.4% 0.03272 61.10)",
+          "oklch(37.9% 0.03272 61.10)",
+          "oklch(49.3% 0.03272 61.10)",
+          "oklch(60.7% 0.03272 61.10)",
+          "oklch(72.1% 0.03272 61.10)",
+          "oklch(83.6% 0.03272 61.10)",
+          "oklch(95.0% 0.03272 61.10)"
+        ],
+        "canonical": "#524133"
+      },
+      "information-peach": {
+        "role": "neutral",
+        "displayName": "Information Peach",
+        "canonical": "#ffccb8",
+        "tonalRamp": [
+          "oklch(15.0% 0.06426 42.47)",
+          "oklch(26.4% 0.06426 42.47)",
+          "oklch(37.9% 0.06426 42.47)",
+          "oklch(49.3% 0.06426 42.47)",
+          "oklch(60.7% 0.06426 42.47)",
+          "oklch(72.1% 0.06426 42.47)",
+          "oklch(83.6% 0.06426 42.47)",
+          "oklch(95.0% 0.06426 42.47)"
+        ]
+      },
+      "information-white": {
+        "role": "neutral",
+        "displayName": "Information White",
+        "canonical": "#fff6f1",
+        "tonalRamp": [
+          "oklch(15.0% 0.01177 51.32)",
+          "oklch(26.4% 0.01177 51.32)",
+          "oklch(37.9% 0.01177 51.32)",
+          "oklch(49.3% 0.01177 51.32)",
+          "oklch(60.7% 0.01177 51.32)",
+          "oklch(72.1% 0.01177 51.32)",
+          "oklch(83.6% 0.01177 51.32)",
+          "oklch(95.0% 0.01177 51.32)"
+        ]
+      },
+      "information-edge": {
+        "role": "neutral",
+        "displayName": "Information Edge",
+        "canonical": "#d89885",
+        "tonalRamp": [
+          "oklch(15.0% 0.08227 37.22)",
+          "oklch(26.4% 0.08227 37.22)",
+          "oklch(37.9% 0.08227 37.22)",
+          "oklch(49.3% 0.08227 37.22)",
+          "oklch(60.7% 0.08227 37.22)",
+          "oklch(72.1% 0.08227 37.22)",
+          "oklch(83.6% 0.08227 37.22)",
+          "oklch(95.0% 0.08227 37.22)"
         ]
       }
+    },
+    "authoring": {
+      "speech": "Current data and selected installed Windows SAPI voice generate actual nickname/amount/message clips, hashed and invalidated on data change. Two voices available on reviewed host; production Google configuration unchanged.",
+      "shortcuts": "Polish eleven-row accessible modal with initial/return focus, trapped Tab and Escape dismissal.",
+      "pwa": "Public /motion-studio entry; standalone manifest, owned icons, install detection, explicit waiting-worker update restart and warmed shell modules/styles/fonts.",
+      "capabilities": "authoringServices adapter exposes export, TTS, persistence. Local backend unavailable: visible Polish status; shell remains. Large music/scene media and service responses are not cached; no offline server replacement or desktop-host migration."
     }
   },
   "components": [
@@ -780,7 +903,7 @@
       "kind": "button",
       "refersTo": "studio-button-primary",
       "description": "Compact explicit Studio action; peach marks primary/selected state.",
-      "html": "<button class=\"ds-studio-primary\" type=\"button\">Render Export</button>",
+      "html": "<button class=\"ds-studio-primary\" type=\"button\">Renderuj eksport</button>",
       "css": ".ds-studio-primary{font:12px/1.45 Poppins,sans-serif;color:#eef0f3;background:#292d34;border:1px solid #363b43;border-radius:3px;padding:4px 7px;min-height:26px;cursor:pointer;white-space:nowrap;}.ds-studio-primary:hover{background:#3b414a;}.ds-studio-primary:focus-visible{outline:2px solid #ffc0aa;outline-offset:-2px;}.ds-studio-primary{background:#ffc0aa;border-color:#ffc0aa;color:#281d1a;font-weight:600;}.ds-studio-primary:disabled{opacity:.45;cursor:wait;}"
     },
     {
@@ -788,7 +911,7 @@
       "kind": "input",
       "refersTo": "studio-field",
       "description": "Explicit compact label and native field with peach focus.",
-      "html": "<label class=\"ds-field-label\" for=\"ds-replay-seed\">Replay seed</label><input class=\"ds-field\" id=\"ds-replay-seed\" value=\"kaaajka-motion-01\">",
+      "html": "<label class=\"ds-field-label\" for=\"ds-replay-seed\">Ziarno losowania</label><input class=\"ds-field\" id=\"ds-replay-seed\" value=\"kaaajka-motion-01\">",
       "css": ".ds-field-label{display:block;margin-bottom:5px;color:#c4c9d1;font:11px/1.45 Poppins,sans-serif;}.ds-field{font:12px/1.45 Poppins,sans-serif;color:#eef0f3;background:#292d34;border:1px solid #363b43;border-radius:3px;padding:4px 7px;min-height:26px;width:100%;}.ds-field:focus-visible{outline:2px solid #ffc0aa;outline-offset:-2px;}"
     },
     {
@@ -796,7 +919,7 @@
       "kind": "nav",
       "refersTo": "studio-button-primary",
       "description": "Dense pressed-state buttons across the inspector header.",
-      "html": "<nav class=\"ds-tabs\" aria-label=\"Inspector\"><button type=\"button\" aria-pressed=\"true\">Donation data</button><button type=\"button\" aria-pressed=\"false\">Inspector</button><button type=\"button\" aria-pressed=\"false\">Export</button></nav>",
+      "html": "<nav class=\"ds-tabs\" aria-label=\"Inspektor\"><button type=\"button\" aria-pressed=\"true\">Dane donate’a</button><button type=\"button\" aria-pressed=\"false\">Inspektor</button><button type=\"button\" aria-pressed=\"false\">Eksport</button></nav>",
       "css": ".ds-tabs{display:flex;height:30px;background:#202328;border-bottom:1px solid #363b43;}.ds-tabs button{font:10px/1.45 Poppins,sans-serif;color:#eef0f3;background:transparent;border:0;border-radius:0;flex:1;cursor:pointer;}.ds-tabs button[aria-pressed=\"true\"]{background:#30343a;color:#ffc0aa;box-shadow:inset 0 -2px #c8937f;}.ds-tabs button:hover{background:#3b414a;}.ds-tabs button:focus-visible{outline:2px solid #ffc0aa;outline-offset:-2px;}"
     },
     {
@@ -804,7 +927,7 @@
       "kind": "custom",
       "refersTo": "studio-layer-selected",
       "description": "Muted plum selection, peach layer label and independent Lucide eye action.",
-      "html": "<div class=\"ds-layer\"><button type=\"button\">Source media</button><button type=\"button\" aria-label=\"Show Source media\" title=\"Show Source media\" aria-pressed=\"true\"><svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" aria-hidden=\"true\"><path d=\"M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12Z\"/><circle cx=\"12\" cy=\"12\" r=\"3\"/></svg></button></div>",
+      "html": "<div class=\"ds-layer\"><button type=\"button\">Media źródłowe</button><button type=\"button\" aria-label=\"Pokaż media źródłowe\" title=\"Pokaż media źródłowe\" aria-pressed=\"true\"><svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" aria-hidden=\"true\"><path d=\"M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12Z\"/><circle cx=\"12\" cy=\"12\" r=\"3\"/></svg></button></div>",
       "css": ".ds-layer{display:flex;align-items:center;gap:2px;height:30px;background:#3c3438;border-radius:2px;}.ds-layer button{font:11px/1.45 Poppins,sans-serif;color:#ffc0aa;background:transparent;border:0;padding:4px 5px;cursor:pointer;}.ds-layer button:first-child{flex:1;text-align:left;}.ds-layer button:last-child{width:27px;height:26px;padding:4px;color:#a5abb5;}.ds-layer button:hover{background:#3b414a;}.ds-layer :focus-visible{outline:2px solid #ffc0aa;outline-offset:-2px;}"
     },
     {
@@ -812,21 +935,28 @@
       "kind": "button",
       "refersTo": "studio-hero-cue",
       "description": "Muted-peach hero cue label in the multitrack timeline.",
-      "html": "<button class=\"ds-hero-cue\" type=\"button\">heroDrop</button>",
+      "html": "<button class=\"ds-hero-cue\" type=\"button\">Kulminacja</button>",
       "css": ".ds-hero-cue{font:9px/1.45 Poppins,sans-serif;color:#17191d;background:#c18b78;border:0;border-radius:2px;padding:3px 7px;height:23px;max-width:118px;cursor:pointer;}.ds-hero-cue:hover{background:#ffc0aa;}.ds-hero-cue:focus-visible{outline:2px solid #ffc0aa;outline-offset:2px;}"
     },
     {
       "name": "Quiet information card",
       "kind": "card",
       "refersTo": "information-card",
-      "description": "Heart reading state at 30% scale; bounded flex message follows the wrapped header.",
+      "description": "Content-sized warm Information at 30% specimen scale; fixed header and bounded message body.",
       "html": "<div class=\"ds-information-specimen\"><article class=\"ds-information-card\"><div class=\"ds-information-header\"><strong>Michaś</strong><span>150,00 zł</span></div><div class=\"ds-information-message\">Dzięki za wsparcie!\nPełna wiadomość zachowuje podział wierszy.</div></article></div>",
-      "css": ".ds-information-specimen{width:372px;height:186px;position:relative}.ds-information-card{position:absolute;left:0;top:0;width:1240px;height:620px;box-sizing:border-box;display:flex;flex-direction:column;overflow:hidden;padding:42px 48px;background:rgba(9,12,18,.87);border-radius:14px;box-shadow:0 18px 60px rgba(0,0,0,.25);color:#fff;font-family:Poppins,sans-serif;transform:scale(.3);transform-origin:top left}.ds-information-header{flex:none;display:flex;justify-content:space-between;align-items:baseline;gap:35px;padding-bottom:22px;color:#ffd5df;font-size:40px;line-height:1.25}.ds-information-header strong{font-weight:600;overflow-wrap:anywhere;min-width:0}.ds-information-header span{flex-shrink:0;font-weight:500}.ds-information-message{font-size:32px;line-height:1.6;flex:1;min-height:0;overflow:hidden;white-space:pre-wrap;overflow-wrap:anywhere}"
+      "css": ".ds-information-specimen{width:288px;min-height:105px;position:relative}.ds-information-card{position:absolute;left:0;top:0;width:max-content;min-width:560px;max-width:960px;height:auto;max-height:600px;box-sizing:border-box;display:flex;flex-direction:column;overflow:hidden;padding:28px 36px 32px;background:rgba(30,23,29,.95);border:2px solid #d89885;border-radius:20px 20px 30px 12px;box-shadow:0 8px 0 rgba(67,38,40,.6),0 20px 45px rgba(0,0,0,.22);color:#fff6f1;font-family:Poppins,sans-serif;transform:scale(.3);transform-origin:top left}.ds-information-header{flex:none;display:flex;justify-content:space-between;align-items:baseline;gap:36px;padding-bottom:18px;color:#ffccb8;font-size:28px;line-height:1.3}.ds-information-header strong{font-weight:600;overflow-wrap:anywhere;min-width:0}.ds-information-header span{flex-shrink:0;font-weight:500;font-size:26px;white-space:nowrap}.ds-information-message{font-size:30px;line-height:1.55;flex:0 1 auto;min-height:0;overflow:hidden;white-space:pre-wrap;overflow-wrap:anywhere}"
+    },
+    {
+      "name": "Polish contextual help",
+      "kind": "custom",
+      "description": "Readable warm graphite help explaining a timeline concept and its effect.",
+      "html": "<aside class=\"ds-help\"><strong>Kulminacja</strong><p>Punkt, w którym kwota i główny gest sceny spotykają się z muzyką.</p></aside>",
+      "css": ".ds-help{width:310px;padding:14px 16px;color:#f8e9e1;background:#302a2a;border:1px solid #967065;border-radius:8px;box-shadow:0 8px 28px #0009;font:13px/1.6 Poppins,sans-serif}.ds-help strong{color:#ffccb8}.ds-help p{margin:7px 0 0}"
     }
   ],
   "narrative": {
     "northStar": "Seven GIFs Conduct the Show",
-    "overview": "Each live donation is a miniature music video conducted by Kaaajka's selected GIF, its existing track and its legacy joke. The room dancer calls for a two-step, the masked dancer leaves transparent echoes, the rodent cuts through a film strip, the seated portrait unrolls paper, the crowd opens its arms, the streamer passes a heart, and the tiny webcam interrupts through a monitor wall. Exuberance and ascending importance come from these subjects, their distinct layouts and their timed donor payoffs.\n\nShared infrastructure supports those seven compositions: a transparent broadcast stage, solid donor typography, absolute music time, source-frame seeking and a calm complete-message landing. Production-v2 extends this world with deliberate negative space, source-specific cash payoffs and selective community stickers. The supplied peach channel banner, controller avatar and white bunny emotes establish warmth and expressive reaction; they do not recolor the selected GIFs.\n\nMotion Studio is a professional graphite authoring desk: tree, central fitted stage, inspector and multitrack timeline. Peach marks selection and deliberate actions; cyan carries measurement and the small bunny identity mark. This document records the built production-v2 expansion of direction seed `d2f60c0f`, with `.motion-qa/v2/` captures as visual evidence. The old SAY MY NAME composition remains a Studio-only Donate8 exploration sharing Donate7's track. Unrelated legacy overlay styles remain outside this document's scope.",
+    "overview": "Each live donation is a miniature music video conducted by Kaaajka's selected GIF, its existing track and its legacy joke. The room dancer calls for a two-step, the masked dancer leaves transparent echoes, the rodent cuts through a film strip, the seated portrait unrolls paper, the crowd opens its arms, the streamer passes a heart, and the tiny webcam interrupts through a monitor wall. Exuberance and ascending importance come from these subjects, their distinct layouts and their timed donor payoffs.\n\nShared infrastructure supports those seven compositions: a transparent broadcast stage, solid donor typography, absolute music time, source-frame seeking and a calm complete-message landing. Production v2.2 composes smaller source-aware windows, a single donor/amount stack per show, deliberate negative space, source-specific cash payoffs and selective community replies. Handwritten OMG and HOLY/MOLY assets adapt the supplied banner's written character; original source GIFs remain unchanged. The supplied peach channel banner, controller avatar and white bunny emotes establish warmth and expressive reaction; they do not recolor the selected GIFs.\n\nMotion Studio is a graphite authoring desk: tree, central fitted stage, inspector and multitrack timeline. Peach marks selection and deliberate actions; cyan carries measurement and the small bunny identity mark. This document records the built post-v2.2 extension of pinned direction `d2f60c0f`, inspected from current source. `docs/assets/post-2.2/round-2/` records the responsive scene and Studio captures; `review-1/` records corrected shortcuts, Donate5 cash contrast and the smaller-screen blocker, while `visible/information-full.png` records the complete-message landing. The fresh static review's four findings (shortcut layout, Donate5 cash contrast, missing blocker evidence and stale cash documentation) are resolved. No approved comp or QUALITY BAR card exists. Static captures do not independently prove normal-speed motion quality, an After Effects-level finish or owner approval; test results belong to the final QA report. The old SAY MY NAME composition remains a Studio-only Donate8 exploration sharing Donate7's track. Unrelated legacy overlay styles remain outside this document's scope.",
     "keyCharacteristics": [
       "Seven recognizable, unchanged source GIF identities and seven distinct compositions.",
       "Scene-specific gestures, text placement and donor impact.",
@@ -835,13 +965,18 @@
       "Shared music clock, deterministic seeking and a quiet complete-message landing.",
       "Localized compositions with transparent margins that preserve gameplay.",
       "Cash fountain, handoff and storm reserved for selected higher-tier payoffs.",
-      "Selective bunny reaction in the heart scene and a small Studio identity mark.",
-      "Flat graphite Studio panels, compact controls and peach keyboard focus."
+      "Cue-based cyan bunny replies for Turkey/ovation, drawn bunny-ear floor for the dancer, native cheering bunny for the heart and a small Studio identity mark.",
+      "Exact transparent frame zero and a compact content-sized Information landing.",
+      "Polish labels and contextual help in the incumbent docked Studio.",
+      "Flat graphite Studio panels, compact controls and peach keyboard focus.",
+      "Aspect-aware bounded source groups, full-viewport cash and a separate output-format/viewer-zoom pair.",
+      "Resumable Full Alert transport with current local speech, optional IN/OUT and one timeline playhead.",
+      "Installable desktop shell with explicit local-service availability."
     ],
     "rules": [
       {
         "name": "The Source Palette Rule",
-        "body": "Preserve the selected source's colors and alpha. Apply each treatment's paired accents to authored graphics, amount and reading header; use dark Paper Ink for the paper-strip amount.",
+        "body": "Preserve the selected source's colors and alpha. Apply each treatment's paired accents to authored graphics and amount; use dark Paper Ink for the paper-strip amount. The shared Information state uses its own warm peach header.",
         "section": "colors"
       },
       {
@@ -851,12 +986,12 @@
       },
       {
         "name": "The Selective Sticker Rule",
-        "body": "Use the original bunny as a meaningful community response in the heart scene and a small Studio identity mark. Preserve its source colors and resolution; do not scatter mascots across every show.",
+        "body": "Give each community device a job in its scene: the cyan bunny answers Turkey's step and ovation, the drawn ears compress with the dancer's floor, and the cheering bunny answers the hand-heart. Preserve original emote colors and honest resolution; the Studio mark stays small.",
         "section": "colors"
       },
       {
         "name": "The Donor Space Rule",
-        "body": "Reserve independent readable space for nickname and amount within each composition. Keep the source gesture visible and fit long donor strings rather than forcing every show into one text layout.",
+        "body": "Keep nickname and amount in one readable stack with a shared anchor within each composition. Keep the source gesture visible and fit long donor strings within that stack.",
         "section": "typography"
       },
       {
@@ -866,21 +1001,22 @@
       },
       {
         "name": "The Music Clock Rule",
-        "body": "Derive authored scene and controlled source frames from absolute music time. Quality reduction changes supporting detail, not cue timing, donor layout or the reading phase.",
+        "body": "Derive authored scene and controlled source frames from absolute music time. Forward playback uses sequential native decoding with drift correction; scrub, freeze and export select exact frames. Quality reduction changes supporting detail, not cue timing, donor layout or the reading phase.",
         "section": "components"
       }
     ],
     "dos": [
       "**Do** build each live show's composition and signature gesture around its selected GIF, existing track and legacy joke.",
       "**Do** preserve original source colors, alpha, environment, frame cadence and honest pixel texture.",
-      "**Do** keep independent donor space and fit complete names and Polish amounts within each authored scene.",
-      "**Do** leave broadcast space transparent and uniformly scale the logical stage.",
+      "**Do** keep the shared name/amount anchor and fit complete names and Polish amounts within each authored scene.",
+      "**Do** leave broadcast space transparent, scale the 1080-unit height uniformly and adapt the virtual width to the output aspect.",
       "**Do** clear spectacle, release source media and preserve complete readable messages.",
       "**Do** use absolute music time for reproducible seeking and keep cue timing consistent across quality modes.",
-      "**Do** retain explicit Studio labels, visible focus and the stacked narrow-screen inspector.",
-      "**Do** preserve transparent negative space and the built per-scene localization scales.",
+      "**Do** retain explicit Studio labels, visible focus and the supported desktop docked inspector and smaller-screen desktop gate.",
+      "**Do** preserve transparent negative space, bounded source windows and source-specific anchors that accommodate extra width.",
       "**Do** use peach for Studio selection, cyan for measurement, and monospace for genuine timecode.",
-      "**Do** keep cash distinct by source and protect the top-tier donor column."
+      "**Do** keep cash distinct by source, route stable front/back depth and derive continuous readability falloff from actual donor bounds.",
+      "**Do** keep output format separate from Program zoom, Full transport resumable and speech provider labels honest."
     ],
     "donts": [
       "**Don't** replace selected GIF footage, recolor the sources or turn seven scenes into one recolored template.",
@@ -891,7 +1027,9 @@
       "**Don't** invent a live Donate8 threshold, new track or fully static reduced-motion behavior.",
       "**Don't** apply this scoped donation identity to unrelated legacy overlays.",
       "**Don't** use the banner gradient as a full-frame donation background or add bunny confetti.",
-      "**Don't** restore spacious rounded cards, pill tabs or gold hero cues in the graphite Studio."
+      "**Don't** restore spacious rounded cards, pill tabs or gold hero cues in the graphite Studio.",
+      "**Don't** delete bills on entry to an invisible text rectangle or enlarge low-resolution source media merely to fill ultrawide output.",
+      "**Don't** treat static captures as motion-quality approval, local SAPI as production Google speech or shell caching as offline authoring-service support."
     ]
   }
 }

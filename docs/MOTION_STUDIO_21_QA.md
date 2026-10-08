@@ -1,3 +1,5 @@
+> Historical Studio 2.1 audit. For the reproduced Donate5 empty-HTTP-204 failure and current Production 2.2 fixes/validation, see [Production 2.2 QA](PRODUCTION_22_QA.md).
+
 # Motion Studio 2.1 validation — 2026-10-07
 
 This pass finishes the desktop authoring workspace and exposes the complete donation lifecycle. Production v2 was frozen at `6640c6dc51dfb79bb039fac43492c8bfd3521372`: clean working tree, branch `michal-szwindowski/donation-motion-engine`, tracking the same remote HEAD at `kaaajka/overlays-legacy`. Baseline: 293 unit tests and 26 browser tests passed. No completed history was rewritten or merged into main.

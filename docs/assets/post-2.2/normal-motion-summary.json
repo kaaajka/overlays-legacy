@@ -1,0 +1,598 @@
+{
+  "browser": "154.0.8037.98",
+  "capture": "1280×720 recorded from1920×1080 viewport; recorder30fps, engine/native source clocks unchanged",
+  "quality": "safe",
+  "rows": [
+    {
+      "tier": 1,
+      "wallSeconds": 8.642,
+      "speech": [
+        {
+          "key": "bfee6cae7625fd0095fd0edecb6d1d46b9193c50943e1b65ee8d9f1673f7dc2f",
+          "text": "Kaaajka",
+          "voice": "Microsoft Paulina Desktop - Polish",
+          "voiceIdentity": "58e3a2f1b7d86988b5fabfece855b1bdaf5969e505b07f886b9bf255c9b2750b",
+          "provider": "Windows SAPI",
+          "hash": "2e1d4b210932408d4a6161761e78c3b253640f7858d0221b6c6b718763e9dae0",
+          "duration": 1.386304,
+          "file": "bfee6cae7625fd0095fd0edecb6d1d46b9193c50943e1b65ee8d9f1673f7dc2f.wav",
+          "url": "/__studio/tts/audio/bfee6cae7625fd0095fd0edecb6d1d46b9193c50943e1b65ee8d9f1673f7dc2f",
+          "name": "nickname"
+        },
+        {
+          "key": "3c43a20615c4ec06cbdf3e3576bee8ccae3553f9adaa23bf128c0868319589ee",
+          "text": "pięćdziesiąt siedem złotych, trzydzieści dwa grosze",
+          "voice": "Microsoft Paulina Desktop - Polish",
+          "voiceIdentity": "58e3a2f1b7d86988b5fabfece855b1bdaf5969e505b07f886b9bf255c9b2750b",
+          "provider": "Windows SAPI",
+          "hash": "f03bd55717d0dfe9ef9535ac0a1431d8bbdc47c65a526e8b4841d0fb9c407e89",
+          "duration": 3.304535,
+          "file": "3c43a20615c4ec06cbdf3e3576bee8ccae3553f9adaa23bf128c0868319589ee.wav",
+          "url": "/__studio/tts/audio/3c43a20615c4ec06cbdf3e3576bee8ccae3553f9adaa23bf128c0868319589ee",
+          "name": "amount"
+        },
+        {
+          "key": "bc0c1bded4af54c319cd1f2d332013b9ef1b8436c01e698d5aeb2ea23cd0217f",
+          "text": "Dziękuję za stream!",
+          "voice": "Microsoft Paulina Desktop - Polish",
+          "voiceIdentity": "58e3a2f1b7d86988b5fabfece855b1bdaf5969e505b07f886b9bf255c9b2750b",
+          "provider": "Windows SAPI",
+          "hash": "4398fbe06ab4942dbf119883632e76e77c8402069afa397d6f9226f77b9f1555",
+          "duration": 1.758458,
+          "file": "bc0c1bded4af54c319cd1f2d332013b9ef1b8436c01e698d5aeb2ea23cd0217f.wav",
+          "url": "/__studio/tts/audio/bc0c1bded4af54c319cd1f2d332013b9ef1b8436c01e698d5aeb2ea23cd0217f",
+          "name": "message"
+        }
+      ],
+      "last": {
+        "time": 8.033395833333334,
+        "phase": "complete",
+        "media": [
+          {
+            "time": 0.87,
+            "frame": 13,
+            "frozen": false,
+            "loop": 2,
+            "state": "ready",
+            "decodedTime": 1.077092,
+            "tier": 1,
+            "requestedFrames": 123,
+            "seeks": 14,
+            "coalesced": 1,
+            "seekLatencyMs": 59.1000000089407,
+            "presentedTime": 1.07,
+            "presentedFrames": 129,
+            "driftCorrections": 6,
+            "presentedFrame": 16,
+            "skippedPresentedFrames": 1,
+            "duplicatePresentedFrames": 0
+          }
+        ]
+      },
+      "video": "C:\\Projects\\overlays-legacy\\.motion-qa\\continuation\\normal-motion\\donate1-normal.webm"
+    },
+    {
+      "tier": 2,
+      "wallSeconds": 15.96,
+      "speech": [
+        {
+          "key": "bfee6cae7625fd0095fd0edecb6d1d46b9193c50943e1b65ee8d9f1673f7dc2f",
+          "text": "Kaaajka",
+          "voice": "Microsoft Paulina Desktop - Polish",
+          "voiceIdentity": "58e3a2f1b7d86988b5fabfece855b1bdaf5969e505b07f886b9bf255c9b2750b",
+          "provider": "Windows SAPI",
+          "hash": "2e1d4b210932408d4a6161761e78c3b253640f7858d0221b6c6b718763e9dae0",
+          "duration": 1.386304,
+          "file": "bfee6cae7625fd0095fd0edecb6d1d46b9193c50943e1b65ee8d9f1673f7dc2f.wav",
+          "url": "/__studio/tts/audio/bfee6cae7625fd0095fd0edecb6d1d46b9193c50943e1b65ee8d9f1673f7dc2f",
+          "name": "nickname"
+        },
+        {
+          "key": "3c43a20615c4ec06cbdf3e3576bee8ccae3553f9adaa23bf128c0868319589ee",
+          "text": "pięćdziesiąt siedem złotych, trzydzieści dwa grosze",
+          "voice": "Microsoft Paulina Desktop - Polish",
+          "voiceIdentity": "58e3a2f1b7d86988b5fabfece855b1bdaf5969e505b07f886b9bf255c9b2750b",
+          "provider": "Windows SAPI",
+          "hash": "f03bd55717d0dfe9ef9535ac0a1431d8bbdc47c65a526e8b4841d0fb9c407e89",
+          "duration": 3.304535,
+          "file": "3c43a20615c4ec06cbdf3e3576bee8ccae3553f9adaa23bf128c0868319589ee.wav",
+          "url": "/__studio/tts/audio/3c43a20615c4ec06cbdf3e3576bee8ccae3553f9adaa23bf128c0868319589ee",
+          "name": "amount"
+        },
+        {
+          "key": "bc0c1bded4af54c319cd1f2d332013b9ef1b8436c01e698d5aeb2ea23cd0217f",
+          "text": "Dziękuję za stream!",
+          "voice": "Microsoft Paulina Desktop - Polish",
+          "voiceIdentity": "58e3a2f1b7d86988b5fabfece855b1bdaf5969e505b07f886b9bf255c9b2750b",
+          "provider": "Windows SAPI",
+          "hash": "4398fbe06ab4942dbf119883632e76e77c8402069afa397d6f9226f77b9f1555",
+          "duration": 1.758458,
+          "file": "bc0c1bded4af54c319cd1f2d332013b9ef1b8436c01e698d5aeb2ea23cd0217f.wav",
+          "url": "/__studio/tts/audio/bc0c1bded4af54c319cd1f2d332013b9ef1b8436c01e698d5aeb2ea23cd0217f",
+          "name": "message"
+        }
+      ],
+      "last": {
+        "time": 15.465541666666667,
+        "phase": "complete",
+        "media": [
+          {
+            "time": 2.72,
+            "frame": 68,
+            "frozen": false,
+            "loop": 2,
+            "state": "ready",
+            "decodedTime": 2.884593,
+            "tier": 2,
+            "requestedFrames": 386,
+            "seeks": 13,
+            "coalesced": 6,
+            "seekLatencyMs": 10.400000005960464,
+            "presentedTime": 2.84,
+            "presentedFrames": 393,
+            "driftCorrections": 5,
+            "presentedFrame": 71,
+            "skippedPresentedFrames": 0,
+            "duplicatePresentedFrames": 0
+          },
+          {
+            "time": 2.6,
+            "frame": 65,
+            "frozen": false,
+            "loop": 2,
+            "state": "ready",
+            "decodedTime": 2.764775,
+            "tier": 2,
+            "requestedFrames": 383,
+            "seeks": 14,
+            "coalesced": 4,
+            "seekLatencyMs": 8.899999991059303,
+            "presentedTime": 2.76,
+            "presentedFrames": 395,
+            "driftCorrections": 6,
+            "presentedFrame": 69,
+            "skippedPresentedFrames": 0,
+            "duplicatePresentedFrames": 0
+          },
+          {
+            "time": 2.84,
+            "frame": 71,
+            "frozen": false,
+            "loop": 2,
+            "state": "ready",
+            "decodedTime": 3.00216,
+            "tier": 2,
+            "requestedFrames": 388,
+            "seeks": 11,
+            "coalesced": 1,
+            "seekLatencyMs": 14.099999994039536,
+            "presentedTime": 2.96,
+            "presentedFrames": 395,
+            "driftCorrections": 3,
+            "presentedFrame": 74,
+            "skippedPresentedFrames": 0,
+            "duplicatePresentedFrames": 0
+          }
+        ]
+      },
+      "video": "C:\\Projects\\overlays-legacy\\.motion-qa\\continuation\\normal-motion\\donate2-normal.webm"
+    },
+    {
+      "tier": 3,
+      "wallSeconds": 12.214,
+      "speech": [
+        {
+          "key": "bfee6cae7625fd0095fd0edecb6d1d46b9193c50943e1b65ee8d9f1673f7dc2f",
+          "text": "Kaaajka",
+          "voice": "Microsoft Paulina Desktop - Polish",
+          "voiceIdentity": "58e3a2f1b7d86988b5fabfece855b1bdaf5969e505b07f886b9bf255c9b2750b",
+          "provider": "Windows SAPI",
+          "hash": "2e1d4b210932408d4a6161761e78c3b253640f7858d0221b6c6b718763e9dae0",
+          "duration": 1.386304,
+          "file": "bfee6cae7625fd0095fd0edecb6d1d46b9193c50943e1b65ee8d9f1673f7dc2f.wav",
+          "url": "/__studio/tts/audio/bfee6cae7625fd0095fd0edecb6d1d46b9193c50943e1b65ee8d9f1673f7dc2f",
+          "name": "nickname"
+        },
+        {
+          "key": "3c43a20615c4ec06cbdf3e3576bee8ccae3553f9adaa23bf128c0868319589ee",
+          "text": "pięćdziesiąt siedem złotych, trzydzieści dwa grosze",
+          "voice": "Microsoft Paulina Desktop - Polish",
+          "voiceIdentity": "58e3a2f1b7d86988b5fabfece855b1bdaf5969e505b07f886b9bf255c9b2750b",
+          "provider": "Windows SAPI",
+          "hash": "f03bd55717d0dfe9ef9535ac0a1431d8bbdc47c65a526e8b4841d0fb9c407e89",
+          "duration": 3.304535,
+          "file": "3c43a20615c4ec06cbdf3e3576bee8ccae3553f9adaa23bf128c0868319589ee.wav",
+          "url": "/__studio/tts/audio/3c43a20615c4ec06cbdf3e3576bee8ccae3553f9adaa23bf128c0868319589ee",
+          "name": "amount"
+        },
+        {
+          "key": "bc0c1bded4af54c319cd1f2d332013b9ef1b8436c01e698d5aeb2ea23cd0217f",
+          "text": "Dziękuję za stream!",
+          "voice": "Microsoft Paulina Desktop - Polish",
+          "voiceIdentity": "58e3a2f1b7d86988b5fabfece855b1bdaf5969e505b07f886b9bf255c9b2750b",
+          "provider": "Windows SAPI",
+          "hash": "4398fbe06ab4942dbf119883632e76e77c8402069afa397d6f9226f77b9f1555",
+          "duration": 1.758458,
+          "file": "bc0c1bded4af54c319cd1f2d332013b9ef1b8436c01e698d5aeb2ea23cd0217f.wav",
+          "url": "/__studio/tts/audio/bc0c1bded4af54c319cd1f2d332013b9ef1b8436c01e698d5aeb2ea23cd0217f",
+          "name": "message"
+        }
+      ],
+      "last": {
+        "time": 11.6,
+        "phase": "complete",
+        "media": [
+          {
+            "time": 0.2,
+            "frame": 4,
+            "frozen": false,
+            "loop": 15,
+            "state": "ready",
+            "decodedTime": 0.405347,
+            "tier": 3,
+            "requestedFrames": 267,
+            "seeks": 34,
+            "coalesced": 28,
+            "seekLatencyMs": 35.8999999910593,
+            "presentedTime": 0.4,
+            "presentedFrames": 261,
+            "driftCorrections": 26,
+            "presentedFrame": 9,
+            "skippedPresentedFrames": 0,
+            "duplicatePresentedFrames": 0
+          },
+          {
+            "time": 0.28,
+            "frame": 6,
+            "frozen": false,
+            "loop": 15,
+            "state": "ready",
+            "decodedTime": 0.002981,
+            "tier": 3,
+            "requestedFrames": 268,
+            "seeks": 35,
+            "coalesced": 22,
+            "seekLatencyMs": 509.3999999910593,
+            "presentedTime": 0,
+            "presentedFrames": 261,
+            "driftCorrections": 27,
+            "presentedFrame": 0,
+            "skippedPresentedFrames": 0,
+            "duplicatePresentedFrames": 0
+          },
+          {
+            "time": 0.08,
+            "frame": 2,
+            "frozen": false,
+            "loop": 15,
+            "state": "ready",
+            "decodedTime": 0.327569,
+            "tier": 3,
+            "requestedFrames": 261,
+            "seeks": 33,
+            "coalesced": 18,
+            "seekLatencyMs": 35.1000000089407,
+            "presentedTime": 0.32,
+            "presentedFrames": 261,
+            "driftCorrections": 27,
+            "presentedFrame": 7,
+            "skippedPresentedFrames": 1,
+            "duplicatePresentedFrames": 0
+          }
+        ]
+      },
+      "video": "C:\\Projects\\overlays-legacy\\.motion-qa\\continuation\\normal-motion\\donate3-normal.webm"
+    },
+    {
+      "tier": 4,
+      "wallSeconds": 13.282,
+      "speech": [
+        {
+          "key": "bfee6cae7625fd0095fd0edecb6d1d46b9193c50943e1b65ee8d9f1673f7dc2f",
+          "text": "Kaaajka",
+          "voice": "Microsoft Paulina Desktop - Polish",
+          "voiceIdentity": "58e3a2f1b7d86988b5fabfece855b1bdaf5969e505b07f886b9bf255c9b2750b",
+          "provider": "Windows SAPI",
+          "hash": "2e1d4b210932408d4a6161761e78c3b253640f7858d0221b6c6b718763e9dae0",
+          "duration": 1.386304,
+          "file": "bfee6cae7625fd0095fd0edecb6d1d46b9193c50943e1b65ee8d9f1673f7dc2f.wav",
+          "url": "/__studio/tts/audio/bfee6cae7625fd0095fd0edecb6d1d46b9193c50943e1b65ee8d9f1673f7dc2f",
+          "name": "nickname"
+        },
+        {
+          "key": "3c43a20615c4ec06cbdf3e3576bee8ccae3553f9adaa23bf128c0868319589ee",
+          "text": "pięćdziesiąt siedem złotych, trzydzieści dwa grosze",
+          "voice": "Microsoft Paulina Desktop - Polish",
+          "voiceIdentity": "58e3a2f1b7d86988b5fabfece855b1bdaf5969e505b07f886b9bf255c9b2750b",
+          "provider": "Windows SAPI",
+          "hash": "f03bd55717d0dfe9ef9535ac0a1431d8bbdc47c65a526e8b4841d0fb9c407e89",
+          "duration": 3.304535,
+          "file": "3c43a20615c4ec06cbdf3e3576bee8ccae3553f9adaa23bf128c0868319589ee.wav",
+          "url": "/__studio/tts/audio/3c43a20615c4ec06cbdf3e3576bee8ccae3553f9adaa23bf128c0868319589ee",
+          "name": "amount"
+        },
+        {
+          "key": "bc0c1bded4af54c319cd1f2d332013b9ef1b8436c01e698d5aeb2ea23cd0217f",
+          "text": "Dziękuję za stream!",
+          "voice": "Microsoft Paulina Desktop - Polish",
+          "voiceIdentity": "58e3a2f1b7d86988b5fabfece855b1bdaf5969e505b07f886b9bf255c9b2750b",
+          "provider": "Windows SAPI",
+          "hash": "4398fbe06ab4942dbf119883632e76e77c8402069afa397d6f9226f77b9f1555",
+          "duration": 1.758458,
+          "file": "bc0c1bded4af54c319cd1f2d332013b9ef1b8436c01e698d5aeb2ea23cd0217f.wav",
+          "url": "/__studio/tts/audio/bc0c1bded4af54c319cd1f2d332013b9ef1b8436c01e698d5aeb2ea23cd0217f",
+          "name": "message"
+        }
+      ],
+      "last": {
+        "time": 12.844999333333332,
+        "phase": "complete",
+        "media": [
+          {
+            "time": 3.4,
+            "frame": 51,
+            "frozen": false,
+            "loop": 1,
+            "state": "ready",
+            "decodedTime": 3.410512,
+            "tier": 4,
+            "requestedFrames": 187,
+            "seeks": 8,
+            "coalesced": 1,
+            "seekLatencyMs": 91.29999999701977,
+            "presentedTime": 3.4,
+            "presentedFrames": 189,
+            "driftCorrections": 2,
+            "presentedFrame": 51,
+            "skippedPresentedFrames": 0,
+            "duplicatePresentedFrames": 0
+          }
+        ]
+      },
+      "video": "C:\\Projects\\overlays-legacy\\.motion-qa\\continuation\\normal-motion\\donate4-normal.webm"
+    },
+    {
+      "tier": 5,
+      "wallSeconds": 16.709,
+      "speech": [
+        {
+          "key": "bfee6cae7625fd0095fd0edecb6d1d46b9193c50943e1b65ee8d9f1673f7dc2f",
+          "text": "Kaaajka",
+          "voice": "Microsoft Paulina Desktop - Polish",
+          "voiceIdentity": "58e3a2f1b7d86988b5fabfece855b1bdaf5969e505b07f886b9bf255c9b2750b",
+          "provider": "Windows SAPI",
+          "hash": "2e1d4b210932408d4a6161761e78c3b253640f7858d0221b6c6b718763e9dae0",
+          "duration": 1.386304,
+          "file": "bfee6cae7625fd0095fd0edecb6d1d46b9193c50943e1b65ee8d9f1673f7dc2f.wav",
+          "url": "/__studio/tts/audio/bfee6cae7625fd0095fd0edecb6d1d46b9193c50943e1b65ee8d9f1673f7dc2f",
+          "name": "nickname"
+        },
+        {
+          "key": "3c43a20615c4ec06cbdf3e3576bee8ccae3553f9adaa23bf128c0868319589ee",
+          "text": "pięćdziesiąt siedem złotych, trzydzieści dwa grosze",
+          "voice": "Microsoft Paulina Desktop - Polish",
+          "voiceIdentity": "58e3a2f1b7d86988b5fabfece855b1bdaf5969e505b07f886b9bf255c9b2750b",
+          "provider": "Windows SAPI",
+          "hash": "f03bd55717d0dfe9ef9535ac0a1431d8bbdc47c65a526e8b4841d0fb9c407e89",
+          "duration": 3.304535,
+          "file": "3c43a20615c4ec06cbdf3e3576bee8ccae3553f9adaa23bf128c0868319589ee.wav",
+          "url": "/__studio/tts/audio/3c43a20615c4ec06cbdf3e3576bee8ccae3553f9adaa23bf128c0868319589ee",
+          "name": "amount"
+        },
+        {
+          "key": "bc0c1bded4af54c319cd1f2d332013b9ef1b8436c01e698d5aeb2ea23cd0217f",
+          "text": "Dziękuję za stream!",
+          "voice": "Microsoft Paulina Desktop - Polish",
+          "voiceIdentity": "58e3a2f1b7d86988b5fabfece855b1bdaf5969e505b07f886b9bf255c9b2750b",
+          "provider": "Windows SAPI",
+          "hash": "4398fbe06ab4942dbf119883632e76e77c8402069afa397d6f9226f77b9f1555",
+          "duration": 1.758458,
+          "file": "bc0c1bded4af54c319cd1f2d332013b9ef1b8436c01e698d5aeb2ea23cd0217f.wav",
+          "url": "/__studio/tts/audio/bc0c1bded4af54c319cd1f2d332013b9ef1b8436c01e698d5aeb2ea23cd0217f",
+          "name": "message"
+        }
+      ],
+      "last": {
+        "time": 16.3450625,
+        "phase": "complete",
+        "media": [
+          {
+            "time": 3.28,
+            "frame": 41,
+            "frozen": false,
+            "loop": 3,
+            "state": "ready",
+            "decodedTime": 0,
+            "tier": 5,
+            "requestedFrames": 208,
+            "seeks": 15,
+            "coalesced": 1,
+            "seekLatencyMs": 35,
+            "presentedTime": 0,
+            "presentedFrames": 212,
+            "driftCorrections": 7,
+            "presentedFrame": 0,
+            "skippedPresentedFrames": 0,
+            "duplicatePresentedFrames": 0
+          }
+        ]
+      },
+      "video": "C:\\Projects\\overlays-legacy\\.motion-qa\\continuation\\normal-motion\\donate5-normal.webm"
+    },
+    {
+      "tier": 6,
+      "wallSeconds": 22.144,
+      "speech": [
+        {
+          "key": "bfee6cae7625fd0095fd0edecb6d1d46b9193c50943e1b65ee8d9f1673f7dc2f",
+          "text": "Kaaajka",
+          "voice": "Microsoft Paulina Desktop - Polish",
+          "voiceIdentity": "58e3a2f1b7d86988b5fabfece855b1bdaf5969e505b07f886b9bf255c9b2750b",
+          "provider": "Windows SAPI",
+          "hash": "2e1d4b210932408d4a6161761e78c3b253640f7858d0221b6c6b718763e9dae0",
+          "duration": 1.386304,
+          "file": "bfee6cae7625fd0095fd0edecb6d1d46b9193c50943e1b65ee8d9f1673f7dc2f.wav",
+          "url": "/__studio/tts/audio/bfee6cae7625fd0095fd0edecb6d1d46b9193c50943e1b65ee8d9f1673f7dc2f",
+          "name": "nickname"
+        },
+        {
+          "key": "3c43a20615c4ec06cbdf3e3576bee8ccae3553f9adaa23bf128c0868319589ee",
+          "text": "pięćdziesiąt siedem złotych, trzydzieści dwa grosze",
+          "voice": "Microsoft Paulina Desktop - Polish",
+          "voiceIdentity": "58e3a2f1b7d86988b5fabfece855b1bdaf5969e505b07f886b9bf255c9b2750b",
+          "provider": "Windows SAPI",
+          "hash": "f03bd55717d0dfe9ef9535ac0a1431d8bbdc47c65a526e8b4841d0fb9c407e89",
+          "duration": 3.304535,
+          "file": "3c43a20615c4ec06cbdf3e3576bee8ccae3553f9adaa23bf128c0868319589ee.wav",
+          "url": "/__studio/tts/audio/3c43a20615c4ec06cbdf3e3576bee8ccae3553f9adaa23bf128c0868319589ee",
+          "name": "amount"
+        },
+        {
+          "key": "bc0c1bded4af54c319cd1f2d332013b9ef1b8436c01e698d5aeb2ea23cd0217f",
+          "text": "Dziękuję za stream!",
+          "voice": "Microsoft Paulina Desktop - Polish",
+          "voiceIdentity": "58e3a2f1b7d86988b5fabfece855b1bdaf5969e505b07f886b9bf255c9b2750b",
+          "provider": "Windows SAPI",
+          "hash": "4398fbe06ab4942dbf119883632e76e77c8402069afa397d6f9226f77b9f1555",
+          "duration": 1.758458,
+          "file": "bc0c1bded4af54c319cd1f2d332013b9ef1b8436c01e698d5aeb2ea23cd0217f.wav",
+          "url": "/__studio/tts/audio/bc0c1bded4af54c319cd1f2d332013b9ef1b8436c01e698d5aeb2ea23cd0217f",
+          "name": "message"
+        }
+      ],
+      "last": {
+        "time": 21.764658333342275,
+        "phase": "complete",
+        "media": [
+          {
+            "time": 3.84,
+            "frame": 48,
+            "frozen": false,
+            "loop": 2,
+            "state": "ready",
+            "decodedTime": 3.892521,
+            "tier": 6,
+            "requestedFrames": 264,
+            "seeks": 8,
+            "coalesced": 2,
+            "seekLatencyMs": 87.29999999701977,
+            "presentedTime": 3.84,
+            "presentedFrames": 265,
+            "driftCorrections": 3,
+            "presentedFrame": 48,
+            "skippedPresentedFrames": 0,
+            "duplicatePresentedFrames": 0
+          }
+        ]
+      },
+      "video": "C:\\Projects\\overlays-legacy\\.motion-qa\\continuation\\normal-motion\\donate6-normal.webm"
+    },
+    {
+      "tier": 7,
+      "wallSeconds": 46.848,
+      "speech": [
+        {
+          "key": "bfee6cae7625fd0095fd0edecb6d1d46b9193c50943e1b65ee8d9f1673f7dc2f",
+          "text": "Kaaajka",
+          "voice": "Microsoft Paulina Desktop - Polish",
+          "voiceIdentity": "58e3a2f1b7d86988b5fabfece855b1bdaf5969e505b07f886b9bf255c9b2750b",
+          "provider": "Windows SAPI",
+          "hash": "2e1d4b210932408d4a6161761e78c3b253640f7858d0221b6c6b718763e9dae0",
+          "duration": 1.386304,
+          "file": "bfee6cae7625fd0095fd0edecb6d1d46b9193c50943e1b65ee8d9f1673f7dc2f.wav",
+          "url": "/__studio/tts/audio/bfee6cae7625fd0095fd0edecb6d1d46b9193c50943e1b65ee8d9f1673f7dc2f",
+          "name": "nickname"
+        },
+        {
+          "key": "3c43a20615c4ec06cbdf3e3576bee8ccae3553f9adaa23bf128c0868319589ee",
+          "text": "pięćdziesiąt siedem złotych, trzydzieści dwa grosze",
+          "voice": "Microsoft Paulina Desktop - Polish",
+          "voiceIdentity": "58e3a2f1b7d86988b5fabfece855b1bdaf5969e505b07f886b9bf255c9b2750b",
+          "provider": "Windows SAPI",
+          "hash": "f03bd55717d0dfe9ef9535ac0a1431d8bbdc47c65a526e8b4841d0fb9c407e89",
+          "duration": 3.304535,
+          "file": "3c43a20615c4ec06cbdf3e3576bee8ccae3553f9adaa23bf128c0868319589ee.wav",
+          "url": "/__studio/tts/audio/3c43a20615c4ec06cbdf3e3576bee8ccae3553f9adaa23bf128c0868319589ee",
+          "name": "amount"
+        },
+        {
+          "key": "bc0c1bded4af54c319cd1f2d332013b9ef1b8436c01e698d5aeb2ea23cd0217f",
+          "text": "Dziękuję za stream!",
+          "voice": "Microsoft Paulina Desktop - Polish",
+          "voiceIdentity": "58e3a2f1b7d86988b5fabfece855b1bdaf5969e505b07f886b9bf255c9b2750b",
+          "provider": "Windows SAPI",
+          "hash": "4398fbe06ab4942dbf119883632e76e77c8402069afa397d6f9226f77b9f1555",
+          "duration": 1.758458,
+          "file": "bc0c1bded4af54c319cd1f2d332013b9ef1b8436c01e698d5aeb2ea23cd0217f.wav",
+          "url": "/__studio/tts/audio/bc0c1bded4af54c319cd1f2d332013b9ef1b8436c01e698d5aeb2ea23cd0217f",
+          "name": "message"
+        }
+      ],
+      "last": {
+        "time": 46.233958333333334,
+        "phase": "complete",
+        "media": [
+          {
+            "time": 3.4,
+            "frame": 85,
+            "frozen": false,
+            "loop": 9,
+            "state": "ready",
+            "decodedTime": 0.078856,
+            "tier": 7,
+            "requestedFrames": 1162,
+            "seeks": 20,
+            "coalesced": 2,
+            "seekLatencyMs": 6897,
+            "presentedTime": 0.08,
+            "presentedFrames": 1164,
+            "driftCorrections": 12,
+            "presentedFrame": 2,
+            "skippedPresentedFrames": 0,
+            "duplicatePresentedFrames": 0
+          },
+          {
+            "time": 3.28,
+            "frame": 82,
+            "frozen": false,
+            "loop": 9,
+            "state": "ready",
+            "decodedTime": 3.405786,
+            "tier": 7,
+            "requestedFrames": 1160,
+            "seeks": 23,
+            "coalesced": 1,
+            "seekLatencyMs": 9.599999994039536,
+            "presentedTime": 3.4,
+            "presentedFrames": 1165,
+            "driftCorrections": 15,
+            "presentedFrame": 85,
+            "skippedPresentedFrames": 0,
+            "duplicatePresentedFrames": 0
+          },
+          {
+            "time": 3.16,
+            "frame": 79,
+            "frozen": false,
+            "loop": 9,
+            "state": "ready",
+            "decodedTime": 3.276623,
+            "tier": 7,
+            "requestedFrames": 1157,
+            "seeks": 23,
+            "coalesced": 1,
+            "seekLatencyMs": 15.200000002980232,
+            "presentedTime": 3.24,
+            "presentedFrames": 1164,
+            "driftCorrections": 15,
+            "presentedFrame": 81,
+            "skippedPresentedFrames": 1,
+            "duplicatePresentedFrames": 0
+          }
+        ]
+      },
+      "video": "C:\\Projects\\overlays-legacy\\.motion-qa\\continuation\\normal-motion\\donate7-normal.webm"
+    }
+  ],
+  "mode": "Hero: original music and normal-speed authored show; Full transport has separate browser/audio QA"
+}

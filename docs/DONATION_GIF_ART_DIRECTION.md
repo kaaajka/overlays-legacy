@@ -2,7 +2,9 @@
 
 Design contract: source-led miniature music videos, seed `d2f60c0f`. User-selected GIFs and existing music override the discarded common aperture system. All seven originals are unchanged. Source contact sheets inspect beginning,15%,30%,45%,60%,75% and final frame; characteristic source poses are authored separately.
 
-![Seven distinct live hero compositions](assets/donation-gif-led-heroes.jpg)
+The following contact sheet is retained production-v2 history; current v2.2 source-native placements and zero/Information contracts are in PRODUCTION_22_DIRECTION.md and DESIGN.md.
+
+![Historical production-v2 hero compositions](assets/donation-gif-led-heroes.jpg)
 
 | Tier | Source | Dimensions / frames / loop | Concept |
 |---|---|---|---|
@@ -10,9 +12,9 @@ Design contract: source-led miniature music videos, seed `d2f60c0f`. User-select
 |2|`donation-template-02.gif`|343x480 / 142 / 5.68s infinite|Masked dance floor: A three-position transparent dance echo with arms-up freeze on the hit.|
 |3|`donation-template-03.gif`|320x240 / 10 / 0.44s infinite|Rodent rave: Ten-frame film-strip stutter with hard shutter cuts and phase-offset screens.|
 |4|`donation-template-04.gif`|322x480 / 97 / 6.47s infinite|Deadpan paper roll: A horizontal paper-roll amount reveal paired with a planted bathroom portrait.|
-|5|`donation-template-05.gif`|480x270 / 42 / 3.36s infinite|Arms-wide ovation: An arms-wide panorama with opposing word wings and a stage-lip amount.|
+|5|`donation-template-05.gif`|480x270 / 42 / 3.36s infinite|Arms-wide ovation: A bounded 600×338 crowd window, handwritten opposing HOLY/MOLY wings and an adjacent donor/amount stack.|
 |6|`donation-template-06.gif`|400x400 / 98 / 7.84s infinite|Heart from the booth: Hand-heart freeze and a drawn heart handoff to the donor.|
-|7|`donation-template-07.gif`|120x120 / 86 / 3.44s infinite|Webcam overload: Pixelated monitor-wall cascade and diagonal broadcast interruption.|
+|7|`donation-template-07.gif`|120x120 / 86 / 3.44s infinite|Webcam overload: Small pixelated monitor-wall cascade and a readable left donor/amount stack.|
 
 ## Representation and fidelity
 
@@ -38,4 +40,4 @@ A seated bathroom portrait cannot conduct the masked silhouette echo. A frantic 
 
 OBS source alpha (especially the dancer), source fidelity at real output size, continuous audible cue/pose approval, device A/V offset and decoder/GPU load under an AAA game on 7800X3D/RTX 3070 remain operator gates.
 
-Production-v2 stage footprint, rhythmic motion, cash and brand rules are recorded in KAAAJKA_BRAND_DIRECTION.md. The source concepts and hero pose times above remain binding.
+Current production-v2.2 source-native footprint, rhythmic motion, cash and brand rules are recorded in KAAAJKA_BRAND_DIRECTION.md and PRODUCTION_22_DIRECTION.md. The source concepts and hero pose times above remain binding.

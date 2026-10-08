@@ -1,0 +1,29 @@
+# Production v2.2 — kompozycja przed ruchem
+
+Oceną nadrzędną jest realny stream Kaaajki. Siedem różnych reakcji, biel i ciemny kontur naklejki, ciepła brzoskwinia oraz róż serca tworzą jeden język. Nazwa i kwota są jedną jednostką. Typografia: nazwa 28–44 px, kwota do 112 px z dopasowaniem do szerokości; hasło 20–82 px według roli. Wszystkie wartości dotyczą sceny 1920×1080. Długie nazwy zawijają się w całości. Oryginalne media i czasy punktów pozostają zachowane.
+
+| Scena | PRIMARY | SECONDARY | TERTIARY | BACKGROUND / tożsamość |
+|---|---|---|---|---|
+| Donate1 | turecki duet 480×400 | nazwa + kwota po prawej | podziękowanie, ślad kroku i cyjanowa odpowiedź królika 72 px (oryginał 56 px) | przestrzeń gry; ciepły, rozmowny gest zamiast ekranu alertowego |
+| Donate2 | tancerz 286×400 | wyśrodkowana para pod stopami | mniejsze, opóźnione odpowiedzi | otwarta przestrzeń; rysowany obrys podłogi z uszami królika 630×76, ściskany i puszczany na istniejącym punkcie |
+| Donate3 | kadr projekcji 520×390 | para poniżej kadru | odręczne OMG 200×80 i dwie małe odbitki | wyraźny jasny kontur naklejki; zachowana surowość pikseli |
+| Donate4 | paragon z kwotą | deadpan portret 350×522 | „WOWOW!! / TAK O!” | kremowy papier, ciepła biel; nie dodajemy maskotki do żartu |
+| Donate5 | HOLY / MOLY oraz kadr 600×338 | para po prawej | podziękowanie, cyjanowa odpowiedź 56 px i gotówka na punktach | odręczne HOLY/MOLY w dwóch oknach CSS 280×187 zachowujących poprzednie gesty; brzoskwiniowa oprawa, źródło 480×270 powiększone tylko 1,25× |
+| Donate6 | nazwa + kwota i narysowane serce | kabina 400×400 | HALO i oryginalny mały królik | most serca 600×414 zaczyna się przy y620, pod zarezerwowaną parą; podziękowanie przy y650; róż ograniczony do gestu społeczności |
+| Donate7 | wykrzyknienie i para | główny monitor 240×240 | małe pikselowe monitory i WTF | jasno obrysowany kolaż reakcji; źródło 120 px powiększone celowo do 2×; gotówka zachowuje nazwane akcenty |
+
+Klatka 0 jest całkowicie przezroczysta: publiczne `time=0` ustawia `data-time-zero="true"` i ukrywa scenę oraz wszystkich potomków, również przed gotowością mediów i po restarcie/cofaniu. Prywatna inicjalizacja GSAP o 1 µs nie jest widocznym stanem publicznym. Pierwsze wejście zaczyna się po 50 ms i trwa 100 ms; pierwszy akcent nadal ma własny gest. Stan INITIAL w planszy pokazuje wejście 150 ms, a osobne zrzuty ZERO dokumentują brak pozostałości. HERO i SETTLE mają czytelną, zlokalizowaną kompozycję. Nie powiększamy filmu przez obszar całej gry.
+
+Informacja: szerokość z treści 560–960 px, naturalna wysokość do 600 px, stały nagłówek i tylko przewijane ciało. Zmierzone przykłady mają około 165 px (krótka treść), 304 px (225 znaków/długa nazwa) i 306 px (emotki); nie są to stałe wysokości. Emotki mają zarezerwowany kwadrat 45 px; animacja wybiera klatki z czasu informacji, a nie z własnego zegara.
+
+Studio: istniejący dokowany układ, polskie etykiety i pomoc przy pojęciach. Brak nowego świata wizualnego lub wygenerowanego zamiennika źródeł. Warunkiem ukończenia jest niezależna ocena estetyki, dokumentacja i sprawdzony eksport; ocena techniczna nie oznacza akceptacji estetycznej przez właściciela.
+
+## Zapis stanu produkcyjnego
+
+Powyższe wymiary są bezpośrednimi współrzędnymi sceny 1920×1080; poprzednie mnożniki całych kompozycji .65–.78 nie obowiązują. Szerokości stosów nazwa/kwota Donate1–7: 440/580/620/480/420/480/440 px, odstęp 24 px. Nazwa: `max(28, min(44, nameSize, width / max(1, length × .7)))`. Kwota: `min(112, amountSize, (width − 28) / (length × .72 + .4))`; `length` kwoty oznacza sformatowaną liczbę bez waluty. Cyjanowe odpowiedzi Donate1/5 wchodzą 100 ms po kulminacji przez 300 ms; są częścią istniejącej osi muzycznej. Odręczne grafiki z przezroczystym tłem adaptują charakter dostarczonego baneru, nie zastępują źródłowych GIF-ów; proces zapisano w PRODUCTION_22_LETTERING.md. Historyczna ochrona prostokątami została zastąpiona w kontynuacji post-v2.2: banknoty zachowują ciągłe trajektorie, sześć z siedmiu biegnie za źródłem/tekstem, jeden z siedmiu przed nimi. Obie warstwy mają miękkie, niezerowe wygaszanie przy rzeczywistych granicach stosu darczyńcy, bez usuwania banknotów w niewidzialnym obszarze. Rytmiczne mikroruchy, akcenty źródła i reakcje wynikają z punktów/analizy istniejącej muzyki, bez osobnych pętli animacji.
+
+Publicznie zaobserwowano nazwy i adresy pozycji pickera Tipply, ale kontrakt backendu nie jest znany. Produkcja przyjmuje jawne metadane obrazów wyłącznie z dozwolonych źródeł; zwykłe shortcode'y pozostają tekstem. Dwa lokalne fixture'y `xdd`/`emojiBubbly` istnieją tylko w Studio. Limit nazwy 32 znaki i wiadomości 225 znaków odpowiada odczytanym polom formularza; email nie wpływa na kompozycję.
+
+Zgłoszone EncodingError było rzeczywistym błędem dostawy w zainstalowanym Chrome: oryginalne adresy 05/07.mp3 zwracały pustą odpowiedź HTTP 204 przed dekodowaniem. DEV-only alias `/__studio-assets/music/{5|7}` dostarcza bajtowo te same oryginały, bez reenkodowania ani zmiany resolvera produkcyjnego. Dla 05: 408979 bajtów, SHA-256 `ff3599db51b6550e8ba867e81fdcb23440451f639578c1db44c964d0312534a0`. Uruchomiony IDMan jest korelacją; przyczyna przechwycenia nie została udowodniona. Parent raportuje 100 świeżych prób Chrome + 6 porównań oraz 503 odczyty w kontekstach/cache bez błędów; rzeczywiste Play osiągnęło RMS 0.13097 i czas 2.50365 s. To ograniczone ustalenie dostawy/odtwarzania nie stanowi dowodu kompletnego eksportu ani zachowania wszystkich środowisk produkcyjnych.
+
+Autorytetem kierunku pozostaje jawne dopracowanie istniejącego świata `d2f60c0f` z index.html i materiały właściciela. Nie ma nowej zatwierdzonej wygenerowanej kompozycji ani QUALITY BAR. Zrzuty bieżącego świata: `.motion-qa/production-2.2/`. Historyczne raporty i wcześniejsza recenzja pozostają zapisami swoich przebiegów; aktualnych wyników testów i eksportu nie zastępuje ten dokument.

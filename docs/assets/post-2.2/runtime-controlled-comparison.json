@@ -1,0 +1,5792 @@
+{
+  "browser": "154.0.8037.98",
+  "viewport": "1920×1080 DPR1",
+  "samplesPerScene": 60,
+  "quality": "safe",
+  "rows": [
+    {
+      "tier": 4,
+      "original": true,
+      "samples": [
+        {
+          "time": 0.012597999999999984,
+          "media": [
+            {
+              "time": 0,
+              "frame": 0,
+              "frozen": false,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 0.034502,
+              "tier": 4,
+              "requestedFrames": 0,
+              "seeks": 1,
+              "coalesced": 0,
+              "seekLatencyMs": 70.1000000089407,
+              "presentedTime": 0,
+              "presentedFrames": 2,
+              "driftCorrections": 1,
+              "presentedFrame": 0,
+              "skippedPresentedFrames": 0,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 0.1216909999970198,
+          "media": [
+            {
+              "time": 0.07,
+              "frame": 1,
+              "frozen": false,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 0.147252,
+              "tier": 4,
+              "requestedFrames": 1,
+              "seeks": 1,
+              "coalesced": 0,
+              "seekLatencyMs": 70.1000000089407,
+              "presentedTime": 0.13,
+              "presentedFrames": 4,
+              "driftCorrections": 1,
+              "presentedFrame": 2,
+              "skippedPresentedFrames": 0,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 0.24891999999999992,
+          "media": [
+            {
+              "time": 0.2,
+              "frame": 3,
+              "frozen": false,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 0.273937,
+              "tier": 4,
+              "requestedFrames": 3,
+              "seeks": 1,
+              "coalesced": 0,
+              "seekLatencyMs": 70.1000000089407,
+              "presentedTime": 0.2,
+              "presentedFrames": 5,
+              "driftCorrections": 1,
+              "presentedFrame": 3,
+              "skippedPresentedFrames": 0,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 0.37610200000298016,
+          "media": [
+            {
+              "time": 0.33,
+              "frame": 5,
+              "frozen": false,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 0.381233,
+              "tier": 4,
+              "requestedFrames": 5,
+              "seeks": 1,
+              "coalesced": 0,
+              "seekLatencyMs": 70.1000000089407,
+              "presentedTime": 0.33,
+              "presentedFrames": 7,
+              "driftCorrections": 1,
+              "presentedFrame": 5,
+              "skippedPresentedFrames": 0,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 0.48529200000596034,
+          "media": [
+            {
+              "time": 0.47,
+              "frame": 7,
+              "frozen": false,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 0.490354,
+              "tier": 4,
+              "requestedFrames": 7,
+              "seeks": 1,
+              "coalesced": 0,
+              "seekLatencyMs": 70.1000000089407,
+              "presentedTime": 0.4,
+              "presentedFrames": 8,
+              "driftCorrections": 1,
+              "presentedFrame": 6,
+              "skippedPresentedFrames": 0,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 0.5944639999999999,
+          "media": [
+            {
+              "time": 0.53,
+              "frame": 8,
+              "frozen": false,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 0.600472,
+              "tier": 4,
+              "requestedFrames": 8,
+              "seeks": 1,
+              "coalesced": 0,
+              "seekLatencyMs": 70.1000000089407,
+              "presentedTime": 0.6,
+              "presentedFrames": 10,
+              "driftCorrections": 1,
+              "presentedFrame": 9,
+              "skippedPresentedFrames": 1,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 0.7035020000089407,
+          "media": [
+            {
+              "time": 0.67,
+              "frame": 10,
+              "frozen": false,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 0.709727,
+              "tier": 4,
+              "requestedFrames": 10,
+              "seeks": 1,
+              "coalesced": 0,
+              "seekLatencyMs": 70.1000000089407,
+              "presentedTime": 0.73,
+              "presentedFrames": 12,
+              "driftCorrections": 1,
+              "presentedFrame": 11,
+              "skippedPresentedFrames": 1,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 0.8126020000029803,
+          "media": [
+            {
+              "time": 0.8,
+              "frame": 12,
+              "frozen": false,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 0.81857,
+              "tier": 4,
+              "requestedFrames": 12,
+              "seeks": 1,
+              "coalesced": 0,
+              "seekLatencyMs": 70.1000000089407,
+              "presentedTime": 0.8,
+              "presentedFrames": 13,
+              "driftCorrections": 1,
+              "presentedFrame": 12,
+              "skippedPresentedFrames": 1,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 0.9216909999970198,
+          "media": [
+            {
+              "time": 0.87,
+              "frame": 13,
+              "frozen": false,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 0.929666,
+              "tier": 4,
+              "requestedFrames": 13,
+              "seeks": 1,
+              "coalesced": 0,
+              "seekLatencyMs": 70.1000000089407,
+              "presentedTime": 0.93,
+              "presentedFrames": 15,
+              "driftCorrections": 1,
+              "presentedFrame": 14,
+              "skippedPresentedFrames": 1,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 1.0307019999970195,
+          "media": [
+            {
+              "time": 1,
+              "frame": 15,
+              "frozen": false,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 1.038386,
+              "tier": 4,
+              "requestedFrames": 15,
+              "seeks": 1,
+              "coalesced": 0,
+              "seekLatencyMs": 70.1000000089407,
+              "presentedTime": 1.07,
+              "presentedFrames": 17,
+              "driftCorrections": 1,
+              "presentedFrame": 16,
+              "skippedPresentedFrames": 1,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 1.1397069999970197,
+          "media": [
+            {
+              "time": 1.13,
+              "frame": 17,
+              "frozen": false,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 1.147429,
+              "tier": 4,
+              "requestedFrames": 17,
+              "seeks": 1,
+              "coalesced": 0,
+              "seekLatencyMs": 70.1000000089407,
+              "presentedTime": 1.13,
+              "presentedFrames": 18,
+              "driftCorrections": 1,
+              "presentedFrame": 17,
+              "skippedPresentedFrames": 1,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 1.25491,
+          "media": [
+            {
+              "time": 1.2,
+              "frame": 18,
+              "frozen": false,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 1.259216,
+              "tier": 4,
+              "requestedFrames": 18,
+              "seeks": 1,
+              "coalesced": 0,
+              "seekLatencyMs": 70.1000000089407,
+              "presentedTime": 1.27,
+              "presentedFrames": 20,
+              "driftCorrections": 1,
+              "presentedFrame": 19,
+              "skippedPresentedFrames": 1,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 1.3639900000089404,
+          "media": [
+            {
+              "time": 1.33,
+              "frame": 20,
+              "frozen": false,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 1.36895,
+              "tier": 4,
+              "requestedFrames": 20,
+              "seeks": 1,
+              "coalesced": 0,
+              "seekLatencyMs": 70.1000000089407,
+              "presentedTime": 1.4,
+              "presentedFrames": 22,
+              "driftCorrections": 1,
+              "presentedFrame": 21,
+              "skippedPresentedFrames": 1,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 1.4670079999940393,
+          "media": [
+            {
+              "time": 1.4,
+              "frame": 21,
+              "frozen": false,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 1.475557,
+              "tier": 4,
+              "requestedFrames": 21,
+              "seeks": 1,
+              "coalesced": 0,
+              "seekLatencyMs": 70.1000000089407,
+              "presentedTime": 1.47,
+              "presentedFrames": 23,
+              "driftCorrections": 1,
+              "presentedFrame": 22,
+              "skippedPresentedFrames": 1,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 1.5761069999880788,
+          "media": [
+            {
+              "time": 1.53,
+              "frame": 23,
+              "frozen": false,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 1.583859,
+              "tier": 4,
+              "requestedFrames": 23,
+              "seeks": 1,
+              "coalesced": 0,
+              "seekLatencyMs": 70.1000000089407,
+              "presentedTime": 1.6,
+              "presentedFrames": 25,
+              "driftCorrections": 1,
+              "presentedFrame": 24,
+              "skippedPresentedFrames": 1,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 1.6852960000059602,
+          "media": [
+            {
+              "time": 1.67,
+              "frame": 25,
+              "frozen": false,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 1.693174,
+              "tier": 4,
+              "requestedFrames": 25,
+              "seeks": 1,
+              "coalesced": 0,
+              "seekLatencyMs": 70.1000000089407,
+              "presentedTime": 1.67,
+              "presentedFrames": 26,
+              "driftCorrections": 1,
+              "presentedFrame": 25,
+              "skippedPresentedFrames": 1,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 1.7943009999910589,
+          "media": [
+            {
+              "time": 1.73,
+              "frame": 26,
+              "frozen": false,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 1.801275,
+              "tier": 4,
+              "requestedFrames": 26,
+              "seeks": 1,
+              "coalesced": 0,
+              "seekLatencyMs": 70.1000000089407,
+              "presentedTime": 1.8,
+              "presentedFrames": 28,
+              "driftCorrections": 1,
+              "presentedFrame": 27,
+              "skippedPresentedFrames": 1,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 1.88559400000298,
+          "media": [
+            {
+              "time": 1.87,
+              "frame": 28,
+              "frozen": false,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 1.910778,
+              "tier": 4,
+              "requestedFrames": 28,
+              "seeks": 1,
+              "coalesced": 0,
+              "seekLatencyMs": 70.1000000089407,
+              "presentedTime": 1.93,
+              "presentedFrames": 30,
+              "driftCorrections": 1,
+              "presentedFrame": 29,
+              "skippedPresentedFrames": 1,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 2.0126020000029805,
+          "media": [
+            {
+              "time": 2,
+              "frame": 30,
+              "frozen": false,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 2.018919,
+              "tier": 4,
+              "requestedFrames": 30,
+              "seeks": 1,
+              "coalesced": 0,
+              "seekLatencyMs": 70.1000000089407,
+              "presentedTime": 2,
+              "presentedFrames": 31,
+              "driftCorrections": 1,
+              "presentedFrame": 30,
+              "skippedPresentedFrames": 1,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 2.1215920000029804,
+          "media": [
+            {
+              "time": 2.07,
+              "frame": 31,
+              "frozen": false,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 2.128009,
+              "tier": 4,
+              "requestedFrames": 31,
+              "seeks": 1,
+              "coalesced": 0,
+              "seekLatencyMs": 70.1000000089407,
+              "presentedTime": 2.13,
+              "presentedFrames": 33,
+              "driftCorrections": 1,
+              "presentedFrame": 32,
+              "skippedPresentedFrames": 1,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 2.2308070000059605,
+          "media": [
+            {
+              "time": 2.2,
+              "frame": 33,
+              "frozen": false,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 2.237186,
+              "tier": 4,
+              "requestedFrames": 33,
+              "seeks": 1,
+              "coalesced": 0,
+              "seekLatencyMs": 70.1000000089407,
+              "presentedTime": 2.27,
+              "presentedFrames": 35,
+              "driftCorrections": 1,
+              "presentedFrame": 34,
+              "skippedPresentedFrames": 1,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 2.3398070000059605,
+          "media": [
+            {
+              "time": 2.33,
+              "frame": 35,
+              "frozen": false,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 2.345364,
+              "tier": 4,
+              "requestedFrames": 35,
+              "seeks": 1,
+              "coalesced": 0,
+              "seekLatencyMs": 70.1000000089407,
+              "presentedTime": 2.33,
+              "presentedFrames": 36,
+              "driftCorrections": 1,
+              "presentedFrame": 35,
+              "skippedPresentedFrames": 1,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 2.43072299999702,
+          "media": [
+            {
+              "time": 2.4,
+              "frame": 36,
+              "frozen": false,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 2.453422,
+              "tier": 4,
+              "requestedFrames": 36,
+              "seeks": 1,
+              "coalesced": 0,
+              "seekLatencyMs": 70.1000000089407,
+              "presentedTime": 2.47,
+              "presentedFrames": 38,
+              "driftCorrections": 1,
+              "presentedFrame": 37,
+              "skippedPresentedFrames": 1,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 2.55800499999404,
+          "media": [
+            {
+              "time": 2.53,
+              "frame": 38,
+              "frozen": false,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 2.562142,
+              "tier": 4,
+              "requestedFrames": 38,
+              "seeks": 1,
+              "coalesced": 0,
+              "seekLatencyMs": 70.1000000089407,
+              "presentedTime": 2.6,
+              "presentedFrames": 40,
+              "driftCorrections": 1,
+              "presentedFrame": 39,
+              "skippedPresentedFrames": 1,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 2.6673110000059603,
+          "media": [
+            {
+              "time": 2.6,
+              "frame": 39,
+              "frozen": false,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 2.671283,
+              "tier": 4,
+              "requestedFrames": 39,
+              "seeks": 1,
+              "coalesced": 0,
+              "seekLatencyMs": 70.1000000089407,
+              "presentedTime": 2.67,
+              "presentedFrames": 41,
+              "driftCorrections": 1,
+              "presentedFrame": 40,
+              "skippedPresentedFrames": 1,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 2.7762009999970196,
+          "media": [
+            {
+              "time": 2.73,
+              "frame": 41,
+              "frozen": false,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 2.783036,
+              "tier": 4,
+              "requestedFrames": 41,
+              "seeks": 1,
+              "coalesced": 0,
+              "seekLatencyMs": 70.1000000089407,
+              "presentedTime": 2.8,
+              "presentedFrames": 43,
+              "driftCorrections": 1,
+              "presentedFrame": 42,
+              "skippedPresentedFrames": 1,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 2.8873960000000003,
+          "media": [
+            {
+              "time": 2.87,
+              "frame": 43,
+              "frozen": false,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 2.893424,
+              "tier": 4,
+              "requestedFrames": 43,
+              "seeks": 1,
+              "coalesced": 0,
+              "seekLatencyMs": 70.1000000089407,
+              "presentedTime": 2.93,
+              "presentedFrames": 45,
+              "driftCorrections": 1,
+              "presentedFrame": 44,
+              "skippedPresentedFrames": 1,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 3.000395,
+          "media": [
+            {
+              "time": 3,
+              "frame": 45,
+              "frozen": false,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 3.006484,
+              "tier": 4,
+              "requestedFrames": 45,
+              "seeks": 1,
+              "coalesced": 0,
+              "seekLatencyMs": 70.1000000089407,
+              "presentedTime": 3,
+              "presentedFrames": 46,
+              "driftCorrections": 1,
+              "presentedFrame": 45,
+              "skippedPresentedFrames": 1,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 3.1096040000029808,
+          "media": [
+            {
+              "time": 3.07,
+              "frame": 46,
+              "frozen": false,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 3.114954,
+              "tier": 4,
+              "requestedFrames": 46,
+              "seeks": 1,
+              "coalesced": 0,
+              "seekLatencyMs": 70.1000000089407,
+              "presentedTime": 3.13,
+              "presentedFrames": 48,
+              "driftCorrections": 1,
+              "presentedFrame": 47,
+              "skippedPresentedFrames": 1,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 3.21870099999702,
+          "media": [
+            {
+              "time": 3.2,
+              "frame": 48,
+              "frozen": false,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 3.223761,
+              "tier": 4,
+              "requestedFrames": 48,
+              "seeks": 1,
+              "coalesced": 0,
+              "seekLatencyMs": 70.1000000089407,
+              "presentedTime": 3.2,
+              "presentedFrames": 49,
+              "driftCorrections": 1,
+              "presentedFrame": 48,
+              "skippedPresentedFrames": 1,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 3.32769399999702,
+          "media": [
+            {
+              "time": 3.27,
+              "frame": 49,
+              "frozen": false,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 3.332508,
+              "tier": 4,
+              "requestedFrames": 49,
+              "seeks": 1,
+              "coalesced": 0,
+              "seekLatencyMs": 70.1000000089407,
+              "presentedTime": 3.33,
+              "presentedFrames": 51,
+              "driftCorrections": 1,
+              "presentedFrame": 50,
+              "skippedPresentedFrames": 1,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 3.4368280000059603,
+          "media": [
+            {
+              "time": 3.4,
+              "frame": 51,
+              "frozen": false,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 3.441394,
+              "tier": 4,
+              "requestedFrames": 51,
+              "seeks": 1,
+              "coalesced": 0,
+              "seekLatencyMs": 70.1000000089407,
+              "presentedTime": 3.47,
+              "presentedFrames": 53,
+              "driftCorrections": 1,
+              "presentedFrame": 52,
+              "skippedPresentedFrames": 1,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 3.5459060000000004,
+          "media": [
+            {
+              "time": 3.53,
+              "frame": 53,
+              "frozen": false,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 3.550718,
+              "tier": 4,
+              "requestedFrames": 53,
+              "seeks": 1,
+              "coalesced": 0,
+              "seekLatencyMs": 70.1000000089407,
+              "presentedTime": 3.53,
+              "presentedFrames": 54,
+              "driftCorrections": 1,
+              "presentedFrame": 53,
+              "skippedPresentedFrames": 1,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 3.6489279999999997,
+          "media": [
+            {
+              "time": 3.6,
+              "frame": 54,
+              "frozen": false,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 3.658102,
+              "tier": 4,
+              "requestedFrames": 54,
+              "seeks": 1,
+              "coalesced": 0,
+              "seekLatencyMs": 70.1000000089407,
+              "presentedTime": 3.67,
+              "presentedFrames": 56,
+              "driftCorrections": 1,
+              "presentedFrame": 55,
+              "skippedPresentedFrames": 1,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 3.7595940000029806,
+          "media": [
+            {
+              "time": 3.73,
+              "frame": 56,
+              "frozen": false,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 3.765159,
+              "tier": 4,
+              "requestedFrames": 56,
+              "seeks": 1,
+              "coalesced": 0,
+              "seekLatencyMs": 70.1000000089407,
+              "presentedTime": 3.8,
+              "presentedFrames": 58,
+              "driftCorrections": 1,
+              "presentedFrame": 57,
+              "skippedPresentedFrames": 1,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 3.8672069999970202,
+          "media": [
+            {
+              "time": 3.8,
+              "frame": 57,
+              "frozen": false,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 3.87222,
+              "tier": 4,
+              "requestedFrames": 57,
+              "seeks": 1,
+              "coalesced": 0,
+              "seekLatencyMs": 70.1000000089407,
+              "presentedTime": 3.87,
+              "presentedFrames": 59,
+              "driftCorrections": 1,
+              "presentedFrame": 58,
+              "skippedPresentedFrames": 1,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 3.9762349999970197,
+          "media": [
+            {
+              "time": 3.93,
+              "frame": 59,
+              "frozen": false,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 3.982338,
+              "tier": 4,
+              "requestedFrames": 59,
+              "seeks": 1,
+              "coalesced": 0,
+              "seekLatencyMs": 70.1000000089407,
+              "presentedTime": 4,
+              "presentedFrames": 61,
+              "driftCorrections": 1,
+              "presentedFrame": 60,
+              "skippedPresentedFrames": 1,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 4.085297000005962,
+          "media": [
+            {
+              "time": 4.07,
+              "frame": 61,
+              "frozen": false,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 4.091283,
+              "tier": 4,
+              "requestedFrames": 61,
+              "seeks": 1,
+              "coalesced": 0,
+              "seekLatencyMs": 70.1000000089407,
+              "presentedTime": 4.07,
+              "presentedFrames": 62,
+              "driftCorrections": 1,
+              "presentedFrame": 61,
+              "skippedPresentedFrames": 1,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 4.194401,
+          "media": [
+            {
+              "time": 1.93,
+              "frame": 29,
+              "frozen": true,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 1.930999,
+              "tier": 4,
+              "requestedFrames": 63,
+              "seeks": 2,
+              "coalesced": 0,
+              "seekLatencyMs": 70.1000000089407,
+              "presentedTime": 4.2,
+              "presentedFrames": 64,
+              "driftCorrections": 1,
+              "presentedFrame": 63,
+              "skippedPresentedFrames": 1,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 4.303935000000001,
+          "media": [
+            {
+              "time": 1.93,
+              "frame": 29,
+              "frozen": true,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 1.930999,
+              "tier": 4,
+              "requestedFrames": 63,
+              "seeks": 2,
+              "coalesced": 0,
+              "seekLatencyMs": 70.1000000089407,
+              "presentedTime": 4.2,
+              "presentedFrames": 64,
+              "driftCorrections": 1,
+              "presentedFrame": 63,
+              "skippedPresentedFrames": 1,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 4.41260200000298,
+          "media": [
+            {
+              "time": 1.93,
+              "frame": 29,
+              "frozen": true,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 1.930999,
+              "tier": 4,
+              "requestedFrames": 63,
+              "seeks": 2,
+              "coalesced": 0,
+              "seekLatencyMs": 183.59999999403954,
+              "presentedTime": 1.93,
+              "presentedFrames": 65,
+              "driftCorrections": 1,
+              "presentedFrame": 29,
+              "skippedPresentedFrames": 1,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 4.521689999997021,
+          "media": [
+            {
+              "time": 1.93,
+              "frame": 29,
+              "frozen": true,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 1.930999,
+              "tier": 4,
+              "requestedFrames": 63,
+              "seeks": 2,
+              "coalesced": 0,
+              "seekLatencyMs": 183.59999999403954,
+              "presentedTime": 1.93,
+              "presentedFrames": 65,
+              "driftCorrections": 1,
+              "presentedFrame": 29,
+              "skippedPresentedFrames": 1,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 4.630814999991061,
+          "media": [
+            {
+              "time": 1.93,
+              "frame": 29,
+              "frozen": true,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 1.930999,
+              "tier": 4,
+              "requestedFrames": 63,
+              "seeks": 2,
+              "coalesced": 0,
+              "seekLatencyMs": 183.59999999403954,
+              "presentedTime": 1.93,
+              "presentedFrames": 65,
+              "driftCorrections": 1,
+              "presentedFrame": 29,
+              "skippedPresentedFrames": 1,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 4.739908000000001,
+          "media": [
+            {
+              "time": 1.93,
+              "frame": 29,
+              "frozen": true,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 1.930999,
+              "tier": 4,
+              "requestedFrames": 63,
+              "seeks": 2,
+              "coalesced": 0,
+              "seekLatencyMs": 183.59999999403954,
+              "presentedTime": 1.93,
+              "presentedFrames": 65,
+              "driftCorrections": 1,
+              "presentedFrame": 29,
+              "skippedPresentedFrames": 1,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 4.8489390000000006,
+          "media": [
+            {
+              "time": 1.93,
+              "frame": 29,
+              "frozen": true,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 1.930999,
+              "tier": 4,
+              "requestedFrames": 63,
+              "seeks": 2,
+              "coalesced": 0,
+              "seekLatencyMs": 183.59999999403954,
+              "presentedTime": 1.93,
+              "presentedFrames": 65,
+              "driftCorrections": 1,
+              "presentedFrame": 29,
+              "skippedPresentedFrames": 1,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 4.958028000008941,
+          "media": [
+            {
+              "time": 2,
+              "frame": 30,
+              "frozen": false,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 2.010371,
+              "tier": 4,
+              "requestedFrames": 64,
+              "seeks": 3,
+              "coalesced": 0,
+              "seekLatencyMs": 1.9000000059604645,
+              "presentedTime": 2,
+              "presentedFrames": 66,
+              "driftCorrections": 2,
+              "presentedFrame": 30,
+              "skippedPresentedFrames": 1,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 5.063407000000001,
+          "media": [
+            {
+              "time": 2.07,
+              "frame": 31,
+              "frozen": false,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 2.117572,
+              "tier": 4,
+              "requestedFrames": 65,
+              "seeks": 3,
+              "coalesced": 0,
+              "seekLatencyMs": 1.9000000059604645,
+              "presentedTime": 2.13,
+              "presentedFrames": 67,
+              "driftCorrections": 2,
+              "presentedFrame": 32,
+              "skippedPresentedFrames": 2,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 5.171311000005962,
+          "media": [
+            {
+              "time": 2.2,
+              "frame": 33,
+              "frozen": false,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 2.22724,
+              "tier": 4,
+              "requestedFrames": 67,
+              "seeks": 3,
+              "coalesced": 0,
+              "seekLatencyMs": 1.9000000059604645,
+              "presentedTime": 2.27,
+              "presentedFrames": 69,
+              "driftCorrections": 2,
+              "presentedFrame": 34,
+              "skippedPresentedFrames": 2,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 5.26710199998808,
+          "media": [
+            {
+              "time": 2.27,
+              "frame": 34,
+              "frozen": false,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 2.336729,
+              "tier": 4,
+              "requestedFrames": 68,
+              "seeks": 3,
+              "coalesced": 0,
+              "seekLatencyMs": 1.9000000059604645,
+              "presentedTime": 2.33,
+              "presentedFrames": 70,
+              "driftCorrections": 2,
+              "presentedFrame": 35,
+              "skippedPresentedFrames": 2,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 5.3762029999970204,
+          "media": [
+            {
+              "time": 2.4,
+              "frame": 36,
+              "frozen": false,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 2.44319,
+              "tier": 4,
+              "requestedFrames": 70,
+              "seeks": 3,
+              "coalesced": 0,
+              "seekLatencyMs": 1.9000000059604645,
+              "presentedTime": 2.47,
+              "presentedFrames": 72,
+              "driftCorrections": 2,
+              "presentedFrame": 37,
+              "skippedPresentedFrames": 2,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 5.49820699999702,
+          "media": [
+            {
+              "time": 2.53,
+              "frame": 38,
+              "frozen": false,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 2.551444,
+              "tier": 4,
+              "requestedFrames": 72,
+              "seeks": 3,
+              "coalesced": 0,
+              "seekLatencyMs": 1.9000000059604645,
+              "presentedTime": 2.6,
+              "presentedFrames": 74,
+              "driftCorrections": 2,
+              "presentedFrame": 39,
+              "skippedPresentedFrames": 2,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 5.607994000008941,
+          "media": [
+            {
+              "time": 2.6,
+              "frame": 39,
+              "frozen": false,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 2.661112,
+              "tier": 4,
+              "requestedFrames": 73,
+              "seeks": 3,
+              "coalesced": 0,
+              "seekLatencyMs": 1.9000000059604645,
+              "presentedTime": 2.73,
+              "presentedFrames": 76,
+              "driftCorrections": 2,
+              "presentedFrame": 41,
+              "skippedPresentedFrames": 2,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 5.716408000000001,
+          "media": [
+            {
+              "time": 2.73,
+              "frame": 41,
+              "frozen": false,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 2.770166,
+              "tier": 4,
+              "requestedFrames": 75,
+              "seeks": 3,
+              "coalesced": 0,
+              "seekLatencyMs": 1.9000000059604645,
+              "presentedTime": 2.8,
+              "presentedFrames": 77,
+              "driftCorrections": 2,
+              "presentedFrame": 42,
+              "skippedPresentedFrames": 2,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 5.812608000002981,
+          "media": [
+            {
+              "time": 2.8,
+              "frame": 42,
+              "frozen": false,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 2.879559,
+              "tier": 4,
+              "requestedFrames": 76,
+              "seeks": 3,
+              "coalesced": 0,
+              "seekLatencyMs": 1.9000000059604645,
+              "presentedTime": 2.93,
+              "presentedFrames": 79,
+              "driftCorrections": 2,
+              "presentedFrame": 44,
+              "skippedPresentedFrames": 2,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 5.921690999997021,
+          "media": [
+            {
+              "time": 2.93,
+              "frame": 44,
+              "frozen": false,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 2.987662,
+              "tier": 4,
+              "requestedFrames": 78,
+              "seeks": 3,
+              "coalesced": 0,
+              "seekLatencyMs": 1.9000000059604645,
+              "presentedTime": 3,
+              "presentedFrames": 80,
+              "driftCorrections": 2,
+              "presentedFrame": 45,
+              "skippedPresentedFrames": 2,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 6.030807000005961,
+          "media": [
+            {
+              "time": 3.07,
+              "frame": 46,
+              "frozen": false,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 3.096162,
+              "tier": 4,
+              "requestedFrames": 80,
+              "seeks": 3,
+              "coalesced": 0,
+              "seekLatencyMs": 1.9000000059604645,
+              "presentedTime": 3.13,
+              "presentedFrames": 82,
+              "driftCorrections": 2,
+              "presentedFrame": 47,
+              "skippedPresentedFrames": 2,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 6.139928000000001,
+          "media": [
+            {
+              "time": 3.13,
+              "frame": 47,
+              "frozen": false,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 3.205231,
+              "tier": 4,
+              "requestedFrames": 81,
+              "seeks": 3,
+              "coalesced": 0,
+              "seekLatencyMs": 1.9000000059604645,
+              "presentedTime": 3.27,
+              "presentedFrames": 84,
+              "driftCorrections": 2,
+              "presentedFrame": 49,
+              "skippedPresentedFrames": 2,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 6.248962000000001,
+          "media": [
+            {
+              "time": 3.27,
+              "frame": 49,
+              "frozen": false,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 3.320659,
+              "tier": 4,
+              "requestedFrames": 83,
+              "seeks": 3,
+              "coalesced": 0,
+              "seekLatencyMs": 1.9000000059604645,
+              "presentedTime": 3.33,
+              "presentedFrames": 85,
+              "driftCorrections": 2,
+              "presentedFrame": 50,
+              "skippedPresentedFrames": 2,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 6.358102000002981,
+          "media": [
+            {
+              "time": 3.4,
+              "frame": 51,
+              "frozen": false,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 3.424749,
+              "tier": 4,
+              "requestedFrames": 85,
+              "seeks": 3,
+              "coalesced": 0,
+              "seekLatencyMs": 1.9000000059604645,
+              "presentedTime": 3.47,
+              "presentedFrames": 87,
+              "driftCorrections": 2,
+              "presentedFrame": 52,
+              "skippedPresentedFrames": 2,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 6.46720699999702,
+          "media": [
+            {
+              "time": 3.47,
+              "frame": 52,
+              "frozen": false,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 3.532778,
+              "tier": 4,
+              "requestedFrames": 86,
+              "seeks": 3,
+              "coalesced": 0,
+              "seekLatencyMs": 1.9000000059604645,
+              "presentedTime": 3.53,
+              "presentedFrames": 88,
+              "driftCorrections": 2,
+              "presentedFrame": 53,
+              "skippedPresentedFrames": 2,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "tier": 6,
+      "original": true,
+      "samples": [
+        {
+          "time": 0.008107666654745743,
+          "media": [
+            {
+              "time": 0,
+              "frame": 0,
+              "frozen": false,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 0.036078,
+              "tier": 6,
+              "requestedFrames": 0,
+              "seeks": 1,
+              "coalesced": 0,
+              "seekLatencyMs": 67.90000000596046,
+              "presentedTime": 0,
+              "presentedFrames": 2,
+              "driftCorrections": 1,
+              "presentedFrame": 0,
+              "skippedPresentedFrames": 0,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 0.11712866666964691,
+          "media": [
+            {
+              "time": 0.08,
+              "frame": 1,
+              "frozen": false,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 0.144974,
+              "tier": 6,
+              "requestedFrames": 1,
+              "seeks": 1,
+              "coalesced": 0,
+              "seekLatencyMs": 67.90000000596046,
+              "presentedTime": 0.08,
+              "presentedFrames": 3,
+              "driftCorrections": 1,
+              "presentedFrame": 1,
+              "skippedPresentedFrames": 0,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 0.22972666666368638,
+          "media": [
+            {
+              "time": 0.16,
+              "frame": 2,
+              "frozen": false,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 0.255799,
+              "tier": 6,
+              "requestedFrames": 2,
+              "seeks": 1,
+              "coalesced": 0,
+              "seekLatencyMs": 67.90000000596046,
+              "presentedTime": 0.24,
+              "presentedFrames": 5,
+              "driftCorrections": 1,
+              "presentedFrame": 3,
+              "skippedPresentedFrames": 0,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 0.33522866666368645,
+          "media": [
+            {
+              "time": 0.32,
+              "frame": 4,
+              "frozen": false,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 0.359221,
+              "tier": 6,
+              "requestedFrames": 4,
+              "seeks": 1,
+              "coalesced": 0,
+              "seekLatencyMs": 67.90000000596046,
+              "presentedTime": 0.32,
+              "presentedFrames": 6,
+              "driftCorrections": 1,
+              "presentedFrame": 4,
+              "skippedPresentedFrames": 0,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 0.4443256666726271,
+          "media": [
+            {
+              "time": 0.4,
+              "frame": 5,
+              "frozen": false,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 0.469093,
+              "tier": 6,
+              "requestedFrames": 5,
+              "seeks": 1,
+              "coalesced": 0,
+              "seekLatencyMs": 67.90000000596046,
+              "presentedTime": 0.4,
+              "presentedFrames": 7,
+              "driftCorrections": 1,
+              "presentedFrame": 5,
+              "skippedPresentedFrames": 0,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 0.5535346666607063,
+          "media": [
+            {
+              "time": 0.48,
+              "frame": 6,
+              "frozen": false,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 0.577961,
+              "tier": 6,
+              "requestedFrames": 6,
+              "seeks": 1,
+              "coalesced": 0,
+              "seekLatencyMs": 67.90000000596046,
+              "presentedTime": 0.56,
+              "presentedFrames": 9,
+              "driftCorrections": 1,
+              "presentedFrame": 7,
+              "skippedPresentedFrames": 0,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 0.6625756666547458,
+          "media": [
+            {
+              "time": 0.64,
+              "frame": 8,
+              "frozen": false,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 0.686629,
+              "tier": 6,
+              "requestedFrames": 8,
+              "seeks": 1,
+              "coalesced": 0,
+              "seekLatencyMs": 67.90000000596046,
+              "presentedTime": 0.64,
+              "presentedFrames": 10,
+              "driftCorrections": 1,
+              "presentedFrame": 8,
+              "skippedPresentedFrames": 0,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 0.7717046666636864,
+          "media": [
+            {
+              "time": 0.72,
+              "frame": 9,
+              "frozen": false,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 0.795552,
+              "tier": 6,
+              "requestedFrames": 9,
+              "seeks": 1,
+              "coalesced": 0,
+              "seekLatencyMs": 67.90000000596046,
+              "presentedTime": 0.72,
+              "presentedFrames": 11,
+              "driftCorrections": 1,
+              "presentedFrame": 9,
+              "skippedPresentedFrames": 0,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 0.874839666657726,
+          "media": [
+            {
+              "time": 0.8,
+              "frame": 10,
+              "frozen": false,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 0.902621,
+              "tier": 6,
+              "requestedFrames": 10,
+              "seeks": 1,
+              "coalesced": 0,
+              "seekLatencyMs": 67.90000000596046,
+              "presentedTime": 0.88,
+              "presentedFrames": 13,
+              "driftCorrections": 1,
+              "presentedFrame": 11,
+              "skippedPresentedFrames": 0,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 0.9837346666636863,
+          "media": [
+            {
+              "time": 0.96,
+              "frame": 12,
+              "frozen": false,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 1.009964,
+              "tier": 6,
+              "requestedFrames": 12,
+              "seeks": 1,
+              "coalesced": 0,
+              "seekLatencyMs": 67.90000000596046,
+              "presentedTime": 0.96,
+              "presentedFrames": 14,
+              "driftCorrections": 1,
+              "presentedFrame": 12,
+              "skippedPresentedFrames": 0,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 1.0928326666726271,
+          "media": [
+            {
+              "time": 1.04,
+              "frame": 13,
+              "frozen": false,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 1.118167,
+              "tier": 6,
+              "requestedFrames": 13,
+              "seeks": 1,
+              "coalesced": 0,
+              "seekLatencyMs": 67.90000000596046,
+              "presentedTime": 1.04,
+              "presentedFrames": 15,
+              "driftCorrections": 1,
+              "presentedFrame": 13,
+              "skippedPresentedFrames": 0,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 1.2020456666607062,
+          "media": [
+            {
+              "time": 1.2,
+              "frame": 15,
+              "frozen": false,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 1.226267,
+              "tier": 6,
+              "requestedFrames": 15,
+              "seeks": 1,
+              "coalesced": 0,
+              "seekLatencyMs": 67.90000000596046,
+              "presentedTime": 1.2,
+              "presentedFrames": 17,
+              "driftCorrections": 1,
+              "presentedFrame": 15,
+              "skippedPresentedFrames": 0,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 1.3110276666607064,
+          "media": [
+            {
+              "time": 1.28,
+              "frame": 16,
+              "frozen": false,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 1.335297,
+              "tier": 6,
+              "requestedFrames": 16,
+              "seeks": 1,
+              "coalesced": 0,
+              "seekLatencyMs": 67.90000000596046,
+              "presentedTime": 1.28,
+              "presentedFrames": 18,
+              "driftCorrections": 1,
+              "presentedFrame": 16,
+              "skippedPresentedFrames": 0,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 1.4261496666696472,
+          "media": [
+            {
+              "time": 1.36,
+              "frame": 17,
+              "frozen": false,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 1.450564,
+              "tier": 6,
+              "requestedFrames": 17,
+              "seeks": 1,
+              "coalesced": 0,
+              "seekLatencyMs": 67.90000000596046,
+              "presentedTime": 1.44,
+              "presentedFrames": 20,
+              "driftCorrections": 1,
+              "presentedFrame": 18,
+              "skippedPresentedFrames": 0,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 1.5353286666726271,
+          "media": [
+            {
+              "time": 1.52,
+              "frame": 19,
+              "frozen": false,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 1.559328,
+              "tier": 6,
+              "requestedFrames": 19,
+              "seeks": 1,
+              "coalesced": 0,
+              "seekLatencyMs": 67.90000000596046,
+              "presentedTime": 1.52,
+              "presentedFrames": 21,
+              "driftCorrections": 1,
+              "presentedFrame": 19,
+              "skippedPresentedFrames": 0,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 1.6444106666666667,
+          "media": [
+            {
+              "time": 1.6,
+              "frame": 20,
+              "frozen": false,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 1.668539,
+              "tier": 6,
+              "requestedFrames": 20,
+              "seeks": 1,
+              "coalesced": 0,
+              "seekLatencyMs": 67.90000000596046,
+              "presentedTime": 1.6,
+              "presentedFrames": 22,
+              "driftCorrections": 1,
+              "presentedFrame": 20,
+              "skippedPresentedFrames": 0,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 1.7535556666607064,
+          "media": [
+            {
+              "time": 1.68,
+              "frame": 21,
+              "frozen": false,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 1.778854,
+              "tier": 6,
+              "requestedFrames": 21,
+              "seeks": 1,
+              "coalesced": 0,
+              "seekLatencyMs": 67.90000000596046,
+              "presentedTime": 1.76,
+              "presentedFrames": 24,
+              "driftCorrections": 1,
+              "presentedFrame": 22,
+              "skippedPresentedFrames": 0,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 1.8625316666607061,
+          "media": [
+            {
+              "time": 1.84,
+              "frame": 23,
+              "frozen": false,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 1.888503,
+              "tier": 6,
+              "requestedFrames": 23,
+              "seeks": 1,
+              "coalesced": 0,
+              "seekLatencyMs": 67.90000000596046,
+              "presentedTime": 1.84,
+              "presentedFrames": 25,
+              "driftCorrections": 1,
+              "presentedFrame": 23,
+              "skippedPresentedFrames": 0,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 1.9717316666636866,
+          "media": [
+            {
+              "time": 1.92,
+              "frame": 24,
+              "frozen": false,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 1.995721,
+              "tier": 6,
+              "requestedFrames": 24,
+              "seeks": 1,
+              "coalesced": 0,
+              "seekLatencyMs": 67.90000000596046,
+              "presentedTime": 1.92,
+              "presentedFrames": 26,
+              "driftCorrections": 1,
+              "presentedFrame": 24,
+              "skippedPresentedFrames": 0,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 2.0748396666577262,
+          "media": [
+            {
+              "time": 2,
+              "frame": 25,
+              "frozen": false,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 2.102035,
+              "tier": 6,
+              "requestedFrames": 25,
+              "seeks": 1,
+              "coalesced": 0,
+              "seekLatencyMs": 67.90000000596046,
+              "presentedTime": 2.08,
+              "presentedFrames": 28,
+              "driftCorrections": 1,
+              "presentedFrame": 26,
+              "skippedPresentedFrames": 0,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 2.1840406666607066,
+          "media": [
+            {
+              "time": 2.16,
+              "frame": 27,
+              "frozen": false,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 2.209915,
+              "tier": 6,
+              "requestedFrames": 27,
+              "seeks": 1,
+              "coalesced": 0,
+              "seekLatencyMs": 67.90000000596046,
+              "presentedTime": 2.16,
+              "presentedFrames": 29,
+              "driftCorrections": 1,
+              "presentedFrame": 27,
+              "skippedPresentedFrames": 0,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 2.298935666666667,
+          "media": [
+            {
+              "time": 2.24,
+              "frame": 28,
+              "frozen": false,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 2.322812,
+              "tier": 6,
+              "requestedFrames": 28,
+              "seeks": 1,
+              "coalesced": 0,
+              "seekLatencyMs": 67.90000000596046,
+              "presentedTime": 2.24,
+              "presentedFrames": 30,
+              "driftCorrections": 1,
+              "presentedFrame": 28,
+              "skippedPresentedFrames": 0,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 2.4080346666607064,
+          "media": [
+            {
+              "time": 2.4,
+              "frame": 30,
+              "frozen": false,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 2.432042,
+              "tier": 6,
+              "requestedFrames": 30,
+              "seeks": 1,
+              "coalesced": 0,
+              "seekLatencyMs": 67.90000000596046,
+              "presentedTime": 2.4,
+              "presentedFrames": 32,
+              "driftCorrections": 1,
+              "presentedFrame": 30,
+              "skippedPresentedFrames": 0,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 2.5172286666636863,
+          "media": [
+            {
+              "time": 2.48,
+              "frame": 31,
+              "frozen": false,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 2.540727,
+              "tier": 6,
+              "requestedFrames": 31,
+              "seeks": 1,
+              "coalesced": 0,
+              "seekLatencyMs": 67.90000000596046,
+              "presentedTime": 2.48,
+              "presentedFrames": 33,
+              "driftCorrections": 1,
+              "presentedFrame": 31,
+              "skippedPresentedFrames": 0,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 2.626328666657726,
+          "media": [
+            {
+              "time": 2.56,
+              "frame": 32,
+              "frozen": false,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 2.649947,
+              "tier": 6,
+              "requestedFrames": 32,
+              "seeks": 1,
+              "coalesced": 0,
+              "seekLatencyMs": 67.90000000596046,
+              "presentedTime": 2.64,
+              "presentedFrames": 35,
+              "driftCorrections": 1,
+              "presentedFrame": 33,
+              "skippedPresentedFrames": 0,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 2.735338666672627,
+          "media": [
+            {
+              "time": 2.72,
+              "frame": 34,
+              "frozen": false,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 2.758882,
+              "tier": 6,
+              "requestedFrames": 34,
+              "seeks": 1,
+              "coalesced": 0,
+              "seekLatencyMs": 67.90000000596046,
+              "presentedTime": 2.72,
+              "presentedFrames": 36,
+              "driftCorrections": 1,
+              "presentedFrame": 34,
+              "skippedPresentedFrames": 0,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 2.8383726666726274,
+          "media": [
+            {
+              "time": 2.8,
+              "frame": 35,
+              "frozen": false,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 2.865881,
+              "tier": 6,
+              "requestedFrames": 35,
+              "seeks": 1,
+              "coalesced": 0,
+              "seekLatencyMs": 67.90000000596046,
+              "presentedTime": 2.8,
+              "presentedFrames": 37,
+              "driftCorrections": 1,
+              "presentedFrame": 35,
+              "skippedPresentedFrames": 0,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 2.9474286666666663,
+          "media": [
+            {
+              "time": 2.88,
+              "frame": 36,
+              "frozen": false,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 2.973848,
+              "tier": 6,
+              "requestedFrames": 36,
+              "seeks": 1,
+              "coalesced": 0,
+              "seekLatencyMs": 67.90000000596046,
+              "presentedTime": 2.96,
+              "presentedFrames": 39,
+              "driftCorrections": 1,
+              "presentedFrame": 37,
+              "skippedPresentedFrames": 0,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 3.056497666666667,
+          "media": [
+            {
+              "time": 3.04,
+              "frame": 38,
+              "frozen": false,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 3.083186,
+              "tier": 6,
+              "requestedFrames": 38,
+              "seeks": 1,
+              "coalesced": 0,
+              "seekLatencyMs": 67.90000000596046,
+              "presentedTime": 3.04,
+              "presentedFrames": 40,
+              "driftCorrections": 1,
+              "presentedFrame": 38,
+              "skippedPresentedFrames": 0,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 3.1657046666636863,
+          "media": [
+            {
+              "time": 3.12,
+              "frame": 39,
+              "frozen": false,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 3.191587,
+              "tier": 6,
+              "requestedFrames": 39,
+              "seeks": 1,
+              "coalesced": 0,
+              "seekLatencyMs": 67.90000000596046,
+              "presentedTime": 3.12,
+              "presentedFrames": 41,
+              "driftCorrections": 1,
+              "presentedFrame": 39,
+              "skippedPresentedFrames": 0,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 3.2747606666636866,
+          "media": [
+            {
+              "time": 3.2,
+              "frame": 40,
+              "frozen": false,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 3.301627,
+              "tier": 6,
+              "requestedFrames": 40,
+              "seeks": 1,
+              "coalesced": 0,
+              "seekLatencyMs": 67.90000000596046,
+              "presentedTime": 3.28,
+              "presentedFrames": 43,
+              "driftCorrections": 1,
+              "presentedFrame": 41,
+              "skippedPresentedFrames": 0,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 3.383740666663687,
+          "media": [
+            {
+              "time": 3.36,
+              "frame": 42,
+              "frozen": false,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 3.410284,
+              "tier": 6,
+              "requestedFrames": 42,
+              "seeks": 1,
+              "coalesced": 0,
+              "seekLatencyMs": 67.90000000596046,
+              "presentedTime": 3.36,
+              "presentedFrames": 44,
+              "driftCorrections": 1,
+              "presentedFrame": 42,
+              "skippedPresentedFrames": 0,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 3.4928456666726273,
+          "media": [
+            {
+              "time": 3.44,
+              "frame": 43,
+              "frozen": false,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 3.516589,
+              "tier": 6,
+              "requestedFrames": 43,
+              "seeks": 1,
+              "coalesced": 0,
+              "seekLatencyMs": 67.90000000596046,
+              "presentedTime": 3.44,
+              "presentedFrames": 45,
+              "driftCorrections": 1,
+              "presentedFrame": 43,
+              "skippedPresentedFrames": 0,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 3.6020326666607065,
+          "media": [
+            {
+              "time": 2.32,
+              "frame": 29,
+              "frozen": true,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 2.320999,
+              "tier": 6,
+              "requestedFrames": 45,
+              "seeks": 2,
+              "coalesced": 0,
+              "seekLatencyMs": 67.90000000596046,
+              "presentedTime": 3.6,
+              "presentedFrames": 47,
+              "driftCorrections": 1,
+              "presentedFrame": 45,
+              "skippedPresentedFrames": 0,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 3.711144666654746,
+          "media": [
+            {
+              "time": 2.32,
+              "frame": 29,
+              "frozen": true,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 2.320999,
+              "tier": 6,
+              "requestedFrames": 45,
+              "seeks": 2,
+              "coalesced": 0,
+              "seekLatencyMs": 67.90000000596046,
+              "presentedTime": 3.6,
+              "presentedFrames": 47,
+              "driftCorrections": 1,
+              "presentedFrame": 45,
+              "skippedPresentedFrames": 0,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 3.8202416666636863,
+          "media": [
+            {
+              "time": 2.32,
+              "frame": 29,
+              "frozen": true,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 2.320999,
+              "tier": 6,
+              "requestedFrames": 45,
+              "seeks": 2,
+              "coalesced": 0,
+              "seekLatencyMs": 211,
+              "presentedTime": 2.32,
+              "presentedFrames": 48,
+              "driftCorrections": 1,
+              "presentedFrame": 29,
+              "skippedPresentedFrames": 0,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 3.929305666657726,
+          "media": [
+            {
+              "time": 2.32,
+              "frame": 29,
+              "frozen": true,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 2.320999,
+              "tier": 6,
+              "requestedFrames": 45,
+              "seeks": 2,
+              "coalesced": 0,
+              "seekLatencyMs": 211,
+              "presentedTime": 2.32,
+              "presentedFrames": 48,
+              "driftCorrections": 1,
+              "presentedFrame": 29,
+              "skippedPresentedFrames": 0,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 4.038390666672626,
+          "media": [
+            {
+              "time": 2.32,
+              "frame": 29,
+              "frozen": true,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 2.320999,
+              "tier": 6,
+              "requestedFrames": 45,
+              "seeks": 2,
+              "coalesced": 0,
+              "seekLatencyMs": 211,
+              "presentedTime": 2.32,
+              "presentedFrames": 48,
+              "driftCorrections": 1,
+              "presentedFrame": 29,
+              "skippedPresentedFrames": 0,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 4.153529666660706,
+          "media": [
+            {
+              "time": 2.32,
+              "frame": 29,
+              "frozen": true,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 2.320999,
+              "tier": 6,
+              "requestedFrames": 45,
+              "seeks": 2,
+              "coalesced": 0,
+              "seekLatencyMs": 211,
+              "presentedTime": 2.32,
+              "presentedFrames": 48,
+              "driftCorrections": 1,
+              "presentedFrame": 29,
+              "skippedPresentedFrames": 0,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 4.262643666669647,
+          "media": [
+            {
+              "time": 2.32,
+              "frame": 29,
+              "frozen": true,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 2.320999,
+              "tier": 6,
+              "requestedFrames": 45,
+              "seeks": 2,
+              "coalesced": 0,
+              "seekLatencyMs": 211,
+              "presentedTime": 2.32,
+              "presentedFrames": 48,
+              "driftCorrections": 1,
+              "presentedFrame": 29,
+              "skippedPresentedFrames": 0,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 4.365672666669647,
+          "media": [
+            {
+              "time": 2.32,
+              "frame": 29,
+              "frozen": true,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 2.320999,
+              "tier": 6,
+              "requestedFrames": 45,
+              "seeks": 2,
+              "coalesced": 0,
+              "seekLatencyMs": 211,
+              "presentedTime": 2.32,
+              "presentedFrames": 48,
+              "driftCorrections": 1,
+              "presentedFrame": 29,
+              "skippedPresentedFrames": 0,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 4.474852666657726,
+          "media": [
+            {
+              "time": 2.32,
+              "frame": 29,
+              "frozen": true,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 2.320999,
+              "tier": 6,
+              "requestedFrames": 45,
+              "seeks": 2,
+              "coalesced": 0,
+              "seekLatencyMs": 211,
+              "presentedTime": 2.32,
+              "presentedFrames": 48,
+              "driftCorrections": 1,
+              "presentedFrame": 29,
+              "skippedPresentedFrames": 0,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 4.583843666672628,
+          "media": [
+            {
+              "time": 2.32,
+              "frame": 29,
+              "frozen": false,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 2.345054,
+              "tier": 6,
+              "requestedFrames": 45,
+              "seeks": 3,
+              "coalesced": 0,
+              "seekLatencyMs": 5.9000000059604645,
+              "presentedTime": 2.32,
+              "presentedFrames": 48,
+              "driftCorrections": 2,
+              "presentedFrame": 29,
+              "skippedPresentedFrames": 0,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 4.692853666672627,
+          "media": [
+            {
+              "time": 2.4,
+              "frame": 30,
+              "frozen": false,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 2.4534,
+              "tier": 6,
+              "requestedFrames": 46,
+              "seeks": 3,
+              "coalesced": 0,
+              "seekLatencyMs": 5.9000000059604645,
+              "presentedTime": 2.4,
+              "presentedFrames": 49,
+              "driftCorrections": 2,
+              "presentedFrame": 30,
+              "skippedPresentedFrames": 0,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 4.801962666666667,
+          "media": [
+            {
+              "time": 2.56,
+              "frame": 32,
+              "frozen": false,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 2.563372,
+              "tier": 6,
+              "requestedFrames": 48,
+              "seeks": 3,
+              "coalesced": 0,
+              "seekLatencyMs": 5.9000000059604645,
+              "presentedTime": 2.56,
+              "presentedFrames": 51,
+              "driftCorrections": 2,
+              "presentedFrame": 32,
+              "skippedPresentedFrames": 0,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 4.911128666654745,
+          "media": [
+            {
+              "time": 2.64,
+              "frame": 33,
+              "frozen": false,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 2.674053,
+              "tier": 6,
+              "requestedFrames": 49,
+              "seeks": 3,
+              "coalesced": 0,
+              "seekLatencyMs": 5.9000000059604645,
+              "presentedTime": 2.64,
+              "presentedFrames": 52,
+              "driftCorrections": 2,
+              "presentedFrame": 33,
+              "skippedPresentedFrames": 0,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 5.026226666663686,
+          "media": [
+            {
+              "time": 2.72,
+              "frame": 34,
+              "frozen": false,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 2.785388,
+              "tier": 6,
+              "requestedFrames": 50,
+              "seeks": 3,
+              "coalesced": 0,
+              "seekLatencyMs": 5.9000000059604645,
+              "presentedTime": 2.72,
+              "presentedFrames": 53,
+              "driftCorrections": 2,
+              "presentedFrame": 34,
+              "skippedPresentedFrames": 0,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 5.135343666672627,
+          "media": [
+            {
+              "time": 2.88,
+              "frame": 36,
+              "frozen": false,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 2.895284,
+              "tier": 6,
+              "requestedFrames": 54,
+              "seeks": 3,
+              "coalesced": 0,
+              "seekLatencyMs": 5.9000000059604645,
+              "presentedTime": 2.88,
+              "presentedFrames": 55,
+              "driftCorrections": 2,
+              "presentedFrame": 36,
+              "skippedPresentedFrames": 0,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 5.2383666666726265,
+          "media": [
+            {
+              "time": 2.96,
+              "frame": 37,
+              "frozen": false,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 3.00014,
+              "tier": 6,
+              "requestedFrames": 55,
+              "seeks": 3,
+              "coalesced": 0,
+              "seekLatencyMs": 5.9000000059604645,
+              "presentedTime": 2.96,
+              "presentedFrames": 56,
+              "driftCorrections": 2,
+              "presentedFrame": 37,
+              "skippedPresentedFrames": 0,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 5.347438666666667,
+          "media": [
+            {
+              "time": 3.04,
+              "frame": 38,
+              "frozen": false,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 3.10816,
+              "tier": 6,
+              "requestedFrames": 56,
+              "seeks": 3,
+              "coalesced": 0,
+              "seekLatencyMs": 5.9000000059604645,
+              "presentedTime": 3.04,
+              "presentedFrames": 57,
+              "driftCorrections": 2,
+              "presentedFrame": 38,
+              "skippedPresentedFrames": 0,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 5.456665666654745,
+          "media": [
+            {
+              "time": 3.2,
+              "frame": 40,
+              "frozen": false,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 3.216259,
+              "tier": 6,
+              "requestedFrames": 58,
+              "seeks": 3,
+              "coalesced": 0,
+              "seekLatencyMs": 5.9000000059604645,
+              "presentedTime": 3.2,
+              "presentedFrames": 59,
+              "driftCorrections": 2,
+              "presentedFrame": 40,
+              "skippedPresentedFrames": 0,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 5.565614666654747,
+          "media": [
+            {
+              "time": 3.28,
+              "frame": 41,
+              "frozen": false,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 3.326036,
+              "tier": 6,
+              "requestedFrames": 59,
+              "seeks": 3,
+              "coalesced": 0,
+              "seekLatencyMs": 5.9000000059604645,
+              "presentedTime": 3.28,
+              "presentedFrames": 60,
+              "driftCorrections": 2,
+              "presentedFrame": 41,
+              "skippedPresentedFrames": 0,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 5.674852666657726,
+          "media": [
+            {
+              "time": 3.44,
+              "frame": 43,
+              "frozen": false,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 3.435955,
+              "tier": 6,
+              "requestedFrames": 61,
+              "seeks": 3,
+              "coalesced": 0,
+              "seekLatencyMs": 5.9000000059604645,
+              "presentedTime": 3.36,
+              "presentedFrames": 61,
+              "driftCorrections": 2,
+              "presentedFrame": 42,
+              "skippedPresentedFrames": 0,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 5.783897666672627,
+          "media": [
+            {
+              "time": 3.52,
+              "frame": 44,
+              "frozen": false,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 3.544224,
+              "tier": 6,
+              "requestedFrames": 62,
+              "seeks": 3,
+              "coalesced": 0,
+              "seekLatencyMs": 5.9000000059604645,
+              "presentedTime": 3.52,
+              "presentedFrames": 63,
+              "driftCorrections": 2,
+              "presentedFrame": 44,
+              "skippedPresentedFrames": 0,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 5.892859666672627,
+          "media": [
+            {
+              "time": 3.6,
+              "frame": 45,
+              "frozen": false,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 3.654327,
+              "tier": 6,
+              "requestedFrames": 63,
+              "seeks": 3,
+              "coalesced": 0,
+              "seekLatencyMs": 5.9000000059604645,
+              "presentedTime": 3.6,
+              "presentedFrames": 64,
+              "driftCorrections": 2,
+              "presentedFrame": 45,
+              "skippedPresentedFrames": 0,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 6.001945666666667,
+          "media": [
+            {
+              "time": 3.76,
+              "frame": 47,
+              "frozen": false,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 3.762326,
+              "tier": 6,
+              "requestedFrames": 65,
+              "seeks": 3,
+              "coalesced": 0,
+              "seekLatencyMs": 5.9000000059604645,
+              "presentedTime": 3.76,
+              "presentedFrames": 66,
+              "driftCorrections": 2,
+              "presentedFrame": 47,
+              "skippedPresentedFrames": 0,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 6.111044666660707,
+          "media": [
+            {
+              "time": 3.84,
+              "frame": 48,
+              "frozen": false,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 3.870373,
+              "tier": 6,
+              "requestedFrames": 66,
+              "seeks": 3,
+              "coalesced": 0,
+              "seekLatencyMs": 5.9000000059604645,
+              "presentedTime": 3.84,
+              "presentedFrames": 67,
+              "driftCorrections": 2,
+              "presentedFrame": 48,
+              "skippedPresentedFrames": 0,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 6.2202416666636875,
+          "media": [
+            {
+              "time": 3.92,
+              "frame": 49,
+              "frozen": false,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 3.980324,
+              "tier": 6,
+              "requestedFrames": 67,
+              "seeks": 3,
+              "coalesced": 0,
+              "seekLatencyMs": 5.9000000059604645,
+              "presentedTime": 3.92,
+              "presentedFrames": 68,
+              "driftCorrections": 2,
+              "presentedFrame": 49,
+              "skippedPresentedFrames": 0,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 6.329312666657726,
+          "media": [
+            {
+              "time": 4.08,
+              "frame": 51,
+              "frozen": false,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 4.088591,
+              "tier": 6,
+              "requestedFrames": 69,
+              "seeks": 3,
+              "coalesced": 0,
+              "seekLatencyMs": 5.9000000059604645,
+              "presentedTime": 4.08,
+              "presentedFrames": 70,
+              "driftCorrections": 2,
+              "presentedFrame": 51,
+              "skippedPresentedFrames": 0,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 6.438345666672627,
+          "media": [
+            {
+              "time": 4.16,
+              "frame": 52,
+              "frozen": false,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 4.197123,
+              "tier": 6,
+              "requestedFrames": 70,
+              "seeks": 3,
+              "coalesced": 0,
+              "seekLatencyMs": 5.9000000059604645,
+              "presentedTime": 4.16,
+              "presentedFrames": 71,
+              "driftCorrections": 2,
+              "presentedFrame": 52,
+              "skippedPresentedFrames": 0,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "tier": 4,
+      "original": false,
+      "samples": [
+        {
+          "time": 0.011707333327372865,
+          "media": [
+            {
+              "time": 0,
+              "frame": 0,
+              "frozen": false,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 0.055575,
+              "tier": 4,
+              "requestedFrames": 0,
+              "seeks": 1,
+              "coalesced": 0,
+              "seekLatencyMs": 68.90000000596046,
+              "presentedTime": 0,
+              "presentedFrames": 2,
+              "driftCorrections": 1,
+              "presentedFrame": 0,
+              "skippedPresentedFrames": 0,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 0.14023533332141241,
+          "media": [
+            {
+              "time": 0.13,
+              "frame": 2,
+              "frozen": false,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 0.168451,
+              "tier": 4,
+              "requestedFrames": 2,
+              "seeks": 1,
+              "coalesced": 0,
+              "seekLatencyMs": 68.90000000596046,
+              "presentedTime": 0.13,
+              "presentedFrames": 4,
+              "driftCorrections": 1,
+              "presentedFrame": 2,
+              "skippedPresentedFrames": 0,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 0.2480323333333333,
+          "media": [
+            {
+              "time": 0.2,
+              "frame": 3,
+              "frozen": false,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 0.277584,
+              "tier": 4,
+              "requestedFrames": 3,
+              "seeks": 1,
+              "coalesced": 0,
+              "seekLatencyMs": 68.90000000596046,
+              "presentedTime": 0.2,
+              "presentedFrames": 5,
+              "driftCorrections": 1,
+              "presentedFrame": 3,
+              "skippedPresentedFrames": 0,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 0.35814633332737283,
+          "media": [
+            {
+              "time": 0.33,
+              "frame": 5,
+              "frozen": false,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 0.38645,
+              "tier": 4,
+              "requestedFrames": 5,
+              "seeks": 1,
+              "coalesced": 0,
+              "seekLatencyMs": 68.90000000596046,
+              "presentedTime": 0.33,
+              "presentedFrames": 7,
+              "driftCorrections": 1,
+              "presentedFrame": 5,
+              "skippedPresentedFrames": 0,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 0.45423233332141255,
+          "media": [
+            {
+              "time": 0.4,
+              "frame": 6,
+              "frozen": false,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 0.499654,
+              "tier": 4,
+              "requestedFrames": 6,
+              "seeks": 1,
+              "coalesced": 0,
+              "seekLatencyMs": 68.90000000596046,
+              "presentedTime": 0.4,
+              "presentedFrames": 8,
+              "driftCorrections": 1,
+              "presentedFrame": 6,
+              "skippedPresentedFrames": 0,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 0.5630393333333333,
+          "media": [
+            {
+              "time": 0.53,
+              "frame": 8,
+              "frozen": false,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 0.605116,
+              "tier": 4,
+              "requestedFrames": 8,
+              "seeks": 1,
+              "coalesced": 0,
+              "seekLatencyMs": 68.90000000596046,
+              "presentedTime": 0.6,
+              "presentedFrames": 10,
+              "driftCorrections": 1,
+              "presentedFrame": 9,
+              "skippedPresentedFrames": 1,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 0.6868163333303532,
+          "media": [
+            {
+              "time": 0.67,
+              "frame": 10,
+              "frozen": false,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 0.715063,
+              "tier": 4,
+              "requestedFrames": 10,
+              "seeks": 1,
+              "coalesced": 0,
+              "seekLatencyMs": 68.90000000596046,
+              "presentedTime": 0.73,
+              "presentedFrames": 12,
+              "driftCorrections": 1,
+              "presentedFrame": 11,
+              "skippedPresentedFrames": 1,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 0.7813253333303531,
+          "media": [
+            {
+              "time": 0.73,
+              "frame": 11,
+              "frozen": false,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 0.830135,
+              "tier": 4,
+              "requestedFrames": 11,
+              "seeks": 1,
+              "coalesced": 0,
+              "seekLatencyMs": 68.90000000596046,
+              "presentedTime": 0.8,
+              "presentedFrames": 13,
+              "driftCorrections": 1,
+              "presentedFrame": 12,
+              "skippedPresentedFrames": 1,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 0.9147343333214124,
+          "media": [
+            {
+              "time": 0.87,
+              "frame": 13,
+              "frozen": false,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 0.9462,
+              "tier": 4,
+              "requestedFrames": 13,
+              "seeks": 1,
+              "coalesced": 0,
+              "seekLatencyMs": 68.90000000596046,
+              "presentedTime": 0.93,
+              "presentedFrames": 15,
+              "driftCorrections": 1,
+              "presentedFrame": 14,
+              "skippedPresentedFrames": 1,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 1.0298323333303532,
+          "media": [
+            {
+              "time": 1,
+              "frame": 15,
+              "frozen": false,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 1.056239,
+              "tier": 4,
+              "requestedFrames": 15,
+              "seeks": 1,
+              "coalesced": 0,
+              "seekLatencyMs": 68.90000000596046,
+              "presentedTime": 1.07,
+              "presentedFrames": 17,
+              "driftCorrections": 1,
+              "presentedFrame": 16,
+              "skippedPresentedFrames": 1,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 1.132835333330353,
+          "media": [
+            {
+              "time": 1.13,
+              "frame": 17,
+              "frozen": false,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 1.164593,
+              "tier": 4,
+              "requestedFrames": 17,
+              "seeks": 1,
+              "coalesced": 0,
+              "seekLatencyMs": 68.90000000596046,
+              "presentedTime": 1.2,
+              "presentedFrames": 19,
+              "driftCorrections": 1,
+              "presentedFrame": 18,
+              "skippedPresentedFrames": 1,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 1.2480303333333334,
+          "media": [
+            {
+              "time": 1.2,
+              "frame": 18,
+              "frozen": false,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 1.275227,
+              "tier": 4,
+              "requestedFrames": 18,
+              "seeks": 1,
+              "coalesced": 0,
+              "seekLatencyMs": 68.90000000596046,
+              "presentedTime": 1.27,
+              "presentedFrames": 20,
+              "driftCorrections": 1,
+              "presentedFrame": 19,
+              "skippedPresentedFrames": 1,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 1.3570413333333333,
+          "media": [
+            {
+              "time": 1.33,
+              "frame": 20,
+              "frozen": false,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 1.384862,
+              "tier": 4,
+              "requestedFrames": 20,
+              "seeks": 1,
+              "coalesced": 0,
+              "seekLatencyMs": 68.90000000596046,
+              "presentedTime": 1.4,
+              "presentedFrames": 22,
+              "driftCorrections": 1,
+              "presentedFrame": 21,
+              "skippedPresentedFrames": 1,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 1.4662273333214124,
+          "media": [
+            {
+              "time": 1.4,
+              "frame": 21,
+              "frozen": false,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 1.493628,
+              "tier": 4,
+              "requestedFrames": 21,
+              "seeks": 1,
+              "coalesced": 0,
+              "seekLatencyMs": 68.90000000596046,
+              "presentedTime": 1.53,
+              "presentedFrames": 24,
+              "driftCorrections": 1,
+              "presentedFrame": 23,
+              "skippedPresentedFrames": 1,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 1.5692293333214125,
+          "media": [
+            {
+              "time": 1.53,
+              "frame": 23,
+              "frozen": false,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 1.601048,
+              "tier": 4,
+              "requestedFrames": 23,
+              "seeks": 1,
+              "coalesced": 0,
+              "seekLatencyMs": 68.90000000596046,
+              "presentedTime": 1.6,
+              "presentedFrames": 25,
+              "driftCorrections": 1,
+              "presentedFrame": 24,
+              "skippedPresentedFrames": 1,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 1.6843163333303532,
+          "media": [
+            {
+              "time": 1.67,
+              "frame": 25,
+              "frozen": false,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 1.712039,
+              "tier": 4,
+              "requestedFrames": 25,
+              "seeks": 1,
+              "coalesced": 0,
+              "seekLatencyMs": 68.90000000596046,
+              "presentedTime": 1.73,
+              "presentedFrames": 27,
+              "driftCorrections": 1,
+              "presentedFrame": 26,
+              "skippedPresentedFrames": 1,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 1.7995463333333332,
+          "media": [
+            {
+              "time": 1.73,
+              "frame": 26,
+              "frozen": false,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 1.826573,
+              "tier": 4,
+              "requestedFrames": 26,
+              "seeks": 1,
+              "coalesced": 0,
+              "seekLatencyMs": 68.90000000596046,
+              "presentedTime": 1.87,
+              "presentedFrames": 29,
+              "driftCorrections": 1,
+              "presentedFrame": 28,
+              "skippedPresentedFrames": 1,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 1.9025303333333332,
+          "media": [
+            {
+              "time": 1.87,
+              "frame": 28,
+              "frozen": false,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 1.933708,
+              "tier": 4,
+              "requestedFrames": 28,
+              "seeks": 1,
+              "coalesced": 0,
+              "seekLatencyMs": 68.90000000596046,
+              "presentedTime": 1.93,
+              "presentedFrames": 30,
+              "driftCorrections": 1,
+              "presentedFrame": 29,
+              "skippedPresentedFrames": 1,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 2.0176403333273725,
+          "media": [
+            {
+              "time": 2,
+              "frame": 30,
+              "frozen": false,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 2.044109,
+              "tier": 4,
+              "requestedFrames": 30,
+              "seeks": 1,
+              "coalesced": 0,
+              "seekLatencyMs": 68.90000000596046,
+              "presentedTime": 2.07,
+              "presentedFrames": 32,
+              "driftCorrections": 1,
+              "presentedFrame": 31,
+              "skippedPresentedFrames": 1,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 2.126817333330353,
+          "media": [
+            {
+              "time": 2.07,
+              "frame": 31,
+              "frozen": false,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 2.153184,
+              "tier": 4,
+              "requestedFrames": 31,
+              "seeks": 1,
+              "coalesced": 0,
+              "seekLatencyMs": 68.90000000596046,
+              "presentedTime": 2.13,
+              "presentedFrames": 33,
+              "driftCorrections": 1,
+              "presentedFrame": 32,
+              "skippedPresentedFrames": 1,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 2.229834333330353,
+          "media": [
+            {
+              "time": 2.2,
+              "frame": 33,
+              "frozen": false,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 2.261419,
+              "tier": 4,
+              "requestedFrames": 33,
+              "seeks": 1,
+              "coalesced": 0,
+              "seekLatencyMs": 68.90000000596046,
+              "presentedTime": 2.27,
+              "presentedFrames": 35,
+              "driftCorrections": 1,
+              "presentedFrame": 34,
+              "skippedPresentedFrames": 1,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 2.3389333333243925,
+          "media": [
+            {
+              "time": 2.33,
+              "frame": 35,
+              "frozen": false,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 2.368313,
+              "tier": 4,
+              "requestedFrames": 35,
+              "seeks": 1,
+              "coalesced": 0,
+              "seekLatencyMs": 68.90000000596046,
+              "presentedTime": 2.4,
+              "presentedFrames": 37,
+              "driftCorrections": 1,
+              "presentedFrame": 36,
+              "skippedPresentedFrames": 1,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 2.4480553333333335,
+          "media": [
+            {
+              "time": 2.4,
+              "frame": 36,
+              "frozen": false,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 2.476162,
+              "tier": 4,
+              "requestedFrames": 36,
+              "seeks": 1,
+              "coalesced": 0,
+              "seekLatencyMs": 68.90000000596046,
+              "presentedTime": 2.47,
+              "presentedFrames": 38,
+              "driftCorrections": 1,
+              "presentedFrame": 37,
+              "skippedPresentedFrames": 1,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 2.5631413333273723,
+          "media": [
+            {
+              "time": 2.53,
+              "frame": 38,
+              "frozen": false,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 2.5915,
+              "tier": 4,
+              "requestedFrames": 38,
+              "seeks": 1,
+              "coalesced": 0,
+              "seekLatencyMs": 68.90000000596046,
+              "presentedTime": 2.6,
+              "presentedFrames": 40,
+              "driftCorrections": 1,
+              "presentedFrame": 39,
+              "skippedPresentedFrames": 1,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 2.6722323333214124,
+          "media": [
+            {
+              "time": 2.67,
+              "frame": 40,
+              "frozen": false,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 2.701274,
+              "tier": 4,
+              "requestedFrames": 40,
+              "seeks": 1,
+              "coalesced": 0,
+              "seekLatencyMs": 68.90000000596046,
+              "presentedTime": 2.73,
+              "presentedFrames": 42,
+              "driftCorrections": 1,
+              "presentedFrame": 41,
+              "skippedPresentedFrames": 1,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 2.781327333330353,
+          "media": [
+            {
+              "time": 2.73,
+              "frame": 41,
+              "frozen": false,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 2.810846,
+              "tier": 4,
+              "requestedFrames": 41,
+              "seeks": 1,
+              "coalesced": 0,
+              "seekLatencyMs": 68.90000000596046,
+              "presentedTime": 2.8,
+              "presentedFrames": 43,
+              "driftCorrections": 1,
+              "presentedFrame": 42,
+              "skippedPresentedFrames": 1,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 2.8903353333303525,
+          "media": [
+            {
+              "time": 2.87,
+              "frame": 43,
+              "frozen": false,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 2.917897,
+              "tier": 4,
+              "requestedFrames": 43,
+              "seeks": 1,
+              "coalesced": 0,
+              "seekLatencyMs": 68.90000000596046,
+              "presentedTime": 2.93,
+              "presentedFrames": 45,
+              "driftCorrections": 1,
+              "presentedFrame": 44,
+              "skippedPresentedFrames": 1,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 2.999517333333333,
+          "media": [
+            {
+              "time": 2.93,
+              "frame": 44,
+              "frozen": false,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 3.027573,
+              "tier": 4,
+              "requestedFrames": 44,
+              "seeks": 1,
+              "coalesced": 0,
+              "seekLatencyMs": 68.90000000596046,
+              "presentedTime": 3.07,
+              "presentedFrames": 47,
+              "driftCorrections": 1,
+              "presentedFrame": 46,
+              "skippedPresentedFrames": 1,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 3.108551333333333,
+          "media": [
+            {
+              "time": 3.07,
+              "frame": 46,
+              "frozen": false,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 3.136211,
+              "tier": 4,
+              "requestedFrames": 46,
+              "seeks": 1,
+              "coalesced": 0,
+              "seekLatencyMs": 68.90000000596046,
+              "presentedTime": 3.13,
+              "presentedFrames": 48,
+              "driftCorrections": 1,
+              "presentedFrame": 47,
+              "skippedPresentedFrames": 1,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 3.2176273333273726,
+          "media": [
+            {
+              "time": 3.2,
+              "frame": 48,
+              "frozen": false,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 3.246075,
+              "tier": 4,
+              "requestedFrames": 48,
+              "seeks": 1,
+              "coalesced": 0,
+              "seekLatencyMs": 68.90000000596046,
+              "presentedTime": 3.27,
+              "presentedFrames": 50,
+              "driftCorrections": 1,
+              "presentedFrame": 49,
+              "skippedPresentedFrames": 1,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 3.3269393333243924,
+          "media": [
+            {
+              "time": 3.27,
+              "frame": 49,
+              "frozen": false,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 3.358052,
+              "tier": 4,
+              "requestedFrames": 49,
+              "seeks": 1,
+              "coalesced": 0,
+              "seekLatencyMs": 68.90000000596046,
+              "presentedTime": 3.33,
+              "presentedFrames": 51,
+              "driftCorrections": 1,
+              "presentedFrame": 50,
+              "skippedPresentedFrames": 1,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 3.435936333324392,
+          "media": [
+            {
+              "time": 3.4,
+              "frame": 51,
+              "frozen": false,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 3.467701,
+              "tier": 4,
+              "requestedFrames": 51,
+              "seeks": 1,
+              "coalesced": 0,
+              "seekLatencyMs": 68.90000000596046,
+              "presentedTime": 3.47,
+              "presentedFrames": 53,
+              "driftCorrections": 1,
+              "presentedFrame": 52,
+              "skippedPresentedFrames": 1,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 3.545035333333333,
+          "media": [
+            {
+              "time": 3.53,
+              "frame": 53,
+              "frozen": false,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 3.575914,
+              "tier": 4,
+              "requestedFrames": 53,
+              "seeks": 1,
+              "coalesced": 0,
+              "seekLatencyMs": 68.90000000596046,
+              "presentedTime": 3.6,
+              "presentedFrames": 55,
+              "driftCorrections": 1,
+              "presentedFrame": 54,
+              "skippedPresentedFrames": 1,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 3.654130333327372,
+          "media": [
+            {
+              "time": 3.6,
+              "frame": 54,
+              "frozen": false,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 3.684207,
+              "tier": 4,
+              "requestedFrames": 54,
+              "seeks": 1,
+              "coalesced": 0,
+              "seekLatencyMs": 68.90000000596046,
+              "presentedTime": 3.67,
+              "presentedFrames": 56,
+              "driftCorrections": 1,
+              "presentedFrame": 55,
+              "skippedPresentedFrames": 1,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 3.7631623333273727,
+          "media": [
+            {
+              "time": 3.73,
+              "frame": 56,
+              "frozen": false,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 3.793263,
+              "tier": 4,
+              "requestedFrames": 56,
+              "seeks": 1,
+              "coalesced": 0,
+              "seekLatencyMs": 68.90000000596046,
+              "presentedTime": 3.8,
+              "presentedFrames": 58,
+              "driftCorrections": 1,
+              "presentedFrame": 57,
+              "skippedPresentedFrames": 1,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 3.872234333321412,
+          "media": [
+            {
+              "time": 3.87,
+              "frame": 58,
+              "frozen": false,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 3.902313,
+              "tier": 4,
+              "requestedFrames": 58,
+              "seeks": 1,
+              "coalesced": 0,
+              "seekLatencyMs": 68.90000000596046,
+              "presentedTime": 3.93,
+              "presentedFrames": 60,
+              "driftCorrections": 1,
+              "presentedFrame": 59,
+              "skippedPresentedFrames": 1,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 3.9814243333243917,
+          "media": [
+            {
+              "time": 3.93,
+              "frame": 59,
+              "frozen": false,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 4.011559,
+              "tier": 4,
+              "requestedFrames": 59,
+              "seeks": 1,
+              "coalesced": 0,
+              "seekLatencyMs": 68.90000000596046,
+              "presentedTime": 4,
+              "presentedFrames": 61,
+              "driftCorrections": 1,
+              "presentedFrame": 60,
+              "skippedPresentedFrames": 1,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 4.090435333324393,
+          "media": [
+            {
+              "time": 4.07,
+              "frame": 61,
+              "frozen": false,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 4.120272,
+              "tier": 4,
+              "requestedFrames": 61,
+              "seeks": 1,
+              "coalesced": 0,
+              "seekLatencyMs": 68.90000000596046,
+              "presentedTime": 4.13,
+              "presentedFrames": 63,
+              "driftCorrections": 1,
+              "presentedFrame": 62,
+              "skippedPresentedFrames": 1,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 4.199519333333333,
+          "media": [
+            {
+              "time": 1.93,
+              "frame": 29,
+              "frozen": true,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 1.930999,
+              "tier": 4,
+              "requestedFrames": 63,
+              "seeks": 2,
+              "coalesced": 0,
+              "seekLatencyMs": 68.90000000596046,
+              "presentedTime": 1.93,
+              "presentedFrames": 65,
+              "driftCorrections": 1,
+              "presentedFrame": 29,
+              "skippedPresentedFrames": 1,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 4.308737333321412,
+          "media": [
+            {
+              "time": 1.93,
+              "frame": 29,
+              "frozen": true,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 1.930999,
+              "tier": 4,
+              "requestedFrames": 63,
+              "seeks": 2,
+              "coalesced": 0,
+              "seekLatencyMs": 64.09999999403954,
+              "presentedTime": 1.93,
+              "presentedFrames": 65,
+              "driftCorrections": 1,
+              "presentedFrame": 29,
+              "skippedPresentedFrames": 1,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 4.417731333321412,
+          "media": [
+            {
+              "time": 1.93,
+              "frame": 29,
+              "frozen": true,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 1.930999,
+              "tier": 4,
+              "requestedFrames": 63,
+              "seeks": 2,
+              "coalesced": 0,
+              "seekLatencyMs": 64.09999999403954,
+              "presentedTime": 1.93,
+              "presentedFrames": 65,
+              "driftCorrections": 1,
+              "presentedFrame": 29,
+              "skippedPresentedFrames": 1,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 4.526816333330353,
+          "media": [
+            {
+              "time": 1.93,
+              "frame": 29,
+              "frozen": true,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 1.930999,
+              "tier": 4,
+              "requestedFrames": 63,
+              "seeks": 2,
+              "coalesced": 0,
+              "seekLatencyMs": 64.09999999403954,
+              "presentedTime": 1.93,
+              "presentedFrames": 65,
+              "driftCorrections": 1,
+              "presentedFrame": 29,
+              "skippedPresentedFrames": 1,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 4.635930333324392,
+          "media": [
+            {
+              "time": 1.93,
+              "frame": 29,
+              "frozen": true,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 1.930999,
+              "tier": 4,
+              "requestedFrames": 63,
+              "seeks": 2,
+              "coalesced": 0,
+              "seekLatencyMs": 64.09999999403954,
+              "presentedTime": 1.93,
+              "presentedFrames": 65,
+              "driftCorrections": 1,
+              "presentedFrame": 29,
+              "skippedPresentedFrames": 1,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 4.744929333324391,
+          "media": [
+            {
+              "time": 1.93,
+              "frame": 29,
+              "frozen": true,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 1.930999,
+              "tier": 4,
+              "requestedFrames": 63,
+              "seeks": 2,
+              "coalesced": 0,
+              "seekLatencyMs": 64.09999999403954,
+              "presentedTime": 1.93,
+              "presentedFrames": 65,
+              "driftCorrections": 1,
+              "presentedFrame": 29,
+              "skippedPresentedFrames": 1,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 4.854125333327373,
+          "media": [
+            {
+              "time": 1.93,
+              "frame": 29,
+              "frozen": true,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 1.930999,
+              "tier": 4,
+              "requestedFrames": 63,
+              "seeks": 2,
+              "coalesced": 0,
+              "seekLatencyMs": 64.09999999403954,
+              "presentedTime": 1.93,
+              "presentedFrames": 65,
+              "driftCorrections": 1,
+              "presentedFrame": 29,
+              "skippedPresentedFrames": 1,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 4.963267333321412,
+          "media": [
+            {
+              "time": 2,
+              "frame": 30,
+              "frozen": false,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 2.004321,
+              "tier": 4,
+              "requestedFrames": 64,
+              "seeks": 3,
+              "coalesced": 0,
+              "seekLatencyMs": 2.4000000059604645,
+              "presentedTime": 2,
+              "presentedFrames": 66,
+              "driftCorrections": 2,
+              "presentedFrame": 30,
+              "skippedPresentedFrames": 1,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 5.066249333321411,
+          "media": [
+            {
+              "time": 2.07,
+              "frame": 31,
+              "frozen": false,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 2.110503,
+              "tier": 4,
+              "requestedFrames": 65,
+              "seeks": 3,
+              "coalesced": 0,
+              "seekLatencyMs": 2.4000000059604645,
+              "presentedTime": 2.07,
+              "presentedFrames": 67,
+              "driftCorrections": 2,
+              "presentedFrame": 31,
+              "skippedPresentedFrames": 1,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 5.175356333330353,
+          "media": [
+            {
+              "time": 2.2,
+              "frame": 33,
+              "frozen": false,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 2.21865,
+              "tier": 4,
+              "requestedFrames": 67,
+              "seeks": 3,
+              "coalesced": 0,
+              "seekLatencyMs": 2.4000000059604645,
+              "presentedTime": 2.2,
+              "presentedFrames": 69,
+              "driftCorrections": 2,
+              "presentedFrame": 33,
+              "skippedPresentedFrames": 1,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 5.284419333324392,
+          "media": [
+            {
+              "time": 2.33,
+              "frame": 35,
+              "frozen": false,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 2.327014,
+              "tier": 4,
+              "requestedFrames": 69,
+              "seeks": 3,
+              "coalesced": 0,
+              "seekLatencyMs": 2.4000000059604645,
+              "presentedTime": 2.33,
+              "presentedFrames": 71,
+              "driftCorrections": 2,
+              "presentedFrame": 35,
+              "skippedPresentedFrames": 1,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 5.393531333333333,
+          "media": [
+            {
+              "time": 2.4,
+              "frame": 36,
+              "frozen": false,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 2.435849,
+              "tier": 4,
+              "requestedFrames": 70,
+              "seeks": 3,
+              "coalesced": 0,
+              "seekLatencyMs": 2.4000000059604645,
+              "presentedTime": 2.4,
+              "presentedFrames": 72,
+              "driftCorrections": 2,
+              "presentedFrame": 36,
+              "skippedPresentedFrames": 1,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 5.496535333333333,
+          "media": [
+            {
+              "time": 2.53,
+              "frame": 38,
+              "frozen": false,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 2.537943,
+              "tier": 4,
+              "requestedFrames": 72,
+              "seeks": 3,
+              "coalesced": 0,
+              "seekLatencyMs": 2.4000000059604645,
+              "presentedTime": 2.53,
+              "presentedFrames": 74,
+              "driftCorrections": 2,
+              "presentedFrame": 38,
+              "skippedPresentedFrames": 1,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 5.6056243333273725,
+          "media": [
+            {
+              "time": 2.6,
+              "frame": 39,
+              "frozen": false,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 2.646682,
+              "tier": 4,
+              "requestedFrames": 73,
+              "seeks": 3,
+              "coalesced": 0,
+              "seekLatencyMs": 2.4000000059604645,
+              "presentedTime": 2.6,
+              "presentedFrames": 75,
+              "driftCorrections": 2,
+              "presentedFrame": 39,
+              "skippedPresentedFrames": 1,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 5.714735333321412,
+          "media": [
+            {
+              "time": 2.73,
+              "frame": 41,
+              "frozen": false,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 2.754647,
+              "tier": 4,
+              "requestedFrames": 75,
+              "seeks": 3,
+              "coalesced": 0,
+              "seekLatencyMs": 2.4000000059604645,
+              "presentedTime": 2.73,
+              "presentedFrames": 77,
+              "driftCorrections": 2,
+              "presentedFrame": 41,
+              "skippedPresentedFrames": 1,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 5.817732333321412,
+          "media": [
+            {
+              "time": 2.8,
+              "frame": 42,
+              "frozen": false,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 2.860913,
+              "tier": 4,
+              "requestedFrames": 76,
+              "seeks": 3,
+              "coalesced": 0,
+              "seekLatencyMs": 2.4000000059604645,
+              "presentedTime": 2.8,
+              "presentedFrames": 78,
+              "driftCorrections": 2,
+              "presentedFrame": 42,
+              "skippedPresentedFrames": 1,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 5.926818333330353,
+          "media": [
+            {
+              "time": 2.93,
+              "frame": 44,
+              "frozen": false,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 2.968187,
+              "tier": 4,
+              "requestedFrames": 78,
+              "seeks": 3,
+              "coalesced": 0,
+              "seekLatencyMs": 2.4000000059604645,
+              "presentedTime": 2.93,
+              "presentedFrames": 80,
+              "driftCorrections": 2,
+              "presentedFrame": 44,
+              "skippedPresentedFrames": 1,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 6.035952333324392,
+          "media": [
+            {
+              "time": 3.07,
+              "frame": 46,
+              "frozen": false,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 3.077891,
+              "tier": 4,
+              "requestedFrames": 80,
+              "seeks": 3,
+              "coalesced": 0,
+              "seekLatencyMs": 2.4000000059604645,
+              "presentedTime": 3.07,
+              "presentedFrames": 82,
+              "driftCorrections": 2,
+              "presentedFrame": 46,
+              "skippedPresentedFrames": 1,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 6.145032333333333,
+          "media": [
+            {
+              "time": 3.13,
+              "frame": 47,
+              "frozen": false,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 3.185397,
+              "tier": 4,
+              "requestedFrames": 81,
+              "seeks": 3,
+              "coalesced": 0,
+              "seekLatencyMs": 2.4000000059604645,
+              "presentedTime": 3.13,
+              "presentedFrames": 83,
+              "driftCorrections": 2,
+              "presentedFrame": 47,
+              "skippedPresentedFrames": 1,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 6.255335333330353,
+          "media": [
+            {
+              "time": 3.27,
+              "frame": 49,
+              "frozen": false,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 3.294338,
+              "tier": 4,
+              "requestedFrames": 83,
+              "seeks": 3,
+              "coalesced": 0,
+              "seekLatencyMs": 2.4000000059604645,
+              "presentedTime": 3.27,
+              "presentedFrames": 85,
+              "driftCorrections": 2,
+              "presentedFrame": 49,
+              "skippedPresentedFrames": 1,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 6.363182333327372,
+          "media": [
+            {
+              "time": 3.4,
+              "frame": 51,
+              "frozen": false,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 3.403047,
+              "tier": 4,
+              "requestedFrames": 85,
+              "seeks": 3,
+              "coalesced": 0,
+              "seekLatencyMs": 2.4000000059604645,
+              "presentedTime": 3.4,
+              "presentedFrames": 87,
+              "driftCorrections": 2,
+              "presentedFrame": 51,
+              "skippedPresentedFrames": 1,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 6.472330333330352,
+          "media": [
+            {
+              "time": 3.47,
+              "frame": 52,
+              "frozen": false,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 3.512717,
+              "tier": 4,
+              "requestedFrames": 86,
+              "seeks": 3,
+              "coalesced": 0,
+              "seekLatencyMs": 2.4000000059604645,
+              "presentedTime": 3.47,
+              "presentedFrames": 88,
+              "driftCorrections": 2,
+              "presentedFrame": 52,
+              "skippedPresentedFrames": 1,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "tier": 6,
+      "original": false,
+      "samples": [
+        {
+          "time": 0.011611333333333335,
+          "media": [
+            {
+              "time": 0,
+              "frame": 0,
+              "frozen": false,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 0.026131,
+              "tier": 6,
+              "requestedFrames": 0,
+              "seeks": 1,
+              "coalesced": 0,
+              "seekLatencyMs": 82.80000001192093,
+              "presentedTime": 0,
+              "presentedFrames": 2,
+              "driftCorrections": 1,
+              "presentedFrame": 0,
+              "skippedPresentedFrames": 0,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 0.12057933333333333,
+          "media": [
+            {
+              "time": 0.08,
+              "frame": 1,
+              "frozen": false,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 0.136006,
+              "tier": 6,
+              "requestedFrames": 1,
+              "seeks": 1,
+              "coalesced": 0,
+              "seekLatencyMs": 82.80000001192093,
+              "presentedTime": 0.08,
+              "presentedFrames": 3,
+              "driftCorrections": 1,
+              "presentedFrame": 1,
+              "skippedPresentedFrames": 0,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 0.22961033333333336,
+          "media": [
+            {
+              "time": 0.16,
+              "frame": 2,
+              "frozen": false,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 0.24431,
+              "tier": 6,
+              "requestedFrames": 2,
+              "seeks": 1,
+              "coalesced": 0,
+              "seekLatencyMs": 82.80000001192093,
+              "presentedTime": 0.24,
+              "presentedFrames": 5,
+              "driftCorrections": 1,
+              "presentedFrame": 3,
+              "skippedPresentedFrames": 0,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 0.33880833333631355,
+          "media": [
+            {
+              "time": 0.32,
+              "frame": 4,
+              "frozen": false,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 0.354485,
+              "tier": 6,
+              "requestedFrames": 4,
+              "seeks": 1,
+              "coalesced": 0,
+              "seekLatencyMs": 82.80000001192093,
+              "presentedTime": 0.32,
+              "presentedFrames": 6,
+              "driftCorrections": 1,
+              "presentedFrame": 4,
+              "skippedPresentedFrames": 0,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 0.44991033333035313,
+          "media": [
+            {
+              "time": 0.4,
+              "frame": 5,
+              "frozen": false,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 0.46439,
+              "tier": 6,
+              "requestedFrames": 5,
+              "seeks": 1,
+              "coalesced": 0,
+              "seekLatencyMs": 82.80000001192093,
+              "presentedTime": 0.4,
+              "presentedFrames": 7,
+              "driftCorrections": 1,
+              "presentedFrame": 5,
+              "skippedPresentedFrames": 0,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 0.5570173333243926,
+          "media": [
+            {
+              "time": 0.48,
+              "frame": 6,
+              "frozen": false,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 0.571753,
+              "tier": 6,
+              "requestedFrames": 6,
+              "seeks": 1,
+              "coalesced": 0,
+              "seekLatencyMs": 82.80000001192093,
+              "presentedTime": 0.56,
+              "presentedFrames": 9,
+              "driftCorrections": 1,
+              "presentedFrame": 7,
+              "skippedPresentedFrames": 0,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 0.6661033333333335,
+          "media": [
+            {
+              "time": 0.64,
+              "frame": 8,
+              "frozen": false,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 0.680413,
+              "tier": 6,
+              "requestedFrames": 8,
+              "seeks": 1,
+              "coalesced": 0,
+              "seekLatencyMs": 82.80000001192093,
+              "presentedTime": 0.64,
+              "presentedFrames": 10,
+              "driftCorrections": 1,
+              "presentedFrame": 8,
+              "skippedPresentedFrames": 0,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 0.7751453333333334,
+          "media": [
+            {
+              "time": 0.72,
+              "frame": 9,
+              "frozen": false,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 0.789772,
+              "tier": 6,
+              "requestedFrames": 9,
+              "seeks": 1,
+              "coalesced": 0,
+              "seekLatencyMs": 82.80000001192093,
+              "presentedTime": 0.72,
+              "presentedFrames": 11,
+              "driftCorrections": 1,
+              "presentedFrame": 9,
+              "skippedPresentedFrames": 0,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 0.8841743333273729,
+          "media": [
+            {
+              "time": 0.88,
+              "frame": 11,
+              "frozen": false,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 0.89888,
+              "tier": 6,
+              "requestedFrames": 11,
+              "seeks": 1,
+              "coalesced": 0,
+              "seekLatencyMs": 82.80000001192093,
+              "presentedTime": 0.88,
+              "presentedFrames": 13,
+              "driftCorrections": 1,
+              "presentedFrame": 11,
+              "skippedPresentedFrames": 0,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 0.9932193333273729,
+          "media": [
+            {
+              "time": 0.96,
+              "frame": 12,
+              "frozen": false,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 1.007192,
+              "tier": 6,
+              "requestedFrames": 12,
+              "seeks": 1,
+              "coalesced": 0,
+              "seekLatencyMs": 82.80000001192093,
+              "presentedTime": 0.96,
+              "presentedFrames": 14,
+              "driftCorrections": 1,
+              "presentedFrame": 12,
+              "skippedPresentedFrames": 0,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 1.1024163333303532,
+          "media": [
+            {
+              "time": 1.04,
+              "frame": 13,
+              "frozen": false,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 1.117151,
+              "tier": 6,
+              "requestedFrames": 13,
+              "seeks": 1,
+              "coalesced": 0,
+              "seekLatencyMs": 82.80000001192093,
+              "presentedTime": 1.12,
+              "presentedFrames": 16,
+              "driftCorrections": 1,
+              "presentedFrame": 14,
+              "skippedPresentedFrames": 0,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 1.2114963333392939,
+          "media": [
+            {
+              "time": 1.2,
+              "frame": 15,
+              "frozen": false,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 1.226902,
+              "tier": 6,
+              "requestedFrames": 15,
+              "seeks": 1,
+              "coalesced": 0,
+              "seekLatencyMs": 82.80000001192093,
+              "presentedTime": 1.2,
+              "presentedFrames": 17,
+              "driftCorrections": 1,
+              "presentedFrame": 15,
+              "skippedPresentedFrames": 0,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 1.3205793333333333,
+          "media": [
+            {
+              "time": 1.28,
+              "frame": 16,
+              "frozen": false,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 1.336739,
+              "tier": 6,
+              "requestedFrames": 16,
+              "seeks": 1,
+              "coalesced": 0,
+              "seekLatencyMs": 82.80000001192093,
+              "presentedTime": 1.28,
+              "presentedFrames": 18,
+              "driftCorrections": 1,
+              "presentedFrame": 16,
+              "skippedPresentedFrames": 0,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 1.4298123333214126,
+          "media": [
+            {
+              "time": 1.36,
+              "frame": 17,
+              "frozen": false,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 1.446042,
+              "tier": 6,
+              "requestedFrames": 17,
+              "seeks": 1,
+              "coalesced": 0,
+              "seekLatencyMs": 82.80000001192093,
+              "presentedTime": 1.44,
+              "presentedFrames": 20,
+              "driftCorrections": 1,
+              "presentedFrame": 18,
+              "skippedPresentedFrames": 0,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 1.5387013333273725,
+          "media": [
+            {
+              "time": 1.52,
+              "frame": 19,
+              "frozen": false,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 1.555224,
+              "tier": 6,
+              "requestedFrames": 19,
+              "seeks": 1,
+              "coalesced": 0,
+              "seekLatencyMs": 82.80000001192093,
+              "presentedTime": 1.52,
+              "presentedFrames": 21,
+              "driftCorrections": 1,
+              "presentedFrame": 19,
+              "skippedPresentedFrames": 0,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 1.647902333330353,
+          "media": [
+            {
+              "time": 1.6,
+              "frame": 20,
+              "frozen": false,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 1.662155,
+              "tier": 6,
+              "requestedFrames": 20,
+              "seeks": 1,
+              "coalesced": 0,
+              "seekLatencyMs": 82.80000001192093,
+              "presentedTime": 1.6,
+              "presentedFrames": 22,
+              "driftCorrections": 1,
+              "presentedFrame": 20,
+              "skippedPresentedFrames": 0,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 1.7569953333243928,
+          "media": [
+            {
+              "time": 1.68,
+              "frame": 21,
+              "frozen": false,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 1.771014,
+              "tier": 6,
+              "requestedFrames": 21,
+              "seeks": 1,
+              "coalesced": 0,
+              "seekLatencyMs": 82.80000001192093,
+              "presentedTime": 1.76,
+              "presentedFrames": 24,
+              "driftCorrections": 1,
+              "presentedFrame": 22,
+              "skippedPresentedFrames": 0,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 1.8660313333392937,
+          "media": [
+            {
+              "time": 1.84,
+              "frame": 23,
+              "frozen": false,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 1.879434,
+              "tier": 6,
+              "requestedFrames": 23,
+              "seeks": 1,
+              "coalesced": 0,
+              "seekLatencyMs": 82.80000001192093,
+              "presentedTime": 1.84,
+              "presentedFrames": 25,
+              "driftCorrections": 1,
+              "presentedFrame": 23,
+              "skippedPresentedFrames": 0,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 1.9752173333273728,
+          "media": [
+            {
+              "time": 1.92,
+              "frame": 24,
+              "frozen": false,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 1.989523,
+              "tier": 6,
+              "requestedFrames": 24,
+              "seeks": 1,
+              "coalesced": 0,
+              "seekLatencyMs": 82.80000001192093,
+              "presentedTime": 1.92,
+              "presentedFrames": 26,
+              "driftCorrections": 1,
+              "presentedFrame": 24,
+              "skippedPresentedFrames": 0,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 2.084077333333333,
+          "media": [
+            {
+              "time": 2.08,
+              "frame": 26,
+              "frozen": false,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 2.097067,
+              "tier": 6,
+              "requestedFrames": 26,
+              "seeks": 1,
+              "coalesced": 0,
+              "seekLatencyMs": 82.80000001192093,
+              "presentedTime": 2.08,
+              "presentedFrames": 28,
+              "driftCorrections": 1,
+              "presentedFrame": 26,
+              "skippedPresentedFrames": 0,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 2.193430333330353,
+          "media": [
+            {
+              "time": 2.16,
+              "frame": 27,
+              "frozen": false,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 2.208378,
+              "tier": 6,
+              "requestedFrames": 27,
+              "seeks": 1,
+              "coalesced": 0,
+              "seekLatencyMs": 82.80000001192093,
+              "presentedTime": 2.16,
+              "presentedFrames": 29,
+              "driftCorrections": 1,
+              "presentedFrame": 27,
+              "skippedPresentedFrames": 0,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 2.3025093333243927,
+          "media": [
+            {
+              "time": 2.24,
+              "frame": 28,
+              "frozen": false,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 2.317196,
+              "tier": 6,
+              "requestedFrames": 28,
+              "seeks": 1,
+              "coalesced": 0,
+              "seekLatencyMs": 82.80000001192093,
+              "presentedTime": 2.32,
+              "presentedFrames": 31,
+              "driftCorrections": 1,
+              "presentedFrame": 29,
+              "skippedPresentedFrames": 0,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 2.4114973333392933,
+          "media": [
+            {
+              "time": 2.4,
+              "frame": 30,
+              "frozen": false,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 2.426516,
+              "tier": 6,
+              "requestedFrames": 30,
+              "seeks": 1,
+              "coalesced": 0,
+              "seekLatencyMs": 82.80000001192093,
+              "presentedTime": 2.4,
+              "presentedFrames": 32,
+              "driftCorrections": 1,
+              "presentedFrame": 30,
+              "skippedPresentedFrames": 0,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 2.5207033333273725,
+          "media": [
+            {
+              "time": 2.48,
+              "frame": 31,
+              "frozen": false,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 2.534455,
+              "tier": 6,
+              "requestedFrames": 31,
+              "seeks": 1,
+              "coalesced": 0,
+              "seekLatencyMs": 82.80000001192093,
+              "presentedTime": 2.48,
+              "presentedFrames": 33,
+              "driftCorrections": 1,
+              "presentedFrame": 31,
+              "skippedPresentedFrames": 0,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 2.6235983333333333,
+          "media": [
+            {
+              "time": 2.56,
+              "frame": 32,
+              "frozen": false,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 2.641662,
+              "tier": 6,
+              "requestedFrames": 32,
+              "seeks": 1,
+              "coalesced": 0,
+              "seekLatencyMs": 82.80000001192093,
+              "presentedTime": 2.56,
+              "presentedFrames": 34,
+              "driftCorrections": 1,
+              "presentedFrame": 32,
+              "skippedPresentedFrames": 0,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 2.738803333321412,
+          "media": [
+            {
+              "time": 2.72,
+              "frame": 34,
+              "frozen": false,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 2.75342,
+              "tier": 6,
+              "requestedFrames": 34,
+              "seeks": 1,
+              "coalesced": 0,
+              "seekLatencyMs": 82.80000001192093,
+              "presentedTime": 2.72,
+              "presentedFrames": 36,
+              "driftCorrections": 1,
+              "presentedFrame": 34,
+              "skippedPresentedFrames": 0,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 2.847910333330353,
+          "media": [
+            {
+              "time": 2.8,
+              "frame": 35,
+              "frozen": false,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 2.861969,
+              "tier": 6,
+              "requestedFrames": 35,
+              "seeks": 1,
+              "coalesced": 0,
+              "seekLatencyMs": 82.80000001192093,
+              "presentedTime": 2.8,
+              "presentedFrames": 37,
+              "driftCorrections": 1,
+              "presentedFrame": 35,
+              "skippedPresentedFrames": 0,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 2.9570343333243923,
+          "media": [
+            {
+              "time": 2.88,
+              "frame": 36,
+              "frozen": false,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 2.970967,
+              "tier": 6,
+              "requestedFrames": 36,
+              "seeks": 1,
+              "coalesced": 0,
+              "seekLatencyMs": 82.80000001192093,
+              "presentedTime": 2.96,
+              "presentedFrames": 39,
+              "driftCorrections": 1,
+              "presentedFrame": 37,
+              "skippedPresentedFrames": 0,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 3.0600123333243925,
+          "media": [
+            {
+              "time": 3.04,
+              "frame": 38,
+              "frozen": false,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 3.077567,
+              "tier": 6,
+              "requestedFrames": 38,
+              "seeks": 1,
+              "coalesced": 0,
+              "seekLatencyMs": 82.80000001192093,
+              "presentedTime": 3.04,
+              "presentedFrames": 40,
+              "driftCorrections": 1,
+              "presentedFrame": 38,
+              "skippedPresentedFrames": 0,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 3.169004333339293,
+          "media": [
+            {
+              "time": 3.12,
+              "frame": 39,
+              "frozen": false,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 3.186463,
+              "tier": 6,
+              "requestedFrames": 39,
+              "seeks": 1,
+              "coalesced": 0,
+              "seekLatencyMs": 82.80000001192093,
+              "presentedTime": 3.12,
+              "presentedFrames": 41,
+              "driftCorrections": 1,
+              "presentedFrame": 39,
+              "skippedPresentedFrames": 0,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 3.278194333327373,
+          "media": [
+            {
+              "time": 3.2,
+              "frame": 40,
+              "frozen": false,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 3.296298,
+              "tier": 6,
+              "requestedFrames": 40,
+              "seeks": 1,
+              "coalesced": 0,
+              "seekLatencyMs": 82.80000001192093,
+              "presentedTime": 3.28,
+              "presentedFrames": 43,
+              "driftCorrections": 1,
+              "presentedFrame": 41,
+              "skippedPresentedFrames": 0,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 3.3933023333363135,
+          "media": [
+            {
+              "time": 3.36,
+              "frame": 42,
+              "frozen": false,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 3.407333,
+              "tier": 6,
+              "requestedFrames": 42,
+              "seeks": 1,
+              "coalesced": 0,
+              "seekLatencyMs": 82.80000001192093,
+              "presentedTime": 3.36,
+              "presentedFrames": 44,
+              "driftCorrections": 1,
+              "presentedFrame": 42,
+              "skippedPresentedFrames": 0,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 3.496395333330353,
+          "media": [
+            {
+              "time": 3.44,
+              "frame": 43,
+              "frozen": false,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 3.513274,
+              "tier": 6,
+              "requestedFrames": 43,
+              "seeks": 1,
+              "coalesced": 0,
+              "seekLatencyMs": 82.80000001192093,
+              "presentedTime": 3.44,
+              "presentedFrames": 45,
+              "driftCorrections": 1,
+              "presentedFrame": 43,
+              "skippedPresentedFrames": 0,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 3.605476333324392,
+          "media": [
+            {
+              "time": 2.32,
+              "frame": 29,
+              "frozen": true,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 2.320999,
+              "tier": 6,
+              "requestedFrames": 45,
+              "seeks": 2,
+              "coalesced": 0,
+              "seekLatencyMs": 82.80000001192093,
+              "presentedTime": 3.6,
+              "presentedFrames": 47,
+              "driftCorrections": 1,
+              "presentedFrame": 45,
+              "skippedPresentedFrames": 0,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 3.7206733333273725,
+          "media": [
+            {
+              "time": 2.32,
+              "frame": 29,
+              "frozen": true,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 2.320999,
+              "tier": 6,
+              "requestedFrames": 45,
+              "seeks": 2,
+              "coalesced": 0,
+              "seekLatencyMs": 70,
+              "presentedTime": 2.32,
+              "presentedFrames": 48,
+              "driftCorrections": 1,
+              "presentedFrame": 29,
+              "skippedPresentedFrames": 0,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 3.829795333321412,
+          "media": [
+            {
+              "time": 2.32,
+              "frame": 29,
+              "frozen": true,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 2.320999,
+              "tier": 6,
+              "requestedFrames": 45,
+              "seeks": 2,
+              "coalesced": 0,
+              "seekLatencyMs": 70,
+              "presentedTime": 2.32,
+              "presentedFrames": 48,
+              "driftCorrections": 1,
+              "presentedFrame": 29,
+              "skippedPresentedFrames": 0,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 3.938802333321413,
+          "media": [
+            {
+              "time": 2.32,
+              "frame": 29,
+              "frozen": true,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 2.320999,
+              "tier": 6,
+              "requestedFrames": 45,
+              "seeks": 2,
+              "coalesced": 0,
+              "seekLatencyMs": 70,
+              "presentedTime": 2.32,
+              "presentedFrames": 48,
+              "driftCorrections": 1,
+              "presentedFrame": 29,
+              "skippedPresentedFrames": 0,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 4.047901333330354,
+          "media": [
+            {
+              "time": 2.32,
+              "frame": 29,
+              "frozen": true,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 2.320999,
+              "tier": 6,
+              "requestedFrames": 45,
+              "seeks": 2,
+              "coalesced": 0,
+              "seekLatencyMs": 70,
+              "presentedTime": 2.32,
+              "presentedFrames": 48,
+              "driftCorrections": 1,
+              "presentedFrame": 29,
+              "skippedPresentedFrames": 0,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 4.1569103333303525,
+          "media": [
+            {
+              "time": 2.32,
+              "frame": 29,
+              "frozen": true,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 2.320999,
+              "tier": 6,
+              "requestedFrames": 45,
+              "seeks": 2,
+              "coalesced": 0,
+              "seekLatencyMs": 70,
+              "presentedTime": 2.32,
+              "presentedFrames": 48,
+              "driftCorrections": 1,
+              "presentedFrame": 29,
+              "skippedPresentedFrames": 0,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 4.2600113333243925,
+          "media": [
+            {
+              "time": 2.32,
+              "frame": 29,
+              "frozen": true,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 2.320999,
+              "tier": 6,
+              "requestedFrames": 45,
+              "seeks": 2,
+              "coalesced": 0,
+              "seekLatencyMs": 70,
+              "presentedTime": 2.32,
+              "presentedFrames": 48,
+              "driftCorrections": 1,
+              "presentedFrame": 29,
+              "skippedPresentedFrames": 0,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 4.3691163333333325,
+          "media": [
+            {
+              "time": 2.32,
+              "frame": 29,
+              "frozen": true,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 2.320999,
+              "tier": 6,
+              "requestedFrames": 45,
+              "seeks": 2,
+              "coalesced": 0,
+              "seekLatencyMs": 70,
+              "presentedTime": 2.32,
+              "presentedFrames": 48,
+              "driftCorrections": 1,
+              "presentedFrame": 29,
+              "skippedPresentedFrames": 0,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 4.478278333321413,
+          "media": [
+            {
+              "time": 2.32,
+              "frame": 29,
+              "frozen": true,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 2.320999,
+              "tier": 6,
+              "requestedFrames": 45,
+              "seeks": 2,
+              "coalesced": 0,
+              "seekLatencyMs": 70,
+              "presentedTime": 2.32,
+              "presentedFrames": 48,
+              "driftCorrections": 1,
+              "presentedFrame": 29,
+              "skippedPresentedFrames": 0,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 4.587298333336314,
+          "media": [
+            {
+              "time": 2.32,
+              "frame": 29,
+              "frozen": false,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 2.352249,
+              "tier": 6,
+              "requestedFrames": 45,
+              "seeks": 3,
+              "coalesced": 0,
+              "seekLatencyMs": 19.299999997019768,
+              "presentedTime": 2.32,
+              "presentedFrames": 48,
+              "driftCorrections": 2,
+              "presentedFrame": 29,
+              "skippedPresentedFrames": 0,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 4.6964083333303535,
+          "media": [
+            {
+              "time": 2.4,
+              "frame": 30,
+              "frozen": false,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 2.461365,
+              "tier": 6,
+              "requestedFrames": 46,
+              "seeks": 3,
+              "coalesced": 0,
+              "seekLatencyMs": 19.299999997019768,
+              "presentedTime": 2.4,
+              "presentedFrames": 49,
+              "driftCorrections": 2,
+              "presentedFrame": 30,
+              "skippedPresentedFrames": 0,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 4.802326333321412,
+          "media": [
+            {
+              "time": 2.56,
+              "frame": 32,
+              "frozen": false,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 2.568126,
+              "tier": 6,
+              "requestedFrames": 48,
+              "seeks": 3,
+              "coalesced": 0,
+              "seekLatencyMs": 19.299999997019768,
+              "presentedTime": 2.56,
+              "presentedFrames": 51,
+              "driftCorrections": 2,
+              "presentedFrame": 32,
+              "skippedPresentedFrames": 0,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 4.908632333333332,
+          "media": [
+            {
+              "time": 2.64,
+              "frame": 33,
+              "frozen": false,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 2.677328,
+              "tier": 6,
+              "requestedFrames": 49,
+              "seeks": 3,
+              "coalesced": 0,
+              "seekLatencyMs": 19.299999997019768,
+              "presentedTime": 2.64,
+              "presentedFrames": 52,
+              "driftCorrections": 2,
+              "presentedFrame": 33,
+              "skippedPresentedFrames": 0,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 5.018214333327373,
+          "media": [
+            {
+              "time": 2.72,
+              "frame": 34,
+              "frozen": false,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 2.785823,
+              "tier": 6,
+              "requestedFrames": 50,
+              "seeks": 3,
+              "coalesced": 0,
+              "seekLatencyMs": 19.299999997019768,
+              "presentedTime": 2.72,
+              "presentedFrames": 53,
+              "driftCorrections": 2,
+              "presentedFrame": 34,
+              "skippedPresentedFrames": 0,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 5.126779333321413,
+          "media": [
+            {
+              "time": 2.88,
+              "frame": 36,
+              "frozen": false,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 2.89497,
+              "tier": 6,
+              "requestedFrames": 52,
+              "seeks": 3,
+              "coalesced": 0,
+              "seekLatencyMs": 19.299999997019768,
+              "presentedTime": 2.88,
+              "presentedFrames": 55,
+              "driftCorrections": 2,
+              "presentedFrame": 36,
+              "skippedPresentedFrames": 0,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 5.235804333321413,
+          "media": [
+            {
+              "time": 2.96,
+              "frame": 37,
+              "frozen": false,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 3.003889,
+              "tier": 6,
+              "requestedFrames": 53,
+              "seeks": 3,
+              "coalesced": 0,
+              "seekLatencyMs": 19.299999997019768,
+              "presentedTime": 2.96,
+              "presentedFrames": 56,
+              "driftCorrections": 2,
+              "presentedFrame": 37,
+              "skippedPresentedFrames": 0,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 5.345020333324393,
+          "media": [
+            {
+              "time": 3.04,
+              "frame": 38,
+              "frozen": false,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 3.113088,
+              "tier": 6,
+              "requestedFrames": 54,
+              "seeks": 3,
+              "coalesced": 0,
+              "seekLatencyMs": 19.299999997019768,
+              "presentedTime": 3.04,
+              "presentedFrames": 57,
+              "driftCorrections": 2,
+              "presentedFrame": 38,
+              "skippedPresentedFrames": 0,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 5.4539313333303525,
+          "media": [
+            {
+              "time": 3.2,
+              "frame": 40,
+              "frozen": false,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 3.220887,
+              "tier": 6,
+              "requestedFrames": 56,
+              "seeks": 3,
+              "coalesced": 0,
+              "seekLatencyMs": 19.299999997019768,
+              "presentedTime": 3.2,
+              "presentedFrames": 59,
+              "driftCorrections": 2,
+              "presentedFrame": 40,
+              "skippedPresentedFrames": 0,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 5.562981333339294,
+          "media": [
+            {
+              "time": 3.28,
+              "frame": 41,
+              "frozen": false,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 3.327985,
+              "tier": 6,
+              "requestedFrames": 57,
+              "seeks": 3,
+              "coalesced": 0,
+              "seekLatencyMs": 19.299999997019768,
+              "presentedTime": 3.28,
+              "presentedFrames": 60,
+              "driftCorrections": 2,
+              "presentedFrame": 41,
+              "skippedPresentedFrames": 0,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 5.6671963333273725,
+          "media": [
+            {
+              "time": 3.36,
+              "frame": 42,
+              "frozen": false,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 3.434226,
+              "tier": 6,
+              "requestedFrames": 58,
+              "seeks": 3,
+              "coalesced": 0,
+              "seekLatencyMs": 19.299999997019768,
+              "presentedTime": 3.36,
+              "presentedFrames": 61,
+              "driftCorrections": 2,
+              "presentedFrame": 42,
+              "skippedPresentedFrames": 0,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 5.757009333339294,
+          "media": [
+            {
+              "time": 3.52,
+              "frame": 44,
+              "frozen": false,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 3.54424,
+              "tier": 6,
+              "requestedFrames": 60,
+              "seeks": 3,
+              "coalesced": 0,
+              "seekLatencyMs": 19.299999997019768,
+              "presentedTime": 3.52,
+              "presentedFrames": 63,
+              "driftCorrections": 2,
+              "presentedFrame": 44,
+              "skippedPresentedFrames": 0,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 5.884280333321413,
+          "media": [
+            {
+              "time": 3.6,
+              "frame": 45,
+              "frozen": false,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 3.653324,
+              "tier": 6,
+              "requestedFrames": 61,
+              "seeks": 3,
+              "coalesced": 0,
+              "seekLatencyMs": 19.299999997019768,
+              "presentedTime": 3.6,
+              "presentedFrames": 64,
+              "driftCorrections": 2,
+              "presentedFrame": 45,
+              "skippedPresentedFrames": 0,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 5.9976733333273735,
+          "media": [
+            {
+              "time": 3.76,
+              "frame": 47,
+              "frozen": false,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 3.764524,
+              "tier": 6,
+              "requestedFrames": 63,
+              "seeks": 3,
+              "coalesced": 0,
+              "seekLatencyMs": 19.299999997019768,
+              "presentedTime": 3.76,
+              "presentedFrames": 66,
+              "driftCorrections": 2,
+              "presentedFrame": 47,
+              "skippedPresentedFrames": 0,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 6.102316333336314,
+          "media": [
+            {
+              "time": 3.84,
+              "frame": 48,
+              "frozen": false,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 3.871733,
+              "tier": 6,
+              "requestedFrames": 64,
+              "seeks": 3,
+              "coalesced": 0,
+              "seekLatencyMs": 19.299999997019768,
+              "presentedTime": 3.84,
+              "presentedFrames": 67,
+              "driftCorrections": 2,
+              "presentedFrame": 48,
+              "skippedPresentedFrames": 0,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 6.211598333333334,
+          "media": [
+            {
+              "time": 3.92,
+              "frame": 49,
+              "frozen": false,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 3.980642,
+              "tier": 6,
+              "requestedFrames": 65,
+              "seeks": 3,
+              "coalesced": 0,
+              "seekLatencyMs": 19.299999997019768,
+              "presentedTime": 3.92,
+              "presentedFrames": 68,
+              "driftCorrections": 2,
+              "presentedFrame": 49,
+              "skippedPresentedFrames": 0,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 6.320571333333333,
+          "media": [
+            {
+              "time": 4.08,
+              "frame": 51,
+              "frozen": false,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 4.088078,
+              "tier": 6,
+              "requestedFrames": 67,
+              "seeks": 3,
+              "coalesced": 0,
+              "seekLatencyMs": 19.299999997019768,
+              "presentedTime": 4.08,
+              "presentedFrames": 70,
+              "driftCorrections": 2,
+              "presentedFrame": 51,
+              "skippedPresentedFrames": 0,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        },
+        {
+          "time": 6.4301973333273725,
+          "media": [
+            {
+              "time": 4.16,
+              "frame": 52,
+              "frozen": false,
+              "loop": 0,
+              "state": "ready",
+              "decodedTime": 4.196059,
+              "tier": 6,
+              "requestedFrames": 68,
+              "seeks": 3,
+              "coalesced": 0,
+              "seekLatencyMs": 19.299999997019768,
+              "presentedTime": 4.16,
+              "presentedFrames": 71,
+              "driftCorrections": 2,
+              "presentedFrame": 52,
+              "skippedPresentedFrames": 0,
+              "duplicatePresentedFrames": 0
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

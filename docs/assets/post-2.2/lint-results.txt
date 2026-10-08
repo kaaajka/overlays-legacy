@@ -1,0 +1,9 @@
+
+> overlays-legacy@1.0.0 lint C:\Projects\overlays-legacy
+> biome lint .
+
+The number of diagnostics exceeds the limit allowed. Use --max-diagnostics to increase it.
+Diagnostics not shown: 62.
+Checked 308 files in 206ms. No fixes applied.
+Found 44 warnings.
+Found 38 infos.

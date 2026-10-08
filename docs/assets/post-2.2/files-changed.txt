@@ -1,0 +1,316 @@
+ M .gitignore
+ M .impeccable/design.json
+ M DESIGN.md
+ M PRODUCT.md
+ M docs/DONATION_GIF_ART_DIRECTION.md
+ M docs/KAAAJKA_BRAND_DIRECTION.md
+ M docs/MOTION_STUDIO_21_QA.md
+ M index.html
+ M public/assets/donations/media/donation-template-04.webm
+ M public/assets/donations/media/donation-template-06.webm
+ M scripts/motion-studio-server.mjs
+ M scripts/prepare-donation-media.py
+ M scripts/render-donation.mjs
+ M src/audio/motion/MusicPlayback.ts
+ M src/audio/motion/musicFixtures.test.ts
+ M src/components/DonateEvent.tsx
+ M src/dev/motion-studio/MotionStudio.tsx
+ M src/dev/motion-studio/ProgramMonitor.tsx
+ M src/dev/motion-studio/Timeline.tsx
+ M src/dev/motion-studio/Workspace.tsx
+ M src/dev/motion-studio/editorControls.tsx
+ M src/dev/motion-studio/motion-studio.css
+ M src/dev/motion-studio/studioModel.ts
+ M src/donations/choreography/donate1/TREATMENT.md
+ M src/donations/choreography/donate1/choreography.ts
+ M src/donations/choreography/donate2/TREATMENT.md
+ M src/donations/choreography/donate2/choreography.ts
+ M src/donations/choreography/donate3/TREATMENT.md
+ M src/donations/choreography/donate3/choreography.ts
+ M src/donations/choreography/donate4/TREATMENT.md
+ M src/donations/choreography/donate4/choreography.ts
+ M src/donations/choreography/donate5/TREATMENT.md
+ M src/donations/choreography/donate5/choreography.ts
+ M src/donations/choreography/donate6/TREATMENT.md
+ M src/donations/choreography/donate6/choreography.ts
+ M src/donations/choreography/donate7/TREATMENT.md
+ M src/donations/choreography/donate7/choreography.ts
+ M src/donations/createDonateEventModelFromArgs.ts
+ M src/donations/scenes/Donate1Scene.tsx
+ M src/donations/scenes/Donate2Scene.tsx
+ M src/donations/scenes/Donate3Scene.tsx
+ M src/donations/scenes/Donate5Scene.tsx
+ M src/donations/scenes/Donate7Scene.tsx
+ M src/donations/scenes/gif-scenes.css
+ M src/donations/scenes/shared.tsx
+ M src/main.tsx
+ M src/models/DonateEvent.tsx
+ M src/motion/cash/CashRenderer.ts
+ M src/motion/engine/DonationScene.tsx
+ M src/motion/engine/donation-motion.css
+ M src/motion/gpu/OverlayRenderer.ts
+ M src/motion/media/MediaLayer.ts
+ M src/motion/media/assets.json
+ M src/motion/quality.ts
+ M tests/motion-engine.pw.ts
+ M tests/motion-studio-2.1.pw.ts
+ M tests/motion-studio-v2.pw.ts
+ M vite.config.ts
+?? docs/POST_22_CONTINUATION_QA.md
+?? docs/PRODUCTION_22_DIRECTION.md
+?? docs/PRODUCTION_22_FINISH_REVIEW.md
+?? docs/PRODUCTION_22_LETTERING.md
+?? docs/PRODUCTION_22_QA.md
+?? docs/assets/post-2.2/acceptance.json
+?? docs/assets/post-2.2/browser-results.json
+?? docs/assets/post-2.2/build-results.txt
+?? docs/assets/post-2.2/donate1-full-normal.webm
+?? docs/assets/post-2.2/donate1-normal.webm
+?? docs/assets/post-2.2/donate2-full-normal.webm
+?? docs/assets/post-2.2/donate2-normal.webm
+?? docs/assets/post-2.2/donate3-full-normal.webm
+?? docs/assets/post-2.2/donate3-normal.webm
+?? docs/assets/post-2.2/donate4-full-normal.webm
+?? docs/assets/post-2.2/donate4-normal.webm
+?? docs/assets/post-2.2/donate5-full-normal.webm
+?? docs/assets/post-2.2/donate5-normal.webm
+?? docs/assets/post-2.2/donate6-full-normal.webm
+?? docs/assets/post-2.2/donate6-normal.webm
+?? docs/assets/post-2.2/donate7-full-normal.webm
+?? docs/assets/post-2.2/donate7-normal.webm
+?? docs/assets/post-2.2/encoding.json
+?? docs/assets/post-2.2/files-changed.txt
+?? docs/assets/post-2.2/full-export-manifest.json
+?? docs/assets/post-2.2/full-motion-summary.json
+?? docs/assets/post-2.2/full-victor-2137.69.mp4
+?? docs/assets/post-2.2/lint-results.txt
+?? docs/assets/post-2.2/music-metadata.json
+?? docs/assets/post-2.2/normal-motion-summary.json
+?? docs/assets/post-2.2/payoff-inspection/donate1-hero--0.25.jpg
+?? docs/assets/post-2.2/payoff-inspection/donate1-hero-0.25.jpg
+?? docs/assets/post-2.2/payoff-inspection/donate1-hero-0.5.jpg
+?? docs/assets/post-2.2/payoff-inspection/donate1-hero-0.75.jpg
+?? docs/assets/post-2.2/payoff-inspection/donate1-hero-0.jpg
+?? docs/assets/post-2.2/payoff-inspection/donate1-hero-1.jpg
+?? docs/assets/post-2.2/payoff-inspection/donate2-hero--0.25.jpg
+?? docs/assets/post-2.2/payoff-inspection/donate2-hero-0.25.jpg
+?? docs/assets/post-2.2/payoff-inspection/donate2-hero-0.5.jpg
+?? docs/assets/post-2.2/payoff-inspection/donate2-hero-0.75.jpg
+?? docs/assets/post-2.2/payoff-inspection/donate2-hero-0.jpg
+?? docs/assets/post-2.2/payoff-inspection/donate2-hero-1.jpg
+?? docs/assets/post-2.2/payoff-inspection/donate3-hero--0.25.jpg
+?? docs/assets/post-2.2/payoff-inspection/donate3-hero-0.25.jpg
+?? docs/assets/post-2.2/payoff-inspection/donate3-hero-0.5.jpg
+?? docs/assets/post-2.2/payoff-inspection/donate3-hero-0.75.jpg
+?? docs/assets/post-2.2/payoff-inspection/donate3-hero-0.jpg
+?? docs/assets/post-2.2/payoff-inspection/donate3-hero-1.jpg
+?? docs/assets/post-2.2/payoff-inspection/donate4-hero--0.25.jpg
+?? docs/assets/post-2.2/payoff-inspection/donate4-hero-0.25.jpg
+?? docs/assets/post-2.2/payoff-inspection/donate4-hero-0.5.jpg
+?? docs/assets/post-2.2/payoff-inspection/donate4-hero-0.75.jpg
+?? docs/assets/post-2.2/payoff-inspection/donate4-hero-0.jpg
+?? docs/assets/post-2.2/payoff-inspection/donate4-hero-1.jpg
+?? docs/assets/post-2.2/payoff-inspection/donate5-hero--0.25.jpg
+?? docs/assets/post-2.2/payoff-inspection/donate5-hero-0.25.jpg
+?? docs/assets/post-2.2/payoff-inspection/donate5-hero-0.5.jpg
+?? docs/assets/post-2.2/payoff-inspection/donate5-hero-0.75.jpg
+?? docs/assets/post-2.2/payoff-inspection/donate5-hero-0.jpg
+?? docs/assets/post-2.2/payoff-inspection/donate5-hero-1.jpg
+?? docs/assets/post-2.2/payoff-inspection/donate6-hero--0.25.jpg
+?? docs/assets/post-2.2/payoff-inspection/donate6-hero-0.25.jpg
+?? docs/assets/post-2.2/payoff-inspection/donate6-hero-0.5.jpg
+?? docs/assets/post-2.2/payoff-inspection/donate6-hero-0.75.jpg
+?? docs/assets/post-2.2/payoff-inspection/donate6-hero-0.jpg
+?? docs/assets/post-2.2/payoff-inspection/donate6-hero-1.jpg
+?? docs/assets/post-2.2/payoff-inspection/donate7-hero--0.25.jpg
+?? docs/assets/post-2.2/payoff-inspection/donate7-hero-0.25.jpg
+?? docs/assets/post-2.2/payoff-inspection/donate7-hero-0.5.jpg
+?? docs/assets/post-2.2/payoff-inspection/donate7-hero-0.75.jpg
+?? docs/assets/post-2.2/payoff-inspection/donate7-hero-0.jpg
+?? docs/assets/post-2.2/payoff-inspection/donate7-hero-1.jpg
+?? docs/assets/post-2.2/payoff-inspection/payoffs.jpg
+?? docs/assets/post-2.2/replacements.json
+?? docs/assets/post-2.2/review-1/donate5-1920x1080.jpg
+?? docs/assets/post-2.2/review-1/donate5-5120x1440.jpg
+?? docs/assets/post-2.2/review-1/shortcuts.jpg
+?? docs/assets/post-2.2/review-1/studio-390x844.jpg
+?? docs/assets/post-2.2/round-1/donate1-1280x720.jpg
+?? docs/assets/post-2.2/round-1/donate1-1920x1080.jpg
+?? docs/assets/post-2.2/round-1/donate1-1920x1200.jpg
+?? docs/assets/post-2.2/round-1/donate1-2560x1080.jpg
+?? docs/assets/post-2.2/round-1/donate1-3440x1440.jpg
+?? docs/assets/post-2.2/round-1/donate1-3840x1080.jpg
+?? docs/assets/post-2.2/round-1/donate1-3840x2160.jpg
+?? docs/assets/post-2.2/round-1/donate1-5120x1440.jpg
+?? docs/assets/post-2.2/round-1/donate2-1280x720.jpg
+?? docs/assets/post-2.2/round-1/donate2-1920x1080.jpg
+?? docs/assets/post-2.2/round-1/donate2-1920x1200.jpg
+?? docs/assets/post-2.2/round-1/donate2-2560x1080.jpg
+?? docs/assets/post-2.2/round-1/donate2-3440x1440.jpg
+?? docs/assets/post-2.2/round-1/donate2-3840x1080.jpg
+?? docs/assets/post-2.2/round-1/donate2-3840x2160.jpg
+?? docs/assets/post-2.2/round-1/donate2-5120x1440.jpg
+?? docs/assets/post-2.2/round-1/donate3-1280x720.jpg
+?? docs/assets/post-2.2/round-1/donate3-1920x1080.jpg
+?? docs/assets/post-2.2/round-1/donate3-1920x1200.jpg
+?? docs/assets/post-2.2/round-1/donate3-2560x1080.jpg
+?? docs/assets/post-2.2/round-1/donate3-3440x1440.jpg
+?? docs/assets/post-2.2/round-1/donate3-3840x1080.jpg
+?? docs/assets/post-2.2/round-1/donate3-3840x2160.jpg
+?? docs/assets/post-2.2/round-1/donate3-5120x1440.jpg
+?? docs/assets/post-2.2/round-1/donate4-1280x720.jpg
+?? docs/assets/post-2.2/round-1/donate4-1920x1080.jpg
+?? docs/assets/post-2.2/round-1/donate4-1920x1200.jpg
+?? docs/assets/post-2.2/round-1/donate4-2560x1080.jpg
+?? docs/assets/post-2.2/round-1/donate4-3440x1440.jpg
+?? docs/assets/post-2.2/round-1/donate4-3840x1080.jpg
+?? docs/assets/post-2.2/round-1/donate4-3840x2160.jpg
+?? docs/assets/post-2.2/round-1/donate4-5120x1440.jpg
+?? docs/assets/post-2.2/round-1/donate5-1280x720.jpg
+?? docs/assets/post-2.2/round-1/donate5-1920x1080.jpg
+?? docs/assets/post-2.2/round-1/donate5-1920x1200.jpg
+?? docs/assets/post-2.2/round-1/donate5-2560x1080.jpg
+?? docs/assets/post-2.2/round-1/donate5-3440x1440.jpg
+?? docs/assets/post-2.2/round-1/donate5-3840x1080.jpg
+?? docs/assets/post-2.2/round-1/donate5-3840x2160.jpg
+?? docs/assets/post-2.2/round-1/donate5-5120x1440.jpg
+?? docs/assets/post-2.2/round-1/donate6-1280x720.jpg
+?? docs/assets/post-2.2/round-1/donate6-1920x1080.jpg
+?? docs/assets/post-2.2/round-1/donate6-1920x1200.jpg
+?? docs/assets/post-2.2/round-1/donate6-2560x1080.jpg
+?? docs/assets/post-2.2/round-1/donate6-3440x1440.jpg
+?? docs/assets/post-2.2/round-1/donate6-3840x1080.jpg
+?? docs/assets/post-2.2/round-1/donate6-3840x2160.jpg
+?? docs/assets/post-2.2/round-1/donate6-5120x1440.jpg
+?? docs/assets/post-2.2/round-1/donate7-1280x720.jpg
+?? docs/assets/post-2.2/round-1/donate7-1920x1080.jpg
+?? docs/assets/post-2.2/round-1/donate7-1920x1200.jpg
+?? docs/assets/post-2.2/round-1/donate7-2560x1080.jpg
+?? docs/assets/post-2.2/round-1/donate7-3440x1440.jpg
+?? docs/assets/post-2.2/round-1/donate7-3840x1080.jpg
+?? docs/assets/post-2.2/round-1/donate7-3840x2160.jpg
+?? docs/assets/post-2.2/round-1/donate7-5120x1440.jpg
+?? docs/assets/post-2.2/round-1/evidence.json
+?? docs/assets/post-2.2/round-1/information-short.jpg
+?? docs/assets/post-2.2/round-1/shortcuts.jpg
+?? docs/assets/post-2.2/round-1/standard-sheet.jpg
+?? docs/assets/post-2.2/round-1/studio-1280x720.jpg
+?? docs/assets/post-2.2/round-1/studio-1920x1080.jpg
+?? docs/assets/post-2.2/round-1/studio-3440x1440.jpg
+?? docs/assets/post-2.2/round-1/studio-390x844.jpg
+?? docs/assets/post-2.2/round-1/ultrawide-sheet.jpg
+?? docs/assets/post-2.2/round-2/donate1-1280x720.jpg
+?? docs/assets/post-2.2/round-2/donate1-1920x1080.jpg
+?? docs/assets/post-2.2/round-2/donate1-1920x1200.jpg
+?? docs/assets/post-2.2/round-2/donate1-2560x1080.jpg
+?? docs/assets/post-2.2/round-2/donate1-3440x1440.jpg
+?? docs/assets/post-2.2/round-2/donate1-3840x1080.jpg
+?? docs/assets/post-2.2/round-2/donate1-3840x2160.jpg
+?? docs/assets/post-2.2/round-2/donate1-5120x1440.jpg
+?? docs/assets/post-2.2/round-2/donate2-1280x720.jpg
+?? docs/assets/post-2.2/round-2/donate2-1920x1080.jpg
+?? docs/assets/post-2.2/round-2/donate2-1920x1200.jpg
+?? docs/assets/post-2.2/round-2/donate2-2560x1080.jpg
+?? docs/assets/post-2.2/round-2/donate2-3440x1440.jpg
+?? docs/assets/post-2.2/round-2/donate2-3840x1080.jpg
+?? docs/assets/post-2.2/round-2/donate2-3840x2160.jpg
+?? docs/assets/post-2.2/round-2/donate2-5120x1440.jpg
+?? docs/assets/post-2.2/round-2/donate3-1280x720.jpg
+?? docs/assets/post-2.2/round-2/donate3-1920x1080.jpg
+?? docs/assets/post-2.2/round-2/donate3-1920x1200.jpg
+?? docs/assets/post-2.2/round-2/donate3-2560x1080.jpg
+?? docs/assets/post-2.2/round-2/donate3-3440x1440.jpg
+?? docs/assets/post-2.2/round-2/donate3-3840x1080.jpg
+?? docs/assets/post-2.2/round-2/donate3-3840x2160.jpg
+?? docs/assets/post-2.2/round-2/donate3-5120x1440.jpg
+?? docs/assets/post-2.2/round-2/donate4-1280x720.jpg
+?? docs/assets/post-2.2/round-2/donate4-1920x1080.jpg
+?? docs/assets/post-2.2/round-2/donate4-1920x1200.jpg
+?? docs/assets/post-2.2/round-2/donate4-2560x1080.jpg
+?? docs/assets/post-2.2/round-2/donate4-3440x1440.jpg
+?? docs/assets/post-2.2/round-2/donate4-3840x1080.jpg
+?? docs/assets/post-2.2/round-2/donate4-3840x2160.jpg
+?? docs/assets/post-2.2/round-2/donate4-5120x1440.jpg
+?? docs/assets/post-2.2/round-2/donate5-1280x720.jpg
+?? docs/assets/post-2.2/round-2/donate5-1920x1080.jpg
+?? docs/assets/post-2.2/round-2/donate5-1920x1200.jpg
+?? docs/assets/post-2.2/round-2/donate5-2560x1080.jpg
+?? docs/assets/post-2.2/round-2/donate5-3440x1440.jpg
+?? docs/assets/post-2.2/round-2/donate5-3840x1080.jpg
+?? docs/assets/post-2.2/round-2/donate5-3840x2160.jpg
+?? docs/assets/post-2.2/round-2/donate5-5120x1440.jpg
+?? docs/assets/post-2.2/round-2/donate6-1280x720.jpg
+?? docs/assets/post-2.2/round-2/donate6-1920x1080.jpg
+?? docs/assets/post-2.2/round-2/donate6-1920x1200.jpg
+?? docs/assets/post-2.2/round-2/donate6-2560x1080.jpg
+?? docs/assets/post-2.2/round-2/donate6-3440x1440.jpg
+?? docs/assets/post-2.2/round-2/donate6-3840x1080.jpg
+?? docs/assets/post-2.2/round-2/donate6-3840x2160.jpg
+?? docs/assets/post-2.2/round-2/donate6-5120x1440.jpg
+?? docs/assets/post-2.2/round-2/donate7-1280x720.jpg
+?? docs/assets/post-2.2/round-2/donate7-1920x1080.jpg
+?? docs/assets/post-2.2/round-2/donate7-1920x1200.jpg
+?? docs/assets/post-2.2/round-2/donate7-2560x1080.jpg
+?? docs/assets/post-2.2/round-2/donate7-3440x1440.jpg
+?? docs/assets/post-2.2/round-2/donate7-3840x1080.jpg
+?? docs/assets/post-2.2/round-2/donate7-3840x2160.jpg
+?? docs/assets/post-2.2/round-2/donate7-5120x1440.jpg
+?? docs/assets/post-2.2/round-2/evidence.json
+?? docs/assets/post-2.2/round-2/information-short.jpg
+?? docs/assets/post-2.2/round-2/shortcuts.jpg
+?? docs/assets/post-2.2/round-2/studio-1280x720.jpg
+?? docs/assets/post-2.2/round-2/studio-1920x1080.jpg
+?? docs/assets/post-2.2/round-2/studio-3440x1440.jpg
+?? docs/assets/post-2.2/round-2/studio-390x844.jpg
+?? docs/assets/post-2.2/runtime-after-valid.json
+?? docs/assets/post-2.2/runtime-controlled-comparison.json
+?? docs/assets/post-2.2/seeks.json
+?? docs/assets/post-2.2/unit-results.txt
+?? docs/assets/post-2.2/visible/current-data-information.png
+?? docs/assets/post-2.2/visible/information-full.png
+?? docs/assets/production-2.2/chrome-actual-path.json
+?? docs/assets/production-2.2/chrome-before-fix.json
+?? docs/assets/production-2.2/chrome-context-cache-matrix.json
+?? docs/assets/production-2.2/chrome-native-play.json
+?? docs/assets/production-2.2/chromium-actual-path.json
+?? docs/assets/production-2.2/compositions-stream.jpg
+?? docs/assets/production-2.2/export-verification.json
+?? docs/assets/production-2.2/heroes-checker.jpg
+?? docs/assets/production-2.2/heroes-solid.jpg
+?? docs/assets/production-2.2/heroes-stream.jpg
+?? docs/assets/production-2.2/information-matrix.jpg
+?? docs/assets/production-2.2/information-matrix.json
+?? docs/assets/production-2.2/studio-export-complete.png
+?? public/assets/donations/brand/holy-moly-handwritten.png
+?? public/assets/donations/brand/omg-handwritten.png
+?? public/motion-studio.webmanifest
+?? public/studio-icon-192.png
+?? public/studio-icon-512.png
+?? public/studio-sw.js
+?? scripts/capture-post-2.2-review.mjs
+?? scripts/capture-production-2.2-export-result.mjs
+?? scripts/capture-production-2.2.mjs
+?? scripts/create-production-2.2-sheets.py
+?? scripts/diagnose-studio-audio-contexts.mjs
+?? scripts/diagnose-studio-audio.mjs
+?? scripts/record-post-2.2-motion.mjs
+?? scripts/studio-tts.mjs
+?? scripts/studio-tts.ps1
+?? scripts/verify-post-2.2.mjs
+?? scripts/verify-production-2.2-export.mjs
+?? src/dev/motion-studio/AuthoringTransport.ts
+?? src/dev/motion-studio/Help.tsx
+?? src/dev/motion-studio/LocalCapabilities.tsx
+?? src/dev/motion-studio/PreviewBoundary.tsx
+?? src/dev/motion-studio/Shortcuts.tsx
+?? src/dev/motion-studio/Timecode.tsx
+?? src/dev/motion-studio/authoringServices.ts
+?? src/dev/motion-studio/musicIdentity.json
+?? src/dev/motion-studio/polish.ts
+?? src/dev/motion-studio/spokenAmount.test.ts
+?? src/dev/motion-studio/spokenAmount.ts
+?? src/donations/messageContent.test.ts
+?? src/donations/messageContent.ts
+?? src/motion/engine/MessageEmote.tsx
+?? tests/continuation.pw.ts
+?? tests/production-2.2.pw.ts

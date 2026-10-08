@@ -1,0 +1,12 @@
+
+> overlays-legacy@1.0.0 test C:\Projects\overlays-legacy
+> vitest run
+
+
+ RUN  v4.1.7 C:/Projects/overlays-legacy
+
+
+ Test Files  33 passed (33)
+      Tests  321 passed (321)
+   Start at  02:35:06
+   Duration  2.39s (transform 9.60s, setup 0ms, import 13.31s, tests 476ms, environment 6ms)

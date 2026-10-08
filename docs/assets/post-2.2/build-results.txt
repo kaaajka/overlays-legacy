@@ -1,0 +1,27 @@
+
+> overlays-legacy@1.0.0 build C:\Projects\overlays-legacy
+> vite build
+
+vite v7.3.3 building client environment for production...
+transforming...
+✓ 1734 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                               1.47 kB │ gzip:   0.79 kB
+dist/assets/head-CAE9Dpv3.png                 4.52 kB
+dist/assets/mute-alert-B2BuPz9J.png          30.50 kB
+dist/assets/without-r-alert-C3wpQ7nZ.png     46.56 kB
+dist/assets/dogs-reward-alert-8nj7LAqE.png   67.13 kB
+dist/assets/censure-alert-dAcjjpda.png       78.82 kB
+dist/assets/tail-Dr8KsdoZ.png               120.17 kB
+dist/assets/poppins-bold-qTAUjFF7.ttf       153.94 kB
+dist/assets/poppins-semibold-B_fPDAUb.ttf   155.23 kB
+dist/assets/poppins-medium-Cxde2ZoM.ttf     156.52 kB
+dist/assets/poppins-regular-CTKNfV9P.ttf    158.24 kB
+dist/assets/coinflip-alert-BEcJGKke.gif     477.41 kB
+dist/assets/roulette-alert-D1IYlxnW.webp    488.38 kB
+dist/assets/MotionStudio-BXogyk-0.css        17.63 kB │ gzip:   4.47 kB
+dist/assets/index-CpsLUVbr.css              370.96 kB │ gzip:  26.36 kB
+dist/assets/MotionStudio-zilqNAel.js        120.84 kB │ gzip:  42.36 kB
+dist/assets/index-CrgK-nDf.js               766.22 kB │ gzip: 234.67 kB
+✓ built in 5.84s

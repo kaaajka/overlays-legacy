@@ -1,0 +1,94 @@
+[
+  {
+    "tier": 1,
+    "file": "donation-template-01.mpga",
+    "sha": "bb4d4db5c685e0aa399c67287d7d2b6e8aec94f0378cd33f7a94ff3d160f0f91",
+    "duration": 8.03342,
+    "tags": {
+      "album": "HIDEHO - Single",
+      "title": "HIDEHO",
+      "artist": "Tropkillaz",
+      "compatible_brands": "isommp42",
+      "major_brand": "mp42",
+      "minor_version": "0",
+      "encoder": "Lavf58.45.100"
+    }
+  },
+  {
+    "tier": 2,
+    "file": "donation-template-02.mpga",
+    "sha": "5e7b48688c332582717ede52c8d21d34eb3e5b90f52500a01ef7eb703cfc732d",
+    "duration": 15.46558,
+    "tags": {
+      "encoder": "Lavf56.19.100",
+      "title": "TWITCH Follower/ Sub / Donate SOUND EFFECT Alert #5",
+      "minor_version": "0",
+      "compatible_brands": "isommp42",
+      "major_brand": "mp42"
+    }
+  },
+  {
+    "tier": 3,
+    "file": "donation-template-03.mpga",
+    "sha": "96c5d2df93f024e729bb660b09edd2cba13ff8d82c58eba299b1206f1ecc6a18",
+    "duration": 11.6,
+    "tags": {
+      "title": "Best Donation Sound For Ever #3",
+      "compatible_brands": "isommp42",
+      "major_brand": "mp42",
+      "minor_version": "0",
+      "encoder": "Lavf58.20.100"
+    }
+  },
+  {
+    "tier": 4,
+    "file": "donation-template-04.mpga",
+    "sha": "c11a2d62d8ad6dac24e1d70879570e4664ef25f5c8e958aa557feb225ff30378",
+    "duration": 12.84544,
+    "tags": {
+      "title": "SHOW LO\"NO JOKE\" Choreography by The Kinjaz",
+      "compatible_brands": "isommp42",
+      "major_brand": "mp42",
+      "minor_version": "0",
+      "encoder": "Lavf58.45.100"
+    }
+  },
+  {
+    "tier": 5,
+    "file": "donation-template-05.mp3",
+    "sha": "ff3599db51b6550e8ba867e81fdcb23440451f639578c1db44c964d0312534a0",
+    "duration": 16.34508,
+    "tags": {
+      "artist": "kordo",
+      "title": "KORDO - Holy Moly (Original Mix 2017)",
+      "encoder": "Lavf59.16.100"
+    }
+  },
+  {
+    "tier": 6,
+    "file": "donation-template-06.mpga",
+    "sha": "ffca8f4f9b1c2008b9e3319aa48ede832f93f3c443b45aff5f41301eb8d99c1f",
+    "duration": 21.76494,
+    "tags": {
+      "compatible_brands": "isommp42",
+      "title": "Fedor | iLoveCookiiezz DONATION SONG [Bass Boosted]",
+      "minor_version": "0",
+      "major_brand": "mp42",
+      "encoder": "Lavf58.45.100"
+    }
+  },
+  {
+    "tier": 7,
+    "file": "donation-template-07.mp3",
+    "sha": "56336349d7051ebd9e1cd21b88c67f628a7b4528c28305274591d234c290822c",
+    "duration": 46.23397,
+    "tags": {
+      "title": "Hislerim",
+      "artist": "Serhat Durmus",
+      "compatible_brands": "isommp42",
+      "major_brand": "mp42",
+      "minor_version": "0",
+      "encoder": "Lavf59.16.100"
+    }
+  }
+]

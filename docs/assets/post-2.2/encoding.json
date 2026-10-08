@@ -1,0 +1,114 @@
+[
+  {
+    "tier": 1,
+    "gop": 4,
+    "bytes": 7407856,
+    "encodeSeconds": 10.378,
+    "frames": 38,
+    "timestampsPreserved": true
+  },
+  {
+    "tier": 1,
+    "gop": 1,
+    "bytes": 7649671,
+    "encodeSeconds": 17.06,
+    "frames": 38,
+    "timestampsPreserved": true
+  },
+  {
+    "tier": 2,
+    "gop": 4,
+    "bytes": 3901891,
+    "encodeSeconds": 12.614,
+    "frames": 142,
+    "timestampsPreserved": true
+  },
+  {
+    "tier": 2,
+    "gop": 1,
+    "bytes": 4792013,
+    "encodeSeconds": 23.887,
+    "frames": 142,
+    "timestampsPreserved": true
+  },
+  {
+    "tier": 3,
+    "gop": 4,
+    "bytes": 920053,
+    "encodeSeconds": 2.868,
+    "frames": 10,
+    "timestampsPreserved": true
+  },
+  {
+    "tier": 3,
+    "gop": 1,
+    "bytes": 1022935,
+    "encodeSeconds": 5.346,
+    "frames": 10,
+    "timestampsPreserved": true
+  },
+  {
+    "tier": 4,
+    "gop": 4,
+    "bytes": 21183302,
+    "encodeSeconds": 33.54,
+    "frames": 97,
+    "timestampsPreserved": true
+  },
+  {
+    "tier": 4,
+    "gop": 1,
+    "bytes": 21517401,
+    "encodeSeconds": 62.963,
+    "frames": 97,
+    "timestampsPreserved": true
+  },
+  {
+    "tier": 5,
+    "gop": 4,
+    "bytes": 6173687,
+    "encodeSeconds": 9.283,
+    "frames": 42,
+    "timestampsPreserved": true
+  },
+  {
+    "tier": 5,
+    "gop": 1,
+    "bytes": 6326153,
+    "encodeSeconds": 12.435,
+    "frames": 42,
+    "timestampsPreserved": true
+  },
+  {
+    "tier": 6,
+    "gop": 4,
+    "bytes": 24460446,
+    "encodeSeconds": 32.392,
+    "frames": 98,
+    "timestampsPreserved": true
+  },
+  {
+    "tier": 6,
+    "gop": 1,
+    "bytes": 25278702,
+    "encodeSeconds": 69.354,
+    "frames": 98,
+    "timestampsPreserved": true
+  },
+  {
+    "tier": 7,
+    "gop": 4,
+    "bytes": 828398,
+    "encodeSeconds": 4.565,
+    "frames": 86,
+    "timestampsPreserved": true
+  },
+  {
+    "tier": 7,
+    "gop": 1,
+    "bytes": 903800,
+    "encodeSeconds": 10.786,
+    "frames": 86,
+    "timestampsPreserved": true
+  }
+]
