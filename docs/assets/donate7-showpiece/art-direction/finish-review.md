@@ -1,0 +1,36 @@
+disposition: ship
+
+Evidence limit: this bounded review inspected the approved comp, six supplied BEFORE/AFTER live-frame strips, four supplied detail stills, comparison/recording metadata, and relevant source/test files. It did not independently play or listen to the videos, run a browser, render, run QA, or change runtime code. No separate QUALITY BAR image card or mobile capture was supplied; the established broadcast brief and previous finish verdict supply the context. This is a candidate for owner review, not owner musical/creative acceptance or branch-finalization approval.
+
+## persistence
+
+Pass for the scoped review. PRODUCT.md, DESIGN.md and the Donate7 surface brief exist. The brief records reaction scrapbook seed `701ff517`, comp1 selection, and the later explicit synthesis/centered-showpiece instructions that authorize evolving the static composition. The comp remains visual-world evidence; its original left-heavy arrangement is superseded by those instructions. The durable docs still describe the previous refinement and require the scheduled documentation handoff for these three changes. Their earlier five resolved findings remain closed. `ownerVisualApproval` remains false.
+
+## fidelity
+
+The comp's salient inventory is cream rounded CO ZA / POJEB!!! lettering with berry contours and pink depth, three small taped source apertures, a textured torn peach donor paper with raspberry digits, original bunny replies, and celebration over transparent gameplay. The accepted foundation and subsequent owner instructions govern this review; the only scored concerns are the latest three.
+
+| Element or owner concern | Classification / score | Visible evidence and judgment |
+| --- | --- | --- |
+| TYPE | Match to the established world | The detail stills retain rounded ivory/pink DynaPuff display lettering and solid Roboto Flex donor digits; the long `30 000,00 zł` remains complete. No replacement display language is introduced. |
+| MATERIAL | Match to the established world | Torn peach fiber paper remains visibly present beneath donor and Information; three taped original source apertures and original green notes remain recognizable. The handoff carries the same material rather than returning to the former dark rounded panel. |
+| Centered hierarchy and source scale | Acceptable adaptation | The supplied latest owner instruction supersedes the original static comp. The middle and payoff strips retain centered donor/title emphasis; the original small footage migrates to an upper rail during recruitment. |
+| 1. Repetitive composition during 17–44s | **Resolved** | Both `middle-*-live-sequence.jpg` comparisons show the AFTER title retreating into a quieter read at 20s, a changed WTF exchange, the retained thin fold at 29.8s, and a visibly different reopened arrangement at 32.8s with all three apertures across the upper rail. Both payoff and handoff strips extend this progression into an amount-led finale and departing title. The sequence no longer repeatedly restores the same hero poster. Source corroborates the 18.4s reading pullback, distinct reprise, and 30.26721s recruitment. |
+| 2. Final amount culmination at unchanged 37.65116s | **Resolved in the supplied visual/source evidence** | Both `payoff-*-live-sequence.jpg` comparisons show the amount receiving the finale's priority while the title becomes a smaller upper response. The 36.9–37.4s samples show preparation; 37.8–38.6s show the donor's change in scale/position and landing. The `3000000-37.95.jpg` detail retains the complete name/value/currency on opaque centered paper. Source authors compression from `cue.final - 0.82`, impact at the existing `cue.final` (37.65116s), and recovery from `cue.final + 0.3`, with shared lens pullback/recoil and center-origin donor scaling. These broad samples support the phrase; they do not independently prove exact sub-frame audible impact or the owner's assessment of its force. |
+| 3. Same-paper branded continuity into Information/TTS | **Resolved** | Both `handoff-*-live-sequence.jpg` comparisons visibly carry the peach donor paper into the centered Information read. Old large lettering clears, header/message arrive on that paper, and the full short message is legible by the 46.3s live sample. `5732-45.30.jpg` and `3000000-46.30.jpg` support typography/material legibility at detail scale. Source transforms the existing donor element around measured Information bounds, keeps it through the production Information phase, and reveals Information before the established 46.23397s TTS start. The final live strips and current 45.2s spine fade supersede the tiny thread-end dot in the earlier round-2 stills. The provided long-message/reverse-seek tests cover retained paper bounds, complete message text, fixed header during scrolling and reconstruction; their two passes are reported by the build thread, not independently rerun here. |
+
+No batch-caused regression within these three concerns is visible in the supplied comparisons. This review does not reopen the prior five findings or create a new general defect list.
+
+## ceiling
+
+Reached for these three scoped findings: the established scrapbook devices now carry distinct reading, exchange, fold/recruitment, amount culmination, and same-paper Information chapters. The supplied evidence supports more compositional development and material continuity without replacing the accepted foundation or adding an effect inventory.
+
+`review/comparison.json` records identical encoded timestamps from unmodified actual 1× BEFORE/current browser captures, with AFTER audio only and no speed changes. The strips are samples from those captures, not seek-reconstructed motion. Samples are too sparse to establish every intervening motion frame, fine musical timing, or complete auditory quality. The two `final-*/realtime-recording.json` files record actual WebAudio capture, nickname → amount → message → outro → complete, the original data, and `errors: []`. Metadata confirms lifecycle evidence; it is not a claim that this reviewer listened. Adaptive SwiftShader capture does not prove 60 FPS, continuous HIGH quality or target-hardware/native OBS performance. The build thread reports 334 unit tests, typecheck, lint, build and two added browser tests passing; the broader 90-test browser suite was still running when this review was requested.
+
+## material_fixes
+
+None within the authorized three-point review. All three owner concerns are closed to the extent supported by the supplied visual/source evidence. Present the six `review/{middle,payoff,handoff}-{5732,3000000}-before-after.mp4` comparisons and both `final-*/donate7-full-realtime-audio.mp4` recordings for owner review. Owner creative approval and final broader-QA results remain separate pending decisions; no further speculative refinement is requested.
+
+## keep
+
+Keep the centered Kaaajka/name/value read, DynaPuff/Roboto Flex identity, original small footage and green note artwork, same peach donor-paper handoff, retained fold/thread/shader foundation, existing budgets/clock/queue/TTS lifecycle, and accepted brief translucent note crossings; ship this candidate for owner review with branch finalization still gated by owner approval.

@@ -1,0 +1,27 @@
+{
+  "method": "cached faster-whisper large-v3 / CPU int8 / first16s isolated local vocal stem",
+  "fullLyricsStored": false,
+  "sources": [
+    "https://www.joox.com/my-en/single/ly%2B6ilkXlQP1cDBCG25f9g==",
+    "https://lyricstranslate.com/tr/serhat-durmus-hislerim-lyrics.html"
+  ],
+  "phrases": [
+    {
+      "text": "Yanan her şey kül mü olmalı",
+      "sourceVerified": true,
+      "localASRMatches": false,
+      "approved": false,
+      "status": "source text corroborated; local timing requires listening approval",
+      "alignment": null
+    },
+    {
+      "text": "Böyle hissettim",
+      "sourceVerified": true,
+      "localASRMatches": false,
+      "approved": false,
+      "status": "source text corroborated; local timing requires listening approval",
+      "alignment": null
+    }
+  ],
+  "productionSemanticCueApproval": false
+}

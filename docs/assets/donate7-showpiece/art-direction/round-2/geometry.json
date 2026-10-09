@@ -1,0 +1,1791 @@
+{
+  "rows": [
+    {
+      "amount": 5732,
+      "at": 20.5,
+      "paper": {
+        "x": 618.489990234375,
+        "y": 590.4800415039062,
+        "w": 683.02001953125,
+        "h": 361.05059814453125,
+        "opacity": "1",
+        "visibility": "visible",
+        "transform": "matrix(1, 0, 0, 1, 0, -42)",
+        "clip": "none",
+        "text": "Kaaajka57,32złAmount underline"
+      },
+      "headline": {
+        "x": 679.4808349609375,
+        "y": 283.34527587890625,
+        "w": 561.0384521484375,
+        "h": 224.44784545898438,
+        "opacity": "1",
+        "visibility": "visible",
+        "transform": "matrix(0.72, 0, 0, 0.72, 0, -110)",
+        "clip": "none",
+        "text": "COZAPOJEB!!!"
+      },
+      "information": {
+        "x": 680,
+        "y": 479.5546875,
+        "w": 560,
+        "h": 160.890625,
+        "opacity": "0",
+        "visibility": "hidden",
+        "transform": "matrix(1, 0, 0, 1, -280, -60.4453)",
+        "clip": "inset(0% 0% 100%)",
+        "text": "Kaaajka57,32 złDziękuję za stream!"
+      },
+      "header": {
+        "x": 716,
+        "y": 507.5546875,
+        "w": 488,
+        "h": 54.390625,
+        "opacity": "1",
+        "visibility": "hidden",
+        "transform": "none",
+        "clip": "none",
+        "text": "Kaaajka57,32 zł"
+      },
+      "message": {
+        "x": 716,
+        "y": 561.9453125,
+        "w": 488,
+        "h": 46.5,
+        "opacity": "1",
+        "visibility": "hidden",
+        "transform": "none",
+        "clip": "none",
+        "text": "Dziękuję za stream!"
+      },
+      "money": {
+        "state": "ready",
+        "renderer": "PIXI",
+        "backend": "WebGL2",
+        "sprites": 361,
+        "back": 123,
+        "mid": 238,
+        "front": 0,
+        "renderMs": 10,
+        "quality": "high",
+        "drawCalls": null,
+        "activeRenderers": 1,
+        "ticker": false,
+        "chapter": "donor reading",
+        "filters": [],
+        "backingPixels": 2073600,
+        "tickerListeners": {
+          "system": 0,
+          "shared": 0
+        },
+        "budget": 540
+      }
+    },
+    {
+      "amount": 5732,
+      "at": 24.5,
+      "paper": {
+        "x": 609.4517211914062,
+        "y": 603.8469848632812,
+        "w": 701.0966186523438,
+        "h": 370.60614013671875,
+        "opacity": "1",
+        "visibility": "visible",
+        "transform": "matrix(0.97, 0, 0, 0.97, 0, -20)",
+        "clip": "none",
+        "text": "Kaaajka57,32złAmount underline"
+      },
+      "headline": {
+        "x": 600.5333862304688,
+        "y": 235.0262451171875,
+        "w": 713.9819946289062,
+        "h": 296.029541015625,
+        "opacity": "1",
+        "visibility": "visible",
+        "transform": "matrix(0.859869, -0.0150091, 0.0150091, 0.859869, 0, -74)",
+        "clip": "none",
+        "text": "COZAPOJEB!!!"
+      },
+      "information": {
+        "x": 680,
+        "y": 479.5546875,
+        "w": 560,
+        "h": 160.890625,
+        "opacity": "0",
+        "visibility": "hidden",
+        "transform": "matrix(1, 0, 0, 1, -280, -60.4453)",
+        "clip": "inset(0% 0% 100%)",
+        "text": "Kaaajka57,32 złDziękuję za stream!"
+      },
+      "header": {
+        "x": 716,
+        "y": 507.5546875,
+        "w": 488,
+        "h": 54.390625,
+        "opacity": "1",
+        "visibility": "hidden",
+        "transform": "none",
+        "clip": "none",
+        "text": "Kaaajka57,32 zł"
+      },
+      "message": {
+        "x": 716,
+        "y": 561.9453125,
+        "w": 488,
+        "h": 46.5,
+        "opacity": "1",
+        "visibility": "hidden",
+        "transform": "none",
+        "clip": "none",
+        "text": "Dziękuję za stream!"
+      },
+      "money": {
+        "state": "ready",
+        "renderer": "PIXI",
+        "backend": "WebGL2",
+        "sprites": 272,
+        "back": 118,
+        "mid": 152,
+        "front": 2,
+        "renderMs": 1.300000011920929,
+        "quality": "high",
+        "drawCalls": null,
+        "activeRenderers": 1,
+        "ticker": false,
+        "chapter": "renewed storm",
+        "filters": [],
+        "backingPixels": 2073600,
+        "tickerListeners": {
+          "system": 0,
+          "shared": 0
+        },
+        "budget": 540
+      }
+    },
+    {
+      "amount": 5732,
+      "at": 29.8,
+      "paper": {
+        "x": 641.5650634765625,
+        "y": 623.0872192382812,
+        "w": 636.8701171875,
+        "h": 336.65533447265625,
+        "opacity": "1",
+        "visibility": "visible",
+        "transform": "matrix(0.92, 0, 0, 0.92, 0, -20)",
+        "clip": "none",
+        "text": "Kaaajka57,32złAmount underline"
+      },
+      "headline": {
+        "x": 585.9404296875,
+        "y": 567.1653442382812,
+        "w": 748.1192626953125,
+        "h": 58.88037109375,
+        "opacity": "1",
+        "visibility": "visible",
+        "transform": "matrix3d(0.78, 0, 0, 0, 0, 0.162171, -0.762955, 0.000544968, 0, 0.978148, 0.207912, -0.000148508, 0, 16, 0, 1)",
+        "clip": "none",
+        "text": "COZAPOJEB!!!"
+      },
+      "information": {
+        "x": 680,
+        "y": 479.5546875,
+        "w": 560,
+        "h": 160.890625,
+        "opacity": "0",
+        "visibility": "hidden",
+        "transform": "matrix(1, 0, 0, 1, -280, -60.4453)",
+        "clip": "inset(0% 0% 100%)",
+        "text": "Kaaajka57,32 złDziękuję za stream!"
+      },
+      "header": {
+        "x": 716,
+        "y": 507.5546875,
+        "w": 488,
+        "h": 54.390625,
+        "opacity": "1",
+        "visibility": "hidden",
+        "transform": "none",
+        "clip": "none",
+        "text": "Kaaajka57,32 zł"
+      },
+      "message": {
+        "x": 716,
+        "y": 561.9453125,
+        "w": 488,
+        "h": 46.5,
+        "opacity": "1",
+        "visibility": "hidden",
+        "transform": "none",
+        "clip": "none",
+        "text": "Dziękuję za stream!"
+      },
+      "money": {
+        "state": "ready",
+        "renderer": "PIXI",
+        "backend": "WebGL2",
+        "sprites": 359,
+        "back": 124,
+        "mid": 235,
+        "front": 0,
+        "renderMs": 8.300000011920929,
+        "quality": "high",
+        "drawCalls": null,
+        "activeRenderers": 1,
+        "ticker": false,
+        "chapter": "false calm",
+        "filters": [
+          "Paper fold matte (custom GLSL)"
+        ],
+        "backingPixels": 2073600,
+        "tickerListeners": {
+          "system": 0,
+          "shared": 0
+        },
+        "budget": 540
+      }
+    },
+    {
+      "amount": 5732,
+      "at": 32.8,
+      "paper": {
+        "x": 605,
+        "y": 576,
+        "w": 710,
+        "h": 375.3125,
+        "opacity": "1",
+        "visibility": "visible",
+        "transform": "matrix(1, 0, 0, 1, 0, -46)",
+        "clip": "none",
+        "text": "Kaaajka57,32złAmount underline"
+      },
+      "headline": {
+        "x": 619.7999877929688,
+        "y": 295.8475036621094,
+        "w": 680.3999633789062,
+        "h": 272.1993713378906,
+        "opacity": "1",
+        "visibility": "visible",
+        "transform": "matrix3d(0.84, 0, 0, 0, 0, 0.84, 0, 0, 0, 0, 1, -0.000714286, 0, -36, 0, 1)",
+        "clip": "none",
+        "text": "COZAPOJEB!!!"
+      },
+      "information": {
+        "x": 680,
+        "y": 479.5546875,
+        "w": 560,
+        "h": 160.890625,
+        "opacity": "0",
+        "visibility": "hidden",
+        "transform": "matrix(1, 0, 0, 1, -280, -60.4453)",
+        "clip": "inset(0% 0% 100%)",
+        "text": "Kaaajka57,32 złDziękuję za stream!"
+      },
+      "header": {
+        "x": 716,
+        "y": 507.5546875,
+        "w": 488,
+        "h": 54.390625,
+        "opacity": "1",
+        "visibility": "hidden",
+        "transform": "none",
+        "clip": "none",
+        "text": "Kaaajka57,32 zł"
+      },
+      "message": {
+        "x": 716,
+        "y": 561.9453125,
+        "w": 488,
+        "h": 46.5,
+        "opacity": "1",
+        "visibility": "hidden",
+        "transform": "none",
+        "clip": "none",
+        "text": "Dziękuję za stream!"
+      },
+      "money": {
+        "state": "ready",
+        "renderer": "PIXI",
+        "backend": "WebGL2",
+        "sprites": 336,
+        "back": 132,
+        "mid": 203,
+        "front": 1,
+        "renderMs": 1.199999988079071,
+        "quality": "high",
+        "drawCalls": null,
+        "activeRenderers": 1,
+        "ticker": false,
+        "chapter": "rebuild",
+        "filters": [],
+        "backingPixels": 2073600,
+        "tickerListeners": {
+          "system": 0,
+          "shared": 0
+        },
+        "budget": 540
+      }
+    },
+    {
+      "amount": 5732,
+      "at": 36.85,
+      "paper": {
+        "x": 605,
+        "y": 576.0115966796875,
+        "w": 710,
+        "h": 375.3125,
+        "opacity": "1",
+        "visibility": "visible",
+        "transform": "matrix(1, 0, 0, 1, 0, -46.0014)",
+        "clip": "none",
+        "text": "Kaaajka57,32złAmount underline"
+      },
+      "headline": {
+        "x": 630.0721435546875,
+        "y": 288.8702392578125,
+        "w": 681.5684814453125,
+        "h": 275.822265625,
+        "opacity": "1",
+        "visibility": "visible",
+        "transform": "matrix3d(0.8396, 0, 0, 0, 0, 0.8396, 0, 0, 0, 0, 1, -0.000714286, 0, -36.181, 0, 1)",
+        "clip": "none",
+        "text": "COZAPOJEB!!!"
+      },
+      "information": {
+        "x": 680,
+        "y": 479.5546875,
+        "w": 560,
+        "h": 160.890625,
+        "opacity": "0",
+        "visibility": "hidden",
+        "transform": "matrix(1, 0, 0, 1, -280, -60.4453)",
+        "clip": "inset(0% 0% 100%)",
+        "text": "Kaaajka57,32 złDziękuję za stream!"
+      },
+      "header": {
+        "x": 716,
+        "y": 507.5546875,
+        "w": 488,
+        "h": 54.390625,
+        "opacity": "1",
+        "visibility": "hidden",
+        "transform": "none",
+        "clip": "none",
+        "text": "Kaaajka57,32 zł"
+      },
+      "message": {
+        "x": 716,
+        "y": 561.9453125,
+        "w": 488,
+        "h": 46.5,
+        "opacity": "1",
+        "visibility": "hidden",
+        "transform": "none",
+        "clip": "none",
+        "text": "Dziękuję za stream!"
+      },
+      "money": {
+        "state": "ready",
+        "renderer": "PIXI",
+        "backend": "WebGL2",
+        "sprites": 404,
+        "back": 127,
+        "mid": 274,
+        "front": 3,
+        "renderMs": 0.800000011920929,
+        "quality": "high",
+        "drawCalls": null,
+        "activeRenderers": 1,
+        "ticker": false,
+        "chapter": "final approach",
+        "filters": [],
+        "backingPixels": 2073600,
+        "tickerListeners": {
+          "system": 0,
+          "shared": 0
+        },
+        "budget": 540
+      }
+    },
+    {
+      "amount": 5732,
+      "at": 37.95,
+      "paper": {
+        "x": 559.3469848632812,
+        "y": 457.0845642089844,
+        "w": 801.3060913085938,
+        "h": 415.8763122558594,
+        "opacity": "1",
+        "visibility": "visible",
+        "transform": "matrix(1.1, 0, 0, 1.08, 0, -140.005)",
+        "clip": "none",
+        "text": "Kaaajka57,32złAmount underline"
+      },
+      "headline": {
+        "x": 741.530029296875,
+        "y": 222.85635375976562,
+        "w": 466.828369140625,
+        "h": 189.80059814453125,
+        "opacity": "1",
+        "visibility": "visible",
+        "transform": "matrix3d(0.56, 0, 0, 0, 0, 0.56, 0, 0, 0, 0, 1, -0.000714286, 0, -175, 0, 1)",
+        "clip": "none",
+        "text": "COZAPOJEB!!!"
+      },
+      "information": {
+        "x": 680,
+        "y": 479.5546875,
+        "w": 560,
+        "h": 160.890625,
+        "opacity": "0",
+        "visibility": "hidden",
+        "transform": "matrix(1, 0, 0, 1, -280, -60.4453)",
+        "clip": "inset(0% 0% 100%)",
+        "text": "Kaaajka57,32 złDziękuję za stream!"
+      },
+      "header": {
+        "x": 716,
+        "y": 507.5546875,
+        "w": 488,
+        "h": 54.390625,
+        "opacity": "1",
+        "visibility": "hidden",
+        "transform": "none",
+        "clip": "none",
+        "text": "Kaaajka57,32 zł"
+      },
+      "message": {
+        "x": 716,
+        "y": 561.9453125,
+        "w": 488,
+        "h": 46.5,
+        "opacity": "1",
+        "visibility": "hidden",
+        "transform": "none",
+        "clip": "none",
+        "text": "Dziękuję za stream!"
+      },
+      "money": {
+        "state": "ready",
+        "renderer": "PIXI",
+        "backend": "WebGL2",
+        "sprites": 431,
+        "back": 143,
+        "mid": 285,
+        "front": 3,
+        "renderMs": 2.800000011920929,
+        "quality": "high",
+        "drawCalls": null,
+        "activeRenderers": 1,
+        "ticker": false,
+        "chapter": "amount priority",
+        "filters": [],
+        "backingPixels": 2073600,
+        "tickerListeners": {
+          "system": 0,
+          "shared": 0
+        },
+        "budget": 540
+      }
+    },
+    {
+      "amount": 5732,
+      "at": 39.2,
+      "paper": {
+        "x": 589.0250244140625,
+        "y": 473.55548095703125,
+        "w": 741.949951171875,
+        "h": 392.2015380859375,
+        "opacity": "1",
+        "visibility": "visible",
+        "transform": "matrix(1.045, 0, 0, 1.045, 0, -140)",
+        "clip": "none",
+        "text": "Kaaajka57,32złAmount underline"
+      },
+      "headline": {
+        "x": 733.2000122070312,
+        "y": 247.58062744140625,
+        "w": 453.60003662109375,
+        "h": 181.46624755859375,
+        "opacity": "1",
+        "visibility": "visible",
+        "transform": "matrix3d(0.56, 0, 0, 0, 0, 0.56, 0, 0, 0, 0, 1, -0.000714286, 0, -175, 0, 1)",
+        "clip": "none",
+        "text": "COZAPOJEB!!!"
+      },
+      "information": {
+        "x": 680,
+        "y": 479.5546875,
+        "w": 560,
+        "h": 160.890625,
+        "opacity": "0",
+        "visibility": "hidden",
+        "transform": "matrix(1, 0, 0, 1, -280, -60.4453)",
+        "clip": "inset(0% 0% 100%)",
+        "text": "Kaaajka57,32 złDziękuję za stream!"
+      },
+      "header": {
+        "x": 716,
+        "y": 507.5546875,
+        "w": 488,
+        "h": 54.390625,
+        "opacity": "1",
+        "visibility": "hidden",
+        "transform": "none",
+        "clip": "none",
+        "text": "Kaaajka57,32 zł"
+      },
+      "message": {
+        "x": 716,
+        "y": 561.9453125,
+        "w": 488,
+        "h": 46.5,
+        "opacity": "1",
+        "visibility": "hidden",
+        "transform": "none",
+        "clip": "none",
+        "text": "Dziękuję za stream!"
+      },
+      "money": {
+        "state": "ready",
+        "renderer": "PIXI",
+        "backend": "WebGL2",
+        "sprites": 403,
+        "back": 144,
+        "mid": 258,
+        "front": 1,
+        "renderMs": 0.699999988079071,
+        "quality": "high",
+        "drawCalls": null,
+        "activeRenderers": 1,
+        "ticker": false,
+        "chapter": "final money storm",
+        "filters": [],
+        "backingPixels": 2073600,
+        "tickerListeners": {
+          "system": 0,
+          "shared": 0
+        },
+        "budget": 540
+      }
+    },
+    {
+      "amount": 5732,
+      "at": 44.6,
+      "paper": {
+        "x": 640.25146484375,
+        "y": 389.8892517089844,
+        "w": 639.4970703125,
+        "h": 318.1523742675781,
+        "opacity": "1",
+        "visibility": "visible",
+        "transform": "matrix(0.9007, 0, 0, 0.8477, 0, -260.691)",
+        "clip": "none",
+        "text": "Kaaajka57,32złAmount underline"
+      },
+      "headline": {
+        "x": 733.2000122070312,
+        "y": 247.58062744140625,
+        "w": 453.60003662109375,
+        "h": 181.46624755859375,
+        "opacity": "1",
+        "visibility": "visible",
+        "transform": "matrix3d(0.56, 0, 0, 0, 0, 0.56, 0, 0, 0, 0, 1, -0.000714286, 0, -175, 0, 1)",
+        "clip": "none",
+        "text": "COZAPOJEB!!!"
+      },
+      "information": {
+        "x": 680,
+        "y": 479.5546875,
+        "w": 560,
+        "h": 160.890625,
+        "opacity": "0",
+        "visibility": "hidden",
+        "transform": "matrix(1, 0, 0, 1, -280, -60.4453)",
+        "clip": "inset(0% 0% 100%)",
+        "text": "Kaaajka57,32 złDziękuję za stream!"
+      },
+      "header": {
+        "x": 716,
+        "y": 507.5546875,
+        "w": 488,
+        "h": 54.390625,
+        "opacity": "1",
+        "visibility": "hidden",
+        "transform": "none",
+        "clip": "none",
+        "text": "Kaaajka57,32 zł"
+      },
+      "message": {
+        "x": 716,
+        "y": 561.9453125,
+        "w": 488,
+        "h": 46.5,
+        "opacity": "1",
+        "visibility": "hidden",
+        "transform": "none",
+        "clip": "none",
+        "text": "Dziękuję za stream!"
+      },
+      "money": {
+        "state": "ready",
+        "renderer": "PIXI",
+        "backend": "WebGL2",
+        "sprites": 401,
+        "back": 155,
+        "mid": 245,
+        "front": 1,
+        "renderMs": 1,
+        "quality": "high",
+        "drawCalls": null,
+        "activeRenderers": 1,
+        "ticker": false,
+        "chapter": "decay",
+        "filters": [],
+        "backingPixels": 2073600,
+        "tickerListeners": {
+          "system": 0,
+          "shared": 0
+        },
+        "budget": 540
+      }
+    },
+    {
+      "amount": 5732,
+      "at": 45.3,
+      "paper": {
+        "x": 643.97900390625,
+        "y": 383.8172607421875,
+        "w": 632.0419921875,
+        "h": 312.822998046875,
+        "opacity": "1",
+        "visibility": "visible",
+        "transform": "matrix(0.8902, 0, 0, 0.8335, 0, -269.427)",
+        "clip": "none",
+        "text": "Kaaajka57,32złAmount underline"
+      },
+      "headline": {
+        "x": 733.2000122070312,
+        "y": 247.58062744140625,
+        "w": 453.60003662109375,
+        "h": 181.46624755859375,
+        "opacity": "1",
+        "visibility": "visible",
+        "transform": "matrix3d(0.56, 0, 0, 0, 0, 0.56, 0, 0, 0, 0, 1, -0.000714286, 0, -175, 0, 1)",
+        "clip": "none",
+        "text": "COZAPOJEB!!!"
+      },
+      "information": {
+        "x": 680,
+        "y": 463.72967529296875,
+        "w": 560,
+        "h": 160.890625,
+        "opacity": "0.7939",
+        "visibility": "visible",
+        "transform": "matrix(1, 0, 0, 1, -280, -76.2703)",
+        "clip": "inset(0% 0% 20.8751%)",
+        "text": "Kaaajka57,32 złDziękuję za stream!"
+      },
+      "header": {
+        "x": 716,
+        "y": 491.72967529296875,
+        "w": 488,
+        "h": 54.390625,
+        "opacity": "1",
+        "visibility": "visible",
+        "transform": "none",
+        "clip": "none",
+        "text": "Kaaajka57,32 zł"
+      },
+      "message": {
+        "x": 716,
+        "y": 546.1203002929688,
+        "w": 488,
+        "h": 46.5,
+        "opacity": "1",
+        "visibility": "visible",
+        "transform": "none",
+        "clip": "none",
+        "text": "Dziękuję za stream!"
+      },
+      "money": {
+        "state": "ready",
+        "renderer": "PIXI",
+        "backend": "WebGL2",
+        "sprites": 345,
+        "back": 145,
+        "mid": 200,
+        "front": 0,
+        "renderMs": 1.0999999940395355,
+        "quality": "high",
+        "drawCalls": null,
+        "activeRenderers": 1,
+        "ticker": false,
+        "chapter": "decay",
+        "filters": [],
+        "backingPixels": 2073600,
+        "tickerListeners": {
+          "system": 0,
+          "shared": 0
+        },
+        "budget": 540
+      }
+    },
+    {
+      "amount": 5732,
+      "at": 46.3,
+      "paper": {
+        "x": 644.0145263671875,
+        "y": 383.78228759765625,
+        "w": 631.9710693359375,
+        "h": 312.74786376953125,
+        "opacity": "1",
+        "visibility": "visible",
+        "transform": "matrix(0.8901, 0, 0, 0.8333, 0, -269.5)",
+        "clip": "none",
+        "text": "Kaaajka57,32złAmount underline"
+      },
+      "headline": {
+        "x": 733.2000122070312,
+        "y": 247.58062744140625,
+        "w": 453.60003662109375,
+        "h": 181.46624755859375,
+        "opacity": "1",
+        "visibility": "visible",
+        "transform": "matrix3d(0.56, 0, 0, 0, 0, 0.56, 0, 0, 0, 0, 1, -0.000714286, 0, -175, 0, 1)",
+        "clip": "none",
+        "text": "COZAPOJEB!!!"
+      },
+      "information": {
+        "x": 680,
+        "y": 459.5546875,
+        "w": 560,
+        "h": 160.890625,
+        "opacity": "1",
+        "visibility": "visible",
+        "transform": "matrix(1, 0, 0, 1, -280, -80.4453)",
+        "clip": "inset(0%)",
+        "text": "Kaaajka57,32 złDziękuję za stream!"
+      },
+      "header": {
+        "x": 716,
+        "y": 487.5546875,
+        "w": 488,
+        "h": 54.390625,
+        "opacity": "1",
+        "visibility": "visible",
+        "transform": "none",
+        "clip": "none",
+        "text": "Kaaajka57,32 zł"
+      },
+      "message": {
+        "x": 716,
+        "y": 541.9453125,
+        "w": 488,
+        "h": 46.5,
+        "opacity": "1",
+        "visibility": "visible",
+        "transform": "none",
+        "clip": "none",
+        "text": "Dziękuję za stream!"
+      },
+      "money": {
+        "state": "ready",
+        "renderer": "PIXI",
+        "backend": "WebGL2",
+        "sprites": 345,
+        "back": 145,
+        "mid": 200,
+        "front": 0,
+        "renderMs": 1.0999999940395355,
+        "quality": "high",
+        "drawCalls": null,
+        "activeRenderers": 1,
+        "ticker": false,
+        "chapter": "decay",
+        "filters": [],
+        "backingPixels": 2073600,
+        "tickerListeners": {
+          "system": 0,
+          "shared": 0
+        },
+        "budget": 540
+      }
+    },
+    {
+      "amount": 5732,
+      "at": 48,
+      "paper": {
+        "x": 644.0145263671875,
+        "y": 383.78228759765625,
+        "w": 631.9710693359375,
+        "h": 312.74786376953125,
+        "opacity": "1",
+        "visibility": "visible",
+        "transform": "matrix(0.8901, 0, 0, 0.8333, 0, -269.5)",
+        "clip": "none",
+        "text": "Kaaajka57,32złAmount underline"
+      },
+      "headline": {
+        "x": 733.2000122070312,
+        "y": 247.58062744140625,
+        "w": 453.60003662109375,
+        "h": 181.46624755859375,
+        "opacity": "1",
+        "visibility": "visible",
+        "transform": "matrix3d(0.56, 0, 0, 0, 0, 0.56, 0, 0, 0, 0, 1, -0.000714286, 0, -175, 0, 1)",
+        "clip": "none",
+        "text": "COZAPOJEB!!!"
+      },
+      "information": {
+        "x": 680,
+        "y": 459.5546875,
+        "w": 560,
+        "h": 160.890625,
+        "opacity": "1",
+        "visibility": "visible",
+        "transform": "matrix(1, 0, 0, 1, -280, -80.4453)",
+        "clip": "inset(0%)",
+        "text": "Kaaajka57,32 złDziękuję za stream!"
+      },
+      "header": {
+        "x": 716,
+        "y": 487.5546875,
+        "w": 488,
+        "h": 54.390625,
+        "opacity": "1",
+        "visibility": "visible",
+        "transform": "none",
+        "clip": "none",
+        "text": "Kaaajka57,32 zł"
+      },
+      "message": {
+        "x": 716,
+        "y": 541.9453125,
+        "w": 488,
+        "h": 46.5,
+        "opacity": "1",
+        "visibility": "visible",
+        "transform": "none",
+        "clip": "none",
+        "text": "Dziękuję za stream!"
+      },
+      "money": {
+        "state": "ready",
+        "renderer": "PIXI",
+        "backend": "WebGL2",
+        "sprites": 345,
+        "back": 145,
+        "mid": 200,
+        "front": 0,
+        "renderMs": 1.0999999940395355,
+        "quality": "high",
+        "drawCalls": null,
+        "activeRenderers": 1,
+        "ticker": false,
+        "chapter": "decay",
+        "filters": [],
+        "backingPixels": 2073600,
+        "tickerListeners": {
+          "system": 0,
+          "shared": 0
+        },
+        "budget": 540
+      }
+    },
+    {
+      "amount": 3000000,
+      "at": 20.5,
+      "paper": {
+        "x": 618.489990234375,
+        "y": 590.4800415039062,
+        "w": 683.02001953125,
+        "h": 313.807373046875,
+        "opacity": "1",
+        "visibility": "visible",
+        "transform": "matrix(1, 0, 0, 1, 0, -42)",
+        "clip": "none",
+        "text": "Kaaajka30 000,00złAmount underline"
+      },
+      "headline": {
+        "x": 679.4808349609375,
+        "y": 283.34527587890625,
+        "w": 561.0384521484375,
+        "h": 224.44784545898438,
+        "opacity": "1",
+        "visibility": "visible",
+        "transform": "matrix(0.72, 0, 0, 0.72, 0, -110)",
+        "clip": "none",
+        "text": "COZAPOJEB!!!"
+      },
+      "information": {
+        "x": 680,
+        "y": 479.5546875,
+        "w": 560,
+        "h": 160.890625,
+        "opacity": "0",
+        "visibility": "hidden",
+        "transform": "matrix(1, 0, 0, 1, -280, -60.4453)",
+        "clip": "inset(0% 0% 100%)",
+        "text": "Kaaajka30 000,00 złDziękuję za stream!"
+      },
+      "header": {
+        "x": 716,
+        "y": 507.5546875,
+        "w": 488,
+        "h": 54.390625,
+        "opacity": "1",
+        "visibility": "hidden",
+        "transform": "none",
+        "clip": "none",
+        "text": "Kaaajka30 000,00 zł"
+      },
+      "message": {
+        "x": 716,
+        "y": 561.9453125,
+        "w": 488,
+        "h": 46.5,
+        "opacity": "1",
+        "visibility": "hidden",
+        "transform": "none",
+        "clip": "none",
+        "text": "Dziękuję za stream!"
+      },
+      "money": {
+        "state": "ready",
+        "renderer": "PIXI",
+        "backend": "WebGL2",
+        "sprites": 361,
+        "back": 123,
+        "mid": 238,
+        "front": 0,
+        "renderMs": 4,
+        "quality": "high",
+        "drawCalls": null,
+        "activeRenderers": 1,
+        "ticker": false,
+        "chapter": "donor reading",
+        "filters": [],
+        "backingPixels": 2073600,
+        "tickerListeners": {
+          "system": 0,
+          "shared": 0
+        },
+        "budget": 540
+      }
+    },
+    {
+      "amount": 3000000,
+      "at": 24.5,
+      "paper": {
+        "x": 609.4517211914062,
+        "y": 603.0971069335938,
+        "w": 701.0966186523438,
+        "h": 322.112548828125,
+        "opacity": "1",
+        "visibility": "visible",
+        "transform": "matrix(0.97, 0, 0, 0.97, 0, -20)",
+        "clip": "none",
+        "text": "Kaaajka30 000,00złAmount underline"
+      },
+      "headline": {
+        "x": 600.5333862304688,
+        "y": 235.0262451171875,
+        "w": 713.9819946289062,
+        "h": 296.029541015625,
+        "opacity": "1",
+        "visibility": "visible",
+        "transform": "matrix(0.859869, -0.0150091, 0.0150091, 0.859869, 0, -74)",
+        "clip": "none",
+        "text": "COZAPOJEB!!!"
+      },
+      "information": {
+        "x": 680,
+        "y": 479.5546875,
+        "w": 560,
+        "h": 160.890625,
+        "opacity": "0",
+        "visibility": "hidden",
+        "transform": "matrix(1, 0, 0, 1, -280, -60.4453)",
+        "clip": "inset(0% 0% 100%)",
+        "text": "Kaaajka30 000,00 złDziękuję za stream!"
+      },
+      "header": {
+        "x": 716,
+        "y": 507.5546875,
+        "w": 488,
+        "h": 54.390625,
+        "opacity": "1",
+        "visibility": "hidden",
+        "transform": "none",
+        "clip": "none",
+        "text": "Kaaajka30 000,00 zł"
+      },
+      "message": {
+        "x": 716,
+        "y": 561.9453125,
+        "w": 488,
+        "h": 46.5,
+        "opacity": "1",
+        "visibility": "hidden",
+        "transform": "none",
+        "clip": "none",
+        "text": "Dziękuję za stream!"
+      },
+      "money": {
+        "state": "ready",
+        "renderer": "PIXI",
+        "backend": "WebGL2",
+        "sprites": 272,
+        "back": 118,
+        "mid": 152,
+        "front": 2,
+        "renderMs": 0.9000000059604645,
+        "quality": "high",
+        "drawCalls": null,
+        "activeRenderers": 1,
+        "ticker": false,
+        "chapter": "renewed storm",
+        "filters": [],
+        "backingPixels": 2073600,
+        "tickerListeners": {
+          "system": 0,
+          "shared": 0
+        },
+        "budget": 540
+      }
+    },
+    {
+      "amount": 3000000,
+      "at": 29.8,
+      "paper": {
+        "x": 641.5650634765625,
+        "y": 621.1719360351562,
+        "w": 636.8701171875,
+        "h": 292.60418701171875,
+        "opacity": "1",
+        "visibility": "visible",
+        "transform": "matrix(0.92, 0, 0, 0.92, 0, -20)",
+        "clip": "none",
+        "text": "Kaaajka30 000,00złAmount underline"
+      },
+      "headline": {
+        "x": 585.9404296875,
+        "y": 567.1653442382812,
+        "w": 748.1192626953125,
+        "h": 58.88037109375,
+        "opacity": "1",
+        "visibility": "visible",
+        "transform": "matrix3d(0.78, 0, 0, 0, 0, 0.162171, -0.762955, 0.000544968, 0, 0.978148, 0.207912, -0.000148508, 0, 16, 0, 1)",
+        "clip": "none",
+        "text": "COZAPOJEB!!!"
+      },
+      "information": {
+        "x": 680,
+        "y": 479.5546875,
+        "w": 560,
+        "h": 160.890625,
+        "opacity": "0",
+        "visibility": "hidden",
+        "transform": "matrix(1, 0, 0, 1, -280, -60.4453)",
+        "clip": "inset(0% 0% 100%)",
+        "text": "Kaaajka30 000,00 złDziękuję za stream!"
+      },
+      "header": {
+        "x": 716,
+        "y": 507.5546875,
+        "w": 488,
+        "h": 54.390625,
+        "opacity": "1",
+        "visibility": "hidden",
+        "transform": "none",
+        "clip": "none",
+        "text": "Kaaajka30 000,00 zł"
+      },
+      "message": {
+        "x": 716,
+        "y": 561.9453125,
+        "w": 488,
+        "h": 46.5,
+        "opacity": "1",
+        "visibility": "hidden",
+        "transform": "none",
+        "clip": "none",
+        "text": "Dziękuję za stream!"
+      },
+      "money": {
+        "state": "ready",
+        "renderer": "PIXI",
+        "backend": "WebGL2",
+        "sprites": 359,
+        "back": 124,
+        "mid": 235,
+        "front": 0,
+        "renderMs": 2.699999988079071,
+        "quality": "high",
+        "drawCalls": null,
+        "activeRenderers": 1,
+        "ticker": false,
+        "chapter": "false calm",
+        "filters": [
+          "Paper fold matte (custom GLSL)"
+        ],
+        "backingPixels": 2073600,
+        "tickerListeners": {
+          "system": 0,
+          "shared": 0
+        },
+        "budget": 540
+      }
+    },
+    {
+      "amount": 3000000,
+      "at": 32.8,
+      "paper": {
+        "x": 605,
+        "y": 576,
+        "w": 710,
+        "h": 326.203125,
+        "opacity": "1",
+        "visibility": "visible",
+        "transform": "matrix(1, 0, 0, 1, 0, -46)",
+        "clip": "none",
+        "text": "Kaaajka30 000,00złAmount underline"
+      },
+      "headline": {
+        "x": 619.7999877929688,
+        "y": 295.8475036621094,
+        "w": 680.3999633789062,
+        "h": 272.1993713378906,
+        "opacity": "1",
+        "visibility": "visible",
+        "transform": "matrix3d(0.84, 0, 0, 0, 0, 0.84, 0, 0, 0, 0, 1, -0.000714286, 0, -36, 0, 1)",
+        "clip": "none",
+        "text": "COZAPOJEB!!!"
+      },
+      "information": {
+        "x": 680,
+        "y": 479.5546875,
+        "w": 560,
+        "h": 160.890625,
+        "opacity": "0",
+        "visibility": "hidden",
+        "transform": "matrix(1, 0, 0, 1, -280, -60.4453)",
+        "clip": "inset(0% 0% 100%)",
+        "text": "Kaaajka30 000,00 złDziękuję za stream!"
+      },
+      "header": {
+        "x": 716,
+        "y": 507.5546875,
+        "w": 488,
+        "h": 54.390625,
+        "opacity": "1",
+        "visibility": "hidden",
+        "transform": "none",
+        "clip": "none",
+        "text": "Kaaajka30 000,00 zł"
+      },
+      "message": {
+        "x": 716,
+        "y": 561.9453125,
+        "w": 488,
+        "h": 46.5,
+        "opacity": "1",
+        "visibility": "hidden",
+        "transform": "none",
+        "clip": "none",
+        "text": "Dziękuję za stream!"
+      },
+      "money": {
+        "state": "ready",
+        "renderer": "PIXI",
+        "backend": "WebGL2",
+        "sprites": 336,
+        "back": 132,
+        "mid": 203,
+        "front": 1,
+        "renderMs": 0.5,
+        "quality": "high",
+        "drawCalls": null,
+        "activeRenderers": 1,
+        "ticker": false,
+        "chapter": "rebuild",
+        "filters": [],
+        "backingPixels": 2073600,
+        "tickerListeners": {
+          "system": 0,
+          "shared": 0
+        },
+        "budget": 540
+      }
+    },
+    {
+      "amount": 3000000,
+      "at": 36.85,
+      "paper": {
+        "x": 605,
+        "y": 576.0115966796875,
+        "w": 710,
+        "h": 326.203125,
+        "opacity": "1",
+        "visibility": "visible",
+        "transform": "matrix(1, 0, 0, 1, 0, -46.0014)",
+        "clip": "none",
+        "text": "Kaaajka30 000,00złAmount underline"
+      },
+      "headline": {
+        "x": 630.0721435546875,
+        "y": 288.8702392578125,
+        "w": 681.5684814453125,
+        "h": 275.822265625,
+        "opacity": "1",
+        "visibility": "visible",
+        "transform": "matrix3d(0.8396, 0, 0, 0, 0, 0.8396, 0, 0, 0, 0, 1, -0.000714286, 0, -36.181, 0, 1)",
+        "clip": "none",
+        "text": "COZAPOJEB!!!"
+      },
+      "information": {
+        "x": 680,
+        "y": 479.5546875,
+        "w": 560,
+        "h": 160.890625,
+        "opacity": "0",
+        "visibility": "hidden",
+        "transform": "matrix(1, 0, 0, 1, -280, -60.4453)",
+        "clip": "inset(0% 0% 100%)",
+        "text": "Kaaajka30 000,00 złDziękuję za stream!"
+      },
+      "header": {
+        "x": 716,
+        "y": 507.5546875,
+        "w": 488,
+        "h": 54.390625,
+        "opacity": "1",
+        "visibility": "hidden",
+        "transform": "none",
+        "clip": "none",
+        "text": "Kaaajka30 000,00 zł"
+      },
+      "message": {
+        "x": 716,
+        "y": 561.9453125,
+        "w": 488,
+        "h": 46.5,
+        "opacity": "1",
+        "visibility": "hidden",
+        "transform": "none",
+        "clip": "none",
+        "text": "Dziękuję za stream!"
+      },
+      "money": {
+        "state": "ready",
+        "renderer": "PIXI",
+        "backend": "WebGL2",
+        "sprites": 404,
+        "back": 127,
+        "mid": 274,
+        "front": 3,
+        "renderMs": 1,
+        "quality": "high",
+        "drawCalls": null,
+        "activeRenderers": 1,
+        "ticker": false,
+        "chapter": "final approach",
+        "filters": [],
+        "backingPixels": 2073600,
+        "tickerListeners": {
+          "system": 0,
+          "shared": 0
+        },
+        "budget": 540
+      }
+    },
+    {
+      "amount": 3000000,
+      "at": 37.95,
+      "paper": {
+        "x": 559.3469848632812,
+        "y": 459.0999755859375,
+        "w": 801.3060913085938,
+        "h": 361.45916748046875,
+        "opacity": "1",
+        "visibility": "visible",
+        "transform": "matrix(1.1, 0, 0, 1.08, 0, -140.005)",
+        "clip": "none",
+        "text": "Kaaajka30 000,00złAmount underline"
+      },
+      "headline": {
+        "x": 741.530029296875,
+        "y": 222.85635375976562,
+        "w": 466.828369140625,
+        "h": 189.80059814453125,
+        "opacity": "1",
+        "visibility": "visible",
+        "transform": "matrix3d(0.56, 0, 0, 0, 0, 0.56, 0, 0, 0, 0, 1, -0.000714286, 0, -175, 0, 1)",
+        "clip": "none",
+        "text": "COZAPOJEB!!!"
+      },
+      "information": {
+        "x": 680,
+        "y": 479.5546875,
+        "w": 560,
+        "h": 160.890625,
+        "opacity": "0",
+        "visibility": "hidden",
+        "transform": "matrix(1, 0, 0, 1, -280, -60.4453)",
+        "clip": "inset(0% 0% 100%)",
+        "text": "Kaaajka30 000,00 złDziękuję za stream!"
+      },
+      "header": {
+        "x": 716,
+        "y": 507.5546875,
+        "w": 488,
+        "h": 54.390625,
+        "opacity": "1",
+        "visibility": "hidden",
+        "transform": "none",
+        "clip": "none",
+        "text": "Kaaajka30 000,00 zł"
+      },
+      "message": {
+        "x": 716,
+        "y": 561.9453125,
+        "w": 488,
+        "h": 46.5,
+        "opacity": "1",
+        "visibility": "hidden",
+        "transform": "none",
+        "clip": "none",
+        "text": "Dziękuję za stream!"
+      },
+      "money": {
+        "state": "ready",
+        "renderer": "PIXI",
+        "backend": "WebGL2",
+        "sprites": 431,
+        "back": 143,
+        "mid": 285,
+        "front": 3,
+        "renderMs": 0.699999988079071,
+        "quality": "high",
+        "drawCalls": null,
+        "activeRenderers": 1,
+        "ticker": false,
+        "chapter": "amount priority",
+        "filters": [],
+        "backingPixels": 2073600,
+        "tickerListeners": {
+          "system": 0,
+          "shared": 0
+        },
+        "budget": 540
+      }
+    },
+    {
+      "amount": 3000000,
+      "at": 39.2,
+      "paper": {
+        "x": 589.0250244140625,
+        "y": 474.6604309082031,
+        "w": 741.949951171875,
+        "h": 340.8822937011719,
+        "opacity": "1",
+        "visibility": "visible",
+        "transform": "matrix(1.045, 0, 0, 1.045, 0, -140)",
+        "clip": "none",
+        "text": "Kaaajka30 000,00złAmount underline"
+      },
+      "headline": {
+        "x": 733.2000122070312,
+        "y": 247.58062744140625,
+        "w": 453.60003662109375,
+        "h": 181.46624755859375,
+        "opacity": "1",
+        "visibility": "visible",
+        "transform": "matrix3d(0.56, 0, 0, 0, 0, 0.56, 0, 0, 0, 0, 1, -0.000714286, 0, -175, 0, 1)",
+        "clip": "none",
+        "text": "COZAPOJEB!!!"
+      },
+      "information": {
+        "x": 680,
+        "y": 479.5546875,
+        "w": 560,
+        "h": 160.890625,
+        "opacity": "0",
+        "visibility": "hidden",
+        "transform": "matrix(1, 0, 0, 1, -280, -60.4453)",
+        "clip": "inset(0% 0% 100%)",
+        "text": "Kaaajka30 000,00 złDziękuję za stream!"
+      },
+      "header": {
+        "x": 716,
+        "y": 507.5546875,
+        "w": 488,
+        "h": 54.390625,
+        "opacity": "1",
+        "visibility": "hidden",
+        "transform": "none",
+        "clip": "none",
+        "text": "Kaaajka30 000,00 zł"
+      },
+      "message": {
+        "x": 716,
+        "y": 561.9453125,
+        "w": 488,
+        "h": 46.5,
+        "opacity": "1",
+        "visibility": "hidden",
+        "transform": "none",
+        "clip": "none",
+        "text": "Dziękuję za stream!"
+      },
+      "money": {
+        "state": "ready",
+        "renderer": "PIXI",
+        "backend": "WebGL2",
+        "sprites": 403,
+        "back": 144,
+        "mid": 258,
+        "front": 1,
+        "renderMs": 0.800000011920929,
+        "quality": "high",
+        "drawCalls": null,
+        "activeRenderers": 1,
+        "ticker": false,
+        "chapter": "final money storm",
+        "filters": [],
+        "backingPixels": 2073600,
+        "tickerListeners": {
+          "system": 0,
+          "shared": 0
+        },
+        "budget": 540
+      }
+    },
+    {
+      "amount": 3000000,
+      "at": 44.6,
+      "paper": {
+        "x": 640.25146484375,
+        "y": 389.93267822265625,
+        "w": 639.4970703125,
+        "h": 314.6229248046875,
+        "opacity": "1",
+        "visibility": "visible",
+        "transform": "matrix(0.9007, 0, 0, 0.9645, 0, -237.857)",
+        "clip": "none",
+        "text": "Kaaajka30 000,00złAmount underline"
+      },
+      "headline": {
+        "x": 733.2000122070312,
+        "y": 247.58062744140625,
+        "w": 453.60003662109375,
+        "h": 181.46624755859375,
+        "opacity": "1",
+        "visibility": "visible",
+        "transform": "matrix3d(0.56, 0, 0, 0, 0, 0.56, 0, 0, 0, 0, 1, -0.000714286, 0, -175, 0, 1)",
+        "clip": "none",
+        "text": "COZAPOJEB!!!"
+      },
+      "information": {
+        "x": 680,
+        "y": 479.5546875,
+        "w": 560,
+        "h": 160.890625,
+        "opacity": "0",
+        "visibility": "hidden",
+        "transform": "matrix(1, 0, 0, 1, -280, -60.4453)",
+        "clip": "inset(0% 0% 100%)",
+        "text": "Kaaajka30 000,00 złDziękuję za stream!"
+      },
+      "header": {
+        "x": 716,
+        "y": 507.5546875,
+        "w": 488,
+        "h": 54.390625,
+        "opacity": "1",
+        "visibility": "hidden",
+        "transform": "none",
+        "clip": "none",
+        "text": "Kaaajka30 000,00 zł"
+      },
+      "message": {
+        "x": 716,
+        "y": 561.9453125,
+        "w": 488,
+        "h": 46.5,
+        "opacity": "1",
+        "visibility": "hidden",
+        "transform": "none",
+        "clip": "none",
+        "text": "Dziękuję za stream!"
+      },
+      "money": {
+        "state": "ready",
+        "renderer": "PIXI",
+        "backend": "WebGL2",
+        "sprites": 401,
+        "back": 155,
+        "mid": 245,
+        "front": 1,
+        "renderMs": 1.100000023841858,
+        "quality": "high",
+        "drawCalls": null,
+        "activeRenderers": 1,
+        "ticker": false,
+        "chapter": "decay",
+        "filters": [],
+        "backingPixels": 2073600,
+        "tickerListeners": {
+          "system": 0,
+          "shared": 0
+        },
+        "budget": 540
+      }
+    },
+    {
+      "amount": 3000000,
+      "at": 45.3,
+      "paper": {
+        "x": 643.97900390625,
+        "y": 383.81121826171875,
+        "w": 632.0419921875,
+        "h": 312.69830322265625,
+        "opacity": "1",
+        "visibility": "visible",
+        "transform": "matrix(0.8902, 0, 0, 0.9586, 0, -244.941)",
+        "clip": "none",
+        "text": "Kaaajka30 000,00złAmount underline"
+      },
+      "headline": {
+        "x": 733.2000122070312,
+        "y": 247.58062744140625,
+        "w": 453.60003662109375,
+        "h": 181.46624755859375,
+        "opacity": "1",
+        "visibility": "visible",
+        "transform": "matrix3d(0.56, 0, 0, 0, 0, 0.56, 0, 0, 0, 0, 1, -0.000714286, 0, -175, 0, 1)",
+        "clip": "none",
+        "text": "COZAPOJEB!!!"
+      },
+      "information": {
+        "x": 680,
+        "y": 463.72967529296875,
+        "w": 560,
+        "h": 160.890625,
+        "opacity": "0.7939",
+        "visibility": "visible",
+        "transform": "matrix(1, 0, 0, 1, -280, -76.2703)",
+        "clip": "inset(0% 0% 20.8751%)",
+        "text": "Kaaajka30 000,00 złDziękuję za stream!"
+      },
+      "header": {
+        "x": 716,
+        "y": 491.72967529296875,
+        "w": 488,
+        "h": 54.390625,
+        "opacity": "1",
+        "visibility": "visible",
+        "transform": "none",
+        "clip": "none",
+        "text": "Kaaajka30 000,00 zł"
+      },
+      "message": {
+        "x": 716,
+        "y": 546.1203002929688,
+        "w": 488,
+        "h": 46.5,
+        "opacity": "1",
+        "visibility": "visible",
+        "transform": "none",
+        "clip": "none",
+        "text": "Dziękuję za stream!"
+      },
+      "money": {
+        "state": "ready",
+        "renderer": "PIXI",
+        "backend": "WebGL2",
+        "sprites": 345,
+        "back": 145,
+        "mid": 200,
+        "front": 0,
+        "renderMs": 0.800000011920929,
+        "quality": "high",
+        "drawCalls": null,
+        "activeRenderers": 1,
+        "ticker": false,
+        "chapter": "decay",
+        "filters": [],
+        "backingPixels": 2073600,
+        "tickerListeners": {
+          "system": 0,
+          "shared": 0
+        },
+        "budget": 540
+      }
+    },
+    {
+      "amount": 3000000,
+      "at": 46.3,
+      "paper": {
+        "x": 644.0145263671875,
+        "y": 383.7524108886719,
+        "w": 631.9710693359375,
+        "h": 312.6982727050781,
+        "opacity": "1",
+        "visibility": "visible",
+        "transform": "matrix(0.8901, 0, 0, 0.9586, 0, -245)",
+        "clip": "none",
+        "text": "Kaaajka30 000,00złAmount underline"
+      },
+      "headline": {
+        "x": 733.2000122070312,
+        "y": 247.58062744140625,
+        "w": 453.60003662109375,
+        "h": 181.46624755859375,
+        "opacity": "1",
+        "visibility": "visible",
+        "transform": "matrix3d(0.56, 0, 0, 0, 0, 0.56, 0, 0, 0, 0, 1, -0.000714286, 0, -175, 0, 1)",
+        "clip": "none",
+        "text": "COZAPOJEB!!!"
+      },
+      "information": {
+        "x": 680,
+        "y": 459.5546875,
+        "w": 560,
+        "h": 160.890625,
+        "opacity": "1",
+        "visibility": "visible",
+        "transform": "matrix(1, 0, 0, 1, -280, -80.4453)",
+        "clip": "inset(0%)",
+        "text": "Kaaajka30 000,00 złDziękuję za stream!"
+      },
+      "header": {
+        "x": 716,
+        "y": 487.5546875,
+        "w": 488,
+        "h": 54.390625,
+        "opacity": "1",
+        "visibility": "visible",
+        "transform": "none",
+        "clip": "none",
+        "text": "Kaaajka30 000,00 zł"
+      },
+      "message": {
+        "x": 716,
+        "y": 541.9453125,
+        "w": 488,
+        "h": 46.5,
+        "opacity": "1",
+        "visibility": "visible",
+        "transform": "none",
+        "clip": "none",
+        "text": "Dziękuję za stream!"
+      },
+      "money": {
+        "state": "ready",
+        "renderer": "PIXI",
+        "backend": "WebGL2",
+        "sprites": 345,
+        "back": 145,
+        "mid": 200,
+        "front": 0,
+        "renderMs": 0.800000011920929,
+        "quality": "high",
+        "drawCalls": null,
+        "activeRenderers": 1,
+        "ticker": false,
+        "chapter": "decay",
+        "filters": [],
+        "backingPixels": 2073600,
+        "tickerListeners": {
+          "system": 0,
+          "shared": 0
+        },
+        "budget": 540
+      }
+    },
+    {
+      "amount": 3000000,
+      "at": 48,
+      "paper": {
+        "x": 644.0145263671875,
+        "y": 383.7524108886719,
+        "w": 631.9710693359375,
+        "h": 312.6982727050781,
+        "opacity": "1",
+        "visibility": "visible",
+        "transform": "matrix(0.8901, 0, 0, 0.9586, 0, -245)",
+        "clip": "none",
+        "text": "Kaaajka30 000,00złAmount underline"
+      },
+      "headline": {
+        "x": 733.2000122070312,
+        "y": 247.58062744140625,
+        "w": 453.60003662109375,
+        "h": 181.46624755859375,
+        "opacity": "1",
+        "visibility": "visible",
+        "transform": "matrix3d(0.56, 0, 0, 0, 0, 0.56, 0, 0, 0, 0, 1, -0.000714286, 0, -175, 0, 1)",
+        "clip": "none",
+        "text": "COZAPOJEB!!!"
+      },
+      "information": {
+        "x": 680,
+        "y": 459.5546875,
+        "w": 560,
+        "h": 160.890625,
+        "opacity": "1",
+        "visibility": "visible",
+        "transform": "matrix(1, 0, 0, 1, -280, -80.4453)",
+        "clip": "inset(0%)",
+        "text": "Kaaajka30 000,00 złDziękuję za stream!"
+      },
+      "header": {
+        "x": 716,
+        "y": 487.5546875,
+        "w": 488,
+        "h": 54.390625,
+        "opacity": "1",
+        "visibility": "visible",
+        "transform": "none",
+        "clip": "none",
+        "text": "Kaaajka30 000,00 zł"
+      },
+      "message": {
+        "x": 716,
+        "y": 541.9453125,
+        "w": 488,
+        "h": 46.5,
+        "opacity": "1",
+        "visibility": "visible",
+        "transform": "none",
+        "clip": "none",
+        "text": "Dziękuję za stream!"
+      },
+      "money": {
+        "state": "ready",
+        "renderer": "PIXI",
+        "backend": "WebGL2",
+        "sprites": 345,
+        "back": 145,
+        "mid": 200,
+        "front": 0,
+        "renderMs": 0.800000011920929,
+        "quality": "high",
+        "drawCalls": null,
+        "activeRenderers": 1,
+        "ticker": false,
+        "chapter": "decay",
+        "filters": [],
+        "backingPixels": 2073600,
+        "tickerListeners": {
+          "system": 0,
+          "shared": 0
+        },
+        "budget": 540
+      }
+    }
+  ],
+  "errors": []
+}

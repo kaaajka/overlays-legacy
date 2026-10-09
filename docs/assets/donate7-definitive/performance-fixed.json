@@ -1,0 +1,132 @@
+{
+  "method": "Isolated fixed-quality explicit absolute-time export sampling,20warmup/80samples,37.5–39.15 score,RAFharnesssampling. renderExportAt passes nominalframebudget soadaptivequalitydoesnotdowngrade. Source exact-frame seeking, audioNOTplayed in thisgraphicsstress. CPUCanvas submission excludes compositorGPU. HeadlessSwiftShaderhostnotOBS.",
+  "rows": [
+    {
+      "w": 1920,
+      "h": 1080,
+      "quality": "high",
+      "samples": 80,
+      "frameMedianMs": 20.5,
+      "frameP95Ms": 23.600000008940697,
+      "rendererP95Ms": 1.2000000029802322,
+      "peakParticles": 478,
+      "actualQualities": [
+        "high"
+      ],
+      "maxBackingPixels": 6003138
+    },
+    {
+      "w": 1920,
+      "h": 1080,
+      "quality": "medium",
+      "samples": 80,
+      "frameMedianMs": 24.700000002980232,
+      "frameP95Ms": 42.599999994039536,
+      "rendererP95Ms": 0.8999999910593033,
+      "peakParticles": 259,
+      "actualQualities": [
+        "medium"
+      ],
+      "maxBackingPixels": 3602826
+    },
+    {
+      "w": 1920,
+      "h": 1080,
+      "quality": "safe",
+      "samples": 80,
+      "frameMedianMs": 23.100000008940697,
+      "frameP95Ms": 43.70000000298023,
+      "rendererP95Ms": 0.5,
+      "peakParticles": 108,
+      "actualQualities": [
+        "safe"
+      ],
+      "maxBackingPixels": 1951125
+    },
+    {
+      "w": 3440,
+      "h": 1440,
+      "quality": "high",
+      "samples": 80,
+      "frameMedianMs": 54.69999998807907,
+      "frameP95Ms": 73,
+      "rendererP95Ms": 1.2000000029802322,
+      "peakParticles": 478,
+      "actualQualities": [
+        "high"
+      ],
+      "maxBackingPixels": 6000570
+    },
+    {
+      "w": 3440,
+      "h": 1440,
+      "quality": "medium",
+      "samples": 80,
+      "frameMedianMs": 54.29999999701977,
+      "frameP95Ms": 68.79999999701977,
+      "rendererP95Ms": 0.8999999910593033,
+      "peakParticles": 259,
+      "actualQualities": [
+        "medium"
+      ],
+      "maxBackingPixels": 3601011
+    },
+    {
+      "w": 3440,
+      "h": 1440,
+      "quality": "safe",
+      "samples": 80,
+      "frameMedianMs": 53.70000000298023,
+      "frameP95Ms": 103,
+      "rendererP95Ms": 0.5,
+      "peakParticles": 108,
+      "actualQualities": [
+        "safe"
+      ],
+      "maxBackingPixels": 1951236
+    },
+    {
+      "w": 5120,
+      "h": 1440,
+      "quality": "high",
+      "samples": 80,
+      "frameMedianMs": 77.80000001192093,
+      "frameP95Ms": 97.59999999403954,
+      "rendererP95Ms": 1.3999999910593033,
+      "peakParticles": 478,
+      "actualQualities": [
+        "high"
+      ],
+      "maxBackingPixels": 6000750
+    },
+    {
+      "w": 5120,
+      "h": 1440,
+      "quality": "medium",
+      "samples": 80,
+      "frameMedianMs": 76.5,
+      "frameP95Ms": 102.30000001192093,
+      "rendererP95Ms": 0.7999999970197678,
+      "peakParticles": 259,
+      "actualQualities": [
+        "medium"
+      ],
+      "maxBackingPixels": 3601038
+    },
+    {
+      "w": 5120,
+      "h": 1440,
+      "quality": "safe",
+      "samples": 80,
+      "frameMedianMs": 78.40000000596046,
+      "frameP95Ms": 103.80000001192093,
+      "rendererP95Ms": 0.5,
+      "peakParticles": 108,
+      "actualQualities": [
+        "safe"
+      ],
+      "maxBackingPixels": 1951680
+    }
+  ],
+  "errors": []
+}

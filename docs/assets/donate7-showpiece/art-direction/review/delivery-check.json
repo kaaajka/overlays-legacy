@@ -1,0 +1,316 @@
+{
+  "method": "All12comparison/full-resolution MP4s fully decoded, counted/probed, checked for whole-black intervals and non-silent AAC; current executable fingerprint and live complete captures checked separately. No perceptual listening/nativeOBS/creative acceptance claim.",
+  "videos": [
+    {
+      "file": "handoff-3000000-after-full-resolution.mp4",
+      "bytes": 2311103,
+      "sha256": "3e8a0c1fd6c35e14e8f5427b6aaee916fcffd5b27247488b273d0e7b56b825cc",
+      "w": 1920,
+      "h": 1080,
+      "fps": "30/1",
+      "frames": 180,
+      "durationSeconds": 6,
+      "audio": {
+        "codec": "aac",
+        "sampleRate": 48000,
+        "channels": 2,
+        "peakDb": -1
+      },
+      "decoded": true,
+      "blackSegments": [],
+      "errors": []
+    },
+    {
+      "file": "handoff-3000000-before-after.mp4",
+      "bytes": 1808534,
+      "sha256": "6f9e9a9616fd382bb31580e887c9073054b3115648fa3f12e5503f3230c6b966",
+      "w": 1920,
+      "h": 588,
+      "fps": "30/1",
+      "frames": 180,
+      "durationSeconds": 6.021354,
+      "audio": {
+        "codec": "aac",
+        "sampleRate": 48000,
+        "channels": 2,
+        "peakDb": -0.9
+      },
+      "decoded": true,
+      "blackSegments": [],
+      "errors": []
+    },
+    {
+      "file": "handoff-5732-after-full-resolution.mp4",
+      "bytes": 2328219,
+      "sha256": "f37cb6babe4b9da27311ad9c6cf6058d8bab7ca6ff59e409383f04ef6671aaf4",
+      "w": 1920,
+      "h": 1080,
+      "fps": "30/1",
+      "frames": 180,
+      "durationSeconds": 6,
+      "audio": {
+        "codec": "aac",
+        "sampleRate": 48000,
+        "channels": 2,
+        "peakDb": -0.9
+      },
+      "decoded": true,
+      "blackSegments": [],
+      "errors": []
+    },
+    {
+      "file": "handoff-5732-before-after.mp4",
+      "bytes": 1814098,
+      "sha256": "7b11c744bc64267d16895bb6ad6df559a19ff3ff4d41312ee349b8b1c74e3531",
+      "w": 1920,
+      "h": 588,
+      "fps": "30/1",
+      "frames": 180,
+      "durationSeconds": 6.021354,
+      "audio": {
+        "codec": "aac",
+        "sampleRate": 48000,
+        "channels": 2,
+        "peakDb": -0.7
+      },
+      "decoded": true,
+      "blackSegments": [],
+      "errors": []
+    },
+    {
+      "file": "middle-3000000-after-full-resolution.mp4",
+      "bytes": 3682508,
+      "sha256": "6315c271258f3d36aeeb5c0312980db5340a50d2f0b4e23f355767773a3689cf",
+      "w": 1920,
+      "h": 1080,
+      "fps": "30/1",
+      "frames": 168,
+      "durationSeconds": 5.602,
+      "audio": {
+        "codec": "aac",
+        "sampleRate": 48000,
+        "channels": 2,
+        "peakDb": -0.2
+      },
+      "decoded": true,
+      "blackSegments": [],
+      "errors": []
+    },
+    {
+      "file": "middle-3000000-before-after.mp4",
+      "bytes": 7837312,
+      "sha256": "0dfc5c2ecd271b445d2a22a5aff37997e5af3cfe1ba236dfffd1fe80601deca3",
+      "w": 1920,
+      "h": 588,
+      "fps": "30/1",
+      "frames": 447,
+      "durationSeconds": 14.923333,
+      "audio": {
+        "codec": "aac",
+        "sampleRate": 48000,
+        "channels": 2,
+        "peakDb": -0.5
+      },
+      "decoded": true,
+      "blackSegments": [],
+      "errors": []
+    },
+    {
+      "file": "middle-5732-after-full-resolution.mp4",
+      "bytes": 3679525,
+      "sha256": "1fba7153ee7df2b8b67f030354d0788f724f764a69027123a161e86348862196",
+      "w": 1920,
+      "h": 1080,
+      "fps": "30/1",
+      "frames": 168,
+      "durationSeconds": 5.6,
+      "audio": {
+        "codec": "aac",
+        "sampleRate": 48000,
+        "channels": 2,
+        "peakDb": 0
+      },
+      "decoded": true,
+      "blackSegments": [],
+      "errors": []
+    },
+    {
+      "file": "middle-5732-before-after.mp4",
+      "bytes": 7723467,
+      "sha256": "cc6f1da959709e8bb0a5ceaaf849d034ae9de60e03f63180899b905c0ea95e65",
+      "w": 1920,
+      "h": 588,
+      "fps": "30/1",
+      "frames": 447,
+      "durationSeconds": 14.921354,
+      "audio": {
+        "codec": "aac",
+        "sampleRate": 48000,
+        "channels": 2,
+        "peakDb": -0.2
+      },
+      "decoded": true,
+      "blackSegments": [],
+      "errors": []
+    },
+    {
+      "file": "payoff-3000000-after-full-resolution.mp4",
+      "bytes": 5108231,
+      "sha256": "df71a16bd4bd604351a41afc72baafe98f41395e5c2714f5cb211c4592682214",
+      "w": 1920,
+      "h": 1080,
+      "fps": "30/1",
+      "frames": 168,
+      "durationSeconds": 5.601,
+      "audio": {
+        "codec": "aac",
+        "sampleRate": 48000,
+        "channels": 2,
+        "peakDb": -0.2
+      },
+      "decoded": true,
+      "blackSegments": [],
+      "errors": []
+    },
+    {
+      "file": "payoff-3000000-before-after.mp4",
+      "bytes": 4405030,
+      "sha256": "fcacc0ef843cb6a7231a17d210f6983d146458c5623d51b4b84b768a97bc94ba",
+      "w": 1920,
+      "h": 588,
+      "fps": "30/1",
+      "frames": 168,
+      "durationSeconds": 5.622333,
+      "audio": {
+        "codec": "aac",
+        "sampleRate": 48000,
+        "channels": 2,
+        "peakDb": -0.6
+      },
+      "decoded": true,
+      "blackSegments": [],
+      "errors": []
+    },
+    {
+      "file": "payoff-5732-after-full-resolution.mp4",
+      "bytes": 5112770,
+      "sha256": "d3e7381cfc6a3a322127f988c8cf0e31439b3e1cf233a92b97c479eac99e9621",
+      "w": 1920,
+      "h": 1080,
+      "fps": "30/1",
+      "frames": 168,
+      "durationSeconds": 5.6005,
+      "audio": {
+        "codec": "aac",
+        "sampleRate": 48000,
+        "channels": 2,
+        "peakDb": -0.5
+      },
+      "decoded": true,
+      "blackSegments": [],
+      "errors": []
+    },
+    {
+      "file": "payoff-5732-before-after.mp4",
+      "bytes": 4353832,
+      "sha256": "ef8a1af62fc1798a8f795a5fb4ab743495d4acb4335a4afc2deabf7ddb2a54d1",
+      "w": 1920,
+      "h": 588,
+      "fps": "30/1",
+      "frames": 168,
+      "durationSeconds": 5.621833,
+      "audio": {
+        "codec": "aac",
+        "sampleRate": 48000,
+        "channels": 2,
+        "peakDb": -0.6
+      },
+      "decoded": true,
+      "blackSegments": [],
+      "errors": []
+    }
+  ],
+  "captures": [
+    {
+      "amountCents": 5732,
+      "file": "docs/assets/donate7-showpiece/art-direction/final-5732/donate7-full-realtime-audio.mp4",
+      "sha256": "ef12550bc7ebb5b584a472497be78ea31f79c5947d71ecaf5e7f6a8fbe5e24c9",
+      "frames": 994,
+      "audioOffsetSeconds": -0.007566213607788086,
+      "phases": [
+        {
+          "phase": "hero",
+          "time": 0
+        },
+        {
+          "phase": "tts-nickname",
+          "time": 46.32938533333333
+        },
+        {
+          "phase": "tts-amount",
+          "time": 47.72957033335121
+        },
+        {
+          "phase": "tts-message",
+          "time": 50.99669333334526
+        },
+        {
+          "phase": "outro",
+          "time": 52.746556333321415
+        },
+        {
+          "phase": "complete",
+          "time": 53.333267
+        }
+      ],
+      "errors": [],
+      "lateRuntimeChanges": []
+    },
+    {
+      "amountCents": 3000000,
+      "file": "docs/assets/donate7-showpiece/art-direction/final-3000000/donate7-full-realtime-audio.mp4",
+      "sha256": "2af49859b4e43ab9790597eb52cf49de02503f214b1a71fdb0ccdbc93e39fdb2",
+      "frames": 1051,
+      "audioOffsetSeconds": -0.008179187774658203,
+      "phases": [
+        {
+          "phase": "hero",
+          "time": 0
+        },
+        {
+          "phase": "tts-nickname",
+          "time": 46.33615099999403
+        },
+        {
+          "phase": "tts-amount",
+          "time": 47.62719499999404
+        },
+        {
+          "phase": "tts-message",
+          "time": 49.90947800000596
+        },
+        {
+          "phase": "information",
+          "time": 51.642443000005954
+        },
+        {
+          "phase": "outro",
+          "time": 52.39247800000596
+        },
+        {
+          "phase": "complete",
+          "time": 52.939525555555555
+        }
+      ],
+      "errors": [],
+      "lateRuntimeChanges": []
+    }
+  ],
+  "currentRuntimeUnchanged": 241,
+  "implementationChangedOnly": [
+    "src/donations/choreography/donate7/cameraRig.ts",
+    "src/donations/choreography/donate7/choreography.ts",
+    "src/donations/scenes/donate7-show.css"
+  ],
+  "ownerVisualApproval": false
+}

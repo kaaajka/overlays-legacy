@@ -1,0 +1,140 @@
+{
+  "checkedAt": "2026-10-09T12:11:36.056Z",
+  "method": "Separate delivery verifier: full video/audio decode, ffprobe counted frames, whole-frame black detection, non-silent audio peak, immutable capture copy SHA, current executable-file hashes and timestamps, completion metadata. Does not constitute perceptual listening or creative approval.",
+  "videos": [
+    {
+      "file": "donate7-final-full-alert.mp4",
+      "bytes": 30074761,
+      "sha256": "343c96c388ce499dd19aa23192a59e6e7091ad080f2ff728c7c2d345b750f866",
+      "width": 1920,
+      "height": 1080,
+      "encodedFps": "30/1",
+      "frames": 1603,
+      "durationSeconds": 53.455,
+      "videoCodec": "h264",
+      "audioCodec": "aac",
+      "audioSampleRate": 48000,
+      "audioChannels": 2,
+      "audioPeakDb": -0.4,
+      "fullDecode": "passed",
+      "blackSegments": [],
+      "decodeErrors": []
+    },
+    {
+      "file": "donate7-before-after.mp4",
+      "bytes": 9278938,
+      "sha256": "1189ef12751b2ed53404a180d84411d74a1d339d85c9a4a9c5abb54817338e83",
+      "width": 1920,
+      "height": 588,
+      "encodedFps": "30/1",
+      "frames": 544,
+      "durationSeconds": 18.171333,
+      "videoCodec": "h264",
+      "audioCodec": "aac",
+      "audioSampleRate": 48000,
+      "audioChannels": 2,
+      "audioPeakDb": -0.4,
+      "fullDecode": "passed",
+      "blackSegments": [],
+      "decodeErrors": []
+    },
+    {
+      "file": "donate7-money-storm.mp4",
+      "bytes": 8044242,
+      "sha256": "deaaf403065bac113dd78e86a7e4808d1496af00a7b317a3991fbe9ba6abf1e5",
+      "width": 1920,
+      "height": 1080,
+      "encodedFps": "30/1",
+      "frames": 246,
+      "durationSeconds": 8.2,
+      "videoCodec": "h264",
+      "audioCodec": "aac",
+      "audioSampleRate": 48000,
+      "audioChannels": 2,
+      "audioPeakDb": -0.4,
+      "fullDecode": "passed",
+      "blackSegments": [],
+      "decodeErrors": []
+    },
+    {
+      "file": "fold-before-full-resolution.mp4",
+      "bytes": 3590625,
+      "sha256": "8c696c39e281e97ee938969fcb8a9191374edc687bc6cd3c0f90e7af38f90da4",
+      "width": 1920,
+      "height": 1080,
+      "encodedFps": "30/1",
+      "frames": 165,
+      "durationSeconds": 5.5,
+      "videoCodec": "h264",
+      "audioCodec": "aac",
+      "audioSampleRate": 48000,
+      "audioChannels": 2,
+      "audioPeakDb": -0.2,
+      "fullDecode": "passed",
+      "blackSegments": [],
+      "decodeErrors": []
+    },
+    {
+      "file": "fold-after-full-resolution.mp4",
+      "bytes": 3861154,
+      "sha256": "0abf2f8830ca162560e92611b5cafd569408411d6556b045fcd91e2667cf828a",
+      "width": 1920,
+      "height": 1080,
+      "encodedFps": "30/1",
+      "frames": 165,
+      "durationSeconds": 5.5,
+      "videoCodec": "h264",
+      "audioCodec": "aac",
+      "audioSampleRate": 48000,
+      "audioChannels": 2,
+      "audioPeakDb": -0.2,
+      "fullDecode": "passed",
+      "blackSegments": [],
+      "decodeErrors": []
+    }
+  ],
+  "currentVersion": {
+    "copiedFullMatchesCurrentCapture": true,
+    "beforeDifferent": true,
+    "runtimeFilesUnchanged": 240,
+    "runtimeChangedAfterCapture": [],
+    "captureStartUtc": "2026-10-09T06:45:37.812Z",
+    "captureEndUtc": "2026-10-09T06:46:31.284Z",
+    "captureErrors": [],
+    "fullLifecycle": [
+      {
+        "phase": "hero",
+        "time": 0
+      },
+      {
+        "phase": "tts-nickname",
+        "time": 46.28176400001192
+      },
+      {
+        "phase": "tts-amount",
+        "time": 47.708824000005954
+      },
+      {
+        "phase": "tts-message",
+        "time": 50.97490499999999
+      },
+      {
+        "phase": "outro",
+        "time": 52.825904
+      },
+      {
+        "phase": "complete",
+        "time": 53.333267
+      }
+    ],
+    "audioOffsetSeconds": -0.004408836364746094,
+    "capturedActualFrames": 1171,
+    "shaderBrowserEvidence": "../validation-browser.txt — reversible shader/camera/thread test passed with zero unexpected console errors",
+    "ownerVisualApproval": false
+  },
+  "limitations": [
+    "Encoded 30 FPS; actual capture rate varies. Native realtime 60 FPS is not established.",
+    "No native-GPU or OBS-under-gameplay measurement.",
+    "Whole-frame black detection cannot prove every element is visually correct; supplied rendered-frame review and browser checks provide complementary evidence."
+  ]
+}

@@ -1,0 +1,429 @@
+
+> overlays-legacy@1.0.0 lint C:\Projects\overlays-legacy
+> biome lint .
+
+scripts\audit-studio-audio.mjs:110:45 lint/style/useTemplate  FIXABLE  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  i Template literals are preferred over string concatenation.
+  
+    108 │ }
+    109 │ await browser.close();
+  > 110 │ writeFileSync(`${folder}/audio-audit.json`, JSON.stringify(results, null, 2) + "\n");
+        │                                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    111 │ console.log(JSON.stringify(results, null, 2));
+    112 │ if (
+  
+  i Unsafe fix: Use a template literal.
+  
+    108 108 │   }
+    109 109 │   await browser.close();
+    110     │ - writeFileSync(`${folder}/audio-audit.json`,·JSON.stringify(results,·null,·2)·+·"\n");
+        110 │ + writeFileSync(`${folder}/audio-audit.json`,·`${JSON.stringify(results,·null,·2)}\n`);
+    111 111 │   console.log(JSON.stringify(results, null, 2));
+    112 112 │   if (
+  
+
+scripts\capture-production-2.2.mjs:57:5 lint/style/useTemplate  FIXABLE  ━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  i Template literals are preferred over string concatenation.
+  
+    55 │   [
+    56 │     "max-emotes",
+  > 57 │     "Dzięki za stream! ".repeat(14).slice(0, 200) + " emojiBubbly xdd xdd xdd ",
+       │     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    58 │     "Kaaajka",
+    59 │   ],
+  
+  i Unsafe fix: Use a template literal.
+  
+     55  55 │     [
+     56  56 │       "max-emotes",
+     57     │ - ····"Dzięki·za·stream!·".repeat(14).slice(0,·200)·+·"·emojiBubbly·xdd·xdd·xdd·",
+         57 │ + ····`${"Dzięki·za·stream!·".repeat(14).slice(0,·200)}·emojiBubbly·xdd·xdd·xdd·`,
+     58  58 │       "Kaaajka",
+     59  59 │     ],
+  
+
+scripts\capture-production-v2.mjs:54:9 lint/style/useTemplate  FIXABLE  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  i Template literals are preferred over string concatenation.
+  
+    52 │ await page
+    53 │   .getByLabel("Message", { exact: true })
+  > 54 │   .fill("Pełna wiadomość pozostaje czytelna. ".repeat(80) + "OSTATNIA LINIA");
+       │         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    55 │ await page.evaluate(() => window.motionStudio.information(6000));
+    56 │ await page.screenshot({ path: `${folder}/studio-information.png` });
+  
+  i Unsafe fix: Use a template literal.
+  
+    52 52 │   await page
+    53 53 │     .getByLabel("Message", { exact: true })
+    54    │ - ··.fill("Pełna·wiadomość·pozostaje·czytelna.·".repeat(80)·+·"OSTATNIA·LINIA");
+       54 │ + ··.fill(`${"Pełna·wiadomość·pozostaje·czytelna.·".repeat(80)}OSTATNIA·LINIA`);
+    55 55 │   await page.evaluate(() => window.motionStudio.information(6000));
+    56 56 │   await page.screenshot({ path: `${folder}/studio-information.png` });
+  
+
+scripts\capture-studio-2.1.mjs:57:51 lint/style/useTemplate  FIXABLE  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  i Template literals are preferred over string concatenation.
+  
+    55 │ await page.screenshot({ path: `${folder}/timeline-maximized.png` });
+    56 │ await page.getByRole("button", { name: "Restore workspace", exact: true }).first().click();
+  > 57 │ writeFileSync(`${folder}/workspace-metrics.json`, JSON.stringify(metrics, null, 2) + "\n");
+       │                                                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    58 │ await browser.close();
+    59 │ 
+  
+  i Unsafe fix: Use a template literal.
+  
+    55 55 │   await page.screenshot({ path: `${folder}/timeline-maximized.png` });
+    56 56 │   await page.getByRole("button", { name: "Restore workspace", exact: true }).first().click();
+    57    │ - writeFileSync(`${folder}/workspace-metrics.json`,·JSON.stringify(metrics,·null,·2)·+·"\n");
+       57 │ + writeFileSync(`${folder}/workspace-metrics.json`,·`${JSON.stringify(metrics,·null,·2)}\n`);
+    58 58 │   await browser.close();
+    59 59 │   
+  
+
+scripts\diagnose-studio-audio-contexts.mjs:36:21 lint/style/useTemplate  FIXABLE  ━━━━━━━━━━━━━━━━━━
+
+  i Template literals are preferred over string concatenation.
+  
+    34 │         new AbortController().signal,
+    35 │         {
+  > 36 │           fetchUrl: "/__studio-assets/music/5" + (mode === "cache-bust" ? "?probe=" + i : ""),
+       │                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    37 │           fresh: mode !== "decoded-cache",
+    38 │           onDiagnostic: (record) => records.push({ mode, attempt: i, ...record }),
+  
+  i Unsafe fix: Use a template literal.
+  
+     34  34 │           new AbortController().signal,
+     35  35 │           {
+     36     │ - ··········fetchUrl:·"/__studio-assets/music/5"·+·(mode·===·"cache-bust"·?·"?probe="·+·i·:·""),
+         36 │ + ··········fetchUrl:·`/__studio-assets/music/5${mode·===·"cache-bust"·?·"?probe="·+·i·:·""}`,
+     37  37 │             fresh: mode !== "decoded-cache",
+     38  38 │             onDiagnostic: (record) => records.push({ mode, attempt: i, ...record }),
+  
+
+scripts\diagnose-studio-audio-contexts.mjs:36:75 lint/style/useTemplate  FIXABLE  ━━━━━━━━━━━━━━━━━━
+
+  i Template literals are preferred over string concatenation.
+  
+    34 │         new AbortController().signal,
+    35 │         {
+  > 36 │           fetchUrl: "/__studio-assets/music/5" + (mode === "cache-bust" ? "?probe=" + i : ""),
+       │                                                                           ^^^^^^^^^^^^^
+    37 │           fresh: mode !== "decoded-cache",
+    38 │           onDiagnostic: (record) => records.push({ mode, attempt: i, ...record }),
+  
+  i Unsafe fix: Use a template literal.
+  
+     34  34 │           new AbortController().signal,
+     35  35 │           {
+     36     │ - ··········fetchUrl:·"/__studio-assets/music/5"·+·(mode·===·"cache-bust"·?·"?probe="·+·i·:·""),
+         36 │ + ··········fetchUrl:·"/__studio-assets/music/5"·+·(mode·===·"cache-bust"·?·`?probe=${i}`·:·""),
+     37  37 │             fresh: mode !== "decoded-cache",
+     38  38 │             onDiagnostic: (record) => records.push({ mode, attempt: i, ...record }),
+  
+
+scripts\diagnose-studio-audio-contexts.mjs:48:7 lint/style/useTemplate  FIXABLE  ━━━━━━━━━━━━━━━━━━━
+
+  i Template literals are preferred over string concatenation.
+  
+    46 │     playback = new MusicPlayback(0.5);
+    47 │     await playback.load(
+  > 48 │       "/assets/donations/audio/donation-template-0" + tier + (tier === 7 ? ".mp3" : ".mpga"),
+       │       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    49 │       new AbortController().signal,
+    50 │       {
+  
+  i Unsafe fix: Use a template literal.
+  
+     46  46 │       playback = new MusicPlayback(0.5);
+     47  47 │       await playback.load(
+     48     │ - ······"/assets/donations/audio/donation-template-0"·+·tier·+·(tier·===·7·?·".mp3"·:·".mpga"),
+         48 │ + ······`/assets/donations/audio/donation-template-0${tier}${tier·===·7·?·".mp3"·:·".mpga"}`,
+     49  49 │         new AbortController().signal,
+     50  50 │         {
+  
+
+scripts\diagnose-studio-audio-contexts.mjs:66:3 lint/style/useTemplate  FIXABLE  ━━━━━━━━━━━━━━━━━━━
+
+  i Template literals are preferred over string concatenation.
+  
+    64 │ });
+    65 │ writeFileSync(
+  > 66 │   folder + "/chrome-context-cache-matrix.json",
+       │   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    67 │   JSON.stringify({ browser: browser.version(), records }, null, 2),
+    68 │ );
+  
+  i Unsafe fix: Use a template literal.
+  
+     64  64 │   });
+     65  65 │   writeFileSync(
+     66     │ - ··folder·+·"/chrome-context-cache-matrix.json",
+         66 │ + ··`${folder}/chrome-context-cache-matrix.json`,
+     67  67 │     JSON.stringify({ browser: browser.version(), records }, null, 2),
+     68  68 │   );
+  
+
+scripts\diagnose-studio-audio-contexts.mjs:109:3 lint/style/useTemplate  FIXABLE  ━━━━━━━━━━━━━━━━━━
+
+  i Template literals are preferred over string concatenation.
+  
+    107 │ const state = await page.evaluate(() => window.motionStudio.status());
+    108 │ writeFileSync(
+  > 109 │   folder + "/chrome-native-play.json",
+        │   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    110 │   JSON.stringify(
+    111 │     {
+  
+  i Unsafe fix: Use a template literal.
+  
+    107 107 │   const state = await page.evaluate(() => window.motionStudio.status());
+    108 108 │   writeFileSync(
+    109     │ - ··folder·+·"/chrome-native-play.json",
+        109 │ + ··`${folder}/chrome-native-play.json`,
+    110 110 │     JSON.stringify(
+    111 111 │       {
+  
+
+scripts\motion-studio-server.mjs:160:15 lint/style/useTemplate  FIXABLE  ━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  i Template literals are preferred over string concatenation.
+  
+    158 │             writeFileSync(
+    159 │               resolve(`src/donations/music-authoring/donate${tier}.json`),
+  > 160 │               JSON.stringify(authored, null, 2) + "\n",
+        │               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    161 │             );
+    162 │             analysis.intelligence.authored = authored;
+  
+  i Unsafe fix: Use a template literal.
+  
+    158 158 │               writeFileSync(
+    159 159 │                 resolve(`src/donations/music-authoring/donate${tier}.json`),
+    160     │ - ··············JSON.stringify(authored,·null,·2)·+·"\n",
+        160 │ + ··············`${JSON.stringify(authored,·null,·2)}\n`,
+    161 161 │               );
+    162 162 │               analysis.intelligence.authored = authored;
+  
+
+scripts\motion-studio-server.mjs:165:15 lint/style/useTemplate  FIXABLE  ━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  i Template literals are preferred over string concatenation.
+  
+    163 │             writeFileSync(
+    164 │               resolve(`src/donations/choreography/donate${tier}/analysis.json`),
+  > 165 │               JSON.stringify(analysis) + "\n",
+        │               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    166 │             );
+    167 │             return json({ saved: true });
+  
+  i Unsafe fix: Use a template literal.
+  
+    163 163 │               writeFileSync(
+    164 164 │                 resolve(`src/donations/choreography/donate${tier}/analysis.json`),
+    165     │ - ··············JSON.stringify(analysis)·+·"\n",
+        165 │ + ··············`${JSON.stringify(analysis)}\n`,
+    166 166 │               );
+    167 167 │               return json({ saved: true });
+  
+
+tests\motion-studio-v2.pw.ts:126:66 lint/complexity/useLiteralKeys  FIXABLE  ━━━━━━━━━━━━━━━━━━━━━━━
+
+  i The computed expression can be simplified without the use of a string literal.
+  
+    124 │   await page.getByRole("button", { name: "Odtwórz", exact: true }).click();
+    125 │   await expect
+  > 126 │     .poll(() => page.evaluate(() => window.motionStudio.status()["phase"]), { timeout: 15000 })
+        │                                                                  ^^^^^^^
+    127 │     .toBe("tts-nickname");
+    128 │   await expect(page.locator(".information-message")).toBeVisible();
+  
+  i Unsafe fix: Use a literal key instead.
+  
+    124 124 │     await page.getByRole("button", { name: "Odtwórz", exact: true }).click();
+    125 125 │     await expect
+    126     │ - ····.poll(()·=>·page.evaluate(()·=>·window.motionStudio.status()["phase"]),·{·timeout:·15000·})
+        126 │ + ····.poll(()·=>·page.evaluate(()·=>·window.motionStudio.status().phase),·{·timeout:·15000·})
+    127 127 │       .toBe("tts-nickname");
+    128 128 │     await expect(page.locator(".information-message")).toBeVisible();
+  
+
+tests\motion-studio-v2.pw.ts:131:66 lint/complexity/useLiteralKeys  FIXABLE  ━━━━━━━━━━━━━━━━━━━━━━━
+
+  i The computed expression can be simplified without the use of a string literal.
+  
+    129 │   await expect(page.locator(".information-header strong")).toHaveText("WidzFull");
+    130 │   await expect
+  > 131 │     .poll(() => page.evaluate(() => window.motionStudio.status()["phase"]), { timeout: 5000 })
+        │                                                                  ^^^^^^^
+    132 │     .toBe("tts-amount");
+    133 │   await expect(page.locator(".information-message")).toBeVisible();
+  
+  i Unsafe fix: Use a literal key instead.
+  
+    129 129 │     await expect(page.locator(".information-header strong")).toHaveText("WidzFull");
+    130 130 │     await expect
+    131     │ - ····.poll(()·=>·page.evaluate(()·=>·window.motionStudio.status()["phase"]),·{·timeout:·5000·})
+        131 │ + ····.poll(()·=>·page.evaluate(()·=>·window.motionStudio.status().phase),·{·timeout:·5000·})
+    132 132 │       .toBe("tts-amount");
+    133 133 │     await expect(page.locator(".information-message")).toBeVisible();
+  
+
+tests\motion-studio-v2.pw.ts:135:66 lint/complexity/useLiteralKeys  FIXABLE  ━━━━━━━━━━━━━━━━━━━━━━━
+
+  i The computed expression can be simplified without the use of a string literal.
+  
+    133 │   await expect(page.locator(".information-message")).toBeVisible();
+    134 │   await expect
+  > 135 │     .poll(() => page.evaluate(() => window.motionStudio.status()["phase"]), { timeout: 5000 })
+        │                                                                  ^^^^^^^
+    136 │     .toBe("tts-message");
+    137 │   await expect(page.locator(".information-message")).toBeVisible();
+  
+  i Unsafe fix: Use a literal key instead.
+  
+    133 133 │     await expect(page.locator(".information-message")).toBeVisible();
+    134 134 │     await expect
+    135     │ - ····.poll(()·=>·page.evaluate(()·=>·window.motionStudio.status()["phase"]),·{·timeout:·5000·})
+        135 │ + ····.poll(()·=>·page.evaluate(()·=>·window.motionStudio.status().phase),·{·timeout:·5000·})
+    136 136 │       .toBe("tts-message");
+    137 137 │     await expect(page.locator(".information-message")).toBeVisible();
+  
+
+tests\motion-studio-v2.pw.ts:139:66 lint/complexity/useLiteralKeys  FIXABLE  ━━━━━━━━━━━━━━━━━━━━━━━
+
+  i The computed expression can be simplified without the use of a string literal.
+  
+    137 │   await expect(page.locator(".information-message")).toBeVisible();
+    138 │   await expect
+  > 139 │     .poll(() => page.evaluate(() => window.motionStudio.status()["phase"]), { timeout: 8000 })
+        │                                                                  ^^^^^^^
+    140 │     .toBe("complete");
+    141 │   const clips = await page.evaluate(() => window.motionStudio.status().speech);
+  
+  i Unsafe fix: Use a literal key instead.
+  
+    137 137 │     await expect(page.locator(".information-message")).toBeVisible();
+    138 138 │     await expect
+    139     │ - ····.poll(()·=>·page.evaluate(()·=>·window.motionStudio.status()["phase"]),·{·timeout:·8000·})
+        139 │ + ····.poll(()·=>·page.evaluate(()·=>·window.motionStudio.status().phase),·{·timeout:·8000·})
+    140 140 │       .toBe("complete");
+    141 141 │     const clips = await page.evaluate(() => window.motionStudio.status().speech);
+  
+
+tests\motion-studio-v2.pw.ts:145:43 lint/complexity/useLiteralKeys  FIXABLE  ━━━━━━━━━━━━━━━━━━━━━━━
+
+  i The computed expression can be simplified without the use of a string literal.
+  
+    143 │   expect(clips[0].text).toBe("WidzFull");
+    144 │   expect(clips[2].text).toBe("Cała wiadomość pozostaje w czasie mowy.");
+  > 145 │   expect(await page.evaluate(() => window["activeSpeech"].size)).toBe(0);
+        │                                           ^^^^^^^^^^^^^^
+    146 │   expect(await page.locator("video[src]").count()).toBe(0);
+    147 │ });
+  
+  i Unsafe fix: Use a literal key instead.
+  
+    143 143 │     expect(clips[0].text).toBe("WidzFull");
+    144 144 │     expect(clips[2].text).toBe("Cała wiadomość pozostaje w czasie mowy.");
+    145     │ - ··expect(await·page.evaluate(()·=>·window["activeSpeech"].size)).toBe(0);
+        145 │ + ··expect(await·page.evaluate(()·=>·window.activeSpeech.size)).toBe(0);
+    146 146 │     expect(await page.locator("video[src]").count()).toBe(0);
+    147 147 │   });
+  
+
+tests\motion-studio-v2.pw.ts:154:66 lint/complexity/useLiteralKeys  FIXABLE  ━━━━━━━━━━━━━━━━━━━━━━━
+
+  i The computed expression can be simplified without the use of a string literal.
+  
+    152 │   await page.getByRole("button", { name: "Odtwórz", exact: true }).click();
+    153 │   await expect
+  > 154 │     .poll(() => page.evaluate(() => window.motionStudio.status()["phase"]), { timeout: 15000 })
+        │                                                                  ^^^^^^^
+    155 │     .toBe("tts-nickname");
+    156 │   await page.getByRole("button", { name: "Od początku", exact: true }).click();
+  
+  i Unsafe fix: Use a literal key instead.
+  
+    152 152 │     await page.getByRole("button", { name: "Odtwórz", exact: true }).click();
+    153 153 │     await expect
+    154     │ - ····.poll(()·=>·page.evaluate(()·=>·window.motionStudio.status()["phase"]),·{·timeout:·15000·})
+        154 │ + ····.poll(()·=>·page.evaluate(()·=>·window.motionStudio.status().phase),·{·timeout:·15000·})
+    155 155 │       .toBe("tts-nickname");
+    156 156 │     await page.getByRole("button", { name: "Od początku", exact: true }).click();
+  
+
+tests\motion-studio-v2.pw.ts:158:65 lint/complexity/useLiteralKeys  FIXABLE  ━━━━━━━━━━━━━━━━━━━━━━━
+
+  i The computed expression can be simplified without the use of a string literal.
+  
+    156 │   await page.getByRole("button", { name: "Od początku", exact: true }).click();
+    157 │   await page.waitForTimeout(2200);
+  > 158 │   expect(await page.evaluate(() => window.motionStudio.status()["phase"])).toBe("hero");
+        │                                                                 ^^^^^^^
+    159 │   expect(await page.evaluate(() => window.motionStudio.status().playing)).toBe(false);
+    160 │   await page.route("**/__studio/tts/audio/*", (route) => route.abort());
+  
+  i Unsafe fix: Use a literal key instead.
+  
+    156 156 │     await page.getByRole("button", { name: "Od początku", exact: true }).click();
+    157 157 │     await page.waitForTimeout(2200);
+    158     │ - ··expect(await·page.evaluate(()·=>·window.motionStudio.status()["phase"])).toBe("hero");
+        158 │ + ··expect(await·page.evaluate(()·=>·window.motionStudio.status().phase)).toBe("hero");
+    159 159 │     expect(await page.evaluate(() => window.motionStudio.status().playing)).toBe(false);
+    160 160 │     await page.route("**/__studio/tts/audio/*", (route) => route.abort());
+  
+
+tests\production-2.2.pw.ts:77:26 lint/style/useTemplate  FIXABLE  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  i Template literals are preferred over string concatenation.
+  
+    75 │   await page.goto(
+    76 │     "/motion-studio?tier=6&message=" +
+  > 77 │       encodeURIComponent("Pełna treść musi pozostać. ".repeat(80) + "KONIEC"),
+       │                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    78 │   );
+    79 │   await expect(page.locator("output")).toHaveText("Gotowe");
+  
+  i Unsafe fix: Use a template literal.
+  
+     75  75 │     await page.goto(
+     76  76 │       "/motion-studio?tier=6&message=" +
+     77     │ - ······encodeURIComponent("Pełna·treść·musi·pozostać.·".repeat(80)·+·"KONIEC"),
+         77 │ + ······encodeURIComponent(`${"Pełna·treść·musi·pozostać.·".repeat(80)}KONIEC`),
+     78  78 │     );
+     79  79 │     await expect(page.locator("output")).toHaveText("Gotowe");
+  
+
+tests\production-2.2.pw.ts:105:60 lint/complexity/useLiteralKeys  FIXABLE  ━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  i The computed expression can be simplified without the use of a string literal.
+  
+    103 │   expect(await page.evaluate(() => window.motionStudio.status().time)).toBeCloseTo(3.5, 4);
+    104 │   expect(
+  > 105 │     await page.evaluate(() => window.motionStudio.status()["audioDiagnostic"].receivedBytes),
+        │                                                            ^^^^^^^^^^^^^^^^^
+    106 │   ).toBeGreaterThan(400000);
+    107 │   await expect(page.locator(".audio-export-warning")).toHaveCount(0);
+  
+  i Unsafe fix: Use a literal key instead.
+  
+    103 103 │     expect(await page.evaluate(() => window.motionStudio.status().time)).toBeCloseTo(3.5, 4);
+    104 104 │     expect(
+    105     │ - ····await·page.evaluate(()·=>·window.motionStudio.status()["audioDiagnostic"].receivedBytes),
+        105 │ + ····await·page.evaluate(()·=>·window.motionStudio.status().audioDiagnostic.receivedBytes),
+    106 106 │     ).toBeGreaterThan(400000);
+    107 107 │     await expect(page.locator(".audio-export-warning")).toHaveCount(0);
+  
+
+The number of diagnostics exceeds the limit allowed. Use --max-diagnostics to increase it.
+Diagnostics not shown: 62.
+Checked 383 files in 258ms. No fixes applied.
+Found 44 warnings.
+Found 38 infos.

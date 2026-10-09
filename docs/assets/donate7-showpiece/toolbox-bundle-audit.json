@@ -1,0 +1,155 @@
+{
+  "versions": {
+    "gsap": "3.15.0",
+    "pixi.js": "8.22.0",
+    "pixi-filters": "6.1.5",
+    "three": "0.186.1",
+    "react": "17.0.2"
+  },
+  "imports": [
+    {
+      "path": "gsap/PixiPlugin",
+      "exports": [
+        "PixiPlugin"
+      ]
+    },
+    {
+      "path": "gsap/MotionPathPlugin",
+      "exports": [
+        "MotionPathPlugin"
+      ]
+    },
+    {
+      "path": "gsap/Physics2DPlugin",
+      "exports": [
+        "Physics2DPlugin"
+      ]
+    },
+    {
+      "path": "gsap/SplitText",
+      "exports": [
+        "SplitText"
+      ]
+    },
+    {
+      "path": "gsap/MorphSVGPlugin",
+      "exports": [
+        "MorphSVGPlugin"
+      ]
+    },
+    {
+      "path": "gsap/DrawSVGPlugin",
+      "exports": [
+        "DrawSVGPlugin"
+      ]
+    },
+    {
+      "path": "gsap/CustomEase",
+      "exports": [
+        "CustomEase"
+      ]
+    },
+    {
+      "path": "gsap/CustomBounce",
+      "exports": [
+        "CustomBounce"
+      ]
+    },
+    {
+      "path": "gsap/CustomWiggle",
+      "exports": [
+        "CustomWiggle"
+      ]
+    },
+    {
+      "path": "gsap/EasePack",
+      "exports": [
+        "EasePack",
+        "ExpoScaleEase",
+        "RoughEase",
+        "SlowMo"
+      ]
+    },
+    {
+      "path": "gsap/ScrambleTextPlugin",
+      "exports": [
+        "ScrambleTextPlugin"
+      ]
+    },
+    {
+      "path": "gsap/Flip",
+      "exports": [
+        "Flip"
+      ]
+    },
+    {
+      "path": "gsap/Draggable",
+      "exports": [
+        "Draggable"
+      ]
+    },
+    {
+      "path": "gsap/Observer",
+      "exports": [
+        "Observer",
+        "_getProxyProp",
+        "_getScrollFunc",
+        "_getTarget",
+        "_getVelocityProp",
+        "_horizontal",
+        "_isViewport",
+        "_proxies",
+        "_scrollers",
+        "_vertical"
+      ]
+    },
+    {
+      "path": "gsap/InertiaPlugin",
+      "exports": [
+        "InertiaPlugin",
+        "VelocityTracker"
+      ]
+    },
+    {
+      "path": "gsap/GSDevTools",
+      "exports": [
+        "GSDevTools"
+      ]
+    },
+    {
+      "path": "gsap/MotionPathHelper",
+      "exports": [
+        "MotionPathHelper"
+      ]
+    }
+  ],
+  "editorLeaks": [],
+  "threeLeaks": [],
+  "chunks": [
+    {
+      "file": "browserAll-PV9gtEti.js",
+      "bytes": 43899,
+      "gzipBytes": 11376,
+      "containsMoneyRenderer": false
+    },
+    {
+      "file": "index-BNOJCPik.js",
+      "bytes": 831713,
+      "gzipBytes": 261027,
+      "containsMoneyRenderer": false
+    },
+    {
+      "file": "MotionStudio-CCF4P9qe.js",
+      "bytes": 122626,
+      "gzipBytes": 43050,
+      "containsMoneyRenderer": false
+    },
+    {
+      "file": "webworkerAll-MiQU6ltA.js",
+      "bytes": 354632,
+      "gzipBytes": 101347,
+      "containsMoneyRenderer": true
+    }
+  ],
+  "method": "Executed exact installed GSAP plugin subpath imports; scanned emitted production JS for dev helper identifiers and Three renderer signatures. Runtime-only scene imports verified in source; no blanket registration."
+}

@@ -1,0 +1,4 @@
+
+> overlays-legacy@1.0.0 typecheck C:\Projects\overlays-legacy
+> tsc --noEmit
+

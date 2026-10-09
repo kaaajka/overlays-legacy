@@ -1,0 +1,226 @@
+{
+  "schema_version": 1,
+  "surface": "Donate7",
+  "created_date": "2026-10-08",
+  "role": "Independent Impeccable asset producer",
+  "reference": {
+    "comp_path": ".impeccable/mocks/donate7-definitive-comp-1.png",
+    "reference_usage": "Parent supplied direction reference, selected under user-delegated creative authority. Used as material and palette reference only; no shipping pixels cropped from comp.",
+    "approval_claim": "This manifest does not assert explicit owner approval of this generated asset, comp, or original source licenses.",
+    "request_source": "C:/Users/michas/.codex/attachments/4bab9a9a-f473-4435-b354-b2019db8a0c4/Wklejony tekst.txt",
+    "scope": "Donate7 only; gameplay/background and other donation tiers are outside scope."
+  },
+  "independent_asset_opinion": "The donor strip visibly carries fiber texture and torn paper in the comp and therefore needs a raster material. Existing original webcam and bunny images supply all figures. Flat abstract banknotes, lettering, punctuation, frames, ribbons and marks have precise geometry or motion responsibility and should remain semantic/code media. No replacement human or bunny imagery is needed.",
+  "produce": [
+    {
+      "id": "donate7-peach-paper",
+      "source_crop": null,
+      "reference_region": "Blank warm peach donor backing beneath the headline in the selected comp.",
+      "output_path": "public/assets/donations/brand/donate7-peach-paper.png",
+      "strategy": "Faithful fresh regeneration of a blank paper material via native image_gen with comp supplied as style reference. No comp cropping, no pixel editing, no source media replacement.",
+      "prompt_used": "Use case: stylized-concept\nAsset type: transparent paper-material backing for Donate7 donor name and amount; runtime text will be placed separately.\nReference image role: the attached overlay comp is MATERIAL AND PALETTE REFERENCE ONLY. Use the light warm peach paper beneath the donor name/amount as material reference; do not reproduce or crop any region of the comp.\nPrimary request: generate ONE completely blank, wide horizontal strip of warm peach handmade cut paper, with irregular naturally torn/deckled edges on all four sides and a very subtle tactile paper fiber grain. A fresh standalone asset, orthographic front view.\nComposition: approximately 1024x320 canvas, 3.2:1 landscape aspect ratio. Paper fills about 94% of canvas width and 84% of height, centered, leaving genuinely transparent margins around every edge. Mostly straight long edges with small irregular tears and fibers, asymmetric short torn sides; corners naturally rough, not rounded UI corners. Wide calm middle for high contrast donor text. Single paper layer only, no folds or curled perspective.\nColor palette: warm pale peach #FFD3B8 / #FFDCC3 with faint slightly warmer peach fibers, matching the comp donor backing. Even subdued surface color; no pink painted border.\nLighting/material: matte papery finish, delicate fine visible fibers and flecks, no polished surface; little internal lighting variation. No drop shadow outside the paper, no external glow, no thickness/extrusion.\nConstraints: output real RGBA alpha with fully transparent surrounding pixels. Absolutely blank paper: NO letters, NO numbers, NO typography, NO symbols, NO icons, NO hearts, NO rabbits, NO human faces, NO banknotes, NO scribbles, NO border, NO watermark. No gameplay or scene. Do not paint checkerboard background; transparency is actual alpha.",
+      "prompt_file": "docs/assets/donate7-definitive/donate7-peach-paper.prompt.txt",
+      "prompt_embedding": "PNG tEXt keyword impeccable:prompt using impeccable/scripts/embed-prompt.mjs --prompt-file",
+      "generation": {
+        "tool": "image_gen.imagegen",
+        "mode": "native",
+        "transparent_background": true,
+        "reference_path": ".impeccable/mocks/donate7-definitive-comp-1.png",
+        "original_saved_path": "C:/Users/michas/.codex/generated_images/01a11af4-e0cd-7b63-ac6d-11f19d49f2dd/exec-18280d81-1e2a-42c7-a51f-569e8893048f.png",
+        "postprocessing": "Copy into project and embed prompt metadata only; native alpha and pixel content preserved."
+      },
+      "dimensions": {
+        "width": 2172,
+        "height": 724,
+        "requested_approximate": {
+          "width": 1024,
+          "height": 320
+        },
+        "aspect_ratio": 3
+      },
+      "format": "PNG RGBA",
+      "transparency": {
+        "actual_alpha": true,
+        "min": 0,
+        "max": 255,
+        "fully_transparent_pixels": 513364,
+        "alpha_bounds": [
+          39,
+          25,
+          2141,
+          700
+        ]
+      },
+      "bytes": 2020932,
+      "sha256": "1d8dc80217a728e73358b6e1f71a7b3879938ee80c391ce91851fa0d8e53cfa6",
+      "deviations": [
+        "Native image tool returned 2172x724 (3:1) rather than approximately 1024x320 (3.2:1). Resolution preserved at more than 2x requested width; no deterministic pixel resizing or crop applied.",
+        "Natural tear silhouette is regenerated rather than traced. Small light fibers and scattered fine specks are part of the material edge."
+      ],
+      "qa_status": "accepted",
+      "qa_evidence": "Visual comparison passes blank warm peach, fine fibers, deckled silhouette and transparent cutout role; no letters, icons, figures or painted external shadow. Pillow read-only inspection confirms RGBA alpha0-255.",
+      "implementation": "Place decorative img with alt=\"\" behind the live donor name/amount. CSS owns size, rotation, stacking, and any shadow; do not rasterize donor data. Preserve readable inner inset from ragged alpha edges. Preload once and reuse."
+    }
+  ],
+  "direct": [
+    {
+      "id": "original-donate7-webcam",
+      "source_crop": null,
+      "output_path": "public/assets/donations/media/donation-template-07.webm",
+      "strategy": "Reuse original source-derived webcam through SourceMedia tier7 and existing poster. No new human imagery.",
+      "dimensions": {
+        "width": 120,
+        "height": 120
+      },
+      "format": "VP9 WebM plus PNG poster; source GIF retained",
+      "transparency": false,
+      "source_files": [
+        {
+          "path": "public/assets/donations/gif/donation-template-07.gif",
+          "sha256": "c6bdbd16d17100763649ff27a0d1291b4dc2fc4e79268c80b4baa2334dc9af77",
+          "bytes": 518308
+        },
+        {
+          "path": "public/assets/donations/media/donation-template-07.webm",
+          "sha256": "395cae5f7f030c6f1664c980223462e756ac3c77c81432488fd49731b4e24c8a",
+          "bytes": 444208
+        },
+        {
+          "path": "public/assets/donations/media/donation-template-07.png",
+          "sha256": "1032db1abda3a7387e4f7c7bb16f3948172f69cee8fc8dec677a663b0a8f619b",
+          "bytes": 7829
+        }
+      ],
+      "provenance": "Existing project media metadata src/motion/media/assets.json records tier7 original donation-template-07.gif, 120x120,86frames,3.44s,source hash. Poster visually inspected.",
+      "deviations": [
+        "The generated comp's larger face photos are illustrative placement references, never permitted runtime replacements or upscaled sources."
+      ],
+      "qa_status": "accepted",
+      "implementation": "Reuse SourceMedia/video/poster at native120px or smaller; implement paper frames, tilt and rhythm separately. Preserve original identity and finite existing pose images only."
+    },
+    {
+      "id": "original-bunny-cheer",
+      "source_crop": null,
+      "output_path": "public/assets/donations/brand/bunny-cheer.png",
+      "strategy": "Direct reuse of existing original project tinyPNG bunny.",
+      "dimensions": {
+        "width": 56,
+        "height": 56
+      },
+      "format": "PNG RGBA",
+      "transparency": true,
+      "sha256": "f2d16c9dee9fb426fa02ffda7dc764614be8fa7e623f87af46f5a06a87c5c6e5",
+      "bytes": 6348,
+      "provenance": "Existing project asset supplied in task; visually inspected and unmodified. No ownership or license approval asserted.",
+      "deviations": [
+        "Comp contains an oversized invented bunny; do not substitute it. Existing asset resolution limits runtime display size."
+      ],
+      "qa_status": "accepted",
+      "implementation": "Decorative img at56px or smaller in selective reaction moments; CSS handles motion and any framing."
+    },
+    {
+      "id": "original-bunny-cyan",
+      "source_crop": null,
+      "output_path": "public/assets/donations/brand/bunny-cyan.png",
+      "strategy": "Direct reuse of existing original project tinyPNG bunny.",
+      "dimensions": {
+        "width": 56,
+        "height": 56
+      },
+      "format": "PNG RGBA",
+      "transparency": true,
+      "sha256": "4513602c28ab753213dba74444ebb59391dcf494813fe2d8e9092dda4301a9a1",
+      "bytes": 7241,
+      "provenance": "Existing project asset supplied in task; visually inspected and unmodified. No ownership or license approval asserted.",
+      "deviations": [
+        "Comp's drawn bunny variants do not become runtime assets; use only this supplied original at appropriate scale."
+      ],
+      "qa_status": "accepted",
+      "implementation": "Decorative img at56px or smaller during distinct response beats; preserve alpha, CSS motion and positioning."
+    }
+  ],
+  "semantic": [
+    {
+      "id": "headline-and-callouts",
+      "implementation": "Live HTML font glyphs from Anybody/RobotoFlex for CO,ZA,POJEB!!!,HALO,WTF and punctuation, with stacked live duplicates or CSS strokes for cream face/plum extrusion/pink keyline. Clip, position and animate letters in code from the music clock.",
+      "notes": "Generated comp text never ships as imagery. Parent verifies matching compression/weight, Polish glyph support and self-hosted font licensing. Preserve actual readable wording.",
+      "qa_status": "needs_parent_review"
+    },
+    {
+      "id": "donor-name-amount",
+      "implementation": "Live donor-name and amount DOM text over produced peach-paper img; code owns responsive fit, contrast, number formatting, clipping/insets and text scale. Place donor amount and name on separate lines to preserve hierarchy.",
+      "notes": "No name or amount appears in the produced raster. Background material remains static/reusable while donor data remains editable.",
+      "qa_status": "needs_parent_review"
+    },
+    {
+      "id": "abstract-banknotes",
+      "implementation": "Author a finite banknote design using Canvas countable rectangles, flat peach fills, numeral glyphs and precise internal hatch/geometry; cache the texture once. Animate note transforms and simple cloth-like warping using bounded Canvas/WebGL geometry.",
+      "notes": "Banknotes are abstract theatrical graphics, not illustrated counterfeit detailed portraits or generated comp crops. No extra human figure generation is needed.",
+      "qa_status": "needs_parent_review"
+    },
+    {
+      "id": "ribbons-and-impact-marks",
+      "implementation": "Canvas/WebGL ribbon strips defined by finite Bézier paths with peach/pink color bands; SVG/Canvas precise hearts, arrows, strokes and sparks. CSS or renderer owns perspective and music-clock transforms.",
+      "notes": "Flat geometry and expressive motion belong in code. Do not author paper-grain simulations in CSS as a substitute for the produced raster.",
+      "qa_status": "needs_parent_review"
+    },
+    {
+      "id": "webcam-paper-frames",
+      "implementation": "Existing SourceMedia and120px pose img elements inside precise semantic frame geometry. CSS/SVG owns line width, corner language, slight tilt, clipping and peach/plum outlines.",
+      "notes": "No frame raster needed; original source identity stays intact and frames can respond to music.",
+      "qa_status": "needs_parent_review"
+    },
+    {
+      "id": "stream-gameplay-surround",
+      "implementation": "Use the supplied stream/gameplay context only as an evaluation/background layer in the parent verification flow; render Donate7 itself transparent over content.",
+      "notes": "Scoreboard, donor leaderboard, full-size existing webcam, subgoal and promotional box in comp are surrounding stream context outside assigned Donate7 asset scope.",
+      "qa_status": "needs_parent_review"
+    }
+  ],
+  "execution_order": [
+    "Paper material generated, alpha inspected, copied into workspace and prompt embedded.",
+    "Parent reads embedded prompt or prompt sidecar before composing the raster.",
+    "Parent composes paper with semantic donor text and original media assets.",
+    "Parent performs final runtime screenshot and alpha/composition verification."
+  ],
+  "blockers": [],
+  "assumptions": [
+    "Parent has selected the supplied comp under the user's delegated creative authority; producer does not re-open direction or assert owner approval.",
+    "Only the blank peach fiber paper backing needs new raster generation.",
+    "Original webcam and bunny pixel data remain untouched; no identity or figure replacement is authorized.",
+    "Native higher resolution PNG retained; parent may scale in CSS, without reducing transparency or cropping torn edges.",
+    "All runtime TS/CSS/package files and DESIGN docs are owned by parent and were not edited by asset producer."
+  ],
+  "final_integration": {
+    "date": "2026-10-08",
+    "supersedes": "Latest explicit user request replaces all Canvas money motion with full-screen Pixi rain. Original texture identity is retained.",
+    "money": {
+      "path": "src/assets/images/effects/banknote-particle.png",
+      "sha256": "ccad9825cb4c459f23c8643c369b310a4350dde9838429b462e23f488ab589d9",
+      "nativeSize": [
+        56,
+        56
+      ],
+      "recolored": false,
+      "generatedFallback": false,
+      "runtimeBytesVerified": true,
+      "renderer": "Pixi Texture + three ParticleContainers",
+      "logicalSizeByDepth": {
+        "back": [
+          28,
+          48
+        ],
+        "mid": [
+          55,
+          93
+        ],
+        "front": [
+          145,
+          225
+        ]
+      }
+    },
+    "paper": "Original generated RGBA preserved; CSS48px top padding respects torn alpha edges.",
+    "runtimeQa": "../donate7-pixi/round-final; centered title/donor; original emotes/source; HIGH/MEDIUM/SAFE; four formats; original noisy Rocket League plus bright/dark exposure simulations."
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "records": [
+    {
+      "amountCents": 5732,
+      "file": "docs/assets/donate7-showpiece/art-direction/final-5732/donate7-full-realtime-audio.mp4",
+      "fullyDecoded": true,
+      "durationSeconds": 53.513,
+      "encodedFrames": 1605,
+      "encodedFps": "30/1",
+      "audioPeakDb": -0.3,
+      "errors": [],
+      "blackSegments": []
+    },
+    {
+      "amountCents": 3000000,
+      "file": "docs/assets/donate7-showpiece/art-direction/final-3000000/donate7-full-realtime-audio.mp4",
+      "fullyDecoded": true,
+      "durationSeconds": 53.033,
+      "encodedFrames": 1590,
+      "encodedFps": "30/1",
+      "audioPeakDb": -0.4,
+      "errors": [],
+      "blackSegments": []
+    }
+  ],
+  "perceptualListeningClaim": false
+}

@@ -1,0 +1,465 @@
+{
+  "chapters": [
+    [
+      "initial",
+      1.7
+    ],
+    [
+      "build",
+      10.1
+    ],
+    [
+      "pre-hero",
+      15.15
+    ],
+    [
+      "hero",
+      16.8
+    ],
+    [
+      "secondary",
+      24.3
+    ],
+    [
+      "false-calm",
+      29.65
+    ],
+    [
+      "final",
+      39.1
+    ],
+    [
+      "outro",
+      45.4
+    ]
+  ],
+  "geometry": [
+    {
+      "w": 1920,
+      "h": 1080,
+      "name": {
+        "x": 637.012451171875,
+        "y": 588.1198120117188,
+        "width": 645.97509765625,
+        "height": 61.06646728515625,
+        "right": 1282.987548828125,
+        "bottom": 649.186279296875
+      },
+      "amount": {
+        "x": 637.012451171875,
+        "y": 673.4862670898438,
+        "width": 645.97509765625,
+        "height": 145.79998779296875,
+        "right": 1282.987548828125,
+        "bottom": 819.2862548828125
+      },
+      "source": {
+        "x": 446.26165771484375,
+        "y": 133.9896697998047,
+        "width": 195.850830078125,
+        "height": 195.8507843017578,
+        "right": 642.1124877929688,
+        "bottom": 329.8404541015625
+      },
+      "stats": {
+        "particles": 94,
+        "back": 76,
+        "mid": 11,
+        "front": 7,
+        "renderMs": 0.6000000238418579,
+        "backingPixels": 1951125
+      }
+    },
+    {
+      "w": 1920,
+      "h": 1200,
+      "name": {
+        "x": 601.1249389648438,
+        "y": 653.4664916992188,
+        "width": 717.7500610351562,
+        "height": 67.85162353515625,
+        "right": 1318.875,
+        "bottom": 721.318115234375
+      },
+      "amount": {
+        "x": 601.1249389648438,
+        "y": 748.318115234375,
+        "width": 717.7500610351562,
+        "height": 162,
+        "right": 1318.875,
+        "bottom": 910.318115234375
+      },
+      "source": {
+        "x": 389.1795959472656,
+        "y": 148.87741088867188,
+        "width": 217.61203002929688,
+        "height": 217.61199951171875,
+        "right": 606.7916259765625,
+        "bottom": 366.4894104003906
+      },
+      "stats": {
+        "particles": 94,
+        "back": 76,
+        "mid": 11,
+        "front": 7,
+        "renderMs": 0.4000000059604645,
+        "backingPixels": 1949220
+      }
+    },
+    {
+      "w": 3440,
+      "h": 1440,
+      "name": {
+        "x": 1289.3499755859375,
+        "y": 784.1597900390625,
+        "width": 861.2999267578125,
+        "height": 81.42193603515625,
+        "right": 2150.64990234375,
+        "bottom": 865.5817260742188
+      },
+      "amount": {
+        "x": 1289.3499755859375,
+        "y": 897.981689453125,
+        "width": 861.2999267578125,
+        "height": 194.4000244140625,
+        "right": 2150.64990234375,
+        "bottom": 1092.3817138671875
+      },
+      "source": {
+        "x": 1035.015625,
+        "y": 178.65289306640625,
+        "width": 261.13427734375,
+        "height": 261.1343994140625,
+        "right": 1296.14990234375,
+        "bottom": 439.78729248046875
+      },
+      "stats": {
+        "particles": 94,
+        "back": 76,
+        "mid": 11,
+        "front": 7,
+        "renderMs": 0.5,
+        "backingPixels": 1951236
+      }
+    },
+    {
+      "w": 5120,
+      "h": 1440,
+      "name": {
+        "x": 2129.35009765625,
+        "y": 784.1597900390625,
+        "width": 861.2998046875,
+        "height": 81.42193603515625,
+        "right": 2990.64990234375,
+        "bottom": 865.5817260742188
+      },
+      "amount": {
+        "x": 2129.35009765625,
+        "y": 897.981689453125,
+        "width": 861.2998046875,
+        "height": 194.4000244140625,
+        "right": 2990.64990234375,
+        "bottom": 1092.3817138671875
+      },
+      "source": {
+        "x": 1875.0155029296875,
+        "y": 178.65289306640625,
+        "width": 261.1343994140625,
+        "height": 261.1343994140625,
+        "right": 2136.14990234375,
+        "bottom": 439.78729248046875
+      },
+      "stats": {
+        "particles": 94,
+        "back": 76,
+        "mid": 11,
+        "front": 7,
+        "renderMs": 0.4000000059604645,
+        "backingPixels": 1951680
+      }
+    }
+  ],
+  "stress": [
+    {
+      "input": "500",
+      "copy": [
+        {
+          "selector": ".motion-name",
+          "text": "WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW",
+          "x": 637.012451171875,
+          "right": 1282.987548828125,
+          "y": 589.13232421875,
+          "bottom": 654.881591796875,
+          "font": "\"Roboto Flex Variable\", sans-serif",
+          "loaded": true
+        },
+        {
+          "selector": ".motion-amount",
+          "text": "5,00zł",
+          "x": 637.012451171875,
+          "right": 1282.987548828125,
+          "y": 679.1815795898438,
+          "bottom": 824.9815673828125,
+          "font": "\"Roboto Flex Variable\", sans-serif",
+          "loaded": true
+        },
+        {
+          "selector": ".motion-currency",
+          "text": "zł",
+          "x": 1089.99560546875,
+          "right": 1132.378173828125,
+          "y": 734.8690795898438,
+          "bottom": 815.062255859375,
+          "font": "\"Roboto Flex Variable\", sans-serif",
+          "loaded": true
+        }
+      ]
+    },
+    {
+      "input": "5732",
+      "copy": [
+        {
+          "selector": ".motion-name",
+          "text": "WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW",
+          "x": 637.012451171875,
+          "right": 1282.987548828125,
+          "y": 589.13232421875,
+          "bottom": 654.881591796875,
+          "font": "\"Roboto Flex Variable\", sans-serif",
+          "loaded": true
+        },
+        {
+          "selector": ".motion-amount",
+          "text": "57,32zł",
+          "x": 637.012451171875,
+          "right": 1282.987548828125,
+          "y": 679.1815795898438,
+          "bottom": 824.9815673828125,
+          "font": "\"Roboto Flex Variable\", sans-serif",
+          "loaded": true
+        },
+        {
+          "selector": ".motion-currency",
+          "text": "zł",
+          "x": 1131.508056640625,
+          "right": 1173.890625,
+          "y": 734.8690795898438,
+          "bottom": 815.062255859375,
+          "font": "\"Roboto Flex Variable\", sans-serif",
+          "loaded": true
+        }
+      ]
+    },
+    {
+      "input": "99999",
+      "copy": [
+        {
+          "selector": ".motion-name",
+          "text": "WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW",
+          "x": 637.012451171875,
+          "right": 1282.987548828125,
+          "y": 588.1198120117188,
+          "bottom": 653.8690795898438,
+          "font": "\"Roboto Flex Variable\", sans-serif",
+          "loaded": true
+        },
+        {
+          "selector": ".motion-amount",
+          "text": "999,99zł",
+          "x": 637.012451171875,
+          "right": 1282.987548828125,
+          "y": 678.1690673828125,
+          "bottom": 812.4835205078125,
+          "font": "\"Roboto Flex Variable\", sans-serif",
+          "loaded": true
+        },
+        {
+          "selector": ".motion-currency",
+          "text": "zł",
+          "x": 1156.7255859375,
+          "right": 1195.75439453125,
+          "y": 728.7940673828125,
+          "bottom": 802.6591186523438,
+          "font": "\"Roboto Flex Variable\", sans-serif",
+          "loaded": true
+        }
+      ]
+    },
+    {
+      "input": "213769",
+      "copy": [
+        {
+          "selector": ".motion-name",
+          "text": "WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW",
+          "x": 637.012451171875,
+          "right": 1282.987548828125,
+          "y": 588.1198120117188,
+          "bottom": 653.8690795898438,
+          "font": "\"Roboto Flex Variable\", sans-serif",
+          "loaded": true
+        },
+        {
+          "selector": ".motion-amount",
+          "text": "2137,69zł",
+          "x": 637.012451171875,
+          "right": 1282.987548828125,
+          "y": 678.1690673828125,
+          "bottom": 796.7423095703125,
+          "font": "\"Roboto Flex Variable\", sans-serif",
+          "loaded": true
+        },
+        {
+          "selector": ".motion-currency",
+          "text": "zł",
+          "x": 1168.16357421875,
+          "right": 1202.63623046875,
+          "y": 722.7190551757812,
+          "bottom": 787.9462280273438,
+          "font": "\"Roboto Flex Variable\", sans-serif",
+          "loaded": true
+        }
+      ]
+    },
+    {
+      "input": "1500000",
+      "copy": [
+        {
+          "selector": ".motion-name",
+          "text": "WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW",
+          "x": 637.012451171875,
+          "right": 1282.987548828125,
+          "y": 588.1198120117188,
+          "bottom": 653.8690795898438,
+          "font": "\"Roboto Flex Variable\", sans-serif",
+          "loaded": true
+        },
+        {
+          "selector": ".motion-amount",
+          "text": "15 000,00zł",
+          "x": 637.012451171875,
+          "right": 1282.987548828125,
+          "y": 678.1690673828125,
+          "bottom": 774.245849609375,
+          "font": "\"Roboto Flex Variable\", sans-serif",
+          "loaded": true
+        },
+        {
+          "selector": ".motion-currency",
+          "text": "zł",
+          "x": 1168.87548828125,
+          "right": 1196.79833984375,
+          "y": 714.6190795898438,
+          "bottom": 767.4589233398438,
+          "font": "\"Roboto Flex Variable\", sans-serif",
+          "loaded": true
+        }
+      ]
+    },
+    {
+      "input": "9999999",
+      "copy": [
+        {
+          "selector": ".motion-name",
+          "text": "WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW",
+          "x": 637.012451171875,
+          "right": 1282.987548828125,
+          "y": 588.1198120117188,
+          "bottom": 653.8690795898438,
+          "font": "\"Roboto Flex Variable\", sans-serif",
+          "loaded": true
+        },
+        {
+          "selector": ".motion-amount",
+          "text": "99 999,99zł",
+          "x": 637.012451171875,
+          "right": 1282.987548828125,
+          "y": 678.1690673828125,
+          "bottom": 774.245849609375,
+          "font": "\"Roboto Flex Variable\", sans-serif",
+          "loaded": true
+        },
+        {
+          "selector": ".motion-currency",
+          "text": "zł",
+          "x": 1168.87548828125,
+          "right": 1196.79833984375,
+          "y": 714.6190795898438,
+          "bottom": 767.4589233398438,
+          "font": "\"Roboto Flex Variable\", sans-serif",
+          "loaded": true
+        }
+      ]
+    },
+    {
+      "input": "100000000",
+      "copy": [
+        {
+          "selector": ".motion-name",
+          "text": "WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW",
+          "x": 637.012451171875,
+          "right": 1282.987548828125,
+          "y": 588.1198120117188,
+          "bottom": 653.8690795898438,
+          "font": "\"Roboto Flex Variable\", sans-serif",
+          "loaded": true
+        },
+        {
+          "selector": ".motion-amount",
+          "text": "1 000 000,00zł",
+          "x": 637.012451171875,
+          "right": 1282.987548828125,
+          "y": 678.1690673828125,
+          "bottom": 752.95166015625,
+          "font": "\"Roboto Flex Variable\", sans-serif",
+          "loaded": true
+        },
+        {
+          "selector": ".motion-currency",
+          "text": "zł",
+          "x": 1175.67822265625,
+          "right": 1197.41552734375,
+          "y": 706.51904296875,
+          "bottom": 747.65185546875,
+          "font": "\"Roboto Flex Variable\", sans-serif",
+          "loaded": true
+        }
+      ]
+    },
+    {
+      "input": "999999999999",
+      "copy": [
+        {
+          "selector": ".motion-name",
+          "text": "WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW",
+          "x": 637.012451171875,
+          "right": 1282.987548828125,
+          "y": 588.1198120117188,
+          "bottom": 653.8690795898438,
+          "font": "\"Roboto Flex Variable\", sans-serif",
+          "loaded": true
+        },
+        {
+          "selector": ".motion-amount",
+          "text": "9 999 999 999,99zł",
+          "x": 637.012451171875,
+          "right": 1282.987548828125,
+          "y": 678.1690673828125,
+          "bottom": 735.8973999023438,
+          "font": "\"Roboto Flex Variable\", sans-serif",
+          "loaded": true
+        },
+        {
+          "selector": ".motion-currency",
+          "text": "zł",
+          "x": 1184.14208984375,
+          "right": 1200.927490234375,
+          "y": 700.444091796875,
+          "bottom": 732.1954345703125,
+          "font": "\"Roboto Flex Variable\", sans-serif",
+          "loaded": true
+        }
+      ]
+    }
+  ],
+  "errors": []
+}

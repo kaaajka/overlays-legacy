@@ -1,0 +1,14 @@
+{
+  "components": [
+    "src/components/donations/Donate7.tsx",
+    "src/style/overlays/_donation.scss",
+    "src/style/effects/_money-rain.scss",
+    "src/style/effects/_halo-floats.scss",
+    "animate.css"
+  ],
+  "music": "public/assets/donations/audio/donation-template-07.mp3",
+  "frames": 1069,
+  "start": 1791452250.816,
+  "errors": [],
+  "limitation": "Reconstructed original visual component with native HTMLAudio duration. Original provider TTS/network orchestration excluded; Version A capture has complete current lifecycle."
+}

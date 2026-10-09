@@ -1,0 +1,465 @@
+{
+  "chapters": [
+    [
+      "initial",
+      1.7
+    ],
+    [
+      "build",
+      10.1
+    ],
+    [
+      "pre-hero",
+      15.15
+    ],
+    [
+      "hero",
+      16.8
+    ],
+    [
+      "secondary",
+      24.3
+    ],
+    [
+      "false-calm",
+      29.65
+    ],
+    [
+      "final",
+      39.1
+    ],
+    [
+      "outro",
+      45.4
+    ]
+  ],
+  "geometry": [
+    {
+      "w": 1920,
+      "h": 1080,
+      "name": {
+        "x": 288,
+        "y": 548,
+        "width": 638,
+        "height": 60.3125,
+        "right": 926,
+        "bottom": 608.3125
+      },
+      "amount": {
+        "x": 288,
+        "y": 632.3125,
+        "width": 638,
+        "height": 144,
+        "right": 926,
+        "bottom": 776.3125
+      },
+      "source": {
+        "x": 137.6041717529297,
+        "y": 141.4763946533203,
+        "width": 193.43284606933594,
+        "height": 193.43287658691406,
+        "right": 331.0370178222656,
+        "bottom": 334.9092712402344
+      },
+      "stats": {
+        "particles": 108,
+        "back": 84,
+        "mid": 15,
+        "front": 9,
+        "renderMs": 0.7000000029802322,
+        "backingPixels": 1951125
+      }
+    },
+    {
+      "w": 1920,
+      "h": 1200,
+      "name": {
+        "x": 260.2603759765625,
+        "y": 608.888916015625,
+        "width": 708.888916015625,
+        "height": 67.013916015625,
+        "right": 969.1492919921875,
+        "bottom": 675.90283203125
+      },
+      "amount": {
+        "x": 260.2603759765625,
+        "y": 702.5694580078125,
+        "width": 708.888916015625,
+        "height": 160,
+        "right": 969.1492919921875,
+        "bottom": 862.5694580078125
+      },
+      "source": {
+        "x": 93.15387725830078,
+        "y": 157.1959991455078,
+        "width": 214.9254150390625,
+        "height": 214.92543029785156,
+        "right": 308.0792922973633,
+        "bottom": 372.1214294433594
+      },
+      "stats": {
+        "particles": 108,
+        "back": 84,
+        "mid": 15,
+        "front": 9,
+        "renderMs": 0.5,
+        "backingPixels": 1949220
+      }
+    },
+    {
+      "w": 3440,
+      "h": 1440,
+      "name": {
+        "x": 630.3958740234375,
+        "y": 730.6666870117188,
+        "width": 850.6666259765625,
+        "height": 80.41668701171875,
+        "right": 1481.0625,
+        "bottom": 811.0833740234375
+      },
+      "amount": {
+        "x": 630.3958740234375,
+        "y": 843.0833740234375,
+        "width": 850.6666259765625,
+        "height": 192,
+        "right": 1481.0625,
+        "bottom": 1035.0833740234375
+      },
+      "source": {
+        "x": 429.8680419921875,
+        "y": 188.63519287109375,
+        "width": 257.9105224609375,
+        "height": 257.9105224609375,
+        "right": 687.778564453125,
+        "bottom": 446.54571533203125
+      },
+      "stats": {
+        "particles": 108,
+        "back": 84,
+        "mid": 15,
+        "front": 9,
+        "renderMs": 0.5,
+        "backingPixels": 1951236
+      }
+    },
+    {
+      "w": 5120,
+      "h": 1440,
+      "name": {
+        "x": 1100.791748046875,
+        "y": 730.6666870117188,
+        "width": 850.6666259765625,
+        "height": 80.41668701171875,
+        "right": 1951.4583740234375,
+        "bottom": 811.0833740234375
+      },
+      "amount": {
+        "x": 1100.791748046875,
+        "y": 843.0833740234375,
+        "width": 850.6666259765625,
+        "height": 192,
+        "right": 1951.4583740234375,
+        "bottom": 1035.0833740234375
+      },
+      "source": {
+        "x": 900.263916015625,
+        "y": 188.63519287109375,
+        "width": 257.9105224609375,
+        "height": 257.9105224609375,
+        "right": 1158.1744384765625,
+        "bottom": 446.54571533203125
+      },
+      "stats": {
+        "particles": 108,
+        "back": 84,
+        "mid": 15,
+        "front": 9,
+        "renderMs": 0.6000000089406967,
+        "backingPixels": 1951680
+      }
+    }
+  ],
+  "stress": [
+    {
+      "input": "500",
+      "copy": [
+        {
+          "selector": ".motion-name",
+          "text": "WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW",
+          "x": 288,
+          "right": 926,
+          "y": 548,
+          "bottom": 612.9375,
+          "font": "\"Roboto Flex Variable\", sans-serif",
+          "loaded": true
+        },
+        {
+          "selector": ".motion-amount",
+          "text": "5,00zł",
+          "x": 288,
+          "right": 926,
+          "y": 636.9375,
+          "bottom": 780.9375,
+          "font": "\"Roboto Flex Variable\", sans-serif",
+          "loaded": true
+        },
+        {
+          "selector": ".motion-currency",
+          "text": "zł",
+          "x": 586.640625,
+          "right": 628.5,
+          "y": 691.9375,
+          "bottom": 771.140625,
+          "font": "\"Roboto Flex Variable\", sans-serif",
+          "loaded": true
+        }
+      ]
+    },
+    {
+      "input": "5732",
+      "copy": [
+        {
+          "selector": ".motion-name",
+          "text": "WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW",
+          "x": 288,
+          "right": 926,
+          "y": 548,
+          "bottom": 612.9375,
+          "font": "\"Roboto Flex Variable\", sans-serif",
+          "loaded": true
+        },
+        {
+          "selector": ".motion-amount",
+          "text": "57,32zł",
+          "x": 288,
+          "right": 926,
+          "y": 636.9375,
+          "bottom": 780.9375,
+          "font": "\"Roboto Flex Variable\", sans-serif",
+          "loaded": true
+        },
+        {
+          "selector": ".motion-currency",
+          "text": "zł",
+          "x": 668.65625,
+          "right": 710.515625,
+          "y": 691.9375,
+          "bottom": 771.140625,
+          "font": "\"Roboto Flex Variable\", sans-serif",
+          "loaded": true
+        }
+      ]
+    },
+    {
+      "input": "99999",
+      "copy": [
+        {
+          "selector": ".motion-name",
+          "text": "WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW",
+          "x": 288,
+          "right": 926,
+          "y": 548,
+          "bottom": 612.9375,
+          "font": "\"Roboto Flex Variable\", sans-serif",
+          "loaded": true
+        },
+        {
+          "selector": ".motion-amount",
+          "text": "999,99zł",
+          "x": 288,
+          "right": 926,
+          "y": 636.9375,
+          "bottom": 769.59375,
+          "font": "\"Roboto Flex Variable\", sans-serif",
+          "loaded": true
+        },
+        {
+          "selector": ".motion-currency",
+          "text": "zł",
+          "x": 715.140625,
+          "right": 753.6875,
+          "y": 686.9375,
+          "bottom": 759.890625,
+          "font": "\"Roboto Flex Variable\", sans-serif",
+          "loaded": true
+        }
+      ]
+    },
+    {
+      "input": "213769",
+      "copy": [
+        {
+          "selector": ".motion-name",
+          "text": "WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW",
+          "x": 288,
+          "right": 926,
+          "y": 548,
+          "bottom": 612.9375,
+          "font": "\"Roboto Flex Variable\", sans-serif",
+          "loaded": true
+        },
+        {
+          "selector": ".motion-amount",
+          "text": "2137,69zł",
+          "x": 288,
+          "right": 926,
+          "y": 636.9375,
+          "bottom": 754.046875,
+          "font": "\"Roboto Flex Variable\", sans-serif",
+          "loaded": true
+        },
+        {
+          "selector": ".motion-currency",
+          "text": "zł",
+          "x": 733.234375,
+          "right": 767.28125,
+          "y": 680.9375,
+          "bottom": 745.359375,
+          "font": "\"Roboto Flex Variable\", sans-serif",
+          "loaded": true
+        }
+      ]
+    },
+    {
+      "input": "1500000",
+      "copy": [
+        {
+          "selector": ".motion-name",
+          "text": "WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW",
+          "x": 288,
+          "right": 926,
+          "y": 548,
+          "bottom": 612.9375,
+          "font": "\"Roboto Flex Variable\", sans-serif",
+          "loaded": true
+        },
+        {
+          "selector": ".motion-amount",
+          "text": "15 000,00zł",
+          "x": 288,
+          "right": 926,
+          "y": 636.9375,
+          "bottom": 731.828125,
+          "font": "\"Roboto Flex Variable\", sans-serif",
+          "loaded": true
+        },
+        {
+          "selector": ".motion-currency",
+          "text": "zł",
+          "x": 728.171875,
+          "right": 755.75,
+          "y": 672.9375,
+          "bottom": 725.125,
+          "font": "\"Roboto Flex Variable\", sans-serif",
+          "loaded": true
+        }
+      ]
+    },
+    {
+      "input": "9999999",
+      "copy": [
+        {
+          "selector": ".motion-name",
+          "text": "WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW",
+          "x": 288,
+          "right": 926,
+          "y": 548,
+          "bottom": 612.9375,
+          "font": "\"Roboto Flex Variable\", sans-serif",
+          "loaded": true
+        },
+        {
+          "selector": ".motion-amount",
+          "text": "99 999,99zł",
+          "x": 288,
+          "right": 926,
+          "y": 636.9375,
+          "bottom": 731.828125,
+          "font": "\"Roboto Flex Variable\", sans-serif",
+          "loaded": true
+        },
+        {
+          "selector": ".motion-currency",
+          "text": "zł",
+          "x": 728.171875,
+          "right": 755.75,
+          "y": 672.9375,
+          "bottom": 725.125,
+          "font": "\"Roboto Flex Variable\", sans-serif",
+          "loaded": true
+        }
+      ]
+    },
+    {
+      "input": "100000000",
+      "copy": [
+        {
+          "selector": ".motion-name",
+          "text": "WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW",
+          "x": 288,
+          "right": 926,
+          "y": 548,
+          "bottom": 612.9375,
+          "font": "\"Roboto Flex Variable\", sans-serif",
+          "loaded": true
+        },
+        {
+          "selector": ".motion-amount",
+          "text": "1 000 000,00zł",
+          "x": 288,
+          "right": 926,
+          "y": 636.9375,
+          "bottom": 710.796875,
+          "font": "\"Roboto Flex Variable\", sans-serif",
+          "loaded": true
+        },
+        {
+          "selector": ".motion-currency",
+          "text": "zł",
+          "x": 735.5,
+          "right": 756.96875,
+          "y": 664.9375,
+          "bottom": 705.5625,
+          "font": "\"Roboto Flex Variable\", sans-serif",
+          "loaded": true
+        }
+      ]
+    },
+    {
+      "input": "999999999999",
+      "copy": [
+        {
+          "selector": ".motion-name",
+          "text": "WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW",
+          "x": 288,
+          "right": 926,
+          "y": 548,
+          "bottom": 612.9375,
+          "font": "\"Roboto Flex Variable\", sans-serif",
+          "loaded": true
+        },
+        {
+          "selector": ".motion-amount",
+          "text": "9 999 999 999,99zł",
+          "x": 288,
+          "right": 926,
+          "y": 636.9375,
+          "bottom": 693.953125,
+          "font": "\"Roboto Flex Variable\", sans-serif",
+          "loaded": true
+        },
+        {
+          "selector": ".motion-currency",
+          "text": "zł",
+          "x": 747.328125,
+          "right": 763.90625,
+          "y": 658.9375,
+          "bottom": 690.296875,
+          "font": "\"Roboto Flex Variable\", sans-serif",
+          "loaded": true
+        }
+      ]
+    }
+  ],
+  "errors": []
+}

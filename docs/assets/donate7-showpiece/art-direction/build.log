@@ -1,0 +1,42 @@
+
+> overlays-legacy@1.0.0 build C:\Projects\overlays-legacy
+> vite build
+
+vite v7.3.3 building client environment for production...
+transforming...
+✓ 2473 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                                                    1.47 kB │ gzip:   0.80 kB
+dist/assets/head-CAE9Dpv3.png                                      4.52 kB
+dist/assets/mute-alert-B2BuPz9J.png                               30.50 kB
+dist/assets/dynapuff-latin-ext-standard-normal-BHyjoBbj.woff2     43.93 kB
+dist/assets/without-r-alert-C3wpQ7nZ.png                          46.56 kB
+dist/assets/dynapuff-latin-standard-normal-C7Zc-EBg.woff2         62.01 kB
+dist/assets/dogs-reward-alert-8nj7LAqE.png                        67.13 kB
+dist/assets/censure-alert-dAcjjpda.png                            78.82 kB
+dist/assets/roboto-flex-vietnamese-full-normal-D3YMrJeG.woff2     90.06 kB
+dist/assets/roboto-flex-cyrillic-ext-full-normal-DMBRNe17.woff2  116.34 kB
+dist/assets/roboto-flex-greek-full-normal-DAsRUyfQ.woff2         120.05 kB
+dist/assets/tail-Dr8KsdoZ.png                                    120.17 kB
+dist/assets/poppins-bold-qTAUjFF7.ttf                            153.94 kB
+dist/assets/poppins-semibold-B_fPDAUb.ttf                        155.23 kB
+dist/assets/poppins-medium-Cxde2ZoM.ttf                          156.52 kB
+dist/assets/poppins-regular-CTKNfV9P.ttf                         158.24 kB
+dist/assets/roboto-flex-cyrillic-full-normal-B6SGQ0Mc.woff2      180.20 kB
+dist/assets/roboto-flex-latin-ext-full-normal-DZvLGSEZ.woff2     240.14 kB
+dist/assets/roboto-flex-latin-full-normal-Bs8sFGIT.woff2         326.40 kB
+dist/assets/coinflip-alert-BEcJGKke.gif                          477.41 kB
+dist/assets/roulette-alert-D1IYlxnW.webp                         488.38 kB
+dist/assets/MotionStudio-BXogyk-0.css                             17.63 kB │ gzip:   4.47 kB
+dist/assets/index-DxZJCJXf.css                                   384.50 kB │ gzip:  32.20 kB
+dist/assets/browserAll-LhWgGypw.js                                43.90 kB │ gzip:  11.38 kB
+dist/assets/MotionStudio-Daykw-VI.js                             122.63 kB │ gzip:  43.05 kB
+dist/assets/webworkerAll-BBxWmJEI.js                             354.63 kB │ gzip: 101.35 kB
+dist/assets/index-Dm3lsUA3.js                                    832.76 kB │ gzip: 261.31 kB
+
+(!) Some chunks are larger than 500 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rollupOptions.output.manualChunks to improve chunking: https://rollupjs.org/configuration-options/#output-manualchunks
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+✓ built in 15.12s

@@ -1,0 +1,90 @@
+{
+  "method": "Identical encoded timestamps from independent actual 1x live captures. No speed change; refined audio only in split-screen montage. Capture metadata records each music/frame offset. Displayed times are video time, not asserted subframe audio cue positions.",
+  "segments": [
+    [
+      "Recruitment",
+      7.1,
+      10.4
+    ],
+    [
+      "Tension / hero",
+      12.2,
+      17.8
+    ],
+    [
+      "Fold / held pose / unfold",
+      27.6,
+      33.1
+    ],
+    [
+      "Amount payoff",
+      36.65,
+      40.4
+    ]
+  ],
+  "frames": [
+    {
+      "videoTimeSeconds": 13.2,
+      "files": [
+        "docs\\assets\\donate7-showpiece\\compare-13.20-before.jpg",
+        "docs\\assets\\donate7-showpiece\\compare-13.20-refined.jpg"
+      ]
+    },
+    {
+      "videoTimeSeconds": 15.5,
+      "files": [
+        "docs\\assets\\donate7-showpiece\\compare-15.50-before.jpg",
+        "docs\\assets\\donate7-showpiece\\compare-15.50-refined.jpg"
+      ]
+    },
+    {
+      "videoTimeSeconds": 18.8,
+      "files": [
+        "docs\\assets\\donate7-showpiece\\compare-18.80-before.jpg",
+        "docs\\assets\\donate7-showpiece\\compare-18.80-refined.jpg"
+      ]
+    },
+    {
+      "videoTimeSeconds": 29.2,
+      "files": [
+        "docs\\assets\\donate7-showpiece\\compare-29.20-before.jpg",
+        "docs\\assets\\donate7-showpiece\\compare-29.20-refined.jpg"
+      ]
+    },
+    {
+      "videoTimeSeconds": 29.8,
+      "files": [
+        "docs\\assets\\donate7-showpiece\\compare-29.80-before.jpg",
+        "docs\\assets\\donate7-showpiece\\compare-29.80-refined.jpg"
+      ]
+    },
+    {
+      "videoTimeSeconds": 30.4,
+      "files": [
+        "docs\\assets\\donate7-showpiece\\compare-30.40-before.jpg",
+        "docs\\assets\\donate7-showpiece\\compare-30.40-refined.jpg"
+      ]
+    },
+    {
+      "videoTimeSeconds": 31.2,
+      "files": [
+        "docs\\assets\\donate7-showpiece\\compare-31.20-before.jpg",
+        "docs\\assets\\donate7-showpiece\\compare-31.20-refined.jpg"
+      ]
+    },
+    {
+      "videoTimeSeconds": 38.4,
+      "files": [
+        "docs\\assets\\donate7-showpiece\\compare-38.40-before.jpg",
+        "docs\\assets\\donate7-showpiece\\compare-38.40-refined.jpg"
+      ]
+    },
+    {
+      "videoTimeSeconds": 39.2,
+      "files": [
+        "docs\\assets\\donate7-showpiece\\compare-39.20-before.jpg",
+        "docs\\assets\\donate7-showpiece\\compare-39.20-refined.jpg"
+      ]
+    }
+  ]
+}

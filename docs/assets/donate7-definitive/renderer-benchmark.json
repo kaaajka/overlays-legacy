@@ -1,0 +1,139 @@
+{
+  "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+  "method": "Isolated explicit frame(time) calls, identical cached banknote texture, 20warmup+50measuredframes at DPR1. No Application/Ticker/RAF-owned Pixi clock; test RAF is harness sampling. Synthetic billboard stress, not final show/OBS certificate.",
+  "errors": [],
+  "rows": [
+    {
+      "mode": "canvas",
+      "width": 1920,
+      "height": 1080,
+      "count": 480,
+      "submissionMedianMs": 0.7999999970197678,
+      "submissionP95Ms": 1.1000000089406967,
+      "frameMedianMs": 16.600000008940697,
+      "frameP95Ms": 17.700000002980232,
+      "heapBytes": 7897043
+    },
+    {
+      "mode": "pixi",
+      "width": 1920,
+      "height": 1080,
+      "count": 480,
+      "submissionMedianMs": 0.20000000298023224,
+      "submissionP95Ms": 0.30000001192092896,
+      "frameMedianMs": 21.200000002980232,
+      "frameP95Ms": 23.200000002980232,
+      "heapBytes": 11077299
+    },
+    {
+      "mode": "canvas",
+      "width": 1920,
+      "height": 1080,
+      "count": 1200,
+      "submissionMedianMs": 1.800000011920929,
+      "submissionP95Ms": 3.0999999940395355,
+      "frameMedianMs": 43.900000005960464,
+      "frameP95Ms": 57.599999994039536,
+      "heapBytes": 7141893
+    },
+    {
+      "mode": "pixi",
+      "width": 1920,
+      "height": 1080,
+      "count": 1200,
+      "submissionMedianMs": 0.6000000089406967,
+      "submissionP95Ms": 1,
+      "frameMedianMs": 44.1000000089407,
+      "frameP95Ms": 49.70000000298023,
+      "heapBytes": 11608002
+    },
+    {
+      "mode": "canvas",
+      "width": 3440,
+      "height": 1440,
+      "count": 480,
+      "submissionMedianMs": 0.7999999970197678,
+      "submissionP95Ms": 1.6000000089406967,
+      "frameMedianMs": 17.899999991059303,
+      "frameP95Ms": 20.899999991059303,
+      "heapBytes": 8101834
+    },
+    {
+      "mode": "pixi",
+      "width": 3440,
+      "height": 1440,
+      "count": 480,
+      "submissionMedianMs": 0.29999999701976776,
+      "submissionP95Ms": 0.5,
+      "frameMedianMs": 31.19999998807907,
+      "frameP95Ms": 33.400000005960464,
+      "heapBytes": 9840898
+    },
+    {
+      "mode": "canvas",
+      "width": 3440,
+      "height": 1440,
+      "count": 1200,
+      "submissionMedianMs": 1.7999999970197678,
+      "submissionP95Ms": 3.2000000029802322,
+      "frameMedianMs": 43.599999994039536,
+      "frameP95Ms": 54.099999994039536,
+      "heapBytes": 7284274
+    },
+    {
+      "mode": "pixi",
+      "width": 3440,
+      "height": 1440,
+      "count": 1200,
+      "submissionMedianMs": 0.8999999910593033,
+      "submissionP95Ms": 1.3999999910593033,
+      "frameMedianMs": 54,
+      "frameP95Ms": 61.6000000089407,
+      "heapBytes": 10097034
+    },
+    {
+      "mode": "canvas",
+      "width": 5120,
+      "height": 1440,
+      "count": 480,
+      "submissionMedianMs": 0.7999999970197678,
+      "submissionP95Ms": 1.4000000059604645,
+      "frameMedianMs": 19.799999997019768,
+      "frameP95Ms": 28.100000008940697,
+      "heapBytes": 8245302
+    },
+    {
+      "mode": "pixi",
+      "width": 5120,
+      "height": 1440,
+      "count": 480,
+      "submissionMedianMs": 0.3999999910593033,
+      "submissionP95Ms": 0.5,
+      "frameMedianMs": 39.69999998807907,
+      "frameP95Ms": 42.29999999701977,
+      "heapBytes": 9978014
+    },
+    {
+      "mode": "canvas",
+      "width": 5120,
+      "height": 1440,
+      "count": 1200,
+      "submissionMedianMs": 1.9000000059604645,
+      "submissionP95Ms": 4,
+      "frameMedianMs": 48.099999994039536,
+      "frameP95Ms": 64.59999999403954,
+      "heapBytes": 7425370
+    },
+    {
+      "mode": "pixi",
+      "width": 5120,
+      "height": 1440,
+      "count": 1200,
+      "submissionMedianMs": 0.9000000059604645,
+      "submissionP95Ms": 1.4000000059604645,
+      "frameMedianMs": 59.8999999910593,
+      "frameP95Ms": 66.20000000298023,
+      "heapBytes": 10233910
+    }
+  ]
+}

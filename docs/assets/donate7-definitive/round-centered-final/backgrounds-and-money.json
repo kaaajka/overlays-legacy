@@ -1,0 +1,211 @@
+{
+  "method": "Original in-project Rocket League gameplay reference; noisy is unmodified, bright/dark are explicit exposure stress simulations of that same image, not three separate game captures.",
+  "rows": [
+    {
+      "name": {
+        "x": 641,
+        "y": 670,
+        "width": 638,
+        "height": 60.3125,
+        "center": 960
+      },
+      "filter": "none",
+      "chapter": "hero",
+      "time": 16.8,
+      "headline": {
+        "x": 555,
+        "y": 280,
+        "width": 810,
+        "height": 324.046875,
+        "center": 960
+      },
+      "paper": {
+        "x": 605,
+        "y": 622,
+        "width": 710,
+        "height": 355.3125,
+        "center": 960
+      },
+      "amount": {
+        "x": 641,
+        "y": 754.3125,
+        "width": 638,
+        "height": 144,
+        "center": 960
+      }
+    },
+    {
+      "name": {
+        "x": 641,
+        "y": 570,
+        "width": 638,
+        "height": 60.3125,
+        "center": 960
+      },
+      "filter": "none",
+      "chapter": "final",
+      "time": 39.1,
+      "headline": {
+        "x": 621.02783203125,
+        "y": 269.7747497558594,
+        "width": 541.73828125,
+        "height": 232.39794921875,
+        "center": 891.89697265625
+      },
+      "paper": {
+        "x": 605,
+        "y": 522,
+        "width": 710,
+        "height": 355.3125,
+        "center": 960
+      },
+      "amount": {
+        "x": 641,
+        "y": 654.3125,
+        "width": 638,
+        "height": 144,
+        "center": 960
+      }
+    },
+    {
+      "name": {
+        "x": 641,
+        "y": 670,
+        "width": 638,
+        "height": 60.3125,
+        "center": 960
+      },
+      "filter": "brightness(2.2) contrast(0.8)",
+      "chapter": "hero",
+      "time": 16.8,
+      "headline": {
+        "x": 555,
+        "y": 280,
+        "width": 810,
+        "height": 324.046875,
+        "center": 960
+      },
+      "paper": {
+        "x": 605,
+        "y": 622,
+        "width": 710,
+        "height": 355.3125,
+        "center": 960
+      },
+      "amount": {
+        "x": 641,
+        "y": 754.3125,
+        "width": 638,
+        "height": 144,
+        "center": 960
+      }
+    },
+    {
+      "name": {
+        "x": 641,
+        "y": 570,
+        "width": 638,
+        "height": 60.3125,
+        "center": 960
+      },
+      "filter": "brightness(2.2) contrast(0.8)",
+      "chapter": "final",
+      "time": 39.1,
+      "headline": {
+        "x": 621.02783203125,
+        "y": 269.7747497558594,
+        "width": 541.73828125,
+        "height": 232.39794921875,
+        "center": 891.89697265625
+      },
+      "paper": {
+        "x": 605,
+        "y": 522,
+        "width": 710,
+        "height": 355.3125,
+        "center": 960
+      },
+      "amount": {
+        "x": 641,
+        "y": 654.3125,
+        "width": 638,
+        "height": 144,
+        "center": 960
+      }
+    },
+    {
+      "name": {
+        "x": 641,
+        "y": 670,
+        "width": 638,
+        "height": 60.3125,
+        "center": 960
+      },
+      "filter": "brightness(0.22)",
+      "chapter": "hero",
+      "time": 16.8,
+      "headline": {
+        "x": 555,
+        "y": 280,
+        "width": 810,
+        "height": 324.046875,
+        "center": 960
+      },
+      "paper": {
+        "x": 605,
+        "y": 622,
+        "width": 710,
+        "height": 355.3125,
+        "center": 960
+      },
+      "amount": {
+        "x": 641,
+        "y": 754.3125,
+        "width": 638,
+        "height": 144,
+        "center": 960
+      }
+    },
+    {
+      "name": {
+        "x": 641,
+        "y": 570,
+        "width": 638,
+        "height": 60.3125,
+        "center": 960
+      },
+      "filter": "brightness(0.22)",
+      "chapter": "final",
+      "time": 39.1,
+      "headline": {
+        "x": 621.02783203125,
+        "y": 269.7747497558594,
+        "width": 541.73828125,
+        "height": 232.39794921875,
+        "center": 891.89697265625
+      },
+      "paper": {
+        "x": 605,
+        "y": 522,
+        "width": 710,
+        "height": 355.3125,
+        "center": 960
+      },
+      "amount": {
+        "x": 641,
+        "y": 654.3125,
+        "width": 638,
+        "height": 144,
+        "center": 960
+      }
+    }
+  ],
+  "money": {
+    "src": "http://127.0.0.1:5173/src/assets/images/effects/banknote-particle.png",
+    "width": 64,
+    "height": 64,
+    "runtimeSha": "ccad9825cb4c459f23c8643c369b310a4350dde9838429b462e23f488ab589d9",
+    "sourceSha": "ccad9825cb4c459f23c8643c369b310a4350dde9838429b462e23f488ab589d9",
+    "exactMatch": true
+  }
+}

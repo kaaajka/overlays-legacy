@@ -1,20 +1,20 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-10-08T08:40:27.110Z",
+  "generatedAt": "2026-10-09T13:00:03.038Z",
   "title": "Design System: Kaaajka GIF-led Donation Shows",
   "extensions": {
     "typographyMeta": {
       "donor-name": {
         "displayName": "Scene donor name",
-        "purpose": "28–44px fitted complete name within the shared donor/amount anchor."
+        "purpose": "Donate1–6: 28–44px fitted complete name within the shared donor/amount anchor."
       },
       "donor-amount": {
         "displayName": "Scene donor amount",
-        "purpose": "At most 112px, width fitted; Polish number and baseline currency share the name anchor."
+        "purpose": "Donate1–6: at most 112px, width fitted; Polish number and baseline currency share the name anchor."
       },
       "information-title": {
         "displayName": "Reading header",
-        "purpose": "Shared peach fixed header; 28px donor, 26px nonwrapping amount."
+        "purpose": "Shared Donate1–6 peach fixed header;28px donor,26px nonwrapping amount. Donate7 alone uses berry Roboto Flex name800/amount950 on retained peach paper."
       },
       "body": {
         "displayName": "Complete message",
@@ -43,6 +43,30 @@
       "timecode": {
         "displayName": "Music timecode",
         "purpose": "18px monospace current music/lifecycle time, editable inline against the shared authoring transport; supporting numerical readouts use 9–10px monospace."
+      },
+      "donate7-setup": {
+        "displayName": "Donate7 setup",
+        "purpose": "Rounded CO/ZA preparation; Donate7 only."
+      },
+      "donate7-title": {
+        "displayName": "Donate7 title",
+        "purpose": "Live addressable comic POJEB!!! cutout; Donate7 only."
+      },
+      "donate7-caller": {
+        "displayName": "Donate7 caller",
+        "purpose": "Peripheral curved HALO chorus; Donate7 only."
+      },
+      "donate7-wtf": {
+        "displayName": "Donate7 wtf",
+        "purpose": "Travelling WTF and evolving title baseline; Donate7 only."
+      },
+      "donate7-name": {
+        "displayName": "Donate7 name",
+        "purpose": "Fitted donor identity on peach fiber paper; Donate7 only."
+      },
+      "donate7-amount": {
+        "displayName": "Donate7 amount",
+        "purpose": "Complete Polish digits and final focal hierarchy; Donate7 only."
       }
     },
     "shadows": [
@@ -57,9 +81,24 @@
         "purpose": "Soft reading separation. The built card also carries an 8px hard lower edge, recorded in its specimen but not canonized as reusable depth."
       },
       {
-        "name": "reaction-crt",
-        "value": "5px 14px 26px rgb(15 9 18 / 55%), inset 0 0 0 2px #a78385",
-        "purpose": "Donate7 handmade CRT casing only"
+        "name": "donate7-aperture",
+        "value": "4px 10px 16px rgb(29 8 20 / 48%)",
+        "purpose": "Three taped peach apertures only."
+      },
+      {
+        "name": "donate7-cutout",
+        "value": "5px 8px 0 var(--d7-pink), 7px 12px 0 var(--d7-berry), 9px 20px 16px rgb(27 8 19 / 45%)",
+        "purpose": "Intentional comic contour/extrusion local to Donate7; name/amount have no shadow."
+      },
+      {
+        "name": "donate7-donor-paper",
+        "value": "drop-shadow(4px 10px 10px rgb(29 8 20 / 38%))",
+        "purpose": "Follows donor paper torn alpha; donor text remains shadow-free."
+      },
+      {
+        "name": "donate7-fold-edge",
+        "value": "drop-shadow(0 5px 4px rgb(29 8 20 / 45%))",
+        "purpose": "Contact beneath retained 540×18px fold edge at y616, around the 620px seam."
       }
     ],
     "motion": [
@@ -71,12 +110,12 @@
       {
         "name": "source-clear",
         "value": "0.5s",
-        "purpose": "Clear source scene and supporting effects at track end."
+        "purpose": "Clear source footage and supporting effects at track end. Donate7 retains its transformed donor paper through Information."
       },
       {
         "name": "information-reveal",
         "value": "0.4s",
-        "purpose": "Reveal shared complete-message landing."
+        "purpose": "Reveal shared complete-message landing for Donate1–6. Donate7 reveals on retained paper from44.95s before unchanged46.23397s speech start."
       },
       {
         "name": "root-outro",
@@ -91,32 +130,32 @@
       {
         "name": "cash-wave",
         "value": "2.8s",
-        "purpose": "Maximum shared Donate5/6 cash-wave lifetime; Donate7 finite spectacle emission lifetimes reach 4.4s. None in information."
+        "purpose": "Maximum shared Donate5/6 cash-wave lifetime. Donate7 separate confetti is finite at up to 4.4s; Pixi notes live until falling below the stage. None remain in Information."
       },
       {
         "name": "source-entry",
         "value": "0.05s start, 0.1s duration",
-        "purpose": "First nonzero source entrance; public time zero hides every stage descendant. Donate7 main CRT opens from 0.05s over 0.22s."
+        "purpose": "First nonzero source entrance; public zero hides every stage descendant. Donate7 first aperture begins at 0.05s over 1.6s."
       },
       {
         "name": "cash-donor-falloff",
         "value": "160 canonical units; back 0.14, front 0.35 minimum alpha multipliers",
-        "purpose": "Continuous donor-relative readability falloff; six of seven seeded bill indices route behind scene content and one in front, without invisible deletion rectangles. Applies to shared Donate5/6 renderer; Donate7 instead uses measured-bound routes and continuous trajectory deflection."
+        "purpose": "Continuous donor-relative falloff for shared Donate5/6 only. Donate7 money uses full-screen deterministic downward fall with semantic occlusion and foreground alpha restraint."
       },
       {
-        "name": "donate7-mechanical",
-        "value": "M0,0 C0.12,0 0.13,0.97 0.3,1 0.55,1 0.65,1 1,1",
-        "purpose": "CustomEase CRT recruitment and character response"
+        "name": "donate7-paper",
+        "value": "M0,0 C0.22,0 0.21,0.88 0.48,1.04 0.65,1.1 0.77,1 1,1",
+        "purpose": "Overlapping 1.05–1.4s cutout, caller and source phrases."
       },
       {
-        "name": "donate7-heavy",
-        "value": "M0,0 C0.3,0 0.33,0.13 0.46,0.86 0.53,1 0.68,1 1,1",
-        "purpose": "CustomEase weighted contraction and shutdown"
+        "name": "donate7-weight",
+        "value": "M0,0 C0.33,0 0.29,0.4 0.46,0.89 0.62,1.04 0.78,1 1,1",
+        "purpose": "Weighted title/donor recovery and final hierarchy handoff."
       },
       {
         "name": "donate7-camera",
-        "value": "M0,0 C0.03,0.67 0.1,0.95 0.25,1 0.5,1 0.72,1 1,1",
-        "purpose": "CustomEase interruption punch and recovery"
+        "value": "M0,0 C0.24,0 0.21,0.83 0.5,0.96 0.68,1 0.82,1 1,1",
+        "purpose": "Shared d7-world lens and continuous paper-thread shape handoff on the absolute music clock."
       }
     ],
     "breakpoints": [
@@ -161,28 +200,39 @@
         "scripts/studio-tts.mjs",
         "public/studio-sw.js",
         "public/motion-studio.webmanifest",
-        "docs/DONATE7_CREATIVE_DIRECTION.md",
         "src/donations/choreography/donate7/choreography.ts",
         "src/donations/choreography/donate7/show.ts",
         "src/donations/choreography/donate7/SpectacleRenderer.ts",
         "src/donations/scenes/Donate7Scene.tsx",
-        "src/donations/scenes/donate7-show.css"
+        "src/donations/scenes/donate7-show.css",
+        "docs/DONATE7_DEFINITIVE_DIRECTION.md",
+        "src/donations/choreography/donate7/TREATMENT.md",
+        "public/assets/donations/brand/donate7-peach-paper.png",
+        "src/assets/images/effects/banknote-particle.png",
+        "src/donations/choreography/donate7/MoneyRainModel.ts",
+        "src/donations/choreography/donate7/PixiMoneyRenderer.ts",
+        "src/donations/choreography/donate7/PaperGateFilter.ts",
+        "src/donations/choreography/donate7/cameraRig.ts",
+        "docs/DONATE7_SHOWPIECE.md",
+        "docs/MOTION_TOOLBOX_PIXI.md"
       ],
       "visualEvidence": [
         "docs/assets/post-2.2/round-2/",
         "docs/assets/post-2.2/review-1/",
         "docs/assets/post-2.2/visible/information-full.png",
-        "docs/assets/donate7-creative/round-2/"
+        "docs/assets/donate7-showpiece/",
+        "docs/assets/donate7-showpiece/art-direction/",
+        "docs/assets/donate7-showpiece/art-direction/review/"
       ],
-      "snippetPolicy": "Eight self-contained ds-prefixed Studio/information/help specimens with literal values; intrinsic reading card shown at 30% scale. No framework, media playback or animation runtime; Poppins falls back to sans-serif.",
+      "snippetPolicy": "Existing self-contained ds-prefixed Studio/information/help specimens preserved. Donate7 CRT specimen replaced with static taped aperture placement; no media/GSAP runtime in panel.",
       "mediaPolicy": "Seven original GIFs and MP3s unchanged. Forward native sequential VP9 playback follows audio-derived expected phase with source-aware drift correction; scrub, freeze and export retain exact frame selection. Only derived Donate4/Donate6 WebM changed to lossless all-intra VP9. Source fallback remains unsynchronized. Source instances per scene: 1,3,3,1,1,1,3; release media at information/unmount.",
       "donate8": "Retained old lavender aperture/name composition in Studio with shared Donate7 track; no live threshold or separate audio asset.",
-      "expansion": "post-v2.2 extension of pinned d2f60c0f: aspect-aware bounded sources, resumable Full authoring transport, current local speech, nullable ranges, unified timeline, full Program controls, cash depth, hybrid source playback and installable shell; Donate7 now owns a handmade CRT wall, three authored interruptions, stable donor and finite three-depth Canvas spectacle",
-      "reviewEvidence": "Fresh static reviewer final disposition: ship; four findings resolved (shortcut layout, Donate5 cash contrast, missing blocker evidence, stale cash documentation). No approved comp or QUALITY BAR exists. Static evidence does not independently establish motion aesthetics, owner approval or an After Effects-level finish; final tests are reported separately.",
-      "donate7": "Owner-pinned reaction-wall extension. Original 120x120 GIF, WebM and 46.23397s audio unchanged; stills are original source frames 0/15/38/62. Primary current visual evidence: round-2 over the supplied real Rocket League stream. Exact-hero amount visibility correction is implemented; owner normal-speed music/visual approval pending. Browser evidence does not certify OBS hardware performance; functional QA/performance results are reported separately."
+      "expansion": "post-v2.2 extension of pinned d2f60c0f: aspect-aware bounded sources, resumable Full authoring transport, current local speech, nullable ranges, unified timeline, full Program controls, cash depth, hybrid source playback and installable shell; Donate7 now owns a centered reaction scrapbook, original green project banknotes, DynaPuff/Roboto Flex with font readiness before SplitText, peach fiber donor paper and full-screen Pixi rain, shared paper camera, retained fold and transient connective thread",
+      "reviewEvidence": "The previous showpiece refinement remains closed: `docs/assets/donate7-showpiece/finish-review.md` recorded five material findings, and `finish-verdict-refined.md` resolved the retained fold, thread junctions, shared shader seam, donor shadow/streamer ordering and stressed-name inset. Its full recording, transition comparisons and `round-final/` remain historical evidence; its QA recorded 334 unit tests (36 files), 88 browser tests, typecheck, lint and build in `docs/DONATE7_FINAL_REVIEW.md` and `docs/assets/donate7-showpiece/validation.json`. Earlier `donate7-pixi/` and `donate7-definitive/` iterations also remain historical.\n\nCurrent three-point continuation review entry: [art-direction review](docs/assets/donate7-showpiece/art-direction/review/README.md). `art-direction/finish-review.md` records **disposition: ship**, all three requested concerns resolved, and no material fixes: evolving 17–44s composition, centered amount anticipation/compression/37.65116s impact/recovery, and the same actual donor paper continuing into complete readable Information/TTS. This is **CANDIDATE for OWNER review only**; `ownerVisualApproval` remains false, and work stops before commit/push until owner approval. The accepted Pixi rain, typography, original monitor/reaction apertures, donor paper, architecture, centered composition and prior five closures remain the foundation.\n\nBoth `art-direction/final-{5732,3000000}/donate7-full-realtime-audio.mp4` recordings cover actual 1× WebAudio music and local nickname → amount → message speech through outro/complete for 57.32 PLN and 30,000.00 PLN (displayed `57,32 zł` / `30 000,00 zł`), with `errors: []` in their metadata. Six `art-direction/review/{middle,payoff,handoff}-{5732,3000000}-before-after.mp4` clips compare identical encoded timestamps with AFTER audio only and no speed changes. `review/comparison.json`, `review/delivery-check.json` and `runtime-fingerprint.json` document provenance; all twelve comparison/full-resolution chapter files decode with non-silent AAC, no whole-black intervals and no errors. Capture uses adaptive actual live frames on software SwiftShader, encoded at 30 FPS; it does not prove native OBS/GPU 60 FPS, continuous HIGH quality or target-hardware performance. Reviewer evidence is supplied comp/stills/live-frame strips, metadata and source, without independent complete-video playback/listening. Human musical/creative acceptance, ten listening passes, exact master/remix, reliable lyric alignment and fine audible microtiming remain unclaimed.\n\nAt this documentation handoff, fresh 334 unit tests, typecheck, lint and production build passed. Lint reports 0 errors, 44 warnings and 39 infos; the main bundle is 832,758 bytes / 261,309 gzip with the existing chunk warning. The complete fresh browser rerun passed 90/90 after the stale Information scene-hiding assertion was updated to require retained paper and cleared outgoing content; definitive totals belong to `docs/assets/donate7-showpiece/art-direction/review/README.md` and its `validation.json`. Runtime changes in this continuation are exactly `choreography.ts`, `cameraRig.ts` and `donate7-show.css`; money engine, audio/TTS implementation, dependencies and money/confetti counts are unchanged. Local authoring remains the priority, with Donate1–6 and Studio history preserved.",
+      "donate7": "Centered reaction scrapbook, original identity/DynaPuff/Roboto Flex, full-screen Pixi rain and connected paper camera refinement. Five material findings resolved; ship for owner review. ownerVisualApproval=false; no branch finalization before owner reviews full/comparison videos. Latest three-point continuation resolves all three scoped findings; candidate for owner review only. Same actual paper survives into Information; local authoring remains the priority."
     },
     "layout": {
-      "stage": "Fixed canonical height 1080; virtual width viewport.width/viewport.height*1080; uniform scale viewport.height/1080. Horizontal groups apply 0.35/0.65 of virtualWidth-1920 while bounded source dimensions retain reference composition. Donate7 uses authored extra-width factors 0.20–0.87 for source groups and 0.28 for donor/type.",
+      "stage": "Fixed canonical height 1080; virtual width viewport.width/viewport.height*1080; uniform scale viewport.height/1080. Horizontal groups apply 0.35/0.65 of virtualWidth-1920 while bounded source dimensions retain reference composition. Donate7 groups use 0.5 × stage-extra to center on the actual viewport.",
       "desktopWorkspace": "Desktop-only >=1280x720. Persisted docked horizontal 14/64/22%, vertical 62/38%; collapse sides; maximize/restore exact layout; reset and divider double-click.",
       "desktopTimeline": "Resizable 38% default; local scrolling; sticky 150px headers; one global axis/playhead across all tracks, bottom navigator pans/resizes its viewport, nullable IN/OUT and empty fresh selection.",
       "timelineWidth": "max(100%, 900px × zoom), zoom 1–128; adaptive subsecond ruler",
@@ -195,7 +245,7 @@
       "publicZero": "data-time-zero=true hides stage and every descendant at exact music/source zero, including loading and restart/reverse seek; private GSAP initialization never becomes public visual content",
       "output": "1280x720, 1366x768, 1920x1080, 2560x1440, 3840x2160, 1920x1200, 2560x1080, 3440x1440, 3840x1080, 5120x1440; custom even width 320–8192 and height 240–4320.",
       "startup": "Donate1; Full Alert; manual selection; stream background; no range; loop off.",
-      "donate7": "Main source window 240x240 at (1090,380); satellites 134x134 at (885,390)/(1385,475); six 100x100 stills from four original poses. CRT padding 9px 9px 23px. Stable 540px donor stack at (405,535), gap 20px, outside camera/wall transforms. Headline 650px at (385,265), WTF at (425,820). Canonical 1080 height, base source window twice native before brief wall/camera punches; extra width separates groups rather than enlarging footage."
+      "donate7": "Original 120px feeds bounded to 176×176 at (465,150), 138×138 at (1260,196), 130×130 at (405,432), each with 7px peach frame and pink tape. Centered 810px headline at (555,280) and 710px donor strip at (605,622) both rest at canonical x960; CO/ZA and POJEB are center-aligned. All groups use 0.5 × stage-extra; WTF at (1295,486). Donor text/amount are centered. The centered 710px donor strip has a 232px minimum height, 24px stack gap and 36px horizontal / 30px bottom padding. Top padding starts at 68px and is measured after font readiness: `max(68, ceil(((nameBlock.offsetHeight + amountBlock.offsetHeight + 54) * 0.16) / 0.84 + 18))`. The paper grows with complete wrapped names without shrinking the amount to make room. A torn-alpha-following `drop-shadow(4px 10px 10px rgb(29 8 20 / 38%))` provides depth; the text itself remains shadow-free. Secondary cream/cyan streamers sit behind semantic paper, protecting the final name/number interior. Original footage stays bounded; Pixi money spans the complete viewport."
     },
     "cash": {
       "eligibleTiers": [
@@ -242,9 +292,9 @@
         "Ovation: native cyan 56px aside at hero +0.1s",
         "Heart: native cheering 56px sticker at (875,712), −8° rotation",
         "Studio: 24px identity mark",
-        "Donate7: original 90px cheer/cyan cue-led stickers and occasional small original emote stamps in finite paper emission"
+        "Donate7: original cheer 84px / cyan 68px / cry 72px cue-led replies; occasional 32px emote stamps in finite paper inventory"
       ],
-      "negativeSpace": "Transparent gameplay surrounds seven bounded compositions; previous assembly scales/coverage measures are historical, not current quotas; Donate7 adds brief authored dark veil and peach wash at interruption peaks",
+      "negativeSpace": "Transparent gameplay around seven bounded compositions; previous coverage quotas remain historical. Donate7 has no enclosing opaque panel or full-stage tint.",
       "lettering": "Transparent handwritten OMG at 200×80; two 280×187 CSS windows from HOLY/MOLY asset; original GIF footage unchanged"
     },
     "colorMeta": {
@@ -908,139 +958,144 @@
           "oklch(95.0% 0.08227 37.22)"
         ]
       },
-      "reaction-plum": {
+      "donate7-berry": {
         "role": "primary",
-        "displayName": "Reaction Plum",
-        "canonical": "#2b222a",
+        "displayName": "Berry Contour",
         "tonalRamp": [
-          "oklch(15.0% 0.01966 329.77)",
-          "oklch(26.4% 0.01966 329.77)",
-          "oklch(37.9% 0.01966 329.77)",
-          "oklch(49.3% 0.01966 329.77)",
-          "oklch(60.7% 0.01966 329.77)",
-          "oklch(72.1% 0.01966 329.77)",
-          "oklch(83.6% 0.01966 329.77)",
-          "oklch(95.0% 0.01966 329.77)"
+          "oklch(15.00% 0.0783 347.66)",
+          "oklch(26.43% 0.0783 347.66)",
+          "oklch(37.86% 0.0783 347.66)",
+          "oklch(49.29% 0.0783 347.66)",
+          "oklch(60.71% 0.0783 347.66)",
+          "oklch(72.14% 0.0783 347.66)",
+          "oklch(83.57% 0.0783 347.66)",
+          "oklch(95.00% 0.0783 347.66)"
         ]
       },
-      "reaction-bezel": {
+      "donate7-pink": {
         "role": "primary",
-        "displayName": "Reaction Bezel",
-        "canonical": "#a78385",
+        "displayName": "Pink Extrusion",
         "tonalRamp": [
-          "oklch(15.0% 0.04444 14.64)",
-          "oklch(26.4% 0.04444 14.64)",
-          "oklch(37.9% 0.04444 14.64)",
-          "oklch(49.3% 0.04444 14.64)",
-          "oklch(60.7% 0.04444 14.64)",
-          "oklch(72.1% 0.04444 14.64)",
-          "oklch(83.6% 0.04444 14.64)",
-          "oklch(95.0% 0.04444 14.64)"
+          "oklch(15.00% 0.2068 1.88)",
+          "oklch(26.43% 0.2068 1.88)",
+          "oklch(37.86% 0.2068 1.88)",
+          "oklch(49.29% 0.2068 1.88)",
+          "oklch(60.71% 0.2068 1.88)",
+          "oklch(72.14% 0.2068 1.88)",
+          "oklch(83.57% 0.2068 1.88)",
+          "oklch(95.00% 0.2068 1.88)"
         ]
       },
-      "reaction-cream": {
+      "donate7-peach": {
         "role": "primary",
-        "displayName": "Reaction Cream",
-        "canonical": "#fff4e5",
+        "displayName": "Peach Aperture",
         "tonalRamp": [
-          "oklch(15.0% 0.02308 75.86)",
-          "oklch(26.4% 0.02308 75.86)",
-          "oklch(37.9% 0.02308 75.86)",
-          "oklch(49.3% 0.02308 75.86)",
-          "oklch(60.7% 0.02308 75.86)",
-          "oklch(72.1% 0.02308 75.86)",
-          "oklch(83.6% 0.02308 75.86)",
-          "oklch(95.0% 0.02308 75.86)"
+          "oklch(15.00% 0.0794 44.97)",
+          "oklch(26.43% 0.0794 44.97)",
+          "oklch(37.86% 0.0794 44.97)",
+          "oklch(49.29% 0.0794 44.97)",
+          "oklch(60.71% 0.0794 44.97)",
+          "oklch(72.14% 0.0794 44.97)",
+          "oklch(83.57% 0.0794 44.97)",
+          "oklch(95.00% 0.0794 44.97)"
         ]
       },
-      "reaction-peach": {
+      "donate7-ivory": {
         "role": "primary",
-        "displayName": "Reaction Peach",
-        "canonical": "#f3a08f",
+        "displayName": "Ivory Comic Face",
         "tonalRamp": [
-          "oklch(15.0% 0.10273 32.13)",
-          "oklch(26.4% 0.10273 32.13)",
-          "oklch(37.9% 0.10273 32.13)",
-          "oklch(49.3% 0.10273 32.13)",
-          "oklch(60.7% 0.10273 32.13)",
-          "oklch(72.1% 0.10273 32.13)",
-          "oklch(83.6% 0.10273 32.13)",
-          "oklch(95.0% 0.10273 32.13)"
+          "oklch(15.00% 0.0373 83.03)",
+          "oklch(26.43% 0.0373 83.03)",
+          "oklch(37.86% 0.0373 83.03)",
+          "oklch(49.29% 0.0373 83.03)",
+          "oklch(60.71% 0.0373 83.03)",
+          "oklch(72.14% 0.0373 83.03)",
+          "oklch(83.57% 0.0373 83.03)",
+          "oklch(95.00% 0.0373 83.03)"
         ]
       },
-      "reaction-pink": {
+      "donate7-amount": {
         "role": "primary",
-        "displayName": "Reaction Pink",
-        "canonical": "#ed7eaa",
+        "displayName": "Raspberry Amount",
         "tonalRamp": [
-          "oklch(15.0% 0.14411 356.15)",
-          "oklch(26.4% 0.14411 356.15)",
-          "oklch(37.9% 0.14411 356.15)",
-          "oklch(49.3% 0.14411 356.15)",
-          "oklch(60.7% 0.14411 356.15)",
-          "oklch(72.1% 0.14411 356.15)",
-          "oklch(83.6% 0.14411 356.15)",
-          "oklch(95.0% 0.14411 356.15)"
+          "oklch(15.00% 0.1870 2.84)",
+          "oklch(26.43% 0.1870 2.84)",
+          "oklch(37.86% 0.1870 2.84)",
+          "oklch(49.29% 0.1870 2.84)",
+          "oklch(60.71% 0.1870 2.84)",
+          "oklch(72.14% 0.1870 2.84)",
+          "oklch(83.57% 0.1870 2.84)",
+          "oklch(95.00% 0.1870 2.84)"
         ]
       },
-      "reaction-cyan": {
+      "donate7-spectacle-peach": {
         "role": "primary",
-        "displayName": "Reaction Cyan",
-        "canonical": "#66d4dd",
+        "displayName": "Spectacle Peach",
         "tonalRamp": [
-          "oklch(15.0% 0.10123 202.55)",
-          "oklch(26.4% 0.10123 202.55)",
-          "oklch(37.9% 0.10123 202.55)",
-          "oklch(49.3% 0.10123 202.55)",
-          "oklch(60.7% 0.10123 202.55)",
-          "oklch(72.1% 0.10123 202.55)",
-          "oklch(83.6% 0.10123 202.55)",
-          "oklch(95.0% 0.10123 202.55)"
+          "oklch(15.00% 0.1027 32.13)",
+          "oklch(26.43% 0.1027 32.13)",
+          "oklch(37.86% 0.1027 32.13)",
+          "oklch(49.29% 0.1027 32.13)",
+          "oklch(60.71% 0.1027 32.13)",
+          "oklch(72.14% 0.1027 32.13)",
+          "oklch(83.57% 0.1027 32.13)",
+          "oklch(95.00% 0.1027 32.13)"
         ]
       },
-      "reaction-paper": {
+      "donate7-spectacle-pink": {
         "role": "primary",
-        "displayName": "Reaction Paper",
-        "canonical": "#ffe7c7",
+        "displayName": "Spectacle Pink",
         "tonalRamp": [
-          "oklch(15.0% 0.04949 75.02)",
-          "oklch(26.4% 0.04949 75.02)",
-          "oklch(37.9% 0.04949 75.02)",
-          "oklch(49.3% 0.04949 75.02)",
-          "oklch(60.7% 0.04949 75.02)",
-          "oklch(72.1% 0.04949 75.02)",
-          "oklch(83.6% 0.04949 75.02)",
-          "oklch(95.0% 0.04949 75.02)"
+          "oklch(15.00% 0.1441 356.15)",
+          "oklch(26.43% 0.1441 356.15)",
+          "oklch(37.86% 0.1441 356.15)",
+          "oklch(49.29% 0.1441 356.15)",
+          "oklch(60.71% 0.1441 356.15)",
+          "oklch(72.14% 0.1441 356.15)",
+          "oklch(83.57% 0.1441 356.15)",
+          "oklch(95.00% 0.1441 356.15)"
         ]
       },
-      "reaction-cash": {
+      "donate7-spectacle-paper": {
         "role": "primary",
-        "displayName": "Reaction Cash",
-        "canonical": "#f7dfad",
+        "displayName": "Spectacle Paper",
         "tonalRamp": [
-          "oklch(15.0% 0.06979 85.27)",
-          "oklch(26.4% 0.06979 85.27)",
-          "oklch(37.9% 0.06979 85.27)",
-          "oklch(49.3% 0.06979 85.27)",
-          "oklch(60.7% 0.06979 85.27)",
-          "oklch(72.1% 0.06979 85.27)",
-          "oklch(83.6% 0.06979 85.27)",
-          "oklch(95.0% 0.06979 85.27)"
+          "oklch(15.00% 0.0495 75.02)",
+          "oklch(26.43% 0.0495 75.02)",
+          "oklch(37.86% 0.0495 75.02)",
+          "oklch(49.29% 0.0495 75.02)",
+          "oklch(60.71% 0.0495 75.02)",
+          "oklch(72.14% 0.0495 75.02)",
+          "oklch(83.57% 0.0495 75.02)",
+          "oklch(95.00% 0.0495 75.02)"
         ]
       },
-      "reaction-cash-ink": {
+      "donate7-spectacle-cyan": {
         "role": "primary",
-        "displayName": "Reaction Cash Ink",
-        "canonical": "#654c42",
+        "displayName": "Spectacle Cyan",
         "tonalRamp": [
-          "oklch(15.0% 0.03776 42.82)",
-          "oklch(26.4% 0.03776 42.82)",
-          "oklch(37.9% 0.03776 42.82)",
-          "oklch(49.3% 0.03776 42.82)",
-          "oklch(60.7% 0.03776 42.82)",
-          "oklch(72.1% 0.03776 42.82)",
-          "oklch(83.6% 0.03776 42.82)",
-          "oklch(95.0% 0.03776 42.82)"
+          "oklch(15.00% 0.1012 202.55)",
+          "oklch(26.43% 0.1012 202.55)",
+          "oklch(37.86% 0.1012 202.55)",
+          "oklch(49.29% 0.1012 202.55)",
+          "oklch(60.71% 0.1012 202.55)",
+          "oklch(72.14% 0.1012 202.55)",
+          "oklch(83.57% 0.1012 202.55)",
+          "oklch(95.00% 0.1012 202.55)"
+        ]
+      },
+      "donate7-spectacle-cream": {
+        "role": "primary",
+        "displayName": "Spectacle Cream",
+        "tonalRamp": [
+          "oklch(15.00% 0.0231 75.86)",
+          "oklch(26.43% 0.0231 75.86)",
+          "oklch(37.86% 0.0231 75.86)",
+          "oklch(49.29% 0.0231 75.86)",
+          "oklch(60.71% 0.0231 75.86)",
+          "oklch(72.14% 0.0231 75.86)",
+          "oklch(83.57% 0.0231 75.86)",
+          "oklch(95.00% 0.0231 75.86)"
         ]
       }
     },
@@ -1051,28 +1106,168 @@
       "capabilities": "authoringServices adapter exposes export, TTS, persistence. Local backend unavailable: visible Polish status; shell remains. Large music/scene media and service responses are not cached; no offline server replacement or desktop-host migration."
     },
     "donate7": {
-      "signature": "broadcast-reaction-wall",
+      "signature": "reaction-scrapbook",
+      "directionSeed": "701ff517",
+      "scope": "Donate7 only; preserve Donate1–6/Studio and shared Information behavior; authorized local paper/header Information continuation.",
+      "authority": {
+        "primaryComp": ".impeccable/mocks/donate7-definitive-comp-1.png",
+        "selection": "Agent-delegated original brief sections 30/58",
+        "followup": "Explicit comp1 confirmation with comp2 hierarchy/breathing and comp3 continuous eye-flow synthesis",
+        "ownerVisualApproval": true,
+        "acceptanceRecord": "docs/DONATE7_ACCEPTANCE.md",
+        "latestUserScope": "Owner approved the completed Donate7 creative result on 2026-10-09 as the execution-quality reference and authorized finalization/push. Next: audit and propose six distinct Donate1–6 concepts, then incremental production starting with Donate6 on the existing engine/Studio. No future AI editor, JSON migration or platform rewrite.",
+        "facecam": "Keep the main semantic donor paper, title and reaction apertures outside the gameplay facecam rectangle; the explicit crossing exception applies only to brief translucent money notes."
+      },
       "cues": {
         "signal": 4.45823,
-        "co": 11.80735,
-        "za": 12.27175,
-        "hero": 13.21215,
-        "response": 16.43973,
+        "co": 13.20054,
+        "za": 13.87392,
+        "hero": 15.49932,
+        "response": 18.2,
         "reprise": 22.89488,
         "exchange": 25.44907,
-        "recovery": 30.25,
-        "calm": 33.52961,
-        "recruit": 36.06059,
-        "final": 37.66277,
+        "recovery": 28.6,
+        "calm": 29.45,
+        "recruit": 30.26721,
+        "final": 37.65116,
         "afterglow": 40.91356,
-        "exit": 43.67673
+        "exit": 43.75
       },
-      "clock": "One paused absolute-time GSAP director; CustomEase mechanical/heavy/camera curves, SplitText slam, DrawSVG impact strokes. Analytic seeded Canvas positions are independent of seek history.",
-      "amount": "Every digit visible at exact 13.21215s hero; short positional settle retains readability. Donor outside camera group.",
-      "falseCalm": "Authored visual counterpoint inside loud music; no claim of a silent passage or formal song section.",
+      "cueEvidence": "Authored local-audio decisions differ from measured onsets; the 15.51093s measured transient is distinct from the 15.49932s authored hero. Lyrics, master/remix and formal sections remain unverified.",
+      "clock": "Web Audio absolute time → paused GSAP scores → DOM/SVG/Pixi/separate Canvas confetti. No Pixi Application or autonomous renderer ticker; deterministic seed/seek reconstruction.",
+      "fourSignatures": [
+        "Peripheral curved HALO chorus",
+        "CO/ZA preparation → POJEB explanation",
+        "Travelling WTF / title-baseline exchange and curved frame roundtrip",
+        "Digit-led final hierarchy and delayed celebration"
+      ],
+      "finale": "The centered donor compresses from 36.83116s (cue.final − 0.82): scaleX 0.94 / scaleY 1.02, y−74, rotation 0 over 0.82s. At unchanged 37.65116s it impacts at scaleX 1.1 / scaleY 1.08, y−140 over 0.3s, then recovers to 1.045 on both axes over 1.1s from 37.95116s. Its transform origin is 50% 50%. During anticipation the title becomes a centered upper response at scale 0.56 / x0 / y−175 and apertures reduce to 0.82. The shared lens pulls to 0.974 / y10, recoils to 1.026 / y−8 at impact, then settles to 1 / y0. Complete digits and currency retain their overlapping positional reply; established delayed celebration follows without added populations.",
+      "amount": "All digits opaque at 15.49932s; position-only settling. Donor sits outside local d7-camera but inside shared d7-world; Information is outside d7-world.",
+      "fit": {
+        "name": "max(28, min(52, 640 / max(1, nickname.length * 0.85)))",
+        "amount": "min(144, 650 / (amount.length * 0.65 + 1))",
+        "currency": "0.55em; amount gap 12px",
+        "donorAlignment": "The centered 710px donor strip has a 232px minimum height, 24px stack gap and 36px horizontal / 30px bottom padding. Top padding starts at 68px and is measured after font readiness: `max(68, ceil(((nameBlock.offsetHeight + amountBlock.offsetHeight + 54) * 0.16) / 0.84 + 18))`. The paper grows with complete wrapped names without shrinking the amount to make room. A torn-alpha-following `drop-shadow(4px 10px 10px rgb(29 8 20 / 38%))` provides depth; the text itself remains shadow-free. Secondary cream/cyan streamers sit behind semantic paper, protecting the final name/number interior."
+      },
+      "fonts": {
+        "packages": {
+          "@fontsource-variable/dynapuff": "5.3.0",
+          "@fontsource-variable/roboto-flex": "5.3.0"
+        },
+        "licenses": "Both OFL-1.1, Latin-ext, with bundled metadata/license",
+        "axisRanges": {
+          "DynaPuff Variable": {
+            "wdth": {
+              "default": "100",
+              "min": "75",
+              "max": "100",
+              "step": "0.1"
+            },
+            "wght": {
+              "default": "400",
+              "min": "400",
+              "max": "700",
+              "step": "1"
+            }
+          },
+          "Roboto Flex Variable": {
+            "opsz": {
+              "default": "14",
+              "min": "8",
+              "max": "144",
+              "step": "0.1"
+            },
+            "slnt": {
+              "default": "0",
+              "min": "-10",
+              "max": "0",
+              "step": "1"
+            },
+            "wdth": {
+              "default": "100",
+              "min": "25",
+              "max": "151",
+              "step": "0.1"
+            },
+            "wght": {
+              "default": "400",
+              "min": "100",
+              "max": "1000",
+              "step": "1"
+            },
+            "GRAD": {
+              "default": "0",
+              "min": "-200",
+              "max": "150",
+              "step": "1"
+            },
+            "XOPQ": {
+              "default": "96",
+              "min": "27",
+              "max": "175",
+              "step": "1"
+            },
+            "XTRA": {
+              "default": "468",
+              "min": "323",
+              "max": "603",
+              "step": "1"
+            },
+            "YOPQ": {
+              "default": "79",
+              "min": "25",
+              "max": "135",
+              "step": "1"
+            },
+            "YTAS": {
+              "default": "750",
+              "min": "649",
+              "max": "854",
+              "step": "1"
+            },
+            "YTDE": {
+              "default": "-203",
+              "min": "-305",
+              "max": "-98",
+              "step": "1"
+            },
+            "YTFI": {
+              "default": "738",
+              "min": "560",
+              "max": "788",
+              "step": "1"
+            },
+            "YTLC": {
+              "default": "514",
+              "min": "416",
+              "max": "570",
+              "step": "1"
+            },
+            "YTUC": {
+              "default": "712",
+              "min": "528",
+              "max": "760",
+              "step": "1"
+            }
+          }
+        },
+        "roles": "DynaPuff 700/100 setup/title, 700/85 caller/WTF; Roboto name 800/85/48, amount 950/88/100 (weight/width/optical size). Amount width 88→82→88; remaining axes default. Anybody is removed.",
+        "readiness": "Donate7-only font-load promises for DynaPuff title and Roboto Flex Polish nickname/currency probes settle before SplitText initialization; fontsReady in useGSAP dependencies triggers initial measurement with loaded faces. Catch preserves lifecycle and does not guarantee load success."
+      },
+      "material": {
+        "paper": "public/assets/donations/brand/donate7-peach-paper.png",
+        "source": "Original generated RGBA fiber material with torn alpha edges, visibly mapped 100% across donor strip",
+        "figures": "Original 120px footage and cheer/cyan/cry bunnies; no replacement figures",
+        "money": {
+          "asset": "src/assets/images/effects/banknote-particle.png",
+          "nativeSize": "56×56px",
+          "drawSize": "Depth sizes: BACK 28–48px, MID 55–93px, FRONT 145–225px; native 56px texture scaling preserves transparent margins.",
+          "policy": "Unchanged original green PNG texture in Pixi; no vector replacement or Canvas fallback."
+        }
+      },
+      "falseCalm": "Authored restraint at 29.45s after recovery at 28.6s, at measured local bass dip; no silence or formal-section claim.",
       "spectacle": {
         "kinds": [
-          "bill",
           "paper",
           "streamer",
           "spark"
@@ -1093,27 +1288,97 @@
           "safe": 650000
         },
         "backingBasis": "Nominal target per each of three canvases; rounded dimensions can differ slightly. Total is approximately three times target. Geometry spans actual virtual width independently.",
-        "life": "Finite seeded inventory, emission lifetime at most 4.4s; no continuous rain",
+        "life": "Separate finite seeded confetti inventory, lifetime at most 4.4s; full-screen rain belongs to Pixi money.",
         "quality": "Per-emitter quotas preserve every signature type. Safe disables trails.",
-        "depth": "Sparks back; other indices modulo 9 front, else modulo 3 mid, else back. Stable seeded depth.",
-        "donorProtection": "Foreground sweeps route above/below actual donor bounds; continuous analytic trajectory deflection, without rectangular deletion or alpha holes.",
-        "fireworks": [
-          13.39215,
-          23.07488,
-          37.84277,
-          38.20277
-        ],
-        "information": "Hidden and cleared; dispose empties inventory and sets all backing canvases to 1x1"
+        "depth": "Sparks back; other indices modulo 9 front, else modulo 3 mid, else back. Stable seeded depth. All canvas depths sit behind semantic paper/title.",
+        "donorProtection": "Measured donor/title bounds apply only to supporting confetti, normalized relative to d7-world. All confetti canvases are behind semantic paper; money never receives these bounds.",
+        "information": "Hidden and cleared; dispose empties inventory and sets all backing canvases to 1x1",
+        "cueOffsets": {
+          "hero": {
+            "paper": 0.12,
+            "streamer": 0.24,
+            "spark": 0.18
+          },
+          "final": {
+            "paper": 0.12,
+            "streamer": 0.7,
+            "sparkLeft": 0.5,
+            "sparkRight": 1.1
+          }
+        },
+        "field": "Only separate confetti uses a 1450px inboard emission field with (stageWidth−1920)/2 offset; Pixi rain covers the entire actual viewport."
       },
-      "identity": "Original cheer/cyan bunny stickers at 90px; occasional original emote stamps at 32px local size in finite paper inventory. No replacement footage.",
-      "sourcePoses": [
-        0,
-        15,
-        38,
-        62
-      ],
-      "evidence": "docs/assets/donate7-creative/round-2/",
-      "approval": "Owner normal-speed musical/visual approval pending; no OBS hardware performance certification"
+      "identity": "Original cheer/cyan/cry replies at 84/68/72px; occasional 32px emote stamps; three feeds, no six-still CRT wall.",
+      "detector": {
+        "runs": 1,
+        "banErrors": 0,
+        "warningsAdvisories": 11,
+        "historicalFindings": [
+          "Roboto overused-font twice",
+          "Incumbent-font Anybody once / Roboto twice",
+          "Sizes 180/156/38/52",
+          "Amount color #AE1557 twice"
+        ],
+        "currentExceptions": "Current DynaPuff/Roboto Flex, 158/132/52/38 ramp, raspberry amount and cutout extrusion intentionally replace Donate7 only; no blanket ignores. DynaPuff 158/132 correction follows that run, not a rescan.",
+        "exitCode": 1
+      },
+      "evidence": "The previous showpiece refinement remains closed: `docs/assets/donate7-showpiece/finish-review.md` recorded five material findings, and `finish-verdict-refined.md` resolved the retained fold, thread junctions, shared shader seam, donor shadow/streamer ordering and stressed-name inset. Its full recording, transition comparisons and `round-final/` remain historical evidence; its QA recorded 334 unit tests (36 files), 88 browser tests, typecheck, lint and build in `docs/DONATE7_FINAL_REVIEW.md` and `docs/assets/donate7-showpiece/validation.json`. Earlier `donate7-pixi/` and `donate7-definitive/` iterations also remain historical.\n\nCurrent three-point continuation review entry: [art-direction review](docs/assets/donate7-showpiece/art-direction/review/README.md). `art-direction/finish-review.md` records **disposition: ship**, all three requested concerns resolved, and no material fixes: evolving 17–44s composition, centered amount anticipation/compression/37.65116s impact/recovery, and the same actual donor paper continuing into complete readable Information/TTS. This is **CANDIDATE for OWNER review only**; `ownerVisualApproval` remains false, and work stops before commit/push until owner approval. The accepted Pixi rain, typography, original monitor/reaction apertures, donor paper, architecture, centered composition and prior five closures remain the foundation.\n\nBoth `art-direction/final-{5732,3000000}/donate7-full-realtime-audio.mp4` recordings cover actual 1× WebAudio music and local nickname → amount → message speech through outro/complete for 57.32 PLN and 30,000.00 PLN (displayed `57,32 zł` / `30 000,00 zł`), with `errors: []` in their metadata. Six `art-direction/review/{middle,payoff,handoff}-{5732,3000000}-before-after.mp4` clips compare identical encoded timestamps with AFTER audio only and no speed changes. `review/comparison.json`, `review/delivery-check.json` and `runtime-fingerprint.json` document provenance; all twelve comparison/full-resolution chapter files decode with non-silent AAC, no whole-black intervals and no errors. Capture uses adaptive actual live frames on software SwiftShader, encoded at 30 FPS; it does not prove native OBS/GPU 60 FPS, continuous HIGH quality or target-hardware performance. Reviewer evidence is supplied comp/stills/live-frame strips, metadata and source, without independent complete-video playback/listening. Human musical/creative acceptance, ten listening passes, exact master/remix, reliable lyric alignment and fine audible microtiming remain unclaimed.\n\nAt this documentation handoff, fresh 334 unit tests, typecheck, lint and production build passed. Lint reports 0 errors, 44 warnings and 39 infos; the main bundle is 832,758 bytes / 261,309 gzip with the existing chunk warning. The complete fresh browser rerun passed 90/90 after the stale Information scene-hiding assertion was updated to require retained paper and cleared outgoing content; definitive totals belong to `docs/assets/donate7-showpiece/art-direction/review/README.md` and its `validation.json`. Runtime changes in this continuation are exactly `choreography.ts`, `cameraRig.ts` and `donate7-show.css`; money engine, audio/TTS implementation, dependencies and money/confetti counts are unchanged. Local authoring remains the priority, with Donate1–6 and Studio history preserved.",
+      "approval": "CANDIDATE for OWNER review only; ownerVisualApproval=false. Reviewer disposition ship closes all three scoped findings, with no material fixes. Stop before commit/push pending owner approval; the full 90-test browser suite is still running at documentation handoff; final totals belong to art-direction/review/README.md and validation.json.",
+      "review": {
+        "disposition": "ship",
+        "candidateFor": "OWNER review only",
+        "path": "docs/assets/donate7-showpiece/art-direction/finish-review.md",
+        "entry": "docs/assets/donate7-showpiece/art-direction/review/README.md",
+        "resolvedFindings": 3,
+        "materialFixes": [],
+        "scope": "Evolving 17–44s composition; centered amount anticipation/compression/37.65116s impact/recovery; same-paper readable Information/TTS.",
+        "priorFiveFindings": "Closed; preserved in previousReview",
+        "limits": "Supplied comp/stills/live-frame strips, source and metadata only; no independent complete-video playback/listening, owner musical acceptance or native OBS/GPU 60 FPS proof."
+      },
+      "cameraAndPaper": "A global `.d7-world` camera contains all show DOM/SVG, original reaction media, Pixi money and separate confetti canvases; Information/TTS stays outside it. It authors quiet drift, shared anticipation/recoil, recovery pullback and final amount push on the existing GSAP clock. The donor remains outside the local `.d7-camera`; the local camera contains headline/reactions. MorphSVG and DrawSVG retain the same two-path paper thread, exposing short travelling segments rather than a permanent outline. The thread fades at 45.2s before the Information read, meets the retained fold edge and emerges beneath the donor as the berry amount underline at 37.65116s. During recovery from 28.6s, the actual opaque headline folds to −78° around its measured bottom hinge at canonical y620; satellite apertures join the seam and the same forms unfold at 30.26721s. A textured 540 × 18px physical edge at y616 provides a contact shadow and occludes the thread. HIGH/MEDIUM apply one temporary custom GLSL PaperGateFilter to the money composite: partial closure from 28.6s, final closure 29.3–29.75s, reopening 30.36721–32.01721s around the same approximately 620px seam. Original note color and downward poses persist. SAFE retains the DOM/SVG hinge and edge with a cheap money-opacity envelope. No permanent filter or new clock is introduced.",
+      "money": {
+        "renderer": "PixiJS 8.22.0 WebGLRenderer; one original texture; three pooled ParticleContainers",
+        "clock": "absolute-time paused GSAP; no independent Pixi ticker",
+        "particles": {
+          "high": 540,
+          "medium": 310,
+          "safe": 135
+        },
+        "backingPixels": {
+          "high": 2100000,
+          "medium": 1500000,
+          "safe": 900000
+        },
+        "backingBasis": "One Pixi canvas, resolution at most 1; rounded actual dimensions may differ.",
+        "model": "Donate7 money uses one lazily loaded Pixi WebGLRenderer, the unchanged green 56 × 56px `src/assets/images/effects/banknote-particle.png` texture and three pooled ParticleContainers (BACK/MID/FRONT). Finite seeded birth inventory and closed-form terminal fall, drift, rotation and flutter reconstruct from absolute music time; there is no accumulated simulation, per-note tween or independent Pixi ticker. Bills begin above the full logical viewport, including ultrawide, and continue downward. BACK sizes are 28–48px at 115–190 logical px/s, MID 55–93px at 200–350px/s, FRONT 145–225px at 510–730px/s. Existing HIGH/MEDIUM/SAFE money caps stay 540/310/135, with backing targets 2.1M/1.5M/0.9M pixels for the single Pixi canvas (resolution capped at 1). This refinement does not increase populations. Money never reads donor/title bounds or follows repulsion, fountains or side lanes. All money depths sit behind the semantic show, whose title and opaque donor paper provide normal occlusion. Brief translucent notes over the gameplay facecam are explicitly allowed; preserve full-screen rain. Keep the main semantic donor paper, title and reaction apertures outside the gameplay facecam rectangle; the explicit crossing exception applies only to brief translucent money notes. Emission starts at 3.6s, builds at 8.1/12.3s, storms at 15.49932s, reduces at 18.4s, renews at 22.89488s, restrains at 28.6s and rebuilds at 30.26721s. Amount priority at 37.65116s reduces foreground alpha, followed by the final storm at 38.85s. Emission stops at 43.75s; fade spans 44.25–46.15s, and exact zero/Information clears money. Renderer failures explicitly degrade money while preserving source, semantic donor, TTS and queue completion; there is no Canvas money fallback.",
+        "filters": "HIGH/MEDIUM transient PaperGateFilter around 620px seam; SAFE retained DOM/SVG hinge and opacity envelope.",
+        "failure": "Explicit degraded state; money disabled, source/semantic donor/TTS/queue retained; no Canvas money fallback."
+      },
+      "compositionContinuation": "From 18.4s, the quiet reading shot reduces the headline to 0.72 scale / y−110, lifts the centered donor 42px and pulls the shared lens to 0.962. At 22.89488s the reprise uses a different 0.86-scale headline / y−74 and 0.97 donor scale / y−20, with the existing WTF baseline exchange and frame roundtrip. The retained 28.6s hinge unfolds at 30.26721s into a 0.84-scale headline / y−36 and donor y−46; three original apertures form an upper rail through relative offsets (180,−55), (−95,−115), (505,−340), preserving their bounded source sizes. Reading, exchange, fold and recruitment evolve the composition instead of repeatedly restoring the hero poster.",
+      "informationHandoff": "From 43.85s the existing `.d7-donor` paper transforms over 1.65s into centered measured Information bounds: width includes 72px extra and height includes 64px extra with a 0.72 opaque-material allowance. Its old name/amount/underline clear from 44.5s over 0.65s; Information appears from 44.95s over 0.5s and reveals upward over 1s. The thread clears from 45.2s over 0.45s. The same torn peach fiber paper remains visible in production Information, with a transparent successful Information background; a solid peach backing remains when choreography is unavailable. Donate7 alone uses a berry Roboto Flex header (name 800, amount 950) and berry Poppins message/thanks. Header/message are fully revealed before the established 46.23397s speech start. Shared content sizing, complete text, body-only scrolling, fixed header, emote slots, nickname → amount → message TTS and queue completion remain unchanged; no paper replacement or donor fold-out occurs.",
+      "previousReview": {
+        "disposition": "ship for owner review; branch finalization remains gated by owner approval",
+        "path": "docs/assets/donate7-showpiece/finish-verdict-refined.md",
+        "initialFindings": "docs/assets/donate7-showpiece/finish-review.md",
+        "resolvedFindings": 5,
+        "scope": "Retained visible fold; physical thread junctions; shader/material seam; donor depth and streamer ordering; stressed-name inset.",
+        "limits": "Supplied stills/live-frame strips and source; reviewer did not independently watch/listen to complete videos. No human listening or target OBS performance claim."
+      },
+      "continuationRuntime": {
+        "files": [
+          "src/donations/choreography/donate7/choreography.ts",
+          "src/donations/choreography/donate7/cameraRig.ts",
+          "src/donations/scenes/donate7-show.css"
+        ],
+        "unchanged": "Money engine, audio/TTS, dependencies, money/confetti populations, clock, queue and lifecycle",
+        "capture": "Actual 1× live WebAudio browser output, software SwiftShader adaptive quality/live frames; encoded 30 FPS; both fixtures complete with errors: []",
+        "qaAtDocumentation": "334 unit tests/typecheck/lint/build passed; full 90-test browser suite still running; lint 0 errors, 44 warnings, 39 infos; main bundle 832,758 bytes / 261,309 gzip with existing chunk warning.",
+        "validationEntry": "docs/assets/donate7-showpiece/art-direction/review/validation.json",
+        "updatedExistingTests": [
+          "tests/motion-engine.pw.ts"
+        ],
+        "addedRegressionTest": "tests/donate7-art-direction.pw.ts"
+      }
     }
   },
   "components": [
@@ -1181,17 +1446,17 @@
       "css": ".ds-help{width:310px;padding:14px 16px;color:#f8e9e1;background:#302a2a;border:1px solid #967065;border-radius:8px;box-shadow:0 8px 28px #0009;font:13px/1.6 Poppins,sans-serif}.ds-help strong{color:#ffccb8}.ds-help p{margin:7px 0 0}"
     },
     {
-      "name": "Reaction CRT bezel",
+      "name": "Donate7 taped aperture",
       "kind": "custom",
-      "refersTo": "reaction-monitor",
-      "description": "Donate7 handmade casing at 75% specimen scale; bounded black media well represents placement only. Source footage remains the original asset in the show.",
-      "html": "<div class=\"ds-reaction-specimen\"><div class=\"ds-reaction-crt\"><div class=\"ds-reaction-screen\" aria-label=\"Original webcam media placement\"></div><span class=\"ds-reaction-halo\">HALO?</span><i class=\"ds-reaction-led\" aria-hidden=\"true\"></i></div></div>",
-      "css": ".ds-reaction-specimen{height:210px;position:relative}.ds-reaction-crt{position:relative;width:240px;height:240px;padding:9px 9px 23px;background:#2b222a;border-radius:9px 9px 17px 9px;box-shadow:5px 14px 26px rgb(15 9 18 / 55%),inset 0 0 0 2px #a78385;transform:scale(.75) rotate(-3deg);transform-origin:top left}.ds-reaction-screen{position:relative;width:100%;height:100%;background:#0c090b;overflow:hidden}.ds-reaction-screen:after{content:\"\";position:absolute;inset:0;background:linear-gradient(transparent 48%,rgb(243 160 143 / 32%) 49%,transparent 53%);background-size:100% 7px;opacity:.08;box-shadow:inset 0 0 18px rgb(255 208 188 / 18%)}.ds-reaction-halo{position:absolute;left:10px;bottom:3px;font:600 13px Poppins,sans-serif;color:#f8d3c2}.ds-reaction-led{position:absolute;right:11px;bottom:8px;width:5px;height:5px;border-radius:50%;background:#66d4dd}"
+      "refersTo": "donate7-aperture",
+      "description": "Static original-footage placement specimen: peach paper, pink tape and soft cast shadow. Actual media lives in the show.",
+      "html": "<div class=\"ds-d7-specimen\"><div class=\"ds-d7-aperture\"><div class=\"ds-d7-source\" aria-label=\"Original tiny webcam media placement\"></div></div></div>",
+      "css": ".ds-d7-specimen{height:210px;padding:18px 10px}.ds-d7-aperture{position:relative;width:176px;height:176px;padding:7px;background:#ffc2a7;box-shadow:4px 10px 16px rgb(29 8 20 / 48%);transform:rotate(-6deg);transform-origin:50% 70%}.ds-d7-aperture:after{content:\"\";position:absolute;left:38%;top:-9px;width:38px;height:15px;background:#f14b89;transform:rotate(-11deg)}.ds-d7-source{width:100%;height:100%;background:#140f18;overflow:hidden}"
     }
   ],
   "narrative": {
     "northStar": "Seven GIFs Conduct the Show",
-    "overview": "Each live donation is a miniature music video conducted by Kaaajka's selected GIF, its existing track and its legacy joke. The room dancer calls for a two-step, the masked dancer leaves transparent echoes, the rodent cuts through a film strip, the seated portrait unrolls paper, the crowd opens its arms, the streamer passes a heart, and the tiny webcam interrupts through a monitor wall. Exuberance and ascending importance come from these subjects, their distinct layouts and their timed donor payoffs.\n\nShared infrastructure supports those seven compositions: a transparent broadcast stage, solid donor typography, absolute music time, source-frame seeking and a calm complete-message landing. Production v2.2 composes smaller source-aware windows, a single donor/amount stack per show, deliberate negative space, source-specific cash payoffs and selective community replies. Handwritten OMG and HOLY/MOLY assets adapt the supplied banner's written character; original source GIFs remain unchanged. The supplied peach channel banner, controller avatar and white bunny emotes establish warmth and expressive reaction; they do not recolor the selected GIFs.\n\nDonate7 now builds a warm handmade CRT reaction wall around the original tiny webcam: solitary signal, monitor recruitment, three interruptions, recovery, authored false calm and sequential shutdown. Its donor stays outside the camera group. Finite seeded bills, paper, ribbons and four fireworks articulate the three peaks; original bunny stickers and source-pose stills answer the footage. This extension follows `docs/DONATE7_CREATIVE_DIRECTION.md`; the original GIF, WebM and audio remain unchanged.\n\nMotion Studio is a graphite authoring desk: tree, central fitted stage, inspector and multitrack timeline. Peach marks selection and deliberate actions; cyan carries measurement and the small bunny identity mark. This document records the built post-v2.2 extension of pinned direction `d2f60c0f`, inspected from current source. `docs/assets/post-2.2/round-2/` records the responsive scene and Studio captures; `review-1/` records corrected shortcuts, Donate5 cash contrast and the smaller-screen blocker, while `visible/information-full.png` records the complete-message landing. The fresh static review's four findings (shortcut layout, Donate5 cash contrast, missing blocker evidence and stale cash documentation) are resolved. No approved comp or QUALITY BAR card exists. Static captures do not independently prove normal-speed motion quality, an After Effects-level finish or owner approval; test results belong to the final QA report. The old SAY MY NAME composition remains a Studio-only Donate8 exploration sharing Donate7's track. Unrelated legacy overlay styles remain outside this document's scope.\n\nDonate7's current primary visual evidence is `docs/assets/donate7-creative/round-2/` over the supplied real Rocket League stream; checker, solid and transparent captures provide additional inspection contexts. Its review-required exact-hero amount visibility fix is implemented: every amount digit is visible at 13.21215s. Owner approval of normal-speed music and visual quality remains pending, and browser evidence does not certify OBS hardware performance. Functional and performance conclusions belong to the final QA report.",
+    "overview": "Each live donation is a miniature music video conducted by Kaaajka's selected GIF, its existing track and its legacy joke. The room dancer calls for a two-step, the masked dancer leaves transparent echoes, the rodent cuts through a film strip, the seated portrait unrolls paper, the crowd opens its arms, the streamer passes a heart, and the tiny webcam leads a reaction scrapbook. Exuberance and ascending importance come from these subjects, their distinct layouts and their timed donor payoffs.\n\nShared infrastructure supports those seven compositions: a transparent broadcast stage, solid donor typography, absolute music time, source-frame seeking and a calm complete-message landing. Production v2.2 composes smaller source-aware windows, a single donor/amount stack per show, deliberate negative space, source-specific cash payoffs and selective community replies. Handwritten OMG and HOLY/MOLY assets adapt the supplied banner's written character; original source GIFs remain unchanged. The supplied peach channel banner, controller avatar and white bunny emotes establish warmth and expressive reaction; they do not recolor the selected GIFs.\n\nDonate7 replaces only its Version A creative world with a reaction scrapbook: wide rounded CO ZA / POJEB!!! cutouts, three tiny taped original footage apertures, an integrated textured peach donor strip, HALO callers, original bunny replies and finite layered celebration. Composition 1 supplies the fan-stage direction; the explicit follow-up authorizes composition 2 hierarchy/breathing and composition 3 continuous eye-flow. The subsequent user instructions center the headline/donor, restore original green project money, replace old routes with full-screen Pixi rain and require the connected paper-camera refinement. Short translucent note crossings over the gameplay facecam are allowed. This extends the confirmed synthesis direction; it is not owner approval of completed motion. Original GIF, controlled WebM and audio remain unchanged.\n\nMotion Studio is a graphite authoring desk: tree, central fitted stage, inspector and multitrack timeline. Peach marks selection and deliberate actions; cyan carries measurement and the small bunny identity mark. This document records the built post-v2.2 extension of pinned direction `d2f60c0f`, inspected from current source. `docs/assets/post-2.2/round-2/` records the responsive scene and Studio captures; `review-1/` records corrected shortcuts, Donate5 cash contrast and the smaller-screen blocker, while `visible/information-full.png` records the complete-message landing. The fresh static review's four findings (shortcut layout, Donate5 cash contrast, missing blocker evidence and stale cash documentation) are resolved. No approved comp or QUALITY BAR card exists for that earlier post-v2.2 review; Donate7's later delegated comp and prose quality bar are recorded in its surface brief. Static captures do not independently prove normal-speed motion quality, an After Effects-level finish or owner approval; test results belong to the final QA report. The old SAY MY NAME composition remains a Studio-only Donate8 exploration sharing Donate7's track. Unrelated legacy overlay styles remain outside this document's scope.\n\nThe previous showpiece refinement remains closed: `docs/assets/donate7-showpiece/finish-review.md` recorded five material findings, and `finish-verdict-refined.md` resolved the retained fold, thread junctions, shared shader seam, donor shadow/streamer ordering and stressed-name inset. Its full recording, transition comparisons and `round-final/` remain historical evidence; its QA recorded 334 unit tests (36 files), 88 browser tests, typecheck, lint and build in `docs/DONATE7_FINAL_REVIEW.md` and `docs/assets/donate7-showpiece/validation.json`. Earlier `donate7-pixi/` and `donate7-definitive/` iterations also remain historical.\n\nCurrent three-point continuation review entry: [art-direction review](docs/assets/donate7-showpiece/art-direction/review/README.md). `art-direction/finish-review.md` records **disposition: ship**, all three requested concerns resolved, and no material fixes: evolving 17–44s composition, centered amount anticipation/compression/37.65116s impact/recovery, and the same actual donor paper continuing into complete readable Information/TTS. This is **CANDIDATE for OWNER review only**; `ownerVisualApproval` remains false, and work stops before commit/push until owner approval. The accepted Pixi rain, typography, original monitor/reaction apertures, donor paper, architecture, centered composition and prior five closures remain the foundation.\n\nBoth `art-direction/final-{5732,3000000}/donate7-full-realtime-audio.mp4` recordings cover actual 1× WebAudio music and local nickname → amount → message speech through outro/complete for 57.32 PLN and 30,000.00 PLN (displayed `57,32 zł` / `30 000,00 zł`), with `errors: []` in their metadata. Six `art-direction/review/{middle,payoff,handoff}-{5732,3000000}-before-after.mp4` clips compare identical encoded timestamps with AFTER audio only and no speed changes. `review/comparison.json`, `review/delivery-check.json` and `runtime-fingerprint.json` document provenance; all twelve comparison/full-resolution chapter files decode with non-silent AAC, no whole-black intervals and no errors. Capture uses adaptive actual live frames on software SwiftShader, encoded at 30 FPS; it does not prove native OBS/GPU 60 FPS, continuous HIGH quality or target-hardware performance. Reviewer evidence is supplied comp/stills/live-frame strips, metadata and source, without independent complete-video playback/listening. Human musical/creative acceptance, ten listening passes, exact master/remix, reliable lyric alignment and fine audible microtiming remain unclaimed.\n\nAt this documentation handoff, fresh 334 unit tests, typecheck, lint and production build passed. Lint reports 0 errors, 44 warnings and 39 infos; the main bundle is 832,758 bytes / 261,309 gzip with the existing chunk warning. The complete fresh browser rerun passed 90/90 after the stale Information scene-hiding assertion was updated to require retained paper and cleared outgoing content; definitive totals belong to `docs/assets/donate7-showpiece/art-direction/review/README.md` and its `validation.json`. Runtime changes in this continuation are exactly `choreography.ts`, `cameraRig.ts` and `donate7-show.css`; money engine, audio/TTS implementation, dependencies and money/confetti counts are unchanged. Local authoring remains the priority, with Donate1–6 and Studio history preserved.",
     "keyCharacteristics": [
       "Seven recognizable, unchanged source GIF identities and seven distinct compositions.",
       "Scene-specific gestures, text placement and donor impact.",
@@ -1199,8 +1464,8 @@
       "Supporting effects restrained around the source and readable donor.",
       "Shared music clock, deterministic seeking and a quiet complete-message landing.",
       "Localized compositions with transparent margins that preserve gameplay.",
-      "Cash fountain, handoff and finite reaction-wall spectacle reserved for selected higher-tier payoffs.",
-      "Donate7's handmade CRT wall, stable donor and finite three-depth spectacle at three authored interruptions.",
+      "Cash fountain, handoff and finite reaction-scrapbook spectacle reserved for selected higher-tier payoffs.",
+      "Donate7's rounded live glyphs, peach fiber strip, three taped original apertures and four distinct motion signatures.",
       "Cue-based cyan bunny replies for Turkey/ovation, drawn bunny-ear floor for the dancer, native cheering bunny for the heart and a small Studio identity mark.",
       "Exact transparent frame zero and a compact content-sized Information landing.",
       "Polish labels and contextual help in the incumbent docked Studio.",
@@ -1212,18 +1477,23 @@
     "rules": [
       {
         "name": "The Source Palette Rule",
-        "body": "Preserve the selected source's colors and alpha. Apply each treatment's paired accents to authored graphics and amount; use dark Paper Ink for the paper-strip amount. The shared Information state uses its own warm peach header.",
+        "body": "Preserve the selected source's colors and alpha. Apply each treatment's paired accents to authored graphics and amount; use dark Paper Ink for the paper-strip amount. Donate1–6 Information uses its warm peach header; Donate7 carries berry reading text on its retained peach paper.",
         "section": "colors"
       },
       {
         "name": "The Transparent Stage Rule",
-        "body": "Leave the broadcast around source windows transparent outside authored transient effects. Donate7's brief dark veil and peach light wash belong to its interruptions; Studio stream and checker backgrounds are inspection context.",
+        "body": "Leave the broadcast around source windows transparent outside authored transient effects. Donate7 uses no enclosing opaque application panel or full-stage tint; Studio stream and checker backgrounds are inspection context.",
         "section": "colors"
       },
       {
         "name": "The Selective Sticker Rule",
-        "body": "Give each community device a job in its scene: the cyan bunny answers Turkey's step and ovation, the drawn ears compress with the dancer's floor, and the cheering bunny answers the hand-heart. Donate7's original cheer/cyan stickers answer its named interruptions, with occasional small original emote stamps in finite paper emission. Preserve original emote colors and honest resolution; the Studio mark stays small.",
+        "body": "Give each community device a job in its scene: the cyan bunny answers Turkey's step and ovation, the drawn ears compress with the dancer's floor, and the cheering bunny answers the hand-heart. Donate7's original cheer, cyan and crying bunnies answer named hero/WTF/finale gestures; occasional small original emote stamps appear in finite paper emission. Preserve original emote colors and honest resolution; the Studio mark stays small.",
         "section": "colors"
+      },
+      {
+        "name": "The Scoped Replacement Rule",
+        "body": "These two display/semantic families, the raspberry amount and the new type ramp intentionally replace Donate7's Poppins/CRT world only. The single detector run reported two Roboto overused-font warnings, three old-world font warnings (Anybody once, Roboto twice), four type-size advisories (180/156/38/52) and two amount-color advisories; no ban errors. Anybody and 180/156 are historical pre-review findings: current source is DynaPuff and 158/132, with no rerun claimed. Current 38/52, Roboto Flex and raspberry amount are intentional local exceptions justified by the confirmed synthesis and readable semantic axis roles. Do not add global blanket ignores or apply this replacement to Donate1–6, Information or Studio.",
+        "section": "typography"
       },
       {
         "name": "The Donor Space Rule",
@@ -1232,12 +1502,17 @@
       },
       {
         "name": "The Quiet Landing Rule",
-        "body": "Hide the source scene and all supporting spectacle in the information phase, release source media, and retain the name, amount and complete message.",
+        "body": "Hide source footage, departing glyphs and all supporting spectacle in Information, release source media, and retain the name, amount and complete message. Donate7 alone keeps its actual transformed donor paper as the reading backing.",
         "section": "elevation & depth"
       },
       {
         "name": "The Music Clock Rule",
         "body": "Derive authored scene and controlled source frames from absolute music time. Forward playback uses sequential native decoding with drift correction; scrub, freeze and export select exact frames. Quality reduction changes supporting detail, not cue timing, donor layout or the reading phase.",
+        "section": "components"
+      },
+      {
+        "name": "The Donate7 Facecam Rule",
+        "body": "Keep the main semantic donor paper, title and reaction apertures outside the gameplay facecam rectangle; the explicit crossing exception applies only to brief translucent money notes. Preserve full-screen rain.",
         "section": "components"
       }
     ],
@@ -1251,7 +1526,7 @@
       "**Do** retain explicit Studio labels, visible focus and the supported desktop docked inspector and smaller-screen desktop gate.",
       "**Do** preserve transparent negative space, bounded source windows and source-specific anchors that accommodate extra width.",
       "**Do** use peach for Studio selection, cyan for measurement, and monospace for genuine timecode.",
-      "**Do** keep cash distinct by source, route stable depth and derive readability protection from actual donor bounds: alpha falloff for Donate5/6, three-depth routes and trajectory deflection for Donate7.",
+      "**Do** keep cash distinct by source, route stable depth and derive readability protection from actual donor bounds: alpha falloff for Donate5/6; semantic occlusion and foreground alpha restraint for Donate7 full-screen Pixi rain.",
       "**Do** keep output format separate from Program zoom, Full transport resumable and speech provider labels honest."
     ],
     "donts": [

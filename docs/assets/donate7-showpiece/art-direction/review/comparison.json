@@ -1,0 +1,91 @@
+{
+  "method": "Unmodified before/current actual1x browser captures, identical encoded video timestamps, AFTER audio only; no speed changes. Timestamp labels are not asserted sub-frame audio cue positions.",
+  "comparisons": [
+    {
+      "amountCents": 5732,
+      "chapter": "middle",
+      "segments": [
+        [
+          17.4,
+          26.7
+        ],
+        [
+          28.0,
+          33.6
+        ]
+      ],
+      "before": "docs\\assets\\donate7-showpiece\\art-direction\\before-5732.mp4",
+      "after": "docs\\assets\\donate7-showpiece\\art-direction\\final-5732\\donate7-full-realtime-audio.mp4",
+      "comparison": "docs\\assets\\donate7-showpiece\\art-direction\\review\\middle-5732-before-after.mp4"
+    },
+    {
+      "amountCents": 5732,
+      "chapter": "payoff",
+      "segments": [
+        [
+          35.8,
+          41.4
+        ]
+      ],
+      "before": "docs\\assets\\donate7-showpiece\\art-direction\\before-5732.mp4",
+      "after": "docs\\assets\\donate7-showpiece\\art-direction\\final-5732\\donate7-full-realtime-audio.mp4",
+      "comparison": "docs\\assets\\donate7-showpiece\\art-direction\\review\\payoff-5732-before-after.mp4"
+    },
+    {
+      "amountCents": 5732,
+      "chapter": "handoff",
+      "segments": [
+        [
+          43.2,
+          49.2
+        ]
+      ],
+      "before": "docs\\assets\\donate7-showpiece\\art-direction\\before-5732.mp4",
+      "after": "docs\\assets\\donate7-showpiece\\art-direction\\final-5732\\donate7-full-realtime-audio.mp4",
+      "comparison": "docs\\assets\\donate7-showpiece\\art-direction\\review\\handoff-5732-before-after.mp4"
+    },
+    {
+      "amountCents": 3000000,
+      "chapter": "middle",
+      "segments": [
+        [
+          17.4,
+          26.7
+        ],
+        [
+          28.0,
+          33.6
+        ]
+      ],
+      "before": "docs\\assets\\donate7-showpiece\\art-direction\\before-3000000\\donate7-full-realtime-audio.mp4",
+      "after": "docs\\assets\\donate7-showpiece\\art-direction\\final-3000000\\donate7-full-realtime-audio.mp4",
+      "comparison": "docs\\assets\\donate7-showpiece\\art-direction\\review\\middle-3000000-before-after.mp4"
+    },
+    {
+      "amountCents": 3000000,
+      "chapter": "payoff",
+      "segments": [
+        [
+          35.8,
+          41.4
+        ]
+      ],
+      "before": "docs\\assets\\donate7-showpiece\\art-direction\\before-3000000\\donate7-full-realtime-audio.mp4",
+      "after": "docs\\assets\\donate7-showpiece\\art-direction\\final-3000000\\donate7-full-realtime-audio.mp4",
+      "comparison": "docs\\assets\\donate7-showpiece\\art-direction\\review\\payoff-3000000-before-after.mp4"
+    },
+    {
+      "amountCents": 3000000,
+      "chapter": "handoff",
+      "segments": [
+        [
+          43.2,
+          49.2
+        ]
+      ],
+      "before": "docs\\assets\\donate7-showpiece\\art-direction\\before-3000000\\donate7-full-realtime-audio.mp4",
+      "after": "docs\\assets\\donate7-showpiece\\art-direction\\final-3000000\\donate7-full-realtime-audio.mp4",
+      "comparison": "docs\\assets\\donate7-showpiece\\art-direction\\review\\handoff-3000000-before-after.mp4"
+    }
+  ]
+}

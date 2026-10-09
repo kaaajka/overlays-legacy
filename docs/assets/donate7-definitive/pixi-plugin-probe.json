@@ -1,0 +1,27 @@
+{
+  "pixiVersion": "8.22.0",
+  "gsapVersion": "3.15.0",
+  "first": {
+    "x": 182.782962,
+    "y": 73.113185,
+    "rotation": 0.71779,
+    "scaleX": 1.365566,
+    "scaleY": 1.365566
+  },
+  "reverse": {
+    "x": 182.782962,
+    "y": 73.113185,
+    "rotation": 0.71779,
+    "scaleX": 1.365566,
+    "scaleY": 1.365566
+  },
+  "restart": {
+    "x": 182.782962,
+    "y": 73.113185,
+    "rotation": 0.71779,
+    "scaleX": 1.365566,
+    "scaleY": 1.365566
+  },
+  "equal": true,
+  "clock": "paused GSAP timeline sampled directly; no Pixi Application or ticker created"
+}

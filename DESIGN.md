@@ -19,15 +19,16 @@ colors:
   webcam-grey: "#bdb6b0"
   webcam-paper: "#ece9dd"
   monitor-border: "#9b9b9b"
-  reaction-plum: "#2b222a"
-  reaction-bezel: "#a78385"
-  reaction-cream: "#fff4e5"
-  reaction-peach: "#f3a08f"
-  reaction-pink: "#ed7eaa"
-  reaction-cyan: "#66d4dd"
-  reaction-paper: "#ffe7c7"
-  reaction-cash: "#f7dfad"
-  reaction-cash-ink: "#654c42"
+  donate7-berry: "#380b26"
+  donate7-pink: "#f14b89"
+  donate7-peach: "#ffc2a7"
+  donate7-ivory: "#fff1d7"
+  donate7-amount: "#ae1557"
+  donate7-spectacle-peach: "#f3a08f"
+  donate7-spectacle-pink: "#ed7eaa"
+  donate7-spectacle-paper: "#ffe7c7"
+  donate7-spectacle-cyan: "#66d4dd"
+  donate7-spectacle-cream: "#fff4e5"
   name-lavender: "#bcb8ff"
   name-pale: "#f1eaff"
   white: "#fff"
@@ -66,6 +67,40 @@ typography:
     fontWeight: 700
     lineHeight: 1.08
     letterSpacing: "-0.035em"
+  donate7-setup:
+    fontFamily: "DynaPuff Variable, sans-serif"
+    fontSize: "158px"
+    fontWeight: 700
+    lineHeight: 0.93
+    letterSpacing: "-0.025em"
+    fontVariation: "'wght' 700, 'wdth' 100"
+  donate7-title:
+    fontFamily: "DynaPuff Variable, sans-serif"
+    fontSize: "132px"
+    fontWeight: 700
+    lineHeight: 1.16
+    letterSpacing: "-0.025em"
+    fontVariation: "'wght' 700, 'wdth' 100"
+  donate7-caller:
+    fontFamily: "DynaPuff Variable, sans-serif"
+    fontSize: "38px"
+    fontWeight: 700
+    fontVariation: "'wght' 700, 'wdth' 85"
+  donate7-wtf:
+    fontFamily: "DynaPuff Variable, sans-serif"
+    fontSize: "52px"
+    fontWeight: 700
+    fontVariation: "'wght' 700, 'wdth' 85"
+  donate7-name:
+    fontFamily: "Roboto Flex Variable, sans-serif"
+    fontWeight: 800
+    lineHeight: 1.16
+    fontVariation: "'wdth' 85, 'opsz' 48"
+  donate7-amount:
+    fontFamily: "Roboto Flex Variable, sans-serif"
+    fontWeight: 950
+    lineHeight: 1
+    fontVariation: "'wdth' 88, 'opsz' 100"
   information-title:
     fontFamily: "Poppins, sans-serif"
     fontSize: "28px"
@@ -98,13 +133,13 @@ typography:
     fontWeight: 700
     lineHeight: 1.5
 rounded:
-  reaction-monitor: "9px 9px 17px 9px"
   control: "3px"
   timeline: "2px"
   lifecycle: "3px"
   information: "20px 20px 30px 12px"
 spacing:
-  reaction-donor-gap: "20px"
+  donate7-donor-gap: "24px"
+  donate7-amount-gap: "12px"
   compact-gap: "4px"
   field-gap: "5px"
   pair-gap: "8px"
@@ -159,27 +194,38 @@ components:
     textColor: "{colors.paper-ink}"
     width: "520px"
     height: "142px"
-  reaction-monitor:
-    backgroundColor: "{colors.reaction-plum}"
-    rounded: "{rounded.reaction-monitor}"
-    padding: "9px 9px 23px"
+  donate7-aperture:
+    backgroundColor: "{colors.donate7-peach}"
+    padding: "7px"
+  donate7-donor-strip:
+    textColor: "{colors.donate7-berry}"
+    padding: "68px 36px 30px"
+    width: "710px"
 ---
 
 # Design System: Kaaajka GIF-led Donation Shows
+
+**2026-10-09 owner acceptance:** the completed Donate7 motion is approved as the creative-quality reference. `docs/DONATE7_ACCEPTANCE.md` supersedes the historical pending-approval statements in this document. Donate1–6 now enter evidence-based concept planning on the existing engine and local Studio; the future AI editor is outside scope.
 
 ## Overview
 
 **Creative North Star: "Seven GIFs Conduct the Show"**
 
-Each live donation is a miniature music video conducted by Kaaajka's selected GIF, its existing track and its legacy joke. The room dancer calls for a two-step, the masked dancer leaves transparent echoes, the rodent cuts through a film strip, the seated portrait unrolls paper, the crowd opens its arms, the streamer passes a heart, and the tiny webcam interrupts through a monitor wall. Exuberance and ascending importance come from these subjects, their distinct layouts and their timed donor payoffs.
+Each live donation is a miniature music video conducted by Kaaajka's selected GIF, its existing track and its legacy joke. The room dancer calls for a two-step, the masked dancer leaves transparent echoes, the rodent cuts through a film strip, the seated portrait unrolls paper, the crowd opens its arms, the streamer passes a heart, and the tiny webcam leads a reaction scrapbook. Exuberance and ascending importance come from these subjects, their distinct layouts and their timed donor payoffs.
 
 Shared infrastructure supports those seven compositions: a transparent broadcast stage, solid donor typography, absolute music time, source-frame seeking and a calm complete-message landing. Production v2.2 composes smaller source-aware windows, a single donor/amount stack per show, deliberate negative space, source-specific cash payoffs and selective community replies. Handwritten OMG and HOLY/MOLY assets adapt the supplied banner's written character; original source GIFs remain unchanged. The supplied peach channel banner, controller avatar and white bunny emotes establish warmth and expressive reaction; they do not recolor the selected GIFs.
 
-Donate7 now builds a warm handmade CRT reaction wall around the original tiny webcam: solitary signal, monitor recruitment, three interruptions, recovery, authored false calm and sequential shutdown. Its donor stays outside the camera group. Finite seeded bills, paper, ribbons and four fireworks articulate the three peaks; original bunny stickers and source-pose stills answer the footage. This extension follows `docs/DONATE7_CREATIVE_DIRECTION.md`; the original GIF, WebM and audio remain unchanged.
+Donate7 replaces only its Version A creative world with a reaction scrapbook: wide rounded CO ZA / POJEB!!! cutouts, three tiny taped original footage apertures, an integrated textured peach donor strip, HALO callers, original bunny replies and finite layered celebration. Composition 1 supplies the fan-stage direction; the explicit follow-up authorizes composition 2 hierarchy/breathing and composition 3 continuous eye-flow. The subsequent user instructions center the headline/donor, restore original green project money, replace old routes with full-screen Pixi rain and require the connected paper-camera refinement. Short translucent note crossings over the gameplay facecam are allowed. This extends the confirmed synthesis direction; it is not owner approval of completed motion. Original GIF, controlled WebM and audio remain unchanged.
 
-Motion Studio is a graphite authoring desk: tree, central fitted stage, inspector and multitrack timeline. Peach marks selection and deliberate actions; cyan carries measurement and the small bunny identity mark. This document records the built post-v2.2 extension of pinned direction `d2f60c0f`, inspected from current source. `docs/assets/post-2.2/round-2/` records the responsive scene and Studio captures; `review-1/` records corrected shortcuts, Donate5 cash contrast and the smaller-screen blocker, while `visible/information-full.png` records the complete-message landing. The fresh static review's four findings (shortcut layout, Donate5 cash contrast, missing blocker evidence and stale cash documentation) are resolved. No approved comp or QUALITY BAR card exists. Static captures do not independently prove normal-speed motion quality, an After Effects-level finish or owner approval; test results belong to the final QA report. The old SAY MY NAME composition remains a Studio-only Donate8 exploration sharing Donate7's track. Unrelated legacy overlay styles remain outside this document's scope.
+Motion Studio is a graphite authoring desk: tree, central fitted stage, inspector and multitrack timeline. Peach marks selection and deliberate actions; cyan carries measurement and the small bunny identity mark. This document records the built post-v2.2 extension of pinned direction `d2f60c0f`, inspected from current source. `docs/assets/post-2.2/round-2/` records the responsive scene and Studio captures; `review-1/` records corrected shortcuts, Donate5 cash contrast and the smaller-screen blocker, while `visible/information-full.png` records the complete-message landing. The fresh static review's four findings (shortcut layout, Donate5 cash contrast, missing blocker evidence and stale cash documentation) are resolved. No approved comp or QUALITY BAR card exists for that earlier post-v2.2 review; Donate7's later delegated comp and prose quality bar are recorded in its surface brief. Static captures do not independently prove normal-speed motion quality, an After Effects-level finish or owner approval; test results belong to the final QA report. The old SAY MY NAME composition remains a Studio-only Donate8 exploration sharing Donate7's track. Unrelated legacy overlay styles remain outside this document's scope.
 
-Donate7's current primary visual evidence is `docs/assets/donate7-creative/round-2/` over the supplied real Rocket League stream; checker, solid and transparent captures provide additional inspection contexts. Its review-required exact-hero amount visibility fix is implemented: every amount digit is visible at 13.21215s. Owner approval of normal-speed music and visual quality remains pending, and browser evidence does not certify OBS hardware performance. Functional and performance conclusions belong to the final QA report.
+The previous showpiece refinement remains closed: `docs/assets/donate7-showpiece/finish-review.md` recorded five material findings, and `finish-verdict-refined.md` resolved the retained fold, thread junctions, shared shader seam, donor shadow/streamer ordering and stressed-name inset. Its full recording, transition comparisons and `round-final/` remain historical evidence; its QA recorded 334 unit tests (36 files), 88 browser tests, typecheck, lint and build in `docs/DONATE7_FINAL_REVIEW.md` and `docs/assets/donate7-showpiece/validation.json`. Earlier `donate7-pixi/` and `donate7-definitive/` iterations also remain historical.
+
+Current three-point continuation review entry: [art-direction review](docs/assets/donate7-showpiece/art-direction/review/README.md). `art-direction/finish-review.md` records **disposition: ship**, all three requested concerns resolved, and no material fixes: evolving 17–44s composition, centered amount anticipation/compression/37.65116s impact/recovery, and the same actual donor paper continuing into complete readable Information/TTS. This is **CANDIDATE for OWNER review only**; `ownerVisualApproval` remains false, and work stops before commit/push until owner approval. The accepted Pixi rain, typography, original monitor/reaction apertures, donor paper, architecture, centered composition and prior five closures remain the foundation.
+
+Both `art-direction/final-{5732,3000000}/donate7-full-realtime-audio.mp4` recordings cover actual 1× WebAudio music and local nickname → amount → message speech through outro/complete for 57.32 PLN and 30,000.00 PLN (displayed `57,32 zł` / `30 000,00 zł`), with `errors: []` in their metadata. Six `art-direction/review/{middle,payoff,handoff}-{5732,3000000}-before-after.mp4` clips compare identical encoded timestamps with AFTER audio only and no speed changes. `review/comparison.json`, `review/delivery-check.json` and `runtime-fingerprint.json` document provenance; all twelve comparison/full-resolution chapter files decode with non-silent AAC, no whole-black intervals and no errors. Capture uses adaptive actual live frames on software SwiftShader, encoded at 30 FPS; it does not prove native OBS/GPU 60 FPS, continuous HIGH quality or target-hardware performance. Reviewer evidence is supplied comp/stills/live-frame strips, metadata and source, without independent complete-video playback/listening. Human musical/creative acceptance, ten listening passes, exact master/remix, reliable lyric alignment and fine audible microtiming remain unclaimed.
+
+At this documentation handoff, fresh 334 unit tests, typecheck, lint and production build passed. Lint reports 0 errors, 44 warnings and 39 infos; the main bundle is 832,758 bytes / 261,309 gzip with the existing chunk warning. The complete fresh browser rerun passed 90/90 after the stale Information scene-hiding assertion was updated to require retained paper and cleared outgoing content; definitive totals belong to `docs/assets/donate7-showpiece/art-direction/review/README.md` and its `validation.json`. Runtime changes in this continuation are exactly `choreography.ts`, `cameraRig.ts` and `donate7-show.css`; money engine, audio/TTS implementation, dependencies and money/confetti counts are unchanged. Local authoring remains the priority, with Donate1–6 and Studio history preserved.
 
 **Key Characteristics:**
 
@@ -189,8 +235,8 @@ Donate7's current primary visual evidence is `docs/assets/donate7-creative/round
 - Supporting effects restrained around the source and readable donor.
 - Shared music clock, deterministic seeking and a quiet complete-message landing.
 - Localized compositions with transparent margins that preserve gameplay.
-- Cash fountain, handoff and finite reaction-wall spectacle reserved for selected higher-tier payoffs.
-- Donate7's handmade CRT wall, stable donor and finite three-depth spectacle at three authored interruptions.
+- Cash fountain, handoff and finite reaction-scrapbook spectacle reserved for selected higher-tier payoffs.
+- Donate7's rounded live glyphs, peach fiber strip, three taped original apertures and four distinct motion signatures.
 - Cue-based cyan bunny replies for Turkey/ovation, drawn bunny-ear floor for the dancer, native cheering bunny for the heart and a small Studio identity mark.
 - Exact transparent frame zero and a compact content-sized Information landing.
 - Polish labels and contextual help in the incumbent docked Studio.
@@ -211,16 +257,16 @@ Source footage supplies the dominant image color. Treatment accents echo that fo
 - **Paper Tile / Paper Cream / Paper Ink:** bathroom-derived neutrals, the unrolling strip and its dark amount.
 - **Ovation Amber / Ovation Cream:** crowd-derived warmth and pale amount; handwritten HOLY/MOLY windows retain the opposing wing gestures above the bounded source.
 - **Heart Rose / Heart Pale / Heart Line:** restrained pink supporting effects, amount and the drawn hand-heart bridge below the donor stack.
-- **Webcam Grey / Webcam Paper / Monitor Border:** retained legacy webcam treatment values; the current reaction wall uses the reaction palette below.
-- **Reaction Plum / Bezel / Cream / Peach:** Donate7's dark handmade CRT casing, warm inset border, readable donor/slam and setup/impact strokes.
-- **Reaction Pink / Cyan / Paper / Cash / Cash Ink:** Donate7's paper and ribbon inventory, cyan signals, warm spark accents and outlined physical bills. Original footage and bunny colors stay intact.
+- **Webcam Grey / Webcam Paper / Monitor Border:** retained legacy values; the current Donate7 replacement uses only its scoped scrapbook palette below.
+- **Donate7 Berry / Pink / Peach / Ivory:** deep contour and semantic ink, energetic offset extrusion/tape, aperture paper and inflated comic letter faces. These authored graphic colors are local to Donate7; originals retain their own colors.
+- **Donate7 Amount / Spectacle accents:** legible raspberry amount and underline and the five-color paper/ribbon/spark inventory. Banknotes preserve the original green project PNG and its transparent margins rather than deriving from authored palette tokens. The spectacle inventory preserves its current peach/pink/paper/cyan/cream source values; it does not recolor footage or bunnies.
 
 ### Secondary
 
 - **Studio Peach / Peach Ink:** selected modes and inspector tabs, primary actions, focus outlines, range accents and overlay measurement trace; dark ink keeps selected-control text legible.
 - **Studio Cyan / Bar Cyan:** subdued waveform and downbeat measurement. The original cyan bunny remains unchanged in the Studio brand mark.
 - **Studio Cue / Playhead:** muted peach hero/selected cue labels and a pale one-pixel time indicator.
-- **Cash Paper / Cash Ink:** warm drawn bills for ovation and webcam; the heart handoff uses Heart Pale.
+- **Cash Paper / Cash Ink:** warm drawn bills for ovation; the heart handoff uses Heart Pale.
 - **Name Lavender / Name Pale:** retained only for the old Studio-only SAY MY NAME treatment.
 
 ### Neutral
@@ -234,15 +280,15 @@ Source footage supplies the dominant image color. Treatment accents echo that fo
 - **Studio Border / Selection:** thin boundaries and a subtly plum selected tree row with a peach selected label.
 - **Studio Error:** inline validation and export-error text.
 
-**The Source Palette Rule.** Preserve the selected source's colors and alpha. Apply each treatment's paired accents to authored graphics and amount; use dark Paper Ink for the paper-strip amount. The shared Information state uses its own warm peach header.
+**The Source Palette Rule.** Preserve the selected source's colors and alpha. Apply each treatment's paired accents to authored graphics and amount; use dark Paper Ink for the paper-strip amount. Donate1–6 Information uses its warm peach header; Donate7 carries berry reading text on its retained peach paper.
 
-**The Transparent Stage Rule.** Leave the broadcast around source windows transparent outside authored transient effects. Donate7's brief dark veil and peach light wash belong to its interruptions; Studio stream and checker backgrounds are inspection context.
+**The Transparent Stage Rule.** Leave the broadcast around source windows transparent outside authored transient effects. Donate7 uses no enclosing opaque application panel or full-stage tint; Studio stream and checker backgrounds are inspection context.
 
-**The Selective Sticker Rule.** Give each community device a job in its scene: the cyan bunny answers Turkey's step and ovation, the drawn ears compress with the dancer's floor, and the cheering bunny answers the hand-heart. Donate7's original cheer/cyan stickers answer its named interruptions, with occasional small original emote stamps in finite paper emission. Preserve original emote colors and honest resolution; the Studio mark stays small.
+**The Selective Sticker Rule.** Give each community device a job in its scene: the cyan bunny answers Turkey's step and ovation, the drawn ears compress with the dancer's floor, and the cheering bunny answers the hand-heart. Donate7's original cheer, cyan and crying bunnies answer named hero/WTF/finale gestures; occasional small original emote stamps appear in finite paper emission. Preserve original emote colors and honest resolution; the Studio mark stays small.
 
 ## Typography
 
-**Display Font:** Poppins with sans-serif fallback.
+**Default Display Font (Donate1–6 / Studio):** Poppins with sans-serif fallback.
 **Body Font:** Poppins with sans-serif fallback.
 **Timecode Font:** monospace, reserved for genuine time and numerical inspection readouts.
 
@@ -250,12 +296,20 @@ Local regular, medium, semibold and bold files supply weights 400, 500, 600 and 
 
 ### Hierarchy
 
-- **Donor name:** shared Poppins 600 role, bounded to 28–44px. Actual size is `max(28, min(44, nameSize, width / max(1, nickname.length × 0.7)))`. The seven donor-stack widths are 440, 580, 620, 480, 420, 480 and 540px. Names wrap anywhere; empty identity displays Anonim.
-- **Donor amount:** shared Poppins 700 role, bounded to 112px and the same stack width: `min(112, amountSize, (width − 28) / (formattedAmount.length × 0.72 + 0.4))`. Preserve Polish two-decimal formatting and baseline currency: 0.26em, weight 500, normal tracking and the currency gap. The name and amount share one anchor with the donor-stack gap; Donate7 uses its reaction-donor-gap and sets all amount characters visible at the exact hero before their short positional settle.
-- **Information title:** the frontmatter role applies to the donor (600); the nonwrapping amount is 26px/500. The shared header stays peach across all tiers.
+- **Donor name:** Donate1–6 Poppins 600 role, bounded to 28–44px. Actual size is `max(28, min(44, nameSize, width / max(1, nickname.length × 0.7)))`. The Donate1–6 donor-stack widths are 440, 580, 620, 480, 420 and 480px. Names wrap anywhere; empty identity displays Anonim.
+- **Donor amount:** Donate1–6 Poppins 700 role, bounded to 112px and the same stack width: `min(112, amountSize, (width − 28) / (formattedAmount.length × 0.72 + 0.4))`. Preserve Polish two-decimal formatting and baseline currency: 0.26em, weight 500, normal tracking and the currency gap. The name and amount share one anchor with the donor-stack gap.
+- **Information title:** the frontmatter role applies to the donor (600); the nonwrapping amount is 26px/500. Donate1–6 retain the shared peach header; Donate7 alone uses a berry Roboto Flex header on its continuing peach paper.
 - **Body:** complete message uses the body role with preserved line breaks, long-word wrapping and optional inline emote runs. The special thank-you line is 24px with a 16px bottom margin.
-- **Reaction voice:** semantic donor data stays in Poppins. OMG is a transparent 200 × 80px handwritten raster; HOLY and MOLY are separate 280 × 187px CSS windows into one transparent lettering asset. Other inherited calls stay source-specific: gratitude 24px/500, dancer thanks 20px, paper caption 44px/600 at 1.12 and HALO 34px/600. Donate7 separates peach CO/ZA (60px, CSS weight 800) from a cream POJEB!!! slam (112px, CSS weight 900), a pink outlined echo, peach WTF (34px/700), HALO? (42px/700) and small bezel labels (13px/600). These 800/900 declarations use the existing local font family; they do not assert new font files. Do not promote these one-scene values into a shared heading scale.
+- **Reaction voice (Donate1–6):** semantic donor data stays in Poppins. OMG is a transparent 200 × 80px handwritten raster; HOLY and MOLY are separate 280 × 187px CSS windows into one transparent lettering asset. Other inherited calls stay source-specific: gratitude 24px/500, dancer thanks 20px, paper caption 44px/600 at 1.12 and HALO 34px/600. Do not promote these one-scene values into a shared heading scale.
 - **Studio:** controls use label; brand uses studio-title and inspector titles use studio-heading. Field labels, status and tree actions are 11px; inspector tabs/detail are 10px; timeline tracks/regions are 9px. Timecode and numerical inspection use monospace. Contextual help uses 13px/1.6. The tiny production eyebrow remains an incumbent craft defect and is not canonized as reusable visual language. Desktop authoring requires 1280 × 720 or above; smaller viewports show only the desktop-required screen.
+
+### Donate7 typography replacement (local exception)
+
+Donate7 uses self-hosted Fontsource Variable **DynaPuff 5.3.0** (`standard.css`) for live rounded inflated comic CO/ZA/POJEB, HALO and WTF glyphs, and **Roboto Flex 5.3.0** (`full.css`) for donor semantics. Both packages carry OFL-1.1 licenses and Latin-ext; Anybody was the discarded candidate and is removed from the current dependencies. DynaPuff provides `wght` 400–700 and `wdth` 75–100: title/setup use 700/100; HALO/WTF use 700/85. Roboto Flex provides `wght` 100–1000, `wdth` 25–151, `opsz` 8–144 and `slnt` −10–0; only the current weight/width/optical-size settings are authored here. Name uses weight 800, width 85, optical size 48; amount uses 950/88/100, with a timed width 88→82→88 pressure phrase. Remaining axes stay at package defaults.
+
+The ramp is the frontmatter's 158px CO/ZA, 132px POJEB, 52px WTF and 38px HALO. Donate7 waits for the DynaPuff/Roboto Flex font-load promises before initializing SplitText, including Polish nickname and currency probes; `fontsReady` is a Donate7-only GSAP dependency. The existing clock/revert lifecycle is preserved, and load failure handling is not a font-success guarantee. Glyphs remain addressable in SplitText; deliberate irregularity evolves in the travelling WTF baseline exchange rather than being baked into a static poster. Name font size is exactly `max(28, min(52, 640 / max(1, nickname.length * 0.85)))`; amount is exactly `min(144, 650 / (amount.length * 0.65 + 1))`. Currency is 0.55em with a 12px amount gap, preserving the complete Polish formatted value. All amount characters are opaque at 15.49932s; their following 0.95s positional phrase does not hide digits. The strip uses the original generated RGBA fiber material `public/assets/donations/brand/donate7-peach-paper.png`, visible at full strip extent, with torn alpha edges and no amount shadow. The donor has centered text, centered amount/currency flex alignment and a centered amount transform origin. The centered 710px donor strip has a 232px minimum height, 24px stack gap and 36px horizontal / 30px bottom padding. Top padding starts at 68px and is measured after font readiness: `max(68, ceil(((nameBlock.offsetHeight + amountBlock.offsetHeight + 54) * 0.16) / 0.84 + 18))`. The paper grows with complete wrapped names without shrinking the amount to make room. A torn-alpha-following `drop-shadow(4px 10px 10px rgb(29 8 20 / 38%))` provides depth; the text itself remains shadow-free. Secondary cream/cyan streamers sit behind semantic paper, protecting the final name/number interior. Information body remains Poppins; Donate7 alone uses a berry Roboto Flex header on the continuing peach paper.
+
+**The Scoped Replacement Rule.** These two display/semantic families, the raspberry amount and the new type ramp intentionally replace Donate7's Poppins/CRT world only. The single detector run reported two Roboto overused-font warnings, three old-world font warnings (Anybody once, Roboto twice), four type-size advisories (180/156/38/52) and two amount-color advisories; no ban errors. Anybody and 180/156 are historical pre-review findings: current source is DynaPuff and 158/132, with no rerun claimed. Current 38/52, Roboto Flex and raspberry amount are intentional local exceptions justified by the confirmed synthesis and readable semantic axis roles. Do not add global blanket ignores or apply this replacement to Donate1–6, Information or Studio.
 
 **The Donor Space Rule.** Keep nickname and amount in one readable stack with a shared anchor within each composition. Keep the source gesture visible and fit long donor strings within that stack.
 
@@ -271,7 +325,7 @@ The broadcast uses a fixed canonical height of 1080 units and a virtual width of
 | Donate4 · Deadpan paper roll | One 350 × 522 portrait at (1060, 260). | Left answer at (525, 315), 480px donor stack 125px below; torn 520 × 142px strip at (−24, 208) within the answer carries the amount. |
 | Donate5 · Arms-wide ovation | Bounded 600 × 338 crowd at (475, 365), about 1.25× its 480 × 270 source. | 420px donor stack at (1120, 440); handwritten 280 × 187px HOLY/MOLY windows at x475/x780, y207 retain opposing gestures. Native 56px cyan aside at (1030, 723). |
 | Donate6 · Heart from the booth | Native 400 × 400 booth at (1070, 320). | 480px donor stack at (540, 400); 600 × 414px bridge starts at (460, 620), below reserved name/amount space. Thanks at y650 and native 56px cheering bunny at (875, 712). |
-| Donate7 · Broadcast reaction wall | Main 240 × 240 base source window at (1090, 380), 2× the original 120px footage before brief wall/camera punches; two 134px satellites at (885, 390)/(1385, 475) and six 100px source-pose stills, all within handmade CRT bezels. | Stable 540px donor stack at (405, 535), outside camera/wall transforms; 650px headline at (385, 265), WTF at (425, 820). Source groups apply authored horizontal extra-width factors from 0.20 to 0.87; donor/type use 0.28. Source-pose frames 0/15/38/62 give the wall distinct reactions. |
+| Donate7 · Reaction scrapbook | Three bounded original 120px feeds: 176 × 176 at (465, 150), 138 × 138 at (1260, 196), 130 × 130 at (405, 432), each with 7px peach paper and a pink tape tab. | 810px wide headline at (555, 280); textured 710px donor strip at (605, 622), min-height 232px, 24px stack gap; WTF at (1295, 486). Headline and donor both rest on canonical x960; CO/ZA flex alignment and POJEB text alignment are centered. All authored groups shift by 0.5 × stage-extra to stay centered on the actual viewport. Curved frame paths preserve bounded source scale and transparent gameplay. |
 
 The Information panel centres on the stage and uses `width: max-content`, min-width 560px, max-width 960px, automatic height and a 600px height cap. Its padding and asymmetric reading corners are in frontmatter. Captured short/default content is about 560 × 165px, the safe long-content example about 960 × 304px, and the emote example about 306px high; these are content observations, not fixed-height tokens. The fixed header has a 36px gap and 18px bottom padding. Only the message body shrinks and scrolls (`min-height: 0`, flex `0 1 auto`); names wrap in full and amount/currency stay together. Overflow scrolls after a 2500ms reading pause with a closing hold. Inline emotes reserve 45px square slots (1.5em) at this body size while retaining source aspect ratio. The separate readable error fallback remains width `min(80vw, 1240px)`, max-height `80vh`; it is not the normal Information panel.
 
@@ -283,21 +337,21 @@ Timeline has a 36px control strip, sticky 150px track headers, 28px ruler, 31px 
 
 ## Elevation & Depth
 
-Depth follows the source: opaque footage remains a bounded room, portrait or crowd window; the alpha dancer stands directly over broadcast content; tilted rodent screens and webcam monitors create layering. Donate1–4 use no GPU effects or cash. Donate5/6 combine restrained light behind the source with two-depth cash: ovation fountain and heart handoff, using smooth nonzero alpha falloff around measured donor bounds. Donate7 replaces that shared effect path with three Canvas2D layers (back/mid/front), finite bills/paper/ribbons and four back-layer fireworks; stable seeded depth, foreground routes and continuous trajectory deflection around actual donor geometry protect the separate donor. Its CRT casing, inset border, scanlines and short outlined echo add physical depth around honest pixel footage. Spectacle clears in information; safe quality retains each signature type at reduced density and without trails. Studio uses tonal layering and thin boundaries for docked panels; help popovers carry soft shadows. The rodent projector still carries an incumbent hard offset shadow; this is not canonized as a reusable depth token.
+Depth follows the source: opaque footage remains a bounded room, portrait or crowd window; the alpha dancer stands directly over broadcast content; tilted rodent screens and taped webcam apertures create layering. Donate1–4 use no GPU effects or cash. Donate5/6 retain restrained light and two-depth cash with smooth donor-relative alpha falloff. Donate7 uses full-screen Pixi money behind semantic paper, with separate Canvas confetti, cutout extrusion, taped aperture shadows and a torn-alpha-following donor shadow. Its retained paper hinge, temporary thread and chapter-specific GPU matte physically connect the recovery and amount handoff. SAFE preserves the visible DOM/SVG hinge and uses a money-opacity envelope. Spectacle clears in Information. Studio retains tonal docked panels, thin boundaries and soft help-popover shadows; the rodent projector's hard offset remains local.
 
 ### Shadow Vocabulary
 
 - **Donor legibility** (`text-shadow: 0 2px 2px #1e1819, 0 4px 10px #1e1819`): shared solid name/amount outline over gameplay; disabled on the paper amount.
 - **Reading ambient** (`box-shadow: 0 20px 45px rgba(0, 0, 0, 0.22)`): soft separation for Information. The built card also carries an 8px hard lower edge; like the projector offset shadow, that incumbent treatment is recorded but not canonized as a reusable depth token.
-- **Reaction CRT** (`box-shadow: 5px 14px 26px rgb(15 9 18 / 55%), inset 0 0 0 2px #a78385`): Donate7's handmade monitor casing; this belongs to that reaction wall.
+- **Donate7 paper aperture** (`box-shadow: 4px 10px 16px rgb(29 8 20 / 48%)`): soft cast separation for three taped frames. **Donate7 cutout lettering** (`text-shadow: 5px 8px 0 var(--d7-pink), 7px 12px 0 var(--d7-berry), 9px 20px 16px rgb(27 8 19 / 45%)`): intentional physical contour/extrusion local to this committed comic world; donor text has no shadow.
 
-**The Quiet Landing Rule.** Hide the source scene and all supporting spectacle in the information phase, release source media, and retain the name, amount and complete message.
+**The Quiet Landing Rule.** Hide source footage, departing glyphs and all supporting spectacle in Information, release source media, and retain the name, amount and complete message. Donate7 alone keeps its actual transformed donor paper as the reading backing.
 
 ## Shapes
 
-There is no common live aperture silhouette. Each show uses its source-derived form: Turkey's foot ellipse and stepped reply, the dancer's drawn bunny-ear floor, rodent shutters and tilted small rectangles, paper's torn edge/perforation, ovation's bounded rounded window and handwritten wings, the booth's asymmetric soft corners and drawn heart, or the webcam's bordered pixel monitors. Preserve these forms in their scenes.
+There is no common live aperture silhouette. Each show uses its source-derived form: Turkey's foot ellipse and stepped reply, the dancer's drawn bunny-ear floor, rodent shutters and tilted small rectangles, paper's torn edge/perforation, ovation's bounded rounded window and handwritten wings, the booth's asymmetric soft corners and drawn heart, or the webcam's straight taped peach cutouts. Preserve these forms in their scenes.
 
-Studio fields/buttons use the control radius; selected tree rows and timeline regions use timeline radius, and lifecycle segments use lifecycle radius. Information uses asymmetric soft reading corners. Rodent, ovation, booth and main webcam frames carry their own source-specific rounded silhouettes; no universal card radius replaces them. The heart's original cheering bunny is 56px, rotated −8° at (875, 712); the Studio mark is 24px. The old diamond/circular aperture, outline words and corner frame belong to Studio-only Donate8. Studio’s real stream photograph is authoring context only.
+Studio fields/buttons use the control radius; selected tree rows and timeline regions use timeline radius, and lifecycle segments use lifecycle radius. Donate1–6 Information uses asymmetric soft reading corners; Donate7 retains torn peach paper with no rounded panel. Rodent, ovation and booth frames carry their own source-specific rounded silhouettes; no universal card radius replaces them. The heart's original cheering bunny is 56px, rotated −8° at (875, 712); the Studio mark is 24px. The old diamond/circular aperture, outline words and corner frame belong to Studio-only Donate8. Studio’s real stream photograph is authoring context only.
 
 ## Components
 
@@ -333,23 +387,33 @@ Normal forward playback lets the native decoder run sequentially against the aud
 | Deadpan paper roll | Portrait reveals vertically while remaining planted; paper unrolls to 70% before the payoff. Amount appears at 0.88 horizontal scale, then strip/amount finish their 0.35s unroll. Hero 4.52789s; source roll pose 1.93s. |
 | Arms-wide ovation | Bounded crowd window opens horizontally; handwritten HOLY/MOLY rise from opposing directions, with a native cyan community aside at hero +0.1s. Pre-drop closes width to 0.72; hero releases to full width over 0.45s `expo.out`, with restrained glints. Hero 4.82975s; open-arms source pose 2.00s. |
 | Heart from the booth | Soft donor reveal and HALO anticipate a partial drawn heart. Hero reveals amount; the line completes over 0.7s `power1.out`, then the thank-you lands. The bridge starts below the donor rectangle. Hero 3.90095s; hand-heart source pose 2.32s. |
-| Broadcast reaction wall | Tiny CRT signal recruits a wall; CO at 11.80735s and ZA at 12.27175s anticipate the 13.21215s hero. All amount digits are visible at that exact hero; letter slam, camera punch and finite spectacle then recover. Reverse-wall reprise at 22.89488s and largest interruption at 37.66277s; authored false calm starts 33.52961s inside loud music, exit starts 43.67673s. Hero source pose remains 1.52s; four still poses use original frames 0/15/38/62. |
+| Reaction scrapbook | Peripheral caller chorus → CO at 13.20054s / ZA at 13.87392s → POJEB!!! and all amount digits at 15.49932s → travelling WTF/type-baseline exchange at 22.89488s → amount-led finale at 37.65116s. Brief restraint at 29.45s follows recovery at 28.6s; recruitment at 30.26721s. Quiet reading at 18.4s, distinct reprise and upper-rail recruitment evolve the arrangement. Centered donor compression starts 36.83116s; 37.65116s impact settles from 37.95116s while title retreats to scale 0.56 / y−175. Glyph/aperture fold starts 43.75s; the same donor paper continues into Information. Source pose remains 1.52s; no six-still CRT wall. |
 
-Shared cue names are `intro → firstImpact → donorReveal → buildStart → preDrop → heroDrop → settle → information`; the timeline default is `power2.out`. Each scene owns its shots and tween choices. Chosen source poses hold near hero according to per-asset before/after windows, then resume looping from that pose. Dancer echoes delay 0.12/0.24s, rodent screens 0.08/0.16s, webcam satellites 0.12/0.24s. The source and music clock remain at exact zero on restart/reverse seek; the public visual contract at `time = 0` is complete transparency. The root starts with `data-time-zero="true"`; CSS hides the stage and every descendant with `visibility: hidden !important`, including before media readiness and after reverse seek/restart. GSAP's private one-microsecond initialization only establishes internal set state and never authorizes visible zero-frame content. Source entry is authored at 0.05s over 0.1s; INITIAL capture is 0.15s, distinct from ZERO.
+Shared cue names are `intro → firstImpact → donorReveal → buildStart → preDrop → heroDrop → settle → information`; the timeline default is `power2.out`. Each scene owns its shots and tween choices. Chosen source poses hold near hero according to per-asset before/after windows, then resume looping from that pose. Dancer echoes delay 0.12/0.24s, rodent screens 0.08/0.16s, webcam satellites 0.12/0.24s. The source and music clock remain at exact zero on restart/reverse seek; the public visual contract at `time = 0` is complete transparency. The root starts with `data-time-zero="true"`; CSS hides the stage and every descendant with `visibility: hidden !important`, including before media readiness and after reverse seek/restart. GSAP's private one-microsecond initialization only establishes internal set state and never authorizes visible zero-frame content. Donate1–6 source entry is authored at 0.05s over 0.1s; Donate7 opens its first aperture from 0.05s over 1.6s. INITIAL capture is 0.15s, distinct from ZERO.
 
-The last 0.5s clears source scene/effects; the last 0.4s reveals information. Donate7 additionally retracts its headline and shuts down CRTs sequentially from 43.67673s, closes the last monitor at 45.45s and releases the spectacle envelope at 45.7s. Its paused absolute-time GSAP director uses CustomEase for mechanical/heavy/camera response, SplitText for the slam and DrawSVG for impact strokes; canvas trajectories depend on absolute time and seed rather than seek history. Root outro is an opacity transition of 0.65s ease-out. Reduced-motion CSS removes that root transition; it does not provide a complete static alternative to the GSAP scene.
+Donate1–6 clear source scene/effects in the last 0.5s and reveal Information in the last 0.4s. Donate7 folds departing glyphs and taped apertures from 43.75s, transforms the retained donor paper from 43.85s, reveals Information from 44.95s and releases the spectacle envelope at 45.7s. Its paused absolute-time GSAP director uses CustomEase paper/weight curves, SplitText for title/callers/WTF/currency, DrawSVG/MorphSVG for the transient connective thread and amount underline, and MotionPath for curved callers/frame roundtrips; Pixi money and separate Canvas confetti sample the same absolute music time and seed. Root outro is an opacity transition of 0.65s ease-out. Reduced-motion CSS removes that root transition; it does not provide a complete static alternative to the GSAP scene.
 
 **The Music Clock Rule.** Derive authored scene and controlled source frames from absolute music time. Forward playback uses sequential native decoding with drift correction; scrub, freeze and export select exact frames. Quality reduction changes supporting detail, not cue timing, donor layout or the reading phase.
 
 ### Information card
 
-Use the content-sized information-card surface, shared peach fixed header and soft white complete message. Preserve line breaks, unbroken-word wrapping and body-only overflow reading. Approved image runs keep stable aspect-preserving emote slots; information time selects decoded frames without a private animation loop. Plain shortcodes remain plain text unless explicit supported image metadata resolves them. Studio's two explicit local fixtures are preview data, not evidence of an unknown Tipply backend contract. The optional special thanks remains a small pale-accent paragraph. Information stays readable during renderer degradation and releases source videos and fallbacks when the show ends.
+From 43.85s the existing `.d7-donor` paper transforms over 1.65s into centered measured Information bounds: width includes 72px extra and height includes 64px extra with a 0.72 opaque-material allowance. Its old name/amount/underline clear from 44.5s over 0.65s; Information appears from 44.95s over 0.5s and reveals upward over 1s. The thread clears from 45.2s over 0.45s. The same torn peach fiber paper remains visible in production Information, with a transparent successful Information background; a solid peach backing remains when choreography is unavailable. Donate7 alone uses a berry Roboto Flex header (name 800, amount 950) and berry Poppins message/thanks. Header/message are fully revealed before the established 46.23397s speech start. Shared content sizing, complete text, body-only scrolling, fixed header, emote slots, nickname → amount → message TTS and queue completion remain unchanged; no paper replacement or donor fold-out occurs.
+
+Donate1–6 use the content-sized information-card surface, shared peach fixed header and soft white complete message; Donate7 uses the continuing paper/header treatment above. Preserve line breaks, unbroken-word wrapping and body-only overflow reading. Approved image runs keep stable aspect-preserving emote slots; information time selects decoded frames without a private animation loop. Plain shortcodes remain plain text unless explicit supported image metadata resolves them. Studio's two explicit local fixtures are preview data, not evidence of an unknown Tipply backend contract. The optional special thanks remains a small pale-accent paragraph. Information stays readable during renderer degradation and releases source videos and fallbacks when the show ends.
 
 ### Cash and community reaction
 
+From 18.4s, the quiet reading shot reduces the headline to 0.72 scale / y−110, lifts the centered donor 42px and pulls the shared lens to 0.962. At 22.89488s the reprise uses a different 0.86-scale headline / y−74 and 0.97 donor scale / y−20, with the existing WTF baseline exchange and frame roundtrip. The retained 28.6s hinge unfolds at 30.26721s into a 0.84-scale headline / y−36 and donor y−46; three original apertures form an upper rail through relative offsets (180,−55), (−95,−115), (505,−340), preserving their bounded source sizes. Reading, exchange, fold and recruitment evolve the composition instead of repeatedly restoring the hero poster.
+
+The centered donor compresses from 36.83116s (cue.final − 0.82): scaleX 0.94 / scaleY 1.02, y−74, rotation 0 over 0.82s. At unchanged 37.65116s it impacts at scaleX 1.1 / scaleY 1.08, y−140 over 0.3s, then recovers to 1.045 on both axes over 1.1s from 37.95116s. Its transform origin is 50% 50%. During anticipation the title becomes a centered upper response at scale 0.56 / x0 / y−175 and apertures reduce to 0.82. The shared lens pulls to 0.974 / y10, recoils to 1.026 / y−8 at impact, then settles to 1 / y0. Complete digits and currency retain their overlapping positional reply; established delayed celebration follows without added populations.
+
 Cash is a scene-specific accent: Donate5 throws a warm fountain from a measured donor-relative origin (`donor.x`, `donor.y + 240`), and Donate6 passes a small pink arc from a donor-relative origin beside the hand-heart. Their drawn bills are 62 × 30px with a 3px corner and dark outline. The handoff caps at 12 bills; the ovation caps at 72/40/14 per renderer in high/medium/safe quality. Six out of seven seeded bill indices route behind source/text, one in seven in front; depth never changes when a bill enters the donor area. A continuous 160-unit distance falloff around the measured moving donor rectangle multiplies existing bill alpha by at least 0.14 behind and 0.35 in front. These are alpha multipliers, not absolute opacity guarantees. Each wave lasts at most 2.8s. Cyan replies in Turkey/ovation and the cheering heart bunny have distinct scene roles; their entrance follows named music cues, not a private animation timer.
 
-Donate7 has its own finite seeded spectacle inventory: 64 × 30px outlined bills, corner paper cannons, top cascades, curling ribbons and four fireworks at 13.39215/23.07488/37.84277/38.20277s. Three persistent depth canvases use high/medium/safe active-particle caps of 480/260/110 and nominal backing targets of 2,000,000/1,200,000/650,000 pixels **per canvas** (rounded raster dimensions can differ slightly; the three-canvas total is three times that target). Emission lifetimes are finite, at most 4.4s. Quality reduces per-emitter quotas while retaining all signature types; safe removes trails. Foreground sweeps route above/below measured donor bounds, and continuous trajectory deflection protects the donor without deleting particles inside a rectangle. Some paper indices carry small original bunny stamps; the two large original stickers are cue-led replies. Canvas geometry spans the actual virtual viewport, independently of backing resolution. All cash/spectacle clears in information and disposes at unmount.
+Donate7 money uses one lazily loaded Pixi WebGLRenderer, the unchanged green 56 × 56px `src/assets/images/effects/banknote-particle.png` texture and three pooled ParticleContainers (BACK/MID/FRONT). Finite seeded birth inventory and closed-form terminal fall, drift, rotation and flutter reconstruct from absolute music time; there is no accumulated simulation, per-note tween or independent Pixi ticker. Bills begin above the full logical viewport, including ultrawide, and continue downward. BACK sizes are 28–48px at 115–190 logical px/s, MID 55–93px at 200–350px/s, FRONT 145–225px at 510–730px/s. Existing HIGH/MEDIUM/SAFE money caps stay 540/310/135, with backing targets 2.1M/1.5M/0.9M pixels for the single Pixi canvas (resolution capped at 1). This refinement does not increase populations. Money never reads donor/title bounds or follows repulsion, fountains or side lanes. All money depths sit behind the semantic show, whose title and opaque donor paper provide normal occlusion. Brief translucent notes over the gameplay facecam are explicitly allowed; preserve full-screen rain. Keep the main semantic donor paper, title and reaction apertures outside the gameplay facecam rectangle; the explicit crossing exception applies only to brief translucent money notes. Emission starts at 3.6s, builds at 8.1/12.3s, storms at 15.49932s, reduces at 18.4s, renews at 22.89488s, restrains at 28.6s and rebuilds at 30.26721s. Amount priority at 37.65116s reduces foreground alpha, followed by the final storm at 38.85s. Emission stops at 43.75s; fade spans 44.25–46.15s, and exact zero/Information clears money. Renderer failures explicitly degrade money while preserving source, semantic donor, TTS and queue completion; there is no Canvas money fallback.
+
+A global `.d7-world` camera contains all show DOM/SVG, original reaction media, Pixi money and separate confetti canvases; Information/TTS stays outside it. It authors quiet drift, shared anticipation/recoil, recovery pullback and final amount push on the existing GSAP clock. The donor remains outside the local `.d7-camera`; the local camera contains headline/reactions. MorphSVG and DrawSVG retain the same two-path paper thread, exposing short travelling segments rather than a permanent outline. The thread fades at 45.2s before the Information read, meets the retained fold edge and emerges beneath the donor as the berry amount underline at 37.65116s. During recovery from 28.6s, the actual opaque headline folds to −78° around its measured bottom hinge at canonical y620; satellite apertures join the seam and the same forms unfold at 30.26721s. A textured 540 × 18px physical edge at y616 provides a contact shadow and occludes the thread. HIGH/MEDIUM apply one temporary custom GLSL PaperGateFilter to the money composite: partial closure from 28.6s, final closure 29.3–29.75s, reopening 30.36721–32.01721s around the same approximately 620px seam. Original note color and downward poses persist. SAFE retains the DOM/SVG hinge and edge with a cheap money-opacity envelope. No permanent filter or new clock is introduced.
+
+Separate Canvas2D BACK/MID/FRONT layers retain finite paper, ribbon and spark/firework choreography, excluding every bill cue. Their existing caps remain 480/260/110 and nominal per-canvas backing targets 2M/1.2M/650K; SAFE removes trails. These are confetti budgets, not money budgets. The 1450px inboard emission field and measured donor/title geometry apply only to this supporting inventory. All three canvases sit behind semantic paper, so large streamers cannot draw over its interior. Original bunny stamps and cue-led replies remain. All spectacle clears for Information and disposes at unmount.
 
 ### Studio timeline and preview
 
@@ -378,7 +442,7 @@ Donate8 retains the older name-centred, lavender aperture composition in Studio 
 - **Do** retain explicit Studio labels, visible focus and the supported desktop docked inspector and smaller-screen desktop gate.
 - **Do** preserve transparent negative space, bounded source windows and source-specific anchors that accommodate extra width.
 - **Do** use peach for Studio selection, cyan for measurement, and monospace for genuine timecode.
-- **Do** keep cash distinct by source, route stable depth and derive readability protection from actual donor bounds: alpha falloff for Donate5/6, three-depth routes and trajectory deflection for Donate7.
+- **Do** keep cash distinct by source, route stable depth and derive readability protection from actual donor bounds: alpha falloff for Donate5/6; semantic layer ordering and foreground alpha restraint for Donate7 full-screen Pixi rain.
 - **Do** keep output format separate from Program zoom, Full transport resumable and speech provider labels honest.
 
 ### Don't:

@@ -1,0 +1,51 @@
+# Donate7 — local music evidence / proposed motion score
+
+Local file is the timing truth: `public/assets/donations/audio/donation-template-07.mp3`, SHA256 `56336349d7051ebd9e1cd21b88c67f628a7b4528c28305274591d234c290822c`, decoded mono duration **46.233968s**. FFprobe tags identify title **Hislerim**, artist **Serhat Durmus**. [JOOX's release](https://www.joox.com/my-en/single/ly%2B6ilkXlQP1cDBCG25f9g==) names Zerrin and composition/lyrics credits. Track identity is strongly corroborated; the exact local cut/master/remix distinction is **not established** from the short file and tags. No platform timestamp is used as an animation timestamp.
+
+## Four stems and useful measurements
+
+[Four-stem score](assets/donate7-definitive/four-stem-score.png), [measured data](assets/donate7-definitive/music-gold.json). Existing Demucs htdemucs separation, source hashes per stem recorded. RMS samples at50ms; STFT2048/hop256 at22050Hz, onset hypotheses, seven band powers, centroid,85%rolloff, flatness, bass pitch candidates and other-stem chroma candidates. Stem extraction is imperfect: chopped pitched electronic material appears in the vocal stem after the drop. Its continued energy is not evidence of intelligible sung words.
+
+RMS and per-band envelopes normalize per-feature P95. These are relative within a lane, not dB comparisons between stems. Absolute spectral-power fractions are supplied beside them so a tiny leakage band cannot become a false strong sparkle cue. Bass at25s puts about98.8% of measured power in20–180Hz; normalized brilliance alone would have misleadingly suggested activity.
+
+- **Bass:** sustained low-frequency weight dominates from approximately15.50s to43.75s; strong measured attacks cluster around15.51093,23s and37.65116. Use sustained depth/compression beneath long main gestures. Do not turn every flux detection into a bounce. Bass disappears at44s.
+- **Drums:** almost absent at0–8s, then an increasingly sparse/decaying preparation; strong joint entry at15.49932s. Use high-frequency accents for small peripheral marks and kick-like pulses for monitor depth. Spectral kick/snare tags remain hypotheses, not approved instrumental labels.
+- **Vocals:** opening phrases and pickup around13.2–15.5s, then dense rhythmic pitched material. Use phrase shape for HALO entries and source holds. No new semantic effect is approved.
+- **Other:** strongest sustained melodic/harmonic texture is in the opening, declining from8s through15s; its low energy after15.5s means it should not drive a constant melodic light layer there. Chroma/pitch observations are candidates, not chord names or exact MIDI notes.
+
+Existing estimated tempo129.199BPM, beat-this spacing approximately0.46s, candidate4/4 bars approximately1.85s. Beat phase/meter are unapproved. Candidate1/2,1/4,1/8,1/16 grid can stage secondary overlap; grid positions are not actual notes. Important proposed hero is tied to the **measured drum/bass onset15.49932/15.51093**, not an assumed bar line.
+
+## Lyrics / listening honesty
+
+Two short source phrases (eight words total) were corroborated against [JOOX](https://www.joox.com/my-en/single/ly%2B6ilkXlQP1cDBCG25f9g==) and [LyricsTranslate](https://lyricstranslate.com/tr/serhat-durmus-hislerim-lyrics.html). They are stored only in [verification metadata](assets/donate7-definitive/vocal-verification.json), not as a complete song lyric. Cached faster-whisper large-v3, CPUint8, tested the first16s isolated local vocal stem; neither phrase matched all words exactly. **Source lyric verification does not establish local alignment.** Forced-aligning an uncertain occurrence would manufacture precision, so no production semantic cue or lyric subtitle is created from these candidates.
+
+The environment can capture and play the local track but does not expose a reliable perceptual listening channel to this agent. A ten-pass human listening review, verified local phrase meanings and manually approved meter/phase are therefore **not claimed**. Owner listening approval remains necessary before calling this a fully approved MUSIC GOLD pass. The supplied original and Version A videos provide the complete audible material; no additional owner attachment is required.
+
+## Final implemented full-track motion score
+
+The choreography implements these editorial responsibilities; musical interpretation still needs owner review at1×. A missing vocal meaning is intentionally not replaced with invented semantic effects. Scale: micro / rhythmic / phrase / structural / hero. Main gesture is allowed0.9–1.4s to complete; intervening events touch peripheral objects. Source remains original and small; Information uses existing lifecycle and stable complete message.
+
+|Time / scale|What the measured lanes show|Primary / eye focus|Secondary, camera, particles, light|Duration / already moving|
+|---|---|---|---|---|
+|0 / boundary|Track begins|Transparent frame zero|All effects clear, source idle|No visible initial residue|
+|0.05–3.0 / phrase|Opening vocal and other texture rise, drums absent|One small webcam aperture, nearby HALO question|Gentle1.6s reveal; no celebration; slow bounded source drift|Opening gesture finishes before introducing another hero|
+|3.0–7.9 / phrase|Other texture sustained, bass fades|HALO caller crosses toward feed, source responds once|One drawn arc/phone-like question punctuation; micro letter pressure follows envelope|Long1.2s calls overlap background texture without a new slam|
+|8.115 / structural|First isolated drum onset cluster|Peripheral HALO chorus recruits around a clear central gap|Two added staggered feeds join the first (three total); camera3.2s drift; no early celebratory rain|Original tiny source continues; no giant title yet|
+|10.88–12.7 / rhythmic|Preparation loses energy|Calls collect into a designed cutout stage|Finite HALO calls drain; camera1.5s finishes its drift; no new major object|The assembled stage holds and becomes readable|
+|13.20054 / phrase|Vocal pickup, little bass|CO statement, first glyph performance|Individual weighted cutouts; source retains its native cadence|1.05s plus220ms glyph trail with controlled followthrough|
+|13.87392 / phrase|Next vocal accent|ZA answers from another baseline|Peach paper and donor name begin13.9 with1.25s reveal|1.05s plus220ms glyph trail; CO is readable throughout|
+|15.24932 / anticipation|Before joint bass/drum entry|Title group compresses with retained legibility; native source holds selected pose|Money emitter prepares; no fullscreen blackout or source recoloring|250ms; don't restart all secondary objects|
+|**15.49932** / hero|Drums and bass enter together|Heavy POJEB glyph wave settles; all amount digits readable at exact cue|Cash begins at cue, paper+120ms, firework+180ms, streamers+240ms, bunny+350ms; DrawSVG underline follows|1.05–1.3s glyph performance; approximately1.8s readable hero, particles have3–4s followthrough|
+|17.3–21.9 / rhythmic|Sustained bass with drum spacing and pitched motif|Donor/amount hold; smaller source/peripheral responses|Micro mass from bass, sparkle only from qualified high-frequency events; cash thins|Do not repeat the title slam|
+|**22.89488–23.1** / structural|Joint strong attacks / dense bass region|WTF / bunny gag shifts eye through same anchor; feeds briefly agree|New curved sweep, staggered paper top cascade; different firework family|1.3s main gag, existing amount stays readable|
+|24.5–29.0 / phrase|Bass stays strong; motif repeats|Type callbacks become a slow baseline ripple, not another takeover|One feed moves through a continuous1.4s arc and returns27–28.4; small paper26.6 completes29; no competing firework|Let arc finish; display hold between calls|
+|29.45–30.05 / contrast|Local lower bass region and sparse drum passage; music not silent|False calm: all peripheral clutter drains, one feed and HALO remain|Camera stops, trails finish naturally; donor remains visible|Visual counterpoint for approximately0.8s, not a claim of silence|
+|30.26721 / structural|Drum/bass return from local dip|Stage reassembles in reversed order|Single arc carries eye back to donor, then small paper accent|1.3s; no reset of all props on each beat|
+|33–36.0 / phrase|Dense rhythmic bass continues|Amount gains width-pressure wave; no changed numeric value|Currency followthrough; selective bunny reaction, source remains bounded|1.1s gesture then stable hold|
+|36.03–37.45 / build|Strong drum sequence prepares finale|Camera/body prepare final graphic lockup|Long1.4s advance, tiny punctuation keeps source alive; no new HALO hero|Background accents overlap without cutting the main gesture|
+|**37.65116** / hero|Joint drum/bass transient|**Amount-led** finale: paper advances100px while title gathers at66% up/left|Primary compression → currency+180ms → front bill+350ms → first firework+500ms → streamers+700ms → second spark cascade+1.1s|1.3–1.4s main move,3–4s celebration followthrough; no all-effects-at-once frame|
+|40.9–43.6 / settle|Bass/body remain, ending approaches|Beautiful readable name+amount+small feed hold|No new major motif; lights drain and previous particles fall|Existing movement completes; high-frequency detail stays secondary|
+|43.75–46.23397 / exit|Bass stops, residual vocal/other decay|Glyphs fold along their old entrance paths, feeds close sequentially|One final bill finishes naturally; final native webcam closes|Designed2s ending; hero elements/media clear before Information|
+|46.23397→complete / reading|Original music complete; prepared nickname→amount→message speech|Stable content-driven Information|No dancing message glyphs, no hero particles; unchanged outro/completion|TTS duration remains actual clips; no hardcoded53s lifecycle|
+
+This score covers bass/drums/vocals/other, dynamics and candidate beat/bar responsibility. Semantic lane is explicitly empty pending reliable local alignment. Nickname and amount each get addressable glyphs but readable holds dominate. Webcam/call chorus, type, camera, cash, paper, streamers, fireworks, stickers and DrawSVG marks have named roles. CRT/glitch and fullscreen light are omitted because the original reaction joke does not earn them. Ten drum-stem onsets used for brief punctuation:17.35692,18.26249,19.19129,20.10848,25.43746,26.35465,31.18440,32.12481,34.87637,35.81678. None overrides a continuing phrase move.

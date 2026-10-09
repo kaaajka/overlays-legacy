@@ -1,0 +1,42 @@
+ M .impeccable/design.json
+ M DESIGN.md
+ M package.json
+ M pnpm-lock.yaml
+ M scripts/render-donation.mjs
+ M src/dev/motion-studio/MotionStudio.tsx
+ M src/donations/choreography/donate7/SpectacleRenderer.test.ts
+ M src/donations/choreography/donate7/SpectacleRenderer.ts
+ M src/donations/choreography/donate7/TREATMENT.md
+ M src/donations/choreography/donate7/choreography.ts
+ M src/donations/choreography/donate7/cues.ts
+ M src/donations/choreography/donate7/show.ts
+ M src/donations/scenes/Donate7Scene.tsx
+ M src/donations/scenes/donate7-show.css
+ M src/motion/cash/CashRenderer.test.ts
+ M src/motion/engine/DonationScene.tsx
+ M tests/donate7-creative.pw.ts
+ M tests/motion-engine.pw.ts
+ M tests/motion-studio-v2.pw.ts
+ M tests/production-2.2.pw.ts
+?? .impeccable/mocks/
+?? .impeccable/surfaces/
+?? docs/DONATE7_DEFINITIVE_DIRECTION.md
+?? docs/DONATE7_DEFINITIVE_QA.md
+?? docs/DONATE7_FINAL_REVIEW.md
+?? docs/DONATE7_MOTION_REFINEMENT.md
+?? docs/DONATE7_MUSIC_GOLD.md
+?? docs/DONATE7_RENDERING_EVALUATION.md
+?? docs/DONATE7_SHOWPIECE.md
+?? docs/MOTION_TOOLBOX_PIXI.md
+?? docs/assets/donate7-definitive/
+?? docs/assets/donate7-pixi/
+?? docs/assets/donate7-showpiece/
+?? public/assets/donations/brand/donate7-bunny-cry.png
+?? public/assets/donations/brand/donate7-peach-paper.png
+?? src/donations/choreography/donate7/MoneyRainModel.test.ts
+?? src/donations/choreography/donate7/MoneyRainModel.ts
+?? src/donations/choreography/donate7/PaperGateFilter.ts
+?? src/donations/choreography/donate7/PixiMoneyRenderer.ts
+?? src/donations/choreography/donate7/cameraRig.ts
+?? src/motion/toolbox/
+?? tests/donate7-pixi.pw.ts

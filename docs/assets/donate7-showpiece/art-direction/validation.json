@@ -1,0 +1,126 @@
+{
+  "checkedAt": "2026-10-09T13:07:00.210Z",
+  "scope": "Current three-point art-direction implementation, source frozen before final recordings; test-only stale assertion corrected after first full run",
+  "commands": {
+    "typecheck": {
+      "command": "pnpm typecheck",
+      "status": "passed"
+    },
+    "unit": {
+      "command": "pnpm test",
+      "status": "passed",
+      "files": 36,
+      "tests": 334
+    },
+    "lint": {
+      "command": "pnpm lint",
+      "status": "passed",
+      "errors": 0,
+      "warnings": 44,
+      "infos": 39
+    },
+    "build": {
+      "command": "pnpm build",
+      "status": "passed",
+      "warning": "Existing main chunk exceeds500kB minified",
+      "mainBytes": 832758,
+      "mainGzipBytes": 261309
+    },
+    "browser": {
+      "command": "pnpm exec playwright test",
+      "status": "passed",
+      "tests": 90,
+      "summary": "90 passed (8.1m)",
+      "firstRun": {
+        "passed": 89,
+        "failed": 1,
+        "cause": "Stale scene-content display:none assertion incompatible with retained Donate7 donor paper during Information; updated to assert retained paper plus outgoing glyph/content/effects release"
+      }
+    }
+  },
+  "git": {
+    "branch": "michal-szwindowski/donation-motion-engine",
+    "localHead": "2f372da3b5f8a1cadab5cacc14f2d3d42550728b",
+    "remoteHead": "2f372da3b5f8a1cadab5cacc14f2d3d42550728b",
+    "newCommits": [],
+    "pushed": false,
+    "ownerVisualApproval": false,
+    "workingTree": "modified/untracked continuation retained",
+    "statusFile": "git-status.txt"
+  },
+  "implementationChangedOnly": [
+    "src/donations/choreography/donate7/cameraRig.ts",
+    "src/donations/choreography/donate7/choreography.ts",
+    "src/donations/scenes/donate7-show.css"
+  ],
+  "updatedExistingTests": [
+    "tests/motion-engine.pw.ts"
+  ],
+  "addedRegressionTest": "tests/donate7-art-direction.pw.ts",
+  "fingerprintFile": "runtime-fingerprint.json",
+  "fingerprintVerifiedFiles": 241,
+  "evidence": {
+    "comparisons": 6,
+    "fullyDecodedChapterVideos": 12,
+    "completeLiveCaptures": 2,
+    "captureErrors": [],
+    "method": "All12comparison/full-resolution MP4s fully decoded, counted/probed, checked for whole-black intervals and non-silent AAC; current executable fingerprint and live complete captures checked separately. No perceptual listening/nativeOBS/creative acceptance claim.",
+    "renderer": "SwiftShader software; adaptive actual live frame cadence, encoded30FPS",
+    "nativeOBSPerformanceProven": false,
+    "ownerListeningAcceptance": false,
+    "captures": [
+      {
+        "amountCents": 5732,
+        "frames": 994,
+        "actualCapturedFramesPerSecond": 18.583837934227528,
+        "encodedFramesPerSecond": 30,
+        "qualityChanges": [
+          {
+            "time": 0,
+            "quality": "high"
+          },
+          {
+            "time": 5.054793333339294,
+            "quality": "medium"
+          },
+          {
+            "time": 10.60240433333333,
+            "quality": "safe"
+          }
+        ],
+        "finalPhase": "complete",
+        "errors": []
+      },
+      {
+        "amountCents": 3000000,
+        "frames": 1051,
+        "actualCapturedFramesPerSecond": 19.801868648851514,
+        "encodedFramesPerSecond": 30,
+        "qualityChanges": [
+          {
+            "time": 0,
+            "quality": "high"
+          },
+          {
+            "time": 5.0634980000059615,
+            "quality": "medium"
+          },
+          {
+            "time": 10.28004100001192,
+            "quality": "safe"
+          }
+        ],
+        "finalPhase": "complete",
+        "errors": []
+      }
+    ],
+    "fullyDecodedFullAlerts": 2,
+    "fullAlertDecodeFile": "review/full-alert-decode.json"
+  },
+  "knownLimitations": [
+    "Owner visual/musical/TTS acceptance pending",
+    "NativeOBS/GPU performance not measured; software capture is not60FPS proof",
+    "Existing lint warnings/infos and main-chunk build warning remain",
+    "Gameplay background in current recordings is established reference still; original reaction footage moves"
+  ]
+}
