@@ -804,6 +804,8 @@ function MotionStudio() {
         phase,
         quality: stats.quality,
         spectacle: stats.spectacle,
+        money: stats.money,
+        moneyError: stats.moneyError,
         duration: music.current?.duration,
         cue: cue?.name,
         media: scene.current?.media() ?? [],
@@ -819,6 +821,7 @@ function MotionStudio() {
         audioDiagnostic,
       }),
       prepareSpeech: prepareCurrentSpeech,
+      moneyFrame: () => scene.current?.moneyFrame() ?? [],
       exportMetadata: () => ({
         semanticMessage: donate.message,
         currentSpeech: enabledSpeech,
@@ -1483,16 +1486,69 @@ function MotionStudio() {
                     <dt>{pl("Detail tier")}</dt>
                     <dd>
                       {pl(stats.quality)} ·{" "}
-                      {tier === 6
-                        ? 12
-                        : stats.quality === "safe"
-                          ? 14
-                          : stats.quality === "medium"
-                            ? 40
-                            : 72}{" "}
+                      {tier === 7
+                        ? (stats.money?.budget ?? "—")
+                        : tier === 6
+                          ? 12
+                          : stats.quality === "safe"
+                            ? 14
+                            : stats.quality === "medium"
+                              ? 40
+                              : 72}{" "}
                       {pl("banknotów maksymalnie")}
                     </dd>
-                    {tier >= 5 && tier <= 7 && (
+                    {tier === 7 && (
+                      <>
+                        <dt>Renderer pieniędzy</dt>
+                        <dd data-testid="money-renderer" role="status">
+                          PIXI · {stats.money?.state ?? (stats.moneyError ? "degraded" : "loading")}{" "}
+                          · {stats.money?.backend ?? "oczekiwanie"}
+                          {(stats.money?.reason || stats.moneyError) && (
+                            <strong>
+                              {" "}
+                              · {stats.money?.reason || stats.moneyError} — obraz, dane i TTS
+                              zachowane
+                            </strong>
+                          )}
+                        </dd>
+                        <dt>Choreografia / zegar</dt>
+                        <dd>
+                          GSAP / Web Audio · ticker Pixi:{" "}
+                          {stats.money
+                            ? stats.money.ticker
+                              ? "aktywny"
+                              : "wyłączony"
+                            : "oczekiwanie"}
+                        </dd>
+                        <dt>Kamera / przejścia</dt>
+                        <dd>Wspólny rig DOM + SVG + PIXI + Canvas · papierowa nić / składanie</dd>
+                        <dt>Warstwy</dt>
+                        <dd>
+                          PIXI: pieniądze · Canvas: konfetti, wstążki, iskry · DOM/SVG: reakcje,
+                          tekst, akcenty
+                        </dd>
+                        <dt>Używane narzędzia</dt>
+                        <dd>
+                          PixiPlugin, SplitText, MotionPath, DrawSVG, MorphSVG, CustomEase ·
+                          Physics2D: nie
+                        </dd>
+                        <dt>Filtry pieniędzy</dt>
+                        <dd>{stats.money?.filters.join(", ") || "Brak"}</dd>
+                        <dt>Banknoty / warstwy</dt>
+                        <dd>
+                          {stats.money?.sprites ?? 0} · BACK {stats.money?.back ?? 0} / MID{" "}
+                          {stats.money?.mid ?? 0} / FRONT {stats.money?.front ?? 0}
+                        </dd>
+                        <dt>Stan pieniędzy</dt>
+                        <dd>{stats.money?.chapter ?? "clear"}</dd>
+                        <dt>Render / zasoby</dt>
+                        <dd>
+                          {(stats.money?.renderMs ?? 0).toFixed(2)} ms CPU ·{" "}
+                          {stats.money?.activeRenderers ?? 0} renderer · draw calls: niedostępne
+                        </dd>
+                      </>
+                    )}
+                    {tier >= 5 && tier <= 6 && (
                       <>
                         <dt>{pl("Cash cue")}</dt>
                         <dd>

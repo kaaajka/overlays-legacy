@@ -23,6 +23,7 @@ export class SpectacleRenderer {
   private inventory: Particle[];
   private width = 1920;
   private donor: Geometry = { x: 650, y: 650, width: 500, height: 220 };
+  private title: Geometry;
   stats = {
     particles: 0,
     back: 0,
@@ -46,24 +47,26 @@ export class SpectacleRenderer {
       }),
     ) as Record<Depth, CanvasRenderingContext2D>;
     const random = seededRandom(`${seed}:donate7-show`);
-    this.inventory = spectacleCues.flatMap((cue) =>
-      Array.from({ length: cue.count }, (_, index) => ({
-        cue,
-        index,
-        a: random(),
-        b: random(),
-        c: random(),
-        d: random(),
-        depth:
-          cue.kind === "spark"
-            ? "back"
-            : index % 9 === 0
-              ? "front"
-              : index % 3 === 0
-                ? "mid"
-                : "back",
-      })),
-    );
+    this.inventory = spectacleCues
+      .filter((cue) => cue.kind !== "bill")
+      .flatMap((cue) =>
+        Array.from({ length: cue.count }, (_, index) => ({
+          cue,
+          index,
+          a: random(),
+          b: random(),
+          c: random(),
+          d: random(),
+          depth:
+            cue.kind === "spark"
+              ? "back"
+              : index % 9 === 0
+                ? "front"
+                : index % 3 === 0
+                  ? "mid"
+                  : "back",
+        })),
+      );
     this.resize(1920);
   }
 
@@ -74,6 +77,9 @@ export class SpectacleRenderer {
   }
   setDonor(geometry: Geometry) {
     this.donor = geometry;
+  }
+  setTitle(geometry: Geometry) {
+    this.title = geometry;
   }
   resize(width: number) {
     this.width = width;
@@ -102,10 +108,24 @@ export class SpectacleRenderer {
   render(time: number, effects: EffectParameters, features: AudioFeatures) {
     const start = performance.now();
     this.clear();
+    for (const context of Object.values(this.contexts)) {
+      context.globalAlpha = 1;
+      context.globalCompositeOperation = "source-over";
+      context.strokeStyle = "#fff4e5";
+      context.fillStyle = "#fff4e5";
+      context.lineWidth = 1;
+      context.lineCap = "butt";
+    }
     if (time <= 0 || time >= 46.23397) return;
     const budget = spectacleBudgets[this.quality];
+    // Center the primary type/data; keep the right celebration inboard of the stream facecam.
+    const celebrationLeft = (this.width - 1920) / 2;
+    const celebrationWidth = 1450;
     const active = spectacleCues.filter(
-      (cue) => time >= cue.at - (cue.kind === "spark" ? 0.32 : 0) && time < cue.at + cue.life,
+      (cue) =>
+        cue.kind !== "bill" &&
+        time >= cue.at - (cue.kind === "spark" ? 0.32 : 0) &&
+        time < cue.at + cue.life,
     );
     const total = active.reduce((sum, cue) => sum + cue.count, 0);
     const ratio = Math.min(
@@ -123,11 +143,11 @@ export class SpectacleRenderer {
       if (this.stats.particles >= budget.particles) break;
       const context = this.contexts[depth];
       const side = index % 2 ? 1 : -1;
-      const origin = side < 0 ? 0 : this.width;
+      const origin = celebrationLeft + (side < 0 ? 0 : celebrationWidth);
       const depthScale = depth === "back" ? 0.6 : depth === "mid" ? 1 : 2.2;
       let x: number, y: number;
       if (cue.kind === "spark") {
-        const cx = this.width * (cue.emitter === "left" ? 0.19 : 0.81);
+        const cx = celebrationLeft + celebrationWidth * (cue.emitter === "left" ? 0.19 : 0.81);
         const cy = cue.emitter === "left" ? 255 : 335;
         if (t < 0) {
           if (index !== 0) continue;
@@ -164,10 +184,10 @@ export class SpectacleRenderer {
       } else {
         const drag = (1 - Math.exp(-t * 0.52)) / 0.52;
         if (cue.emitter === "top") {
-          x = a * this.width + Math.sin(t * 2 + b * 6) * (20 + r * 30);
+          x = celebrationLeft + a * celebrationWidth + Math.sin(t * 2 + b * 6) * (20 + r * 30);
           y = -70 + t * (210 + d * 130) + 55 * t * t;
         } else if (cue.emitter === "sweep" && depth === "front") {
-          x = -160 + (this.width + 320) * (t / 1.65 + a * 0.22);
+          x = celebrationLeft - 160 + (celebrationWidth + 320) * (t / 1.65 + a * 0.22);
           // Foreground routes are authored around real donor geometry, never deleted in a rectangle.
           y =
             side < 0
@@ -186,6 +206,15 @@ export class SpectacleRenderer {
           const influence = Math.exp(-(dx * dx + dy * dy) * 1.3);
           x += Math.tanh(dx * 3) * influence * 180;
           y += Math.tanh(dy * 3) * influence * 130;
+          if (this.title) {
+            const tx = (x - this.title.x) / (this.title.width / 2 + 100);
+            const ty = (y - this.title.y) / (this.title.height / 2 + 65);
+            const influence = Math.exp(-(tx * tx + ty * ty) * 1.6);
+            // Broad continuous routes bend above/below the phrase. No pixel mask,
+            // object deletion or hidden rectangle can pop a particle out of existence.
+            y += Math.tanh(ty * 4) * influence * (depth === "front" ? 245 : 155);
+            x += Math.tanh(tx * 3) * influence * 100;
+          }
         }
         context.save();
         context.translate(x, y);
@@ -197,29 +226,7 @@ export class SpectacleRenderer {
           (0.9 + features.onset * 0.1);
         context.scale(depthScale, depthScale);
         context.fillStyle = palette[index % palette.length];
-        if (cue.kind === "bill") {
-          context.scale(1, 0.55 + Math.abs(Math.cos(t * 3 + d * 6)) * 0.45);
-          context.fillStyle = "#f7dfad";
-          context.strokeStyle = "#654c42";
-          context.lineWidth = 1.5;
-          context.beginPath();
-          context.roundRect(-32, -15, 64, 30, 3);
-          context.fill();
-          context.stroke();
-          context.strokeRect(-25, -10, 50, 20);
-          context.beginPath();
-          context.ellipse(0, 0, 9, 10, 0, 0, Math.PI * 2);
-          context.stroke();
-          context.fillStyle = "#654c42";
-          context.font = "700 10px Poppins";
-          context.textAlign = "center";
-          context.fillText("zł", 0, 3);
-          if (budget.trails && depth === "front") {
-            context.globalAlpha *= 0.14;
-            context.fillStyle = "#ffe7c7";
-            context.fillRect(-95, -9, 53, 18);
-          }
-        } else if (cue.kind === "streamer") {
+        if (cue.kind === "streamer") {
           context.strokeStyle = palette[index % palette.length];
           context.lineWidth = 6;
           context.beginPath();

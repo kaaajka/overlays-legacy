@@ -99,6 +99,12 @@ try {
   await page.goto(`${request.url}/motion-studio?${query}`);
   await page.waitForFunction(() => window.motionStudio?.status().duration > 0, { timeout: 30000 });
   await page.evaluate(() => document.fonts.ready);
+  if (request.tier === 7) {
+    await page.waitForFunction(() => {
+      const state = document.querySelector(".donation-motion")?.dataset.moneyRenderer;
+      return state === "ready" || state === "degraded";
+    });
+  }
   await page.waitForFunction(() =>
     [...document.querySelectorAll(".studio-stream")].every(
       (image) => image.complete && image.naturalWidth > 0,

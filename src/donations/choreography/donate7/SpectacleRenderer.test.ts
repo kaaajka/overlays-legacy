@@ -66,7 +66,7 @@ describe("Donate7 deterministic spectacle", () => {
   it("has a particle-free false calm, four finite fireworks and clean zero/end", () => {
     expect(spectacleCues.filter((c) => c.kind === "spark")).toHaveLength(4);
     const { renderer } = fixture();
-    for (const at of [0, 34.2, 46.23397]) {
+    for (const at of [0, 29.65, 46.23397]) {
       renderer.render(at, effects, features);
       expect(renderer.stats.particles).toBe(0);
     }

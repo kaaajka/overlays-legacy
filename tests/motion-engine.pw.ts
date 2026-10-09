@@ -25,7 +25,7 @@ declare global {
   }
 }
 
-const heroes = [3.06503, 3.66875, 4.82975, 4.52789, 4.82975, 3.90095, 13.21215, 13.21215];
+const heroes = [3.06503, 3.66875, 4.82975, 4.52789, 4.82975, 3.90095, 15.49932, 13.21215];
 const artifacts = ".motion-qa";
 mkdirSync(artifacts, { recursive: true });
 
@@ -196,7 +196,22 @@ for (let tier = 1; tier <= 8; tier++) {
     await page.evaluate(() => window.motionStudio.information(6000));
     await expect(page.locator(".information-message")).toBeVisible();
     expect(await page.locator("video[src]").count()).toBe(0);
-    if (tier <= 7) await expect(page.locator(".scene-content")).toHaveCSS("display", "none");
+    if (tier === 7) {
+      // Donate7 carries its actual donor paper into the Information read.
+      await expect(page.locator(".d7-donor")).toBeVisible();
+      const titleGlyphs = page.locator(".d7-co > div,.d7-za > div,.d7-slam > div");
+      expect(await titleGlyphs.count()).toBeGreaterThan(0);
+      expect(
+        await titleGlyphs.evaluateAll((nodes) =>
+          nodes.every((node) => getComputedStyle(node).opacity === "0"),
+        ),
+      ).toBe(true);
+      await expect(page.locator(".d7-donor > .motion-name")).not.toBeVisible();
+      await expect(page.locator(".d7-donor > .motion-amount")).not.toBeVisible();
+      expect(await page.locator(".d7-money:visible,.d7-spectacle:visible").count()).toBe(0);
+    } else if (tier <= 6) {
+      await expect(page.locator(".scene-content")).toHaveCSS("display", "none");
+    }
     await page.evaluate(
       () => new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve))),
     );

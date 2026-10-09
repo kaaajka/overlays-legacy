@@ -1,5 +1,5 @@
 import { expect, test } from "@playwright/test";
-const heroes = [3.06503, 3.66875, 4.82975, 4.52789, 4.82975, 3.90095, 13.21215];
+const heroes = [3.06503, 3.66875, 4.82975, 4.52789, 4.82975, 3.90095, 15.49932];
 test("32-char names and realistic PLN amounts form separate readable units in all seven scenes", async ({
   page,
 }) => {

@@ -3,18 +3,18 @@ import type { MusicAnalysis, QualityTier } from "../../../motion/types";
 /** Editorial cues anchored to measured onsets / incumbent hero, never inferred lyrics. */
 export const donate7Show = {
   signal: 4.45823,
-  co: 11.80735,
-  za: 12.27175,
-  hero: 13.21215,
-  response: 16.43973,
+  co: 13.20054,
+  za: 13.87392,
+  hero: 15.49932,
+  response: 18.2,
   reprise: 22.89488,
   exchange: 25.44907,
-  recovery: 30.25,
-  calm: 33.52961,
-  recruit: 36.06059,
-  final: 37.66277,
+  recovery: 28.6,
+  calm: 29.45,
+  recruit: 30.26721,
+  final: 37.65116,
   afterglow: 40.91356,
-  exit: 43.67673,
+  exit: 43.75,
 } as const;
 
 export const spectacleBudgets: Record<
@@ -119,15 +119,15 @@ export const spectacleCues: SpectacleCue[] = [
     emitter: "corners",
   },
   {
-    at: 29.14104,
+    at: 26.6,
     kind: "paper",
     count: 35,
-    life: 2.9,
+    life: 2.4,
     power: 0.4,
     emitter: "top",
   },
   {
-    at: donate7Show.final,
+    at: donate7Show.final + 0.35,
     kind: "bill",
     count: 110,
     life: 4.2,
@@ -143,7 +143,7 @@ export const spectacleCues: SpectacleCue[] = [
     emitter: "corners",
   },
   {
-    at: donate7Show.final + 0.24,
+    at: donate7Show.final + 0.7,
     kind: "streamer",
     count: 12,
     life: 4.4,
@@ -151,7 +151,7 @@ export const spectacleCues: SpectacleCue[] = [
     emitter: "corners",
   },
   {
-    at: donate7Show.final + 0.18,
+    at: donate7Show.final + 0.5,
     kind: "spark",
     count: 88,
     life: 2.5,
@@ -159,7 +159,7 @@ export const spectacleCues: SpectacleCue[] = [
     emitter: "left",
   },
   {
-    at: donate7Show.final + 0.54,
+    at: donate7Show.final + 1.1,
     kind: "spark",
     count: 88,
     life: 2.5,

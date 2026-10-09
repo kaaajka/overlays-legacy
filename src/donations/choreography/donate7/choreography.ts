@@ -2,497 +2,696 @@ import gsap from "gsap";
 import { CustomEase } from "gsap/CustomEase";
 import { SplitText } from "gsap/SplitText";
 import { DrawSVGPlugin } from "gsap/DrawSVGPlugin";
+import { MotionPathPlugin } from "gsap/MotionPathPlugin";
 import type { DirectorContext } from "../../../motion/gsap/createChoreography";
-import { rhythmMarks } from "../../../audio/motion/musicIntelligence";
 import { sceneTools } from "../../scenes/directorTools";
-import { donate7Show as cue, monitorEvents } from "./show";
+import { donate7Show as cue } from "./show";
+import { authorCameraRig } from "./cameraRig";
 
-gsap.registerPlugin(CustomEase, SplitText, DrawSVGPlugin);
-CustomEase.create("d7-mechanical", "M0,0 C0.12,0 0.13,0.97 0.3,1 0.55,1 0.65,1 1,1");
-CustomEase.create("d7-heavy", "M0,0 C0.3,0 0.33,0.13 0.46,0.86 0.53,1 0.68,1 1,1");
-CustomEase.create("d7-camera", "M0,0 C0.03,0.67 0.1,0.95 0.25,1 0.5,1 0.72,1 1,1");
+gsap.registerPlugin(CustomEase, SplitText, DrawSVGPlugin, MotionPathPlugin);
+CustomEase.create("d7-paper", "M0,0 C0.22,0 0.21,0.88 0.48,1.04 0.65,1.1 0.77,1 1,1");
+CustomEase.create("d7-weight", "M0,0 C0.33,0 0.29,0.4 0.46,0.89 0.62,1.04 0.78,1 1,1");
 
-/** Named shots on one paused timeline; no callbacks, random tweens or private clocks. */
+/** One paused score. All glyphs and absolute secondary actions reconstruct after seeking. */
 export function choreography(context: DirectorContext) {
-  const { q, at, t, name, amount, effects, finish } = sceneTools(context, {
+  const { q, t, name, amount, effects, finish } = sceneTools(context, {
     ownRhythm: true,
   });
-  const letters = SplitText.create(q(".d7-slam"), {
-    type: "chars",
-    aria: "auto",
-  });
-  const monitors = q(".d7-monitor");
-  const screens = q(".d7-screen, .d7-source .source-rhythm");
-  const stills = q(".d7-still");
-  const camera = q(".d7-camera");
-  const headline = q(".d7-headline");
-  const wall = q(".d7-monitor-wall");
+  const splits = [".d7-co", ".d7-za", ".d7-slam", ".d7-wtf", ".motion-currency", ".d7-caller"].map(
+    (selector) => SplitText.create(q(selector), { type: "chars", aria: "auto" }),
+  );
+  const [co, za, title, wtf, currency, callers] = splits;
+  const camera = q(".d7-camera"),
+    headline = q(".d7-headline"),
+    feeds = q(".d7-aperture"),
+    donor = q(".d7-donor");
+  // The source paper's alpha edge grows proportionally with its content. Measure the
+  // loaded text blocks so wrapped names retain opaque backing without shrinking digits.
+  const paper = donor[0] as HTMLElement;
+  const information = q(".motion-information")[0] as HTMLElement;
+  const nameBlock = q(".motion-name")[0] as HTMLElement;
+  const amountBlock = q(".motion-amount")[0] as HTMLElement;
+  paper.style.paddingTop = `${Math.max(68, Math.ceil(((nameBlock.offsetHeight + amountBlock.offsetHeight + 54) * 0.16) / 0.84 + 18))}px`;
+  authorCameraRig(t, q);
+  t.set(headline, { transformOrigin: "50% 100%" }, 0);
+  t.set(q(".d7-fold-edge"), { autoAlpha: 0, scaleX: 0.2 }, 0);
+  t.set(q(".d7-spine"), { autoAlpha: 1 }, 0);
+  t.set(
+    q(
+      ".d7-camera,.d7-headline,.d7-aperture,.d7-donor,.d7-sticker,.d7-caller,.d7-wtf,.d7-co,.d7-za,.d7-slam",
+    ),
+    { force3D: false },
+    0,
+  );
   for (const [label, time] of Object.entries(cue)) t.addLabel(`d7:${label}`, time);
   t.set(
     q(
-      ".d7-monitor, .d7-headline, .d7-wtf, .d7-sticker, .d7-signal-word, .d7-impact, .d7-monitor-ghost",
+      ".d7-aperture,.d7-headline,.d7-co,.d7-za,.d7-slam,.d7-caller,.d7-wtf,.d7-sticker,.d7-impact,.d7-donor",
     ),
     { autoAlpha: 0 },
     0,
   );
-  t.set(q(".d7-co, .d7-za, .d7-slam"), { autoAlpha: 0 }, 0);
-  t.set(q(".d7-type-echo"), { autoAlpha: 0 }, 0);
-  t.set(letters.chars, { yPercent: 0, scaleY: 1, rotation: 0, force3D: false }, 0);
-  t.set(amount, { y: 0, force3D: false }, 0);
-  t.set(q(".d7-impact path"), { drawSVG: "0% 0%" }, 0);
-  t.set(camera, { x: 0, y: 0, rotation: 0, scale: 1 }, 0);
-  t.set(wall, { x: 0, y: 0, rotation: 0, scale: 1 }, 0);
+  t.set([camera, headline, donor], { x: 0, y: 0, rotation: 0, scale: 1 }, 0);
+  t.set(
+    [
+      ...co.chars,
+      ...za.chars,
+      ...title.chars,
+      ...wtf.chars,
+      ...currency.chars,
+      ...callers.chars,
+      ...name,
+      ...amount,
+    ],
+    { x: 0, y: 0, rotation: 0, scale: 1, opacity: 1, force3D: false },
+    0,
+  );
+  t.set(q(".d7-impact path,.d7-underline path"), { drawSVG: "0% 0%" }, 0);
   t.set(effects, { travel: 1 }, 0);
+  t.set(q(".d7-source"), { autoAlpha: 1 }, 0.05);
+  t.fromTo(
+    feeds[0],
+    { autoAlpha: 0, x: 320, y: 170, scale: 0.65, rotation: -16 },
+    {
+      autoAlpha: 1,
+      x: 0,
+      y: 0,
+      scale: 1,
+      rotation: -6,
+      duration: 1.6,
+      ease: "d7-paper",
+      immediateRender: false,
+    },
+    0.05,
+  );
 
-  function introSignal() {
-    t.set(q(".d7-source"), { autoAlpha: 1 }, 0.05);
+  function call(index: number, at: number, side: number, life = 2.1) {
+    const node = q(`.d7-call-${index}`);
     t.fromTo(
-      q(".d7-main-monitor"),
-      { autoAlpha: 0, scaleY: 0.04, scaleX: 0.42, rotation: -5 },
+      node,
+      { autoAlpha: 0, scale: 0.65, rotation: side * 18, x: side * 160, y: 55 },
       {
         autoAlpha: 1,
-        scaleY: 0.42,
-        scaleX: 0.42,
-        duration: 0.22,
-        ease: "d7-mechanical",
-        immediateRender: false,
-      },
-      0.05,
-    );
-    t.fromTo(
-      q(".d7-signal-word"),
-      { autoAlpha: 0, y: 12, scale: 0.7 },
-      {
-        autoAlpha: 1,
-        y: 0,
         scale: 1,
-        duration: 0.25,
-        ease: "back.out(1.5)",
+        rotation: side * -7,
+        motionPath: {
+          path: [
+            { x: side * 160, y: 55 },
+            { x: side * 38, y: -20 },
+            { x: 0, y: 0 },
+          ],
+          curviness: 1.4,
+        },
+        duration: 1.1,
+        ease: "d7-paper",
         immediateRender: false,
       },
-      1.25,
+      at,
     );
-    t.to(q(".d7-signal-word"), { autoAlpha: 0, y: -18, duration: 0.25 }, 2.9);
     t.to(
-      q(".d7-main-monitor"),
-      { scale: 0.56, rotation: 4, duration: 0.18, ease: "d7-heavy" },
-      cue.signal - 0.18,
-    );
-    t.to(camera, { x: -4, y: -3, duration: 3.8, ease: "sine.inOut" }, 0.4);
-    t.to(
-      q(".d7-main-monitor"),
-      { scale: 1, rotation: -3, duration: 0.2, ease: "d7-mechanical" },
-      cue.signal,
-    );
-    t.set(q(".motion-name"), { autoAlpha: 1 }, at("donorReveal"));
-    t.fromTo(
-      name,
-      { x: -30, y: 26, opacity: 0, rotation: -8 },
+      node,
       {
-        x: 0,
-        y: 0,
-        opacity: 1,
-        rotation: 0,
-        duration: 0.34,
-        stagger: { amount: 0.35 },
-        ease: "d7-camera",
-        immediateRender: false,
+        autoAlpha: 0,
+        x: side * -35,
+        y: -45,
+        rotation: side * 12,
+        duration: 0.65,
+        ease: "power2.inOut",
       },
-      at("donorReveal"),
+      at + life,
     );
   }
-
-  function monitorCascade() {
-    const beats = rhythmMarks(context.treatment.analysis)
-      .map((mark) => mark.at)
-      .filter((beat) => beat >= at("buildStart") && beat < at("preDrop"));
-    stills.forEach((node, index) => {
-      t.fromTo(
-        node,
-        {
-          autoAlpha: 0,
-          x: index % 2 ? 70 : -70,
-          y: 45,
-          scale: 0.15,
-          rotation: index % 2 ? 25 : -25,
-        },
-        {
-          autoAlpha: 1,
-          x: 0,
-          y: 0,
-          scale: 1,
-          rotation: index % 2 ? 7 : -8,
-          duration: 0.3,
-          ease: "d7-mechanical",
-          immediateRender: false,
-        },
-        beats[index] ?? 9 + index * 0.45,
-      );
-    });
-    for (const [index, node] of q(".d7-satellite").entries()) {
-      t.fromTo(
-        node,
-        { autoAlpha: 0, scaleY: 0.03, rotation: 0 },
-        {
-          autoAlpha: 1,
-          scaleY: 1,
-          rotation: index ? 9 : -7,
-          duration: 0.25,
-          ease: "d7-mechanical",
-          immediateRender: false,
-        },
-        7.6858 + index * 0.4644,
-      );
-    }
-    t.to(camera, { x: 5, y: -5, rotation: 0.25, duration: 3, ease: "sine.inOut" }, 9);
-  }
-
-  function headlineBuild() {
-    t.set(headline, { autoAlpha: 1 }, cue.co);
+  call(0, 1.25, -1, 2.3);
+  call(1, 4.15, 1);
+  call(2, 6, -1);
+  [0, 1, 2, 3, 4, 5].forEach((i) => {
+    call(i, 8.115 + i * 0.38, i % 2 ? 1 : -1, 2.8);
+  });
+  [1, 2].forEach((i) => {
     t.fromTo(
-      q(".d7-co"),
-      { autoAlpha: 0, x: -50, y: 22, rotation: -14, scaleX: 0.6 },
+      feeds[i],
+      {
+        autoAlpha: 0,
+        x: i === 1 ? 140 : -140,
+        y: 80,
+        rotation: i === 1 ? 22 : -20,
+        scale: 0.7,
+      },
       {
         autoAlpha: 1,
         x: 0,
         y: 0,
-        rotation: 0,
-        scaleX: 1,
-        duration: 0.18,
-        ease: "d7-mechanical",
+        rotation: i === 1 ? 7 : -9,
+        scale: 1,
+        duration: 1.2,
+        ease: "d7-paper",
         immediateRender: false,
       },
-      cue.co,
+      8.115 + i * 0.4644,
     );
-    t.fromTo(
-      q(".d7-za"),
-      { autoAlpha: 0, x: 50, y: -22, rotation: 12, scaleX: 0.6 },
-      {
-        autoAlpha: 1,
-        x: 0,
-        y: 0,
-        rotation: 0,
-        scaleX: 1,
-        duration: 0.18,
-        ease: "d7-mechanical",
-        immediateRender: false,
-      },
-      cue.za,
-    );
-  }
+  });
+  t.to(camera, { x: 10, y: -5, rotation: 0.35, duration: 3.2, ease: "sine.inOut" }, 9.2);
+  t.to(camera, { x: 0, y: 0, rotation: 0, duration: 1.5, ease: "sine.inOut" }, 12.4);
 
-  function cameraPunch(time: number, force: number, direction = 1) {
-    t.to(
-      camera,
-      {
-        x: -8 * force * direction,
-        y: 5 * force,
-        scale: 0.98,
-        rotation: -0.3 * direction,
-        duration: 0.18,
-        ease: "power3.in",
-      },
-      time - 0.18,
-    );
+  function cutout(selector: string, chars: Element[], at: number, side: number) {
+    t.set(headline, { autoAlpha: 1 }, at);
+    t.set(q(selector), { autoAlpha: 1 }, at);
     t.set(
-      camera,
+      chars,
       {
-        x: 18 * force * direction,
-        y: -10 * force,
-        scale: 1.025,
-        rotation: 0.7 * direction,
+        y: 80,
+        x: side * 25,
+        rotation: side * 17,
+        rotationX: -72,
+        transformPerspective: 900,
+        scaleY: 0.55,
       },
-      time,
+      at - 0.001,
     );
     t.to(
-      camera,
+      chars,
       {
-        x: -4 * direction,
-        y: 3,
-        scale: 1,
-        rotation: -0.12 * direction,
-        duration: 0.19,
-        ease: "d7-camera",
-      },
-      time,
-    );
-    t.to(camera, { x: 0, y: 0, rotation: 0, duration: 0.38, ease: "sine.out" }, time + 0.19);
-  }
-
-  function stickerBurst(selector: string, time: number, direction: number) {
-    t.fromTo(
-      q(selector),
-      { autoAlpha: 0, scale: 0.25, rotation: -direction * 20, y: 36 },
-      {
-        autoAlpha: 1,
-        scale: 1.12,
-        rotation: direction * 8,
         y: 0,
-        duration: 0.24,
-        ease: "back.out(1.4)",
+        x: 0,
+        rotation: 0,
+        rotationX: 0,
+        scaleY: 1,
+        duration: 1.05,
+        stagger: { amount: 0.22 },
+        ease: "d7-paper",
         immediateRender: false,
       },
-      time,
+      at,
     );
-    t.to(q(selector), { scale: 1, rotation: -direction * 5, duration: 0.25 }, time + 0.24);
-    t.to(q(selector), { autoAlpha: 0, y: -28, scale: 0.8, duration: 0.25 }, time + 1.6);
   }
-
-  function impactLines(time: number) {
-    t.set(q(".d7-impact"), { autoAlpha: 1 }, time);
+  cutout(".d7-co", co.chars, cue.co, -1);
+  cutout(".d7-za", za.chars, cue.za, 1);
+  t.fromTo(
+    donor,
+    { autoAlpha: 0, y: 80, rotation: 4, scaleX: 0.85 },
+    {
+      autoAlpha: 1,
+      y: 0,
+      rotation: 0,
+      scaleX: 1,
+      duration: 1.25,
+      ease: "d7-paper",
+      immediateRender: false,
+    },
+    13.9,
+  );
+  t.set(q(".motion-name"), { autoAlpha: 1 }, 13.9);
+  t.fromTo(
+    name,
+    { y: 25, opacity: 0, rotation: -8 },
+    {
+      y: 0,
+      opacity: 1,
+      rotation: 0,
+      duration: 0.9,
+      stagger: { amount: 0.24 },
+      ease: "d7-paper",
+      immediateRender: false,
+    },
+    13.9,
+  );
+  t.to(headline, { y: 10, scaleY: 0.94, duration: 0.25, ease: "power2.in" }, cue.hero - 0.25);
+  cutout(".d7-slam", title.chars, cue.hero, -1);
+  t.to(headline, { y: 0, scaleY: 1, duration: 1.15, ease: "d7-weight" }, cue.hero);
+  t.set(q(".motion-amount"), { autoAlpha: 1 }, cue.hero);
+  // All amount characters are readable at the exact explanation cue; motion changes position only.
+  t.set([...amount, ...currency.chars], { opacity: 1, y: 8 }, cue.hero - 0.001);
+  t.to(amount, { y: 0, duration: 0.95, stagger: { amount: 0.2 }, ease: "d7-weight" }, cue.hero);
+  t.to(currency.chars, { y: 0, rotation: 0, duration: 1.05, ease: "d7-paper" }, cue.hero + 0.12);
+  t.fromTo(
+    q(".d7-cheer"),
+    { autoAlpha: 0, x: -80, y: 65, rotation: -25, scale: 0.7 },
+    {
+      autoAlpha: 1,
+      x: 0,
+      y: 0,
+      rotation: -7,
+      scale: 1,
+      duration: 1.25,
+      ease: "d7-paper",
+      immediateRender: false,
+    },
+    cue.hero + 0.35,
+  );
+  function strokes(at: number) {
+    t.set(q(".d7-impact"), { autoAlpha: 1 }, at);
     t.fromTo(
       q(".d7-impact path"),
       { drawSVG: "0% 0%" },
       {
         drawSVG: "0% 100%",
-        duration: 0.19,
+        duration: 0.55,
         ease: "power2.out",
         immediateRender: false,
       },
-      time,
+      at,
     );
-    t.to(q(".d7-impact path"), { drawSVG: "100% 100%", duration: 0.26 }, time + 0.4);
-    t.to(q(".d7-impact"), { autoAlpha: 0, duration: 0.1 }, time + 0.66);
+    t.to(q(".d7-impact path"), { drawSVG: "100% 100%", duration: 0.55 }, at + 0.8);
   }
+  strokes(cue.hero + 0.15);
+  t.to(
+    q(".d7-underline path"),
+    { drawSVG: "0% 100%", duration: 1.1, ease: "power2.out" },
+    cue.hero + 0.3,
+  );
+  t.to(feeds[1], { x: 30, y: 20, rotation: 11, duration: 1.4, ease: "sine.inOut" }, 18.2);
+  t.to(feeds[2], { x: -15, y: -18, rotation: -4, duration: 1.3, ease: "sine.inOut" }, 19.7);
+  // The first storm resolves into a quieter reading shot instead of holding the hero poster.
+  t.to(headline, { scale: 0.72, y: -110, rotation: 0, duration: 1.6, ease: "sine.inOut" }, 18.4);
+  t.to(donor, { y: -42, duration: 1.6, ease: "sine.inOut" }, 18.4);
+  call(3, 20.3, 1);
 
-  function heroSlam(time: number, force: number) {
-    t.to(wall, { scale: 0.9, rotation: -2, duration: 0.18, ease: "power3.in" }, time - 0.18);
-    t.to(q(".d7-blackout"), { opacity: 0.64, duration: 0.18 }, time - 0.18);
-    t.to(headline, { scale: 0.93, rotation: -3, duration: 0.18 }, time - 0.18);
-    // Initialize every staggered glyph before the boundary; a +250ms→hit seek must
-    // reconstruct the same first pose as a fresh hit, including not-yet-started glyphs.
-    t.set(letters.chars, { yPercent: 60, scaleY: 0.35, rotation: -6 }, time - 0.18);
-    t.set(q(".d7-slam"), { autoAlpha: 1 }, time);
+  // Second joke is a travelling WTF exchange, not another title slam.
+  t.set(q(".d7-wtf"), { autoAlpha: 1 }, cue.reprise);
+  t.set(wtf.chars, { y: -48, rotation: 18, scaleY: 0.7 }, cue.reprise - 0.001);
+  t.to(
+    wtf.chars,
+    {
+      y: 0,
+      rotation: 0,
+      scaleY: 1,
+      duration: 1.05,
+      stagger: { amount: 0.2 },
+      ease: "d7-paper",
+    },
+    cue.reprise,
+  );
+  t.to(
+    headline,
+    { scale: 0.86, y: -74, rotation: -1, duration: 1.3, ease: "sine.inOut" },
+    cue.reprise,
+  );
+  t.to(donor, { y: -20, scale: 0.97, duration: 1.3, ease: "sine.inOut" }, cue.reprise);
+  t.fromTo(
+    q(".d7-cry"),
+    { autoAlpha: 0, x: 60, y: 60, rotation: 25 },
+    {
+      autoAlpha: 1,
+      x: 0,
+      y: 0,
+      rotation: 8,
+      duration: 1.2,
+      ease: "d7-paper",
+      immediateRender: false,
+    },
+    cue.reprise + 0.22,
+  );
+  t.to(
+    feeds[1],
+    { x: 0, y: 0, rotation: -5, duration: 1.4, ease: "sine.inOut" },
+    cue.reprise + 0.2,
+  );
+  t.to(feeds[2], { x: 0, y: 0, rotation: 8, duration: 1.4, ease: "sine.inOut" }, cue.reprise + 0.6);
+  t.to(q(".d7-cheer"), { y: 12, rotation: 6, duration: 1.3, ease: "sine.inOut" }, 25.1);
+  t.to(q(".d7-cheer"), { y: 0, rotation: -7, duration: 1.3, ease: "sine.inOut" }, 26.4);
+  call(0, 26.2, -1);
+  call(5, 26.6, 1);
+  // The statement becomes a different silhouette during the second joke.
+  // Top words make breathing room while the exclamation glyphs keep a continuous eye arc.
+  t.to(
+    q(".d7-setup"),
+    { scale: 0.76, x: 42, y: -34, duration: 1.3, ease: "sine.inOut" },
+    cue.reprise + 0.25,
+  );
+  title.chars.forEach((letter, index) => {
     t.to(
-      letters.chars,
+      letter,
       {
-        yPercent: -5,
-        scaleY: 1.14,
-        rotation: 1,
-        duration: 0.09,
-        stagger: { amount: 0.045 },
-        ease: "d7-mechanical",
-        immediateRender: false,
+        y: Math.sin(index * 0.7) * -14,
+        rotation: (index - 3.5) * 1.5,
+        duration: 1.15,
+        ease: "sine.inOut",
       },
-      time,
+      cue.reprise + 0.3 + index * 0.04,
     );
-    t.to(
-      letters.chars,
-      {
-        yPercent: 0,
-        scaleY: 1,
-        rotation: 0,
-        duration: 0.28,
-        stagger: { amount: 0.025 },
-        ease: "power3.out",
+    t.to(letter, { y: 0, rotation: 0, duration: 1.2, ease: "sine.inOut" }, 25.5 + index * 0.045);
+  });
+  t.to(q(".d7-setup"), { scale: 1, x: 0, y: 0, duration: 1.3, ease: "sine.inOut" }, 26.6);
+  t.to(
+    feeds[1],
+    {
+      motionPath: {
+        path: [
+          { x: 0, y: 0 },
+          { x: -330, y: -45 },
+          { x: -760, y: 235 },
+          { x: -855, y: 390 },
+        ],
+        curviness: 1.2,
       },
-      time + 0.12,
-    );
-    t.set(headline, { scale: 1.55 + force * 0.2, rotation: -3 }, time);
-    t.to(headline, { scale: 1.7 + force * 0.2, rotation: 1, duration: 0.065 }, time);
-    t.to(headline, { scale: 1, rotation: 0, duration: 0.48, ease: "d7-camera" }, time + 0.065);
-    t.set(wall, { scale: 1.05, rotation: 1 }, time);
-    t.to(wall, { scale: 1, rotation: 0, duration: 0.38, ease: "d7-camera" }, time);
-    t.set(q(".d7-light"), { opacity: 1 }, time);
-    t.to(q(".d7-light"), { opacity: 0.28, duration: 0.5 }, time);
-    t.to(q(".d7-blackout"), { opacity: 0, duration: 0.42 }, time + 0.08);
-    t.set(q(".d7-type-echo"), { autoAlpha: 0.55, x: -35, scaleX: 1.12 }, time);
-    t.to(q(".d7-type-echo"), { autoAlpha: 0, x: -100, scaleX: 1.25, duration: 0.2 }, time);
-    cameraPunch(time, force);
-    impactLines(time + 0.07);
-  }
+      rotation: -8,
+      duration: 1.4,
+      ease: "power2.inOut",
+    },
+    24.5,
+  );
+  t.to(
+    feeds[1],
+    {
+      motionPath: {
+        path: [
+          { x: -855, y: 390 },
+          { x: -740, y: 85 },
+          { x: -260, y: -30 },
+          { x: 0, y: 0 },
+        ],
+        curviness: 1.2,
+      },
+      rotation: 7,
+      duration: 1.4,
+      ease: "power2.inOut",
+    },
+    27,
+  );
 
-  function rhythmicExchange() {
-    const events = monitorEvents(context.treatment.analysis);
-    for (const [index, event] of events.entries()) {
-      const calm = event.at >= cue.calm && event.at < cue.recruit;
-      const screen = calm ? q(".d7-main-monitor")[0] : monitors[index % monitors.length];
-      t.fromTo(
-        screen,
-        { "--d7-exposure": 0 },
-        {
-          "--d7-exposure": event.strength,
-          duration: 0.03,
-          immediateRender: false,
-        },
-        event.at,
-      );
-      t.to(screen, { "--d7-exposure": 0, duration: 0.075 }, event.at + 0.03);
-    }
-    rhythmMarks(context.treatment.analysis).forEach((beat, index) => {
-      if (
-        beat.at < cue.signal ||
-        beat.at > cue.exit ||
-        (beat.at >= cue.calm && beat.at < cue.recruit) ||
-        [cue.hero, cue.reprise, cue.final].some((hit) => Math.abs(hit - beat.at) < 0.8)
-      )
-        return;
-      const screen = screens[index % screens.length];
-      t.to(screen, { y: 2, scaleX: 0.985, duration: 0.075, ease: "power2.in" }, beat.at - 0.075);
-      t.to(screen, { y: -2, scaleX: 1.008, duration: 0.07, ease: "d7-mechanical" }, beat.at);
-      t.to(screen, { y: 0, scaleX: 1, duration: 0.15 }, beat.at + 0.07);
-    });
-    for (const [time, direction] of [
-      [cue.reprise, -1],
-      [cue.exchange, 1],
-    ] as const) {
-      stills.forEach((node, index) => {
-        t.to(
-          node,
-          {
-            x: direction * (index % 2 ? 55 : -55),
-            y: index % 2 ? -35 : 35,
-            rotation: direction * (index % 2 ? -13 : 13),
-            duration: 0.3,
-            ease: "d7-mechanical",
-          },
-          time + index * 0.055,
-        );
-        t.to(
-          node,
-          { x: 0, y: 0, rotation: index % 2 ? 7 : -8, duration: 0.4 },
-          time + 1.8 + index * 0.04,
-        );
-      });
-    }
-    t.to(wall, { rotation: -1.4, y: -8, duration: 2.2, ease: "sine.inOut" }, 26.02957);
-    t.to(wall, { rotation: 0, y: 0, duration: 1.6 }, 28.44444);
-  }
-
-  function glitchEcho(time: number) {
-    t.fromTo(
-      q(".d7-monitor-ghost"),
-      { autoAlpha: 0.22, x: 10, y: -5, scaleY: 0.33 },
-      {
-        autoAlpha: 0,
-        x: -12,
-        y: 8,
-        scaleY: 0.28,
-        duration: 0.08,
-        ease: "steps(2)",
-        immediateRender: false,
-      },
-      time,
-    );
-  }
-
-  function falseCalm() {
+  // The same cutouts fold into a thin held silhouette, then unfold. No replacement scene.
+  t.to(
+    headline,
+    {
+      autoAlpha: 1,
+      y: () => 620 - 280 - (headline[0] as HTMLElement).offsetHeight,
+      x: 0,
+      scale: 0.78,
+      rotation: 0,
+      rotationX: -78,
+      transformPerspective: 1400,
+      duration: 1.15,
+      ease: "d7-camera",
+    },
+    cue.recovery,
+  );
+  t.to(
+    q(".d7-wtf,.d7-sticker"),
+    { autoAlpha: 0, y: 65, scale: 0.55, duration: 1.05, ease: "sine.inOut" },
+    cue.recovery,
+  );
+  t.to(
+    [feeds[1], feeds[2]],
+    {
+      autoAlpha: 1,
+      scale: 0.28,
+      rotation: 0,
+      rotationX: -78,
+      x: (i: number) => (i ? 685 : -520),
+      y: (i: number) => (i ? 97 : 324),
+      transformPerspective: 1000,
+      duration: 1.15,
+      ease: "d7-camera",
+    },
+    cue.recovery,
+  );
+  t.to(
+    feeds[0],
+    {
+      scale: 0.72,
+      rotation: 0,
+      x: 200,
+      y: 50,
+      duration: 0.9,
+      ease: "sine.inOut",
+    },
+    cue.recovery,
+  );
+  t.to(donor, { scale: 0.92, duration: 0.8, ease: "sine.inOut" }, cue.recovery);
+  t.to(
+    q(".d7-fold-edge"),
+    { autoAlpha: 1, scaleX: 1, duration: 0.45, ease: "sine.inOut" },
+    cue.recovery + 0.7,
+  );
+  t.to(
+    q(".d7-fold-edge"),
+    { autoAlpha: 0, scaleX: 0.2, duration: 0.8, ease: "sine.inOut" },
+    cue.recruit,
+  );
+  call(0, cue.recruit, -1, 1.7);
+  t.to(
+    headline,
+    {
+      autoAlpha: 1,
+      y: -36,
+      rotation: 0,
+      scale: 0.84,
+      rotationX: 0,
+      duration: 1.3,
+      ease: "d7-paper",
+    },
+    cue.recruit,
+  );
+  t.to(
+    feeds[0],
+    { scale: 1, rotation: -3, x: 180, y: -55, duration: 1.75, ease: "d7-camera" },
+    cue.recruit,
+  );
+  t.to(
+    [feeds[1], feeds[2]],
+    {
+      autoAlpha: 1,
+      scale: 1,
+      x: (i: number) => (i ? 505 : -95),
+      y: (i: number) => (i ? -340 : -115),
+      rotationY: 0,
+      rotationX: 0,
+      rotation: (i: number) => (i ? -9 : 7),
+      duration: 1.75,
+      ease: "d7-camera",
+    },
+    cue.recruit + 0.18,
+  );
+  t.to(donor, { scale: 1, y: -46, duration: 1.75, ease: "d7-camera" }, cue.recruit);
+  // Measured drum accents become punctuation inside continuing phrase moves.
+  // Four-stem analysis identifies these attacks; they are not semantic lyric assertions.
+  for (const [index, at] of [
+    17.35692, 18.26249, 19.19129, 20.10848, 25.43746, 26.35465, 31.1844, 32.12481, 34.87637,
+    35.81678,
+  ].entries()) {
+    const letters = index % 2 ? currency.chars : co.chars;
     t.to(
-      q(".d7-still, .d7-satellite"),
+      letters,
       {
-        scaleY: 0.04,
-        autoAlpha: 0,
-        duration: 0.24,
-        stagger: 0.065,
-        ease: "d7-mechanical",
-      },
-      cue.recovery,
-    );
-    t.to(headline, { autoAlpha: 0, y: -35, scaleY: 0.85, duration: 0.45 }, cue.recovery + 0.3);
-    t.to(q(".d7-wtf"), { autoAlpha: 0, duration: 0.2 }, cue.recovery);
-    t.to(
-      q(".d7-main-monitor"),
-      { scale: 0.43, rotation: -4, duration: 0.7, ease: "d7-heavy" },
-      cue.recovery + 0.4,
-    );
-    t.to(q(".d7-light"), { opacity: 0, duration: 0.5 }, cue.calm);
-    t.to(camera, { x: 0, y: 0, rotation: 0, scale: 1, duration: 0.3 }, cue.calm);
-    t.fromTo(
-      q(".d7-signal-word"),
-      { autoAlpha: 0, y: 0, scale: 0.8 },
-      {
-        autoAlpha: 1,
-        scale: 1,
-        duration: 0.25,
-        ease: "back.out(1.4)",
-        immediateRender: false,
-      },
-      cue.calm,
-    );
-    t.to(q(".d7-signal-word"), { autoAlpha: 0, duration: 0.2 }, cue.recruit);
-    t.to(
-      q(".d7-still, .d7-satellite"),
-      {
-        scaleY: 1,
-        autoAlpha: 1,
+        y: -3,
+        rotation: index % 2 ? 2 : -1,
         duration: 0.18,
-        stagger: 0.095,
-        ease: "d7-mechanical",
+        stagger: 0.025,
+        ease: "power2.out",
       },
-      cue.recruit,
+      at,
     );
-    t.to(q(".d7-main-monitor"), { scale: 1, rotation: -3, duration: 0.25 }, cue.recruit + 0.8);
-    t.set(headline, { autoAlpha: 1, y: 0, scaleY: 1 }, cue.final - 0.3);
-  }
-
-  function finalPayoff() {
-    heroSlam(cue.final, 2.2);
-    t.set(q(".d7-wtf"), { autoAlpha: 1 }, cue.final + 0.18);
-    stickerBurst(".d7-cyan", cue.final + 0.5, -1);
-    glitchEcho(cue.final + 0.09);
-  }
-
-  function outroRelease() {
     t.to(
-      headline,
-      { y: -60, scaleY: 0.65, autoAlpha: 0, duration: 0.5, ease: "d7-heavy" },
-      cue.exit,
+      letters,
+      { y: 0, rotation: 0, duration: 0.32, stagger: 0.025, ease: "sine.inOut" },
+      at + 0.18,
     );
-    t.to(q(".d7-wtf"), { autoAlpha: 0, x: 45, duration: 0.3 }, cue.exit);
+    const source = q(".source-rhythm")[index % 3];
+    t.to(source, { scaleX: 1.025, y: -2, duration: 0.18, ease: "power2.out" }, at + 0.04);
+    t.to(source, { scaleX: 1, y: 0, duration: 0.35, ease: "sine.inOut" }, at + 0.22);
+  }
+  // Variable-axis pressure changes silhouette, never the supplied value.
+  t.to(
+    q(".motion-amount"),
+    {
+      fontVariationSettings: '"wdth" 82,"opsz" 100',
+      duration: 1.1,
+      ease: "sine.inOut",
+    },
+    33.1,
+  );
+  t.to(
+    q(".motion-amount"),
+    {
+      fontVariationSettings: '"wdth" 88,"opsz" 100',
+      duration: 1.1,
+      ease: "sine.inOut",
+    },
+    34.2,
+  );
+  amount.forEach((letter, index) => {
     t.to(
-      q(".d7-still, .d7-satellite"),
+      letter,
       {
-        scaleY: 0.025,
-        autoAlpha: 0,
-        duration: 0.2,
-        stagger: 0.085,
-        ease: "d7-mechanical",
+        rotation: (index % 2 ? 1 : -1) * 2,
+        y: -3,
+        duration: 0.55,
+        ease: "sine.inOut",
       },
-      cue.exit + 0.12,
+      33.1 + index * 0.09,
     );
-    t.to(
-      q(".d7-main-monitor"),
-      { scale: 0.42, rotation: 0, duration: 0.4, ease: "d7-heavy" },
-      cue.exit + 0.9,
-    );
-    t.to(q(".d7-main-monitor"), { scaleY: 0.015, autoAlpha: 0, duration: 0.16 }, 45.45);
-    t.to(q(".d7-light"), { opacity: 0, duration: 0.8 }, cue.exit);
-    t.to(effects, { travel: 0, duration: 0.4 }, 45.7);
-    t.to(q(".scene-copy"), { y: 20, autoAlpha: 0, duration: 0.35 }, 45.65);
-  }
-
-  introSignal();
-  monitorCascade();
-  headlineBuild();
-  heroSlam(cue.hero, 1);
-  t.set(q(".motion-amount"), { autoAlpha: 1 }, cue.hero);
-  t.set(amount, { opacity: 1 }, cue.hero);
-  t.set(amount, { y: 8 }, cue.hero - 0.18);
+    t.to(letter, { rotation: 0, y: 0, duration: 0.65, ease: "sine.inOut" }, 33.65 + index * 0.09);
+  });
+  t.to(camera, { x: 18, y: -8, rotation: -0.5, duration: 1.4, ease: "sine.inOut" }, 36.03);
+  // One readable mass compresses before the established downbeat, impacts, then settles.
+  t.to(
+    donor,
+    { scaleX: 0.94, scaleY: 1.02, y: -74, rotation: 0, duration: 0.82, ease: "power2.inOut" },
+    cue.final - 0.82,
+  );
+  t.to(
+    donor,
+    { scaleX: 1.1, scaleY: 1.08, y: -140, rotation: 0, duration: 0.3, ease: "d7-weight" },
+    cue.final,
+  );
+  t.to(donor, { scaleX: 1.045, scaleY: 1.045, duration: 1.1, ease: "sine.inOut" }, cue.final + 0.3);
+  t.to(
+    headline,
+    {
+      scale: 0.56,
+      x: 0,
+      y: -175,
+      rotation: 0,
+      duration: 0.82,
+      ease: "sine.inOut",
+    },
+    cue.final - 0.82,
+  );
+  t.to(feeds, { scale: 0.82, duration: 0.82, ease: "sine.inOut" }, cue.final - 0.82);
+  t.to(
+    q(".d7-setup"),
+    { scale: 0.88, x: 20, y: -16, duration: 1.3, ease: "sine.inOut" },
+    cue.final,
+  );
+  t.to(
+    amount,
+    {
+      y: -12,
+      rotation: -1,
+      duration: 0.65,
+      stagger: { amount: 0.18 },
+      ease: "d7-paper",
+    },
+    cue.final,
+  );
   t.to(
     amount,
     {
       y: 0,
-      duration: 0.15,
-      stagger: { amount: 0.06 },
+      rotation: 0,
+      duration: 0.65,
+      stagger: { amount: 0.18 },
+      ease: "sine.inOut",
+    },
+    cue.final + 0.65,
+  );
+  t.to(currency.chars, { y: -20, rotation: 9, duration: 0.6, ease: "d7-paper" }, cue.final + 0.18);
+  t.to(currency.chars, { y: 0, rotation: 0, duration: 0.7, ease: "sine.inOut" }, cue.final + 0.78);
+  t.fromTo(
+    q(".d7-cyan"),
+    { autoAlpha: 0, x: 70, y: 65, rotation: 20, scale: 0.65 },
+    {
+      autoAlpha: 1,
+      x: 0,
+      y: 0,
+      rotation: -6,
+      scale: 1,
+      duration: 1.3,
+      ease: "d7-paper",
       immediateRender: false,
     },
-    cue.hero,
+    cue.final + 0.45,
   );
-  t.set(q(".d7-wtf"), { autoAlpha: 1 }, cue.hero + 0.18);
-  stickerBurst(".d7-cheer", cue.hero + 0.42, 1);
-  rhythmicExchange();
-  heroSlam(cue.reprise, 1.15);
-  stickerBurst(".d7-cyan", cue.reprise + 0.35, -1);
-  glitchEcho(cue.reprise + 0.06);
-  falseCalm();
-  finalPayoff();
-  outroRelease();
+  t.to(
+    q(".d7-cheer"),
+    { autoAlpha: 1, y: 0, scale: 1, duration: 1.1, ease: "d7-paper" },
+    cue.final + 0.2,
+  );
+  strokes(cue.final + 0.35);
+  t.to(camera, { x: 0, y: 0, rotation: 0, duration: 1.4, ease: "sine.inOut" }, cue.final);
+  t.to(q(".d7-cry"), { autoAlpha: 0, duration: 0.7 }, 40);
+
+  // A held, beautiful explanation ends in a coordinated fold rather than a mass opacity cut.
+  t.to(
+    title.chars,
+    {
+      y: -65,
+      rotation: 8,
+      scaleY: 0.2,
+      rotationX: 78,
+      opacity: 0,
+      duration: 1.15,
+      stagger: { amount: 0.2 },
+      ease: "power3.inOut",
+    },
+    cue.exit,
+  );
+  t.to(
+    [...co.chars, ...za.chars],
+    {
+      y: -45,
+      rotation: -12,
+      opacity: 0,
+      duration: 1,
+      stagger: { amount: 0.15 },
+      ease: "power3.inOut",
+    },
+    cue.exit + 0.15,
+  );
+  t.to(
+    feeds,
+    {
+      autoAlpha: 0,
+      y: 50,
+      rotation: 0,
+      scaleY: 0.2,
+      duration: 0.95,
+      stagger: { amount: 0.4 },
+      ease: "power3.inOut",
+    },
+    cue.exit + 0.3,
+  );
+  t.to(q(".d7-sticker,.d7-caller,.d7-wtf"), { autoAlpha: 0, y: 40, duration: 0.8 }, cue.exit);
+  // The actual donor paper survives as the Information backing. Only its old lettering
+  // hands off; message content and production speech timing are unchanged.
+  t.to(
+    donor,
+    {
+      x: 0,
+      y: () => 540 - 622 - paper.offsetHeight / 2,
+      scaleX: () => (information.offsetWidth + 72) / paper.offsetWidth,
+      scaleY: () => (information.offsetHeight + 64) / 0.72 / paper.offsetHeight,
+      rotation: 0,
+      duration: 1.65,
+      ease: "d7-camera",
+    },
+    cue.exit + 0.1,
+  );
+  t.to(
+    q(".d7-donor > .motion-name,.d7-donor > .motion-amount,.d7-underline"),
+    { autoAlpha: 0, duration: 0.65, ease: "sine.inOut" },
+    44.5,
+  );
+  t.to(effects, { travel: 0, duration: 0.5 }, 45.7);
+  t.to(q(".d7-spine"), { autoAlpha: 0, duration: 0.45 }, 45.2);
   const directed = finish();
+  // Tier7 retains this single material plane; the shared finish remains unchanged for1–6.
+  t.to(
+    q(".d7-show"),
+    { autoAlpha: 1, duration: 0.5, ease: "none" },
+    context.treatment.analysis.duration - 0.5,
+  );
+  t.set(
+    information,
+    { xPercent: -50, yPercent: -50, x: 0, y: 20, clipPath: "inset(0% 0% 100% 0%)" },
+    0,
+  );
+  t.to(information, { autoAlpha: 1, duration: 0.5, ease: "sine.inOut" }, 44.95);
+  t.to(
+    information,
+    { y: 0, clipPath: "inset(0% 0% 0% 0%)", duration: 1, ease: "d7-camera" },
+    44.95,
+  );
+  context.root.dataset.d7PaperHandoff = "ready";
+  t.seek(0.000001, true);
   return {
     timeline: directed.timeline,
     dispose() {
       directed.dispose();
-      letters.revert();
+      delete context.root.dataset.d7PaperHandoff;
+      splits.forEach((split) => {
+        split.revert();
+      });
     },
   };
 }

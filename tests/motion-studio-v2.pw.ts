@@ -28,7 +28,7 @@ test("editable PLN content, manual tier, stress data and local visibility", asyn
 
 test("extreme names remain complete and separated across all seven heroes", async ({ page }) => {
   const nickname = "PotężnyWspierającySpołecznośćKaaajkiBezKońca".repeat(3);
-  const heroes = [3.06503, 3.66875, 4.82975, 4.52789, 4.82975, 3.90095, 13.21215];
+  const heroes = [3.06503, 3.66875, 4.82975, 4.52789, 4.82975, 3.90095, 15.49932];
   for (let tier = 1; tier <= 7; tier++) {
     await page.goto(
       `/motion-studio?clean=1&tier=${tier}&quality=safe&time=hero&nickname=${encodeURIComponent(nickname)}&amount=987654321099`,

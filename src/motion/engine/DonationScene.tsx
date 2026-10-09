@@ -5,7 +5,7 @@ STORY: each selected subject conducts its own donor payoff, then a complete read
 FIRST VIEWPORT: room dance, alpha echoes, rodent film strip, paper roll, ovation, hand-heart or pixel monitor wall.
 FORM: explicit GIF-led brief overrides the direction roll, seed d2f60c0f.
 FINISH: unreviewed and undocumented is unfinished; this build ends with the finish review, the verdict, and DESIGN.md */
-import { forwardRef, useImperativeHandle, useRef } from "react";
+import { forwardRef, useEffect, useImperativeHandle, useRef, useState } from "react";
 import type { CSSProperties } from "react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
@@ -33,6 +33,7 @@ import type { MediaStats } from "../media/MediaLayer";
 import { mediaAssets, mediaUrls } from "../media/SourceMedia";
 import { CashRenderer } from "../cash/CashRenderer";
 import { SpectacleRenderer } from "../../donations/choreography/donate7/SpectacleRenderer";
+import type { PixiMoneyRenderer } from "../../donations/choreography/donate7/PixiMoneyRenderer";
 
 gsap.registerPlugin(useGSAP);
 export type SceneStats = {
@@ -41,6 +42,8 @@ export type SceneStats = {
   features: ReturnType<typeof featuresAt>;
   media?: MediaStats[];
   spectacle?: SpectacleRenderer["stats"];
+  money?: ReturnType<PixiMoneyRenderer["snapshot"]>;
+  moneyError?: string;
 };
 export type DonationSceneHandle = {
   renderAt: (time: number, frameMs?: number, forward?: boolean) => SceneStats;
@@ -50,6 +53,7 @@ export type DonationSceneHandle = {
   pauseMedia: () => void;
   informationAt: (elapsedMs: number, readingMs: number) => void;
   setLayerVisibility: (selector: string, visible: boolean) => void;
+  moneyFrame: () => ReturnType<PixiMoneyRenderer["poses"]>;
 };
 type Props = {
   donate: DonateEventModel;
@@ -72,6 +76,9 @@ export const DonationScene = forwardRef<DonationSceneHandle, Props>(function Don
   const cashFront = useRef<CashRenderer>();
   const spectacleMidCanvas = useRef<HTMLCanvasElement>(null);
   const spectacle = useRef<SpectacleRenderer>();
+  const moneyCanvas = useRef<HTMLCanvasElement>(null);
+  const money = useRef<PixiMoneyRenderer>();
+  const moneyError = useRef<string>();
   const message = useRef<HTMLDivElement>(null);
   const director = useRef<DirectedScene>();
   const gpu = useRef<OverlayRenderer>();
@@ -86,6 +93,24 @@ export const DonationScene = forwardRef<DonationSceneHandle, Props>(function Don
   });
   const scrollRaf = useRef(0);
   const lastTime = useRef(0);
+  const [fontsReady, setFontsReady] = useState(treatment.tier !== 7);
+  useEffect(() => {
+    if (treatment.tier !== 7) return;
+    let cancelled = false;
+    // SplitText must measure the self-hosted faces, including Polish glyphs, on a cold cache.
+    Promise.all([
+      document.fonts.load('700 132px "DynaPuff Variable"', "CO ZA POJEB!!!"),
+      document.fonts.load('800 52px "Roboto Flex Variable"', `${donate.nickname} Łąęśźżółń`),
+      document.fonts.load('950 144px "Roboto Flex Variable"', "0123456789 zł"),
+    ])
+      .catch(() => undefined)
+      .then(() => {
+        if (!cancelled) setFontsReady(true);
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, [treatment.tier, donate.nickname]);
   const amount = new Intl.NumberFormat("pl-PL", {
     minimumFractionDigits: 2,
     maximumFractionDigits: 2,
@@ -107,6 +132,8 @@ export const DonationScene = forwardRef<DonationSceneHandle, Props>(function Don
 
   useGSAP(
     () => {
+      if (treatment.tier === 7 && !fontsReady) return;
+      let cancelled = false;
       const fallback = () => {
         governor.current.tier = "safe";
         if (root.current) root.current.dataset.quality = "safe";
@@ -152,6 +179,30 @@ export const DonationScene = forwardRef<DonationSceneHandle, Props>(function Don
           );
           governor.current = new QualityGovernor(initial);
           root.current.dataset.quality = initial;
+          root.current.dataset.moneyRenderer = "loading";
+          moneyError.current = undefined;
+          void import("../../donations/choreography/donate7/PixiMoneyRenderer")
+            .then(({ PixiMoneyRenderer }) => {
+              if (cancelled) return;
+              const renderer = new PixiMoneyRenderer(
+                moneyCanvas.current,
+                seed ?? donate.id,
+                governor.current.tier,
+                root.current.querySelector<HTMLImageElement>(".d7-banknote-asset"),
+              );
+              money.current = renderer;
+              const bounds = root.current.getBoundingClientRect();
+              renderer.resize(bounds.width / (bounds.height / 1080));
+              renderer.render(lastTime.current);
+              void renderer.ready.then(() => {
+                if (!cancelled) root.current.dataset.moneyRenderer = renderer.stats.state;
+              });
+            })
+            .catch((error) => {
+              if (cancelled) return;
+              moneyError.current = String(error);
+              root.current.dataset.moneyRenderer = "degraded";
+            });
         } catch (error) {
           console.warn("Donate7 spectacle unavailable; source and donor retained", error);
           fallback();
@@ -207,6 +258,7 @@ export const DonationScene = forwardRef<DonationSceneHandle, Props>(function Don
         cash.current?.resize(width);
         cashFront.current?.resize(width);
         spectacle.current?.resize(width);
+        money.current?.resize(width);
         gpu.current?.resize();
       };
       const observer = new ResizeObserver(resize);
@@ -228,6 +280,7 @@ export const DonationScene = forwardRef<DonationSceneHandle, Props>(function Don
         featuresAt(treatment.analysis, lastTime.current),
       );
       return () => {
+        cancelled = true;
         observer.disconnect();
         cancelAnimationFrame(scrollRaf.current);
         director.current?.dispose();
@@ -240,13 +293,15 @@ export const DonationScene = forwardRef<DonationSceneHandle, Props>(function Don
         cashFront.current = undefined;
         spectacle.current?.dispose();
         spectacle.current = undefined;
+        money.current?.dispose();
+        money.current = undefined;
         for (const layer of media.current) layer.dispose();
         media.current = [];
       };
     },
     {
       scope: root,
-      dependencies: [donate.id, donate.nickname, netAmount, treatment, seed, quality],
+      dependencies: [donate.id, donate.nickname, netAmount, treatment, seed, quality, fontsReady],
       revertOnUpdate: true,
     },
   );
@@ -274,13 +329,16 @@ export const DonationScene = forwardRef<DonationSceneHandle, Props>(function Don
             cash.current?.setQuality(governor.current.tier);
             cashFront.current?.setQuality(governor.current.tier);
             spectacle.current?.setQuality(governor.current.tier);
+            money.current?.setQuality(governor.current.tier);
             root.current.dataset.quality = governor.current.tier;
           }
           gpu.current?.render(time, effects.current, features, intensity);
           const donor = root.current.querySelector<HTMLElement>(".scene-copy");
           if (donor && (cash.current || spectacle.current)) {
             const bounds = donor.getBoundingClientRect(),
-              viewport = root.current.getBoundingClientRect();
+              viewport = (
+                root.current.querySelector<HTMLElement>(".d7-world") ?? root.current
+              ).getBoundingClientRect();
             const scale = viewport.height / 1080;
             const area = {
               x: (bounds.x + bounds.width / 2 - viewport.x) / scale,
@@ -291,10 +349,24 @@ export const DonationScene = forwardRef<DonationSceneHandle, Props>(function Don
             cash.current?.setDonor(area);
             cashFront.current?.setDonor(area);
             spectacle.current?.setDonor(area);
+            if (spectacle.current) {
+              const title = root.current.querySelector<HTMLElement>(".d7-headline");
+              if (title) {
+                const box = title.getBoundingClientRect();
+                spectacle.current.setTitle({
+                  x: (box.x + box.width / 2 - viewport.x) / scale,
+                  y: (box.y + box.height / 2 - viewport.y) / scale,
+                  width: box.width / scale,
+                  height: box.height / scale,
+                });
+              }
+            }
           }
           cash.current?.render(time, intensity);
           cashFront.current?.render(time, intensity);
           spectacle.current?.render(time, effects.current, features);
+          money.current?.render(time);
+          if (money.current) root.current.dataset.moneyRenderer = money.current.stats.state;
         } catch (error) {
           console.warn("Donation renderer failed; preserving audio and completion", error);
           gpu.current?.dispose();
@@ -314,6 +386,8 @@ export const DonationScene = forwardRef<DonationSceneHandle, Props>(function Don
           features,
           media: media.current.map((layer) => layer.stats),
           spectacle: spectacle.current ? { ...spectacle.current.stats } : undefined,
+          money: money.current?.snapshot(),
+          moneyError: moneyError.current,
         };
       },
       information(readingMs) {
@@ -327,6 +401,7 @@ export const DonationScene = forwardRef<DonationSceneHandle, Props>(function Don
           cash.current?.clear();
           cashFront.current?.clear();
           spectacle.current?.clear();
+          money.current?.clear();
         } catch (error) {
           console.warn("Information state recovered after scene error", error);
         }
@@ -356,6 +431,7 @@ export const DonationScene = forwardRef<DonationSceneHandle, Props>(function Don
         for (const layer of media.current) layer.sync(lastTime.current);
       },
       media: () => media.current.map((layer) => layer.stats),
+      moneyFrame: () => money.current?.poses() ?? [],
       informationAt(elapsedMs, readingMs) {
         this.information(readingMs);
         syncMessageEmotes(root.current, elapsedMs / 1000);
@@ -376,6 +452,7 @@ export const DonationScene = forwardRef<DonationSceneHandle, Props>(function Don
   return (
     <div
       ref={root}
+      data-fonts-ready={fontsReady || treatment.tier !== 7}
       className={`donation-motion motif-${treatment.motif}`}
       data-phase="loading"
       data-time-zero="true"
@@ -389,119 +466,132 @@ export const DonationScene = forwardRef<DonationSceneHandle, Props>(function Don
       }
     >
       <div ref={stage} className="motion-stage">
-        <div className="motion-atmosphere" aria-hidden="true" />
-        {treatment.tier === 8 && (
-          <canvas ref={canvas} className="motion-gpu" aria-hidden="true" tabIndex={-1} />
-        )}
-        {treatment.tier >= 5 && treatment.tier <= 7 && (
-          <canvas
-            ref={cashCanvas}
-            className={`motion-cash ${treatment.tier === 7 ? "d7-spectacle d7-spectacle-back" : ""}`}
-            aria-hidden="true"
-            tabIndex={-1}
-          />
-        )}
-        {LiveScene ? (
-          <LiveScene donate={donate} amount={amount} />
-        ) : (
-          <>
-            <div className="motion-frame" aria-hidden="true">
-              <i />
-              <i />
-              <i />
-              <i />
-            </div>
-            {treatment.words.map((word, index) => (
-              <div
-                // biome-ignore lint/suspicious/noArrayIndexKey: The two authored stage words are fixed decorative slots.
-                key={`${word}-${index}`}
-                className={`motion-word word-${index}`}
-                aria-hidden="true"
-              >
-                {word}
-              </div>
-            ))}
-            <div className="motion-emblem" aria-hidden="true">
-              <svg className="motion-aperture" viewBox="0 0 800 800" fill="none">
-                <title>Donation aperture</title>
-                <circle
-                  className="aperture-circle"
-                  cx="400"
-                  cy="400"
-                  r="306"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                />
-                <circle
-                  className="aperture-segments"
-                  cx="400"
-                  cy="400"
-                  r="326"
-                  stroke="currentColor"
-                  strokeWidth="18"
-                  strokeDasharray="92 78"
-                />
-                <path
-                  className="aperture-diamond"
-                  d="M400 50 750 400 400 750 50 400Z"
-                  stroke="currentColor"
-                  strokeWidth="3"
-                />
-                <path
-                  className="aperture-brackets"
-                  d="M190 110H110V190M610 110H690V190M690 610V690H610M110 610V690H190"
-                  stroke="currentColor"
-                  strokeWidth="9"
-                />
-                <path
-                  className="aperture-rift"
-                  d="M-350 285H80L130 245H670L720 285H1150M-350 515H80L130 555H670L720 515H1150"
-                  stroke="currentColor"
-                  strokeWidth="6"
-                />
-              </svg>
-            </div>
-            <div className="motion-wave" aria-hidden="true" />
-            <div className="motion-hero">
-              <div
-                className="motion-name"
-                style={{
-                  fontSize:
-                    donate.nickname.length > 30 ? 48 : donate.nickname.length > 18 ? 64 : 84,
-                }}
-              >
-                {donate.nickname || "Anonim"}
-              </div>
-              <div
-                className="motion-amount"
-                style={{
-                  fontSize: amount.length > 12 ? 140 : amount.length > 9 ? 190 : 256,
-                }}
-              >
-                <span className="motion-amount-number">{amount}</span>
-                <span className="motion-currency">zł</span>
-              </div>
-            </div>
-          </>
-        )}
-        {treatment.tier >= 5 && treatment.tier <= 7 && (
-          <>
-            {treatment.tier === 7 && (
-              <canvas
-                ref={spectacleMidCanvas}
-                className="motion-cash d7-spectacle d7-spectacle-mid"
-                aria-hidden="true"
-                tabIndex={-1}
-              />
-            )}
+        <div
+          className={treatment.tier === 7 ? "d7-world" : undefined}
+          style={treatment.tier === 7 ? undefined : { display: "contents" }}
+        >
+          <div className="motion-atmosphere" aria-hidden="true" />
+          {treatment.tier === 8 && (
+            <canvas ref={canvas} className="motion-gpu" aria-hidden="true" tabIndex={-1} />
+          )}
+          {treatment.tier >= 5 && treatment.tier <= 7 && (
             <canvas
-              ref={cashFrontCanvas}
-              className={`motion-cash motion-cash-front ${treatment.tier === 7 ? "d7-spectacle d7-spectacle-front" : ""}`}
+              ref={cashCanvas}
+              className={`motion-cash ${treatment.tier === 7 ? "d7-spectacle d7-spectacle-back" : ""}`}
               aria-hidden="true"
               tabIndex={-1}
             />
-          </>
-        )}
+          )}
+          {treatment.tier === 7 && (
+            <canvas
+              ref={moneyCanvas}
+              className="motion-cash d7-money"
+              aria-hidden="true"
+              tabIndex={-1}
+            />
+          )}
+          {LiveScene ? (
+            <LiveScene donate={donate} amount={amount} />
+          ) : (
+            <>
+              <div className="motion-frame" aria-hidden="true">
+                <i />
+                <i />
+                <i />
+                <i />
+              </div>
+              {treatment.words.map((word, index) => (
+                <div
+                  // biome-ignore lint/suspicious/noArrayIndexKey: The two authored stage words are fixed decorative slots.
+                  key={`${word}-${index}`}
+                  className={`motion-word word-${index}`}
+                  aria-hidden="true"
+                >
+                  {word}
+                </div>
+              ))}
+              <div className="motion-emblem" aria-hidden="true">
+                <svg className="motion-aperture" viewBox="0 0 800 800" fill="none">
+                  <title>Donation aperture</title>
+                  <circle
+                    className="aperture-circle"
+                    cx="400"
+                    cy="400"
+                    r="306"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                  />
+                  <circle
+                    className="aperture-segments"
+                    cx="400"
+                    cy="400"
+                    r="326"
+                    stroke="currentColor"
+                    strokeWidth="18"
+                    strokeDasharray="92 78"
+                  />
+                  <path
+                    className="aperture-diamond"
+                    d="M400 50 750 400 400 750 50 400Z"
+                    stroke="currentColor"
+                    strokeWidth="3"
+                  />
+                  <path
+                    className="aperture-brackets"
+                    d="M190 110H110V190M610 110H690V190M690 610V690H610M110 610V690H190"
+                    stroke="currentColor"
+                    strokeWidth="9"
+                  />
+                  <path
+                    className="aperture-rift"
+                    d="M-350 285H80L130 245H670L720 285H1150M-350 515H80L130 555H670L720 515H1150"
+                    stroke="currentColor"
+                    strokeWidth="6"
+                  />
+                </svg>
+              </div>
+              <div className="motion-wave" aria-hidden="true" />
+              <div className="motion-hero">
+                <div
+                  className="motion-name"
+                  style={{
+                    fontSize:
+                      donate.nickname.length > 30 ? 48 : donate.nickname.length > 18 ? 64 : 84,
+                  }}
+                >
+                  {donate.nickname || "Anonim"}
+                </div>
+                <div
+                  className="motion-amount"
+                  style={{
+                    fontSize: amount.length > 12 ? 140 : amount.length > 9 ? 190 : 256,
+                  }}
+                >
+                  <span className="motion-amount-number">{amount}</span>
+                  <span className="motion-currency">zł</span>
+                </div>
+              </div>
+            </>
+          )}
+          {treatment.tier >= 5 && treatment.tier <= 7 && (
+            <>
+              {treatment.tier === 7 && (
+                <canvas
+                  ref={spectacleMidCanvas}
+                  className="motion-cash d7-spectacle d7-spectacle-mid"
+                  aria-hidden="true"
+                  tabIndex={-1}
+                />
+              )}
+              <canvas
+                ref={cashFrontCanvas}
+                className={`motion-cash motion-cash-front ${treatment.tier === 7 ? "d7-spectacle d7-spectacle-front" : ""}`}
+                aria-hidden="true"
+                tabIndex={-1}
+              />
+            </>
+          )}
+        </div>
         <div className="motion-information">
           <div className="information-header">
             <strong>{donate.nickname || "Anonim"}</strong>

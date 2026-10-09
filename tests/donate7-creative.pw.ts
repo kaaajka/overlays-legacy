@@ -12,6 +12,8 @@ const load = async (page, quality = "high", w = 1920, h = 1080, amount = "5732")
   );
   await page.waitForFunction(() => window.motionStudio?.status().duration > 0);
   await page.evaluate(() => document.fonts.ready);
+  await page.locator('.donation-motion[data-fonts-ready="true"]').waitFor();
+  await page.locator('.donation-motion[data-money-renderer="ready"]').waitFor();
   await page.waitForFunction(() => [...document.images].every((i) => i.complete));
 };
 const seek = async (page, at) => {
@@ -30,12 +32,30 @@ test("Donate7 exact frames reconstruct after reverse seeks; zero, three depths, 
   await load(page);
   const errors = [];
   page.on("pageerror", (e) => errors.push(String(e)));
-  for (const at of [13.21215, 13.96215, 23.64488, 37.66277, 38.41277, 45]) {
+  for (const at of [15.49932, 16.24932, 23.64488, 37.65116, 38.40116, 45]) {
     await seek(page, at);
     const first = PNG.sync.read(await page.screenshot()).data;
     const headline = await page
       .locator(".d7-slam > div")
       .evaluateAll((chars) => chars.map((c) => getComputedStyle(c).transform));
+    const pose = () =>
+      page.locator(".d7-show *").evaluateAll((nodes) =>
+        nodes.map((node) => {
+          const style = getComputedStyle(node),
+            box = node.getBoundingClientRect();
+          return [
+            style.transform,
+            style.opacity,
+            style.visibility,
+            style.fontVariationSettings,
+            box.x,
+            box.y,
+            box.width,
+            box.height,
+          ];
+        }),
+      );
+    const firstPose = await pose();
     await seek(page, at + 0.25);
     await seek(page, at);
     expect(
@@ -47,19 +67,22 @@ test("Donate7 exact frames reconstruct after reverse seeks; zero, three depths, 
     await seek(page, 2);
     await seek(page, at);
     const repeated = PNG.sync.read(await page.screenshot()).data;
+    expect(await pose(), `exact glyph/source/donor geometry ${at}`).toEqual(firstPose);
     let changed = 0;
     for (let i = 0; i < first.length; i += 4)
       if ([0, 1, 2, 3].some((channel) => Math.abs(first[i + channel] - repeated[i + channel]) > 24))
         changed++;
     // SwiftShader rerasterizes transformed glyph/shadow edges after a backwards seek.
-    // Allow <0.05% pixels above a 24/255 edge tolerance; poses and drawing commands must match exactly.
-    expect(changed, `seek ${at}`).toBeLessThanOrEqual(1000);
+    // The outlined variable type rerasterizes more edges than Version A.
+    // Bound that host-specific raster difference to0.2%; ALL computed poses remain exact above.
+    // Analytic particle drawing/reconstruction is independently checked in renderer unit tests.
+    expect(changed, `seek ${at}`).toBeLessThanOrEqual(4147);
   }
   await seek(page, 38.45);
   const stats = await page.evaluate(() => window.motionStudio.status().spectacle);
   expect(stats.particles).toBeLessThanOrEqual(480);
   for (const depth of ["back", "mid", "front"]) expect(stats[depth]).toBeGreaterThan(0);
-  await seek(page, 34.2);
+  await seek(page, 29.65);
   expect((await page.evaluate(() => window.motionStudio.status().spectacle)).particles).toBe(0);
   await seek(page, 0);
   const zero = PNG.sync.read(await page.screenshot({ omitBackground: true })).data;
@@ -87,11 +110,20 @@ test("Donate7 geometry covers four aspect ratios and all requested amounts witho
     [3440, 1440],
     [5120, 1440],
   ])
-    for (const amount of ["500", "5732", "99999", "213769", "1500000", "9999999", "100000000"]) {
+    for (const amount of [
+      "500",
+      "5732",
+      "99999",
+      "213769",
+      "1500000",
+      "9999999",
+      "100000000",
+      "999999999999",
+    ]) {
       await load(page, "safe", w, h, amount);
       for (const previous of [0, 38.45]) {
         await seek(page, previous);
-        await seek(page, 13.21215);
+        await seek(page, 15.49932);
         expect(
           await page
             .locator(".motion-amount-number > div")
@@ -114,6 +146,10 @@ test("Donate7 geometry covers four aspect ratios and all requested amounts witho
           n: { right: n.right, bottom: n.bottom, left: n.left },
           a: { right: a.right, top: a.top, left: a.left },
           sourceWidth: v.width,
+          paper: (() => {
+            const p = document.querySelector(".d7-donor").getBoundingClientRect();
+            return { center: p.x + p.width / 2, bottom: p.bottom };
+          })(),
           name: document.querySelector(".motion-name").textContent,
         };
       });
@@ -121,8 +157,39 @@ test("Donate7 geometry covers four aspect ratios and all requested amounts witho
       expect(boxes.a.top - boxes.n.bottom).toBeGreaterThan(4);
       expect(boxes.a.right).toBeLessThan(w);
       expect(boxes.a.left).toBeGreaterThan(0);
+      expect(Math.abs(boxes.paper.center - w / 2)).toBeLessThan(w * 0.02);
+      expect(boxes.paper.bottom).toBeLessThan(h);
       expect(boxes.sourceWidth / (h / 1080)).toBeLessThan(280);
     }
+});
+
+test("Donate7 cold font loads precede glyph measurement and money uses the original project asset", async ({
+  page,
+}) => {
+  await page.route(/\.woff2(?:\?|$)/, async (route) => {
+    await new Promise((resolve) => setTimeout(resolve, 700));
+    await route.continue();
+  });
+  await load(page, "safe");
+  const fonts = await page.evaluate(() => [
+    document.fonts.check('700 132px "DynaPuff Variable"', "POJEB!!!"),
+    document.fonts.check('800 52px "Roboto Flex Variable"', "Łąęśźżółń"),
+  ]);
+  expect(fonts).toEqual([true, true]);
+  expect(
+    await page.locator(".d7-banknote-asset").evaluate((i: HTMLImageElement) => ({
+      src: i.currentSrc,
+      loaded: i.complete && i.naturalWidth > 0,
+    })),
+  ).toEqual({ src: expect.stringContaining("banknote-particle.png"), loaded: true });
+  await seek(page, 16.8);
+  const first = await page.locator(".d7-slam").boundingBox();
+  await seek(page, 0);
+  await page.evaluate(() => window.motionStudio.play());
+  await page.waitForFunction(() => window.motionStudio.status().playing);
+  await page.evaluate(() => window.motionStudio.pause());
+  await seek(page, 16.8);
+  expect(await page.locator(".d7-slam").boundingBox()).toEqual(first);
 });
 test("Donate7 full normal speed completes the existing nickname/amount/message/outro lifecycle", async ({
   page,
