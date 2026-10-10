@@ -33,7 +33,9 @@ test("32-char names and realistic PLN amounts form separate readable units in al
 test("intrinsic Information is stable across reading seeks, emoji frames and body-only overflow", async ({
   page,
 }) => {
-  await page.goto("/motion-studio?tier=6&message=Dzięki!");
+  // Exercise the shared DOM Information renderer on Donate5. Donate6 now has
+  // a stable Three.js ribbon with pagination, covered by donate6-premium.pw.ts.
+  await page.goto("/motion-studio?tier=5&message=Dzięki!");
   await expect(page.locator("output")).toHaveText("Gotowe");
   await page.evaluate(() => window.motionStudio.information());
   const short = await page.locator(".motion-information").boundingBox();
@@ -73,7 +75,7 @@ test("intrinsic Information is stable across reading seeks, emoji frames and bod
   ).toEqual(frame);
   // Defensive input comes through URL, outside normal 225-character Studio authoring.
   await page.goto(
-    "/motion-studio?tier=6&message=" +
+    "/motion-studio?tier=5&message=" +
       encodeURIComponent("Pełna treść musi pozostać. ".repeat(80) + "KONIEC"),
   );
   await expect(page.locator("output")).toHaveText("Gotowe");

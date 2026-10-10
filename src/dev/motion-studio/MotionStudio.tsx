@@ -59,6 +59,12 @@ import { spokenAmount, speechSafeText } from "./spokenAmount";
 import { AuthoringTransport } from "./AuthoringTransport";
 import "./motion-studio.css";
 
+const messageWindow = (plan: ReturnType<typeof lifecyclePlan>) => {
+  const clip = plan.stages.find((stage) => stage.name === "tts-message");
+  return clip
+    ? { start: clip.start - plan.informationStart, duration: clip.end - clip.start }
+    : undefined;
+};
 const params = new URLSearchParams(window.location.search);
 const initialTier = Math.floor(Math.min(8, Math.max(1, Number(params.get("tier")) || 1)));
 const layers = [
@@ -349,6 +355,7 @@ function MotionStudio() {
         scene.current?.informationAt(
           (at - plan.informationStart) * 1000,
           plan.informationDuration * 1000,
+          messageWindow(plan),
         );
         setStats((current) => ({ ...current, media: scene.current?.media() ?? [] }));
         const stage = plan.stages.find(
@@ -357,7 +364,7 @@ function MotionStudio() {
         phaseRef.current = at >= plan.duration ? "complete" : (stage?.name ?? "information");
         setPhase(phaseRef.current);
         const outro = plan.stages.find((stage) => stage.name === "outro");
-        if (root && at >= outro.start)
+        if (root && at >= outro.start && treatment.tier !== 6)
           root.style.opacity = String(Math.max(0, 1 - (at - outro.start) / 0.65));
       } else {
         phaseRef.current = "hero";
@@ -366,7 +373,7 @@ function MotionStudio() {
         if (result) setStats(result);
       }
     },
-    [pause, treatment.analysis.duration],
+    [pause, treatment.analysis.duration, treatment.tier],
   );
   useEffect(() => {
     const cancellation = new AbortController();
@@ -527,13 +534,15 @@ function MotionStudio() {
           scene.current?.informationAt(
             (time - livePlan.informationStart) * 1000,
             livePlan.informationDuration * 1000,
+            messageWindow(livePlan),
+            true,
           );
           const stage = livePlan.stages.find(
             (s) => s.name !== "information" && time >= s.start && time < s.end,
           );
           phaseRef.current = time >= duration ? "complete" : (stage?.name ?? "information");
           const outro = livePlan.stages.find((s) => s.name === "outro");
-          if (root && time >= outro.start)
+          if (root && time >= outro.start && treatment.tier !== 6)
             root.style.opacity = String(Math.max(0, 1 - (time - outro.start) / 0.65));
         }
         setAudibleTts(phaseRef.current.startsWith("tts-") ? phaseRef.current.slice(4) : undefined);
@@ -852,9 +861,10 @@ function MotionStudio() {
           scene.current?.informationAt(
             (at - plan.informationStart) * 1000,
             plan.informationDuration * 1000,
+            messageWindow(plan),
           );
           const outro = plan.stages.find((stage) => stage.name === "outro");
-          if (at >= outro.start)
+          if (at >= outro.start && treatment.tier !== 6)
             root.style.opacity = String(Math.max(0, 1 - (at - outro.start) / 0.65));
         }
       },

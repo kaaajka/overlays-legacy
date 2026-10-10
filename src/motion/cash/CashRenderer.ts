@@ -4,6 +4,8 @@ import { rhythmMarks } from "../../audio/motion/musicIntelligence";
 import { spectacleCues } from "../../donations/choreography/donate7/show";
 
 export function cashWaves(treatment: MotionTreatment) {
+  // Donate6 gives the gesture room: its authored transfer replaces decorative cash waves.
+  if (treatment.tier === 6) return [];
   if (treatment.tier < 5 || treatment.tier > 7) return [];
   if (treatment.tier === 7)
     return spectacleCues

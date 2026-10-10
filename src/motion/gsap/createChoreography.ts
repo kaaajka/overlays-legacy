@@ -8,7 +8,21 @@ export type DirectorContext = {
   treatment: MotionTreatment;
   effects: EffectParameters;
 };
-export type DirectedScene = { timeline: gsap.core.Timeline; dispose: () => void };
+export type DirectedScene = {
+  timeline: gsap.core.Timeline;
+  dispose: () => void;
+  /** Optional sampled renderer; the production audio clock remains its only time source. */
+  renderAt?: (time: number) => void;
+  resize?: (width: number) => void;
+  setQuality?: (quality: import("../types").QualityTier) => void;
+  clear?: () => void;
+  /** Optional integrated final chapter, sampled by the same audio clock. */
+  informationAt?: (
+    elapsed: number,
+    reading: number,
+    speech?: { start: number; duration: number },
+  ) => void;
+};
 
 /** Every tween is on one paused timeline. No callbacks, live tweens or accumulated events. */
 export function createChoreography(

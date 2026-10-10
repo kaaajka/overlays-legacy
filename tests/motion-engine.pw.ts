@@ -106,7 +106,18 @@ for (let tier = 1; tier <= 8; tier++) {
     expect(await state()).toEqual(first);
     expect(
       await page.locator(".motion-amount").evaluate((el) => getComputedStyle(el).opacity),
-    ).toBe("1");
+    ).toBe(tier === 6 ? "0" : "1");
+    if (tier === 6) {
+      // The approved donor reveal is the reverse of CO JEST?! at 7.2s, after the O hero.
+      await page.evaluate(() => window.motionStudio.seek(7.2));
+      await expect(page.locator(".motion-amount")).toHaveCSS("opacity", "1");
+      expect(
+        await page
+          .locator(".d6-hybrid")
+          .evaluate((el) => el.donation6.snapshot().objects[4].rotation[0]),
+      ).toBeCloseTo(Math.PI, 5);
+      await page.evaluate((time) => window.motionStudio.seek(time), hero);
+    }
     expect(await page.locator(".donation-motion").getAttribute("data-quality")).toBe(
       tier <= 4 ? "safe" : "high",
     );
@@ -148,7 +159,9 @@ for (let tier = 1; tier <= 8; tier++) {
     if (alpha) {
       expect(alpha.error).toBe(0);
       expect(alpha.transparent).toBeGreaterThan(0.35);
-      expect(alpha.drawn).toBeGreaterThan(tier === 6 ? 0.0001 : 0.001);
+      if (tier === 6)
+        expect(alpha.drawn).toBe(0); // Approved portrait-led scene has no cash layer.
+      else expect(alpha.drawn).toBeGreaterThan(0.001);
     }
     if (tier <= 7) {
       expect(await page.locator(".motion-emblem").count()).toBe(0);
@@ -194,8 +207,10 @@ for (let tier = 1; tier <= 8; tier++) {
       ).toBeGreaterThan(0);
     }
     await page.evaluate(() => window.motionStudio.information(6000));
-    await expect(page.locator(".information-message")).toBeVisible();
-    expect(await page.locator("video[src]").count()).toBe(0);
+    if (tier !== 6) {
+      await expect(page.locator(".information-message")).toBeVisible();
+      expect(await page.locator("video[src]").count()).toBe(0);
+    }
     if (tier === 7) {
       // Donate7 carries its actual donor paper into the Information read.
       await expect(page.locator(".d7-donor")).toBeVisible();
@@ -209,7 +224,24 @@ for (let tier = 1; tier <= 8; tier++) {
       await expect(page.locator(".d7-donor > .motion-name")).not.toBeVisible();
       await expect(page.locator(".d7-donor > .motion-amount")).not.toBeVisible();
       expect(await page.locator(".d7-money:visible,.d7-spectacle:visible").count()).toBe(0);
-    } else if (tier <= 6) {
+    } else if (tier === 6) {
+      // The message now remains in the same production Three scene and source decoder.
+      await expect(page.locator(".d6-hybrid")).toBeVisible();
+      expect(await page.locator("video[src]").count()).toBe(1);
+      const chapter = await page.evaluate(
+        () => document.querySelector(".d6-hybrid").donation6.snapshot().messageChapter,
+      );
+      expect(chapter.fullMessage).toBe("Dziękuję za stream!");
+      expect(chapter.stableFrontFacing).toBe(true);
+      expect(
+        await page.locator(".d6-renderer canvas").evaluate((canvas: HTMLCanvasElement) => {
+          const gl = canvas.getContext("webgl2");
+          const pixels = new Uint8Array(canvas.width * canvas.height * 4);
+          gl.readPixels(0, 0, canvas.width, canvas.height, gl.RGBA, gl.UNSIGNED_BYTE, pixels);
+          return pixels.some((value, index) => index % 4 === 3 && value !== 0);
+        }),
+      ).toBe(true);
+    } else if (tier <= 5) {
       await expect(page.locator(".scene-content")).toHaveCSS("display", "none");
     }
     await page.evaluate(
@@ -281,6 +313,8 @@ test("SAFE preserves the authored hero and information without WebGL", async ({ 
   await page.goto("/motion-studio?clean=1&tier=6&time=hero&background=checker&quality=safe");
   await page.waitForFunction(() => window.motionStudio?.status().duration > 0);
   await expect(page.locator(".donation-motion")).toHaveAttribute("data-quality", "safe");
+  await page.evaluate(() => window.motionStudio.seek(7.2));
+  await expect(page.locator(".d6-hybrid")).toHaveAttribute("data-renderer", "dom-fallback");
   expect(await page.locator(".motion-amount").evaluate((el) => getComputedStyle(el).opacity)).toBe(
     "1",
   );
@@ -344,7 +378,9 @@ test("music decode failure retains clock fallback and seeks", async ({ page }) =
     21.76494,
     3,
   );
-  await expect(page.locator(".motion-amount")).toBeVisible();
+  await page.evaluate(() => window.motionStudio.seek(7.2));
+  await expect(page.locator(".d6-renderer canvas")).toBeVisible();
+  await expect(page.locator(".motion-amount")).toHaveCSS("opacity", "1");
 });
 
 test("fixture donations complete FIFO with GPU failure and no idle animation loop", async ({
@@ -384,19 +420,26 @@ test("fixture donations complete FIFO with GPU failure and no idle animation loo
   expect(await page.evaluate(() => window.motionRafCalls)).toBeLessThanOrEqual(previous + 1);
 });
 
-test("long message scroll reaches every line and holds the final text", async ({ page }) => {
+test("Donate6 message pagination reaches every line and holds the final text", async ({ page }) => {
   const message = `${"Kaaajka, dzięki za stream! ".repeat(160)}OSTATNIA LINIA WIADOMOŚCI`;
   await page.goto(`/motion-studio?clean=1&tier=6&message=${encodeURIComponent(message)}`);
   await page.waitForFunction(() => window.motionStudio?.status().duration > 0);
-  await page.evaluate(() => window.motionStudio.information(6000));
-  await page.waitForTimeout(5800);
-  const scroll = await page.locator(".information-message").evaluate((el) => ({
-    top: el.scrollTop,
-    overflow: el.scrollHeight - el.clientHeight,
-    text: el.textContent,
-  }));
-  expect(scroll.top).toBeCloseTo(scroll.overflow, 0);
-  expect(scroll.text.endsWith("OSTATNIA LINIA WIADOMOŚCI")).toBe(true);
+  await page.waitForFunction(() => document.querySelector(".d6-hybrid")?.donation6);
+  await page.evaluate(() => {
+    const plan = window.motionStudio.status().plan;
+    window.motionStudio.renderExportAt(
+      plan.informationStart + plan.informationDuration - 0.1,
+      true,
+    );
+  });
+  const chapter = await page.evaluate(
+    () => document.querySelector(".d6-hybrid").donation6.snapshot().messageChapter,
+  );
+  expect(chapter.fullMessage).toBe(message);
+  expect(chapter.lines.join("")).toBe(message);
+  expect(chapter.page).toBe(chapter.pages);
+  expect(chapter.pageLines.join("")).toContain("OSTATNIA LINIA WIADOMOŚCI");
+  expect(chapter.stableFrontFacing).toBe(true);
 });
 
 test("WebGL context loss preserves the same hero timing and falls back", async ({ page }) => {
@@ -440,15 +483,23 @@ test("detail changes and seeded replay preserve inspection time and reinitialize
 }) => {
   await page.goto("/motion-studio?tier=6&time=hero&quality=high");
   await expect(page.locator("output")).toHaveText("Gotowe");
+  const pose = () =>
+    page.locator(".d6-hybrid").evaluate((el) => {
+      const s = el.donation6.snapshot();
+      return { state: s.state, objects: s.objects };
+    });
+  const hero = await pose();
   await page.locator("#studio-quality").selectOption("safe");
   await expect(page.locator(".donation-motion")).toHaveAttribute("data-quality", "safe");
   expect(await page.locator(".motion-amount").evaluate((el) => getComputedStyle(el).opacity)).toBe(
-    "1",
+    "0", // Approved O hero precedes the CO → donor flip; retain the actual inspection phase.
   );
+  expect(await pose()).toEqual(hero);
   await page.locator("#studio-quality").selectOption("high");
   await expect(page.locator(".donation-motion")).toHaveAttribute("data-quality", "high");
   await page.locator("#studio-seed").fill("replay-seed-2");
   await expect(page.locator(".donation-motion")).toHaveAttribute("data-quality", "high");
+  expect(await pose()).toEqual(hero);
   expect(await page.getByRole("button", { name: "Edytuj czas alertu" }).textContent()).toBe(
     "00:03.901",
   );

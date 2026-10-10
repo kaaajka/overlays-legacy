@@ -14,6 +14,17 @@ test("Information pixels are independent of opacity animation history in every s
     const heroEnd = (await state(page)).duration;
     const render = async (time) => {
       await page.evaluate((time) => window.motionStudio.renderExportAt(time, true), time);
+      if (tier === 6) {
+        // The integrated Three.js information chapter retains the source VideoTexture.
+        // Sample after decoding, just as the export path does, rather than comparing a poster.
+        await page.waitForFunction(() =>
+          window.motionStudio.status().media.every((layer) => layer.state === "ready"),
+        );
+        await page.waitForFunction(() =>
+          [...document.querySelectorAll("video")].every((video) => !video.seeking),
+        );
+        await page.evaluate((time) => window.motionStudio.renderExportAt(time, true), time);
+      }
       await page.evaluate(
         () => new Promise((r) => requestAnimationFrame(() => requestAnimationFrame(r))),
       );
@@ -22,7 +33,7 @@ test("Information pixels are independent of opacity animation history in every s
     const direct = await page.screenshot();
     await render(heroEnd - 0.03);
     await render(heroEnd + 0.5);
-    expect(await page.screenshot()).toEqual(direct);
+    expect((await page.screenshot()).equals(direct), `Donate${tier} information pixels`).toBe(true);
   }
 });
 test("a preview render failure preserves editable data and timeline", async ({ page }) => {

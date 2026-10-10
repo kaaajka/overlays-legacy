@@ -167,21 +167,34 @@ test("Full timeline uses shared overlap and deterministically seeks information/
   await page.getByRole("button", { name: "Edytuj czas alertu" }).click();
   await page.getByLabel("Czas alertu", { exact: true }).fill((hero + 2).toFixed(3));
   await page.getByLabel("Czas alertu", { exact: true }).press("Enter");
-  await expect(page.locator(".information-message")).toBeVisible();
+  const reading = await page.evaluate(() =>
+    document.querySelector(".d6-hybrid").donation6.snapshot(),
+  );
+  expect(reading.messageChapter.fullMessage).toBe(status.data.message);
+  expect(reading.messageChapter.stableFrontFacing).toBe(true);
+  expect(reading.messageChapter.open).toBe(1);
+  expect(reading.bounds.message.right - reading.bounds.message.left).toBeGreaterThan(0);
   expect(await page.evaluate(() => window.motionStudio.status().time)).toBeCloseTo(hero + 2, 3);
   const outro = status.plan.stages.find((s) => s.name === "outro");
   await page.getByRole("button", { name: "Edytuj czas alertu" }).click();
   await page.getByLabel("Czas alertu", { exact: true }).fill((outro.start + 0.325).toFixed(3));
   await page.getByLabel("Czas alertu", { exact: true }).press("Enter");
-  expect(
-    await page
-      .locator(".donation-motion")
-      .evaluate((node) => Number(getComputedStyle(node).opacity)),
-  ).toBeCloseTo(0.5, 3);
+  const leaving = await page.evaluate(() =>
+    document.querySelector(".d6-hybrid").donation6.snapshot(),
+  );
+  expect(leaving.messageChapter.open).toBeLessThan(1);
+  expect(leaving.objects[0].scale[0]).toBeLessThan(reading.objects[0].scale[0]);
   await page.getByRole("button", { name: "Edytuj czas alertu" }).click();
   await page.getByLabel("Czas alertu", { exact: true }).fill(status.plan.duration.toFixed(3));
   await page.getByLabel("Czas alertu", { exact: true }).press("Enter");
   await expect.poll(() => page.evaluate(() => window.motionStudio.status().phase)).toBe("complete");
+  expect(
+    await page.locator(".d6-renderer canvas").evaluate((canvas: HTMLCanvasElement) => {
+      const gl = canvas.getContext("webgl2"), bytes = new Uint8Array(canvas.width * canvas.height * 4);
+      gl.readPixels(0, 0, canvas.width, canvas.height, gl.RGBA, gl.UNSIGNED_BYTE, bytes);
+      return bytes.some((value, index) => index % 4 === 3 && value !== 0);
+    }),
+  ).toBe(false);
 });
 test("native PCM from actual speech accompanies highlights, direct preview and complete Full Alert", async ({
   page,

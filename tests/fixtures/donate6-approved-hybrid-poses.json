@@ -1,0 +1,976 @@
+{
+  "provenance": "Owner-approved polished Concept A Hybrid, native Chromium, 1920x1080; extracted from preserved original proof, not from production under test.",
+  "nickname": "Kaaajka",
+  "amount": 21376,
+  "sources": [
+    {
+      "file": "dev/donate6-a-hybrid-polish/proof.mjs",
+      "sha256": "7e7b143b6dd23f709507445511470c78825c5655d2d1cf6e40bec5d7cb7a34dc"
+    },
+    {
+      "file": "src/donations/choreography/donate6/hybrid/typography.mjs",
+      "sha256": "52ffa9fa70be73cec9feb8eed3db38c88d71618f9c248692b873f8c0b1aa5b1b"
+    }
+  ],
+  "poses": [
+    {
+      "time": 1.4,
+      "state": {
+        "alpha": 1,
+        "rx": 98,
+        "ry": 109,
+        "thick": 26,
+        "depth": 46,
+        "opening": 0,
+        "cameraX": 100,
+        "cameraY": 80,
+        "cameraZ": 1500,
+        "targetY": 0,
+        "replyBend": 1.1,
+        "valueBend": 0.75
+      },
+      "objects": [
+        {
+          "position": [
+            80,
+            0,
+            0
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ]
+        },
+        {
+          "position": [
+            -570,
+            70,
+            0
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ]
+        },
+        {
+          "position": [
+            77,
+            179,
+            48.5
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ]
+        },
+        {
+          "position": [
+            207,
+            70,
+            0
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ]
+        },
+        {
+          "position": [
+            0,
+            115,
+            -210
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            0.01,
+            0.01,
+            0.01
+          ]
+        },
+        {
+          "position": [
+            -85,
+            -78,
+            -120
+          ],
+          "rotation": [
+            0,
+            0.20944,
+            -0.122173
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ]
+        }
+      ],
+      "glyph": {
+        "construction": "PUNCH authored cubic outer and counter",
+        "capHeight": 218,
+        "width": 196,
+        "bevel": 2.5,
+        "bevelSegments": 3,
+        "initialDepth": 46,
+        "opening": 0,
+        "counterExpansion": 0,
+        "aspectRatio": 0.8990825688073395
+      },
+      "name": {
+        "fontSize": 57,
+        "lines": 1,
+        "horizontalDistortion": false
+      }
+    },
+    {
+      "time": 3.75,
+      "state": {
+        "alpha": 1,
+        "rx": 97.031326,
+        "ry": 107.922597,
+        "thick": 26,
+        "depth": 49.044405,
+        "opening": 0,
+        "cameraX": -319.671227,
+        "cameraY": 164.883963,
+        "cameraZ": 1500,
+        "targetY": 79.922642,
+        "replyBend": 1.1,
+        "valueBend": 0.75
+      },
+      "objects": [
+        {
+          "position": [
+            80,
+            0,
+            0
+          ],
+          "rotation": [
+            0,
+            -0.016907,
+            -0.00483
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ]
+        },
+        {
+          "position": [
+            -570,
+            70,
+            0
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ]
+        },
+        {
+          "position": [
+            77,
+            179,
+            48.5
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ]
+        },
+        {
+          "position": [
+            207,
+            70,
+            0
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ]
+        },
+        {
+          "position": [
+            0,
+            115,
+            -210
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            0.01,
+            0.01,
+            0.01
+          ]
+        },
+        {
+          "position": [
+            -85,
+            -78,
+            -120
+          ],
+          "rotation": [
+            0,
+            0.20944,
+            -0.122173
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ]
+        }
+      ],
+      "glyph": {
+        "construction": "PUNCH authored cubic outer and counter",
+        "capHeight": 218,
+        "width": 196,
+        "bevel": 2.5,
+        "bevelSegments": 3,
+        "initialDepth": 46,
+        "opening": 0,
+        "counterExpansion": 0,
+        "aspectRatio": 0.8990825711875707
+      },
+      "name": {
+        "fontSize": 57,
+        "lines": 1,
+        "horizontalDistortion": false
+      }
+    },
+    {
+      "time": 4.58095,
+      "state": {
+        "alpha": 1,
+        "rx": 172,
+        "ry": 191.306122,
+        "thick": 26,
+        "depth": 84,
+        "opening": 1,
+        "cameraX": -246.653296,
+        "cameraY": 138.641028,
+        "cameraZ": 1500,
+        "targetY": 61.663324,
+        "replyBend": 1.1,
+        "valueBend": 0.75
+      },
+      "objects": [
+        {
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "rotation": [
+            0,
+            -0.000005,
+            -0.000002
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ]
+        },
+        {
+          "position": [
+            -530.010806,
+            114.987843,
+            -41.988653
+          ],
+          "rotation": [
+            0,
+            0.314074,
+            -0.069794
+          ],
+          "scale": [
+            0.720076,
+            0.720076,
+            0.720076
+          ]
+        },
+        {
+          "position": [
+            45,
+            142,
+            78
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ]
+        },
+        {
+          "position": [
+            244.989734,
+            149.978387,
+            0
+          ],
+          "rotation": [
+            0,
+            -0.261729,
+            0
+          ],
+          "scale": [
+            0.650095,
+            0.650095,
+            0.650095
+          ]
+        },
+        {
+          "position": [
+            0,
+            115,
+            -210
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            0.01,
+            0.01,
+            0.01
+          ]
+        },
+        {
+          "position": [
+            44.999913,
+            141.999853,
+            -289.999887
+          ],
+          "rotation": [
+            0,
+            0.20944,
+            -0.122173
+          ],
+          "scale": [
+            0.44,
+            0.170001,
+            0.44
+          ]
+        }
+      ],
+      "glyph": {
+        "construction": "PUNCH authored cubic outer and counter",
+        "capHeight": 218,
+        "width": 196,
+        "bevel": 2.5,
+        "bevelSegments": 3,
+        "initialDepth": 46,
+        "opening": 1,
+        "counterExpansion": 26,
+        "aspectRatio": 0.8990825709174117
+      },
+      "name": {
+        "fontSize": 57,
+        "lines": 1,
+        "horizontalDistortion": false
+      }
+    },
+    {
+      "time": 5.85,
+      "state": {
+        "alpha": 1,
+        "rx": 159.260564,
+        "ry": 177.13675,
+        "thick": 26,
+        "depth": 56.701209,
+        "opening": 0.681514,
+        "cameraX": 0,
+        "cameraY": 50,
+        "cameraZ": 1500,
+        "targetY": 0,
+        "replyBend": 0.235538,
+        "valueBend": 0.75
+      },
+      "objects": [
+        {
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ]
+        },
+        {
+          "position": [
+            -515.095337,
+            121.955509,
+            -49.949154
+          ],
+          "rotation": [
+            0,
+            0.435556,
+            -0.000444
+          ],
+          "scale": [
+            0.72,
+            0.72,
+            0.72
+          ]
+        },
+        {
+          "position": [
+            26.800806,
+            129.260564,
+            78
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ]
+        },
+        {
+          "position": [
+            240.031779,
+            150,
+            0
+          ],
+          "rotation": [
+            0,
+            -0.261799,
+            0
+          ],
+          "scale": [
+            0.65,
+            0.65,
+            0.65
+          ]
+        },
+        {
+          "position": [
+            0,
+            315,
+            135
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1.02,
+            1.02,
+            1.02
+          ]
+        },
+        {
+          "position": [
+            25.127116,
+            142,
+            -290
+          ],
+          "rotation": [
+            0,
+            0.20944,
+            -0.122173
+          ],
+          "scale": [
+            0.340636,
+            0.080572,
+            0.340636
+          ]
+        }
+      ],
+      "glyph": {
+        "construction": "PUNCH authored cubic outer and counter",
+        "capHeight": 218,
+        "width": 196,
+        "bevel": 2.5,
+        "bevelSegments": 3,
+        "initialDepth": 46,
+        "opening": 0.681514,
+        "counterExpansion": 17.719364,
+        "aspectRatio": 0.8990825675643253
+      },
+      "name": {
+        "fontSize": 57,
+        "lines": 1,
+        "horizontalDistortion": false
+      }
+    },
+    {
+      "time": 6.9,
+      "state": {
+        "alpha": 1,
+        "rx": 158,
+        "ry": 175.734694,
+        "thick": 26,
+        "depth": 54,
+        "opening": 0.65,
+        "cameraX": 0,
+        "cameraY": 43.303825,
+        "cameraZ": 1504.017705,
+        "targetY": 0,
+        "replyBend": 0.129911,
+        "valueBend": 0.75
+      },
+      "objects": [
+        {
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ]
+        },
+        {
+          "position": [
+            -515,
+            122,
+            -50
+          ],
+          "rotation": [
+            0,
+            0.436332,
+            0
+          ],
+          "scale": [
+            0.72,
+            0.72,
+            0.72
+          ]
+        },
+        {
+          "position": [
+            25,
+            128,
+            78
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ]
+        },
+        {
+          "position": [
+            240,
+            150,
+            0
+          ],
+          "rotation": [
+            0,
+            -0.261799,
+            0
+          ],
+          "scale": [
+            0.65,
+            0.65,
+            0.65
+          ]
+        },
+        {
+          "position": [
+            0,
+            9.249197,
+            120.500477
+          ],
+          "rotation": [
+            2.845962,
+            0,
+            0
+          ],
+          "scale": [
+            1.006683,
+            1.006683,
+            1.006683
+          ]
+        },
+        {
+          "position": [
+            25,
+            142,
+            -290
+          ],
+          "rotation": [
+            0,
+            0.20944,
+            -0.122173
+          ],
+          "scale": [
+            0.34,
+            0.08,
+            0.34
+          ]
+        }
+      ],
+      "glyph": {
+        "construction": "PUNCH authored cubic outer and counter",
+        "capHeight": 218,
+        "width": 196,
+        "bevel": 2.5,
+        "bevelSegments": 3,
+        "initialDepth": 46,
+        "opening": 0.65,
+        "counterExpansion": 16.900000000000002,
+        "aspectRatio": 0.8990825681808738
+      },
+      "name": {
+        "fontSize": 57,
+        "lines": 1,
+        "horizontalDistortion": false
+      }
+    },
+    {
+      "time": 7.2,
+      "state": {
+        "alpha": 1,
+        "rx": 158,
+        "ry": 175.734694,
+        "thick": 26,
+        "depth": 54,
+        "opening": 0.65,
+        "cameraX": 0,
+        "cameraY": 11.287364,
+        "cameraZ": 1523.227582,
+        "targetY": 0,
+        "replyBend": 0.033862,
+        "valueBend": 0.75
+      },
+      "objects": [
+        {
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ]
+        },
+        {
+          "position": [
+            -515,
+            122,
+            -50
+          ],
+          "rotation": [
+            0,
+            0.436332,
+            0
+          ],
+          "scale": [
+            0.72,
+            0.72,
+            0.72
+          ]
+        },
+        {
+          "position": [
+            25,
+            128,
+            78
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ]
+        },
+        {
+          "position": [
+            240,
+            150,
+            0
+          ],
+          "rotation": [
+            0,
+            -0.261799,
+            0
+          ],
+          "scale": [
+            0.65,
+            0.65,
+            0.65
+          ]
+        },
+        {
+          "position": [
+            0,
+            -170,
+            112
+          ],
+          "rotation": [
+            3.141593,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ]
+        },
+        {
+          "position": [
+            25,
+            142,
+            -290
+          ],
+          "rotation": [
+            0,
+            0.20944,
+            -0.122173
+          ],
+          "scale": [
+            0.34,
+            0.08,
+            0.34
+          ]
+        }
+      ],
+      "glyph": {
+        "construction": "PUNCH authored cubic outer and counter",
+        "capHeight": 218,
+        "width": 196,
+        "bevel": 2.5,
+        "bevelSegments": 3,
+        "initialDepth": 46,
+        "opening": 0.65,
+        "counterExpansion": 16.900000000000002,
+        "aspectRatio": 0.8990825681808738
+      },
+      "name": {
+        "fontSize": 57,
+        "lines": 1,
+        "horizontalDistortion": false
+      }
+    },
+    {
+      "time": 8.6,
+      "state": {
+        "alpha": 1,
+        "rx": 158,
+        "ry": 175.734694,
+        "thick": 26,
+        "depth": 54,
+        "opening": 0.65,
+        "cameraX": 0,
+        "cameraY": 0,
+        "cameraZ": 1530,
+        "targetY": 0,
+        "replyBend": 0,
+        "valueBend": 0.75
+      },
+      "objects": [
+        {
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ]
+        },
+        {
+          "position": [
+            -515,
+            122,
+            -50
+          ],
+          "rotation": [
+            0,
+            0.436332,
+            0
+          ],
+          "scale": [
+            0.72,
+            0.72,
+            0.72
+          ]
+        },
+        {
+          "position": [
+            25,
+            128,
+            78
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ]
+        },
+        {
+          "position": [
+            240,
+            150,
+            0
+          ],
+          "rotation": [
+            0,
+            -0.261799,
+            0
+          ],
+          "scale": [
+            0.65,
+            0.65,
+            0.65
+          ]
+        },
+        {
+          "position": [
+            0,
+            -170,
+            112
+          ],
+          "rotation": [
+            3.141593,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ]
+        },
+        {
+          "position": [
+            25,
+            142,
+            -290
+          ],
+          "rotation": [
+            0,
+            0.20944,
+            -0.122173
+          ],
+          "scale": [
+            0.34,
+            0.08,
+            0.34
+          ]
+        }
+      ],
+      "glyph": {
+        "construction": "PUNCH authored cubic outer and counter",
+        "capHeight": 218,
+        "width": 196,
+        "bevel": 2.5,
+        "bevelSegments": 3,
+        "initialDepth": 46,
+        "opening": 0.65,
+        "counterExpansion": 16.900000000000002,
+        "aspectRatio": 0.8990825681808738
+      },
+      "name": {
+        "fontSize": 57,
+        "lines": 1,
+        "horizontalDistortion": false
+      }
+    }
+  ]
+}

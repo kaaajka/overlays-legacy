@@ -1,4 +1,60 @@
-# Donate6 - Heart from the booth
+# Donate6 — approved HALO Hybrid / production integration
+
+## Active direction — owner-approved 8.6-second hybrid
+
+The polished Concept A Hybrid is the accepted creative foundation. `dev/donate6-a-hybrid-polish/` and its MP4 remain unchanged as local references. Production reuses its actual Three.js geometry, PUNCH glyph contours, materials, camera, GSAP timeline and two-sided CO JEST?! → nickname/amount surface. The owner approved the complete production and compact TTS release candidate on 2026-10-11 and authorized its commit/push. See `docs/releases/DONATE6.md` for release verification and remaining OBS/capture limitations.
+
+The original 21.76494-second track and 400×400 hand-heart footage are retained. The source pose at 2.32 seconds is an already held gesture, never fabricated speech or a new expression. Its approved hero hold is 3.60000–4.40095 seconds. No lyric alignment is claimed.
+
+| Absolute music time | Production continuation |
+|---|---|
+| 0–8.60000 | Approved hybrid unchanged: bonded PUNCH upper HALO, expressive red/blue lower call, authentic O opening at 3.90095, CO JEST?! emitted from the aperture, same ink plane flips into nickname/amount at 6.57125–7.17125. |
+| 8.600001 | Retire the now-occluded lower-call geometry before later camera movement can expose a sliver. |
+| 9.24154–10.39154 | The same upper typography and footage recompose while the foreground donor remains readable; one shared perspective move. |
+| 11.00626–12.62626 | Controlled donor-ink compression and camera retreat provide anticipation. |
+| 12.79420–14.07000 | Second amount release on a measured onset, then controlled recovery. This is an authored emphasis, not a verified lyric or downbeat. |
+| 14.40000–15.40000 | Upper lettering withdraws; amount and original hand-heart become the focus. |
+| 15.90567–17.15567 | Opposing shared camera move and small aperture turn reveal actual depth without turning the readable donor plane away. |
+| 17.20000–18.30000 | Re-form a smaller bonded HALO with the authentic O proportions; amount remains foreground. Original footage continues, including its natural loop. |
+| 18.30000–20.23095 | Intentional readable hold after the musical development. |
+| 20.23095–21.58095 | Same donor ink contracts into the lower-left reading composition; the cream/red/blue Three.js ribbon unfolds from its shared spine. Authentic O and footage become a small companion; donor ink uses its own high-resolution readable texture. |
+| After 21.76494 | Original nickname → amount → message TTS. Front-facing stable text, complete Unicode pagination weighted by page length across the actual message TTS duration; no word-level alignment claimed. |
+| After actual reading completion | The ribbon folds back and the existing shared rig lifts/shrinks out over 0.65 seconds; transparent completion then FIFO advancement. |
+
+The threshold remains 15000–29999 grosze = 150.00–299.99 PLN. Three is explicitly sampled by the production Web Audio clock and never starts a RAF/ticker. HIGH/MEDIUM/SAFE use the same scene at 1920×1080, 1440×810 and 960×540 render resolution, centered in the uniformly fitted logical stage. Missing/lost WebGL falls back to the original footage and compact readable DOM typography, retaining the full message with scrolling. Production retains the source decoder through the integrated reading chapter; completion and unmount release audio/media and dispose all geometries, materials, textures and context. See the release-candidate QA report for fresh native GPU/OBS measurements and their limits.
+
+## Historical premium production candidate — 2026-10-10 (superseded)
+
+The approved preproduction identity is **“Ten gest jest dla Ciebie”**. This section supersedes the older v2.2 geometry/cash/storyboard below, which remains as historical context. Owner visual approval is still pending; no commit/push is authorized yet.
+
+The authentic 400×400, 98-frame, 7.84 s source is unchanged. Its hands begin forming the heart around source 0.64 s and show it clearly by 0.96 s. The selected source 2.32 s is an **already held pose**, not the formation of a new gesture. The music holds that pose from 3.60000 through 4.55095 s; later source phase follows the existing MediaLayer. Natural loop resets are retained, with the late one near 17.91095 s given a smaller farewell portrait.
+
+| Music time | Authored action / continuity |
+|---|---|
+| 0.00000 | Fully transparent exact-zero stage, including reverse seek and restart. |
+| 0.06966–1.60000 | One bounded booth portrait enters; camera settles at a restrained 1.02 scale. |
+| 1.91302–2.56302 | Ink recipient plane opens; full nickname reveals from 2.11302. |
+| 3.01859–3.60859 | Two finite HALO accents preserve the legacy double call, without infinite flash. |
+| 3.60000–4.55095 | Hold the real hand-heart pose; compress donor plane, transfer a short moving stroke from hands to amount, reveal complete amount at 3.90095 and recover. |
+| 6.57125–7.02125 | Single secondary personal confirmation; quiet local ink support preserves contrast over gameplay. |
+| 7.24463–8.09463 | Same portrait steps upward and donor plane moves toward the receiving position. |
+| 9.24154–10.09154 | Same donor becomes central; portrait contracts into the upper companion position; shared camera eases to .98. |
+| 11.00626–11.75626 | Portrait makes a restrained anticipatory response. |
+| 12.55420–13.49420 | Donor and amount compress, impact at 12.79420, then recover; digits receive a separate modest scale accent. |
+| 14.40000–16.48567 | Quiet reading hold; subtle existing rule response at 15.90567, without a new effect layer. |
+| 17.20000–18.00000 | Portrait becomes the small farewell companion; confirmation/bunny leave. |
+| 19.58095–20.23095 | Portrait clears the measured incoming Information header before the plane rises. |
+| 20.23095–21.26095 | Same ink plane moves/resizes to the real Information bounds; recipient shares its compression and remains on its backing. |
+| 21.16494–21.76494 | Large recipient and portrait leave; actual Information reveals from 21.36494, complete by music end. No backing opacity dip. |
+| after 21.76494 | Original nickname → amount → message lifecycle and outro; complete message, fixed header and existing body-only overflow scroll. |
+
+The measured onsets at 7.24463, 9.24154, 11.00626, 12.79420 and 15.90567 support editorial cue selection. **12.79420 is a proposed secondary culmination, not a verified new musical drop or lyric alignment.** The first hero, original 21.76494 s music and production gain remain unchanged. No ASR word timings are promoted to approved lyrics.
+
+The donor plane is 560×270 in a centered logical 1920×1080 world. Its copy has 472 px width with a 26 px name/amount gap; full names wrap and amounts fit. The first portrait uses the unchanged source at .90 scale with reserved text clearance. During the second payoff the centered amount dominates; the same camera, portrait and plane transform between chapters. The source remains in a bounded opaque aperture and the rest of the overlay remains transparent.
+
+No cash waves, Pixi instance, new shaders, particles or dependencies are added for this intimate tier. Existing GSAP/DrawSVG, SourceMedia and the audio clock drive it; Poppins loads before SplitText and Information measurements. HIGH/MEDIUM/SAFE use the same authored composition; SAFE removes optional shadows. Exact video seeking is deterministic; original GIF fallback preserves identity but cannot guarantee exact frame control.
+
+Legacy playback was reconstructed from the unchanged original component/CSS and the pre-engine DonateEvent wrapper, not from the new Studio baseline. The authentic hand-heart, booth context, original music, double call, complete donor data and TTS order are preserved. The full-screen 150-slot CSS cash rain, infinite flashing/pulse, yellow italic sentence “wleciał/a za … Co jest !?” and permanently visible message are intentionally replaced by the approved focused gratitude, central amount and stable reading handoff. The teasing tone is softened, not claimed to be identical. See `docs/assets/donate6-premium/README.md` for footage provenance, comparison, fresh validation and explicit review limits.
 
 ## Source GIF
 

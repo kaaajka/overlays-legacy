@@ -1,0 +1,133 @@
+@font-face {
+  font-family: VoiceGrotesk;
+  src: url("@fontsource-variable/roboto-flex/files/roboto-flex-latin-full-normal.woff2");
+  font-weight: 100 1000;
+  font-display: block;
+  unicode-range: U+0000-00FF, U+2000-206F, U+20AC;
+}
+@font-face {
+  font-family: VoiceGrotesk;
+  src: url("@fontsource-variable/roboto-flex/files/roboto-flex-latin-ext-full-normal.woff2");
+  font-weight: 100 1000;
+  font-display: block;
+  unicode-range: U+0100-02BA, U+02BD-02FF, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF;
+}
+.d6-hybrid {
+  position: absolute;
+  inset: 0;
+  font-family: VoiceGrotesk, sans-serif;
+}
+.d6-hybrid .d6-renderer {
+  position: absolute;
+  width: 1920px;
+  height: 1080px;
+  left: calc(50% - 960px);
+  top: 0;
+}
+.d6-renderer canvas {
+  width: 1920px;
+  height: 1080px;
+  display: block;
+}
+.d6-hybrid .d6-readable {
+  position: absolute;
+  width: 1000px;
+  height: 850px;
+  left: calc(50% - 500px);
+  top: 100px;
+}
+/* Retain the production decoder and accessible donor DOM without duplicate ink. */
+.d6-hybrid[data-renderer="three"] .d6-readable {
+  opacity: 0;
+  pointer-events: none;
+}
+.d6-hybrid .source-media {
+  position: absolute;
+  left: 300px;
+  top: 190px;
+  width: 400px;
+  height: 400px;
+  clip-path: none;
+  border: 0;
+}
+.d6-hybrid p {
+  position: absolute;
+  margin: 0;
+  width: 100%;
+  text-align: center;
+  font-weight: 950;
+}
+.d6-hybrid .d6-upper {
+  top: 0;
+  font-size: 154px;
+  color: #fffaf1;
+  text-shadow: 5px 8px #173fa5;
+}
+.d6-hybrid .d6-lower {
+  top: 590px;
+  font-size: 128px;
+  color: #f33540;
+  text-shadow: 6px 9px #173fa5;
+}
+.d6-hybrid .d6-reply {
+  top: 45px;
+  font-size: 120px;
+  color: #fffaf1;
+  text-shadow: 5px 8px #173fa5;
+}
+.d6-hybrid .scene-copy {
+  top: 580px;
+  left: 120px;
+  width: 760px;
+  gap: 24px;
+}
+.d6-hybrid .motion-amount {
+  justify-content: center;
+  color: #fffaf1;
+}
+.d6-hybrid .motion-name {
+  color: #fffaf1;
+}
+.motif-halo .motion-information {
+  font-family: VoiceGrotesk, sans-serif;
+  border-color: #173fa5;
+}
+.motif-halo .information-header span {
+  color: #fffaf1;
+}
+.donation-motion.motif-halo[data-phase="information"] .d6-hybrid {
+  display: block;
+}
+.donation-motion.motif-halo[data-d6-renderer="three"] .motion-information {
+  opacity: 0;
+  pointer-events: none;
+}
+.donation-motion.motif-halo[data-d6-renderer="dom-fallback"] .motion-information {
+  background: #fffaf1;
+  color: #142b68;
+  border: 5px solid #173fa5;
+  border-radius: 24px 20px 26px 14px;
+  box-shadow: 3px 5px 0 #f33540;
+  left: 482px;
+  top: 899px;
+  min-width: 0;
+  max-width: 744px;
+  width: 744px;
+  max-height: 234px;
+  padding: 12px 24px;
+}
+.motif-halo[data-d6-renderer="dom-fallback"]
+  :is(.information-message, .information-header, .information-header span) {
+  color: #142b68;
+}
+.motif-halo[data-d6-renderer="dom-fallback"] .information-message {
+  font-size: 34px;
+  line-height: 1.35;
+}
+.motif-halo[data-d6-renderer="dom-fallback"] .information-header {
+  font-size: 24px;
+  padding-bottom: 8px;
+}
+.motif-halo[data-d6-renderer="dom-fallback"] .information-header span {
+  font-size: 28px;
+}

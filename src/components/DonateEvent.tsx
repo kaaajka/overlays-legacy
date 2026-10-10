@@ -2,7 +2,7 @@ import { useEffect, useRef } from "react";
 import { playOverlayAudioSequence } from "../audio/playOverlayAudioSequence";
 import { resolveBackendAudioUrl } from "../audio/resolveBackendAudioUrl";
 import { MusicPlayback } from "../audio/motion/MusicPlayback";
-import { readVisualSyncOffset } from "../audio/motion/AudioClock";
+import { audibleContextTime, readVisualSyncOffset } from "../audio/motion/AudioClock";
 import { resolveDonateTtsAudioUrl } from "../donations/resolveDonateTtsAudioUrl";
 import { resolveDonationTemplate } from "../donations/resolveDonationTemplate";
 import { treatmentForMinimum } from "../donations/choreography/treatments";
@@ -37,6 +37,13 @@ export default function DonateEvent({
     let previousFrame = 0;
     let completed = false;
     const fast = isDevFixtureFastMode();
+    const integrated = treatment.tier === 6 && !fast;
+    let phase: "music" | "information" | "outro" = "music";
+    let informationOrigin = 0;
+    let outroOrigin = 0;
+    let readingMs = 0;
+    let speechWindow: { start: number; duration: number } | undefined;
+    const clock = () => (playback ? audibleContextTime(playback.context, performance.now()) : 0);
     const { speech } = config;
     const male = speech.voiceType === "GOOGLE_POLISH_MALE";
     const url = (path: string, kind: "tts-nickname" | "tts-amount" | "tts-message") => {
@@ -74,10 +81,40 @@ export default function DonateEvent({
         label: "Donate message TTS",
         mutedFixtureAudioKind: "tts-message" as const,
       },
-    ].map((step) => ({ ...step, volume: speech.volume, kind: "tts" as const }));
+    ].map((step) => ({
+      ...step,
+      volume: speech.volume,
+      kind: "tts" as const,
+      ...(integrated && step.mutedFixtureAudioKind === "tts-message"
+        ? {
+            onPlaying: (audio: HTMLAudioElement) => {
+              if (Number.isFinite(audio.duration) && audio.duration > 0) {
+                speechWindow = { start: clock() - informationOrigin, duration: audio.duration };
+              }
+            },
+            timeoutMs: Math.max(60000, current.message.length * 160 + 10000),
+          }
+        : {}),
+    }));
     const frame = (now: number) => {
       if (abort.signal.aborted) return;
-      scene.current?.renderAt(playback.time, previousFrame ? now - previousFrame : 16.67, true);
+      if (phase === "information") {
+        const elapsedMs = Math.max(0, clock() - informationOrigin) * 1000;
+        // The queue, not the minimum reading hold, decides when speech is finished.
+        // Do not start the sampled outro while a longer TTS clip is still playing.
+        scene.current?.informationAt(
+          elapsedMs,
+          Math.max(
+            readingMs,
+            elapsedMs,
+            speechWindow ? (speechWindow.start + speechWindow.duration) * 1000 : 0,
+          ),
+          speechWindow,
+          true,
+        );
+      } else if (phase === "outro") scene.current?.outroAt(Math.max(0, clock() - outroOrigin));
+      else
+        scene.current?.renderAt(playback.time, previousFrame ? now - previousFrame : 16.67, true);
       previousFrame = now;
       raf = requestAnimationFrame(frame);
     };
@@ -104,16 +141,29 @@ export default function DonateEvent({
           try {
             await playback.play(abort.signal);
           } finally {
-            cancelAnimationFrame(raf);
-            playback.dispose();
+            if (!integrated) {
+              cancelAnimationFrame(raf);
+              playback.dispose();
+            }
           }
         },
-        information: (ms) => scene.current?.information(ms),
+        information: (ms) => {
+          readingMs = ms;
+          informationOrigin = clock();
+          phase = "information";
+          scene.current?.information(ms);
+        },
         speech: (ttsSteps) => playOverlayAudioSequence(ttsSteps, { signal: abort.signal }),
-        outro: () => scene.current?.outro(),
+        outro: () => {
+          phase = "outro";
+          outroOrigin = clock();
+          scene.current?.outro();
+        },
         finished() {
           if (completed) return;
           completed = true;
+          cancelAnimationFrame(raf);
+          playback?.dispose();
           finished.current();
         },
       },

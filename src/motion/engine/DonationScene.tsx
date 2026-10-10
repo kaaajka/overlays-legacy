@@ -51,7 +51,13 @@ export type DonationSceneHandle = {
   outro: () => void;
   media: () => MediaStats[];
   pauseMedia: () => void;
-  informationAt: (elapsedMs: number, readingMs: number) => void;
+  informationAt: (
+    elapsedMs: number,
+    readingMs: number,
+    speech?: { start: number; duration: number },
+    forward?: boolean,
+  ) => void;
+  outroAt: (elapsed: number) => void;
   setLayerVisibility: (selector: string, visible: boolean) => void;
   moneyFrame: () => ReturnType<PixiMoneyRenderer["poses"]>;
 };
@@ -93,16 +99,29 @@ export const DonationScene = forwardRef<DonationSceneHandle, Props>(function Don
   });
   const scrollRaf = useRef(0);
   const lastTime = useRef(0);
-  const [fontsReady, setFontsReady] = useState(treatment.tier !== 7);
+  const lastInformation = useRef<{
+    elapsed: number;
+    reading: number;
+    speech?: { start: number; duration: number };
+  }>();
+  const [fontsReady, setFontsReady] = useState(treatment.tier !== 7 && treatment.tier !== 6);
   useEffect(() => {
-    if (treatment.tier !== 7) return;
+    if (treatment.tier !== 7 && treatment.tier !== 6) return;
     let cancelled = false;
     // SplitText must measure the self-hosted faces, including Polish glyphs, on a cold cache.
-    Promise.all([
-      document.fonts.load('700 132px "DynaPuff Variable"', "CO ZA POJEB!!!"),
-      document.fonts.load('800 52px "Roboto Flex Variable"', `${donate.nickname} Łąęśźżółń`),
-      document.fonts.load('950 144px "Roboto Flex Variable"', "0123456789 zł"),
-    ])
+    Promise.all(
+      treatment.tier === 6
+        ? [
+            document.fonts.load('800 76px "VoiceGrotesk"', `${donate.nickname} Łąęśźżółń`),
+            document.fonts.load('950 226px "VoiceGrotesk"', "0123456789 zł HALO! CO JEST?!"),
+            document.fonts.load('400 30px "VoiceGrotesk"', "Łąęśźżółń"),
+          ]
+        : [
+            document.fonts.load('700 132px "DynaPuff Variable"', "CO ZA POJEB!!!"),
+            document.fonts.load('800 52px "Roboto Flex Variable"', `${donate.nickname} Łąęśźżółń`),
+            document.fonts.load('950 144px "Roboto Flex Variable"', "0123456789 zł"),
+          ],
+    )
       .catch(() => undefined)
       .then(() => {
         if (!cancelled) setFontsReady(true);
@@ -132,7 +151,7 @@ export const DonationScene = forwardRef<DonationSceneHandle, Props>(function Don
 
   useGSAP(
     () => {
-      if (treatment.tier === 7 && !fontsReady) return;
+      if ((treatment.tier === 7 || treatment.tier === 6) && !fontsReady) return;
       let cancelled = false;
       const fallback = () => {
         governor.current.tier = "safe";
@@ -157,7 +176,9 @@ export const DonationScene = forwardRef<DonationSceneHandle, Props>(function Don
           return new MediaLayer(
             element.querySelector("video"),
             element.querySelector("img"),
-            mediaAssets[tier - 1],
+            tier === 6
+              ? { ...mediaAssets[5], holdBeforeHero: 0.30095, holdAfterHero: 0.5 }
+              : mediaAssets[tier - 1],
             treatment.cues,
             mediaUrls(tier),
             Number(element.dataset.mediaDelay) || 0,
@@ -207,7 +228,12 @@ export const DonationScene = forwardRef<DonationSceneHandle, Props>(function Don
           console.warn("Donate7 spectacle unavailable; source and donor retained", error);
           fallback();
         }
-      } else if (treatment.tier >= 5 && treatment.tier <= 6) {
+      } else if (treatment.tier === 6) {
+        const initial = selectQuality(true, navigator.hardwareConcurrency ?? 4, quality);
+        governor.current = new QualityGovernor(initial);
+        root.current.dataset.quality = initial;
+        director.current?.setQuality?.(initial);
+      } else if (treatment.tier === 5) {
         try {
           const initial = selectQuality(true, navigator.hardwareConcurrency ?? 4, quality);
           cash.current = new CashRenderer(
@@ -260,12 +286,18 @@ export const DonationScene = forwardRef<DonationSceneHandle, Props>(function Don
         spectacle.current?.resize(width);
         money.current?.resize(width);
         gpu.current?.resize();
+        director.current?.resize?.(width);
       };
       const observer = new ResizeObserver(resize);
       observer.observe(root.current);
       resize();
       director.current?.timeline.seek(Math.max(0.000001, lastTime.current), true);
       for (const layer of media.current) layer.sync(lastTime.current);
+      director.current?.renderAt?.(lastTime.current);
+      if (lastInformation.current && director.current?.informationAt) {
+        const { elapsed, reading, speech } = lastInformation.current;
+        director.current.informationAt(elapsed, reading, speech);
+      }
       gpu.current?.render(
         lastTime.current,
         effects.current,
@@ -301,7 +333,16 @@ export const DonationScene = forwardRef<DonationSceneHandle, Props>(function Don
     },
     {
       scope: root,
-      dependencies: [donate.id, donate.nickname, netAmount, treatment, seed, quality, fontsReady],
+      dependencies: [
+        donate.id,
+        donate.nickname,
+        netAmount,
+        treatment,
+        seed,
+        quality,
+        fontsReady,
+        treatment.tier === 6 ? donate.message : undefined,
+      ],
       revertOnUpdate: true,
     },
   );
@@ -310,6 +351,7 @@ export const DonationScene = forwardRef<DonationSceneHandle, Props>(function Don
     ref,
     () => ({
       renderAt(time, frameMs = 16.67, forward = false) {
+        lastInformation.current = undefined;
         lastTime.current = time;
         cancelAnimationFrame(scrollRaf.current);
         if (root.current) {
@@ -324,12 +366,14 @@ export const DonationScene = forwardRef<DonationSceneHandle, Props>(function Don
             true,
           );
           for (const layer of media.current) layer.sync(time, forward);
+          director.current?.renderAt?.(time);
           if (governor.current.record(frameMs)) {
             gpu.current?.setQuality(governor.current.tier);
             cash.current?.setQuality(governor.current.tier);
             cashFront.current?.setQuality(governor.current.tier);
             spectacle.current?.setQuality(governor.current.tier);
             money.current?.setQuality(governor.current.tier);
+            director.current?.setQuality?.(governor.current.tier);
             root.current.dataset.quality = governor.current.tier;
           }
           gpu.current?.render(time, effects.current, features, intensity);
@@ -391,12 +435,17 @@ export const DonationScene = forwardRef<DonationSceneHandle, Props>(function Don
         };
       },
       information(readingMs) {
+        if (director.current?.informationAt) {
+          this.informationAt(0, readingMs);
+          return;
+        }
         for (const layer of media.current) layer.release();
         root.current.dataset.phase = "information";
         root.current.dataset.timeZero = "false";
         root.current.style.opacity = "1";
         try {
           director.current?.timeline.seek(treatment.analysis.duration, true);
+          director.current?.clear?.();
           gpu.current?.clear();
           cash.current?.clear();
           cashFront.current?.clear();
@@ -425,15 +474,45 @@ export const DonationScene = forwardRef<DonationSceneHandle, Props>(function Don
         scrollRaf.current = requestAnimationFrame(scroll);
       },
       outro() {
+        if (director.current?.informationAt) {
+          const info = lastInformation.current;
+          if (info) info.reading = info.elapsed;
+          this.outroAt(0);
+          return;
+        }
         root.current.style.opacity = "0";
+      },
+      outroAt(elapsed) {
+        const info = lastInformation.current;
+        if (info && director.current?.informationAt) {
+          this.informationAt(
+            (info.reading + elapsed) * 1000,
+            info.reading * 1000,
+            info.speech,
+            true,
+          );
+        }
       },
       pauseMedia: () => {
         for (const layer of media.current) layer.sync(lastTime.current);
       },
       media: () => media.current.map((layer) => layer.stats),
       moneyFrame: () => money.current?.poses() ?? [],
-      informationAt(elapsedMs, readingMs) {
-        this.information(readingMs);
+      informationAt(elapsedMs, readingMs, speech, forward = false) {
+        if (director.current?.informationAt) {
+          cancelAnimationFrame(scrollRaf.current);
+          lastTime.current = treatment.analysis.duration + elapsedMs / 1000;
+          lastInformation.current = {
+            elapsed: elapsedMs / 1000,
+            reading: readingMs / 1000,
+            speech,
+          };
+          root.current.dataset.phase = "information";
+          root.current.dataset.timeZero = "false";
+          root.current.style.opacity = "1";
+          for (const layer of media.current) layer.sync(lastTime.current, forward);
+          director.current.informationAt(elapsedMs / 1000, readingMs / 1000, speech);
+        } else this.information(readingMs);
         syncMessageEmotes(root.current, elapsedMs / 1000);
         cancelAnimationFrame(scrollRaf.current);
         const viewport = message.current;
@@ -452,7 +531,7 @@ export const DonationScene = forwardRef<DonationSceneHandle, Props>(function Don
   return (
     <div
       ref={root}
-      data-fonts-ready={fontsReady || treatment.tier !== 7}
+      data-fonts-ready={fontsReady || (treatment.tier !== 7 && treatment.tier !== 6)}
       className={`donation-motion motif-${treatment.motif}`}
       data-phase="loading"
       data-time-zero="true"
