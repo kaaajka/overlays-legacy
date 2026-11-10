@@ -8,9 +8,7 @@ import {
   resolveDonationQueueSubmitFirstAlert,
 } from "./resolveDonationQueueTransition";
 
-function state(
-  overrides: Partial<DonationQueueState<string>> = {},
-): DonationQueueState<string> {
+function state(overrides: Partial<DonationQueueState<string>> = {}): DonationQueueState<string> {
   return {
     donateList: [],
     currentDonate: undefined,
@@ -21,6 +19,11 @@ function state(
 }
 
 describe("resolveDonationQueueTransition", () => {
+  it("Traktuje zero jako aktywny identyfikator alertu", () => {
+    const first = resolveDonationQueueSubmitFirstAlert(state({ donateAlertQueue: [0, "next"] }));
+    expect(first.acceptAlertId).toBe(0);
+    expect(resolveDonationQueueSubmitFirstAlert(first.state).acceptAlertId).toBeUndefined();
+  });
   it("pushes the first donation and asks PageChannel to schedule the delayed start", () => {
     expect(resolveDonationQueuePush(state(), "donate-1")).toEqual({
       state: {
@@ -92,9 +95,7 @@ describe("resolveDonationQueueTransition", () => {
 
   it("decides to accept the first alert when no alert is active", () => {
     expect(
-      resolveDonationQueueSubmitFirstAlert(
-        state({ donateAlertQueue: ["alert-1", "alert-2"] }),
-      ),
+      resolveDonationQueueSubmitFirstAlert(state({ donateAlertQueue: ["alert-1", "alert-2"] })),
     ).toEqual({
       state: {
         donateList: [],

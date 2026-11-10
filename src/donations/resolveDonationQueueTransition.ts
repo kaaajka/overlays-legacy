@@ -1,21 +1,23 @@
+import type { OverlayAlertId } from "../protocol/resolveMainOverlayAlertListTransition";
+
 export type DonationQueueState<TDonate> = {
   donateList: readonly TDonate[];
   currentDonate: TDonate | undefined;
-  donateAlertQueue: readonly string[];
-  currentDonateAlert: string | undefined;
+  donateAlertQueue: readonly OverlayAlertId[];
+  currentDonateAlert: OverlayAlertId | undefined;
 };
 
 export type DonationQueueTransition<TDonate> = {
   state: DonationQueueState<TDonate>;
   shouldScheduleDonationChange: boolean;
-  acceptAlertId?: string;
+  acceptAlertId?: OverlayAlertId;
 };
 
 function transition<TDonate>(
   state: DonationQueueState<TDonate>,
   options: {
     shouldScheduleDonationChange?: boolean;
-    acceptAlertId?: string;
+    acceptAlertId?: OverlayAlertId;
   } = {},
 ): DonationQueueTransition<TDonate> {
   return {
@@ -73,7 +75,7 @@ export function resolveDonationQueueScheduledChange<TDonate>(
 export function resolveDonationQueueSubmitFirstAlert<TDonate>(
   state: DonationQueueState<TDonate>,
 ): DonationQueueTransition<TDonate> {
-  if (state.currentDonateAlert || state.donateAlertQueue.length === 0) {
+  if (state.currentDonateAlert !== undefined || state.donateAlertQueue.length === 0) {
     return transition(state);
   }
 

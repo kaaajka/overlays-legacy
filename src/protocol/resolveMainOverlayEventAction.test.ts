@@ -247,4 +247,13 @@ describe("resolveMainOverlayEventAction", () => {
       ),
     ).toMatchObject({ type: "ignore", reason: "inactive_event_name" });
   });
+
+  it("Kolejka Tipply trafia do nakładki donacji, a nie do samej nakładki nagród", () => {
+    const message = { event: "alertList", key: "set", id: "fixture", args: { list: [0] } };
+    expect(resolve(message, "tip").type).toBe("alert_list");
+    expect(resolve(message, "reward")).toMatchObject({
+      type: "ignore",
+      reason: "inactive_overlay_mode",
+    });
+  });
 });

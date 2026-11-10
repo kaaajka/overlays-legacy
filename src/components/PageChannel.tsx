@@ -25,7 +25,10 @@ import coinflipImage from "../assets/images/alerts/coinflip-alert.gif";
 import { debugLog } from "../debug";
 import { safeJsonParse } from "../protocol/safeJson";
 import type { MainOverlayMode } from "../protocol/mainOverlayMode";
-import { resolveMainOverlayAlertListTransition } from "../protocol/resolveMainOverlayAlertListTransition";
+import {
+  type OverlayAlertId,
+  resolveMainOverlayAlertListTransition,
+} from "../protocol/resolveMainOverlayAlertListTransition";
 import { resolveMainOverlayEventAction } from "../protocol/resolveMainOverlayEventAction";
 import { createMainOverlayEventModelFromAction } from "../protocol/createMainOverlayEventModelFromAction";
 import { resolveMainOverlayEventUpdate } from "../protocol/resolveMainOverlayEventUpdate";
@@ -75,8 +78,8 @@ export function PageChannel(props: PageChannelProps) {
   const donateListRef = useRef<DonateEventModel[]>([]);
   const currentEventRef = useRef<EventModel | undefined>();
   const currentDonateRef = useRef<DonateEventModel | undefined>();
-  const donateAlertQueueRef = useRef<string[]>([]);
-  const currentDonateAlertRef = useRef<string | undefined>();
+  const donateAlertQueueRef = useRef<OverlayAlertId[]>([]);
+  const currentDonateAlertRef = useRef<OverlayAlertId | undefined>();
   const changeDonateTimeoutRef = useRef<ReturnType<typeof setTimeout>>();
   const isMountedRef = useRef(false);
   const modeRef = useRef<MainOverlayMode>("all");
@@ -160,7 +163,7 @@ export function PageChannel(props: PageChannelProps) {
 
   const acceptDonationAlert = useCallback(
     (id: DonationQueueTransition<DonateEventModel>["acceptAlertId"]) => {
-      if (!id) return;
+      if (id === undefined) return;
 
       socketRef.current?.send(
         JSON.stringify({

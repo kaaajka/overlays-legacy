@@ -9,6 +9,7 @@ import { PageChannelFollowers } from "./components/PageChannelFollowers";
 import { PageChannelQueue } from "./components/PageChannelQueue";
 import { Home, OverlayLinkGenerator } from "./components/Home";
 import { NotFound } from "./components/NotFound";
+import { ObsPairing } from "./components/ObsPairing";
 import { parseOverlayRoute } from "./routing/parseOverlayRoute";
 import type { OverlayRoute } from "./routing/parseOverlayRoute";
 import type { RouterCompatProps } from "./routing/routerCompat";
@@ -56,6 +57,13 @@ function renderOverlayRoute(route: OverlayRoute): React.ReactElement {
   if (route.kind === "generator") return <OverlayLinkGenerator />;
   if (route.kind === "not_found") return <NotFound />;
 
+  if (
+    window.location.hash === "#obs-pair" &&
+    (route.type === "ALERTS" || route.type === "TIP_ALERT")
+  ) {
+    return <ObsPairing />;
+  }
+
   const routerCompatProps = createRouterCompatProps(route.accountId);
 
   switch (route.type) {
@@ -93,7 +101,12 @@ const overlayRoute = parseOverlayRoute(
   stripBasePath(`${window.location.pathname}${window.location.search}`),
 );
 
-ReactDOM.render(
-  <React.StrictMode>{renderOverlayRoute(overlayRoute)}</React.StrictMode>,
-  document.getElementById("root"),
-);
+function render() {
+  ReactDOM.render(
+    <React.StrictMode>{renderOverlayRoute(overlayRoute)}</React.StrictMode>,
+    document.getElementById("root"),
+  );
+}
+
+render();
+window.addEventListener("hashchange", render);

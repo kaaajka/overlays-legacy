@@ -1,10 +1,19 @@
+export type OverlayAlertId = string | number;
+
 export type MainOverlayAlertListTransition = {
-  queue: string[];
+  queue: OverlayAlertId[];
   shouldSubmitFirstAlert: boolean;
 };
 
+function isAlertId(id: unknown): id is OverlayAlertId {
+  return (
+    (typeof id === "string" && id.length > 0) ||
+    (typeof id === "number" && Number.isSafeInteger(id) && id >= 0)
+  );
+}
+
 export function resolveMainOverlayAlertListTransition(
-  currentQueue: readonly string[],
+  currentQueue: readonly OverlayAlertId[],
   key: string | undefined,
   args: Record<string, unknown>,
 ): MainOverlayAlertListTransition {
@@ -14,13 +23,13 @@ export function resolveMainOverlayAlertListTransition(
     }
 
     return {
-      queue: args.list.filter((item): item is string => typeof item === "string"),
+      queue: args.list.filter(isAlertId),
       shouldSubmitFirstAlert: true,
     };
   }
 
   if (key === "add") {
-    if (typeof args.id !== "string" || currentQueue.includes(args.id)) {
+    if (!isAlertId(args.id) || currentQueue.includes(args.id)) {
       return { queue: [...currentQueue], shouldSubmitFirstAlert: false };
     }
 
@@ -31,7 +40,7 @@ export function resolveMainOverlayAlertListTransition(
   }
 
   if (key === "delete") {
-    if (typeof args.id !== "string") {
+    if (!isAlertId(args.id)) {
       return { queue: [...currentQueue], shouldSubmitFirstAlert: false };
     }
 

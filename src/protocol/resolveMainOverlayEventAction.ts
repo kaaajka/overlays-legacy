@@ -112,7 +112,11 @@ export function resolveMainOverlayEventAction(
 
   const args = getLegacyMainArgsRecord(payload);
 
-  if (!shouldHandleMainOverlayEvent(mode, payload.key, payload.origin)) {
+  const acceptsMode =
+    payload.event === "alertList"
+      ? mode !== "reward"
+      : shouldHandleMainOverlayEvent(mode, payload.key, payload.origin);
+  if (!acceptsMode) {
     return ignore(payload, "inactive_overlay_mode");
   }
 
