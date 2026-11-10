@@ -7,5 +7,10 @@
       "source": "/(.*)",
       "destination": "/index.html"
     }
-  ]
+  ],
+  "git": {
+    "deploymentEnabled": {
+      "obs-session-rc3": false
+    }
+  }
 }
