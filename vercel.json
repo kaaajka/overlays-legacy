@@ -1,16 +1,11 @@
 {
   "installCommand": "corepack enable && corepack prepare pnpm@10.17.1 --activate && pnpm install --frozen-lockfile",
-  "buildCommand": "pnpm run build",
+  "buildCommand": "node scripts/check-preview-env.cjs && pnpm run build",
   "outputDirectory": "dist",
   "rewrites": [
     {
       "source": "/(.*)",
       "destination": "/index.html"
     }
-  ],
-  "git": {
-    "deploymentEnabled": {
-      "obs-session-rc3": false
-    }
-  }
+  ]
 }
